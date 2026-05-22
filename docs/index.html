@@ -1,1119 +1,2970 @@
-<!DOCTYPE html>
-<html lang="zh-CN">
+<!doctype html>
+<html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Python IDE - 掌上的 Python & JavaScript 开发环境</title>
-<link rel="icon" href="icon.png" />
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
-<style>
-:root {
---bg: #050508;
---card: rgba(22, 27, 34, 0.7);
---card-hover: rgba(45, 50, 60, 0.9);
---border: rgba(255, 255, 255, 0.1);
---text: #f0f6fc;
---text-muted: #8b949e;
---accent: #e6edf3;
---accent-glow: rgba(255, 255, 255, 0.25);
---particle-color: 255, 255, 255;
---logo-shadow: rgba(255, 255, 255, 0.08);
---title-gradient: linear-gradient(135deg, #fff 0%, #c9d1d9 50%, #8b949e 100%);
---hover-border: rgba(255, 255, 255, 0.3);
---hover-glow: rgba(255, 255, 255, 0.06);
-}
-@media (prefers-color-scheme: light) {
-:root {
---bg: #f6f8fa;
---card: rgba(255, 255, 255, 0.9);
---card-hover: rgba(255, 255, 255, 1);
---border: rgba(31, 35, 40, 0.12);
---text: #1f2328;
---text-muted: #656d76;
---accent: #1f2328;
---accent-glow: rgba(31, 35, 40, 0.15);
---particle-color: 31, 35, 40;
---logo-shadow: rgba(31, 35, 40, 0.1);
---title-gradient: linear-gradient(135deg, #1f2328 0%, #424a53 50%, #656d76 100%);
---hover-border: rgba(31, 35, 40, 0.25);
---hover-glow: rgba(31, 35, 40, 0.06);
-}
-}
-* { box-sizing: border-box; margin: 0; padding: 0; }
-html { scroll-behavior: smooth; }
-body {
-font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
-background: var(--bg);
-color: var(--text);
-line-height: 1.7;
-overflow-x: hidden;
-}
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#ffffff" />
+  <meta name="description" content="Python IDE for iPhone and iPad: local Python runtime, AI Agent, Mini Apps, in-app community, SSH deployment, widgets, and package management." />
+  <meta name="apple-itunes-app" content="app-id=6753987304" />
+  <link rel="canonical" href="https://pythonide.xin/" />
+  <link rel="icon" href="icon.png" />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Python IDE - Mobile Python Workspace" />
+  <meta property="og:description" content="Run Python, use AI Agent workflows, build Mini Apps, deploy over SSH, manage packages, and publish from your iPhone or iPad." />
+  <meta property="og:url" content="https://pythonide.xin/" />
+  <meta property="og:image" content="https://pythonide.xin/icon.png" />
+  <meta name="twitter:card" content="summary" />
+  <title>Python IDE - Mobile Python Workspace</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --page: #ffffff;
+      --stage: #ffffff;
+      --stage-soft: #f7f8fb;
+      --ink: #151418;
+      --deep: #17191f;
+      --muted: #6f6c73;
+      --hairline: rgba(21, 20, 24, 0.08);
+      --hairline-strong: rgba(21, 20, 24, 0.16);
+      --shadow-soft: 0 24px 80px rgba(21, 20, 24, 0.07);
+      --shadow-card: 0 24px 60px rgba(21, 20, 24, 0.105);
+      --blue: #1976ff;
+      --cyan: #14c8ff;
+      --yellow: #dfff35;
+      --orange: #ff6a2a;
+      --pink: #ff55b8;
+      --green: #38d96b;
+      --purple: #755cff;
+      --radius-stage: 38px;
+      --radius-card: 26px;
+      --safe-bottom: env(safe-area-inset-bottom, 0px);
+      --spring: cubic-bezier(0.19, 1.08, 0.29, 1);
+      --font-rounded: ui-rounded, "SF Pro Rounded", "Avenir Next Rounded", "Nunito", Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      --font-cjk-rounded: "Hiragino Maru Gothic ProN", "Tsukushi A Round Gothic", "PingFang SC", "Microsoft YaHei UI", "Microsoft YaHei", var(--font-rounded);
+      --font-ui: var(--font-rounded);
+    }
 
-.lang-switcher {
-position: fixed;
-top: 1.25rem;
-right: 1.5rem;
-z-index: 100;
-display: flex;
-gap: 0.25rem;
-opacity: 0;
-}
-.lang-btn {
-padding: 0.4rem 0.75rem;
-border-radius: 10px;
-border: 1px solid var(--border);
-background: transparent;
-color: var(--text-muted);
-font-size: 0.8rem;
-cursor: pointer;
-transition: all 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
-text-decoration: none;
-}
-.lang-btn:hover, .lang-btn.active {
-color: var(--text);
-border-color: var(--hover-border);
-background: rgba(255,255,255,0.06);
-}
-.lang-btn.active { font-weight: 600; }
+    * {
+      box-sizing: border-box;
+    }
 
-#particles {
-position: fixed;
-top: 0; left: 0;
-width: 100%; height: 100%;
-z-index: 0;
-pointer-events: none;
-}
-.content { position: relative; z-index: 1; }
+    html {
+      background: var(--page);
+      scroll-behavior: smooth;
+    }
 
-.hero {
-min-height: 100vh;
-display: flex;
-flex-direction: column;
-align-items: center;
-justify-content: center;
-text-align: center;
-padding: 4rem 1.5rem 6rem;
-position: relative;
-}
-.hero .logo-wrap {
-position: relative;
-margin-bottom: 2rem;
-}
-.hero .logo-wrap::before {
-content: '';
-position: absolute;
-inset: -30px;
-background: radial-gradient(circle at 50% 50%, var(--accent-glow) 0%, transparent 60%);
-opacity: 0;
-filter: blur(50px);
-animation: hero-glow 4s ease-in-out 1.5s infinite;
-}
-@keyframes hero-glow {
-0%, 100% { opacity: 0.2; transform: scale(0.95); }
-50% { opacity: 0.5; transform: scale(1.1); }
-}
-.hero img.logo {
-width: 140px;
-height: 140px;
-border-radius: 32px;
-position: relative;
-box-shadow: 0 0 80px var(--logo-shadow), 0 24px 60px rgba(0,0,0,0.25);
-transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.5s;
-}
-.hero img.logo:hover {
-transform: scale(1.06) rotate(3deg);
-box-shadow: 0 0 100px var(--logo-shadow), 0 30px 80px rgba(0,0,0,0.35);
-}
-.hero h1 {
-font-size: clamp(2.5rem, 6vw, 4rem);
-font-weight: 700;
-margin-bottom: 0.5rem;
-background: var(--title-gradient);
-background-size: 200% auto;
--webkit-background-clip: text;
--webkit-text-fill-color: transparent;
-background-clip: text;
-animation: title-shimmer 6s linear infinite;
-}
-@keyframes title-shimmer {
-0% { background-position: 0% center; }
-100% { background-position: 200% center; }
-}
-.hero .tagline { font-size: clamp(1.1rem, 2.5vw, 1.4rem); color: var(--text-muted); margin-bottom: 0.25rem; }
-.hero .sub { font-size: 0.95rem; color: var(--text-muted); opacity: 0.85; margin-bottom: 2.5rem; }
+    html[lang="zh-CN"] {
+      --font-ui: var(--font-cjk-rounded);
+      --ink: #1f2229;
+      --muted: #666a73;
+    }
 
-.cta { display: flex; flex-wrap: wrap; justify-content: center; gap: 1rem; margin-bottom: 2rem; }
-.btn {
-position: relative;
-display: inline-flex;
-align-items: center;
-gap: 0.5rem;
-padding: 1rem 2rem;
-border-radius: 14px;
-font-weight: 600;
-font-size: 1rem;
-text-decoration: none;
-overflow: hidden;
-transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.4s, border-color 0.3s;
-cursor: pointer;
-}
-.btn:active { transform: scale(0.97); }
-.btn::before {
-content: '';
-position: absolute;
-inset: 0;
-opacity: 0;
-transition: opacity 0.4s;
-}
-.btn:hover::before { opacity: 1; }
-.btn-appstore {
-background: linear-gradient(135deg, #000 0%, #1a1a2e 100%);
-color: #fff;
-border: 1px solid rgba(255,255,255,0.2);
-box-shadow: 0 4px 30px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.1);
-}
-.btn-appstore::before { background: linear-gradient(135deg, rgba(255,255,255,0.12) 0%, transparent 50%); }
-.btn-appstore:hover {
-transform: translateY(-5px) scale(1.02);
-box-shadow: 0 24px 56px rgba(0,0,0,0.5), 0 0 48px rgba(255,255,255,0.1), inset 0 1px 0 rgba(255,255,255,0.2);
-border-color: var(--hover-border);
-}
-.btn-github {
-background: var(--card);
-color: var(--text);
-border: 1px solid var(--border);
-box-shadow: 0 4px 20px rgba(0,0,0,0.25);
-}
-.btn-github::before { background: linear-gradient(135deg, rgba(255,255,255,0.1) 0%, transparent 50%); }
-.btn-github:hover {
-transform: translateY(-5px) scale(1.02);
-box-shadow: 0 24px 50px rgba(0,0,0,0.35), 0 0 36px rgba(255,255,255,0.08);
-border-color: var(--hover-border);
-color: #fff;
-}
+    body {
+      margin: 0;
+      min-height: 100vh;
+      overflow-x: hidden;
+      background:
+        radial-gradient(circle at 82% 9%, rgba(25, 118, 255, 0.052), transparent 30rem),
+        radial-gradient(circle at 16% 24%, rgba(20, 200, 255, 0.038), transparent 26rem),
+        radial-gradient(circle at 74% 64%, rgba(255, 85, 184, 0.032), transparent 30rem),
+        linear-gradient(rgba(21, 20, 24, 0.012) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(21, 20, 24, 0.012) 1px, transparent 1px),
+        #fff;
+      background-size: auto, auto, auto, 48px 48px, 48px 48px, auto;
+      background-position: center top, center top, center top, center top, center top, center top;
+      color: var(--ink);
+      font-family: var(--font-ui);
+      letter-spacing: 0;
+      -webkit-font-smoothing: antialiased;
+    }
 
-.tech-stack { display: flex; flex-wrap: wrap; justify-content: center; gap: 0.5rem; }
-.tech-pill {
-padding: 0.5rem 1rem;
-background: var(--card);
-border-radius: 50px;
-font-size: 0.8rem;
-color: var(--text-muted);
-border: 1px solid var(--border);
-transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
-cursor: default;
-}
-.tech-pill:hover {
-background: rgba(255, 255, 255, 0.08);
-color: var(--text);
-border-color: var(--hover-border);
-transform: translateY(-3px) scale(1.02);
-box-shadow: 0 8px 24px rgba(255, 255, 255, 0.06);
-}
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
 
-.scroll-hint {
-position: absolute;
-bottom: 2rem;
-left: 50%;
-transform: translateX(-50%);
-opacity: 0;
-}
-.scroll-hint span {
-display: block;
-width: 26px;
-height: 42px;
-border: 2px solid var(--border);
-border-radius: 14px;
-position: relative;
-}
-.scroll-hint span::after {
-content: '';
-position: absolute;
-top: 8px;
-left: 50%;
-transform: translateX(-50%);
-width: 4px;
-height: 10px;
-background: var(--text-muted);
-border-radius: 2px;
-animation: scroll-dot 2.2s ease-in-out infinite;
-}
-@keyframes scroll-dot {
-0%, 20% { opacity: 1; top: 8px; }
-80%, 100% { opacity: 0; top: 24px; }
-}
+    button {
+      font: inherit;
+    }
 
-.container { max-width: 1100px; margin: 0 auto; padding: 5rem 2rem; }
-.section-title {
-font-size: 2rem;
-font-weight: 700;
-margin-bottom: 2rem;
-display: flex;
-align-items: center;
-gap: 0.75rem;
-}
-.section-title::after {
-content: '';
-flex: 1;
-height: 1px;
-background: linear-gradient(90deg, var(--border), transparent);
-}
+    main {
+      position: relative;
+      z-index: 1;
+    }
 
-.bento {
-display: grid;
-grid-template-columns: repeat(4, 1fr);
-gap: 1.25rem;
-margin-bottom: 2rem;
-}
-.bento-card {
-background: var(--card);
-border: 1px solid var(--border);
-border-radius: 20px;
-padding: 2rem;
-backdrop-filter: blur(20px);
-transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
-position: relative;
-overflow: hidden;
-}
-.bento-card::before {
-content: '';
-position: absolute;
-top: 0; left: 0; right: 0;
-height: 2px;
-background: linear-gradient(90deg, rgba(255,255,255,0.5), rgba(255,255,255,0.15));
-opacity: 0;
-transition: opacity 0.4s;
-}
-.bento-card:hover {
-transform: translateY(-8px) scale(1.02);
-background: var(--card-hover);
-border-color: var(--hover-border);
-box-shadow: 0 24px 64px rgba(0,0,0,0.4), 0 0 48px rgba(255,255,255,0.06);
-}
-.bento-card:hover::before { opacity: 1; }
-.bento-card .icon { font-size: 1.5rem; margin-bottom: 0.75rem; }
-.bento-card h3 { font-size: 1.2rem; margin-bottom: 0.5rem; color: var(--text); }
-.bento-card p { color: var(--text-muted); font-size: 0.95rem; }
+    .brand,
+    .nav-links,
+    .lang-toggle button,
+    .trust-pill,
+    h1,
+    h2,
+    .subhead,
+    .cta,
+    .story-kicker,
+    .story-text,
+    .feature-tile,
+    .resource-link {
+      font-family: var(--font-ui);
+    }
 
-.why-grid {
-display: grid;
-grid-template-columns: repeat(4, 1fr);
-gap: 1rem;
-margin-top: 0;
-}
-.why-item {
-display: flex;
-align-items: center;
-gap: 1rem;
-padding: 1rem 1.25rem;
-background: var(--card);
-border-radius: 16px;
-border: 1px solid var(--border);
-transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
-}
-.why-item:hover {
-border-color: var(--hover-border);
-background: var(--card-hover);
-transform: translateY(-3px);
-box-shadow: 0 12px 32px rgba(0,0,0,0.25);
-}
-.why-item .check {
-width: 28px;
-height: 28px;
-background: linear-gradient(135deg, rgba(255,255,255,0.9), rgba(200,200,210,0.8));
-border-radius: 8px;
-display: flex;
-align-items: center;
-justify-content: center;
-flex-shrink: 0;
-font-size: 0.9rem;
-}
+    html[lang="zh-CN"] h1,
+    html[lang="zh-CN"] h2 {
+      font-weight: 760;
+    }
 
-.screenshots {
-display: grid;
-grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-gap: 1.5rem;
-margin: 2rem 0;
-}
-.screenshot-item {
-position: relative;
-border-radius: 20px;
-overflow: hidden;
-cursor: pointer;
-transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
-}
-.screenshot-item::before {
-content: '';
-position: absolute;
-inset: 0;
-background: linear-gradient(180deg, transparent 40%, rgba(0,0,0,0.7) 100%);
-opacity: 0;
-transition: opacity 0.4s;
-z-index: 1;
-}
-.screenshot-item:hover {
-transform: translateY(-10px) scale(1.03);
-box-shadow: 0 36px 80px rgba(0,0,0,0.5), 0 0 64px rgba(255,255,255,0.08);
-}
-.screenshot-item:hover::before { opacity: 1; }
-.screenshot-item img {
-width: 100%;
-max-width: 260px;
-margin: 0 auto;
-display: block;
-border-radius: 16px;
-border: 1px solid var(--border);
-transition: transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
-}
-.screenshot-item:hover img { transform: scale(1.05); }
-.screenshot-item p {
-position: absolute;
-bottom: 0;
-left: 0;
-right: 0;
-padding: 1.5rem 1rem 1rem;
-color: #fff;
-font-size: 0.9rem;
-transform: translateY(100%);
-transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
-z-index: 2;
-}
-.screenshot-item:hover p { transform: translateY(0); }
+    html[lang="zh-CN"] .subhead,
+    html[lang="zh-CN"] .story-text {
+      font-weight: 480;
+    }
 
-.feature-tabs { display: flex; gap: 0.5rem; margin-bottom: 1.5rem; flex-wrap: wrap; }
-.tab-btn {
-padding: 0.6rem 1.2rem;
-border-radius: 12px;
-border: 1px solid var(--border);
-background: var(--card);
-color: var(--text-muted);
-font-size: 0.9rem;
-cursor: pointer;
-transition: all 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
-}
-.tab-btn:hover { color: var(--text); border-color: var(--hover-border); background: var(--card-hover); }
-.tab-btn.active { background: var(--card-hover); color: var(--text); border-color: var(--hover-border); box-shadow: 0 0 24px var(--hover-glow); }
-.tab-content {
-display: none;
-opacity: 0;
-}
-.tab-content.active {
-display: block;
-opacity: 1;
-}
+    html[lang="zh-CN"] .trust-pill,
+    html[lang="zh-CN"] .cta,
+    html[lang="zh-CN"] .story-kicker,
+    html[lang="zh-CN"] .feature-tile strong,
+    html[lang="zh-CN"] .resource-link {
+      font-weight: 680;
+    }
 
-.feature-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1rem; }
-.feature-chip {
-padding: 1rem 1.25rem;
-background: var(--card);
-border-radius: 12px;
-border: 1px solid var(--border);
-transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
-text-align: center;
-color: var(--text);
-}
-.feature-chip:hover {
-border-color: var(--hover-border);
-background: var(--card-hover);
-transform: scale(1.03) translateY(-2px);
-box-shadow: 0 12px 36px rgba(0,0,0,0.3);
-}
+    .site {
+      width: 100%;
+      min-height: 160svh;
+      margin: 0 auto;
+      padding: 0;
+      position: relative;
+    }
 
-.install-cta {
-text-align: center;
-padding: 4rem 2rem;
-background: linear-gradient(180deg, transparent 0%, rgba(255,255,255,0.03) 50%, transparent 100%);
-border-radius: 24px;
-margin: 4rem 0;
-border: 1px solid var(--border);
-}
-.install-cta h2 { margin-bottom: 1rem; }
-.install-cta .btn { margin: 0.5rem; }
+    .site::after {
+      content: none;
+    }
 
-.link-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; }
-.link-card {
-display: flex;
-flex-direction: column;
-align-items: center;
-justify-content: center;
-text-align: center;
-padding: 1.25rem;
-background: var(--card);
-border-radius: 16px;
-border: 1px solid var(--border);
-color: var(--text);
-text-decoration: none;
-transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
-}
-.link-card:hover {
-border-color: var(--hover-border);
-background: rgba(255,255,255,0.06);
-transform: translateY(-5px);
-box-shadow: 0 12px 40px rgba(255,255,255,0.08);
-}
-.link-card span { color: var(--text); font-weight: 600; display: block; margin-bottom: 0.25rem; }
+    .hero-shell {
+      position: sticky;
+      top: 0;
+      min-height: 100svh;
+      overflow: hidden;
+      border: 0;
+      border-radius: 0;
+      background: transparent;
+      box-shadow: none;
+      isolation: isolate;
+      opacity: var(--hero-shell-opacity, 1);
+      transition: opacity 160ms ease;
+    }
 
-.donate-section {
-text-align: center;
-padding: 3rem 2rem;
-background: var(--card);
-border-radius: 24px;
-border: 1px solid var(--border);
-}
-.donate-qr img {
-width: 220px;
-border-radius: 12px;
-margin-top: 1rem;
-border: 2px solid var(--border);
-transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
-}
-.donate-qr img:hover {
-border-color: var(--hover-border);
-box-shadow: 0 0 48px rgba(255,255,255,0.12);
-transform: scale(1.02);
-}
+    .hero-shell::before {
+      content: none;
+    }
 
-.footer {
-text-align: center;
-padding: 3rem 2rem;
-color: var(--text-muted);
-font-size: 0.9rem;
-border-top: 1px solid var(--border);
-}
-.footer a { color: var(--accent); text-decoration: none; transition: text-shadow 0.3s; }
-.footer a:hover { text-shadow: 0 0 24px var(--accent-glow); }
+    .hero-shell::after {
+      content: none;
+    }
 
-.quick-nav {
-position: fixed;
-bottom: 2rem;
-left: 50%;
-transform: translateX(-50%);
-display: flex;
-gap: 0.5rem;
-padding: 0.5rem 1rem;
-background: var(--card);
-border-radius: 50px;
-border: 1px solid var(--border);
-z-index: 90;
-opacity: 0;
-visibility: hidden;
-transition: opacity 0.4s, visibility 0.4s;
-}
-.quick-nav.visible { opacity: 1; visibility: visible; }
-.quick-nav a {
-padding: 0.4rem 0.8rem;
-border-radius: 20px;
-color: var(--text-muted);
-text-decoration: none;
-font-size: 0.8rem;
-transition: all 0.3s;
-}
-.quick-nav a:hover { color: var(--text); background: rgba(255,255,255,0.08); }
+    #mosaicCanvas {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      width: 100vw;
+      height: 100vh;
+      pointer-events: none;
+      opacity: 0.58;
+      filter: saturate(1) contrast(1);
+      transition: opacity 420ms ease, filter 420ms ease;
+    }
 
-@media (prefers-color-scheme: light) {
-.btn-appstore { border-color: rgba(0,0,0,0.15); }
-.btn-github:hover { color: var(--text); }
-.tech-pill:hover { color: var(--text); }
-.scroll-hint span { border-color: var(--border); }
-.scroll-hint span::after { background: var(--text); }
-.screenshot-item p { color: #fff; }
-.why-item .check { background: linear-gradient(135deg, #424a53, #656d76); color: #fff; }
-}
-.back-to-top {
-position: fixed;
-bottom: 1.5rem;
-right: 1.5rem;
-width: 48px;
-height: 48px;
-border-radius: 50%;
-background: var(--card);
-border: 1px solid var(--border);
-color: var(--text-muted);
-display: flex;
-align-items: center;
-justify-content: center;
-cursor: pointer;
-z-index: 90;
-opacity: 0;
-visibility: hidden;
-transition: opacity 0.3s, visibility 0.3s, transform 0.3s;
-box-shadow: 0 4px 20px rgba(0,0,0,0.2);
-}
-.back-to-top.visible { opacity: 1; visibility: visible; }
-.back-to-top:hover {
-color: var(--text);
-border-color: var(--hover-border);
-background: var(--card-hover);
-transform: translateY(-3px);
-box-shadow: 0 8px 30px rgba(0,0,0,0.3);
-}
-.back-to-top svg { width: 22px; height: 22px; }
+    .nav {
+      position: relative;
+      z-index: 20;
+      width: min(100%, 1180px);
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding: max(18px, env(safe-area-inset-top)) clamp(16px, 4vw, 44px) 10px;
+    }
 
-@media (max-width: 768px) {
-.bento { grid-template-columns: 1fr 1fr; }
-.why-grid { grid-template-columns: 1fr; }
-.feature-grid { grid-template-columns: 1fr; }
-.quick-nav { display: none; }
-}
-@media (max-width: 480px) {
-.bento { grid-template-columns: 1fr; }
-}
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      min-width: 0;
+      color: var(--ink);
+      font-size: 15px;
+      font-weight: 760;
+      letter-spacing: 0;
+    }
+
+    .brand-mark {
+      width: 27px;
+      height: 27px;
+      display: grid;
+      place-items: center;
+      border-radius: 10px;
+      color: #fff;
+      background: #151418;
+      box-shadow: inset 0 -3px 0 rgba(255,255,255,0.08);
+      font-size: 12px;
+      font-weight: 900;
+    }
+
+    .nav-links {
+      display: none;
+      align-items: center;
+      gap: 24px;
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 750;
+    }
+
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .lang-toggle {
+      --lang-index: 0;
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      gap: 0;
+      padding: 4px;
+      border: 1px solid rgba(21, 20, 24, 0.06);
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.94);
+      box-shadow: 0 12px 28px rgba(21, 20, 24, 0.085);
+      backdrop-filter: blur(12px);
+      flex-shrink: 0;
+      transition: transform 360ms var(--spring), box-shadow 360ms ease, background 360ms ease;
+    }
+
+    .lang-thumb {
+      position: absolute;
+      top: 4px;
+      left: 4px;
+      width: 36px;
+      height: 28px;
+      border-radius: 999px;
+      background: var(--deep);
+      box-shadow: 0 10px 22px rgba(21, 20, 24, 0.2);
+      transform: translateX(calc(var(--lang-index) * 36px));
+      transition: transform 560ms var(--spring), width 360ms var(--spring), box-shadow 360ms ease;
+    }
+
+    body.is-switching-lang .lang-toggle {
+      transform: scale(0.985);
+      box-shadow: 0 8px 20px rgba(21, 20, 24, 0.065);
+    }
+
+    body.is-lang-enter .lang-toggle {
+      transform: scale(1.018);
+    }
+
+    .lang-toggle button {
+      position: relative;
+      z-index: 1;
+      min-width: 36px;
+      height: 28px;
+      border: 0;
+      border-radius: 999px;
+      background: transparent;
+      color: var(--muted);
+      cursor: pointer;
+      font-size: 11px;
+      font-weight: 780;
+      transition: transform 260ms var(--spring), background 260ms, color 360ms ease;
+    }
+
+    .lang-toggle button.active {
+      color: #fff;
+    }
+
+    .lang-toggle button:active {
+      transform: scale(0.94);
+    }
+
+    .lang-toggle button:focus {
+      outline: none;
+    }
+
+    .lang-toggle button:focus-visible {
+      outline: none;
+    }
+
+    .theme-toggle {
+      --theme-index: 0;
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      gap: 0;
+      padding: 4px;
+      border: 1px solid rgba(21, 20, 24, 0.06);
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.94);
+      box-shadow: 0 12px 28px rgba(21, 20, 24, 0.085);
+      backdrop-filter: blur(12px);
+      flex-shrink: 0;
+      transition: transform 420ms var(--spring), box-shadow 420ms ease, background 420ms ease, border-color 420ms ease;
+    }
+
+    .theme-thumb {
+      position: absolute;
+      top: 4px;
+      left: 4px;
+      width: 44px;
+      height: 28px;
+      border-radius: 999px;
+      background: linear-gradient(135deg, #151418, #31343d);
+      box-shadow: 0 10px 22px rgba(21, 20, 24, 0.2);
+      transform: translateX(calc(var(--theme-index) * 44px));
+      transition: transform 640ms var(--spring), background 420ms ease, box-shadow 420ms ease;
+    }
+
+    .theme-toggle button {
+      position: relative;
+      z-index: 1;
+      width: 44px;
+      height: 28px;
+      display: grid;
+      place-items: center;
+      border: 0;
+      border-radius: 999px;
+      background: transparent;
+      color: var(--muted);
+      cursor: pointer;
+      transition: transform 320ms var(--spring), color 420ms ease;
+    }
+
+    .theme-toggle button.active {
+      color: #fff;
+    }
+
+    .theme-toggle button:active {
+      transform: scale(0.9);
+    }
+
+    .theme-toggle button:focus {
+      outline: none;
+    }
+
+    .theme-toggle button:focus-visible {
+      outline: none;
+    }
+
+    .theme-label {
+      position: relative;
+      width: 15px;
+      height: 15px;
+      display: block;
+      transform-origin: center;
+      transition: transform 520ms var(--spring);
+    }
+
+    .theme-label-system::before {
+      content: "";
+      position: absolute;
+      left: 1px;
+      right: 1px;
+      top: 2px;
+      height: 8px;
+      border: 1.7px solid currentColor;
+      border-radius: 4px;
+    }
+
+    .theme-label-system::after {
+      content: "";
+      position: absolute;
+      left: 5px;
+      right: 5px;
+      bottom: 1px;
+      height: 2px;
+      border-radius: 2px;
+      background: currentColor;
+      box-shadow: 0 -2px 0 -1px currentColor;
+    }
+
+    .theme-label-sun::before {
+      content: "";
+      position: absolute;
+      inset: 3px;
+      border-radius: 50%;
+      border: 2px solid currentColor;
+    }
+
+    .theme-label-sun::after {
+      content: "";
+      position: absolute;
+      left: 6.5px;
+      top: 0;
+      width: 2px;
+      height: 2px;
+      border-radius: 50%;
+      background: currentColor;
+      box-shadow:
+        0 13px currentColor,
+        6.5px 6.5px currentColor,
+        -6.5px 6.5px currentColor,
+        4.6px 1.9px currentColor,
+        -4.6px 1.9px currentColor,
+        4.6px 11.1px currentColor,
+        -4.6px 11.1px currentColor;
+    }
+
+    .theme-label-moon::before {
+      content: "";
+      position: absolute;
+      inset: 2px;
+      border-radius: 50%;
+      background: transparent;
+      box-shadow: inset -4px -2px 0 0 currentColor;
+    }
+
+    .theme-label-moon::after {
+      content: none;
+    }
+
+    html.is-theme-changing .theme-toggle {
+      transform: scale(0.976);
+      box-shadow: 0 8px 20px rgba(21, 20, 24, 0.065);
+    }
+
+    html.is-theme-changing .theme-toggle button.active .theme-label {
+      transform: rotate(28deg) scale(1.12);
+    }
+
+    .nav-button,
+    .cta {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid rgba(21, 20, 24, 0.1);
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.72);
+      color: var(--ink);
+      box-shadow: 0 10px 28px rgba(21, 20, 24, 0.055);
+      font-weight: 760;
+      transition: transform 260ms var(--spring), box-shadow 260ms, background 260ms, border-color 260ms;
+      will-change: transform;
+    }
+
+    .nav-button {
+      min-height: 34px;
+      padding: 0 12px;
+      font-size: 12px;
+    }
+
+    .nav-button.primary,
+    .cta.primary {
+      background: var(--deep);
+      color: #fff;
+      border-color: var(--deep);
+      box-shadow: 0 12px 28px rgba(21, 20, 24, 0.13);
+    }
+
+    .nav-button:active,
+    .cta:active,
+    .floating-card:active,
+    .feature-tile:active {
+      transform: scale(0.96);
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 5;
+      min-height: calc(100svh - 92px);
+      display: grid;
+      align-items: center;
+      padding: 26px 18px 32px;
+    }
+
+    [data-i18n],
+    #storyKicker,
+    #storyTitle,
+    #storyText {
+      transition: opacity 210ms ease, transform 260ms var(--spring), filter 260ms ease;
+    }
+
+    body.is-switching-lang [data-i18n],
+    body.is-switching-lang #storyKicker,
+    body.is-switching-lang #storyTitle,
+    body.is-switching-lang #storyText {
+      opacity: 0;
+      transform: translateY(6px) scale(0.995);
+      filter: blur(0);
+    }
+
+    body.is-lang-enter [data-i18n],
+    body.is-lang-enter #storyKicker,
+    body.is-lang-enter #storyTitle,
+    body.is-lang-enter #storyText {
+      animation: languageSettle 420ms var(--spring) both;
+    }
+
+    @keyframes languageSettle {
+      from {
+        opacity: 0;
+        transform: translateY(8px) scale(0.992);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+    }
+
+    .hero-grid {
+      display: grid;
+      gap: 26px;
+      align-items: center;
+    }
+
+    .copy {
+      max-width: 640px;
+      display: grid;
+      gap: 16px;
+      opacity: var(--hero-copy-opacity, 1);
+      transform: translateY(var(--hero-copy-y, 0)) scale(var(--hero-copy-scale, 1));
+      filter: blur(var(--hero-copy-blur, 0));
+      transform-origin: left center;
+      transition: opacity 180ms ease, transform 220ms var(--spring), filter 180ms ease;
+    }
+
+    .trust-pill {
+      width: max-content;
+      max-width: 100%;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 11px;
+      border: 1px solid rgba(21, 20, 24, 0.08);
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.72);
+      color: var(--muted);
+      box-shadow: 0 10px 26px rgba(21, 20, 24, 0.045);
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    .avatar-stack {
+      display: inline-flex;
+      align-items: center;
+      margin-right: 2px;
+    }
+
+    .avatar {
+      width: 19px;
+      height: 19px;
+      margin-left: -5px;
+      border: 2px solid #fff;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--blue), var(--pink));
+    }
+
+    .avatar:first-child {
+      margin-left: 0;
+    }
+
+    .avatar:nth-child(2) {
+      background: linear-gradient(135deg, var(--cyan), var(--blue));
+    }
+
+    .avatar:nth-child(3) {
+      background: linear-gradient(135deg, var(--purple), var(--pink));
+    }
+
+    h1,
+    h2,
+    h3,
+    p {
+      margin: 0;
+    }
+
+    h1 {
+      max-width: 560px;
+      color: #1b1a1f;
+      font-size: clamp(38px, 8.4vw, 64px);
+      line-height: 0.98;
+      font-weight: 880;
+      letter-spacing: 0;
+      text-wrap: balance;
+    }
+
+    .subhead {
+      max-width: 460px;
+      color: #56525d;
+      font-size: 14px;
+      line-height: 1.42;
+      font-weight: 560;
+    }
+
+    .cta-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 2px;
+    }
+
+    .cta {
+      min-height: 45px;
+      padding: 0 18px;
+      font-size: 13px;
+    }
+
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 14px;
+      margin-top: 16px;
+      max-width: 390px;
+    }
+
+    .stat {
+      display: grid;
+      gap: 4px;
+    }
+
+    .stat strong {
+      color: var(--ink);
+      font-size: 25px;
+      line-height: 1;
+      font-weight: 930;
+    }
+
+    .stat span {
+      color: var(--muted);
+      font-size: 11px;
+      line-height: 1.25;
+      font-weight: 650;
+    }
+
+    .visual {
+      position: relative;
+      min-height: 420px;
+      display: grid;
+      align-items: center;
+      transform: translateY(var(--hero-visual-y, 0));
+      transition: transform 180ms ease;
+    }
+
+    .code-card {
+      position: relative;
+      z-index: 3;
+      width: min(100%, 430px);
+      margin: 0 auto;
+      overflow: hidden;
+      border: 1px solid rgba(21, 20, 24, 0.055);
+      border-radius: 28px;
+      background: #fff;
+      box-shadow: none;
+      backdrop-filter: none;
+      transition: transform 620ms var(--spring), box-shadow 620ms, border-color 620ms, background 620ms;
+    }
+
+    .floating-main {
+      animation: mainCardFloat 5.2s ease-in-out infinite;
+    }
+
+    @keyframes mainCardFloat {
+      0%, 100% {
+        transform: translateY(0) rotate(-1.65deg);
+      }
+      50% {
+        transform: translateY(-7px) rotate(-0.8deg);
+      }
+    }
+
+    .code-card::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      background: transparent;
+    }
+
+    .code-card::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      z-index: 2;
+      pointer-events: none;
+      background:
+        linear-gradient(105deg, transparent 4%, rgba(255,255,255,0.5) 18%, transparent 34%);
+      opacity: 0;
+      transform: translateX(-62%);
+    }
+
+    body.cap-agent .code-card::after {
+      animation: codeSheen 1.8s var(--spring) 1;
+    }
+
+    @keyframes codeSheen {
+      0% {
+        opacity: 0;
+        transform: translateX(-64%);
+      }
+      26% {
+        opacity: 0.82;
+      }
+      100% {
+        opacity: 0;
+        transform: translateX(72%);
+      }
+    }
+
+    .card-bar {
+      position: relative;
+      z-index: 1;
+      height: 48px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 0 16px;
+      border-bottom: 1px solid rgba(21, 20, 24, 0.07);
+      background: rgba(255, 255, 255, 0.62);
+    }
+
+    .traffic {
+      display: inline-flex;
+      gap: 7px;
+    }
+
+    .traffic span {
+      width: 11px;
+      height: 11px;
+      border-radius: 50%;
+    }
+
+    .traffic span:nth-child(1) { background: #ff5f57; }
+    .traffic span:nth-child(2) { background: #ffbd2e; }
+    .traffic span:nth-child(3) { background: #28c840; }
+
+    .code-language {
+      color: rgba(45, 48, 55, 0.76);
+      font-size: 11px;
+      font-weight: 820;
+      letter-spacing: 0;
+    }
+
+    pre {
+      position: relative;
+      z-index: 1;
+      margin: 0;
+      padding: 18px 16px 12px 13px;
+      overflow: hidden;
+      color: #201f26;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      font-size: 12px;
+      line-height: 1.78;
+      white-space: normal;
+    }
+
+    pre code {
+      display: block;
+      counter-reset: code-line;
+      white-space: normal;
+    }
+
+    .line {
+      display: block;
+      position: relative;
+      padding-left: 17px;
+      min-height: 1.72em;
+      transform: translateY(8px);
+      opacity: 0;
+      clip-path: inset(0 100% 0 0);
+      white-space: normal;
+      overflow-wrap: anywhere;
+      word-break: normal;
+    }
+
+    body.is-live-code .line:nth-child(1) { animation: codeWrite 900ms steps(34, end) 420ms both; }
+    body.is-live-code .line:nth-child(2) { animation: codeWrite 820ms steps(31, end) 1320ms both; }
+    body.is-live-code .line:nth-child(3) { animation: codeWrite 780ms steps(34, end) 2120ms both; }
+    body.is-live-code .line:nth-child(4) { animation: codeWrite 720ms steps(24, end) 2860ms both; }
+    body.is-live-code .line:nth-child(5) { animation: codeWrite 760ms steps(30, end) 3540ms both; }
+
+    @keyframes codeWrite {
+      0% {
+        opacity: 0;
+        transform: translateY(7px);
+        clip-path: inset(0 100% 0 0);
+      }
+      16% {
+        opacity: 1;
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0);
+        clip-path: inset(0 0 0 0);
+      }
+    }
+
+    .line::before {
+      counter-increment: code-line;
+      content: counter(code-line);
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 8px;
+      color: rgba(111, 108, 115, 0.52);
+      text-align: right;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .line::after {
+      content: "";
+      position: absolute;
+      left: 12px;
+      top: 0.15em;
+      bottom: 0.15em;
+      width: 1px;
+      background: rgba(21, 20, 24, 0.055);
+    }
+
+    .kw { color: #126fff; }
+    .fn { color: #d44c14; }
+    .str { color: #21964a; }
+    .cm { color: #8a8591; }
+    .good { color: #139447; }
+    .bad { color: #db3152; }
+
+    .terminal {
+      position: relative;
+      z-index: 1;
+      display: grid;
+      gap: 7px;
+      padding: 14px 16px 17px;
+      background: rgba(21, 20, 24, 0.035);
+      border-top: 1px solid rgba(21, 20, 24, 0.06);
+      color: #5b5662;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      font-size: 11px;
+      line-height: 1.35;
+    }
+
+    .terminal-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      opacity: 0;
+      transform: translateY(8px) scale(0.982);
+    }
+
+    body.is-live-code .terminal-row:nth-child(1) { animation: terminalPop 460ms var(--spring) 2120ms both; }
+    body.is-live-code .terminal-row:nth-child(2) { animation: terminalPop 460ms var(--spring) 2320ms both; }
+    body.is-live-code .terminal-row:nth-child(3) { animation: terminalPop 460ms var(--spring) 2520ms both; }
+
+    @keyframes terminalPop {
+      0% {
+        opacity: 0;
+        transform: translateY(10px) scale(0.97);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+    }
+
+    .ok-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--green);
+      box-shadow: 0 0 0 5px rgba(56, 217, 107, 0.14);
+      flex-shrink: 0;
+    }
+
+    .floating-card {
+      position: absolute;
+      z-index: 5;
+      border: 1px solid rgba(21, 20, 24, 0.055);
+      border-radius: 20px;
+      background: rgba(255, 255, 255, 0.94);
+      box-shadow: 0 16px 38px rgba(21, 20, 24, 0.085);
+      backdrop-filter: blur(10px);
+      opacity: 0;
+      pointer-events: none;
+      filter: blur(10px);
+      transition: opacity 520ms ease, transform 720ms var(--spring), filter 520ms ease;
+      will-change: transform;
+    }
+
+    .agent-card {
+      right: 78px;
+      top: 170px;
+      width: 172px;
+      padding: 12px;
+      transform: translate(-18px, 34px) rotate(0deg) scale(0.62);
+    }
+
+    .agent-card strong,
+    .package-card strong {
+      display: block;
+      color: var(--ink);
+      font-size: 13px;
+      font-weight: 760;
+      margin-bottom: 8px;
+    }
+
+    .diff-line {
+      display: block;
+      padding: 7px 8px;
+      border-radius: 11px;
+      background: rgba(21, 20, 24, 0.035);
+      color: #57525e;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      font-size: 10px;
+      line-height: 1.2;
+      margin-top: 6px;
+    }
+
+    .package-card {
+      left: 110px;
+      bottom: 126px;
+      width: 190px;
+      padding: 12px;
+      transform: translate(24px, -20px) rotate(0deg) scale(0.62);
+    }
+
+    .pkg-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .pkg {
+      padding: 6px 8px;
+      border-radius: 999px;
+      background: #f1f0ec;
+      color: #4f4a55;
+      font-size: 10px;
+      font-weight: 700;
+    }
+
+    .ssh-pill {
+      right: 112px;
+      bottom: 140px;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 12px;
+      border-radius: 999px;
+      color: #1b1a1f;
+      background: rgba(223, 255, 53, 0.88);
+      font-size: 12px;
+      font-weight: 780;
+      transform: translate(-8px, -24px) rotate(0deg) scale(0.62);
+    }
+
+    body.cap-agent .agent-card,
+    body.cap-package .package-card,
+    body.cap-ssh .ssh-pill {
+      opacity: 1;
+      pointer-events: auto;
+      filter: blur(0);
+    }
+
+    body.is-live-code .agent-card {
+      opacity: 1;
+      pointer-events: auto;
+      filter: blur(0);
+      right: -10px;
+      top: 154px;
+      animation: patchAttach 780ms var(--spring) 4180ms both;
+    }
+
+    @keyframes patchAttach {
+      0% {
+        opacity: 0;
+        filter: blur(8px);
+        transform: translate(20px, -8px) rotate(0deg) scale(0.62);
+      }
+      58% {
+        opacity: 1;
+        filter: blur(0);
+        transform: translate(-4px, 3px) rotate(5deg) scale(1.02);
+      }
+      100% {
+        opacity: 1;
+        filter: blur(0);
+        transform: rotate(5deg) scale(1);
+      }
+    }
+
+    body.cap-agent .agent-card {
+      right: 18px;
+      top: 54px;
+      transform: rotate(5deg) scale(1);
+    }
+
+    body.cap-package .package-card {
+      left: 24px;
+      bottom: 84px;
+      transform: rotate(-4deg) scale(1);
+    }
+
+    body.cap-ssh .ssh-pill {
+      right: 28px;
+      bottom: 86px;
+      transform: rotate(3deg) scale(1);
+    }
+
+    body.cap-agent .code-card {
+      border-color: rgba(21, 20, 24, 0.07);
+      box-shadow: none;
+      transform: translateY(-4px) scale(0.992);
+    }
+
+    .logo-strip {
+      position: absolute;
+      left: 18px;
+      right: 18px;
+      bottom: 16px;
+      display: none;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      color: rgba(21, 20, 24, 0.46);
+      font-size: 12px;
+      font-weight: 760;
+    }
+
+    .scroll-story {
+      min-height: auto;
+      position: relative;
+      margin-top: -8svh;
+      padding: 6svh 0 42px;
+    }
+
+    .scroll-story::after {
+      content: none;
+    }
+
+    .story-stage {
+      position: relative;
+      min-height: auto;
+      display: grid;
+      align-content: center;
+      padding: 22px 14px;
+      overflow: visible;
+      background: transparent;
+      isolation: isolate;
+    }
+
+    .story-stage::before,
+    .resources::before {
+      content: none;
+    }
+
+    .story-card {
+      position: relative;
+      z-index: 1;
+      width: min(100%, 1180px);
+      margin: 0 auto;
+      min-height: auto;
+      display: grid;
+      align-content: center;
+      gap: 26px;
+      overflow: visible;
+      padding: 24px;
+      border: 0;
+      border-radius: 0;
+      background: transparent;
+      box-shadow: none;
+    }
+
+    .story-copy {
+      display: grid;
+      gap: 12px;
+      max-width: 620px;
+    }
+
+    .story-kicker {
+      width: max-content;
+      max-width: 100%;
+      padding: 8px 11px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.78);
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 850;
+      box-shadow: 0 10px 26px rgba(21, 20, 24, 0.06);
+    }
+
+    h2 {
+      max-width: 680px;
+      color: #2a2d35;
+      font-size: clamp(38px, 9vw, 72px);
+      line-height: 1;
+      font-weight: 780;
+      letter-spacing: 0;
+      text-wrap: balance;
+    }
+
+    .story-text {
+      max-width: 560px;
+      color: var(--muted);
+      font-size: 16px;
+      line-height: 1.43;
+      font-weight: 560;
+    }
+
+    .scroll-story .story-text {
+      display: none;
+    }
+
+    .feature-row {
+      display: grid;
+      gap: 10px;
+      perspective: 900px;
+    }
+
+    .feature-tile {
+      position: relative;
+      overflow: hidden;
+      display: grid;
+      grid-template-columns: auto 1fr;
+      align-items: center;
+      gap: 12px;
+      min-height: 88px;
+      padding: 13px;
+      border: 1px solid rgba(21, 20, 24, 0.07);
+      border-radius: 34px;
+      background: rgba(255, 255, 255, 0.86);
+      box-shadow: 0 16px 42px rgba(21, 20, 24, 0.058);
+      backdrop-filter: blur(18px);
+      transform-origin: 50% 74%;
+      transform-style: preserve-3d;
+      transition: transform 260ms var(--spring), box-shadow 260ms;
+      will-change: transform, opacity;
+    }
+
+    .feature-tile::after {
+      content: "";
+      position: absolute;
+      inset: auto -12% -58% 24%;
+      height: 84%;
+      border-radius: 999px;
+      background: color-mix(in srgb, var(--tile-color) 18%, transparent);
+      opacity: 0.72;
+      filter: blur(18px);
+      transform: rotate(-12deg);
+      pointer-events: none;
+    }
+
+    .feature-icon {
+      width: 45px;
+      height: 45px;
+      display: grid;
+      place-items: center;
+      border-radius: 15px;
+      color: #fff;
+      background: var(--tile-color);
+      font-size: 12px;
+      font-weight: 840;
+    }
+
+    .feature-tile strong {
+      display: block;
+      margin-bottom: 0;
+      color: var(--ink);
+      font-size: 15px;
+      font-weight: 760;
+    }
+
+    .feature-tile span {
+      display: block;
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.34;
+      font-weight: 650;
+    }
+
+    .resources {
+      position: relative;
+      overflow: visible;
+      padding: 54px 14px max(54px, calc(var(--safe-bottom) + 42px));
+      margin-top: -1px;
+      background: transparent;
+      isolation: isolate;
+    }
+
+    .resource-card {
+      position: relative;
+      z-index: 1;
+      width: min(100%, 1180px);
+      margin: 0 auto;
+      display: grid;
+      gap: 18px;
+      overflow: visible;
+      padding: 24px;
+      border: 0;
+      border-radius: 0;
+      background: transparent;
+      box-shadow: none;
+    }
+
+    .resource-links {
+      display: grid;
+      gap: 10px;
+    }
+
+    .resource-link {
+      min-height: 62px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 14px 16px;
+      border: 1px solid rgba(21, 20, 24, 0.08);
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.9);
+      color: var(--ink);
+      box-shadow: 0 16px 40px rgba(21, 20, 24, 0.06);
+      backdrop-filter: blur(18px);
+      font-weight: 780;
+    }
+
+    .resource-link.primary {
+      background: var(--deep);
+      color: #fff;
+    }
+
+    .arrow {
+      width: 31px;
+      height: 31px;
+      display: grid;
+      place-items: center;
+      flex-shrink: 0;
+      border-radius: 50%;
+      background: var(--yellow);
+      color: var(--deep);
+    }
+
+    html[data-theme="dark"] {
+      color-scheme: dark;
+      --page: #161516;
+      --stage: #1a191b;
+      --stage-soft: #211f22;
+      --ink: #f3f1ec;
+      --deep: #191719;
+      --muted: #b0aba3;
+      --hairline: rgba(255, 255, 255, 0.1);
+      --hairline-strong: rgba(255, 255, 255, 0.18);
+    }
+
+    html[data-theme="dark"] body {
+      background:
+        radial-gradient(circle at 82% 9%, rgba(25, 118, 255, 0.065), transparent 31rem),
+        radial-gradient(circle at 16% 24%, rgba(56, 217, 107, 0.04), transparent 28rem),
+        radial-gradient(circle at 74% 64%, rgba(255, 85, 184, 0.052), transparent 32rem),
+        linear-gradient(rgba(255, 255, 255, 0.023) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.023) 1px, transparent 1px),
+        #161516;
+      color: var(--ink);
+    }
+
+    html[data-theme="dark"] #mosaicCanvas {
+      opacity: 0.76;
+      filter: saturate(1.22) contrast(1.08);
+    }
+
+    html[data-theme="dark"] .brand-mark {
+      background: rgba(255, 255, 255, 0.96);
+      color: #151418;
+      border: 1px solid rgba(255, 255, 255, 0.38);
+      box-shadow: inset 0 -3px 0 rgba(0, 0, 0, 0.06), 0 12px 28px rgba(255, 255, 255, 0.1);
+    }
+
+    html[data-theme="dark"] .lang-toggle,
+    html[data-theme="dark"] .theme-toggle,
+    html[data-theme="dark"] .trust-pill,
+    html[data-theme="dark"] .story-kicker {
+      border-color: rgba(255, 255, 255, 0.08);
+      background: rgba(24, 28, 38, 0.82);
+      box-shadow: 0 14px 34px rgba(0, 0, 0, 0.18);
+    }
+
+    html[data-theme="dark"] .lang-thumb {
+      background: rgba(255, 255, 255, 0.96);
+      box-shadow: 0 10px 24px rgba(255, 255, 255, 0.14);
+    }
+
+    html[data-theme="dark"] .theme-thumb {
+      background: rgba(255, 255, 255, 0.96);
+      box-shadow: 0 10px 26px rgba(255, 255, 255, 0.14);
+    }
+
+    html[data-theme="dark"] .lang-toggle button.active,
+    html[data-theme="dark"] .theme-toggle button.active {
+      color: #151418;
+    }
+
+    html[data-theme="dark"] h1,
+    html[data-theme="dark"] h2 {
+      color: #f3f1ec;
+    }
+
+    html[data-theme="dark"] .subhead,
+    html[data-theme="dark"] .story-text {
+      color: #b0aba3;
+    }
+
+    html[data-theme="dark"] .cta,
+    html[data-theme="dark"] .resource-link,
+    html[data-theme="dark"] .feature-tile,
+    html[data-theme="dark"] .floating-card {
+      border-color: rgba(255, 255, 255, 0.08);
+      background: rgba(31, 30, 33, 0.84);
+      box-shadow: 0 18px 46px rgba(0, 0, 0, 0.16);
+    }
+
+    html[data-theme="dark"] .cta.primary,
+    html[data-theme="dark"] .resource-link.primary {
+      background: rgba(255, 255, 255, 0.96);
+      color: #151418;
+      border-color: rgba(255, 255, 255, 0.82);
+      box-shadow: 0 18px 42px rgba(255, 255, 255, 0.1);
+    }
+
+    html[data-theme="dark"] .code-card {
+      border-color: rgba(255, 255, 255, 0.09);
+      background: rgba(24, 23, 26, 0.94);
+    }
+
+    html[data-theme="dark"] .card-bar {
+      border-bottom-color: rgba(255, 255, 255, 0.08);
+      background: rgba(31, 30, 33, 0.66);
+    }
+
+    html[data-theme="dark"] pre {
+      color: #eef2fb;
+    }
+
+    html[data-theme="dark"] .line::before {
+      color: rgba(238, 242, 251, 0.46);
+    }
+
+    html[data-theme="dark"] .line::after {
+      background: rgba(255, 255, 255, 0.08);
+    }
+
+    html[data-theme="dark"] .code-language,
+    html[data-theme="dark"] .feature-tile span,
+    html[data-theme="dark"] .pkg,
+    html[data-theme="dark"] .diff-line {
+      color: #aeb5c3;
+    }
+
+    html[data-theme="dark"] .pkg,
+    html[data-theme="dark"] .diff-line {
+      background: rgba(255, 255, 255, 0.06);
+    }
+
+    html[data-theme="dark"] .ssh-pill {
+      border-color: rgba(223, 255, 53, 0.42);
+      background: rgba(223, 255, 53, 0.9);
+      color: #11141b;
+      box-shadow: 0 18px 40px rgba(223, 255, 53, 0.18);
+    }
+
+    html[data-theme="dark"] .arrow {
+      color: #11141b;
+    }
+
+    html[data-theme="dark"] .resource-link.primary .arrow {
+      background: #151418;
+      color: #fff;
+    }
+
+    html.is-theme-changing body,
+    html.is-theme-changing .code-card,
+    html.is-theme-changing .card-bar,
+    html.is-theme-changing .feature-tile,
+    html.is-theme-changing .resource-link,
+    html.is-theme-changing .floating-card,
+    html.is-theme-changing .lang-toggle,
+    html.is-theme-changing .theme-toggle,
+    html.is-theme-changing .trust-pill,
+    html.is-theme-changing .story-kicker,
+    html.is-theme-changing h1,
+    html.is-theme-changing h2,
+    html.is-theme-changing .subhead,
+    html.is-theme-changing .story-text {
+      transition:
+        background 560ms ease,
+        background-color 560ms ease,
+        color 560ms ease,
+        border-color 560ms ease,
+        box-shadow 560ms ease,
+        transform 520ms var(--spring);
+    }
+
+    @media (max-width: 759px) {
+      .nav {
+        align-items: flex-start;
+      }
+
+      .brand {
+        font-size: 14px;
+      }
+
+      .brand-mark {
+        width: 25px;
+        height: 25px;
+        border-radius: 9px;
+        font-size: 11px;
+      }
+
+      .lang-toggle {
+        box-shadow: 0 10px 24px rgba(21, 20, 24, 0.075);
+      }
+
+      .nav-actions {
+        flex-direction: column;
+        align-items: flex-end;
+        justify-content: flex-start;
+        gap: 6px;
+      }
+
+      .lang-toggle,
+      .theme-toggle {
+        align-self: flex-end;
+      }
+
+      .theme-toggle {
+        order: 1;
+      }
+
+      .lang-toggle {
+        order: 2;
+      }
+
+      .lang-thumb {
+        width: 34px;
+        height: 27px;
+        transform: translateX(calc(var(--lang-index) * 34px));
+      }
+
+      .lang-toggle button {
+        min-width: 34px;
+        height: 27px;
+        font-weight: 720;
+      }
+
+      .theme-toggle {
+        padding: 4px;
+        box-shadow: 0 10px 24px rgba(21, 20, 24, 0.075);
+      }
+
+      .theme-thumb,
+      .theme-toggle button {
+        width: 36px;
+        height: 27px;
+      }
+
+      .theme-thumb {
+        transform: translateX(calc(var(--theme-index) * 36px));
+      }
+
+
+      .site {
+        padding-top: 0;
+        min-height: 136svh;
+      }
+
+      .hero-shell {
+        min-height: 100svh;
+      }
+
+      .nav {
+        padding: max(14px, env(safe-area-inset-top)) 16px 6px;
+      }
+
+      .hero-content {
+        min-height: auto;
+        padding: 16px 18px 22px;
+      }
+
+      .hero-grid {
+        gap: 10px;
+      }
+
+      .copy {
+        gap: 10px;
+        max-width: 340px;
+      }
+
+      .trust-pill {
+        gap: 7px;
+        padding: 7px 10px;
+        font-size: 11px;
+        font-weight: 680;
+        box-shadow: 0 8px 22px rgba(21, 20, 24, 0.04);
+      }
+
+      .avatar {
+        width: 17px;
+        height: 17px;
+      }
+
+      h1 {
+        max-width: 340px;
+        color: #2a2d35;
+        font-size: clamp(28px, 7.9vw, 34px);
+        line-height: 1.09;
+        font-weight: 760;
+      }
+
+      html[lang="zh-CN"] h1 {
+        font-weight: 680;
+      }
+
+      .subhead {
+        max-width: 315px;
+        color: #5f626b;
+        font-size: 12px;
+        line-height: 1.42;
+        font-weight: 540;
+      }
+
+      .cta-row {
+        margin-top: 0;
+        gap: 8px;
+      }
+
+      .cta {
+        min-height: 37px;
+        padding: 0 14px;
+        font-size: 12px;
+      }
+
+      .nav-github {
+        display: none;
+      }
+
+      .stats {
+        display: none;
+      }
+
+      .visual {
+        min-height: 292px;
+        align-items: start;
+        margin-top: 22px;
+      }
+
+      .code-card {
+        width: min(100%, 292px);
+        margin-left: auto;
+        margin-right: 0;
+        border-radius: 22px;
+        box-shadow: none;
+      }
+
+      .card-bar {
+        height: 36px;
+        padding: 0 12px;
+      }
+
+      .traffic {
+        gap: 6px;
+      }
+
+      .traffic span {
+        width: 9px;
+        height: 9px;
+      }
+
+      .code-language {
+        font-size: 10px;
+      }
+
+      pre {
+        padding: 13px 7px 14px 8px;
+        font-size: 10.2px;
+        line-height: 1.62;
+      }
+
+      .line {
+        min-height: 1.62em;
+        padding-left: 11px;
+      }
+
+      .line::before {
+        width: 7px;
+      }
+
+      .line::after {
+        left: 8px;
+      }
+
+      .terminal {
+        gap: 5px;
+        padding: 8px 12px 10px;
+        font-size: 9.2px;
+      }
+
+      .terminal-row:nth-child(3) {
+        display: none;
+      }
+
+      .agent-card {
+        width: 108px;
+        right: 58px;
+        top: 112px;
+        padding: 8px;
+        border-radius: 16px;
+        transform: translate(-10px, 28px) rotate(0deg) scale(0.58);
+      }
+
+      .package-card {
+        width: 118px;
+        left: 86px;
+        bottom: 82px;
+        padding: 8px;
+        border-radius: 16px;
+        transform: translate(18px, -10px) rotate(0deg) scale(0.58);
+      }
+
+      .agent-card strong,
+      .package-card strong {
+        font-size: 10.5px;
+        margin-bottom: 5px;
+      }
+
+      .diff-line {
+        padding: 5px 6px;
+        border-radius: 9px;
+        font-size: 8.4px;
+        margin-top: 4px;
+      }
+
+      .pkg-grid {
+        gap: 5px;
+      }
+
+      .pkg {
+        padding: 4px 6px;
+        font-size: 8.4px;
+      }
+
+      .ssh-pill {
+        right: 80px;
+        bottom: 88px;
+        gap: 6px;
+        padding: 7px 9px;
+        font-size: 10px;
+        box-shadow: 0 14px 32px rgba(21, 20, 24, 0.1);
+        transform: translate(-8px, -18px) rotate(0deg) scale(0.58);
+      }
+
+      body.cap-agent .agent-card {
+        right: 4px;
+        top: 28px;
+        transform: rotate(4deg) scale(0.88);
+      }
+
+      body.is-live-code .agent-card {
+        right: 8px;
+        top: 184px;
+        animation-name: patchAttachMobile;
+      }
+
+      @keyframes patchAttachMobile {
+        0% {
+          opacity: 0;
+          filter: blur(8px);
+          transform: translate(14px, -12px) rotate(0deg) scale(0.56);
+        }
+        58% {
+          opacity: 1;
+          filter: blur(0);
+          transform: translate(-3px, 3px) rotate(5deg) scale(0.88);
+        }
+        100% {
+          opacity: 1;
+          filter: blur(0);
+          transform: rotate(4deg) scale(0.82);
+        }
+      }
+
+      body.cap-package .package-card {
+        left: 12px;
+        bottom: 28px;
+        transform: rotate(-3deg) scale(0.86);
+      }
+
+      body.cap-ssh .ssh-pill {
+        right: 12px;
+        bottom: -22px;
+        transform: rotate(2deg) scale(0.84);
+      }
+
+      .ok-dot {
+        width: 6px;
+        height: 6px;
+        box-shadow: 0 0 0 4px rgba(56, 217, 107, 0.14);
+      }
+
+      h2 {
+        font-size: clamp(31px, 9.5vw, 40px);
+        line-height: 1.05;
+        font-weight: 740;
+      }
+
+      html[lang="zh-CN"] h2 {
+        font-size: clamp(30px, 8.6vw, 34px);
+        line-height: 1.08;
+        font-weight: 700;
+      }
+
+      html[lang="zh-CN"] .resources h2 {
+        font-size: clamp(26px, 8.1vw, 31px);
+        line-height: 1.05;
+        white-space: nowrap;
+      }
+
+      .story-text {
+        font-size: 14px;
+        line-height: 1.48;
+      }
+
+      .story-card {
+        gap: 18px;
+        align-content: start;
+        min-height: min(560px, calc(100svh - 44px));
+        padding: 28px 22px 20px;
+      }
+
+      .story-copy {
+        gap: 10px;
+      }
+
+      .feature-tile {
+        min-height: 88px;
+        grid-template-columns: 1fr;
+        align-content: start;
+        align-items: start;
+        gap: 8px;
+        padding: 11px;
+        border-radius: 32px;
+        box-shadow: 0 14px 34px rgba(21, 20, 24, 0.052);
+      }
+
+      .feature-row {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 8px;
+      }
+
+      .feature-icon {
+        width: 38px;
+        height: 38px;
+        border-radius: 17px;
+        font-size: 10.5px;
+      }
+
+      .feature-tile strong {
+        font-size: 13px;
+      }
+
+      .scroll-story {
+        min-height: auto;
+        margin-top: -10svh;
+        padding: 7svh 0 30px;
+      }
+
+      .resources {
+        padding-top: 38px;
+      }
+    }
+
+    @media (min-width: 760px) {
+      .site {
+        padding: 0 0 34px;
+      }
+
+      .hero-shell {
+        min-height: 100svh;
+      }
+
+      .nav {
+        padding: 24px clamp(18px, 4vw, 44px) 0;
+      }
+
+      .nav-links {
+        display: flex;
+      }
+
+      .hero-content {
+        min-height: 690px;
+        padding: 24px 44px 54px;
+      }
+
+      .hero-grid {
+        width: min(100%, 1180px);
+        margin: 0 auto;
+        grid-template-columns: minmax(0, 0.88fr) minmax(360px, 0.78fr);
+      }
+
+      .visual {
+        min-height: 520px;
+      }
+
+      .code-card {
+        width: min(100%, 430px);
+      }
+
+      .agent-card {
+        width: 158px;
+      }
+
+      .package-card {
+        width: 176px;
+      }
+
+      body.cap-agent .agent-card {
+        right: -26px;
+        top: 28px;
+        transform: rotate(5deg) scale(0.92);
+      }
+
+      body.is-live-code .agent-card {
+        right: -24px;
+        top: 30px;
+        animation-name: patchAttachDesktop;
+      }
+
+      @keyframes patchAttachDesktop {
+        0% {
+          opacity: 0;
+          filter: blur(8px);
+          transform: translate(18px, -10px) rotate(0deg) scale(0.58);
+        }
+        58% {
+          opacity: 1;
+          filter: blur(0);
+          transform: translate(-4px, 2px) rotate(5deg) scale(0.96);
+        }
+        100% {
+          opacity: 1;
+          filter: blur(0);
+          transform: rotate(5deg) scale(0.92);
+        }
+      }
+
+      body.cap-package .package-card {
+        left: 18px;
+        bottom: 20px;
+        transform: rotate(-4deg) scale(0.94);
+      }
+
+      body.cap-ssh .ssh-pill {
+        right: 42px;
+        bottom: 36px;
+        transform: rotate(3deg) scale(0.94);
+      }
+
+      .logo-strip {
+        display: flex;
+      }
+
+      .story-stage {
+        padding: 34px;
+      }
+
+      .story-card {
+        min-height: auto;
+        grid-template-columns: minmax(0, 0.86fr) minmax(320px, 0.74fr);
+        align-items: center;
+        padding: 54px;
+      }
+
+      .feature-row {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 14px;
+      }
+
+      .feature-tile {
+        min-height: 108px;
+        grid-template-columns: 1fr;
+        align-content: start;
+        align-items: start;
+        gap: 10px;
+        padding: 15px;
+        border-radius: 34px;
+      }
+
+      .feature-icon {
+        width: 46px;
+        height: 46px;
+        border-radius: 18px;
+      }
+
+      .feature-tile strong {
+        font-size: 14px;
+        line-height: 1.16;
+      }
+
+      .resource-card {
+        grid-template-columns: minmax(0, 1fr);
+        align-items: center;
+        padding: 54px;
+      }
+
+      .resources .story-copy {
+        max-width: 780px;
+      }
+
+      .resources .story-text {
+        max-width: 760px;
+      }
+    }
+
+    @media (min-width: 980px) {
+      .resource-card {
+        grid-template-columns: minmax(540px, 1.15fr) minmax(340px, 0.72fr);
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *,
+      *::before,
+      *::after {
+        animation-duration: 0.001ms !important;
+        animation-iteration-count: 1 !important;
+        scroll-behavior: auto !important;
+        transition-duration: 0.001ms !important;
+      }
+
+      .line,
+      .terminal-row {
+        opacity: 1;
+        transform: none;
+        clip-path: none;
+      }
+
+      .floating-main {
+        animation: none;
+      }
+    }
 </style>
 </head>
 <body>
+  <canvas id="mosaicCanvas" aria-hidden="true"></canvas>
+  <main>
+    <section class="site" id="top">
+      <div class="hero-shell" id="heroShell">
 
-<div class="lang-switcher">
-<button class="lang-btn active" data-lang="zh">中文</button>
-<button class="lang-btn" data-lang="en">EN</button>
-</div>
+        <header class="nav">
+          <a class="brand" href="#top" aria-label="Python IDE">
+            <span class="brand-mark">Py</span>
+            <span>Python IDE</span>
+          </a>
+          <nav class="nav-links" aria-label="Sections">
+            <a href="#features" data-i18n="navFeatures">Features</a>
+            <a href="/docs/" data-i18n="navDocs">Docs</a>
+          </nav>
+          <div class="nav-actions">
+            <div class="lang-toggle" aria-label="Language">
+              <span class="lang-thumb" aria-hidden="true"></span>
+              <button type="button" class="active" data-lang="en">EN</button>
+              <button type="button" data-lang="zh">中</button>
+            </div>
+            <div class="theme-toggle" aria-label="Theme">
+              <span class="theme-thumb" aria-hidden="true"></span>
+              <button type="button" class="active" data-theme-choice="system" aria-label="Follow system"><span class="theme-label theme-label-system" aria-hidden="true"></span></button>
+              <button type="button" data-theme-choice="light" aria-label="Light mode"><span class="theme-label theme-label-sun" aria-hidden="true"></span></button>
+              <button type="button" data-theme-choice="dark" aria-label="Dark mode"><span class="theme-label theme-label-moon" aria-hidden="true"></span></button>
+            </div>
+          </div>
+        </header>
 
-<canvas id="particles"></canvas>
+        <div class="hero-content">
+          <div class="hero-grid">
+            <div class="copy">
+              <div class="trust-pill">
+                <span class="avatar-stack"><span class="avatar"></span><span class="avatar"></span><span class="avatar"></span></span>
+                <span data-i18n="trust">Built for coding on iPhone and iPad</span>
+              </div>
+              <h1 data-i18n="heroTitle">Python mobile workspace.</h1>
+              <p class="subhead" data-i18n="heroSub">Local Python, AI Agent, Mini Apps, community, SSH, widgets, and tools in one focused mobile workspace.</p>
+              <div class="cta-row">
+                <a class="cta primary" href="https://apps.apple.com/app/id6753987304" data-i18n="download">Download</a>
+                <a class="cta" href="https://github.com/jinwandalaohu66/PythonIDE-iOS">GitHub</a>
+                <a class="cta" href="/docs/" data-i18n="navDocs">Docs</a>
+              </div>
 
-<div class="content">
+            </div>
 
-<nav class="quick-nav">
-<a href="#why" data-i18n="navWhy">为什么选择</a>
-<a href="#screenshots" data-i18n="navScreenshots">截图</a>
-<a href="#features" data-i18n="navFeatures">功能</a>
-<a href="#docs" data-i18n="navDocs">文档</a>
-<a href="#ssh" data-i18n="navSSH">SSH</a>
-<a href="#install" data-i18n="navInstall">下载</a>
-</nav>
+            <div class="visual" id="visual">
+              <div class="code-card floating-main">
+                <div class="card-bar">
+                  <div class="traffic" aria-hidden="true"><span></span><span></span><span></span></div>
+                  <div class="code-language">Python</div>
+                </div>
+                <pre><code><span class="line"><span class="kw">from</span> pythonide <span class="kw">import</span> agent, miniapp</span>
+<span class="line"><span class="kw">from</span> pythonide <span class="kw">import</span> community, ssh</span>
+<span class="line">task = agent.<span class="fn">fix</span>(<span class="str">"api timeout"</span>)</span>
+<span class="line">miniapp.<span class="fn">build</span>(<span class="str">"timer"</span>)</span>
+<span class="line">community.<span class="fn">publish</span>(<span class="str">"toolbox"</span>)</span></code></pre>
+              </div>
 
-<section class="hero">
-<div class="logo-wrap hero-el"><img src="icon.png" class="logo" alt="Python IDE" /></div>
-<h1 class="hero-el" data-i18n="heroTitle">Python IDE</h1>
-<p class="tagline hero-el" data-i18n="heroTagline">掌上的 Python & JavaScript 开发环境</p>
-<p class="sub hero-el" data-i18n="heroSub">让编程从电脑走到手机与平板 · Write, Run, Debug on iOS</p>
-<div class="cta hero-el">
-<a href="https://apps.apple.com/app/id6753987304" class="btn btn-appstore" data-i18n="btnAppStore"> App Store 免费下载</a>
-<a href="/docs/" class="btn btn-github" data-i18n="btnDocs">📚 文档 / AI 生成</a>
-<a href="https://github.com/jinwandalaohu66/PythonIDE-iOS" class="btn btn-github">⭐ GitHub</a>
-</div>
-<div class="tech-stack hero-el">
-<span class="tech-pill">iOS 16.2+</span>
-<span class="tech-pill">Python 3.13</span>
-<span class="tech-pill">JavaScript ES6+</span>
-<span class="tech-pill">Swift 5.9</span>
-<span class="tech-pill">C 扩展 12+</span>
-<span class="tech-pill">SSH 服务器管理</span>
-<span class="tech-pill">预装 Wheels 150+</span>
-</div>
-<div class="scroll-hint hero-el"><span></span></div>
-</section>
+              <div class="floating-card agent-card">
+                <strong data-i18n="aiPatch">AI Patch</strong>
+                <span class="diff-line"><span class="bad">- response.text</span></span>
+                <span class="diff-line"><span class="good">+ response.json()</span></span>
+              </div>
 
-<section id="why" class="container">
-<h2 class="section-title" data-i18n="whyTitle">🌟 为什么选择 Python IDE？</h2>
-<p style="color:var(--text-muted);margin-bottom:2rem;" data-i18n="whySub">不是把电脑版塞进手机，而是专为触摸屏和移动场景重新设计的编程环境。</p>
-<div class="bento">
-<div class="bento-card"><div class="icon">🚀</div><h3 data-i18n="bento1Title">完全本地运行</h3><p data-i18n="bento1Desc">代码执行不依赖任何服务器，无网络也能用。</p></div>
-<div class="bento-card"><div class="icon">⚡</div><h3 data-i18n="bento2Title">12 个 C 扩展</h3><p data-i18n="bento2Desc">NumPy、Pillow、cryptography 等，10–100 倍加速。</p></div>
-<div class="bento-card"><div class="icon">📦</div><h3 data-i18n="bento3Title">150+ 预装库</h3><p data-i18n="bento3Desc">常用库开箱即用，搜索 PyPI 在线安装。</p></div>
-<div class="bento-card"><div class="icon">🤖</div><h3 data-i18n="bento4Title">AI Agent</h3><p data-i18n="bento4Desc">Agent 模式可直接协助处理项目任务，改代码、排查问题、配合远程工作流。</p></div>
-<div class="bento-card"><div class="icon">📱</div><h3 data-i18n="bento5Title">iOS 深度集成</h3><p data-i18n="bento5Desc">灵动岛、Siri 快捷指令、x-callback-url。</p></div>
-<div class="bento-card"><div class="icon">🔒</div><h3 data-i18n="bento6Title">隐私安全</h3><p data-i18n="bento6Desc">Face ID 锁定，本地运行，代码不外传。</p></div>
-<div class="bento-card"><div class="icon">🎮</div><h3 data-i18n="bento7Title">2D 游戏引擎</h3><p data-i18n="bento7Desc">Scene 模块 + SpriteKit，物理引擎、粒子、动画。</p></div>
-<div class="bento-card"><div class="icon">📲</div><h3 data-i18n="bento8Title">桌面小组件</h3><p data-i18n="bento8Desc">Python 创建 iOS 主屏幕 Widget，声明式布局。</p></div>
-<div class="bento-card" style="grid-column:span 2"><div class="icon">🖥️</div><h3 data-i18n="bento9Title">SSH 服务器管理</h3><p data-i18n="bento9Desc">SSH2 加密连接、SFTP 文件管理、一键部署、实时监控、AI 智能运维 — 写完脚本直接部署到服务器。</p></div>
-</div>
-<div class="why-grid">
-<div class="why-item"><div class="check">✓</div><span data-i18n="why1">完全本地运行，无网络也能用</span></div>
-<div class="why-item"><div class="check">✓</div><span data-i18n="why2">Python 3.13 完整标准库</span></div>
-<div class="why-item"><div class="check">✓</div><span data-i18n="why3">12 个预装 C 扩展，10-100x 加速</span></div>
-<div class="why-item"><div class="check">✓</div><span data-i18n="why4">150+ 预装 Wheel 库</span></div>
-<div class="why-item"><div class="check">✓</div><span data-i18n="why5">AI Agent 协助改代码、排查问题、处理项目任务</span></div>
-<div class="why-item"><div class="check">✓</div><span data-i18n="why6">灵动岛、Siri、x-callback-url</span></div>
-<div class="why-item"><div class="check">✓</div><span data-i18n="why7">Scene 2D 游戏引擎 + 物理</span></div>
-<div class="why-item"><div class="check">✓</div><span data-i18n="why8">Widget 桌面小组件</span></div>
-<div class="why-item"><div class="check">✓</div><span data-i18n="why9">SSH 服务器管理 + AI 运维</span></div>
-</div>
-</section>
+              <div class="floating-card package-card">
+                <strong data-i18n="packages">Packages</strong>
+                <div class="pkg-grid">
+                  <span class="pkg">NumPy</span>
+                  <span class="pkg">Pillow</span>
+                  <span class="pkg">Flask</span>
+                  <span class="pkg">Requests</span>
+                </div>
+              </div>
 
-<section id="screenshots" class="container">
-<h2 class="section-title" data-i18n="screenshotsTitle">📱 截图展示</h2>
-<div class="screenshots">
-<div class="screenshot-item"><img src="首页.png" alt="首页" /><p data-i18n="ss1">首页 · 文件管理、颜色标记、置顶、搜索</p></div>
-<div class="screenshot-item"><img src="编辑页面.png" alt="编辑器" /><p data-i18n="ss2">编辑器 · 语法高亮、智能补全、快捷输入栏</p></div>
-<div class="screenshot-item"><img src="控制台页面.png" alt="控制台" /><p data-i18n="ss3">控制台 · Rich 彩色输出、多控制台切换</p></div>
-<div class="screenshot-item"><img src="AI分析.png" alt="AI Agent" /><p data-i18n="ss4">AI Agent · 项目级协作、Diff 对比、问题修复</p></div>
-<div class="screenshot-item"><img src="库管理.png" alt="库管理" /><p data-i18n="ss5">库管理 · PyPI 搜索安装、热门库分类</p></div>
-<div class="screenshot-item"><img src="工具箱.png" alt="工具箱" /><p data-i18n="ss6">工具箱 · 编解码、JSON、API 调试、正则</p></div>
-<div class="screenshot-item"><img src="html预览.png" alt="HTML 预览" /><p data-i18n="ss7">HTML 预览 · 全屏网页渲染、双指缩放</p></div>
-<div class="screenshot-item"><img src="md文件.png" alt="Markdown" /><p data-i18n="ss8">Markdown 渲染 · 实时渲染、代码块、表格</p></div>
-<div class="screenshot-item"><img src="新建文件.png" alt="新建文件" /><p data-i18n="ss9">新建文件 · 多种格式、颜色标记</p></div>
-<div class="screenshot-item"><img src="设置.png" alt="设置" /><p data-i18n="ss10">设置 · 外观、AI 配置、应用锁定</p></div>
-</div>
-</section>
+              <div class="floating-card ssh-pill"><span class="ok-dot"></span> <span data-i18n="sshReady">SSH deploy ready</span></div>
+            </div>
+          </div>
+        </div>
 
-<section id="ssh" class="container">
-<h2 class="section-title" data-i18n="sshTitle">🖥️ SSH 服务器管理</h2>
-<p style="color:var(--text-muted);margin-bottom:2rem;" data-i18n="sshSub">写完脚本直接部署到服务器 — 完整 SSH2 协议，告别 App 切换。</p>
-<div class="bento" style="grid-template-columns:repeat(3,1fr)">
-<div class="bento-card"><div class="icon">💻</div><h3 data-i18n="ssh1Title">交互式终端</h3><p data-i18n="ssh1Desc">ANSI 256 色、多主题切换（Dracula / Solarized / Monokai）、命令历史、快捷键栏。</p></div>
-<div class="bento-card"><div class="icon">📂</div><h3 data-i18n="ssh2Title">SFTP 文件管理</h3><p data-i18n="ssh2Desc">远程浏览、在线编辑、上传下载、创建删除、chmod 权限管理。</p></div>
-<div class="bento-card"><div class="icon">🚀</div><h3 data-i18n="ssh3Title">一键部署</h3><p data-i18n="ssh3Desc">选择本地项目一键上传到服务器，自动安装依赖并执行。</p></div>
-<div class="bento-card"><div class="icon">📊</div><h3 data-i18n="ssh4Title">实时监控</h3><p data-i18n="ssh4Desc">CPU、内存、磁盘、网络流量仪表盘，5 秒自动刷新。</p></div>
-<div class="bento-card"><div class="icon">🔑</div><h3 data-i18n="ssh5Title">密钥管理</h3><p data-i18n="ssh5Desc">生成 Ed25519 / RSA / ECDSA 密钥对，导入导出，SHA256 指纹。</p></div>
-<div class="bento-card"><div class="icon">🤖</div><h3 data-i18n="ssh6Title">AI 智能运维</h3><p data-i18n="ssh6Desc">用自然语言协助部署、诊断和维护服务器任务。</p></div>
-</div>
-</section>
+        <div class="logo-strip" aria-hidden="true">
+          <span data-i18n="stripRuntime">Local runtime</span>
+          <span data-i18n="stripAI">AI Agent</span>
+          <span data-i18n="packages">Packages</span>
+          <span data-i18n="miniApps">Mini Apps</span>
+          <span data-i18n="community">Community</span>
+          <span>SSH</span>
+          <span data-i18n="widgets">Widgets</span>
+        </div>
+      </div>
+    </section>
 
-<section id="features" class="container">
-<h2 class="section-title" data-i18n="featuresTitle">✨ 核心功能</h2>
-<div class="feature-tabs">
-<button class="tab-btn active" data-tab="lang" data-i18n="tabLang">多语言</button>
-<button class="tab-btn" data-tab="editor" data-i18n="tabEditor">编辑器</button>
-<button class="tab-btn" data-tab="ai" data-i18n="tabAI">AI Agent</button>
-<button class="tab-btn" data-tab="libs" data-i18n="tabLibs">扩展库</button>
-<button class="tab-btn" data-tab="tools" data-i18n="tabTools">工具箱</button>
-<button class="tab-btn" data-tab="scene" data-i18n="tabScene">游戏引擎</button>
-<button class="tab-btn" data-tab="widget" data-i18n="tabWidget">桌面小组件</button>
-<button class="tab-btn" data-tab="ssh" data-i18n="tabSSH">SSH 服务器</button>
-</div>
-<div id="tab-lang" class="tab-content active">
-<div class="feature-grid">
-<div class="feature-chip"><strong>Python 3.13</strong> <span data-i18n="fLang1">完整标准库、async/await、多线程</span></div>
-<div class="feature-chip"><strong>JavaScript</strong> <span data-i18n="fLang2">alert/fetch/localStorage、剪贴板桥接</span></div>
-<div class="feature-chip"><strong>HTML 预览</strong> <span data-i18n="fLang3">WKWebView 全屏渲染、双指缩放</span></div>
-</div>
-</div>
-<div id="tab-editor" class="tab-content">
-<div class="feature-grid">
-<div class="feature-chip" data-i18n="fEdit1">语法高亮、Jedi 智能补全</div>
-<div class="feature-chip" data-i18n="fEdit2">查找替换、快捷输入栏</div>
-<div class="feature-chip" data-i18n="fEdit3">分屏模式、错误跳转</div>
-<div class="feature-chip" data-i18n="fEdit4">运行历史、实时保存</div>
-</div>
-</div>
-<div id="tab-ai" class="tab-content">
-<div class="feature-grid">
-<div class="feature-chip" data-i18n="fAI1">🤖 Agent 模式 — 面向项目级任务的执行协作</div>
-<div class="feature-chip" data-i18n="fAI2">📋 Plan 模式 — 先规划再动手</div>
-<div class="feature-chip" data-i18n="fAI3">✨ 行内修改 + Diff 逐条采纳</div>
-<div class="feature-chip" data-i18n="fAI4">🔧 跨文件修改、项目搜索、内容整理</div>
-<div class="feature-chip" data-i18n="fAI5">▶️ 结合运行结果继续调整代码</div>
-<div class="feature-chip" data-i18n="fAI6">🩺 基于报错和上下文生成修复建议</div>
-<div class="feature-chip" data-i18n="fAI7">📦 辅助安装依赖并处理环境问题</div>
-<div class="feature-chip" data-i18n="fAI8">📖 更贴合内置模块与移动端运行场景</div>
-<div class="feature-chip" data-i18n="fAI9">🔑 BYOK 无限使用 / 免费额度 / 调用包</div>
-<div class="feature-chip" data-i18n="fAI10">💬 多会话管理 + 图片附件</div>
-<div class="feature-chip" data-i18n="fAI11">🖥️ 可结合 SSH 工作流处理远程任务</div>
-</div>
-</div>
-<div id="tab-libs" class="tab-content">
-<div class="feature-grid">
-<div class="feature-chip">NumPy · Pillow · ujson</div>
-<div class="feature-chip">cryptography · bcrypt</div>
-<div class="feature-chip">aiohttp · regex</div>
-<div class="feature-chip">requests · flask</div>
-</div>
-</div>
-<div id="tab-tools" class="tab-content">
-<div class="feature-grid">
-<div class="feature-chip" data-i18n="fTool1">编解码 · JSON · API 调试</div>
-<div class="feature-chip" data-i18n="fTool2">二维码 · 时间戳</div>
-<div class="feature-chip" data-i18n="fTool3">正则表达式</div>
-<div class="feature-chip" data-i18n="fTool4">直链下载</div>
-</div>
-</div>
-<div id="tab-scene" class="tab-content">
-<div class="feature-grid">
-<div class="feature-chip" data-i18n="fScene1">SpriteKit 驱动的 2D 游戏引擎</div>
-<div class="feature-chip" data-i18n="fScene2">Node / SpriteNode / ShapeNode / LabelNode</div>
-<div class="feature-chip" data-i18n="fScene3">14 种 Action 动画 + 16 种缓动曲线</div>
-<div class="feature-chip" data-i18n="fScene4">物理引擎：重力、碰撞、关节</div>
-<div class="feature-chip" data-i18n="fScene5">经典 draw() 逐帧绘制模式</div>
-<div class="feature-chip" data-i18n="fScene6">触摸事件、陀螺仪、音效</div>
-<div class="feature-chip" data-i18n="fScene7">内置 16 款游戏示例</div>
-<div class="feature-chip" data-i18n="fScene8">Pythonista 完全兼容</div>
-</div>
-</div>
-<div id="tab-widget" class="tab-content">
-<div class="feature-grid">
-<div class="feature-chip" data-i18n="fWidget1">Python 创建 iOS 桌面小组件</div>
-<div class="feature-chip" data-i18n="fWidget2">14 种组件：文字、图标、进度条、仪表盘…</div>
-<div class="feature-chip" data-i18n="fWidget3">6 种尺寸：主屏幕 + 锁屏</div>
-<div class="feature-chip" data-i18n="fWidget4">深色模式自动适配</div>
-<div class="feature-chip" data-i18n="fWidget5">渐变背景 + 图片缓存</div>
-<div class="feature-chip" data-i18n="fWidget6">WidgetKit 原生倒计时</div>
-<div class="feature-chip" data-i18n="fWidget7">内置 8 款小组件示例</div>
-<div class="feature-chip" data-i18n="fWidget8">声明式 DSL + 快捷模板</div>
-</div>
-</div>
-<div id="tab-ssh" class="tab-content">
-<div class="feature-grid">
-<div class="feature-chip" data-i18n="fSSH1">🔐 SSH2 加密连接（Citadel / SwiftNIO-SSH）</div>
-<div class="feature-chip" data-i18n="fSSH2">🔑 密码 / Ed25519 / RSA / ECDSA 密钥认证</div>
-<div class="feature-chip" data-i18n="fSSH3">💻 ANSI 256 色交互式终端，多主题切换</div>
-<div class="feature-chip" data-i18n="fSSH4">📂 SFTP 文件浏览、编辑、上传、下载</div>
-<div class="feature-chip" data-i18n="fSSH5">🚀 一键部署 — 本地脚本直接上传运行</div>
-<div class="feature-chip" data-i18n="fSSH6">📊 服务器监控 — CPU / 内存 / 磁盘 / 网络</div>
-<div class="feature-chip" data-i18n="fSSH7">⚡ 40+ 预置命令片段（系统 / Docker / Python）</div>
-<div class="feature-chip" data-i18n="fSSH8">🤖 AI 辅助服务器诊断、部署与日常运维</div>
-<div class="feature-chip" data-i18n="fSSH9">🔧 SSH 密钥生成 / 导入 / 导出</div>
-<div class="feature-chip" data-i18n="fSSH10">📡 KeepAlive 心跳，后台不断连</div>
-</div>
-</div>
-</section>
+    <section class="scroll-story" id="features">
+      <div class="story-stage">
+        <div class="story-card" id="storyCard">
+          <div class="story-copy">
+            <div class="story-kicker" id="storyKicker" data-i18n="featuresKicker">Core features</div>
+            <h2 id="storyTitle" data-i18n="featuresTitle">Everything opens from one place.</h2>
+            <p class="story-text" id="storyText">Motion reveals feature groups without turning the page into a long checklist.</p>
+          </div>
 
-<section id="docs" class="container">
-<h2 class="section-title" data-i18n="docsTitle">📚 模块文档</h2>
-<p style="color:var(--text-muted);margin-bottom:2rem;" data-i18n="docsSub">打开在线文档，或者把同一个链接发给 AI，让它按 PythonIDE 的 AppUI、Widget、scene、ui 和 iOS 原生能力生成代码。</p>
-<div class="link-grid">
-<a href="/docs/" class="link-card">
-<span data-i18n="docsCard1Title">PythonIDE Docs</span>
-<span data-i18n="docsCard1Desc">Mini App、小组件、scene、ui、iOS 原生能力和 AI 生成入口</span>
-</a>
-<a href="/llms.txt" class="link-card">
-<span data-i18n="docsCard2Title">llms.txt</span>
-<span data-i18n="docsCard2Desc">给 ChatGPT、Claude、Gemini 等 AI 工具读取的文档索引</span>
-</a>
-</div>
-</section>
+          <div class="feature-row">
+            <article class="feature-tile" style="--tile-color: var(--blue)">
+              <div class="feature-icon">Py</div>
+              <div><strong data-i18n="tileRuntimeTitle">Local execution</strong></div>
+            </article>
+            <article class="feature-tile" style="--tile-color: var(--pink)">
+              <div class="feature-icon">AI</div>
+              <div><strong data-i18n="tileAITitle">Agent loop</strong></div>
+            </article>
+            <article class="feature-tile" style="--tile-color: var(--purple)">
+              <div class="feature-icon">SSH</div>
+              <div><strong data-i18n="tileSSHTitle">Remote workflow</strong></div>
+            </article>
+            <article class="feature-tile" style="--tile-color: var(--orange)">
+              <div class="feature-icon">App</div>
+              <div><strong data-i18n="tileMiniTitle">Mini Apps</strong></div>
+            </article>
+            <article class="feature-tile" style="--tile-color: var(--green)">
+              <div class="feature-icon">Hub</div>
+              <div><strong data-i18n="tileCommunityTitle">In-app community</strong></div>
+            </article>
+            <article class="feature-tile" style="--tile-color: var(--cyan)">
+              <div class="feature-icon">Lib</div>
+              <div><strong data-i18n="tileLibraryTitle">Library manager</strong></div>
+            </article>
+          </div>
+        </div>
+      </div>
+    </section>
 
-<section id="install" class="container">
-<div class="install-cta">
-<h2 data-i18n="installTitle">📥 立即下载</h2>
-<p style="color:var(--text-muted);margin-bottom:1.5rem;" data-i18n="installSub">iOS 16.2+ · iPhone / iPad · 免费</p>
-<a href="https://apps.apple.com/app/id6753987304" class="btn btn-appstore" data-i18n="btnAppStore">App Store 免费下载</a>
-</div>
-</section>
+    <section class="resources" id="resources">
+      <div class="resource-card">
+        <div class="story-copy">
+          <div class="story-kicker" data-i18n="resourcesKicker">Resources</div>
+          <h2 data-i18n="resourcesTitle">Download, source, docs.</h2>
+          <p class="story-text" data-i18n="resourcesText">A focused page: one refined hero, one animated feature reveal, and clear exits to App Store, GitHub, and documentation.</p>
+        </div>
+        <div class="resource-links">
+          <a class="resource-link primary" href="https://apps.apple.com/app/id6753987304"><span data-i18n="downloadStore">Download on App Store</span><span class="arrow">→</span></a>
+          <a class="resource-link" href="https://github.com/jinwandalaohu66/PythonIDE-iOS"><span data-i18n="githubRepo">GitHub repository</span><span class="arrow">→</span></a>
+          <a class="resource-link" href="/docs/"><span data-i18n="documentation">Documentation</span><span class="arrow">→</span></a>
+        </div>
+      </div>
+    </section>
+  </main>
 
-<section class="container">
-<h2 class="section-title" data-i18n="communityTitle">💬 社区与反馈</h2>
-<div class="link-grid">
-<a href="https://t.me/pythonzwb" class="link-card" target="_blank"><span>Telegram</span> <span data-i18n="link1">频道交流</span></a>
-<a href="https://github.com/jinwandalaohu66/PythonIDE-Landing/discussions" class="link-card" target="_blank"><span>Discussions</span> <span data-i18n="link2">功能建议</span></a>
-<a href="https://github.com/jinwandalaohu66/PythonIDE-Landing/issues" class="link-card" target="_blank"><span>Issues</span> <span data-i18n="link3">问题反馈</span></a>
-<a href="mailto:jinwandalaohu940@gmail.com?subject=Python%20IDE%20Feedback" class="link-card"><span>📧</span> <span data-i18n="link4">邮件反馈</span></a>
-</div>
-</section>
+  <script>
+    const translations = {
+      en: {
+        navFeatures: "Features",
+        navDocs: "Docs",
+        themeSystem: "Auto",
+        themeLight: "Day",
+        themeDark: "Night",
+        download: "Download",
+        trust: "Built for coding on iPhone and iPad",
+        heroTitle: "Python mobile workspace.",
+        heroSub: "Local Python, AI Agent, Mini Apps, community, SSH, widgets, and tools in one focused mobile workspace.",
+        featuresKicker: "Core features",
+        featuresTitle: "Everything opens from one place.",
+        statRuntime: "Python runtime",
+        statAI: "Agent workflow",
+        statSSH: "Remote deploy",
+        aiPatch: "AI Patch",
+        packages: "Packages",
+        sshReady: "SSH deploy ready",
+        stripRuntime: "Local runtime",
+        stripAI: "AI Agent",
+        miniApps: "Mini Apps",
+        community: "Community",
+        widgets: "Widgets",
+        tileRuntimeTitle: "Local execution",
+        tileRuntimeText: "Run scripts, inspect output, preview HTML and Markdown.",
+        tileAITitle: "Agent loop",
+        tileAIText: "Plan, patch, review diffs, and continue from errors.",
+        tileSSHTitle: "Remote workflow",
+        tileSSHText: "Terminal, SFTP, deploy, snippets, and monitoring.",
+        tileMiniTitle: "Mini Apps",
+        tileMiniText: "Build, package, import, export, and launch small tools inside Python IDE.",
+        tileCommunityTitle: "In-app community",
+        tileCommunityText: "Discover, publish, and reuse scripts and Mini Apps from the app.",
+        tileLibraryTitle: "Library manager",
+        tileLibraryText: "Install, update, and organize Python packages for each workspace.",
+        resourcesKicker: "Resources",
+        resourcesTitle: "Download, source, docs.",
+        resourcesText: "A focused page: one refined hero, one animated feature reveal, and clear exits to App Store, GitHub, and documentation.",
+        downloadStore: "Download on App Store",
+        githubRepo: "GitHub repository",
+        documentation: "Documentation",
+        stories: [
+          {
+            kicker: "Runtime",
+            title: "Run Python locally.",
+            text: "Run scripts, preview output, manage files, and stay productive without leaving your phone.",
+            glow: "rgba(25,118,255,0.13)"
+          },
+          {
+            kicker: "AI Agent",
+            title: "Fix, refactor, and continue.",
+            text: "Use project-aware help for planning, patching, reviewing diffs, and following up from runtime errors.",
+            glow: "rgba(255,85,184,0.14)"
+          },
+          {
+            kicker: "Remote",
+            title: "Deploy from your iPhone.",
+            text: "SSH, SFTP, command snippets, packages, Mini Apps, community, widgets, and utilities fit into one mobile workflow.",
+            glow: "rgba(117,92,255,0.13)"
+          }
+        ]
+      },
+      zh: {
+        navFeatures: "功能",
+        navDocs: "文档",
+        themeSystem: "自动",
+        themeLight: "白天",
+        themeDark: "夜间",
+        download: "下载",
+        trust: "专为移动编程设计",
+        heroTitle: "Python 移动工作台。",
+        heroSub: "本地运行、AI Agent、Mini App、社区、SSH 与 Widget，集中在一个移动工作台。",
+        featuresKicker: "核心能力",
+        featuresTitle: "所有能力集中在一个入口。",
+        statRuntime: "Python 运行时",
+        statAI: "Agent 工作流",
+        statSSH: "远程部署",
+        aiPatch: "AI 修复",
+        packages: "扩展库",
+        sshReady: "SSH 部署就绪",
+        stripRuntime: "本地运行",
+        stripAI: "AI Agent",
+        miniApps: "Mini App",
+        community: "社区",
+        widgets: "Widget",
+        tileRuntimeTitle: "本地执行",
+        tileRuntimeText: "运行脚本、查看输出、预览 HTML 和 Markdown。",
+        tileAITitle: "Agent 循环",
+        tileAIText: "规划、修复、审查 Diff，并根据报错继续调整。",
+        tileSSHTitle: "远程工作流",
+        tileSSHText: "终端、SFTP、部署、命令片段和监控。",
+        tileMiniTitle: "Mini App",
+        tileMiniText: "创建、打包、导入、导出，并在应用内启动小工具。",
+        tileCommunityTitle: "应用内社区",
+        tileCommunityText: "发现、发布、复用脚本和 Mini App，不离开应用。",
+        tileLibraryTitle: "库管理",
+        tileLibraryText: "安装、更新、整理每个工作区的 Python 扩展库。",
+        resourcesKicker: "入口",
+        resourcesTitle: "下载 源码 文档",
+        resourcesText: "页面保持聚焦：一个精致首屏，一个动态功能展示，再给出 App Store、GitHub 和文档入口。",
+        downloadStore: "在 App Store 下载",
+        githubRepo: "GitHub 仓库",
+        documentation: "文档",
+        stories: [
+          {
+            kicker: "运行时",
+            title: "本地运行 Python。",
+            text: "运行脚本、预览输出、管理文件，不离开手机也能完成日常开发。",
+            glow: "rgba(25,118,255,0.13)"
+          },
+          {
+            kicker: "AI Agent",
+            title: "修复、重构、继续迭代。",
+            text: "面向项目的规划、改代码、审查 Diff，并能根据运行报错继续跟进。",
+            glow: "rgba(255,85,184,0.14)"
+          },
+          {
+            kicker: "远程",
+            title: "从 iPhone 部署。",
+            text: "SSH、SFTP、命令片段、扩展库、Mini App、社区、Widget 和工具组成完整移动工作流。",
+            glow: "rgba(117,92,255,0.13)"
+          }
+        ]
+      }
+    };
 
-<section class="container">
-<div class="donate-section">
-<h2 data-i18n="donateTitle">☕ 支持开发</h2>
-<p style="color:var(--text-muted)" data-i18n="donateSub">App Store 评分 · GitHub Star · 应用内捐赠（棒棒糖 / 鸡腿 / 奶茶）</p>
-<div class="donate-qr">
-<img src="赞赏码.jpg" alt="赞赏码" />
-<p style="color:var(--text-muted);margin-top:0.5rem;" data-i18n="donateQr">扫码赞赏 · Thank you ♥</p>
-</div>
-</div>
-</section>
+    let currentLang = localStorage.getItem("pythonide-reference-lang") || (navigator.language.toLowerCase().startsWith("zh") ? "zh" : "en");
+    let currentTheme = localStorage.getItem("pythonide-reference-theme") || "system";
+    let activeStoryIndex = 0;
+    let languageTimer = 0;
+    let themeTimer = 0;
+    let animationBooted = false;
+    let gsapLoadPromise = null;
+    let gsapLoadStartedAt = 0;
+    let featureTilesPlayed = false;
+    let featureInteractionsBound = false;
+    const systemThemeQuery = window.matchMedia("(prefers-color-scheme: dark)");
+    const gsapSources = {
+      core: "https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/gsap.min.js",
+      scrollTrigger: "https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/ScrollTrigger.min.js",
+      customEase: "https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/CustomEase.min.js"
+    };
 
-<footer class="footer">
-<strong>Python IDE</strong> — <span data-i18n="footerTag">本地、纯粹、实用的移动端编程环境</span><br/>
-<a href="https://github.com/jinwandalaohu66/PythonIDE-iOS" data-i18n="footerLink">查看 README.md 完整文档</a>
-</footer>
+    function loadMotionScript(src, timeout = 1400) {
+      return new Promise((resolve) => {
+        const existing = document.querySelector(`script[src="${src}"]`);
+        let settled = false;
+        const finish = (loaded) => {
+          if (settled) return;
+          settled = true;
+          resolve(loaded);
+        };
 
-</div>
+        if (existing) {
+          existing.addEventListener("load", () => finish(true), { once: true });
+          existing.addEventListener("error", () => finish(false), { once: true });
+          window.setTimeout(() => finish(Boolean(window.gsap)), timeout);
+          return;
+        }
 
-<button class="back-to-top" id="back-to-top"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 15l-6-6-6 6"/></svg></button>
+        const script = document.createElement("script");
+        script.src = src;
+        script.async = true;
+        script.crossOrigin = "anonymous";
+        script.dataset.motionLoader = "gsap";
+        script.onload = () => finish(true);
+        script.onerror = () => finish(false);
+        document.head.appendChild(script);
+        window.setTimeout(() => finish(false), timeout);
+      });
+    }
 
-<script>
-const i18n = {
-zh: {
-navWhy: "为什么选择", navScreenshots: "截图", navFeatures: "功能", navDocs: "文档", navSSH: "SSH", navInstall: "下载",
-heroTitle: "Python IDE", heroTagline: "掌上的 Python & JavaScript 开发环境",
-heroSub: "让编程从电脑走到手机与平板 · Write, Run, Debug on iOS",
-btnAppStore: "App Store 免费下载",
-btnDocs: "📚 文档 / AI 生成",
-whyTitle: "🌟 为什么选择 Python IDE？", whySub: "不是把电脑版塞进手机，而是专为触摸屏和移动场景重新设计的编程环境。",
-bento1Title: "完全本地运行", bento1Desc: "代码执行不依赖任何服务器，无网络也能用。",
-bento2Title: "12 个 C 扩展", bento2Desc: "NumPy、Pillow、cryptography 等，10–100 倍加速。",
-bento3Title: "150+ 预装库", bento3Desc: "常用库开箱即用，搜索 PyPI 在线安装。",
-bento4Title: "AI Agent", bento4Desc: "Agent 模式可直接协助处理项目任务，改代码、排查问题、配合远程工作流。",
-bento5Title: "iOS 深度集成", bento5Desc: "灵动岛、Siri 快捷指令、x-callback-url。",
-bento6Title: "隐私安全", bento6Desc: "Face ID 锁定，本地运行，代码不外传。",
-bento7Title: "2D 游戏引擎", bento7Desc: "Scene 模块 + SpriteKit，物理引擎、粒子、动画。",
-bento8Title: "桌面小组件", bento8Desc: "Python 创建 iOS 主屏幕 Widget，声明式布局。",
-bento9Title: "SSH 服务器管理", bento9Desc: "SSH2 加密连接、SFTP 文件管理、一键部署、实时监控、AI 智能运维 — 写完脚本直接部署到服务器。",
-why1: "完全本地运行，无网络也能用", why2: "Python 3.13 完整标准库", why3: "12 个预装 C 扩展，10-100x 加速",
-why4: "150+ 预装 Wheel 库", why5: "AI Agent 协助改代码、排查问题、处理项目任务", why6: "灵动岛、Siri、x-callback-url",
-why7: "Scene 2D 游戏引擎 + 物理", why8: "Widget 桌面小组件", why9: "SSH 服务器管理 + AI 运维",
-screenshotsTitle: "📱 截图展示",
-ss1: "首页 · 文件管理、颜色标记、置顶、搜索", ss2: "编辑器 · 语法高亮、智能补全、快捷输入栏",
-ss3: "控制台 · Rich 彩色输出、多控制台切换", ss4: "AI Agent · 项目级协作、Diff 对比、问题修复",
-ss5: "库管理 · PyPI 搜索安装、热门库分类", ss6: "工具箱 · 编解码、JSON、API 调试、正则",
-ss7: "HTML 预览 · 全屏网页渲染、双指缩放", ss8: "Markdown 渲染 · 实时渲染、代码块、表格",
-ss9: "新建文件 · 多种格式、颜色标记", ss10: "设置 · 外观、AI 配置、应用锁定",
-featuresTitle: "✨ 核心功能",
-tabLang: "多语言", tabEditor: "编辑器", tabAI: "AI Agent", tabLibs: "扩展库", tabTools: "工具箱",
-tabScene: "游戏引擎", tabWidget: "桌面小组件", tabSSH: "SSH 服务器",
-fLang1: "完整标准库、async/await、多线程", fLang2: "alert/fetch/localStorage、剪贴板桥接", fLang3: "WKWebView 全屏渲染、双指缩放",
-fEdit1: "语法高亮、Jedi 智能补全", fEdit2: "查找替换、快捷输入栏", fEdit3: "分屏模式、错误跳转", fEdit4: "运行历史、实时保存",
-fAI1: "🤖 Agent 模式 — 面向项目级任务的执行协作", fAI2: "📋 Plan 模式 — 先规划再动手",
-fAI3: "✨ 行内修改 + Diff 逐条采纳", fAI4: "🔧 跨文件修改、项目搜索、内容整理",
-fAI5: "▶️ 结合运行结果继续调整代码", fAI6: "🩺 基于报错和上下文生成修复建议",
-fAI7: "📦 辅助安装依赖并处理环境问题", fAI8: "📖 更贴合内置模块与移动端运行场景",
-fAI9: "🔑 BYOK 无限使用 / 免费额度 / 调用包", fAI10: "💬 多会话管理 + 图片附件",
-fAI11: "🖥️ 可结合 SSH 工作流处理远程任务",
-fTool1: "编解码 · JSON · API 调试", fTool2: "二维码 · 时间戳", fTool3: "正则表达式", fTool4: "直链下载",
-fScene1: "SpriteKit 驱动的 2D 游戏引擎", fScene2: "Node / SpriteNode / ShapeNode / LabelNode",
-fScene3: "14 种 Action 动画 + 16 种缓动曲线", fScene4: "物理引擎：重力、碰撞、关节",
-fScene5: "经典 draw() 逐帧绘制模式", fScene6: "触摸事件、陀螺仪、音效",
-fScene7: "内置 16 款游戏示例", fScene8: "Pythonista 完全兼容",
-fWidget1: "Python 创建 iOS 桌面小组件", fWidget2: "14 种组件：文字、图标、进度条、仪表盘…",
-fWidget3: "6 种尺寸：主屏幕 + 锁屏", fWidget4: "深色模式自动适配",
-fWidget5: "渐变背景 + 图片缓存", fWidget6: "WidgetKit 原生倒计时",
-fWidget7: "内置 8 款小组件示例", fWidget8: "声明式 DSL + 快捷模板",
-fSSH1: "🔐 SSH2 加密连接（Citadel / SwiftNIO-SSH）", fSSH2: "🔑 密码 / Ed25519 / RSA / ECDSA 密钥认证",
-fSSH3: "💻 ANSI 256 色交互式终端，多主题切换", fSSH4: "📂 SFTP 文件浏览、编辑、上传、下载",
-fSSH5: "🚀 一键部署 — 本地脚本直接上传运行", fSSH6: "📊 服务器监控 — CPU / 内存 / 磁盘 / 网络",
-fSSH7: "⚡ 40+ 预置命令片段（系统 / Docker / Python）", fSSH8: "🤖 AI 辅助服务器诊断、部署与日常运维",
-fSSH9: "🔧 SSH 密钥生成 / 导入 / 导出", fSSH10: "📡 KeepAlive 心跳，后台不断连",
-docsTitle: "📚 模块文档",
-docsSub: "打开在线文档，或者把同一个链接发给 AI，让它按 PythonIDE 的 AppUI、Widget、scene、ui 和 iOS 原生能力生成代码。",
-docsCard1Title: "PythonIDE Docs",
-docsCard1Desc: "Mini App、小组件、scene、ui、iOS 原生能力和 AI 生成入口",
-docsCard2Title: "llms.txt",
-docsCard2Desc: "给 ChatGPT、Claude、Gemini 等 AI 工具读取的文档索引",
-sshTitle: "🖥️ SSH 服务器管理", sshSub: "写完脚本直接部署到服务器 — 完整 SSH2 协议，告别 App 切换。",
-ssh1Title: "交互式终端", ssh1Desc: "ANSI 256 色、多主题切换（Dracula / Solarized / Monokai）、命令历史、快捷键栏。",
-ssh2Title: "SFTP 文件管理", ssh2Desc: "远程浏览、在线编辑、上传下载、创建删除、chmod 权限管理。",
-ssh3Title: "一键部署", ssh3Desc: "选择本地项目一键上传到服务器，自动安装依赖并执行。",
-ssh4Title: "实时监控", ssh4Desc: "CPU、内存、磁盘、网络流量仪表盘，5 秒自动刷新。",
-ssh5Title: "密钥管理", ssh5Desc: "生成 Ed25519 / RSA / ECDSA 密钥对，导入导出，SHA256 指纹。",
-ssh6Title: "AI 智能运维", ssh6Desc: "用自然语言协助部署、诊断和维护服务器任务。",
-installTitle: "📥 立即下载", installSub: "iOS 16.2+ · iPhone / iPad · 免费",
-communityTitle: "💬 社区与反馈", link1: "频道交流", link2: "功能建议", link3: "问题反馈", link4: "邮件反馈",
-donateTitle: "☕ 支持开发", donateSub: "App Store 评分 · GitHub Star · 应用内捐赠（棒棒糖 / 鸡腿 / 奶茶）", donateQr: "扫码赞赏 · Thank you ♥",
-footerTag: "本地、纯粹、实用的移动端编程环境", footerLink: "查看 README.md 完整文档"
-},
-en: {
-navWhy: "Why Choose", navScreenshots: "Screenshots", navFeatures: "Features", navDocs: "Docs", navSSH: "SSH", navInstall: "Download",
-heroTitle: "Python IDE", heroTagline: "Python & JavaScript on Your Palm",
-heroSub: "Write, Run, Debug on iOS · From Desktop to Mobile",
-btnAppStore: "Download on App Store",
-btnDocs: "📚 Docs / AI Generation",
-whyTitle: "🌟 Why Python IDE?", whySub: "Built for touch and mobile — not a desktop IDE cramped into a phone.",
-bento1Title: "Fully Local", bento1Desc: "Runs offline. No server dependency.",
-bento2Title: "12 C Extensions", bento2Desc: "NumPy, Pillow, cryptography — 10–100× faster.",
-bento3Title: "150+ Libraries", bento3Desc: "Pre-installed. Search PyPI for more.",
-bento4Title: "AI Agent", bento4Desc: "Agent mode helps with real project tasks: edit code, investigate issues, and work with remote workflows.",
-bento5Title: "iOS Native", bento5Desc: "Dynamic Island, Siri, x-callback-url.",
-bento6Title: "Privacy First", bento6Desc: "Face ID lock. Code stays on device.",
-bento7Title: "2D Game Engine", bento7Desc: "Scene module + SpriteKit, physics, particles, animations.",
-bento8Title: "Home Widgets", bento8Desc: "Create iOS widgets with Python, declarative layout.",
-bento9Title: "SSH Server Manager", bento9Desc: "SSH2 encrypted connections, SFTP, one-click deploy, real-time monitoring, AI-powered server ops.",
-why1: "Fully local, works offline", why2: "Python 3.13 full stdlib", why3: "12 C extensions, 10–100× speed",
-why4: "150+ pre-installed wheels", why5: "AI Agent helps edit code, diagnose issues, and handle project tasks", why6: "Dynamic Island, Siri, x-callback-url",
-why7: "Scene 2D game engine + physics", why8: "Widget home screen components", why9: "SSH server management + AI ops",
-screenshotsTitle: "📱 Screenshots",
-ss1: "Home · Files, tags, pin, search", ss2: "Editor · Syntax, autocomplete, shortcuts",
-ss3: "Console · Rich output, multi-console", ss4: "AI Agent · project-wide help, Diff review, issue fixing",
-ss5: "Libraries · PyPI search, categories", ss6: "Tools · Encode, JSON, API, regex",
-ss7: "HTML Preview · Full-screen, zoom", ss8: "Markdown · Live render",
-ss9: "New File · Formats, tags", ss10: "Settings · Theme, AI, lock",
-featuresTitle: "✨ Core Features",
-tabLang: "Languages", tabEditor: "Editor", tabAI: "AI Agent", tabLibs: "Libraries", tabTools: "Tools",
-tabScene: "Game Engine", tabWidget: "Widgets", tabSSH: "SSH Server",
-fLang1: "Full stdlib, async/await, threading", fLang2: "alert/fetch/localStorage, clipboard", fLang3: "WKWebView, pinch zoom",
-fEdit1: "Syntax highlighting, Jedi autocomplete", fEdit2: "Find & replace, shortcut bar", fEdit3: "Split view, error jump", fEdit4: "Run history, auto-save",
-fAI1: "🤖 Agent Mode — execution help for project-level tasks", fAI2: "📋 Plan Mode — design before coding",
-fAI3: "✨ Inline edit + Diff review", fAI4: "🔧 Cross-file edits, project search, workspace changes",
-fAI5: "▶️ Refine code based on run results", fAI6: "🩺 Generate fixes from errors and context",
-fAI7: "📦 Assist with dependencies and environment issues", fAI8: "📖 Better aligned with built-in modules and mobile runtime limits",
-fAI9: "🔑 BYOK unlimited / free quota / call packs", fAI10: "💬 Multi-session + image attachments",
-fAI11: "🖥️ Works with SSH workflows for remote tasks",
-fTool1: "Encode · JSON · API", fTool2: "QR · Timestamp", fTool3: "Regex", fTool4: "Direct download",
-fScene1: "SpriteKit-powered 2D game engine", fScene2: "Node / SpriteNode / ShapeNode / LabelNode",
-fScene3: "14 Actions + 16 timing curves", fScene4: "Physics: gravity, collision, joints",
-fScene5: "Classic draw() per-frame rendering", fScene6: "Touch events, gyroscope, sound effects",
-fScene7: "16 built-in game examples", fScene8: "Pythonista fully compatible",
-fWidget1: "Create iOS widgets with Python", fWidget2: "14 components: text, icon, progress, gauge…",
-fWidget3: "6 sizes: home screen + lock screen", fWidget4: "Auto dark mode support",
-fWidget5: "Gradient backgrounds + image cache", fWidget6: "WidgetKit native timer",
-fWidget7: "8 built-in widget examples", fWidget8: "Declarative DSL + quick templates",
-fSSH1: "🔐 SSH2 encrypted (Citadel / SwiftNIO-SSH)", fSSH2: "🔑 Password / Ed25519 / RSA / ECDSA keys",
-fSSH3: "💻 ANSI 256-color terminal, multiple themes", fSSH4: "📂 SFTP browse, edit, upload, download",
-fSSH5: "🚀 One-click deploy — upload & run scripts", fSSH6: "📊 Server monitor — CPU / Memory / Disk / Network",
-fSSH7: "⚡ 40+ preset command snippets", fSSH8: "🤖 AI-assisted diagnostics, deployment, and routine server ops",
-fSSH9: "🔧 SSH key generate / import / export", fSSH10: "📡 KeepAlive heartbeat, stays connected",
-docsTitle: "📚 Module Docs",
-docsSub: "Open the online docs, or send the same link to an AI so it can generate PythonIDE AppUI, Widget, scene, ui, and native iOS code.",
-docsCard1Title: "PythonIDE Docs",
-docsCard1Desc: "Mini Apps, widgets, scene, ui, native iOS capabilities, and AI generation entry point",
-docsCard2Title: "llms.txt",
-docsCard2Desc: "A compact docs index for ChatGPT, Claude, Gemini, and other AI tools",
-sshTitle: "🖥️ SSH Server Manager", sshSub: "Deploy scripts to servers instantly — full SSH2 protocol, no app switching.",
-ssh1Title: "Interactive Terminal", ssh1Desc: "ANSI 256-color, multiple themes (Dracula / Solarized / Monokai), command history, shortcut bar.",
-ssh2Title: "SFTP File Manager", ssh2Desc: "Browse, edit, upload, download, create, delete, chmod permissions.",
-ssh3Title: "One-Click Deploy", ssh3Desc: "Select local project, upload to server, auto-install deps & run.",
-ssh4Title: "Real-Time Monitor", ssh4Desc: "CPU, memory, disk, network dashboard. Auto-refresh every 5 seconds.",
-ssh5Title: "Key Management", ssh5Desc: "Generate Ed25519 / RSA / ECDSA key pairs, import/export, SHA256 fingerprint.",
-ssh6Title: "AI Smart Ops", ssh6Desc: "Use natural language to assist with deployment, diagnosis, and server maintenance.",
-installTitle: "📥 Download", installSub: "iOS 16.2+ · iPhone / iPad · Free",
-communityTitle: "💬 Community", link1: "Telegram", link2: "Discussions", link3: "Issues", link4: "Email",
-donateTitle: "☕ Support", donateSub: "App Store rating · GitHub Star · In-app tip", donateQr: "Scan to tip · Thank you ♥",
-footerTag: "Local, clean, practical — mobile coding", footerLink: "View full README"
-}
-};
+    function ensureGSAPReady() {
+      if (window.gsap && window.ScrollTrigger) return Promise.resolve(true);
+      if (prefersReducedMotion) return Promise.resolve(false);
+      if (gsapLoadPromise) return gsapLoadPromise;
 
-let lang = localStorage.getItem('pythonide-lang') || 'zh';
-function applyLang(l) {
-lang = l;
-localStorage.setItem('pythonide-lang', l);
-document.querySelectorAll('.lang-btn').forEach(b => { b.classList.toggle('active', b.dataset.lang === l); });
-const t = i18n[l];
-document.querySelectorAll('[data-i18n]').forEach(el => {
-const k = el.dataset.i18n;
-if (t[k]) el.textContent = t[k];
-});
-document.documentElement.lang = l === 'zh' ? 'zh-CN' : 'en';
-document.title = l === 'zh' ? 'Python IDE - 掌上的 Python & JavaScript 开发环境' : 'Python IDE - Python & JavaScript on iOS';
-}
-document.querySelectorAll('.lang-btn').forEach(btn => {
-btn.addEventListener('click', () => applyLang(btn.dataset.lang));
-});
-applyLang(lang);
+      gsapLoadStartedAt = performance.now();
+      gsapLoadPromise = (async () => {
+        if (!window.gsap) await loadMotionScript(gsapSources.core, 1600);
+        if (window.gsap && !window.ScrollTrigger) await loadMotionScript(gsapSources.scrollTrigger, 1600);
+        if (window.gsap && !window.CustomEase) await loadMotionScript(gsapSources.customEase, 1400);
+        return Boolean(window.gsap && window.ScrollTrigger);
+      })();
+      return gsapLoadPromise;
+    }
 
-const quickNav = document.querySelector('.quick-nav');
-const backToTop = document.getElementById('back-to-top');
-window.addEventListener('scroll', () => {
-const show = window.scrollY > window.innerHeight * 0.5;
-quickNav.classList.toggle('visible', show);
-backToTop.classList.toggle('visible', show);
-});
-backToTop.addEventListener('click', () => {
-window.scrollTo({ top: 0, behavior: 'smooth' });
-});
+    function configureMotionEases() {
+      if (!window.gsap || !window.CustomEase) return;
+      gsap.registerPlugin(window.CustomEase);
+      if (!gsap.parseEase("pythonide.pop")) {
+        CustomEase.create("pythonide.pop", "M0,0 C0.08,0.62 0.18,1.08 0.35,1 C0.48,0.94 0.58,1.03 0.72,1 C0.86,0.98 0.94,1 1,1");
+      }
+      if (!gsap.parseEase("pythonide.settle")) {
+        CustomEase.create("pythonide.settle", "M0,0 C0.2,0.98 0.32,1.05 0.48,1 C0.66,0.96 0.82,1 1,1");
+      }
+    }
 
-(function() {
-const canvas = document.getElementById('particles');
-const ctx = canvas.getContext('2d');
-let w = canvas.width = window.innerWidth, h = canvas.height = window.innerHeight;
-let particles = [];
-const count = Math.min(100, Math.floor((w * h) / 12000));
-const maxDist = 140;
+    function resolveTheme(choice) {
+      if (choice === "dark") return "dark";
+      if (choice === "light") return "light";
+      return systemThemeQuery.matches ? "dark" : "light";
+    }
 
-class Particle {
-constructor() {
-this.x = Math.random() * w; this.y = Math.random() * h;
-this.vx = (Math.random() - 0.5) * 0.12; this.vy = (Math.random() - 0.5) * 0.12;
-this.r = Math.random() * 2.5 + 0.5; this.opacity = Math.random() * 0.4 + 0.25;
-}
-update() {
-this.x += this.vx; this.y += this.vy;
-if (this.x < 0 || this.x > w) this.vx *= -1;
-if (this.y < 0 || this.y > h) this.vy *= -1;
-}
-}
-for (let i = 0; i < count; i++) particles.push(new Particle());
+    function applyTheme(choice, options = {}) {
+      const nextChoice = ["system", "light", "dark"].includes(choice) ? choice : "system";
+      const resolved = resolveTheme(nextChoice);
+      currentTheme = nextChoice;
+      if (options.persist !== false) {
+        localStorage.setItem("pythonide-reference-theme", nextChoice);
+      }
 
-function getColor() { return (getComputedStyle(document.documentElement).getPropertyValue('--particle-color').trim() || '255,255,255').replace(/\s/g,''); }
-function draw() {
-const c = getColor();
-ctx.clearRect(0, 0, w, h);
-particles.forEach(p => { p.update(); ctx.beginPath(); ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2); ctx.fillStyle = `rgba(${c},${p.opacity})`; ctx.fill(); });
-particles.forEach((a, i) => {
-particles.slice(i + 1).forEach(b => {
-const dx = a.x - b.x, dy = a.y - b.y, dist = Math.sqrt(dx * dx + dy * dy);
-if (dist < maxDist) {
-ctx.beginPath(); ctx.moveTo(a.x, a.y); ctx.lineTo(b.x, b.y);
-ctx.strokeStyle = `rgba(${c},${0.1 * (1 - dist / maxDist)})`; ctx.lineWidth = 0.5; ctx.stroke();
-}
-});
-});
-requestAnimationFrame(draw);
-}
-draw();
-window.addEventListener('resize', () => { w = canvas.width = window.innerWidth; h = canvas.height = window.innerHeight; });
-})();
+      document.documentElement.dataset.theme = resolved;
+      document.documentElement.dataset.themeChoice = nextChoice;
+      document.querySelector(".theme-toggle")?.style.setProperty("--theme-index", nextChoice === "system" ? 0 : nextChoice === "light" ? 1 : 2);
+      document.querySelectorAll(".theme-toggle button").forEach((button) => {
+        button.classList.toggle("active", button.dataset.themeChoice === nextChoice);
+      });
 
-document.querySelectorAll('.tab-btn').forEach(btn => {
-btn.addEventListener('click', () => {
-document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
-btn.classList.add('active');
-const panel = document.getElementById('tab-' + btn.dataset.tab);
-panel.classList.add('active');
-gsap.fromTo(panel.querySelectorAll('.feature-chip'), { y: 20, opacity: 0 }, { y: 0, opacity: 1, duration: 0.5, stagger: 0.05, ease: 'power3.out' });
-});
-});
+      if (options.animate === false) return;
+      window.clearTimeout(themeTimer);
+      document.documentElement.classList.remove("is-theme-changing");
+      requestAnimationFrame(() => {
+        document.documentElement.classList.add("is-theme-changing");
+        document.querySelector(".theme-toggle")?.animate([
+          { transform: "scale(0.98)" },
+          { transform: "scale(1.04)" },
+          { transform: "scale(1)" }
+        ], {
+          duration: 620,
+          easing: "cubic-bezier(0.19, 1.08, 0.29, 1)"
+        });
+      });
+      themeTimer = window.setTimeout(() => {
+        document.documentElement.classList.remove("is-theme-changing");
+      }, 680);
+    }
 
-gsap.registerPlugin(ScrollTrigger);
+    function tileRotation(index) {
+      return [-4.5, 4, -3.4, 4.6, -2.8, 3.2][index] || 0;
+    }
 
-const heroEls = document.querySelectorAll('.hero-el');
-gsap.fromTo(heroEls, { y: 40, opacity: 0 }, {
-y: 0, opacity: 1, duration: 1, stagger: 0.12, ease: 'power4.out', delay: 0.3,
-onComplete: () => {
-gsap.to('.scroll-hint', { opacity: 1, duration: 0.8, delay: 0.5 });
-gsap.to('.lang-switcher', { opacity: 1, duration: 0.6 });
-}
-});
+    function animateFeatureTilesNative() {
+      if (prefersReducedMotion) return;
+      const tiles = Array.from(document.querySelectorAll(".feature-tile"));
+      tiles.forEach((tile, index) => {
+        tile.getAnimations().forEach((animation) => animation.cancel());
+        const rotate = tileRotation(index);
+        const animation = tile.animate([
+          { opacity: 0, transform: `translate3d(0, 34px, 0) rotate(${rotate}deg) scale(0.9)` },
+          { opacity: 1, transform: `translate3d(0, -8px, 0) rotate(${-rotate * 0.18}deg) scale(1.035)`, offset: 0.46 },
+          { opacity: 1, transform: `translate3d(0, 2px, 0) rotate(${rotate * 0.04}deg) scale(0.992)`, offset: 0.66 },
+          { opacity: 1, transform: "translate3d(0, 0, 0) rotate(0deg) scale(1)" }
+        ], {
+          duration: 1760,
+          delay: index * 118,
+          easing: "cubic-bezier(0.16, 1, 0.3, 1)",
+          fill: "both"
+        });
+        animation.finished.finally(() => animation.cancel());
+      });
+    }
 
-gsap.from('.lang-switcher', { x: 20, opacity: 0, duration: 0.8, delay: 1.2, ease: 'power3.out' });
+    function animateFeatureTiles() {
+      if (prefersReducedMotion) return;
+      const tiles = Array.from(document.querySelectorAll(".feature-tile"));
+      if (!tiles.length) return;
 
-gsap.utils.toArray('.section-title').forEach((el, i) => {
-gsap.from(el, {
-x: -80, opacity: 0, filter: 'blur(8px)',
-duration: 1.2, ease: 'power4.out',
-scrollTrigger: { trigger: el, start: 'top 85%', toggleActions: 'play none none reverse' }
-});
-});
+      if (!window.gsap) {
+        animateFeatureTilesNative();
+        return;
+      }
 
-gsap.utils.toArray('.bento-card').forEach((card, i) => {
-gsap.from(card, {
-y: 60, opacity: 0, scale: 0.92, rotationX: 8,
-duration: 1.1, ease: 'back.out(1.2)',
-scrollTrigger: { trigger: card, start: 'top 90%' },
-delay: (i % 4) * 0.08
-});
-});
+      gsap.killTweensOf(tiles);
+      gsap.killTweensOf(".feature-icon");
+      tiles.forEach((tile, index) => {
+        const rotate = tileRotation(index);
+        const icon = tile.querySelector(".feature-icon");
+        const tl = gsap.timeline({ delay: index * 0.115 });
+        tl.fromTo(tile, {
+          autoAlpha: 0,
+          y: 34,
+          scale: 0.9,
+          rotationX: 7,
+          rotation: rotate,
+          transformOrigin: "50% 78%",
+          force3D: true
+        }, {
+          autoAlpha: 1,
+          y: -8,
+          scale: 1.035,
+          rotationX: -1.5,
+          rotation: -rotate * 0.18,
+          duration: 0.62,
+          ease: gsap.parseEase("pythonide.pop") ? "pythonide.pop" : "power3.out"
+        })
+        .to(tile, {
+          y: 2,
+          scale: 0.992,
+          rotationX: 0.7,
+          rotation: rotate * 0.04,
+          duration: 0.38,
+          ease: "sine.inOut"
+        })
+        .to(tile, {
+          y: 0,
+          scale: 1,
+          rotationX: 0,
+          rotation: 0,
+          duration: 0.86,
+          ease: gsap.parseEase("pythonide.settle") ? "pythonide.settle" : "elastic.out(1, 0.74)"
+        });
 
-gsap.utils.toArray('.why-item').forEach((item, i) => {
-gsap.from(item, {
-x: -30, opacity: 0,
-duration: 0.9, ease: 'power3.out',
-scrollTrigger: { trigger: '.why-grid', start: 'top 85%' },
-delay: i * 0.06
-});
-});
+        if (icon) {
+          tl.fromTo(icon, {
+            scale: 0.68,
+            rotation: -12
+          }, {
+            scale: 1,
+            rotation: 0,
+            duration: 0.82,
+            ease: "back.out(2.2)"
+          }, 0.1);
+        }
+      });
+    }
 
-gsap.utils.toArray('.screenshot-item').forEach((item, i) => {
-gsap.from(item, {
-y: 50, opacity: 0, scale: 0.9,
-duration: 1, ease: 'back.out(1.4)',
-scrollTrigger: { trigger: item, start: 'top 92%' },
-delay: (i % 5) * 0.05
-});
-});
+    function bindFeatureTileInteractions() {
+      if (featureInteractionsBound || !window.gsap || !window.matchMedia("(hover: hover)").matches) return;
+      featureInteractionsBound = true;
 
-gsap.utils.toArray('#ssh .bento-card').forEach((card, i) => {
-gsap.from(card, {
-y: 60, opacity: 0, scale: 0.92, rotationX: 8,
-duration: 1.1, ease: 'back.out(1.2)',
-scrollTrigger: { trigger: card, start: 'top 90%' },
-delay: (i % 3) * 0.1
-});
-});
+      document.querySelectorAll(".feature-tile").forEach((tile) => {
+        const icon = tile.querySelector(".feature-icon");
+        tile.addEventListener("pointermove", (event) => {
+          const rect = tile.getBoundingClientRect();
+          const x = (event.clientX - rect.left) / rect.width - 0.5;
+          const y = (event.clientY - rect.top) / rect.height - 0.5;
+          gsap.to(tile, {
+            x: x * 8,
+            y: y * 5,
+            rotationX: -y * 5,
+            rotationY: x * 7,
+            scale: 1.025,
+            duration: 0.55,
+            ease: "power3.out"
+          });
+          if (icon) {
+            gsap.to(icon, {
+              x: x * 5,
+              y: y * 4,
+              scale: 1.06,
+              duration: 0.5,
+              ease: "power3.out"
+            });
+          }
+        }, { passive: true });
 
-gsap.from('#tab-lang .feature-chip', {
-y: 30, opacity: 0, duration: 0.8, stagger: 0.08, ease: 'back.out(1.5)',
-scrollTrigger: { trigger: '#features', start: 'top 80%' }
-});
+        tile.addEventListener("pointerleave", () => {
+          gsap.to(tile, {
+            x: 0,
+            y: 0,
+            rotationX: 0,
+            rotationY: 0,
+            scale: 1,
+            duration: 0.7,
+            ease: gsap.parseEase("pythonide.settle") ? "pythonide.settle" : "elastic.out(1, 0.72)"
+          });
+          if (icon) {
+            gsap.to(icon, {
+              x: 0,
+              y: 0,
+              scale: 1,
+              duration: 0.62,
+              ease: "back.out(1.8)"
+            });
+          }
+        }, { passive: true });
+      });
+    }
 
-gsap.utils.toArray('.link-card').forEach((card, i) => {
-gsap.from(card, {
-y: 35, opacity: 0, rotationY: -5,
-duration: 0.9, ease: 'power3.out',
-scrollTrigger: { trigger: card, start: 'top 92%' },
-delay: i * 0.06
-});
-});
+    function updateLanguageText(lang) {
+      const dictionary = translations[lang];
+      document.querySelectorAll("[data-i18n]").forEach((element) => {
+        const key = element.dataset.i18n;
+        if (dictionary[key]) element.textContent = dictionary[key];
+      });
+    }
 
-gsap.from('.install-cta', {
-y: 50, opacity: 0, scale: 0.98,
-duration: 1.2, ease: 'power4.out',
-scrollTrigger: { trigger: '.install-cta', start: 'top 85%' }
-});
+    function animateLanguageNative(targets, revealNewLanguage) {
+      const outgoing = targets.map((element) => element.animate([
+        { opacity: 1, transform: "translateY(0) scale(1)" },
+        { opacity: 0, transform: "translateY(-7px) scale(0.996)" }
+      ], {
+        duration: 180,
+        easing: "cubic-bezier(0.4, 0, 1, 1)",
+        fill: "forwards"
+      }));
 
-gsap.from('.donate-section', {
-y: 40, opacity: 0,
-duration: 1, ease: 'power3.out',
-scrollTrigger: { trigger: '.donate-section', start: 'top 90%' }
-});
-</script>
+      Promise.allSettled(outgoing.map((animation) => animation.finished)).then(() => {
+        outgoing.forEach((animation) => animation.cancel());
+        revealNewLanguage();
+
+        const incoming = targets.map((element, index) => {
+          const animation = element.animate([
+            { opacity: 0, transform: "translateY(10px) scale(0.992)" },
+            { opacity: 1, transform: "translateY(0) scale(1)" }
+          ], {
+            duration: 460,
+            delay: Math.min(index * 8, 72),
+            easing: "cubic-bezier(0.19, 1.08, 0.29, 1)",
+            fill: "both"
+          });
+          animation.finished.finally(() => animation.cancel());
+          return animation;
+        });
+      });
+    }
+
+    function applyLanguage(lang, options = {}) {
+      if (!translations[lang]) return;
+      if (lang === currentLang && options.animate !== false) {
+        document.body.classList.remove("is-switching-lang");
+        document.body.classList.remove("is-lang-enter");
+        return;
+      }
+
+      currentLang = lang;
+      localStorage.setItem("pythonide-reference-lang", lang);
+      document.querySelector(".lang-toggle")?.style.setProperty("--lang-index", lang === "zh" ? 1 : 0);
+      document.querySelectorAll(".lang-toggle button").forEach((button) => {
+        button.classList.toggle("active", button.dataset.lang === lang);
+      });
+
+      const shouldAnimate = options.animate !== false && !prefersReducedMotion;
+      window.clearTimeout(languageTimer);
+
+      if (!shouldAnimate) {
+        document.body.classList.remove("is-switching-lang");
+        document.body.classList.remove("is-lang-enter");
+        document.documentElement.lang = lang === "zh" ? "zh-CN" : "en";
+        updateLanguageText(lang);
+        return;
+      }
+
+      const targets = Array.from(document.querySelectorAll("[data-i18n]"));
+      const revealNewLanguage = () => {
+        document.documentElement.lang = lang === "zh" ? "zh-CN" : "en";
+        updateLanguageText(lang);
+        document.body.classList.remove("is-switching-lang");
+        document.body.classList.add("is-lang-enter");
+        window.setTimeout(() => document.body.classList.remove("is-lang-enter"), 520);
+      };
+
+      document.body.classList.remove("is-lang-enter");
+      document.body.classList.add("is-switching-lang");
+
+      if (window.gsap) {
+        gsap.killTweensOf(targets);
+        gsap.to(targets, {
+          y: -6,
+          scale: 0.996,
+          opacity: 0,
+          duration: 0.16,
+          ease: "power2.in",
+          stagger: 0.006,
+          onComplete() {
+            revealNewLanguage();
+            gsap.fromTo(targets, { y: 9, scale: 0.992, opacity: 0 }, {
+              y: 0,
+              scale: 1,
+              opacity: 1,
+              duration: 0.44,
+              ease: "power3.out",
+              stagger: 0.008,
+              clearProps: "opacity,transform,filter"
+            });
+          }
+        });
+        return;
+      }
+
+      animateLanguageNative(targets, revealNewLanguage);
+    }
+
+    document.querySelectorAll(".lang-toggle button").forEach((button) => {
+      button.addEventListener("click", () => applyLanguage(button.dataset.lang));
+    });
+
+    document.querySelectorAll(".theme-toggle button").forEach((button) => {
+      button.addEventListener("click", () => applyTheme(button.dataset.themeChoice));
+    });
+
+    systemThemeQuery.addEventListener("change", () => {
+      if (currentTheme === "system") {
+        applyTheme("system", { persist: false });
+      }
+    });
+
+    const shell = document.getElementById("heroShell");
+    const canvas = document.getElementById("mosaicCanvas");
+    const ctx = canvas.getContext("2d");
+    const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const heroSection = document.querySelector(".site");
+    const storySection = document.querySelector(".scroll-story");
+    let width = 0;
+    let height = 0;
+    let dpr = 1;
+    let pointer = { x: 0, y: 0, active: 0, target: 0, userUntil: 0 };
+    let time = 0;
+    let raf = 0;
+
+    function resizeCanvas() {
+      dpr = Math.min(window.devicePixelRatio || 1, 2);
+      width = Math.max(1, Math.round(window.innerWidth));
+      height = Math.max(1, Math.round(window.innerHeight));
+      canvas.width = Math.round(width * dpr);
+      canvas.height = Math.round(height * dpr);
+      canvas.style.width = `${width}px`;
+      canvas.style.height = `${height}px`;
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      if (!pointer.x && !pointer.y) {
+        pointer.x = width * 0.5;
+        pointer.y = height * 0.48;
+      }
+    }
+
+    function elementViewportCenter(selector, fallback) {
+      const element = document.querySelector(selector);
+      if (!element) return fallback;
+      const rect = element.getBoundingClientRect();
+      const visibleX = rect.right > 0 && rect.left < width;
+      const visibleY = rect.bottom > 0 && rect.top < height;
+      if (!visibleX || !visibleY) return fallback;
+      return {
+        x: Math.min(width * 0.88, Math.max(width * 0.12, rect.left + rect.width * 0.5)),
+        y: Math.min(height * 0.86, Math.max(height * 0.16, rect.top + rect.height * 0.5))
+      };
+    }
+
+    function sectionProgress(selector) {
+      const section = document.querySelector(selector);
+      if (!section) return 0;
+      const rect = section.getBoundingClientRect();
+      const travel = Math.max(1, height + rect.height);
+      return Math.min(1, Math.max(0, (height - rect.top) / travel));
+    }
+
+    function currentMosaicTarget() {
+      const viewportProbe = height * 0.46;
+      const resourcesTop = document.querySelector("#resources")?.getBoundingClientRect().top ?? Infinity;
+      const featuresTop = document.querySelector("#features")?.getBoundingClientRect().top ?? Infinity;
+      let zone = "hero";
+      if (resourcesTop < viewportProbe) zone = "resources";
+      else if (featuresTop < viewportProbe) zone = "features";
+
+      let base;
+      let radiusX;
+      let radiusY;
+      let phase = 0;
+      let strength = 0.74;
+
+      if (zone === "resources") {
+        base = elementViewportCenter(".resource-links", { x: width * 0.62, y: height * 0.58 });
+        const p = sectionProgress("#resources");
+        radiusX = Math.min(width * 0.2, 86);
+        radiusY = Math.min(height * 0.16, 78);
+        phase = p * 2.4;
+        strength = 0.7;
+      } else if (zone === "features") {
+        base = elementViewportCenter(".feature-row", { x: width * 0.52, y: height * 0.58 });
+        const p = sectionProgress("#features");
+        radiusX = Math.min(width * 0.24, 96);
+        radiusY = Math.min(height * 0.18, 90);
+        phase = p * 3.2 + 0.7;
+        strength = 0.76;
+      } else {
+        base = elementViewportCenter(".code-card", { x: width * 0.55, y: height * 0.5 });
+        const p = sectionProgress("#top");
+        radiusX = Math.min(width * 0.22, 110);
+        radiusY = Math.min(height * 0.15, 84);
+        phase = p * 2.2;
+        strength = 0.78;
+      }
+
+      return {
+        zone,
+        strength,
+        x: base.x + Math.cos(time * 0.84 + phase) * radiusX + Math.sin(time * 1.64 + phase) * radiusX * 0.28,
+        y: base.y + Math.sin(time * 0.92 + phase) * radiusY + Math.cos(time * 1.36 + phase) * radiusY * 0.24
+      };
+    }
+
+    function drawMosaic() {
+      time += 0.016;
+      const now = performance.now();
+      const isUserDriving = now < pointer.userUntil;
+      if (!isUserDriving) {
+        const autoTarget = currentMosaicTarget();
+        const autoX = autoTarget.x;
+        const autoY = autoTarget.y;
+        pointer.x += (autoX - pointer.x) * 0.055;
+        pointer.y += (autoY - pointer.y) * 0.055;
+        pointer.target = autoTarget.strength;
+      }
+      pointer.active += (pointer.target - pointer.active) * 0.08;
+      ctx.clearRect(0, 0, width, height);
+
+      const isDarkMosaic = document.documentElement.dataset.theme === "dark";
+      const grid = width < 540 ? 14 : 16;
+      const radius = (width < 540 ? 142 : 210) * (isDarkMosaic ? 1.04 : 1);
+      const alphaBoost = isDarkMosaic ? 1.22 : 1;
+      const colors = isDarkMosaic ? [
+        "rgba(64,153,255,",
+        "rgba(45,220,255,",
+        "rgba(255,102,194,",
+        "rgba(150,124,255,"
+      ] : [
+        "rgba(25,118,255,",
+        "rgba(20,200,255,",
+        "rgba(255,85,184,",
+        "rgba(117,92,255,"
+      ];
+
+      if (pointer.active > 0.01) {
+        paintMosaic(pointer.x, pointer.y, pointer.active, radius);
+        if (!isUserDriving) {
+          const trailA = time - 0.34;
+          const trailB = time - 0.68;
+          const trailTarget = currentMosaicTarget();
+          paintMosaic(
+            trailTarget.x + Math.cos(trailA * 1.08) * 18,
+            trailTarget.y + Math.sin(trailA * 1.16) * 16,
+            pointer.active * 0.34,
+            radius * 0.78
+          );
+          paintMosaic(
+            trailTarget.x + Math.cos(trailB * 1.02) * 34,
+            trailTarget.y + Math.sin(trailB * 1.1) * 28,
+            pointer.active * 0.18,
+            radius * 0.64
+          );
+        }
+      }
+
+      raf = requestAnimationFrame(drawMosaic);
+
+      function paintMosaic(originX, originY, strength, localRadius) {
+        const left = Math.max(0, Math.floor((originX - localRadius) / grid) * grid);
+        const right = Math.min(width, Math.ceil((originX + localRadius) / grid) * grid);
+        const top = Math.max(0, Math.floor((originY - localRadius) / grid) * grid);
+        const bottom = Math.min(height, Math.ceil((originY + localRadius) / grid) * grid);
+
+        for (let y = top; y < bottom; y += grid) {
+          for (let x = left; x < right; x += grid) {
+            const cx = x + grid * 0.5;
+            const cy = y + grid * 0.5;
+            const dx = cx - originX;
+            const dy = cy - originY;
+            const dist = Math.sqrt(dx * dx + dy * dy);
+            const influence = Math.max(0, 1 - dist / localRadius);
+            if (influence <= 0) continue;
+
+            const wave = Math.sin((x * 0.035) + (y * 0.025) + time * 2.2) * 0.5 + 0.5;
+            const alpha = Math.min(0.36, (0.025 + influence * 0.16 + wave * 0.04) * strength * alphaBoost);
+            const size = grid * (0.34 + influence * 0.62);
+            const jitter = (wave - 0.5) * 4.5 * influence * strength;
+            const color = colors[(Math.floor(x / grid) + Math.floor(y / grid)) % colors.length];
+
+            ctx.fillStyle = `${color}${alpha})`;
+            ctx.fillRect(cx - size * 0.5 + jitter, cy - size * 0.5 - jitter, size, size);
+          }
+        }
+      }
+    }
+
+    function localPointer(event) {
+      pointer.x = event.clientX;
+      pointer.y = event.clientY;
+      pointer.userUntil = performance.now() + 1400;
+      pointer.target = 1;
+    }
+
+    window.addEventListener("pointermove", localPointer, { passive: true });
+    window.addEventListener("pointerdown", localPointer, { passive: true });
+    window.addEventListener("pointerleave", () => { pointer.userUntil = 0; }, { passive: true });
+    window.addEventListener("pointerup", () => { pointer.userUntil = performance.now() + 520; pointer.target = currentMosaicTarget().strength; }, { passive: true });
+    window.addEventListener("resize", resizeCanvas, { passive: true });
+    resizeCanvas();
+    if (!prefersReducedMotion) drawMosaic();
+
+    function updateCapabilityReveal() {
+      if (prefersReducedMotion) {
+        document.body.classList.add("cap-agent", "cap-package", "cap-ssh");
+        shell.style.setProperty("--hero-shell-opacity", "1");
+        shell.style.setProperty("--hero-copy-opacity", "1");
+        shell.style.setProperty("--hero-copy-y", "0px");
+        shell.style.setProperty("--hero-copy-scale", "1");
+        shell.style.setProperty("--hero-copy-blur", "0px");
+        shell.style.setProperty("--hero-visual-y", "0px");
+        return;
+      }
+
+      const sectionTop = heroSection.getBoundingClientRect().top + window.scrollY;
+      const travel = Math.max(1, window.innerHeight * 0.86);
+      const localScroll = window.scrollY - sectionTop;
+      const progress = Math.min(1, Math.max(0, localScroll / travel));
+      const copyFade = Math.min(1, Math.max(0, (progress - 0.08) / 0.34));
+      const exitStart = Math.max(0, heroSection.offsetHeight - window.innerHeight * 0.98);
+      const exitFade = Math.min(1, Math.max(0, (localScroll - exitStart) / (window.innerHeight * 0.34)));
+
+      shell.style.setProperty("--hero-shell-opacity", String(1 - exitFade));
+      shell.style.setProperty("--hero-copy-opacity", String(1 - copyFade));
+      shell.style.setProperty("--hero-copy-y", `${-44 * copyFade}px`);
+      shell.style.setProperty("--hero-copy-scale", String(1 - copyFade * 0.025));
+      shell.style.setProperty("--hero-copy-blur", "0px");
+      shell.style.setProperty("--hero-visual-y", `${(window.innerWidth < 760 ? -110 : -18) * copyFade}px`);
+
+      document.body.classList.toggle("cap-agent", progress > 0.18);
+      document.body.classList.toggle("cap-package", progress > 0.42);
+      document.body.classList.toggle("cap-ssh", progress > 0.66);
+    }
+
+    window.addEventListener("scroll", updateCapabilityReveal, { passive: true });
+    window.addEventListener("resize", updateCapabilityReveal, { passive: true });
+    updateCapabilityReveal();
+
+    function updateNativeFeatureReveal() {
+      if (window.gsap || !storySection || featureTilesPlayed) return;
+      if (window.scrollY >= storySection.offsetTop - window.innerHeight * 0.72) {
+        featureTilesPlayed = true;
+        animateFeatureTilesNative();
+      }
+    }
+
+    window.addEventListener("scroll", updateNativeFeatureReveal, { passive: true });
+    window.addEventListener("resize", updateNativeFeatureReveal, { passive: true });
+
+    function startCodeNarrative() {
+      if (prefersReducedMotion) return;
+      document.body.classList.remove("is-live-code");
+      document.querySelectorAll(".line, .terminal-row, .agent-card").forEach((element) => {
+        element.getAnimations().forEach((animation) => animation.cancel());
+      });
+
+      requestAnimationFrame(() => {
+        document.body.classList.add("is-live-code");
+      });
+    }
+
+    function runFallbackAnimation() {
+      startCodeNarrative();
+    }
+
+    function settleIntroStyles() {
+      document.querySelectorAll(".hero-shell, .brand, .nav-links a, .lang-toggle, .nav-button, .trust-pill, h1, .subhead, .cta, .stat, .code-card, .floating-card").forEach((element) => {
+        element.style.opacity = "";
+        element.style.transform = "";
+        element.style.translate = "";
+        element.style.rotate = "";
+        element.style.scale = "";
+      });
+    }
+
+    function initGSAP() {
+      if (animationBooted) return;
+      animationBooted = true;
+
+      if (!window.gsap || !window.ScrollTrigger || prefersReducedMotion) {
+        document.documentElement.dataset.motion = "native";
+        runFallbackAnimation();
+        return;
+      }
+
+      document.documentElement.dataset.motion = "gsap";
+      gsap.registerPlugin(window.ScrollTrigger);
+      configureMotionEases();
+      document.querySelector(".floating-main")?.style.setProperty("animation", "none");
+      gsap.set(".feature-tile", { autoAlpha: 1, transformOrigin: "50% 76%" });
+      bindFeatureTileInteractions();
+
+      const tl = gsap.timeline({ defaults: { ease: "power3.out" } });
+      tl.from(".hero-shell", { y: 26, scale: 0.985, opacity: 0, duration: 0.8 })
+        .from(".brand, .nav-links a, .nav-button", { y: -14, opacity: 0, stagger: 0.045, duration: 0.45 }, "-=0.48")
+        .from(".trust-pill", { y: 16, opacity: 0, duration: 0.42 }, "-=0.2")
+        .from("h1", { y: 28, opacity: 0, duration: 0.62 }, "-=0.2")
+        .from(".subhead", { y: 20, opacity: 0, duration: 0.45 }, "-=0.34")
+        .from(".cta, .stat", { y: 18, opacity: 0, stagger: 0.05, duration: 0.44 }, "-=0.28")
+        .from(".code-card", { y: 42, rotate: -2, opacity: 0, duration: 0.78, ease: "back.out(1.35)" }, "-=0.58")
+        .add(startCodeNarrative, "-=0.18");
+      tl.eventCallback("onComplete", settleIntroStyles);
+
+      gsap.to(".floating-main", {
+        y: -10,
+        rotate: 0.3,
+        duration: 3.4,
+        repeat: -1,
+        yoyo: true,
+        ease: "sine.inOut"
+      });
+
+      gsap.to(".hero-shell", {
+        y: -12,
+        scale: 0.985,
+        scrollTrigger: {
+          trigger: ".site",
+          start: "top top",
+          end: "bottom top",
+          scrub: 0.55
+        }
+      });
+
+      ScrollTrigger.create({
+        trigger: ".feature-row",
+        start: "top 88%",
+        onEnter() {
+          featureTilesPlayed = true;
+          animateFeatureTiles();
+        },
+        onEnterBack() {
+          animateFeatureTiles();
+        }
+      });
+    }
+
+    async function bootMotionRuntime() {
+      await ensureGSAPReady();
+      initGSAP();
+    }
+
+    if ("scrollRestoration" in window.history) {
+      window.history.scrollRestoration = "manual";
+    }
+
+    applyTheme(currentTheme, { animate: false });
+    applyLanguage(currentLang, { animate: false });
+    if (location.hash === "#top") {
+      requestAnimationFrame(() => window.scrollTo(0, 0));
+      window.setTimeout(() => window.scrollTo(0, 0), 80);
+      window.setTimeout(() => window.scrollTo(0, 0), 240);
+    }
+
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", bootMotionRuntime);
+    } else {
+      bootMotionRuntime();
+    }
+
+    function ensureNativeIntro() {
+      if (animationBooted || prefersReducedMotion) return;
+      if (gsapLoadPromise && performance.now() - gsapLoadStartedAt < 3300) return;
+      initGSAP();
+    }
+
+    window.setTimeout(ensureNativeIntro, 1800);
+    window.setTimeout(ensureNativeIntro, 3600);
+
+    window.setTimeout(() => {
+      const headline = document.querySelector("h1");
+      if (!animationBooted || !window.gsap || (headline && Number(getComputedStyle(headline).opacity) < 0.1)) {
+        if (!animationBooted) initGSAP();
+        settleIntroStyles();
+        if (!prefersReducedMotion && !document.body.classList.contains("is-live-code")) {
+          startCodeNarrative();
+        }
+      }
+    }, 4200);
+  </script>
 </body>
 </html>
