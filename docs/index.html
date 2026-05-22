@@ -1406,14 +1406,14 @@
       }
 
       .brand {
-        font-size: 14px;
+        font-size: 15px;
       }
 
       .brand-mark {
-        width: 25px;
-        height: 25px;
-        border-radius: 9px;
-        font-size: 11px;
+        width: 28px;
+        height: 28px;
+        border-radius: 10px;
+        font-size: 12px;
       }
 
       .lang-toggle {
@@ -1441,14 +1441,15 @@
       }
 
       .lang-thumb {
-        width: 34px;
-        height: 27px;
-        transform: translateX(calc(var(--lang-index) * 34px));
+        width: 36px;
+        height: 29px;
+        transform: translateX(calc(var(--lang-index) * 36px));
       }
 
       .lang-toggle button {
-        min-width: 34px;
-        height: 27px;
+        min-width: 36px;
+        height: 29px;
+        font-size: 12px;
         font-weight: 720;
       }
 
@@ -1459,12 +1460,12 @@
 
       .theme-thumb,
       .theme-toggle button {
-        width: 36px;
-        height: 27px;
+        width: 38px;
+        height: 29px;
       }
 
       .theme-thumb {
-        transform: translateX(calc(var(--theme-index) * 36px));
+        transform: translateX(calc(var(--theme-index) * 38px));
       }
 
 
@@ -1741,19 +1742,19 @@
       }
 
       .feature-tile {
-        min-height: 88px;
-        grid-template-columns: 1fr;
-        align-content: start;
-        align-items: start;
-        gap: 8px;
-        padding: 11px;
-        border-radius: 32px;
+        min-height: 78px;
+        grid-template-columns: auto 1fr;
+        align-content: center;
+        align-items: center;
+        gap: 12px;
+        padding: 12px 14px;
+        border-radius: 30px;
         box-shadow: 0 14px 34px rgba(21, 20, 24, 0.052);
       }
 
       .feature-row {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-        gap: 8px;
+        grid-template-columns: 1fr;
+        gap: 10px;
       }
 
       .feature-icon {
@@ -1764,7 +1765,7 @@
       }
 
       .feature-tile strong {
-        font-size: 13px;
+        font-size: 14px;
       }
 
       .scroll-story {
@@ -1923,6 +1924,216 @@
     @media (min-width: 980px) {
       .resource-card {
         grid-template-columns: minmax(540px, 1.15fr) minmax(340px, 0.72fr);
+      }
+    }
+
+    @media (min-width: 760px) and (max-width: 980px) and (orientation: portrait) {
+      .site {
+        min-height: 118svh;
+        padding: 0;
+      }
+
+      .hero-shell {
+        min-height: 100svh;
+      }
+
+      .nav {
+        padding: max(28px, env(safe-area-inset-top)) 44px 10px;
+        align-items: center;
+      }
+
+      .brand {
+        gap: 12px;
+        font-size: 20px;
+      }
+
+      .brand-mark {
+        width: 34px;
+        height: 34px;
+        border-radius: 12px;
+        font-size: 14px;
+      }
+
+      .nav-links {
+        display: none;
+      }
+
+      .nav-actions {
+        flex-direction: row;
+        align-items: center;
+        gap: 12px;
+      }
+
+      .lang-toggle {
+        padding: 5px;
+      }
+
+      .lang-thumb {
+        top: 5px;
+        left: 5px;
+        width: 44px;
+        height: 34px;
+        transform: translateX(calc(var(--lang-index) * 44px));
+      }
+
+      .lang-toggle button {
+        min-width: 44px;
+        height: 34px;
+        font-size: 13px;
+      }
+
+      .theme-toggle {
+        padding: 5px;
+      }
+
+      .theme-thumb {
+        top: 5px;
+        left: 5px;
+        width: 50px;
+        height: 34px;
+        transform: translateX(calc(var(--theme-index) * 50px));
+      }
+
+      .theme-toggle button {
+        width: 50px;
+        height: 34px;
+      }
+
+      .theme-label {
+        width: 17px;
+        height: 17px;
+      }
+
+      .hero-content {
+        min-height: calc(100svh - 96px);
+        align-items: start;
+        padding: 34px 54px 42px;
+      }
+
+      .hero-grid {
+        width: min(100%, 760px);
+        margin: 0 auto;
+        grid-template-columns: 1fr;
+        align-items: start;
+        gap: 30px;
+      }
+
+      .copy {
+        max-width: 760px;
+        gap: 18px;
+      }
+
+      h1 {
+        max-width: 760px;
+        font-size: clamp(48px, 7.1vw, 68px);
+        line-height: 1.02;
+      }
+
+      html[lang="zh-CN"] h1 {
+        max-width: 760px;
+        font-size: clamp(48px, 6.9vw, 66px);
+        line-height: 1.04;
+        font-weight: 700;
+      }
+
+      .subhead {
+        max-width: 640px;
+        font-size: 17px;
+        line-height: 1.48;
+      }
+
+      .cta-row {
+        gap: 12px;
+      }
+
+      .cta {
+        min-height: 48px;
+        padding: 0 21px;
+        font-size: 15px;
+      }
+
+      .visual {
+        min-height: 360px;
+        margin-top: 0;
+        align-items: start;
+      }
+
+      .code-card {
+        width: min(100%, 560px);
+        margin-left: 0;
+        margin-right: auto;
+      }
+
+      .agent-card {
+        width: 154px;
+        right: 96px;
+        top: 24px;
+      }
+
+      body.is-live-code .agent-card,
+      body.cap-agent .agent-card {
+        right: 36px;
+        top: 22px;
+        transform: rotate(5deg) scale(0.92);
+      }
+
+      .package-card {
+        width: 168px;
+        left: 32px;
+        bottom: 16px;
+      }
+
+      body.cap-package .package-card {
+        left: 18px;
+        bottom: 18px;
+        transform: rotate(-4deg) scale(0.92);
+      }
+
+      body.cap-ssh .ssh-pill {
+        right: 48px;
+        bottom: 18px;
+        transform: rotate(3deg) scale(0.94);
+      }
+
+      .scroll-story {
+        margin-top: -2svh;
+        padding: 4svh 0 34px;
+      }
+
+      .story-stage {
+        padding: 24px 44px;
+      }
+
+      .story-card {
+        grid-template-columns: 1fr;
+        gap: 24px;
+        padding: 34px 0;
+      }
+
+      .story-copy {
+        max-width: 760px;
+      }
+
+      .feature-row {
+        grid-template-columns: 1fr;
+        gap: 12px;
+      }
+
+      .feature-tile {
+        min-height: 86px;
+        grid-template-columns: auto 1fr;
+        align-items: center;
+        gap: 14px;
+        padding: 14px 16px;
+        border-radius: 30px;
+      }
+
+      .feature-tile strong {
+        font-size: 16px;
+      }
+
+      .resources {
+        padding-top: 36px;
       }
     }
 
