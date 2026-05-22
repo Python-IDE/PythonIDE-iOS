@@ -1,0 +1,655 @@
+{
+  "schema": "pythonide.native_capabilities.v1",
+  "version": 1,
+  "status": "audit_only",
+  "description": "Canonical staged contract for PythonIDE native iOS capability modules. Validates docs, Agent routing, aliases, pyboot module presence, permission keys, native safety policy, and Agent tool surface metadata while Swift still owns execution authorization and adapter behavior.",
+  "topLevelDocs": {
+    "user": [
+      "ios-native",
+      "miniapp-native-capabilities"
+    ],
+    "agent": [
+      "ios-native-agent",
+      "miniapp-native-capabilities-agent"
+    ]
+  },
+  "permissionKeys": [
+    "biometric",
+    "bluetooth",
+    "calendar",
+    "camera",
+    "contacts",
+    "health",
+    "location",
+    "microphone",
+    "motion",
+    "nfc",
+    "notifications",
+    "photos",
+    "reminders",
+    "speech"
+  ],
+  "rules": {
+    "sideEffectsRequireUserAction": true,
+    "nativeCallsStayOutOfAppUIBody": true,
+    "secretsUseKeychain": true,
+    "permissionKeyForNotifications": "notifications"
+  },
+  "agentToolSurfaces": {
+    "device": {
+      "toolId": "device",
+      "actions": ["status"],
+      "modules": ["device"],
+      "scopeIds": ["device.status"],
+      "description": "Direct read-only device status facts exposed by the iOS runtime.",
+      "actionDetails": {
+        "status": {
+          "modules": ["device"],
+          "scopeIds": ["device.status"],
+          "permissionKeys": [],
+          "agentRisk": "nativePermission",
+          "requiresConfirmation": false,
+          "requiresUserAction": false,
+          "summary": "Read battery, charging state, device model, and system version from the native runtime."
+        }
+      }
+    },
+    "native_query": {
+      "toolId": "native_query",
+      "actions": ["photos_count", "photos_summary", "contacts_count", "contacts_summary", "calendar_events", "reminders", "location", "device_status", "app_info", "clipboard_text", "notification_settings"],
+      "modules": ["photos", "contacts", "calendar_events", "location", "device", "clipboard", "notification"],
+      "scopeIds": ["native.query"],
+      "description": "Read-only query bridge for current app/device/user-authorized local data.",
+      "actionAliases": {
+        "current_location": "location"
+      },
+      "actionDetails": {
+        "photos_count": {
+          "modules": ["photos"],
+          "scopeIds": ["native.query"],
+          "permissionKeys": ["photos"],
+          "agentRisk": "nativePermission",
+          "requiresConfirmation": false,
+          "requiresUserAction": true,
+          "summary": "Count Photos library assets after Photos authorization is available."
+        },
+        "photos_summary": {
+          "modules": ["photos"],
+          "scopeIds": ["native.query"],
+          "permissionKeys": ["photos"],
+          "agentRisk": "nativePermission",
+          "requiresConfirmation": false,
+          "requiresUserAction": true,
+          "summary": "Summarize Photos library assets after Photos authorization is available."
+        },
+        "contacts_count": {
+          "modules": ["contacts"],
+          "scopeIds": ["native.query"],
+          "permissionKeys": ["contacts"],
+          "agentRisk": "nativePermission",
+          "requiresConfirmation": false,
+          "requiresUserAction": true,
+          "summary": "Count Contacts entries after Contacts authorization is available."
+        },
+        "contacts_summary": {
+          "modules": ["contacts"],
+          "scopeIds": ["native.query"],
+          "permissionKeys": ["contacts"],
+          "agentRisk": "nativePermission",
+          "requiresConfirmation": false,
+          "requiresUserAction": true,
+          "summary": "Return bounded Contacts samples after Contacts authorization is available."
+        },
+        "calendar_events": {
+          "modules": ["calendar_events"],
+          "scopeIds": ["native.query"],
+          "permissionKeys": ["calendar"],
+          "agentRisk": "nativePermission",
+          "requiresConfirmation": false,
+          "requiresUserAction": true,
+          "summary": "Read calendar events in a bounded date window after Calendar authorization is available."
+        },
+        "reminders": {
+          "modules": ["calendar_events"],
+          "scopeIds": ["native.query"],
+          "permissionKeys": ["reminders"],
+          "agentRisk": "nativePermission",
+          "requiresConfirmation": false,
+          "requiresUserAction": true,
+          "summary": "Read reminders after Reminders authorization is available."
+        },
+        "location": {
+          "modules": ["location"],
+          "scopeIds": ["native.query"],
+          "permissionKeys": ["location"],
+          "agentRisk": "nativePermission",
+          "requiresConfirmation": false,
+          "requiresUserAction": true,
+          "summary": "Read the current location after Location authorization is available."
+        },
+        "device_status": {
+          "modules": ["device"],
+          "scopeIds": ["native.query"],
+          "permissionKeys": [],
+          "agentRisk": "nativePermission",
+          "requiresConfirmation": false,
+          "requiresUserAction": false,
+          "summary": "Read local battery and device status facts."
+        },
+        "app_info": {
+          "modules": ["device"],
+          "scopeIds": ["native.query"],
+          "permissionKeys": [],
+          "agentRisk": "nativePermission",
+          "requiresConfirmation": false,
+          "requiresUserAction": false,
+          "summary": "Read local app bundle, locale, timezone, and device facts."
+        },
+        "clipboard_text": {
+          "modules": ["clipboard"],
+          "scopeIds": ["native.query"],
+          "permissionKeys": [],
+          "agentRisk": "nativePermission",
+          "requiresConfirmation": false,
+          "requiresUserAction": true,
+          "summary": "Read bounded text from the general pasteboard."
+        },
+        "notification_settings": {
+          "modules": ["notification"],
+          "scopeIds": ["native.query"],
+          "permissionKeys": ["notifications"],
+          "agentRisk": "nativePermission",
+          "requiresConfirmation": false,
+          "requiresUserAction": false,
+          "summary": "Read current local notification authorization and delivery settings."
+        }
+      }
+    },
+    "native": {
+      "toolId": "native",
+      "actions": ["photo_save", "calendar_create", "file_export"],
+      "modules": ["photos", "calendar_events", "dialogs"],
+      "scopeIds": ["native.photos", "native.calendar", "native.export"],
+      "description": "User-visible native mutation/export bridge for Photos, Calendar, and share sheet actions.",
+      "actionDetails": {
+        "photo_save": {
+          "modules": ["photos"],
+          "scopeIds": ["native.photos"],
+          "permissionKeys": ["photos"],
+          "agentRisk": "nativePermission",
+          "requiresConfirmation": false,
+          "requiresUserAction": true,
+          "summary": "Save a workspace image or video file into the user's Photos library."
+        },
+        "calendar_create": {
+          "modules": ["calendar_events"],
+          "scopeIds": ["native.calendar"],
+          "permissionKeys": ["calendar"],
+          "agentRisk": "nativePermission",
+          "requiresConfirmation": false,
+          "requiresUserAction": true,
+          "summary": "Create a Calendar event through EventKit after Calendar authorization is available."
+        },
+        "file_export": {
+          "modules": ["dialogs"],
+          "scopeIds": ["native.export"],
+          "permissionKeys": [],
+          "agentRisk": "nativePermission",
+          "requiresConfirmation": false,
+          "requiresUserAction": true,
+          "summary": "Present the iOS share/export sheet for a workspace file."
+        }
+      }
+    }
+  },
+  "aliases": {
+    "calendar-events": "calendar_events",
+    "calendar events": "calendar_events",
+    "live-activity": "live_activity",
+    "live activity": "live_activity",
+    "objc-util": "objc_util",
+    "objc util": "objc_util",
+    "vision-helper": "vision_helper",
+    "vision helper": "vision_helper",
+    "core-ml": "coreml",
+    "core ml": "coreml"
+  },
+  "categories": {
+    "deviceSensors": "Device state, sensors, location, feedback, biometrics, and health.",
+    "systemServices": "Permissions, persistence, secrets, dialogs, notifications, contacts, calendar, live activities, and NFC.",
+    "mediaVision": "Photos, audio, speech, video, Vision, and Core ML.",
+    "networkData": "Network, WebSocket, Bluetooth, background tasks, and C extension availability.",
+    "automationExtensions": "Shortcuts, Objective-C bridge access, and keyboard toolbar integration."
+  },
+  "modules": {
+    "device": {
+      "importName": "device",
+      "category": "deviceSensors",
+      "docId": "device-module",
+      "docFile": "device-module.md",
+      "agentDocId": "device-module-agent",
+      "agentDocFile": "device-module-agent.md",
+      "capabilities": ["device_state", "screen", "battery", "thermal_state"],
+      "permissions": [],
+      "risk": "read_only",
+      "requiresUserAction": false,
+      "failureStates": ["unavailable"]
+    },
+    "location": {
+      "importName": "location",
+      "category": "deviceSensors",
+      "docId": "location-module",
+      "docFile": "location-module.md",
+      "agentDocId": "location-module-agent",
+      "agentDocFile": "location-module-agent.md",
+      "capabilities": ["gps", "heading", "geocoding"],
+      "permissions": ["location"],
+      "risk": "permissioned_read",
+      "requiresUserAction": true,
+      "failureStates": ["denied", "restricted", "unavailable", "timeout"]
+    },
+    "motion": {
+      "importName": "motion",
+      "category": "deviceSensors",
+      "docId": "motion-module",
+      "docFile": "motion-module.md",
+      "agentDocId": "motion-module-agent",
+      "agentDocFile": "motion-module-agent.md",
+      "capabilities": ["accelerometer", "gyroscope", "attitude", "barometer"],
+      "permissions": ["motion"],
+      "risk": "sensor_stream",
+      "requiresUserAction": true,
+      "failureStates": ["unavailable", "not_started"]
+    },
+    "haptics": {
+      "importName": "haptics",
+      "category": "deviceSensors",
+      "docId": "haptics-module",
+      "docFile": "haptics-module.md",
+      "agentDocId": "haptics-module-agent",
+      "agentDocFile": "haptics-module-agent.md",
+      "capabilities": ["impact_feedback", "notification_feedback", "core_haptics"],
+      "permissions": [],
+      "risk": "system_feedback",
+      "requiresUserAction": true,
+      "failureStates": ["unsupported"]
+    },
+    "biometric": {
+      "importName": "biometric",
+      "category": "deviceSensors",
+      "docId": "biometric-module",
+      "docFile": "biometric-module.md",
+      "agentDocId": "biometric-module-agent",
+      "agentDocFile": "biometric-module-agent.md",
+      "capabilities": ["face_id", "touch_id", "passcode_fallback"],
+      "permissions": ["biometric"],
+      "risk": "sensitive_gate",
+      "requiresUserAction": true,
+      "failureStates": ["denied", "cancelled", "unavailable", "failed"]
+    },
+    "health": {
+      "importName": "health",
+      "category": "deviceSensors",
+      "docId": "health-module",
+      "docFile": "health-module.md",
+      "agentDocId": "health-module-agent",
+      "agentDocFile": "health-module-agent.md",
+      "capabilities": ["steps", "heart_rate", "sleep", "body_metrics"],
+      "permissions": ["health"],
+      "risk": "sensitive_read",
+      "requiresUserAction": true,
+      "failureStates": ["denied", "unavailable", "empty"]
+    },
+    "permission": {
+      "importName": "permission",
+      "category": "systemServices",
+      "docId": "permission-module",
+      "docFile": "permission-module.md",
+      "agentDocId": "permission-module-agent",
+      "agentDocFile": "permission-module-agent.md",
+      "capabilities": ["permission_status", "permission_request"],
+      "permissions": ["biometric", "bluetooth", "calendar", "camera", "contacts", "health", "location", "microphone", "motion", "nfc", "notifications", "photos", "reminders", "speech"],
+      "risk": "permission_prompt",
+      "requiresUserAction": true,
+      "failureStates": ["denied", "restricted", "unknown_key"]
+    },
+    "storage": {
+      "importName": "storage",
+      "category": "systemServices",
+      "docId": "storage-module",
+      "docFile": "storage-module.md",
+      "agentDocId": "storage-module-agent",
+      "agentDocFile": "storage-module-agent.md",
+      "capabilities": ["user_defaults", "json_values"],
+      "permissions": [],
+      "risk": "local_persistence",
+      "requiresUserAction": false,
+      "failureStates": ["missing_key", "decode_error"]
+    },
+    "database": {
+      "importName": "database",
+      "category": "systemServices",
+      "docId": "database-module",
+      "docFile": "database-module.md",
+      "agentDocId": "database-module-agent",
+      "agentDocFile": "database-module-agent.md",
+      "capabilities": ["sqlite", "collections", "transactions"],
+      "permissions": [],
+      "risk": "local_persistence",
+      "requiresUserAction": false,
+      "failureStates": ["missing_record", "query_error"]
+    },
+    "keychain": {
+      "importName": "keychain",
+      "category": "systemServices",
+      "docId": "keychain-module",
+      "docFile": "keychain-module.md",
+      "agentDocId": "keychain-module-agent",
+      "agentDocFile": "keychain-module-agent.md",
+      "capabilities": ["secure_password_storage", "service_listing"],
+      "permissions": [],
+      "risk": "secret_storage",
+      "requiresUserAction": false,
+      "failureStates": ["missing_secret", "os_error"]
+    },
+    "clipboard": {
+      "importName": "clipboard",
+      "category": "systemServices",
+      "docId": "clipboard-module",
+      "docFile": "clipboard-module.md",
+      "agentDocId": "clipboard-module-agent",
+      "agentDocFile": "clipboard-module-agent.md",
+      "capabilities": ["read_clipboard", "write_clipboard", "clear_clipboard"],
+      "permissions": [],
+      "risk": "user_content",
+      "requiresUserAction": true,
+      "failureStates": ["empty"]
+    },
+    "console": {
+      "importName": "console",
+      "category": "systemServices",
+      "docId": "console-module",
+      "docFile": "console-module.md",
+      "agentDocId": "console-module-agent",
+      "agentDocFile": "console-module-agent.md",
+      "capabilities": ["hud", "alerts", "input_dialogs"],
+      "permissions": [],
+      "risk": "ui_prompt",
+      "requiresUserAction": true,
+      "failureStates": ["cancelled"]
+    },
+    "dialogs": {
+      "importName": "dialogs",
+      "category": "systemServices",
+      "docId": "dialogs-module",
+      "docFile": "dialogs-module.md",
+      "agentDocId": "dialogs-module-agent",
+      "agentDocFile": "dialogs-module-agent.md",
+      "capabilities": ["native_dialogs", "forms", "pickers"],
+      "permissions": [],
+      "risk": "ui_prompt",
+      "requiresUserAction": true,
+      "failureStates": ["cancelled"]
+    },
+    "notification": {
+      "importName": "notification",
+      "category": "systemServices",
+      "docId": "notification-module",
+      "docFile": "notification-module.md",
+      "agentDocId": "notification-module-agent",
+      "agentDocFile": "notification-module-agent.md",
+      "capabilities": ["local_notifications", "badges", "scheduled_alerts"],
+      "permissions": ["notifications"],
+      "risk": "system_write",
+      "requiresUserAction": true,
+      "failureStates": ["denied", "scheduled_conflict"]
+    },
+    "calendar_events": {
+      "importName": "calendar_events",
+      "category": "systemServices",
+      "docId": "calendar-events-module",
+      "docFile": "calendar-events-module.md",
+      "agentDocId": "calendar-events-module-agent",
+      "agentDocFile": "calendar-events-module-agent.md",
+      "capabilities": ["calendar_read", "calendar_write", "reminders"],
+      "permissions": ["calendar", "reminders"],
+      "risk": "permissioned_write",
+      "requiresUserAction": true,
+      "failureStates": ["denied", "cancelled", "not_found"]
+    },
+    "contacts": {
+      "importName": "contacts",
+      "category": "systemServices",
+      "docId": "contacts-module",
+      "docFile": "contacts-module.md",
+      "agentDocId": "contacts-module-agent",
+      "agentDocFile": "contacts-module-agent.md",
+      "capabilities": ["contacts_read", "contacts_picker", "contacts_edit"],
+      "permissions": ["contacts"],
+      "risk": "sensitive_read_write",
+      "requiresUserAction": true,
+      "failureStates": ["denied", "cancelled", "not_found"]
+    },
+    "live_activity": {
+      "importName": "live_activity",
+      "category": "systemServices",
+      "docId": "live-activity-module",
+      "docFile": "live-activity-module.md",
+      "agentDocId": "live-activity-module-agent",
+      "agentDocFile": "live-activity-module-agent.md",
+      "capabilities": ["dynamic_island", "lock_screen_activity"],
+      "permissions": [],
+      "risk": "system_write",
+      "requiresUserAction": true,
+      "failureStates": ["unsupported", "activity_not_found"]
+    },
+    "nfc": {
+      "importName": "nfc",
+      "category": "systemServices",
+      "docId": "nfc-module",
+      "docFile": "nfc-module.md",
+      "agentDocId": "nfc-module-agent",
+      "agentDocFile": "nfc-module-agent.md",
+      "capabilities": ["ndef_scan", "ndef_write"],
+      "permissions": ["nfc"],
+      "risk": "hardware_session",
+      "requiresUserAction": true,
+      "failureStates": ["unsupported", "cancelled", "scan_failed"]
+    },
+    "photos": {
+      "importName": "photos",
+      "category": "mediaVision",
+      "docId": "photos-module",
+      "docFile": "photos-module.md",
+      "agentDocId": "photos-module-agent",
+      "agentDocFile": "photos-module-agent.md",
+      "capabilities": ["photo_picker", "camera_capture", "photo_save", "asset_read"],
+      "permissions": ["photos", "camera"],
+      "risk": "user_content",
+      "requiresUserAction": true,
+      "failureStates": ["denied", "cancelled", "empty", "unavailable"]
+    },
+    "avplayer": {
+      "importName": "avplayer",
+      "category": "mediaVision",
+      "docId": "avplayer-module",
+      "docFile": "avplayer-module.md",
+      "agentDocId": "avplayer-module-agent",
+      "agentDocFile": "avplayer-module-agent.md",
+      "capabilities": ["audio_video_load", "playback_control", "native_player"],
+      "permissions": [],
+      "risk": "media_playback",
+      "requiresUserAction": true,
+      "failureStates": ["load_failed", "unsupported_url"]
+    },
+    "sound": {
+      "importName": "sound",
+      "category": "mediaVision",
+      "docId": "sound-module",
+      "docFile": "sound-module.md",
+      "agentDocId": "sound-module-agent",
+      "agentDocFile": "sound-module-agent.md",
+      "capabilities": ["sound_effects", "audio_player"],
+      "permissions": [],
+      "risk": "media_playback",
+      "requiresUserAction": true,
+      "failureStates": ["load_failed", "unsupported_format"]
+    },
+    "speech": {
+      "importName": "speech",
+      "category": "mediaVision",
+      "docId": "speech-module",
+      "docFile": "speech-module.md",
+      "agentDocId": "speech-module-agent",
+      "agentDocFile": "speech-module-agent.md",
+      "capabilities": ["text_to_speech", "voice_listing"],
+      "permissions": ["speech"],
+      "risk": "media_playback",
+      "requiresUserAction": true,
+      "failureStates": ["unavailable", "voice_not_found"]
+    },
+    "vision": {
+      "importName": "vision",
+      "category": "mediaVision",
+      "docId": "vision-module",
+      "docFile": "vision-module.md",
+      "agentDocId": "vision-module-agent",
+      "agentDocFile": "vision-module-agent.md",
+      "capabilities": ["ocr"],
+      "permissions": [],
+      "risk": "local_ml",
+      "requiresUserAction": false,
+      "failureStates": ["empty_image", "recognition_failed"]
+    },
+    "vision_helper": {
+      "importName": "vision_helper",
+      "category": "mediaVision",
+      "docId": "vision-helper-module",
+      "docFile": "vision-helper-module.md",
+      "agentDocId": "vision-helper-module-agent",
+      "agentDocFile": "vision-helper-module-agent.md",
+      "capabilities": ["face_detection", "barcode_detection", "rectangle_detection", "classification"],
+      "permissions": [],
+      "risk": "local_ml",
+      "requiresUserAction": false,
+      "failureStates": ["empty_image", "recognition_failed"]
+    },
+    "coreml": {
+      "importName": "coreml",
+      "category": "mediaVision",
+      "docId": "coreml-module",
+      "docFile": "coreml-module.md",
+      "agentDocId": "coreml-module-agent",
+      "agentDocFile": "coreml-module-agent.md",
+      "capabilities": ["model_listing", "model_loading", "image_prediction"],
+      "permissions": [],
+      "risk": "local_ml",
+      "requiresUserAction": false,
+      "failureStates": ["model_not_found", "prediction_failed"]
+    },
+    "network": {
+      "importName": "network",
+      "category": "networkData",
+      "docId": "network-module",
+      "docFile": "network-module.md",
+      "agentDocId": "network-module-agent",
+      "agentDocFile": "network-module-agent.md",
+      "capabilities": ["http", "download", "connectivity"],
+      "permissions": [],
+      "risk": "network",
+      "requiresUserAction": false,
+      "failureStates": ["offline", "timeout", "http_error"]
+    },
+    "websocket": {
+      "importName": "websocket",
+      "category": "networkData",
+      "docId": "websocket-module",
+      "docFile": "websocket-module.md",
+      "agentDocId": "websocket-module-agent",
+      "agentDocFile": "websocket-module-agent.md",
+      "capabilities": ["websocket_connect", "send", "receive", "close"],
+      "permissions": [],
+      "risk": "network",
+      "requiresUserAction": false,
+      "failureStates": ["offline", "timeout", "closed"]
+    },
+    "bluetooth": {
+      "importName": "bluetooth",
+      "category": "networkData",
+      "docId": "bluetooth-module",
+      "docFile": "bluetooth-module.md",
+      "agentDocId": "bluetooth-module-agent",
+      "agentDocFile": "bluetooth-module-agent.md",
+      "capabilities": ["ble_scan", "ble_connect", "read", "write"],
+      "permissions": ["bluetooth"],
+      "risk": "hardware_session",
+      "requiresUserAction": true,
+      "failureStates": ["unsupported", "denied", "not_found", "disconnected"]
+    },
+    "background": {
+      "importName": "background",
+      "category": "networkData",
+      "docId": "background-module",
+      "docFile": "background-module.md",
+      "agentDocId": "background-module-agent",
+      "agentDocFile": "background-module-agent.md",
+      "capabilities": ["background_task", "remaining_time", "app_state"],
+      "permissions": [],
+      "risk": "background_execution",
+      "requiresUserAction": true,
+      "failureStates": ["expired", "unavailable"]
+    },
+    "c_extensions": {
+      "importName": null,
+      "category": "networkData",
+      "docId": "c-extensions-module",
+      "docFile": "c-extensions-module.md",
+      "agentDocId": "c-extensions-module-agent",
+      "agentDocFile": "c-extensions-module-agent.md",
+      "capabilities": ["bundled_extension_inventory", "ios_compatibility_guidance"],
+      "permissions": [],
+      "risk": "reference_only",
+      "requiresUserAction": false,
+      "failureStates": ["unsupported_package"]
+    },
+    "shortcuts": {
+      "importName": "shortcuts",
+      "category": "automationExtensions",
+      "docId": "shortcuts-module",
+      "docFile": "shortcuts-module.md",
+      "agentDocId": "shortcuts-module-agent",
+      "agentDocFile": "shortcuts-module-agent.md",
+      "capabilities": ["run_shortcut", "open_url", "open_settings"],
+      "permissions": [],
+      "risk": "external_automation",
+      "requiresUserAction": true,
+      "failureStates": ["cancelled", "shortcut_not_found", "url_failed"]
+    },
+    "objc_util": {
+      "importName": "objc_util",
+      "category": "automationExtensions",
+      "docId": "objc-util-module",
+      "docFile": "objc-util-module.md",
+      "agentDocId": "objc-util-module-agent",
+      "agentDocFile": "objc-util-module-agent.md",
+      "capabilities": ["objective_c_runtime", "framework_bridge"],
+      "permissions": [],
+      "risk": "advanced_bridge",
+      "requiresUserAction": false,
+      "failureStates": ["selector_missing", "framework_unavailable"]
+    },
+    "keyboard": {
+      "importName": "keyboard",
+      "category": "automationExtensions",
+      "docId": "keyboard-module",
+      "docFile": "keyboard-module.md",
+      "agentDocId": "keyboard-module-agent",
+      "agentDocFile": "keyboard-module-agent.md",
+      "capabilities": ["toolbar_buttons", "insert_text", "set_buttons"],
+      "permissions": [],
+      "risk": "editor_integration",
+      "requiresUserAction": true,
+      "failureStates": ["unavailable", "invalid_button"]
+    }
+  }
+}

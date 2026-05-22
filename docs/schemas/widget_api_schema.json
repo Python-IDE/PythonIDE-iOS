@@ -1,0 +1,3920 @@
+{
+  "schema": "pythonide.widget.api.v1",
+  "version": 1,
+  "module": "widget",
+  "status": "public",
+  "description": "Canonical public API contract for PythonIDE semantic Widget primitives, low-level DSL escape hatches, Agent generation, docs, and validation.",
+  "families": [
+    "small",
+    "medium",
+    "large",
+    "circular",
+    "rectangular",
+    "inline"
+  ],
+  "types": {
+    "ColorLike": "string color or [lightColor, darkColor]",
+    "WidgetBackground": "system, clear/transparent/none, ColorLike, or {'gradient': [color, color], 'direction': string}",
+    "Frame": "dictionary with width, height, minWidth, maxWidth, minHeight, maxHeight, alignment",
+    "NumberList": "list[int|float]",
+    "Family": "small|medium|large|circular|rectangular|inline",
+    "LayoutMode": "auto|fixed",
+    "RichTextPart": "string, (text, color[, weight[, size]]), or {text/content, color, weight, size, design}",
+    "PathPoint": "(x, y), [x, y], or {'x': x, 'y': y}; relative 0..1 by default"
+  },
+  "moduleApi": {
+    "constants": {
+      "SMALL": {
+        "type": "Family",
+        "value": "small",
+        "public": true
+      },
+      "MEDIUM": {
+        "type": "Family",
+        "value": "medium",
+        "public": true
+      },
+      "LARGE": {
+        "type": "Family",
+        "value": "large",
+        "public": true
+      },
+      "CIRCULAR": {
+        "type": "Family",
+        "value": "circular",
+        "public": true
+      },
+      "RECTANGULAR": {
+        "type": "Family",
+        "value": "rectangular",
+        "public": true
+      },
+      "INLINE": {
+        "type": "Family",
+        "value": "inline",
+        "public": true
+      }
+    },
+    "runtimeValues": {
+      "family": {
+        "type": "Family",
+        "public": true,
+        "agentRecommended": true
+      },
+      "params": {
+        "type": "object",
+        "public": true,
+        "agentRecommended": true
+      },
+      "storage": {
+        "type": "object",
+        "public": true,
+        "agentUseWithCare": true
+      }
+    },
+    "functions": {
+      "show": {
+        "public": true,
+        "status": "compatibility",
+        "agentHidden": true,
+        "purpose": "quick title/value/subtitle/progress widget output",
+        "parameters": [
+          {
+            "name": "title",
+            "type": "str",
+            "required": true
+          },
+          {
+            "name": "value",
+            "type": "str",
+            "default": ""
+          },
+          {
+            "name": "subtitle",
+            "type": "str",
+            "default": ""
+          },
+          {
+            "name": "progress",
+            "type": "float|null",
+            "keywordOnly": true,
+            "default": null
+          },
+          {
+            "name": "color",
+            "type": "str|null",
+            "keywordOnly": true,
+            "default": null
+          },
+          {
+            "name": "icon",
+            "type": "str|null",
+            "keywordOnly": true,
+            "default": null
+          },
+          {
+            "name": "rows",
+            "type": "list[dict]|null",
+            "keywordOnly": true,
+            "default": null
+          },
+          {
+            "name": "display_type",
+            "type": "str|null",
+            "keywordOnly": true,
+            "default": null
+          },
+          {
+            "name": "style",
+            "type": "str|null",
+            "keywordOnly": true,
+            "default": null
+          },
+          {
+            "name": "background",
+            "type": "str|null",
+            "keywordOnly": true,
+            "default": null
+          },
+          {
+            "name": "text_color",
+            "type": "str|null",
+            "keywordOnly": true,
+            "default": null
+          }
+        ],
+        "notes": [
+          "Use only for throwaway quick cards. For generated or user-facing widgets prefer Widget(style='clean') with semantic primitives."
+        ]
+      },
+      "save_image": {
+        "public": true,
+        "agentRecommended": true,
+        "parameters": [
+          {
+            "name": "source",
+            "type": "file path|http(s) URL|bytes",
+            "required": true
+          },
+          {
+            "name": "name",
+            "type": "str",
+            "required": true
+          }
+        ],
+        "returns": "str"
+      },
+      "preview": {
+        "public": true,
+        "status": "compatibility",
+        "agentHidden": true,
+        "parameters": [
+          {
+            "name": "family",
+            "type": "Family|null",
+            "default": null
+          }
+        ],
+        "returns": "Family"
+      },
+      "reload_user_widgets": {
+        "public": true,
+        "status": "compatibility",
+        "agentHidden": true,
+        "parameters": []
+      },
+      "reload_test_widgets": {
+        "public": true,
+        "status": "compatibility",
+        "agentHidden": true,
+        "parameters": []
+      },
+      "family_value": {
+        "public": true,
+        "agentRecommended": true,
+        "parameters": [
+          {
+            "name": "default",
+            "type": "Any",
+            "default": null
+          },
+          {
+            "name": "**values",
+            "type": "dict[Family|alias, Any]"
+          }
+        ],
+        "returns": "Any"
+      },
+      "history": {
+        "public": true,
+        "agentRecommended": true,
+        "parameters": [
+          {
+            "name": "key",
+            "type": "str",
+            "required": true
+          },
+          {
+            "name": "value",
+            "type": "Any",
+            "default": null
+          },
+          {
+            "name": "limit",
+            "type": "int",
+            "default": 7
+          },
+          {
+            "name": "bucket",
+            "type": "str|null",
+            "keywordOnly": true,
+            "default": "day"
+          },
+          {
+            "name": "default",
+            "type": "Any",
+            "keywordOnly": true,
+            "default": null
+          }
+        ],
+        "returns": "list|Any"
+      },
+      "cache_json": {
+        "public": true,
+        "agentRecommended": true,
+        "parameters": [
+          {
+            "name": "url",
+            "type": "str",
+            "required": true
+          },
+          {
+            "name": "ttl",
+            "type": "float|null",
+            "keywordOnly": true,
+            "default": 3600
+          },
+          {
+            "name": "default",
+            "type": "Any",
+            "keywordOnly": true,
+            "default": null
+          },
+          {
+            "name": "params",
+            "type": "dict|null",
+            "keywordOnly": true,
+            "default": null
+          },
+          {
+            "name": "headers",
+            "type": "dict[str,str]|null",
+            "keywordOnly": true,
+            "default": null
+          },
+          {
+            "name": "key",
+            "type": "str|null",
+            "keywordOnly": true,
+            "default": null
+          },
+          {
+            "name": "timeout",
+            "type": "float",
+            "keywordOnly": true,
+            "default": 8
+          }
+        ],
+        "returns": "Any"
+      },
+      "schema": {
+        "public": true,
+        "agentHidden": true,
+        "parameters": [],
+        "returns": "dict",
+        "notes": [
+          "Full runtime schema. Agent generation should use agent_schema() instead."
+        ]
+      },
+      "agent_schema": {
+        "public": true,
+        "agentRecommended": true,
+        "parameters": [],
+        "returns": "dict",
+        "notes": [
+          "Agent-visible schema projection. Excludes low-level DSL and compatibility internals."
+        ]
+      },
+      "validate_layout": {
+        "public": true,
+        "agentRecommended": true,
+        "parameters": [
+          {
+            "name": "layout",
+            "type": "dict|Widget",
+            "required": true
+          },
+          {
+            "name": "family",
+            "type": "Family|null",
+            "default": null
+          }
+        ],
+        "returns": "dict"
+      }
+    }
+  },
+  "classes": {
+    "Widget": {
+      "public": true,
+      "agentRecommended": true,
+      "constructor": {
+        "parameters": [
+          {
+            "name": "background",
+            "type": "WidgetBackground|null",
+            "default": null
+          },
+          {
+            "name": "padding",
+            "type": "float|null",
+            "default": null
+          },
+          {
+            "name": "style",
+            "type": "str|null",
+            "keywordOnly": true,
+            "default": null,
+            "status": "public"
+          },
+          {
+            "name": "layout",
+            "type": "LayoutMode",
+            "keywordOnly": true,
+            "default": "auto",
+            "status": "internal"
+          }
+        ]
+      },
+      "methods": {
+        "title": {
+          "node": "text",
+          "status": "public",
+          "agentRecommended": true,
+          "parameters": [
+            {
+              "name": "content",
+              "type": "str|int|float",
+              "required": true
+            }
+          ]
+        },
+        "headline": {
+          "node": "text",
+          "status": "compatibility",
+          "agentHidden": true,
+          "parameters": [
+            {
+              "name": "content",
+              "type": "str|int|float",
+              "required": true
+            }
+          ]
+        },
+        "subheadline": {
+          "node": "text",
+          "status": "compatibility",
+          "agentHidden": true,
+          "parameters": [
+            {
+              "name": "content",
+              "type": "str|int|float",
+              "required": true
+            }
+          ]
+        },
+        "caption": {
+          "node": "text",
+          "status": "public",
+          "agentRecommended": true,
+          "parameters": [
+            {
+              "name": "content",
+              "type": "str|int|float",
+              "required": true
+            }
+          ]
+        },
+        "body": {
+          "node": "text",
+          "status": "public",
+          "agentRecommended": true,
+          "parameters": [
+            {
+              "name": "content",
+              "type": "str|int|float",
+              "required": true
+            }
+          ]
+        },
+        "label": {
+          "node": "text",
+          "status": "compatibility",
+          "agentHidden": true,
+          "parameters": [
+            {
+              "name": "content",
+              "type": "str|int|float",
+              "required": true
+            }
+          ]
+        },
+        "detail": {
+          "node": "text",
+          "status": "compatibility",
+          "agentHidden": true,
+          "parameters": [
+            {
+              "name": "content",
+              "type": "str|int|float",
+              "required": true
+            }
+          ]
+        },
+        "footnote": {
+          "node": "text",
+          "status": "compatibility",
+          "agentHidden": true,
+          "parameters": [
+            {
+              "name": "content",
+              "type": "str|int|float",
+              "required": true
+            }
+          ]
+        },
+        "note": {
+          "node": "text",
+          "status": "compatibility",
+          "agentHidden": true,
+          "parameters": [
+            {
+              "name": "content",
+              "type": "str|int|float",
+              "required": true
+            }
+          ]
+        },
+        "value": {
+          "node": "text",
+          "status": "public",
+          "agentRecommended": true,
+          "parameters": [
+            {
+              "name": "value",
+              "type": "str|int|float",
+              "required": true
+            },
+            {
+              "name": "unit",
+              "type": "str|null",
+              "default": null
+            },
+            {
+              "name": "subtitle",
+              "type": "str|null",
+              "default": null
+            }
+          ]
+        },
+        "number": {
+          "node": "text",
+          "status": "compatibility",
+          "agentHidden": true,
+          "parameters": [
+            {
+              "name": "value",
+              "type": "str|int|float",
+              "required": true
+            },
+            {
+              "name": "unit",
+              "type": "str|null",
+              "default": null
+            },
+            {
+              "name": "subtitle",
+              "type": "str|null",
+              "default": null
+            }
+          ]
+        },
+        "currency": {
+          "node": "text",
+          "status": "compatibility",
+          "agentHidden": true,
+          "parameters": [
+            {
+              "name": "value",
+              "type": "str|int|float",
+              "required": true
+            },
+            {
+              "name": "symbol",
+              "type": "str",
+              "default": "¥"
+            },
+            {
+              "name": "unit",
+              "type": "str|null",
+              "default": null
+            },
+            {
+              "name": "digits",
+              "type": "int",
+              "default": 2
+            }
+          ]
+        },
+        "percent": {
+          "node": "text",
+          "status": "compatibility",
+          "agentHidden": true,
+          "parameters": [
+            {
+              "name": "value",
+              "type": "float",
+              "required": true
+            },
+            {
+              "name": "total",
+              "type": "float",
+              "default": 1.0
+            },
+            {
+              "name": "digits",
+              "type": "int",
+              "default": 0
+            },
+            {
+              "name": "unit",
+              "type": "str",
+              "default": "%"
+            }
+          ]
+        },
+        "change": {
+          "node": "text",
+          "status": "public",
+          "agentRecommended": true,
+          "parameters": [
+            {
+              "name": "primary",
+              "type": "str|int|float",
+              "required": true
+            },
+            {
+              "name": "secondary",
+              "type": "str|int|float|null",
+              "default": null
+            },
+            {
+              "name": "direction",
+              "type": "up|down|neutral|null",
+              "default": null
+            }
+          ]
+        },
+        "symbol": {
+          "node": "icon",
+          "status": "public",
+          "agentRecommended": true,
+          "parameters": [
+            {
+              "name": "name",
+              "type": "str",
+              "required": true
+            }
+          ]
+        },
+        "sf_symbol": {
+          "node": "icon",
+          "status": "compatibility",
+          "agentHidden": true,
+          "parameters": [
+            {
+              "name": "name",
+              "type": "str",
+              "required": true
+            }
+          ]
+        },
+        "badge": {
+          "node": "text",
+          "status": "public",
+          "agentRecommended": true,
+          "parameters": [
+            {
+              "name": "text",
+              "type": "str|int|float",
+              "required": true
+            },
+            {
+              "name": "icon",
+              "type": "str|null",
+              "default": null
+            },
+            {
+              "name": "tone",
+              "type": "str",
+              "default": "accent"
+            },
+            {
+              "name": "style",
+              "type": "plain|soft",
+              "default": "plain"
+            }
+          ]
+        },
+        "status": {
+          "node": "text",
+          "status": "compatibility",
+          "agentHidden": true,
+          "parameters": [
+            {
+              "name": "text",
+              "type": "str|int|float",
+              "required": true
+            },
+            {
+              "name": "tone",
+              "type": "str",
+              "default": "neutral"
+            },
+            {
+              "name": "icon",
+              "type": "str|null",
+              "default": null
+            },
+            {
+              "name": "style",
+              "type": "plain|soft",
+              "default": "plain"
+            }
+          ]
+        },
+        "tag": {
+          "node": "text",
+          "status": "compatibility",
+          "agentHidden": true,
+          "parameters": [
+            {
+              "name": "text",
+              "type": "str|int|float",
+              "required": true
+            },
+            {
+              "name": "tone",
+              "type": "str",
+              "default": "neutral"
+            },
+            {
+              "name": "icon",
+              "type": "str|null",
+              "default": null
+            },
+            {
+              "name": "style",
+              "type": "plain|soft",
+              "default": "plain"
+            }
+          ]
+        },
+        "pill": {
+          "node": "text",
+          "status": "compatibility",
+          "agentHidden": true,
+          "parameters": [
+            {
+              "name": "text",
+              "type": "str|int|float",
+              "required": true
+            },
+            {
+              "name": "tone",
+              "type": "str",
+              "default": "accent"
+            },
+            {
+              "name": "icon",
+              "type": "str|null",
+              "default": null
+            }
+          ]
+        },
+        "metric": {
+          "node": "hstack",
+          "status": "public",
+          "agentRecommended": true,
+          "parameters": [
+            {
+              "name": "label",
+              "type": "str|int|float",
+              "required": true
+            },
+            {
+              "name": "value",
+              "type": "str|int|float",
+              "required": true
+            },
+            {
+              "name": "unit",
+              "type": "str|null",
+              "default": null
+            },
+            {
+              "name": "icon",
+              "type": "str|null",
+              "default": null
+            },
+            {
+              "name": "tone",
+              "type": "str|null",
+              "default": null
+            },
+            {
+              "name": "style",
+              "type": "plain|soft|prominent",
+              "default": "plain"
+            }
+          ]
+        },
+        "kpi": {
+          "node": "hstack",
+          "status": "compatibility",
+          "agentHidden": true,
+          "parameters": [
+            {
+              "name": "label",
+              "type": "str|int|float",
+              "required": true
+            },
+            {
+              "name": "value",
+              "type": "str|int|float",
+              "required": true
+            },
+            {
+              "name": "unit",
+              "type": "str|null",
+              "default": null
+            },
+            {
+              "name": "icon",
+              "type": "str|null",
+              "default": null
+            },
+            {
+              "name": "tone",
+              "type": "str|null",
+              "default": null
+            },
+            {
+              "name": "style",
+              "type": "soft|plain|prominent",
+              "default": "prominent"
+            }
+          ]
+        },
+        "stat": {
+          "node": "hstack",
+          "status": "compatibility",
+          "agentHidden": true,
+          "parameters": [
+            {
+              "name": "label",
+              "type": "str|int|float",
+              "required": true
+            },
+            {
+              "name": "value",
+              "type": "str|int|float",
+              "required": true
+            },
+            {
+              "name": "unit",
+              "type": "str|null",
+              "default": null
+            },
+            {
+              "name": "icon",
+              "type": "str|null",
+              "default": null
+            },
+            {
+              "name": "tone",
+              "type": "str|null",
+              "default": null
+            },
+            {
+              "name": "style",
+              "type": "plain|soft|prominent",
+              "default": "plain"
+            }
+          ]
+        },
+        "pair": {
+          "node": "hstack",
+          "status": "compatibility",
+          "agentHidden": true,
+          "parameters": [
+            {
+              "name": "label",
+              "type": "str|int|float",
+              "required": true
+            },
+            {
+              "name": "value",
+              "type": "str|int|float",
+              "required": true
+            },
+            {
+              "name": "unit",
+              "type": "str|null",
+              "default": null
+            },
+            {
+              "name": "icon",
+              "type": "str|null",
+              "default": null
+            },
+            {
+              "name": "tone",
+              "type": "str|null",
+              "default": null
+            }
+          ]
+        },
+        "line": {
+          "node": "lineChart",
+          "status": "public",
+          "agentRecommended": true,
+          "parameters": [
+            {
+              "name": "data",
+              "type": "NumberList",
+              "required": true
+            },
+            {
+              "name": "labels",
+              "type": "list[str|int|float]|null",
+              "default": null
+            },
+            {
+              "name": "colors",
+              "type": "list[ColorLike]|null",
+              "default": null
+            }
+          ]
+        },
+        "trend": {
+          "node": "lineChart",
+          "status": "compatibility",
+          "agentHidden": true,
+          "parameters": [
+            {
+              "name": "data",
+              "type": "NumberList",
+              "required": true
+            },
+            {
+              "name": "labels",
+              "type": "list[str|int|float]|null",
+              "default": null
+            },
+            {
+              "name": "colors",
+              "type": "list[ColorLike]|null",
+              "default": null
+            }
+          ]
+        },
+        "area": {
+          "node": "lineChart",
+          "status": "compatibility",
+          "agentHidden": true,
+          "parameters": [
+            {
+              "name": "data",
+              "type": "NumberList",
+              "required": true
+            },
+            {
+              "name": "labels",
+              "type": "list[str|int|float]|null",
+              "default": null
+            },
+            {
+              "name": "colors",
+              "type": "list[ColorLike]|null",
+              "default": null
+            }
+          ]
+        },
+        "spark": {
+          "node": "lineChart",
+          "status": "compatibility",
+          "agentHidden": true,
+          "parameters": [
+            {
+              "name": "data",
+              "type": "NumberList",
+              "required": true
+            },
+            {
+              "name": "labels",
+              "type": "list[str|int|float]|null",
+              "default": null
+            },
+            {
+              "name": "colors",
+              "type": "list[ColorLike]|null",
+              "default": null
+            }
+          ]
+        },
+        "bar": {
+          "node": "barChart",
+          "status": "public",
+          "agentRecommended": true,
+          "parameters": [
+            {
+              "name": "data",
+              "type": "NumberList",
+              "required": true
+            },
+            {
+              "name": "labels",
+              "type": "list[str|int|float]|null",
+              "default": null
+            },
+            {
+              "name": "colors",
+              "type": "list[ColorLike]|null",
+              "default": null
+            }
+          ]
+        },
+        "bars": {
+          "node": "barChart",
+          "status": "compatibility",
+          "agentHidden": true,
+          "parameters": [
+            {
+              "name": "data",
+              "type": "NumberList",
+              "required": true
+            },
+            {
+              "name": "labels",
+              "type": "list[str|int|float]|null",
+              "default": null
+            },
+            {
+              "name": "colors",
+              "type": "list[ColorLike]|null",
+              "default": null
+            }
+          ]
+        },
+        "ring": {
+          "node": "ringChart",
+          "status": "public",
+          "agentRecommended": true,
+          "parameters": [
+            {
+              "name": "value",
+              "type": "float",
+              "required": true
+            },
+            {
+              "name": "total",
+              "type": "float",
+              "default": 1.0
+            },
+            {
+              "name": "label",
+              "type": "str|null",
+              "default": null
+            }
+          ]
+        },
+        "donut": {
+          "node": "ringChart",
+          "status": "compatibility",
+          "agentHidden": true,
+          "parameters": [
+            {
+              "name": "value",
+              "type": "float",
+              "required": true
+            },
+            {
+              "name": "total",
+              "type": "float",
+              "default": 1.0
+            },
+            {
+              "name": "label",
+              "type": "str|null",
+              "default": null
+            }
+          ]
+        },
+        "radial": {
+          "node": "ringChart",
+          "status": "compatibility",
+          "agentHidden": true,
+          "parameters": [
+            {
+              "name": "value",
+              "type": "float",
+              "required": true
+            },
+            {
+              "name": "total",
+              "type": "float",
+              "default": 1.0
+            },
+            {
+              "name": "label",
+              "type": "str|null",
+              "default": null
+            }
+          ]
+        },
+        "meter": {
+          "node": "ringChart",
+          "status": "compatibility",
+          "agentHidden": true,
+          "parameters": [
+            {
+              "name": "value",
+              "type": "float",
+              "required": true
+            },
+            {
+              "name": "total",
+              "type": "float",
+              "default": 1.0
+            },
+            {
+              "name": "label",
+              "type": "str|null",
+              "default": null
+            }
+          ]
+        },
+        "progress_bar": {
+          "node": "progress",
+          "status": "compatibility",
+          "agentHidden": true,
+          "parameters": [
+            {
+              "name": "value",
+              "type": "float",
+              "required": true
+            },
+            {
+              "name": "total",
+              "type": "float",
+              "default": 1.0
+            },
+            {
+              "name": "color",
+              "type": "ColorLike|null",
+              "default": null
+            },
+            {
+              "name": "height",
+              "type": "float|null",
+              "default": null
+            },
+            {
+              "name": "track_color",
+              "type": "ColorLike|null",
+              "default": null
+            }
+          ]
+        },
+        "row": {
+          "node": "hstack",
+          "status": "public",
+          "container": true,
+          "agentRecommended": true,
+          "parameters": [
+            {
+              "name": "spacing",
+              "type": "float|null",
+              "default": null
+            },
+            {
+              "name": "align",
+              "type": "str|null",
+              "default": null
+            }
+          ]
+        },
+        "column": {
+          "node": "vstack",
+          "status": "public",
+          "container": true,
+          "agentRecommended": true,
+          "parameters": [
+            {
+              "name": "spacing",
+              "type": "float|null",
+              "default": null
+            },
+            {
+              "name": "align",
+              "type": "str|null",
+              "default": null
+            }
+          ]
+        },
+        "layer": {
+          "node": "zstack",
+          "status": "public",
+          "container": true,
+          "agentRecommended": true,
+          "parameters": [
+            {
+              "name": "align",
+              "type": "str",
+              "default": "center"
+            },
+            {
+              "name": "padding",
+              "type": "float|null",
+              "default": null
+            },
+            {
+              "name": "background",
+              "type": "WidgetBackground|null",
+              "default": null
+            },
+            {
+              "name": "corner_radius",
+              "type": "float|null",
+              "default": null
+            }
+          ]
+        },
+        "surface": {
+          "node": "card",
+          "status": "public",
+          "container": true,
+          "agentRecommended": true,
+          "parameters": [
+            {
+              "name": "role",
+              "type": "panel|plain|clear|str",
+              "default": "panel"
+            },
+            {
+              "name": "spacing",
+              "type": "float|null",
+              "default": null
+            },
+            {
+              "name": "align",
+              "type": "str|null",
+              "default": null
+            },
+            {
+              "name": "padding",
+              "type": "float|null",
+              "default": null
+            },
+            {
+              "name": "background",
+              "type": "WidgetBackground|null",
+              "default": null
+            },
+            {
+              "name": "corner_radius",
+              "type": "float|null",
+              "default": null
+            },
+            {
+              "name": "border_color",
+              "type": "ColorLike|null",
+              "default": null
+            },
+            {
+              "name": "border_width",
+              "type": "float|null",
+              "default": null
+            },
+            {
+              "name": "shadow_color",
+              "type": "ColorLike|null",
+              "default": null
+            },
+            {
+              "name": "shadow_radius",
+              "type": "float|null",
+              "default": null
+            }
+          ]
+        },
+        "section": {
+          "node": "vstack",
+          "status": "public",
+          "container": true,
+          "agentRecommended": true,
+          "parameters": [
+            {
+              "name": "title",
+              "type": "str|int|float|null",
+              "default": null
+            },
+            {
+              "name": "spacing",
+              "type": "float|null",
+              "default": null
+            },
+            {
+              "name": "subtitle",
+              "type": "str|int|float|null",
+              "default": null
+            },
+            {
+              "name": "style",
+              "type": "card|soft|group|null",
+              "default": null,
+              "agentHidden": true
+            }
+          ]
+        },
+        "list": {
+          "node": "vstack",
+          "status": "public",
+          "container": true,
+          "agentRecommended": true,
+          "parameters": [
+            {
+              "name": "items",
+              "type": "list[str|tuple|dict]",
+              "required": true
+            },
+            {
+              "name": "title",
+              "type": "str|int|float|null",
+              "default": null
+            },
+            {
+              "name": "limit",
+              "type": "int|null",
+              "default": null
+            },
+            {
+              "name": "empty_text",
+              "type": "str|int|float|null",
+              "default": null
+            },
+            {
+              "name": "dividers",
+              "type": "bool",
+              "default": false
+            }
+          ]
+        },
+        "overlay": {
+          "node": "vstack",
+          "status": "compatibility",
+          "container": true,
+          "agentHidden": true,
+          "parameters": [
+            {
+              "name": "slot",
+              "type": "str",
+              "default": "center"
+            },
+            {
+              "name": "spacing",
+              "type": "float|null",
+              "default": null
+            },
+            {
+              "name": "align",
+              "type": "str|null",
+              "default": null
+            }
+          ]
+        },
+        "region": {
+          "node": "vstack",
+          "status": "public",
+          "container": true,
+          "agentRecommended": true,
+          "parameters": [
+            {
+              "name": "slot",
+              "type": "str",
+              "default": "center"
+            },
+            {
+              "name": "spacing",
+              "type": "float|null",
+              "default": null
+            },
+            {
+              "name": "align",
+              "type": "str|null",
+              "default": null
+            }
+          ]
+        },
+        "top": {
+          "node": "vstack",
+          "status": "compatibility",
+          "container": true,
+          "agentHidden": true
+        },
+        "top_leading": {
+          "node": "vstack",
+          "status": "compatibility",
+          "container": true,
+          "agentHidden": true
+        },
+        "top_trailing": {
+          "node": "vstack",
+          "status": "compatibility",
+          "container": true,
+          "agentHidden": true
+        },
+        "leading": {
+          "node": "vstack",
+          "status": "compatibility",
+          "container": true,
+          "agentHidden": true
+        },
+        "center": {
+          "node": "vstack",
+          "status": "compatibility",
+          "container": true,
+          "agentHidden": true
+        },
+        "trailing": {
+          "node": "vstack",
+          "status": "compatibility",
+          "container": true,
+          "agentHidden": true
+        },
+        "bottom": {
+          "node": "vstack",
+          "status": "compatibility",
+          "container": true,
+          "agentHidden": true
+        },
+        "bottom_leading": {
+          "node": "vstack",
+          "status": "compatibility",
+          "container": true,
+          "agentHidden": true
+        },
+        "bottom_trailing": {
+          "node": "vstack",
+          "status": "compatibility",
+          "container": true,
+          "agentHidden": true
+        },
+        "text": {
+          "node": "text",
+          "status": "public",
+          "agentRecommended": true,
+          "parameters": [
+            {
+              "name": "content",
+              "type": "str|int|float",
+              "required": true
+            },
+            {
+              "name": "size",
+              "type": "float|null",
+              "default": null
+            },
+            {
+              "name": "weight",
+              "type": "str|null",
+              "default": null
+            },
+            {
+              "name": "color",
+              "type": "ColorLike|null",
+              "default": null
+            },
+            {
+              "name": "align",
+              "type": "str|null",
+              "default": null
+            },
+            {
+              "name": "max_lines",
+              "type": "int|null",
+              "default": null
+            },
+            {
+              "name": "design",
+              "type": "str|null",
+              "default": null
+            },
+            {
+              "name": "font_width",
+              "type": "str|null",
+              "default": null
+            },
+            {
+              "name": "opacity",
+              "type": "float|null",
+              "default": null
+            },
+            {
+              "name": "padding",
+              "type": "float|null",
+              "default": null
+            },
+            {
+              "name": "frame",
+              "type": "Frame|null",
+              "default": null
+            },
+            {
+              "name": "minimum_scale_factor",
+              "type": "float|null",
+              "default": null
+            }
+          ],
+          "agentRules": [
+            "Use max_lines for labels longer than 12 characters.",
+            "Use minimum_scale_factor for important single-line values."
+          ]
+        },
+        "rich_text": {
+          "node": "richText",
+          "status": "public",
+          "agentRecommended": true,
+          "parameters": [
+            {
+              "name": "parts",
+              "type": "list[RichTextPart]",
+              "required": true
+            },
+            {
+              "name": "size",
+              "type": "float|null",
+              "default": null
+            },
+            {
+              "name": "weight",
+              "type": "str|null",
+              "default": null
+            },
+            {
+              "name": "color",
+              "type": "ColorLike|null",
+              "default": null
+            },
+            {
+              "name": "align",
+              "type": "str|null",
+              "default": null
+            },
+            {
+              "name": "max_lines",
+              "type": "int|null",
+              "default": null
+            },
+            {
+              "name": "design",
+              "type": "str|null",
+              "default": null
+            },
+            {
+              "name": "font_width",
+              "type": "str|null",
+              "default": null
+            },
+            {
+              "name": "opacity",
+              "type": "float|null",
+              "default": null
+            },
+            {
+              "name": "padding",
+              "type": "float|null",
+              "default": null
+            },
+            {
+              "name": "frame",
+              "type": "Frame|null",
+              "default": null,
+              "agentHidden": true
+            },
+            {
+              "name": "minimum_scale_factor",
+              "type": "float|null",
+              "default": null
+            }
+          ],
+          "agentRules": [
+            "Use rich_text when one logical line needs multiple colors or weights without increasing node count."
+          ]
+        },
+        "icon": {
+          "node": "icon",
+          "status": "compatibility",
+          "agentHidden": true,
+          "parameters": [
+            {
+              "name": "name",
+              "type": "str",
+              "required": true
+            },
+            {
+              "name": "size",
+              "type": "float|null",
+              "default": null
+            },
+            {
+              "name": "color",
+              "type": "ColorLike|null",
+              "default": null
+            },
+            {
+              "name": "weight",
+              "type": "str|null",
+              "default": null
+            },
+            {
+              "name": "opacity",
+              "type": "float|null",
+              "default": null
+            },
+            {
+              "name": "padding",
+              "type": "float|null",
+              "default": null
+            },
+            {
+              "name": "frame",
+              "type": "Frame|null",
+              "default": null
+            }
+          ]
+        },
+        "spacer": {
+          "node": "spacer",
+          "status": "public",
+          "agentRecommended": true,
+          "parameters": [
+            {
+              "name": "length",
+              "type": "float|null",
+              "default": null
+            }
+          ]
+        },
+        "divider": {
+          "node": "divider",
+          "status": "public",
+          "agentRecommended": true,
+          "parameters": [
+            {
+              "name": "color",
+              "type": "ColorLike|null",
+              "default": null
+            },
+            {
+              "name": "opacity",
+              "type": "float|null",
+              "default": null
+            }
+          ]
+        },
+        "shape": {
+          "node": "shape",
+          "status": "public",
+          "advancedSemantic": true,
+          "agentRecommended": true,
+          "parameters": [
+            {
+              "name": "kind",
+              "type": "rectangle|rounded_rectangle|circle|capsule",
+              "default": "rectangle"
+            },
+            {
+              "name": "color",
+              "type": "ColorLike|null",
+              "default": null
+            },
+            {
+              "name": "width",
+              "type": "float|null",
+              "default": null
+            },
+            {
+              "name": "height",
+              "type": "float|null",
+              "default": null
+            },
+            {
+              "name": "size",
+              "type": "float|null",
+              "default": null
+            },
+            {
+              "name": "corner_radius",
+              "type": "float|null",
+              "default": null
+            },
+            {
+              "name": "opacity",
+              "type": "float|null",
+              "default": null
+            },
+            {
+              "name": "padding",
+              "type": "float|null",
+              "default": null
+            },
+            {
+              "name": "frame",
+              "type": "Frame|null",
+              "default": null
+            },
+            {
+              "name": "border_color",
+              "type": "ColorLike|null",
+              "default": null
+            },
+            {
+              "name": "border_width",
+              "type": "float|null",
+              "default": null
+            },
+            {
+              "name": "shadow_color",
+              "type": "ColorLike|null",
+              "default": null
+            },
+            {
+              "name": "shadow_radius",
+              "type": "float|null",
+              "default": null
+            },
+            {
+              "name": "shadow_x",
+              "type": "float",
+              "default": 0
+            },
+            {
+              "name": "shadow_y",
+              "type": "float",
+              "default": 2
+            }
+          ]
+        },
+        "rectangle": {
+          "node": "shape",
+          "status": "compatibility",
+          "agentHidden": true,
+          "parameters": [
+            {
+              "name": "color",
+              "type": "ColorLike|null",
+              "default": null
+            },
+            {
+              "name": "width",
+              "type": "float|null",
+              "default": null
+            },
+            {
+              "name": "height",
+              "type": "float|null",
+              "default": null
+            },
+            {
+              "name": "corner_radius",
+              "type": "float|null",
+              "default": null
+            },
+            {
+              "name": "opacity",
+              "type": "float|null",
+              "default": null
+            },
+            {
+              "name": "padding",
+              "type": "float|null",
+              "default": null
+            },
+            {
+              "name": "frame",
+              "type": "Frame|null",
+              "default": null
+            },
+            {
+              "name": "border_color",
+              "type": "ColorLike|null",
+              "default": null
+            },
+            {
+              "name": "border_width",
+              "type": "float|null",
+              "default": null
+            }
+          ]
+        },
+        "circle": {
+          "node": "shape",
+          "status": "compatibility",
+          "agentHidden": true,
+          "parameters": [
+            {
+              "name": "color",
+              "type": "ColorLike|null",
+              "default": null
+            },
+            {
+              "name": "size",
+              "type": "float|null",
+              "default": null
+            },
+            {
+              "name": "opacity",
+              "type": "float|null",
+              "default": null
+            },
+            {
+              "name": "padding",
+              "type": "float|null",
+              "default": null
+            },
+            {
+              "name": "frame",
+              "type": "Frame|null",
+              "default": null
+            },
+            {
+              "name": "border_color",
+              "type": "ColorLike|null",
+              "default": null
+            },
+            {
+              "name": "border_width",
+              "type": "float|null",
+              "default": null
+            }
+          ]
+        },
+        "capsule": {
+          "node": "shape",
+          "status": "compatibility",
+          "agentHidden": true,
+          "parameters": [
+            {
+              "name": "color",
+              "type": "ColorLike|null",
+              "default": null
+            },
+            {
+              "name": "width",
+              "type": "float|null",
+              "default": null
+            },
+            {
+              "name": "height",
+              "type": "float|null",
+              "default": null
+            },
+            {
+              "name": "opacity",
+              "type": "float|null",
+              "default": null
+            },
+            {
+              "name": "padding",
+              "type": "float|null",
+              "default": null
+            },
+            {
+              "name": "frame",
+              "type": "Frame|null",
+              "default": null
+            },
+            {
+              "name": "border_color",
+              "type": "ColorLike|null",
+              "default": null
+            },
+            {
+              "name": "border_width",
+              "type": "float|null",
+              "default": null
+            }
+          ]
+        },
+        "emoji": {
+          "node": "emoji",
+          "status": "compatibility",
+          "agentHidden": true,
+          "parameters": [
+            {
+              "name": "content",
+              "type": "str|int",
+              "required": true
+            },
+            {
+              "name": "size",
+              "type": "float|null",
+              "default": null
+            },
+            {
+              "name": "opacity",
+              "type": "float|null",
+              "default": null
+            },
+            {
+              "name": "padding",
+              "type": "float|null",
+              "default": null
+            }
+          ]
+        },
+        "progress": {
+          "node": "progress",
+          "status": "public",
+          "agentRecommended": true,
+          "parameters": [
+            {
+              "name": "value",
+              "type": "float",
+              "required": true
+            },
+            {
+              "name": "total",
+              "type": "float",
+              "default": 1.0
+            },
+            {
+              "name": "color",
+              "type": "ColorLike|null",
+              "default": null
+            },
+            {
+              "name": "height",
+              "type": "float|null",
+              "default": null
+            },
+            {
+              "name": "track_color",
+              "type": "ColorLike|null",
+              "default": null
+            }
+          ]
+        },
+        "sparkline": {
+          "node": "sparkline",
+          "status": "compatibility",
+          "agentHidden": true,
+          "parameters": [
+            {
+              "name": "values",
+              "type": "NumberList",
+              "required": true
+            },
+            {
+              "name": "color",
+              "type": "ColorLike|null",
+              "default": null
+            },
+            {
+              "name": "height",
+              "type": "float|null",
+              "default": null
+            },
+            {
+              "name": "min_value",
+              "type": "float|null",
+              "default": null
+            },
+            {
+              "name": "max_value",
+              "type": "float|null",
+              "default": null
+            },
+            {
+              "name": "fill",
+              "type": "bool",
+              "default": true
+            },
+            {
+              "name": "show_points",
+              "type": "bool",
+              "default": false
+            },
+            {
+              "name": "line_width",
+              "type": "float|null",
+              "default": null
+            },
+            {
+              "name": "track_color",
+              "type": "ColorLike|null",
+              "default": null
+            },
+            {
+              "name": "opacity",
+              "type": "float|null",
+              "default": null
+            },
+            {
+              "name": "padding",
+              "type": "float|null",
+              "default": null
+            },
+            {
+              "name": "frame",
+              "type": "Frame|null",
+              "default": null
+            },
+            {
+              "name": "baseline",
+              "type": "float|null",
+              "default": null
+            },
+            {
+              "name": "threshold",
+              "type": "float|null",
+              "default": null
+            },
+            {
+              "name": "labels",
+              "type": "list|dict|null",
+              "default": null
+            },
+            {
+              "name": "label_color",
+              "type": "ColorLike|null",
+              "default": null
+            }
+          ]
+        },
+        "line_chart": {
+          "node": "lineChart",
+          "status": "compatibility",
+          "agentHidden": true,
+          "parameters": [
+            {
+              "name": "values",
+              "type": "NumberList",
+              "required": true
+            },
+            {
+              "name": "color",
+              "type": "ColorLike|null",
+              "default": null
+            },
+            {
+              "name": "height",
+              "type": "float|null",
+              "default": null
+            },
+            {
+              "name": "min_value",
+              "type": "float|null",
+              "default": null
+            },
+            {
+              "name": "max_value",
+              "type": "float|null",
+              "default": null
+            },
+            {
+              "name": "fill",
+              "type": "bool",
+              "default": true
+            },
+            {
+              "name": "show_points",
+              "type": "bool",
+              "default": true
+            },
+            {
+              "name": "line_width",
+              "type": "float|null",
+              "default": null
+            },
+            {
+              "name": "track_color",
+              "type": "ColorLike|null",
+              "default": null
+            },
+            {
+              "name": "opacity",
+              "type": "float|null",
+              "default": null
+            },
+            {
+              "name": "padding",
+              "type": "float|null",
+              "default": null
+            },
+            {
+              "name": "frame",
+              "type": "Frame|null",
+              "default": null
+            },
+            {
+              "name": "baseline",
+              "type": "float|null",
+              "default": null
+            },
+            {
+              "name": "threshold",
+              "type": "float|null",
+              "default": null
+            },
+            {
+              "name": "labels",
+              "type": "list|dict|null",
+              "default": null
+            },
+            {
+              "name": "label_color",
+              "type": "ColorLike|null",
+              "default": null
+            }
+          ]
+        },
+        "bar_chart": {
+          "node": "barChart",
+          "status": "compatibility",
+          "agentHidden": true,
+          "parameters": [
+            {
+              "name": "values",
+              "type": "NumberList",
+              "required": true
+            },
+            {
+              "name": "color",
+              "type": "ColorLike|null",
+              "default": null
+            },
+            {
+              "name": "height",
+              "type": "float|null",
+              "default": null
+            },
+            {
+              "name": "min_value",
+              "type": "float|null",
+              "default": null
+            },
+            {
+              "name": "max_value",
+              "type": "float|null",
+              "default": null
+            },
+            {
+              "name": "spacing",
+              "type": "float|null",
+              "default": null
+            },
+            {
+              "name": "corner_radius",
+              "type": "float|null",
+              "default": null
+            },
+            {
+              "name": "track_color",
+              "type": "ColorLike|null",
+              "default": null
+            },
+            {
+              "name": "opacity",
+              "type": "float|null",
+              "default": null
+            },
+            {
+              "name": "padding",
+              "type": "float|null",
+              "default": null
+            },
+            {
+              "name": "frame",
+              "type": "Frame|null",
+              "default": null
+            },
+            {
+              "name": "baseline",
+              "type": "float|null",
+              "default": null
+            },
+            {
+              "name": "threshold",
+              "type": "float|null",
+              "default": null
+            },
+            {
+              "name": "labels",
+              "type": "list|dict|null",
+              "default": null
+            },
+            {
+              "name": "label_color",
+              "type": "ColorLike|null",
+              "default": null
+            }
+          ]
+        },
+        "ring_chart": {
+          "node": "ringChart",
+          "status": "compatibility",
+          "agentHidden": true,
+          "parameters": [
+            {
+              "name": "value",
+              "type": "float",
+              "required": true
+            },
+            {
+              "name": "total",
+              "type": "float",
+              "default": 1.0
+            },
+            {
+              "name": "label",
+              "type": "str|null",
+              "default": null
+            },
+            {
+              "name": "color",
+              "type": "ColorLike|null",
+              "default": null
+            },
+            {
+              "name": "track_color",
+              "type": "ColorLike|null",
+              "default": null
+            },
+            {
+              "name": "size",
+              "type": "float|null",
+              "default": null
+            },
+            {
+              "name": "line_width",
+              "type": "float|null",
+              "default": null
+            },
+            {
+              "name": "opacity",
+              "type": "float|null",
+              "default": null
+            },
+            {
+              "name": "padding",
+              "type": "float|null",
+              "default": null
+            },
+            {
+              "name": "frame",
+              "type": "Frame|null",
+              "default": null
+            }
+          ]
+        },
+        "gauge": {
+          "node": "gauge",
+          "status": "compatibility",
+          "agentHidden": true,
+          "parameters": [
+            {
+              "name": "value",
+              "type": "float",
+              "required": true
+            },
+            {
+              "name": "total",
+              "type": "float",
+              "default": 1.0
+            },
+            {
+              "name": "label",
+              "type": "str|null",
+              "default": null
+            },
+            {
+              "name": "size",
+              "type": "float|null",
+              "default": null
+            },
+            {
+              "name": "color",
+              "type": "ColorLike|null",
+              "default": null
+            },
+            {
+              "name": "track_color",
+              "type": "ColorLike|null",
+              "default": null
+            },
+            {
+              "name": "line_width",
+              "type": "float|null",
+              "default": null
+            }
+          ]
+        },
+        "timer": {
+          "node": "timer",
+          "status": "compatibility",
+          "agentHidden": true,
+          "parameters": [
+            {
+              "name": "target",
+              "type": "datetime|str|null",
+              "default": null
+            },
+            {
+              "name": "style",
+              "type": "str",
+              "default": "timer"
+            },
+            {
+              "name": "size",
+              "type": "float|null",
+              "default": null
+            },
+            {
+              "name": "weight",
+              "type": "str|null",
+              "default": null
+            },
+            {
+              "name": "color",
+              "type": "ColorLike|null",
+              "default": null
+            },
+            {
+              "name": "design",
+              "type": "str|null",
+              "default": null
+            },
+            {
+              "name": "font_width",
+              "type": "str|null",
+              "default": null
+            },
+            {
+              "name": "opacity",
+              "type": "float|null",
+              "default": null
+            },
+            {
+              "name": "padding",
+              "type": "float|null",
+              "default": null
+            },
+            {
+              "name": "frame",
+              "type": "Frame|null",
+              "default": null
+            }
+          ]
+        },
+        "date": {
+          "node": "timer",
+          "status": "public",
+          "agentRecommended": true,
+          "parameters": [
+            {
+              "name": "target",
+              "type": "datetime|str|null",
+              "default": null
+            },
+            {
+              "name": "style",
+              "type": "str",
+              "default": "date"
+            }
+          ]
+        },
+        "time": {
+          "node": "timer",
+          "status": "public",
+          "agentRecommended": true,
+          "parameters": [
+            {
+              "name": "target",
+              "type": "datetime|str|null",
+              "default": null
+            }
+          ]
+        },
+        "relative_time": {
+          "node": "timer",
+          "status": "public",
+          "agentRecommended": true,
+          "parameters": [
+            {
+              "name": "target",
+              "type": "datetime|str|null",
+              "default": null
+            }
+          ]
+        },
+        "timer_text": {
+          "node": "timer",
+          "status": "public",
+          "agentRecommended": true,
+          "parameters": [
+            {
+              "name": "target",
+              "type": "datetime|str|null",
+              "default": null
+            }
+          ]
+        },
+        "background_image": {
+          "node": "layout.backgroundImage",
+          "status": "public",
+          "agentRecommended": true,
+          "parameters": [
+            {
+              "name": "asset",
+              "type": "asset name|local path|http(s) URL",
+              "required": true
+            },
+            {
+              "name": "content_mode",
+              "type": "fit|fill",
+              "default": "fill"
+            },
+            {
+              "name": "dim",
+              "type": "bool|float|null",
+              "default": null
+            },
+            {
+              "name": "scrim",
+              "type": "bool|bottom|top|leading|trailing|full|null",
+              "default": null
+            },
+            {
+              "name": "scrim_opacity",
+              "type": "float|null",
+              "default": null
+            },
+            {
+              "name": "focal",
+              "type": "center|top|bottom|leading|trailing|topLeading|topTrailing|bottomLeading|bottomTrailing",
+              "default": "center"
+            },
+            {
+              "name": "overlay_color",
+              "type": "ColorLike",
+              "default": "#000000"
+            }
+          ]
+        },
+        "background": {
+          "node": "layout.background",
+          "status": "public",
+          "agentRecommended": true,
+          "parameters": [
+            {
+              "name": "value",
+              "type": "WidgetBackground",
+              "required": true
+            }
+          ],
+          "returns": "Widget"
+        },
+        "image": {
+          "node": "image",
+          "status": "public",
+          "agentRecommended": true,
+          "parameters": [
+            {
+              "name": "name",
+              "type": "asset name|http(s) URL",
+              "required": true
+            },
+            {
+              "name": "width",
+              "type": "float|null",
+              "default": null
+            },
+            {
+              "name": "height",
+              "type": "float|null",
+              "default": null
+            },
+            {
+              "name": "corner_radius",
+              "type": "float|null",
+              "default": null
+            },
+            {
+              "name": "opacity",
+              "type": "float|null",
+              "default": null
+            },
+            {
+              "name": "padding",
+              "type": "float|null",
+              "default": null
+            },
+            {
+              "name": "content_mode",
+              "type": "fit|fill|null",
+              "default": null
+            }
+          ]
+        },
+        "photo": {
+          "node": "image",
+          "status": "compatibility",
+          "agentHidden": true,
+          "parameters": [
+            {
+              "name": "name",
+              "type": "asset name|http(s) URL",
+              "required": true
+            },
+            {
+              "name": "width",
+              "type": "float|null",
+              "default": null
+            },
+            {
+              "name": "height",
+              "type": "float|null",
+              "default": null
+            },
+            {
+              "name": "corner_radius",
+              "type": "float|null",
+              "default": null
+            },
+            {
+              "name": "opacity",
+              "type": "float|null",
+              "default": null
+            },
+            {
+              "name": "padding",
+              "type": "float|null",
+              "default": null
+            },
+            {
+              "name": "content_mode",
+              "type": "fit|fill|null",
+              "default": null
+            }
+          ]
+        },
+        "avatar": {
+          "node": "image",
+          "status": "compatibility",
+          "agentHidden": true,
+          "parameters": [
+            {
+              "name": "name",
+              "type": "asset name|http(s) URL",
+              "required": true
+            },
+            {
+              "name": "size",
+              "type": "float|null",
+              "default": null
+            },
+            {
+              "name": "opacity",
+              "type": "float|null",
+              "default": null
+            },
+            {
+              "name": "padding",
+              "type": "float|null",
+              "default": null
+            }
+          ]
+        },
+        "thumbnail": {
+          "node": "image",
+          "status": "compatibility",
+          "agentHidden": true,
+          "parameters": [
+            {
+              "name": "name",
+              "type": "asset name|http(s) URL",
+              "required": true
+            },
+            {
+              "name": "width",
+              "type": "float|null",
+              "default": null
+            },
+            {
+              "name": "height",
+              "type": "float|null",
+              "default": null
+            },
+            {
+              "name": "corner_radius",
+              "type": "float|null",
+              "default": null
+            },
+            {
+              "name": "opacity",
+              "type": "float|null",
+              "default": null
+            },
+            {
+              "name": "padding",
+              "type": "float|null",
+              "default": null
+            }
+          ]
+        },
+        "button": {
+          "node": "button",
+          "status": "public",
+          "agentRecommended": true,
+          "parameters": [
+            {
+              "name": "title",
+              "type": "str",
+              "required": true
+            },
+            {
+              "name": "action",
+              "type": "str|null",
+              "default": null
+            },
+            {
+              "name": "url",
+              "type": "str|null",
+              "default": null
+            },
+            {
+              "name": "color",
+              "type": "ColorLike|null",
+              "default": null
+            },
+            {
+              "name": "background",
+              "type": "WidgetBackground|null",
+              "default": null
+            },
+            {
+              "name": "size",
+              "type": "float|null",
+              "default": null
+            },
+            {
+              "name": "padding",
+              "type": "float|null",
+              "default": null
+            }
+          ]
+        },
+        "link": {
+          "node": "text",
+          "status": "public",
+          "agentRecommended": true,
+          "parameters": [
+            {
+              "name": "title",
+              "type": "str",
+              "required": true
+            },
+            {
+              "name": "url",
+              "type": "str",
+              "required": true
+            },
+            {
+              "name": "icon",
+              "type": "str|null",
+              "default": null
+            },
+            {
+              "name": "color",
+              "type": "ColorLike|null",
+              "default": null
+            }
+          ]
+        },
+        "toggle": {
+          "node": "toggle",
+          "status": "public",
+          "agentRecommended": true,
+          "parameters": [
+            {
+              "name": "title",
+              "type": "str",
+              "required": true
+            },
+            {
+              "name": "is_on",
+              "type": "bool|str",
+              "default": false
+            },
+            {
+              "name": "action",
+              "type": "str|null",
+              "default": null
+            },
+            {
+              "name": "url",
+              "type": "str|null",
+              "default": null
+            },
+            {
+              "name": "color",
+              "type": "ColorLike|null",
+              "default": null
+            },
+            {
+              "name": "background",
+              "type": "WidgetBackground|null",
+              "default": null
+            },
+            {
+              "name": "size",
+              "type": "float|null",
+              "default": null
+            },
+            {
+              "name": "padding",
+              "type": "float|null",
+              "default": null
+            }
+          ],
+          "notes": [
+            "The script supplies the current state; tapping can trigger action or open url."
+          ]
+        },
+        "hstack": {
+          "node": "hstack",
+          "status": "compatibility",
+          "container": true,
+          "agentHidden": true
+        },
+        "vstack": {
+          "node": "vstack",
+          "status": "compatibility",
+          "container": true,
+          "agentHidden": true
+        },
+        "zstack": {
+          "node": "zstack",
+          "status": "compatibility",
+          "container": true,
+          "agentHidden": true
+        },
+        "grid": {
+          "node": "grid",
+          "status": "public",
+          "container": true,
+          "advancedSemantic": true,
+          "agentRecommended": true,
+          "parameters": [
+            {
+              "name": "columns",
+              "type": "int",
+              "default": 2
+            }
+          ]
+        },
+        "card": {
+          "node": "card",
+          "status": "compatibility",
+          "container": true,
+          "agentHidden": true,
+          "parameters": [
+            {
+              "name": "style",
+              "type": "str|null",
+              "keywordOnly": true,
+              "default": null,
+              "status": "internal"
+            }
+          ]
+        },
+        "validate": {
+          "agentRecommended": true,
+          "parameters": [
+            {
+              "name": "family",
+              "type": "Family|null",
+              "default": null
+            }
+          ],
+          "returns": "dict"
+        },
+        "render": {
+          "agentRecommended": true,
+          "parameters": [
+            {
+              "name": "url",
+              "type": "str|null",
+              "default": null
+            }
+          ],
+          "returns": "None"
+        },
+        "canvas": {
+          "node": "canvas",
+          "status": "public",
+          "advancedSemantic": true,
+          "container": true,
+          "agentRecommended": true,
+          "parameters": [
+            {
+              "name": "height",
+              "type": "float|null",
+              "default": null
+            },
+            {
+              "name": "coordinate_space",
+              "type": "relative|points",
+              "default": "relative"
+            },
+            {
+              "name": "align",
+              "type": "str",
+              "default": "center"
+            },
+            {
+              "name": "background",
+              "type": "WidgetBackground|null",
+              "default": null
+            },
+            {
+              "name": "padding",
+              "type": "float|null",
+              "default": null
+            },
+            {
+              "name": "corner_radius",
+              "type": "float|null",
+              "default": null
+            },
+            {
+              "name": "border_color",
+              "type": "ColorLike|null",
+              "default": null
+            },
+            {
+              "name": "border_width",
+              "type": "float|null",
+              "default": null
+            },
+            {
+              "name": "opacity",
+              "type": "float|null",
+              "default": null
+            },
+            {
+              "name": "frame",
+              "type": "Frame|null",
+              "default": null,
+              "agentHidden": true
+            }
+          ],
+          "notes": [
+            "Use for poster-like exact placement or custom vector decoration. Prefer normal layout primitives unless exact drawing is needed."
+          ]
+        },
+        "path": {
+          "node": "path",
+          "status": "public",
+          "advancedSemantic": true,
+          "agentRecommended": true,
+          "parameters": [
+            {
+              "name": "points",
+              "type": "list[PathPoint]",
+              "required": true
+            },
+            {
+              "name": "stroke",
+              "type": "ColorLike|null",
+              "default": null
+            },
+            {
+              "name": "fill",
+              "type": "ColorLike|null",
+              "default": null
+            },
+            {
+              "name": "line_width",
+              "type": "float|null",
+              "default": null
+            },
+            {
+              "name": "closed",
+              "type": "bool",
+              "default": false
+            },
+            {
+              "name": "height",
+              "type": "float|null",
+              "default": null
+            },
+            {
+              "name": "coordinate_space",
+              "type": "relative|points",
+              "default": "relative"
+            },
+            {
+              "name": "opacity",
+              "type": "float|null",
+              "default": null
+            },
+            {
+              "name": "padding",
+              "type": "float|null",
+              "default": null
+            },
+            {
+              "name": "frame",
+              "type": "Frame|null",
+              "default": null,
+              "agentHidden": true
+            }
+          ],
+          "notes": [
+            "Relative points use 0..1 coordinates inside the path drawing area or canvas."
+          ]
+        }
+      }
+    }
+  },
+  "modifiers": {
+    "shadow": [
+      "color",
+      "radius",
+      "x",
+      "y"
+    ],
+    "background": [
+      "value"
+    ],
+    "overlay": [
+      "color",
+      "opacity"
+    ],
+    "clip": [
+      "kind",
+      "corner_radius"
+    ],
+    "mask": [
+      "kind",
+      "corner_radius"
+    ],
+    "link": [
+      "url"
+    ],
+    "accessibility": [
+      "label",
+      "value",
+      "hint",
+      "hidden"
+    ],
+    "capsule": [
+      "tone",
+      "padding"
+    ],
+    "soft_background": [
+      "tone",
+      "corner_radius",
+      "padding"
+    ],
+    "slot": [
+      "value"
+    ],
+    "frame": [
+      "width",
+      "height",
+      "minWidth",
+      "maxWidth",
+      "minHeight",
+      "maxHeight",
+      "alignment"
+    ],
+    "font": [
+      "value",
+      "size",
+      "weight",
+      "**sizes"
+    ],
+    "font_style": [
+      "style"
+    ],
+    "font_weight": [
+      "weight"
+    ],
+    "font_width": [
+      "width"
+    ],
+    "monospaced": [
+      "enabled"
+    ],
+    "compressed": [
+      "enabled"
+    ],
+    "color": [
+      "value"
+    ],
+    "tone": [
+      "value"
+    ],
+    "height": [
+      "value",
+      "small",
+      "medium",
+      "large",
+      "rectangular",
+      "circular",
+      "inline"
+    ],
+    "width": [
+      "value",
+      "small",
+      "medium",
+      "large",
+      "rectangular",
+      "circular",
+      "inline"
+    ],
+    "padding": [
+      "value",
+      "horizontal",
+      "vertical",
+      "top",
+      "leading",
+      "bottom",
+      "trailing"
+    ],
+    "align": [
+      "value"
+    ],
+    "corner_radius": [
+      "value"
+    ],
+    "opacity": [
+      "value"
+    ],
+    "guide_lines": [
+      "count",
+      "color"
+    ],
+    "grid": [
+      "count",
+      "color"
+    ],
+    "points": [
+      "enabled"
+    ],
+    "fill": [
+      "enabled"
+    ],
+    "line_width": [
+      "value"
+    ],
+    "track_color": [
+      "value"
+    ],
+    "bar_spacing": [
+      "value"
+    ],
+    "segment_colors": [
+      "colors"
+    ],
+    "line_limit": [
+      "value"
+    ],
+    "min_scale": [
+      "value"
+    ],
+    "offset": [
+      "x",
+      "y"
+    ],
+    "layout_priority": [
+      "value"
+    ],
+    "fixed_size": [
+      "horizontal",
+      "vertical"
+    ],
+    "hide": [
+      "*families"
+    ],
+    "show": [
+      "*families"
+    ],
+    "overlay_view": [
+      "align"
+    ],
+    "mask_view": [
+      "align"
+    ],
+    "place": [
+      "x",
+      "y",
+      "unit"
+    ],
+    "baseline": [
+      "value",
+      "color"
+    ],
+    "threshold": [
+      "value",
+      "color"
+    ],
+    "labels": [
+      "start",
+      "end",
+      "color"
+    ]
+  },
+  "commonFields": [
+    "type",
+    "children",
+    "content",
+    "name",
+    "asset",
+    "value",
+    "values",
+    "size",
+    "width",
+    "height",
+    "length",
+    "color",
+    "darkColor",
+    "background",
+    "darkBg",
+    "darkBackground",
+    "gradient",
+    "gradientDirection",
+    "trackColor",
+    "darkTrackColor",
+    "borderColor",
+    "darkBorderColor",
+    "borderWidth",
+    "cornerRadius",
+    "padding",
+    "opacity",
+    "frame",
+    "url",
+    "action",
+    "align",
+    "spacing",
+    "rowSpacing",
+    "columnSpacing",
+    "columns",
+    "weight",
+    "design",
+    "fontWidth",
+    "maxLines",
+    "minimumScaleFactor",
+    "shapeKind",
+    "chartType",
+    "minValue",
+    "maxValue",
+    "fill",
+    "showPoints",
+    "lineWidth",
+    "guideLines",
+    "barSpacing",
+    "segmentColors",
+    "darkSegmentColors",
+    "timerStyle",
+    "targetDate",
+    "contentMode",
+    "shadowColor",
+    "darkShadowColor",
+    "shadowRadius",
+    "shadowX",
+    "shadowY",
+    "offsetX",
+    "offsetY",
+    "layoutPriority",
+    "fixedSizeHorizontal",
+    "fixedSizeVertical",
+    "backgroundImageFocal",
+    "backgroundImageOverlay",
+    "darkBackgroundImageOverlay",
+    "backgroundImageOverlayOpacity",
+    "backgroundImageScrim",
+    "backgroundImageScrimOpacity",
+    "runs",
+    "isOn",
+    "overlayColor",
+    "darkOverlayColor",
+    "overlayOpacity",
+    "clipShape",
+    "clipCornerRadius",
+    "maskShape",
+    "maskCornerRadius",
+    "accessibilityLabel",
+    "accessibilityValue",
+    "accessibilityHint",
+    "accessibilityHidden",
+    "pathPoints",
+    "pathClosed",
+    "coordinateSpace",
+    "positionX",
+    "positionY",
+    "positionUnit",
+    "strokeColor",
+    "darkStrokeColor",
+    "fillColor",
+    "darkFillColor",
+    "thresholdValue",
+    "thresholdColor",
+    "darkThresholdColor",
+    "baselineValue",
+    "baselineColor",
+    "darkBaselineColor",
+    "startLabel",
+    "endLabel",
+    "labelColor",
+    "darkLabelColor",
+    "overlayChildren",
+    "maskChildren"
+  ],
+  "layout": {
+    "required": [
+      "version",
+      "root"
+    ],
+    "fields": [
+      "version",
+      "background",
+      "darkBackground",
+      "gradient",
+      "gradientDirection",
+      "backgroundImage",
+      "backgroundImageContentMode",
+      "backgroundImageFocal",
+      "backgroundImageOverlay",
+      "darkBackgroundImageOverlay",
+      "backgroundImageOverlayOpacity",
+      "backgroundImageScrim",
+      "backgroundImageScrimOpacity",
+      "padding",
+      "url",
+      "root"
+    ]
+  },
+  "nodes": {
+    "text": {
+      "required": [
+        "content"
+      ],
+      "fields": [
+        "content",
+        "size",
+        "weight",
+        "color",
+        "align",
+        "maxLines",
+        "design",
+        "fontWidth",
+        "opacity",
+        "padding",
+        "frame",
+        "minimumScaleFactor"
+      ]
+    },
+    "richText": {
+      "required": [
+        "runs"
+      ],
+      "fields": [
+        "runs",
+        "content",
+        "size",
+        "weight",
+        "color",
+        "align",
+        "maxLines",
+        "design",
+        "fontWidth",
+        "opacity",
+        "padding",
+        "frame",
+        "minimumScaleFactor"
+      ]
+    },
+    "emoji": {
+      "required": [
+        "content"
+      ],
+      "fields": [
+        "content",
+        "size",
+        "opacity",
+        "padding"
+      ]
+    },
+    "icon": {
+      "required": [
+        "name"
+      ],
+      "fields": [
+        "name",
+        "size",
+        "color",
+        "weight",
+        "opacity",
+        "padding",
+        "frame"
+      ]
+    },
+    "spacer": {
+      "required": [],
+      "fields": [
+        "length"
+      ]
+    },
+    "divider": {
+      "required": [],
+      "fields": [
+        "color",
+        "opacity"
+      ]
+    },
+    "shape": {
+      "required": [
+        "shapeKind"
+      ],
+      "fields": [
+        "shapeKind",
+        "color",
+        "size",
+        "height",
+        "cornerRadius",
+        "opacity",
+        "padding",
+        "frame",
+        "borderColor",
+        "borderWidth",
+        "shadowColor",
+        "shadowRadius",
+        "shadowX",
+        "shadowY"
+      ]
+    },
+    "progress": {
+      "required": [
+        "value"
+      ],
+      "fields": [
+        "value",
+        "color",
+        "trackColor",
+        "height"
+      ]
+    },
+    "sparkline": {
+      "required": [
+        "values"
+      ],
+      "fields": [
+        "values",
+        "height",
+        "color",
+        "trackColor",
+        "minValue",
+        "maxValue",
+        "fill",
+        "showPoints",
+        "lineWidth",
+        "guideLines",
+        "segmentColors",
+        "darkSegmentColors",
+        "opacity",
+        "padding",
+        "frame",
+        "thresholdValue",
+        "thresholdColor",
+        "darkThresholdColor",
+        "baselineValue",
+        "baselineColor",
+        "darkBaselineColor",
+        "startLabel",
+        "endLabel",
+        "labelColor",
+        "darkLabelColor"
+      ]
+    },
+    "lineChart": {
+      "required": [
+        "values"
+      ],
+      "fields": [
+        "values",
+        "height",
+        "color",
+        "trackColor",
+        "minValue",
+        "maxValue",
+        "fill",
+        "showPoints",
+        "lineWidth",
+        "guideLines",
+        "segmentColors",
+        "darkSegmentColors",
+        "opacity",
+        "padding",
+        "frame",
+        "thresholdValue",
+        "thresholdColor",
+        "darkThresholdColor",
+        "baselineValue",
+        "baselineColor",
+        "darkBaselineColor",
+        "startLabel",
+        "endLabel",
+        "labelColor",
+        "darkLabelColor"
+      ]
+    },
+    "barChart": {
+      "required": [
+        "values"
+      ],
+      "fields": [
+        "values",
+        "height",
+        "color",
+        "trackColor",
+        "minValue",
+        "maxValue",
+        "barSpacing",
+        "cornerRadius",
+        "guideLines",
+        "segmentColors",
+        "darkSegmentColors",
+        "opacity",
+        "padding",
+        "frame",
+        "thresholdValue",
+        "thresholdColor",
+        "darkThresholdColor",
+        "baselineValue",
+        "baselineColor",
+        "darkBaselineColor",
+        "startLabel",
+        "endLabel",
+        "labelColor",
+        "darkLabelColor"
+      ]
+    },
+    "ringChart": {
+      "required": [
+        "value"
+      ],
+      "fields": [
+        "value",
+        "content",
+        "size",
+        "lineWidth",
+        "color",
+        "trackColor",
+        "opacity",
+        "padding",
+        "frame"
+      ]
+    },
+    "gauge": {
+      "required": [
+        "value"
+      ],
+      "fields": [
+        "value",
+        "content",
+        "size",
+        "color",
+        "trackColor",
+        "height"
+      ]
+    },
+    "timer": {
+      "required": [
+        "targetDate"
+      ],
+      "fields": [
+        "targetDate",
+        "timerStyle",
+        "size",
+        "weight",
+        "color",
+        "design",
+        "fontWidth",
+        "opacity",
+        "padding",
+        "frame"
+      ]
+    },
+    "image": {
+      "required": [
+        "name"
+      ],
+      "fields": [
+        "name",
+        "asset",
+        "frame",
+        "cornerRadius",
+        "opacity",
+        "padding",
+        "contentMode"
+      ]
+    },
+    "button": {
+      "required": [
+        "content"
+      ],
+      "fields": [
+        "content",
+        "action",
+        "url",
+        "color",
+        "background",
+        "size",
+        "padding"
+      ]
+    },
+    "toggle": {
+      "required": [
+        "content",
+        "isOn"
+      ],
+      "fields": [
+        "content",
+        "isOn",
+        "action",
+        "url",
+        "color",
+        "background",
+        "size",
+        "padding"
+      ]
+    },
+    "hstack": {
+      "required": [],
+      "fields": [
+        "children",
+        "spacing",
+        "align",
+        "padding",
+        "background",
+        "opacity",
+        "cornerRadius",
+        "borderColor",
+        "borderWidth",
+        "url",
+        "shadowColor",
+        "shadowRadius",
+        "shadowX",
+        "shadowY"
+      ]
+    },
+    "vstack": {
+      "required": [],
+      "fields": [
+        "children",
+        "spacing",
+        "align",
+        "padding",
+        "background",
+        "opacity",
+        "cornerRadius",
+        "borderColor",
+        "borderWidth",
+        "url",
+        "shadowColor",
+        "shadowRadius",
+        "shadowX",
+        "shadowY"
+      ]
+    },
+    "zstack": {
+      "required": [],
+      "fields": [
+        "children",
+        "align",
+        "padding",
+        "background",
+        "opacity",
+        "cornerRadius",
+        "borderColor",
+        "borderWidth",
+        "url",
+        "shadowColor",
+        "shadowRadius",
+        "shadowX",
+        "shadowY"
+      ]
+    },
+    "grid": {
+      "required": [
+        "children",
+        "columns"
+      ],
+      "fields": [
+        "children",
+        "columns",
+        "spacing",
+        "rowSpacing",
+        "columnSpacing",
+        "align",
+        "padding",
+        "background",
+        "opacity",
+        "cornerRadius",
+        "borderColor",
+        "borderWidth",
+        "url",
+        "shadowColor",
+        "shadowRadius",
+        "shadowX",
+        "shadowY"
+      ]
+    },
+    "card": {
+      "required": [
+        "children"
+      ],
+      "fields": [
+        "children",
+        "spacing",
+        "padding",
+        "opacity",
+        "cornerRadius",
+        "align",
+        "background",
+        "borderColor",
+        "borderWidth",
+        "url",
+        "shadowColor",
+        "shadowRadius",
+        "shadowX",
+        "shadowY"
+      ]
+    },
+    "path": {
+      "required": [
+        "pathPoints"
+      ],
+      "fields": [
+        "pathPoints",
+        "pathClosed",
+        "coordinateSpace",
+        "height",
+        "strokeColor",
+        "darkStrokeColor",
+        "fillColor",
+        "darkFillColor",
+        "lineWidth",
+        "opacity",
+        "padding",
+        "frame"
+      ],
+      "notes": "Advanced semantic vector path with relative or point coordinates."
+    },
+    "canvas": {
+      "required": [
+        "children"
+      ],
+      "fields": [
+        "children",
+        "height",
+        "coordinateSpace",
+        "align",
+        "padding",
+        "background",
+        "opacity",
+        "cornerRadius",
+        "borderColor",
+        "borderWidth",
+        "shadowColor",
+        "shadowRadius",
+        "shadowX",
+        "shadowY",
+        "frame"
+      ],
+      "notes": "Advanced semantic drawing surface for paths and placed child nodes."
+    }
+  },
+  "familyBudgets": {
+    "small": {
+      "maxNodes": 20,
+      "maxTextNodes": 6,
+      "maxDepth": 4,
+      "maxTextSize": 34,
+      "maxTextLength": 28,
+      "maxOffset": 18,
+      "maxGridColumns": 2,
+      "contentWidth": 158,
+      "contentHeight": 158,
+      "maxHStackChildren": 4,
+      "avoidNodes": []
+    },
+    "medium": {
+      "maxNodes": 28,
+      "maxTextNodes": 10,
+      "maxDepth": 5,
+      "maxTextSize": 38,
+      "maxTextLength": 42,
+      "maxOffset": 26,
+      "maxGridColumns": 4,
+      "contentWidth": 338,
+      "contentHeight": 158,
+      "maxHStackChildren": 6,
+      "avoidNodes": []
+    },
+    "large": {
+      "maxNodes": 40,
+      "maxTextNodes": 16,
+      "maxDepth": 6,
+      "maxTextSize": 42,
+      "maxTextLength": 56,
+      "maxOffset": 32,
+      "maxGridColumns": 4,
+      "contentWidth": 338,
+      "contentHeight": 354,
+      "maxHStackChildren": 7,
+      "avoidNodes": []
+    },
+    "circular": {
+      "maxNodes": 8,
+      "maxTextNodes": 2,
+      "maxDepth": 3,
+      "maxTextSize": 16,
+      "maxTextLength": 10,
+      "maxOffset": 6,
+      "maxGridColumns": 1,
+      "contentWidth": 64,
+      "contentHeight": 64,
+      "maxHStackChildren": 2,
+      "avoidNodes": [
+        "card",
+        "image",
+        "divider",
+        "sparkline",
+        "lineChart",
+        "barChart"
+      ]
+    },
+    "rectangular": {
+      "maxNodes": 14,
+      "maxTextNodes": 4,
+      "maxDepth": 4,
+      "maxTextSize": 18,
+      "maxTextLength": 18,
+      "maxOffset": 8,
+      "maxGridColumns": 2,
+      "contentWidth": 160,
+      "contentHeight": 56,
+      "maxHStackChildren": 4,
+      "avoidNodes": [
+        "card",
+        "image",
+        "barChart"
+      ]
+    },
+    "inline": {
+      "maxNodes": 4,
+      "maxTextNodes": 2,
+      "maxDepth": 2,
+      "maxTextSize": 14,
+      "maxTextLength": 16,
+      "maxOffset": 4,
+      "maxGridColumns": 1,
+      "contentWidth": 220,
+      "contentHeight": 22,
+      "maxHStackChildren": 2,
+      "avoidNodes": [
+        "card",
+        "image",
+        "divider",
+        "progress",
+        "gauge",
+        "ringChart",
+        "sparkline",
+        "lineChart",
+        "barChart",
+        "vstack",
+        "zstack",
+        "grid"
+      ]
+    }
+  },
+  "agentPolicy": {
+    "defaultStyle": "semantic_primitives",
+    "recommendedConstructor": "Widget(style='clean')",
+    "recommendedMethods": [
+      "title",
+      "caption",
+      "body",
+      "text",
+      "rich_text",
+      "value",
+      "change",
+      "line",
+      "bar",
+      "ring",
+      "progress",
+      "metric",
+      "badge",
+      "symbol",
+      "image",
+      "background_image",
+      "background",
+      "list",
+      "row",
+      "column",
+      "layer",
+      "grid",
+      "surface",
+      "section",
+      "region",
+      "shape",
+      "spacer",
+      "divider",
+      "date",
+      "time",
+      "relative_time",
+      "timer_text",
+      "button",
+      "toggle",
+      "link",
+      "validate",
+      "render",
+      "canvas",
+      "path"
+    ],
+    "notForAgentGeneration": [
+      "show",
+      "preview",
+      "schema",
+      "reload_user_widgets",
+      "reload_test_widgets",
+      "headline",
+      "subheadline",
+      "label",
+      "detail",
+      "footnote",
+      "note",
+      "number",
+      "currency",
+      "percent",
+      "sf_symbol",
+      "status",
+      "tag",
+      "pill",
+      "kpi",
+      "stat",
+      "pair",
+      "trend",
+      "area",
+      "spark",
+      "bars",
+      "donut",
+      "radial",
+      "meter",
+      "gauge",
+      "progress_bar",
+      "sparkline",
+      "line_chart",
+      "bar_chart",
+      "ring_chart",
+      "timer",
+      "icon",
+      "photo",
+      "avatar",
+      "thumbnail",
+      "rectangle",
+      "circle",
+      "capsule",
+      "emoji",
+      "top",
+      "top_leading",
+      "top_trailing",
+      "leading",
+      "center",
+      "trailing",
+      "bottom",
+      "bottom_leading",
+      "bottom_trailing",
+      "hstack",
+      "vstack",
+      "zstack",
+      "card",
+      "soft_background",
+      "slot",
+      "frame",
+      "offset",
+      "fixed_size"
+    ],
+    "defaultFamilies": [
+      "small",
+      "medium",
+      "large"
+    ],
+    "accessoryFamilies": [
+      "circular",
+      "rectangular",
+      "inline"
+    ],
+    "familyRule": "Agent-generated widgets target small/medium/large by default. Only generate or validate circular/rectangular/inline when the user explicitly asks for Lock Screen/accessory/all sizes.",
+    "manualLayoutRule": "Do not generate compatibility DSL names from Agent flows: hstack/vstack/zstack/card, positional shortcut containers, raw chart nodes, frame, offset, and fixed_size. Use row(), column(), layer(), surface(), grid(), region(), family_value(), and hide()/show() for intentional semantic layout.",
+    "defaultPaddingRule": "Root widget padding and semantic spacing are automatic. Agents must not add padding() by default; use it only for an explicit user-requested inset or a specific local adjustment.",
+    "densityRule": "Medium and large Home Screen widgets need enough semantic structure. Large widgets must add extra metrics, list rows, sections, charts, progress, or an intentional region() layout instead of stretching a sparse medium layout.",
+    "valueRule": "Use value() only for the primary number/value. For repeated text use list(), metric(), body(), text(), row(), column(), or section()."
+  },
+  "agentDefaults": {
+    "prefer": [
+      "Widget(style='clean')",
+      "Widget(background='#F8FAFC', style='clean')",
+      "title",
+      "caption",
+      "body",
+      "text",
+      "rich_text",
+      "value",
+      "change",
+      "line",
+      "bar",
+      "ring",
+      "progress",
+      "metric",
+      "badge",
+      "symbol",
+      "image",
+      "background_image",
+      "background",
+      "list",
+      "row",
+      "column",
+      "layer",
+      "surface",
+      "region",
+      "family_value",
+      "history",
+      "cache_json",
+      "link",
+      "toggle",
+      "canvas",
+      "path"
+    ],
+    "avoid": [
+      "undocumented parameters",
+      "default padding()",
+      "manual absolute coordinates outside Canvas",
+      "compatibility hstack/vstack/zstack/card/frame/offset/fixed_size",
+      "looping value() for list items",
+      "capsule or soft backgrounds unless requested",
+      "AppUI components",
+      "large base64 payloads"
+    ],
+    "advancedModifiers": [
+      "padding",
+      "background",
+      "overlay",
+      "clip",
+      "mask",
+      "link",
+      "accessibility",
+      "overlay_view",
+      "mask_view",
+      "place"
+    ],
+    "requiredValidation": "workspace(action='validate') for edited widget files; default scope is small/medium/large. Use families='accessory' or families='all' only when the user explicitly requests those surfaces. Widget 诊断 is blocking, including sparse large widgets with obvious unused space."
+  }
+}
