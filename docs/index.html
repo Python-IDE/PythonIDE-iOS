@@ -1929,7 +1929,7 @@
 
     @media (min-width: 760px) and (max-width: 980px) and (orientation: portrait) {
       .site {
-        min-height: 118svh;
+        min-height: 108svh;
         padding: 0;
       }
 
@@ -2053,15 +2053,27 @@
       }
 
       .visual {
-        min-height: 360px;
+        min-height: 390px;
         margin-top: 0;
         align-items: start;
+        justify-items: start;
       }
 
       .code-card {
-        width: min(100%, 560px);
+        width: min(100%, 450px);
         margin-left: 0;
         margin-right: auto;
+      }
+
+      .card-bar {
+        height: 50px;
+        padding: 0 17px;
+      }
+
+      pre {
+        font-size: 12.7px;
+        line-height: 1.78;
+        padding: 18px 17px 14px 14px;
       }
 
       .agent-card {
@@ -2865,40 +2877,39 @@
       if (resourcesTop < viewportProbe) zone = "resources";
       else if (featuresTop < viewportProbe) zone = "features";
 
-      let base;
-      let radiusX;
-      let radiusY;
+      const isPortraitMobile = window.matchMedia("(max-width: 980px) and (orientation: portrait)").matches;
+      let centerX = width * 0.5;
+      let centerY = height * 0.5;
+      let radiusX = Math.min(width * (isPortraitMobile ? 0.36 : 0.32), isPortraitMobile ? 220 : 280);
+      let radiusY = Math.min(height * (isPortraitMobile ? 0.28 : 0.24), isPortraitMobile ? 210 : 240);
       let phase = 0;
-      let strength = 0.74;
+      let strength = 0.76;
 
       if (zone === "resources") {
-        base = elementViewportCenter(".resource-links", { x: width * 0.62, y: height * 0.58 });
         const p = sectionProgress("#resources");
-        radiusX = Math.min(width * 0.2, 86);
-        radiusY = Math.min(height * 0.16, 78);
-        phase = p * 2.4;
-        strength = 0.7;
+        centerX = width * (isPortraitMobile ? 0.52 : 0.58);
+        centerY = height * (isPortraitMobile ? 0.48 : 0.54);
+        phase = p * 4.1 + 1.4;
+        strength = 0.72;
       } else if (zone === "features") {
-        base = elementViewportCenter(".feature-row", { x: width * 0.52, y: height * 0.58 });
         const p = sectionProgress("#features");
-        radiusX = Math.min(width * 0.24, 96);
-        radiusY = Math.min(height * 0.18, 90);
-        phase = p * 3.2 + 0.7;
-        strength = 0.76;
-      } else {
-        base = elementViewportCenter(".code-card", { x: width * 0.55, y: height * 0.5 });
-        const p = sectionProgress("#top");
-        radiusX = Math.min(width * 0.22, 110);
-        radiusY = Math.min(height * 0.15, 84);
-        phase = p * 2.2;
+        centerX = width * (isPortraitMobile ? 0.48 : 0.54);
+        centerY = height * (isPortraitMobile ? 0.46 : 0.52);
+        phase = p * 4.4 + 0.72;
         strength = 0.78;
+      } else {
+        const p = sectionProgress("#top");
+        centerX = width * (isPortraitMobile ? 0.52 : 0.56);
+        centerY = height * (isPortraitMobile ? 0.44 : 0.5);
+        phase = p * 3.8;
+        strength = 0.8;
       }
 
       return {
         zone,
         strength,
-        x: base.x + Math.cos(time * 0.84 + phase) * radiusX + Math.sin(time * 1.64 + phase) * radiusX * 0.28,
-        y: base.y + Math.sin(time * 0.92 + phase) * radiusY + Math.cos(time * 1.36 + phase) * radiusY * 0.24
+        x: centerX + Math.cos(time * 0.58 + phase) * radiusX + Math.sin(time * 1.14 + phase) * radiusX * 0.34,
+        y: centerY + Math.sin(time * 0.64 + phase) * radiusY + Math.cos(time * 1.03 + phase) * radiusY * 0.28
       };
     }
 
