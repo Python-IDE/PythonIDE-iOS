@@ -1,0 +1,341 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>database - PythonIDE Docs</title>
+  <meta name="description" content="MiniApp 作用域内 SQLite 数据库和 JSON collection。">
+  <link rel="icon" href="../../assets/brand-mark.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="../../assets/docs-v2.css">
+  <script>window.PYTHONIDE_DOCS_PREFIX = "../../";</script>
+  <script defer src="../../assets/docs-v2.js"></script>
+</head>
+<body class="article-page">
+  <header class="topbar">
+    <button class="icon-button menu-toggle" type="button" aria-label="打开目录">☰</button>
+    <a class="brand" href="../../"><img class="brand-mark" src="../../assets/brand-mark.svg" alt="" width="30" height="30"><span class="brand-text">PythonIDE Docs</span></a>
+    <nav class="top-nav" aria-label="主导航">
+      <a class="active" href="../../">文档</a>
+      <a class="" href="../../pages/widget-api-reference/">API 参考</a>
+      <a class="" href="../../pages/appui-cookbook-index/">示例</a>
+    </nav>
+    <details class="language-menu">
+      <summary>中文</summary>
+      <div class="language-panel">
+        <span class="active">简体中文</span>
+        <button type="button" disabled>English <em>准备中</em></button>
+      </div>
+    </details>
+    <button class="theme-toggle" type="button" aria-label="切换主题">◐</button>
+  </header>
+  <div class="shell">
+    <aside class="sidebar">
+      <nav class="sidebar-nav" aria-label="Docs navigation">
+<button class="sidebar-search search-trigger" type="button"><span>搜索...</span><kbd>⌘K</kbd></button>
+<details class="nav-collection">
+<summary><a href="../../collections/appui/">appui</a></summary>
+<div class="nav-group">
+<div class="nav-group-title">开始</div>
+<a class="nav-link" href="../../pages/appui-module/">appui 概览</a>
+<a class="nav-link" href="../../pages/appui-quickstart/">快速上手</a>
+<a class="nav-link" href="../../pages/miniapp-choose-runtime/">运行时选择</a>
+<a class="nav-link" href="../../pages/miniapp-appui-ui-patterns/">AppUI UI 模式</a>
+<a class="nav-link" href="../../pages/miniapp-appui-api-index/">AppUI API 地图</a>
+<a class="nav-link" href="../../pages/miniapp-dev-troubleshooting/">MiniApp 开发排错</a>
+</div>
+<div class="nav-group">
+<div class="nav-group-title">指南</div>
+<a class="nav-link" href="../../pages/appui-guide-thinking/">appui 思维方式</a>
+<a class="nav-link" href="../../pages/appui-guide-state/">状态管理</a>
+<a class="nav-link" href="../../pages/appui-guide-layout/">布局系统</a>
+<a class="nav-link" href="../../pages/appui-guide-lists/">列表与表单</a>
+<a class="nav-link" href="../../pages/appui-guide-navigation/">导航与页面结构</a>
+<a class="nav-link" href="../../pages/appui-guide-interaction/">交互与回调</a>
+<a class="nav-link" href="../../pages/appui-guide-media/">媒体与系统集成</a>
+<a class="nav-link" href="../../pages/appui-guide-charts/">图表与绘图</a>
+<a class="nav-link" href="../../pages/appui-guide-darkmode/">深色模式与语义色</a>
+<a class="nav-link" href="../../pages/appui-guide-animation/">动画</a>
+<a class="nav-link" href="../../pages/appui-guide-hotreload/">热重载</a>
+<a class="nav-link" href="../../pages/appui-guide-realtime/">实时快路径</a>
+<a class="nav-link" href="../../pages/appui-guide-performance/">性能与实时界面</a>
+</div>
+<div class="nav-group">
+<div class="nav-group-title">API 参考</div>
+<a class="nav-link" href="../../pages/appui-ref-functions/">入口函数</a>
+<a class="nav-link" href="../../pages/appui-ref-state/">状态 API</a>
+<a class="nav-link" href="../../pages/appui-ref-layout/">布局 API</a>
+<a class="nav-link" href="../../pages/appui-ref-layout-stacks/">堆叠布局 API</a>
+<a class="nav-link" href="../../pages/appui-ref-layout-scroll/">滚动 API</a>
+<a class="nav-link" href="../../pages/appui-ref-layout-grids/">网格 API</a>
+<a class="nav-link" href="../../pages/appui-ref-layout-geometry/">几何与特殊布局 API</a>
+<a class="nav-link" href="../../pages/appui-ref-controls/">控件 API</a>
+<a class="nav-link" href="../../pages/appui-ref-navigation/">导航 API</a>
+<a class="nav-link" href="../../pages/appui-ref-data/">数据展示 API</a>
+<a class="nav-link" href="../../pages/appui-ref-presentation/">呈现 API</a>
+<a class="nav-link" href="../../pages/appui-ref-modifiers/">修饰符 API</a>
+<a class="nav-link" href="../../pages/appui-ref-environment/">环境值 API</a>
+<a class="nav-link" href="../../pages/appui-ref-media/">媒体 API</a>
+<a class="nav-link" href="../../pages/appui-ref-charts/">图表与画布 API</a>
+<a class="nav-link" href="../../pages/appui-ref-shapes/">形状 API</a>
+</div>
+<div class="nav-group">
+<div class="nav-group-title">示例</div>
+<a class="nav-link" href="../../pages/appui-cookbook-index/">示例索引</a>
+<a class="nav-link" href="../../pages/appui-cookbook-todo/">示例：待办列表</a>
+<a class="nav-link" href="../../pages/appui-cookbook-settings/">示例：设置表单</a>
+<a class="nav-link" href="../../pages/appui-cookbook-dashboard/">示例：紧凑仪表盘</a>
+<a class="nav-link" href="../../pages/appui-cookbook-native-list-detail/">示例：原生列表详情</a>
+<a class="nav-link" href="../../pages/appui-cookbook-network-list/">示例：网络列表</a>
+<a class="nav-link" href="../../pages/appui-cookbook-table-data-review/">示例：表格数据审核</a>
+<a class="nav-link" href="../../pages/appui-cookbook-chat/">示例：聊天界面</a>
+<a class="nav-link" href="../../pages/appui-cookbook-media-capture-gallery/">示例：媒体采集相册</a>
+<a class="nav-link" href="../../pages/appui-cookbook-gallery/">示例：相册浏览器</a>
+<a class="nav-link" href="../../pages/appui-cookbook-form-settings-controls/">示例：原生表单设置</a>
+<a class="nav-link" href="../../pages/appui-cookbook-chart-canvas-lab/">示例：图表与画布实验室</a>
+<a class="nav-link" href="../../pages/appui-cookbook-location-map/">示例：定位地图</a>
+<a class="nav-link" href="../../pages/appui-cookbook-motion-haptics-dashboard/">示例：运动传感器仪表盘</a>
+<a class="nav-link" href="../../pages/appui-cookbook-notification-reminder/">示例：通知提醒</a>
+<a class="nav-link" href="../../pages/appui-cookbook-health-blood-pressure/">示例：血压分析</a>
+<a class="nav-link" href="../../pages/appui-cookbook-secure-vault/">示例：安全凭据库</a>
+<a class="nav-link" href="../../pages/appui-cookbook-live-activity-background/">示例：实时活动与后台任务</a>
+<a class="nav-link" href="../../pages/appui-cookbook-shortcuts-launcher/">示例：快捷指令启动器</a>
+<a class="nav-link" href="../../pages/appui-cookbook-video-player/">示例：视频播放器</a>
+<a class="nav-link" href="../../pages/appui-cookbook-webview-share-export/">示例：WebView 与系统分享</a>
+</div>
+<div class="nav-group">
+<div class="nav-group-title">速查</div>
+<a class="nav-link" href="../../pages/appui-appendix-colors/">颜色参考</a>
+<a class="nav-link" href="../../pages/appui-appendix-symbols/">SF Symbols</a>
+<a class="nav-link" href="../../pages/appui-appendix-migration/">从 ui 迁移到 appui</a>
+</div>
+</details>
+<details class="nav-collection">
+<summary><a href="../../collections/widget/">widget</a></summary>
+<div class="nav-group">
+<div class="nav-group-title">小组件</div>
+<a class="nav-link" href="../../pages/widget-module/">widget</a>
+<a class="nav-link" href="../../pages/widget-quickstart-publish/">widget 从脚本到桌面</a>
+<a class="nav-link" href="../../pages/widget-layout/">widget 布局与尺寸</a>
+<a class="nav-link" href="../../pages/widget-parameters/">widget 参数面板</a>
+<a class="nav-link" href="../../pages/widget-interaction/">widget 状态和交互</a>
+<a class="nav-link" href="../../pages/widget-timeline/">widget 时间线和动画</a>
+<a class="nav-link" href="../../pages/widget-appearance-assets/">widget 资源与外观</a>
+<a class="nav-link" href="../../pages/widget-troubleshooting/">widget 排错</a>
+<a class="nav-link" href="../../pages/widget-api-index/">widget API 地图</a>
+<a class="nav-link" href="../../pages/widget-api-reference/">widget API 参考</a>
+</div>
+</details>
+<details class="nav-collection">
+<summary><a href="../../collections/ui/">ui</a></summary>
+<div class="nav-group">
+<div class="nav-group-title">快速上手</div>
+<a class="nav-link" href="../../pages/ui-module/">ui 概览</a>
+</div>
+<div class="nav-group">
+<div class="nav-group-title">API 参考</div>
+<a class="nav-link" href="../../pages/ui-api-index/">ui API 索引</a>
+<a class="nav-link" href="../../pages/ui-api-reference/">ui API 参考</a>
+</div>
+<div class="nav-group">
+<div class="nav-group-title">实时能力</div>
+<a class="nav-link" href="../../pages/aurora-system/">系统实时能力</a>
+<a class="nav-link" href="../../pages/aurora-toolkit/">实时更新工具</a>
+</div>
+</details>
+<details class="nav-collection">
+<summary><a href="../../collections/scene/">scene</a></summary>
+<div class="nav-group">
+<div class="nav-group-title">快速上手</div>
+<a class="nav-link" href="../../pages/scene-module/">scene 概览</a>
+<a class="nav-link" href="../../pages/turtle-module/">turtle</a>
+</div>
+<div class="nav-group">
+<div class="nav-group-title">API 参考</div>
+<a class="nav-link" href="../../pages/scene-api-index/">scene API 索引</a>
+<a class="nav-link" href="../../pages/scene-api-reference/">scene API 参考</a>
+</div>
+</details>
+<details class="nav-collection" open>
+<summary><a href="../../collections/ios-native/">iOS 原生模块</a></summary>
+<div class="nav-group">
+<div class="nav-group-title">快速上手</div>
+<a class="nav-link" href="../../pages/ios-native/">iOS 原生能力</a>
+<a class="nav-link" href="../../pages/modules-index/">全部模块总览</a>
+<a class="nav-link" href="../../pages/miniapp-native-capabilities/">原生能力入口</a>
+</div>
+<div class="nav-group">
+<div class="nav-group-title">设备与传感器</div>
+<a class="nav-link" href="../../pages/device-module/">device</a>
+<a class="nav-link" href="../../pages/location-module/">location</a>
+<a class="nav-link" href="../../pages/motion-module/">motion</a>
+<a class="nav-link" href="../../pages/haptics-module/">haptics</a>
+<a class="nav-link" href="../../pages/biometric-module/">biometric</a>
+<a class="nav-link" href="../../pages/health-module/">health</a>
+</div>
+<div class="nav-group">
+<div class="nav-group-title">媒体与视觉</div>
+<a class="nav-link" href="../../pages/photos-module/">photos</a>
+<a class="nav-link" href="../../pages/avplayer-module/">avplayer</a>
+<a class="nav-link" href="../../pages/sound-module/">sound</a>
+<a class="nav-link" href="../../pages/speech-module/">speech</a>
+<a class="nav-link" href="../../pages/vision-helper-module/">vision_helper</a>
+<a class="nav-link" href="../../pages/vision-module/">vision</a>
+<a class="nav-link" href="../../pages/coreml-module/">coreml</a>
+</div>
+<div class="nav-group">
+<div class="nav-group-title">网络与数据</div>
+<a class="nav-link" href="../../pages/network-module/">network</a>
+<a class="nav-link" href="../../pages/websocket-module/">websocket</a>
+<a class="nav-link" href="../../pages/bluetooth-module/">bluetooth</a>
+<a class="nav-link" href="../../pages/background-module/">background</a>
+</div>
+<div class="nav-group">
+<div class="nav-group-title">系统服务</div>
+<a class="nav-link" href="../../pages/permission-module/">permission</a>
+<a class="nav-link" href="../../pages/storage-module/">storage</a>
+<a class="nav-link active" href="../../pages/database-module/">database</a>
+<a class="nav-link" href="../../pages/keychain-module/">keychain</a>
+<a class="nav-link" href="../../pages/clipboard-module/">clipboard</a>
+<a class="nav-link" href="../../pages/dialogs-module/">dialogs</a>
+<a class="nav-link" href="../../pages/console-module/">console</a>
+<a class="nav-link" href="../../pages/notification-module/">notification</a>
+<a class="nav-link" href="../../pages/contacts-module/">contacts</a>
+<a class="nav-link" href="../../pages/calendar-events-module/">calendar_events</a>
+<a class="nav-link" href="../../pages/nfc-module/">nfc</a>
+</div>
+</details>
+<details class="nav-collection">
+<summary><a href="../../collections/automation-extension/">自动化与扩展</a></summary>
+<div class="nav-group">
+<div class="nav-group-title">快速上手</div>
+<a class="nav-link" href="../../pages/shortcuts-guide/">快捷指令</a>
+<a class="nav-link" href="../../pages/js-api/">JS API 说明</a>
+</div>
+<div class="nav-group">
+<div class="nav-group-title">模块</div>
+<a class="nav-link" href="../../pages/shortcuts-module/">shortcuts</a>
+<a class="nav-link" href="../../pages/live-activity-module/">live_activity</a>
+<a class="nav-link" href="../../pages/keyboard-module/">keyboard</a>
+<a class="nav-link" href="../../pages/objc-util-module/">objc_util</a>
+<a class="nav-link" href="../../pages/c-extensions-module/">c_extensions</a>
+</div>
+</details>
+</nav>
+    </aside>
+    <main class="content">
+      
+<article class="article" style="--page-accent:#0f766e">
+  <header class="article-intro">
+    <div class="breadcrumb">iOS 原生模块 / 系统服务</div>
+    <h1>database</h1>
+    <p>MiniApp 作用域内 SQLite 数据库和 JSON collection。</p>
+  </header>
+  <div class="markdown-body">
+    <p><code>database</code> 是 MiniApp 作用域内的 SQLite 持久化模块，适合保存可查询的历史记录、收藏、播放进度、离线缓存、源列表和业务表。小型设置继续用 <a href="../../pages/storage-module/">storage</a>，敏感 token 或密码用 <a href="../../pages/keychain-module/">keychain</a>。</p>
+<h2 id="预期效果"><a class="heading-anchor" href="#预期效果">#</a>预期效果</h2>
+<p>示例会展示 SQLite / collection 数据的创建、写入、查询和失败处理。</p>
+<h2 id="什么时候用"><a class="heading-anchor" href="#什么时候用">#</a>什么时候用</h2>
+<div class="table-scroll"><table><thead><tr><th>目标</th><th>首选 API</th></tr></thead><tbody><tr><td>简单 JSON 记录、收藏、历史、缓存</td><td><code>database.collection(name)</code></td></tr><tr><td>需要索引、排序、JOIN、迁移</td><td><code>database.open(name)</code> + SQL</td></tr><tr><td>少量开关、主题、最后一次选择</td><td><code>storage</code></td></tr><tr><td>密码、token、密钥</td><td><code>keychain</code></td></tr></tbody></table></div>
+<p>数据库文件会放在当前 MiniApp 的数据目录下。<code>database.open(&quot;media&quot;)</code> 会自动变成 <code>media.db</code>，并拒绝绝对路径和 <code>../</code>，避免脚本越权写到其他位置。</p>
+<h2 id="最小正确示例"><a class="heading-anchor" href="#最小正确示例">#</a>最小正确示例</h2>
+<figure class="code-block" data-code-id="d18ca50ca6e4">
+  <figcaption>
+    <span>python</span>
+    <button class="copy-code" type="button" data-copy-code="d18ca50ca6e4">复制</button>
+  </figcaption>
+  <pre><code id="code-d18ca50ca6e4" class="language-python">import database
+
+history = database.collection(&quot;history&quot;)
+
+history.upsert(&quot;episode-42&quot;, {
+    &quot;id&quot;: &quot;episode-42&quot;,
+    &quot;title&quot;: &quot;Episode 42&quot;,
+    &quot;position&quot;: 128.5,
+})
+
+print(history.get(&quot;episode-42&quot;))
+print(history.list(order_by=&quot;updated_at desc&quot;, limit=20))</code></pre>
+</figure>
+<h2 id="collection-api"><a class="heading-anchor" href="#collection-api">#</a>Collection API</h2>
+<p><code>Collection</code> 是大多数 MiniApp 的首选。它用 SQLite 存 JSON 文档，避免用户为了普通列表和缓存手写建表。</p>
+<figure class="code-block" data-code-id="59b3913f9d78">
+  <figcaption>
+    <span>python</span>
+    <button class="copy-code" type="button" data-copy-code="59b3913f9d78">复制</button>
+  </figcaption>
+  <pre><code id="code-59b3913f9d78" class="language-python">import database
+
+favorites = database.collection(&quot;favorites&quot;)
+
+favorites.upsert(&quot;movie-1&quot;, {&quot;title&quot;: &quot;Movie 1&quot;, &quot;rating&quot;: 9.2})
+favorites.upsert(&quot;movie-2&quot;, {&quot;title&quot;: &quot;Movie 2&quot;, &quot;rating&quot;: 8.8})
+
+for item in favorites.items(order_by=&quot;updated_at desc&quot;):
+    print(item[&quot;key&quot;], item[&quot;value&quot;])
+
+favorites.delete(&quot;movie-2&quot;)
+print(favorites.count())</code></pre>
+</figure>
+<div class="table-scroll"><table><thead><tr><th>API</th><th>说明</th></tr></thead><tbody><tr><td><code>collection(name)</code></td><td>返回默认数据库里的 <code>Collection</code>。</td></tr><tr><td><code>Collection.upsert(key, value)</code></td><td>插入或更新 JSON 值。</td></tr><tr><td><code>Collection.get(key, default=None)</code></td><td>读取 JSON 值，不存在时返回默认值。</td></tr><tr><td><code>Collection.delete(key)</code></td><td>删除一条记录。</td></tr><tr><td><code>Collection.clear()</code></td><td>清空当前 collection。</td></tr><tr><td><code>Collection.count()</code></td><td>当前 collection 记录数。</td></tr><tr><td><code>Collection.items(order_by=&quot;updated_at desc&quot;, limit=None, offset=0)</code></td><td>返回包含 <code>key</code>、<code>value</code>、<code>created_at</code>、<code>updated_at</code> 的记录。</td></tr><tr><td><code>Collection.list(order_by=&quot;updated_at desc&quot;, limit=None, offset=0)</code></td><td>只返回 value 列表。</td></tr><tr><td><code>Collection.migrate_from_storage(storage_key, key_field=&quot;id&quot;, remove=False)</code></td><td>把旧 <code>storage</code> JSON 迁移成 collection 记录。</td></tr></tbody></table></div>
+<h2 id="sql-api"><a class="heading-anchor" href="#sql-api">#</a>SQL API</h2>
+<p>需要明确表结构、索引或事务时使用 <code>Database</code>。</p>
+<figure class="code-block" data-code-id="5cb09d4e90d1">
+  <figcaption>
+    <span>python</span>
+    <button class="copy-code" type="button" data-copy-code="5cb09d4e90d1">复制</button>
+  </figcaption>
+  <pre><code id="code-5cb09d4e90d1" class="language-python">import database
+
+db = database.open(&quot;media&quot;)
+
+db.executescript(&quot;&quot;&quot;
+CREATE TABLE IF NOT EXISTS episodes (
+    id TEXT PRIMARY KEY,
+    title TEXT NOT NULL,
+    position REAL NOT NULL DEFAULT 0
+);
+CREATE INDEX IF NOT EXISTS idx_episodes_title ON episodes(title);
+&quot;&quot;&quot;)
+
+with db.transaction():
+    db.execute(
+        &quot;INSERT OR REPLACE INTO episodes(id, title, position) VALUES (?, ?, ?)&quot;,
+        [&quot;episode-42&quot;, &quot;Episode 42&quot;, 128.5],
+    )
+
+row = db.query_one(&quot;SELECT * FROM episodes WHERE id = ?&quot;, [&quot;episode-42&quot;])
+print(row)
+db.close()</code></pre>
+</figure>
+<div class="table-scroll"><table><thead><tr><th>API</th><th>说明</th></tr></thead><tbody><tr><td><code>open(name=&quot;app.db&quot;, **kwargs)</code> / <code>connect(...)</code></td><td>打开 MiniApp 作用域内的 SQLite 数据库。</td></tr><tr><td><code>default_database()</code></td><td>返回默认数据库实例。</td></tr><tr><td><code>database_path(name=&quot;app.db&quot;)</code></td><td>返回数据库绝对路径，用于调试和导出。</td></tr><tr><td><code>Database.execute(sql, params=None)</code></td><td>执行一条 SQL，返回 affected row count。</td></tr><tr><td><code>Database.executemany(sql, seq_of_params)</code></td><td>批量执行。</td></tr><tr><td><code>Database.executescript(script)</code></td><td>执行建表或迁移脚本。</td></tr><tr><td><code>Database.query(sql, params=None)</code></td><td>返回 <code>list[dict]</code>。</td></tr><tr><td><code>Database.query_one(sql, params=None, default=None)</code></td><td>返回单行 <code>dict</code> 或默认值。</td></tr><tr><td><code>Database.scalar(sql, params=None, default=None)</code></td><td>返回第一列标量。</td></tr><tr><td><code>Database.transaction()</code></td><td>原子事务，异常时回滚。</td></tr><tr><td><code>Database.collection(name)</code></td><td>在这个数据库里创建 collection。</td></tr><tr><td><code>Database.user_version</code></td><td>读写 SQLite <code>PRAGMA user_version</code>，适合记录 schema 版本。</td></tr><tr><td><code>Database.close()</code></td><td>关闭连接。</td></tr></tbody></table></div>
+<h2 id="从-storage-迁移"><a class="heading-anchor" href="#从-storage-迁移">#</a>从 storage 迁移</h2>
+<figure class="code-block" data-code-id="2cde39ef054d">
+  <figcaption>
+    <span>python</span>
+    <button class="copy-code" type="button" data-copy-code="2cde39ef054d">复制</button>
+  </figcaption>
+  <pre><code id="code-2cde39ef054d" class="language-python">import database
+
+history = database.collection(&quot;history&quot;)
+count = history.migrate_from_storage(&quot;video.history&quot;, key_field=&quot;id&quot;, remove=True)
+print(&quot;migrated&quot;, count)</code></pre>
+</figure>
+<h2 id="常见错误"><a class="heading-anchor" href="#常见错误">#</a>常见错误</h2>
+<div class="table-scroll"><table><thead><tr><th>错误</th><th>正确做法</th></tr></thead><tbody><tr><td>把大量列表、播放历史、搜索缓存塞进 <code>storage</code></td><td>用 <code>database.collection(...)</code>。</td></tr><tr><td>把 token 或密码放进 SQLite</td><td>用 <code>keychain</code>。</td></tr><tr><td>传入 <code>../data.db</code> 或绝对路径</td><td>只传文件名，例如 <code>database.open(&quot;media&quot;)</code>。</td></tr><tr><td>长时间不用还保持连接</td><td>页面或任务结束时调用 <code>db.close()</code>。</td></tr><tr><td>手写 SQL 拼接用户输入</td><td>使用 <code>?</code> 参数绑定。</td></tr></tbody></table></div>
+  </div>
+  <section class="related-section"><h2>相关文档</h2><div class="related-list"><a class="related-link" href="../storage-module/"><strong>storage</strong><span>UserDefaults 持久键值存储。</span></a><a class="related-link" href="../keychain-module/"><strong>keychain</strong><span>iOS 钥匙串安全存储。</span></a><a class="related-link" href="../miniapp-native-capabilities/"><strong>原生能力入口</strong><span>MiniApp 常用原生能力入口，不是完整模块总表。</span></a></div></section>
+</article>
+
+    </main>
+    <aside class="toc"><div class="toc-title">本页目录</div><a class="toc-link" href="#预期效果">预期效果</a><a class="toc-link" href="#什么时候用">什么时候用</a><a class="toc-link" href="#最小正确示例">最小正确示例</a><a class="toc-link" href="#collection-api">Collection API</a><a class="toc-link" href="#sql-api">SQL API</a><a class="toc-link" href="#从-storage-迁移">从 storage 迁移</a><a class="toc-link" href="#常见错误">常见错误</a></aside>
+  </div>
+  <div class="mobile-backdrop"></div>
+  <div class="search-panel" role="dialog" aria-modal="true" aria-label="搜索">
+    <div class="search-box">
+      <input id="docs-search-input" type="search" placeholder="搜索 API、模块、指南..." autocomplete="off">
+      <button class="search-close" type="button">Close</button>
+    </div>
+    <div id="docs-search-results" class="search-results"></div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,379 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>contacts - PythonIDE Docs</title>
+  <meta name="description" content="联系人读取、编辑、选择器和 vCard 导入导出。">
+  <link rel="icon" href="../../assets/brand-mark.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="../../assets/docs-v2.css">
+  <script>window.PYTHONIDE_DOCS_PREFIX = "../../";</script>
+  <script defer src="../../assets/docs-v2.js"></script>
+</head>
+<body class="article-page">
+  <header class="topbar">
+    <button class="icon-button menu-toggle" type="button" aria-label="打开目录">☰</button>
+    <a class="brand" href="../../"><img class="brand-mark" src="../../assets/brand-mark.svg" alt="" width="30" height="30"><span class="brand-text">PythonIDE Docs</span></a>
+    <nav class="top-nav" aria-label="主导航">
+      <a class="active" href="../../">文档</a>
+      <a class="" href="../../pages/widget-api-reference/">API 参考</a>
+      <a class="" href="../../pages/appui-cookbook-index/">示例</a>
+    </nav>
+    <details class="language-menu">
+      <summary>中文</summary>
+      <div class="language-panel">
+        <span class="active">简体中文</span>
+        <button type="button" disabled>English <em>准备中</em></button>
+      </div>
+    </details>
+    <button class="theme-toggle" type="button" aria-label="切换主题">◐</button>
+  </header>
+  <div class="shell">
+    <aside class="sidebar">
+      <nav class="sidebar-nav" aria-label="Docs navigation">
+<button class="sidebar-search search-trigger" type="button"><span>搜索...</span><kbd>⌘K</kbd></button>
+<details class="nav-collection">
+<summary><a href="../../collections/appui/">appui</a></summary>
+<div class="nav-group">
+<div class="nav-group-title">开始</div>
+<a class="nav-link" href="../../pages/appui-module/">appui 概览</a>
+<a class="nav-link" href="../../pages/appui-quickstart/">快速上手</a>
+<a class="nav-link" href="../../pages/miniapp-choose-runtime/">运行时选择</a>
+<a class="nav-link" href="../../pages/miniapp-appui-ui-patterns/">AppUI UI 模式</a>
+<a class="nav-link" href="../../pages/miniapp-appui-api-index/">AppUI API 地图</a>
+<a class="nav-link" href="../../pages/miniapp-dev-troubleshooting/">MiniApp 开发排错</a>
+</div>
+<div class="nav-group">
+<div class="nav-group-title">指南</div>
+<a class="nav-link" href="../../pages/appui-guide-thinking/">appui 思维方式</a>
+<a class="nav-link" href="../../pages/appui-guide-state/">状态管理</a>
+<a class="nav-link" href="../../pages/appui-guide-layout/">布局系统</a>
+<a class="nav-link" href="../../pages/appui-guide-lists/">列表与表单</a>
+<a class="nav-link" href="../../pages/appui-guide-navigation/">导航与页面结构</a>
+<a class="nav-link" href="../../pages/appui-guide-interaction/">交互与回调</a>
+<a class="nav-link" href="../../pages/appui-guide-media/">媒体与系统集成</a>
+<a class="nav-link" href="../../pages/appui-guide-charts/">图表与绘图</a>
+<a class="nav-link" href="../../pages/appui-guide-darkmode/">深色模式与语义色</a>
+<a class="nav-link" href="../../pages/appui-guide-animation/">动画</a>
+<a class="nav-link" href="../../pages/appui-guide-hotreload/">热重载</a>
+<a class="nav-link" href="../../pages/appui-guide-realtime/">实时快路径</a>
+<a class="nav-link" href="../../pages/appui-guide-performance/">性能与实时界面</a>
+</div>
+<div class="nav-group">
+<div class="nav-group-title">API 参考</div>
+<a class="nav-link" href="../../pages/appui-ref-functions/">入口函数</a>
+<a class="nav-link" href="../../pages/appui-ref-state/">状态 API</a>
+<a class="nav-link" href="../../pages/appui-ref-layout/">布局 API</a>
+<a class="nav-link" href="../../pages/appui-ref-layout-stacks/">堆叠布局 API</a>
+<a class="nav-link" href="../../pages/appui-ref-layout-scroll/">滚动 API</a>
+<a class="nav-link" href="../../pages/appui-ref-layout-grids/">网格 API</a>
+<a class="nav-link" href="../../pages/appui-ref-layout-geometry/">几何与特殊布局 API</a>
+<a class="nav-link" href="../../pages/appui-ref-controls/">控件 API</a>
+<a class="nav-link" href="../../pages/appui-ref-navigation/">导航 API</a>
+<a class="nav-link" href="../../pages/appui-ref-data/">数据展示 API</a>
+<a class="nav-link" href="../../pages/appui-ref-presentation/">呈现 API</a>
+<a class="nav-link" href="../../pages/appui-ref-modifiers/">修饰符 API</a>
+<a class="nav-link" href="../../pages/appui-ref-environment/">环境值 API</a>
+<a class="nav-link" href="../../pages/appui-ref-media/">媒体 API</a>
+<a class="nav-link" href="../../pages/appui-ref-charts/">图表与画布 API</a>
+<a class="nav-link" href="../../pages/appui-ref-shapes/">形状 API</a>
+</div>
+<div class="nav-group">
+<div class="nav-group-title">示例</div>
+<a class="nav-link" href="../../pages/appui-cookbook-index/">示例索引</a>
+<a class="nav-link" href="../../pages/appui-cookbook-todo/">示例：待办列表</a>
+<a class="nav-link" href="../../pages/appui-cookbook-settings/">示例：设置表单</a>
+<a class="nav-link" href="../../pages/appui-cookbook-dashboard/">示例：紧凑仪表盘</a>
+<a class="nav-link" href="../../pages/appui-cookbook-native-list-detail/">示例：原生列表详情</a>
+<a class="nav-link" href="../../pages/appui-cookbook-network-list/">示例：网络列表</a>
+<a class="nav-link" href="../../pages/appui-cookbook-table-data-review/">示例：表格数据审核</a>
+<a class="nav-link" href="../../pages/appui-cookbook-chat/">示例：聊天界面</a>
+<a class="nav-link" href="../../pages/appui-cookbook-media-capture-gallery/">示例：媒体采集相册</a>
+<a class="nav-link" href="../../pages/appui-cookbook-gallery/">示例：相册浏览器</a>
+<a class="nav-link" href="../../pages/appui-cookbook-form-settings-controls/">示例：原生表单设置</a>
+<a class="nav-link" href="../../pages/appui-cookbook-chart-canvas-lab/">示例：图表与画布实验室</a>
+<a class="nav-link" href="../../pages/appui-cookbook-location-map/">示例：定位地图</a>
+<a class="nav-link" href="../../pages/appui-cookbook-motion-haptics-dashboard/">示例：运动传感器仪表盘</a>
+<a class="nav-link" href="../../pages/appui-cookbook-notification-reminder/">示例：通知提醒</a>
+<a class="nav-link" href="../../pages/appui-cookbook-health-blood-pressure/">示例：血压分析</a>
+<a class="nav-link" href="../../pages/appui-cookbook-secure-vault/">示例：安全凭据库</a>
+<a class="nav-link" href="../../pages/appui-cookbook-live-activity-background/">示例：实时活动与后台任务</a>
+<a class="nav-link" href="../../pages/appui-cookbook-shortcuts-launcher/">示例：快捷指令启动器</a>
+<a class="nav-link" href="../../pages/appui-cookbook-video-player/">示例：视频播放器</a>
+<a class="nav-link" href="../../pages/appui-cookbook-webview-share-export/">示例：WebView 与系统分享</a>
+</div>
+<div class="nav-group">
+<div class="nav-group-title">速查</div>
+<a class="nav-link" href="../../pages/appui-appendix-colors/">颜色参考</a>
+<a class="nav-link" href="../../pages/appui-appendix-symbols/">SF Symbols</a>
+<a class="nav-link" href="../../pages/appui-appendix-migration/">从 ui 迁移到 appui</a>
+</div>
+</details>
+<details class="nav-collection">
+<summary><a href="../../collections/widget/">widget</a></summary>
+<div class="nav-group">
+<div class="nav-group-title">小组件</div>
+<a class="nav-link" href="../../pages/widget-module/">widget</a>
+<a class="nav-link" href="../../pages/widget-quickstart-publish/">widget 从脚本到桌面</a>
+<a class="nav-link" href="../../pages/widget-layout/">widget 布局与尺寸</a>
+<a class="nav-link" href="../../pages/widget-parameters/">widget 参数面板</a>
+<a class="nav-link" href="../../pages/widget-interaction/">widget 状态和交互</a>
+<a class="nav-link" href="../../pages/widget-timeline/">widget 时间线和动画</a>
+<a class="nav-link" href="../../pages/widget-appearance-assets/">widget 资源与外观</a>
+<a class="nav-link" href="../../pages/widget-troubleshooting/">widget 排错</a>
+<a class="nav-link" href="../../pages/widget-api-index/">widget API 地图</a>
+<a class="nav-link" href="../../pages/widget-api-reference/">widget API 参考</a>
+</div>
+</details>
+<details class="nav-collection">
+<summary><a href="../../collections/ui/">ui</a></summary>
+<div class="nav-group">
+<div class="nav-group-title">快速上手</div>
+<a class="nav-link" href="../../pages/ui-module/">ui 概览</a>
+</div>
+<div class="nav-group">
+<div class="nav-group-title">API 参考</div>
+<a class="nav-link" href="../../pages/ui-api-index/">ui API 索引</a>
+<a class="nav-link" href="../../pages/ui-api-reference/">ui API 参考</a>
+</div>
+<div class="nav-group">
+<div class="nav-group-title">实时能力</div>
+<a class="nav-link" href="../../pages/aurora-system/">系统实时能力</a>
+<a class="nav-link" href="../../pages/aurora-toolkit/">实时更新工具</a>
+</div>
+</details>
+<details class="nav-collection">
+<summary><a href="../../collections/scene/">scene</a></summary>
+<div class="nav-group">
+<div class="nav-group-title">快速上手</div>
+<a class="nav-link" href="../../pages/scene-module/">scene 概览</a>
+<a class="nav-link" href="../../pages/turtle-module/">turtle</a>
+</div>
+<div class="nav-group">
+<div class="nav-group-title">API 参考</div>
+<a class="nav-link" href="../../pages/scene-api-index/">scene API 索引</a>
+<a class="nav-link" href="../../pages/scene-api-reference/">scene API 参考</a>
+</div>
+</details>
+<details class="nav-collection" open>
+<summary><a href="../../collections/ios-native/">iOS 原生模块</a></summary>
+<div class="nav-group">
+<div class="nav-group-title">快速上手</div>
+<a class="nav-link" href="../../pages/ios-native/">iOS 原生能力</a>
+<a class="nav-link" href="../../pages/modules-index/">全部模块总览</a>
+<a class="nav-link" href="../../pages/miniapp-native-capabilities/">原生能力入口</a>
+</div>
+<div class="nav-group">
+<div class="nav-group-title">设备与传感器</div>
+<a class="nav-link" href="../../pages/device-module/">device</a>
+<a class="nav-link" href="../../pages/location-module/">location</a>
+<a class="nav-link" href="../../pages/motion-module/">motion</a>
+<a class="nav-link" href="../../pages/haptics-module/">haptics</a>
+<a class="nav-link" href="../../pages/biometric-module/">biometric</a>
+<a class="nav-link" href="../../pages/health-module/">health</a>
+</div>
+<div class="nav-group">
+<div class="nav-group-title">媒体与视觉</div>
+<a class="nav-link" href="../../pages/photos-module/">photos</a>
+<a class="nav-link" href="../../pages/avplayer-module/">avplayer</a>
+<a class="nav-link" href="../../pages/sound-module/">sound</a>
+<a class="nav-link" href="../../pages/speech-module/">speech</a>
+<a class="nav-link" href="../../pages/vision-helper-module/">vision_helper</a>
+<a class="nav-link" href="../../pages/vision-module/">vision</a>
+<a class="nav-link" href="../../pages/coreml-module/">coreml</a>
+</div>
+<div class="nav-group">
+<div class="nav-group-title">网络与数据</div>
+<a class="nav-link" href="../../pages/network-module/">network</a>
+<a class="nav-link" href="../../pages/websocket-module/">websocket</a>
+<a class="nav-link" href="../../pages/bluetooth-module/">bluetooth</a>
+<a class="nav-link" href="../../pages/background-module/">background</a>
+</div>
+<div class="nav-group">
+<div class="nav-group-title">系统服务</div>
+<a class="nav-link" href="../../pages/permission-module/">permission</a>
+<a class="nav-link" href="../../pages/storage-module/">storage</a>
+<a class="nav-link" href="../../pages/database-module/">database</a>
+<a class="nav-link" href="../../pages/keychain-module/">keychain</a>
+<a class="nav-link" href="../../pages/clipboard-module/">clipboard</a>
+<a class="nav-link" href="../../pages/dialogs-module/">dialogs</a>
+<a class="nav-link" href="../../pages/console-module/">console</a>
+<a class="nav-link" href="../../pages/notification-module/">notification</a>
+<a class="nav-link active" href="../../pages/contacts-module/">contacts</a>
+<a class="nav-link" href="../../pages/calendar-events-module/">calendar_events</a>
+<a class="nav-link" href="../../pages/nfc-module/">nfc</a>
+</div>
+</details>
+<details class="nav-collection">
+<summary><a href="../../collections/automation-extension/">自动化与扩展</a></summary>
+<div class="nav-group">
+<div class="nav-group-title">快速上手</div>
+<a class="nav-link" href="../../pages/shortcuts-guide/">快捷指令</a>
+<a class="nav-link" href="../../pages/js-api/">JS API 说明</a>
+</div>
+<div class="nav-group">
+<div class="nav-group-title">模块</div>
+<a class="nav-link" href="../../pages/shortcuts-module/">shortcuts</a>
+<a class="nav-link" href="../../pages/live-activity-module/">live_activity</a>
+<a class="nav-link" href="../../pages/keyboard-module/">keyboard</a>
+<a class="nav-link" href="../../pages/objc-util-module/">objc_util</a>
+<a class="nav-link" href="../../pages/c-extensions-module/">c_extensions</a>
+</div>
+</details>
+</nav>
+    </aside>
+    <main class="content">
+      
+<article class="article" style="--page-accent:#16a34a">
+  <header class="article-intro">
+    <div class="breadcrumb">iOS 原生模块 / 系统服务</div>
+    <h1>contacts</h1>
+    <p>联系人读取、编辑、选择器和 vCard 导入导出。</p>
+  </header>
+  <div class="markdown-body">
+    <p><code>contacts</code> 访问系统通讯录，支持权限、读取、搜索、联系人编辑、分组、系统选择器、vCard 导入导出和变更历史。联系人属于敏感数据，默认只读取当前功能需要的字段和数量。</p>
+<h2 id="预期效果"><a class="heading-anchor" href="#预期效果">#</a>预期效果</h2>
+<p>示例会展示联系人选择、读取、vCard 导入导出和取消状态处理。</p>
+<h2 id="什么时候用"><a class="heading-anchor" href="#什么时候用">#</a>什么时候用</h2>
+<ul><li>让用户选择一个或多个联系人，并在 App 内继续处理。</li><li>搜索联系人、展示联系人卡片、读取手机号或邮箱。</li><li>创建、编辑、删除联系人或分组，并用 <code>save()</code> 提交事务。</li><li>导入导出 vCard，或读取变更历史做增量同步。</li></ul>
+<h2 id="核心模型"><a class="heading-anchor" href="#核心模型">#</a>核心模型</h2>
+<p>读取前先检查 <code>is_authorized()</code>；没有权限时再调用 <code>request_access()</code>。联系人修改不是立即落盘：<code>add_person</code>、<code>remove_person</code>、<code>edit_person</code>、分组成员修改会进入待提交状态，成功时调用 <code>save()</code>，失败时调用 <code>revert()</code>。</p>
+<p>系统选择器 <code>pick_contact()</code> / <code>pick_contacts()</code> 适合让用户主动选择数据，比无提示读取全部联系人更稳。列表页读取联系人时使用 <code>limit</code> 和 <code>offset</code>，避免一次性加载图片或 vCard。</p>
+<h2 id="标准示例"><a class="heading-anchor" href="#标准示例">#</a>标准示例</h2>
+<figure class="code-block" data-code-id="5f01fffe3779">
+  <figcaption>
+    <span>python</span>
+    <button class="copy-code" type="button" data-copy-code="5f01fffe3779">复制</button>
+  </figcaption>
+  <pre><code id="code-5f01fffe3779" class="language-python">import contacts
+
+if not contacts.is_authorized():
+    contacts.request_access()
+
+people = contacts.get_all_people(limit=10)
+for person in people:
+    print(person.identifier, getattr(person, &quot;name&quot;, &quot;&quot;))</code></pre>
+</figure>
+<h2 id="搜索和展示"><a class="heading-anchor" href="#搜索和展示">#</a>搜索和展示</h2>
+<figure class="code-block" data-code-id="bc3a25b6a751">
+  <figcaption>
+    <span>python</span>
+    <button class="copy-code" type="button" data-copy-code="bc3a25b6a751">复制</button>
+  </figcaption>
+  <pre><code id="code-bc3a25b6a751" class="language-python">import contacts
+
+matches = contacts.find(&quot;Ada&quot;)
+for person in matches:
+    full = contacts.get_person(person.identifier, include_image_data=False, include_vcard=False)
+    print(full.identifier)
+
+picked = contacts.pick_contact()
+if picked:
+    contacts.show_person(picked, allows_editing=False, allows_actions=True)</code></pre>
+</figure>
+<h2 id="创建联系人"><a class="heading-anchor" href="#创建联系人">#</a>创建联系人</h2>
+<figure class="code-block" data-code-id="4aa1959d449c">
+  <figcaption>
+    <span>python</span>
+    <button class="copy-code" type="button" data-copy-code="4aa1959d449c">复制</button>
+  </figcaption>
+  <pre><code id="code-4aa1959d449c" class="language-python">import contacts
+
+person = contacts.new_person(seed={&quot;given_name&quot;: &quot;Ada&quot;, &quot;family_name&quot;: &quot;Lovelace&quot;})
+saved = contacts.add_person(person)
+try:
+    contacts.save()
+    print(&quot;saved&quot;, saved)
+except Exception:
+    contacts.revert()
+    raise</code></pre>
+</figure>
+<h2 id="appui-中怎么接"><a class="heading-anchor" href="#appui-中怎么接">#</a>AppUI 中怎么接</h2>
+<p>通讯录读取和系统选择器都放在按钮回调里。下面示例只保存必要字段，不加载图片和 vCard。</p>
+<figure class="code-block" data-code-id="87579d0ca8aa">
+  <figcaption>
+    <span>python</span>
+    <button class="copy-code" type="button" data-copy-code="87579d0ca8aa">复制</button>
+  </figcaption>
+  <pre><code id="code-87579d0ca8aa" class="language-python">import appui
+import contacts
+
+state = appui.State(status=&quot;未读取&quot;, people=[])
+
+
+def person_key(person):
+    return person[&quot;id&quot;]
+
+
+def person_row(person):
+    return appui.VStack([
+        appui.Text(person[&quot;name&quot;]),
+        appui.Text(person[&quot;identifier&quot;]).font(&quot;caption&quot;).foreground_style(&quot;secondary&quot;),
+    ], spacing=2)
+
+
+def load_people():
+    if not contacts.is_authorized():
+        contacts.request_access()
+
+    if not contacts.is_authorized():
+        state.batch_update(status=&quot;未授权&quot;, people=[])
+        return
+
+    rows = []
+    for person in contacts.get_all_people(limit=20):
+        rows.append({
+            &quot;id&quot;: person.identifier or str(person.id),
+            &quot;identifier&quot;: str(person.identifier or &quot;&quot;),
+            &quot;name&quot;: (
+                getattr(person, &quot;full_name&quot;, &quot;&quot;)
+                or getattr(person, &quot;organization&quot;, &quot;&quot;)
+                or &quot;未命名联系人&quot;
+            ),
+        })
+    state.batch_update(status=&quot;已读取 &quot; + str(len(rows)) + &quot; 个联系人&quot;, people=rows)
+
+
+def body():
+    return appui.NavigationStack(
+        appui.List([
+            appui.Section(&quot;Contacts&quot;, [
+                appui.Button(&quot;Load Contacts&quot;, action=load_people),
+                appui.Text(state.status),
+            ]),
+            appui.Section(&quot;People&quot;, [
+                appui.ForEach(state.people, row_builder=person_row, key=person_key)
+            ]),
+        ]).navigation_title(&quot;Contacts&quot;)
+    )
+
+
+appui.run(body, state=state)</code></pre>
+</figure>
+<h2 id="核心类型"><a class="heading-anchor" href="#核心类型">#</a>核心类型</h2>
+<div class="table-scroll"><table><thead><tr><th>类型</th><th>用途</th></tr></thead><tbody><tr><td><code>PERSON</code> / <code>ORGANIZATION</code></td><td>联系人类型常量。</td></tr><tr><td><code>ContactsError</code></td><td>联系人模块错误，包含 message、code、domain。</td></tr><tr><td><code>Person</code></td><td>单个联系人对象，常用属性包括 <code>id</code>、<code>identifier</code>、<code>image_data</code>、<code>thumbnail_image_data</code>、<code>vcard</code>。</td></tr><tr><td><code>Group</code></td><td>联系人分组，支持 <code>members()</code>、<code>add_member(person)</code>、<code>remove_member(person)</code>。</td></tr><tr><td><code>Container</code></td><td>通讯录容器，支持 <code>people()</code>、<code>groups()</code>。</td></tr><tr><td><code>PropertySelection</code></td><td>系统属性选择器返回的属性选择结果。</td></tr></tbody></table></div>
+<h2 id="api-分组"><a class="heading-anchor" href="#api-分组">#</a>API 分组</h2>
+<div class="table-scroll"><table><thead><tr><th>分组</th><th>API</th></tr></thead><tbody><tr><td>权限</td><td><code>authorization_status()</code>、<code>capabilities()</code>、<code>is_authorized()</code>、<code>request_access()</code>、<code>manage_limited_access()</code></td></tr><tr><td>读取</td><td><code>get_all_people(limit=100, offset=0, container=None)</code>、<code>get_person(person_or_id, include_image_data=False, include_vcard=False)</code>、<code>get_me()</code></td></tr><tr><td>搜索</td><td><code>find(name)</code>、<code>find_by_phone(phone)</code>、<code>find_by_email(email)</code></td></tr><tr><td>编辑事务</td><td><code>add_person(person=None)</code>、<code>remove_person(person)</code>、<code>save()</code>、<code>revert()</code>、<code>edit_person(person, **kwargs)</code>、<code>new_person(seed=None, container=None, group=None)</code></td></tr><tr><td>分组</td><td><code>get_all_groups(container=None)</code>、<code>get_group(group_or_id)</code>、<code>add_group(group=None)</code>、<code>remove_group(group)</code></td></tr><tr><td>容器</td><td><code>get_all_containers()</code>、<code>get_default_container()</code>、<code>get_people_in_container(container)</code>、<code>get_groups_in_container(container)</code></td></tr><tr><td>分组成员</td><td><code>get_people_in_group(group)</code></td></tr><tr><td>系统选择器</td><td><code>pick_contact(multi=False)</code>、<code>pick_contacts()</code>、<code>pick_property(kind=&quot;phone&quot;, multi=False)</code>、<code>show_person(person, ...)</code></td></tr><tr><td>vCard</td><td><code>export_vcards(people)</code>、<code>import_vcards(data, container=None)</code></td></tr><tr><td>变更和标签</td><td><code>get_change_history(token=None, include_group_changes=False, excluded_transaction_authors=None)</code>、<code>localized_label(label)</code></td></tr></tbody></table></div>
+<h2 id="使用规则"><a class="heading-anchor" href="#使用规则">#</a>使用规则</h2>
+<ul><li>读取前先判断 <code>is_authorized()</code>；没有权限时再调用 <code>request_access()</code>，不要无提示批量读取。</li><li>列表页必须使用 <code>limit</code> 和 <code>offset</code>，不要一次性加载全部联系人图片。</li><li>修改联系人、分组或成员后用 <code>save()</code> 提交；失败时用 <code>revert()</code> 回滚。</li><li><code>include_image_data</code> 和 <code>include_vcard</code> 会增加内存和隐私暴露，只在确实需要时打开。</li><li>iOS 限制通讯录权限时，用 <code>manage_limited_access()</code> 让用户调整可访问联系人。</li></ul>
+<h2 id="失败路径"><a class="heading-anchor" href="#失败路径">#</a>失败路径</h2>
+<div class="table-scroll"><table><thead><tr><th>情况</th><th>应该怎么处理</th></tr></thead><tbody><tr><td>用户拒绝通讯录权限</td><td>显示未授权状态，不继续读取。</td></tr><tr><td><code>pick_contact()</code> 返回空</td><td>视为用户取消，保持当前数据。</td></tr><tr><td>保存联系人失败</td><td>调用 <code>revert()</code> 回滚待提交修改。</td></tr><tr><td>限制通讯录访问</td><td>提供 <code>manage_limited_access()</code> 入口。</td></tr></tbody></table></div>
+<h2 id="常见错误"><a class="heading-anchor" href="#常见错误">#</a>常见错误</h2>
+<div class="table-scroll"><table><thead><tr><th>错误写法</th><th>后果</th><th>修正</th></tr></thead><tbody><tr><td>首屏直接读取所有联系人</td><td>隐私体验差且可能很慢</td><td>由按钮触发，并使用 <code>limit</code>。</td></tr><tr><td>修改后忘记 <code>save()</code></td><td>变更没有提交</td><td>成功路径调用 <code>save()</code>。</td></tr><tr><td>保存失败后继续使用待提交对象</td><td>状态和系统通讯录不一致</td><td>捕获异常后 <code>revert()</code>。</td></tr><tr><td>默认加载 <code>include_image_data=True</code></td><td>内存和隐私成本高</td><td>只在头像页面按需加载。</td></tr></tbody></table></div>
+  </div>
+  
+</article>
+
+    </main>
+    <aside class="toc"><div class="toc-title">本页目录</div><a class="toc-link" href="#预期效果">预期效果</a><a class="toc-link" href="#什么时候用">什么时候用</a><a class="toc-link" href="#核心模型">核心模型</a><a class="toc-link" href="#标准示例">标准示例</a><a class="toc-link" href="#搜索和展示">搜索和展示</a><a class="toc-link" href="#创建联系人">创建联系人</a><a class="toc-link" href="#appui-中怎么接">AppUI 中怎么接</a><a class="toc-link" href="#核心类型">核心类型</a><a class="toc-link" href="#api-分组">API 分组</a><a class="toc-link" href="#使用规则">使用规则</a><a class="toc-link" href="#失败路径">失败路径</a><a class="toc-link" href="#常见错误">常见错误</a></aside>
+  </div>
+  <div class="mobile-backdrop"></div>
+  <div class="search-panel" role="dialog" aria-modal="true" aria-label="搜索">
+    <div class="search-box">
+      <input id="docs-search-input" type="search" placeholder="搜索 API、模块、指南..." autocomplete="off">
+      <button class="search-close" type="button">Close</button>
+    </div>
+    <div id="docs-search-results" class="search-results"></div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,405 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>coreml - PythonIDE Docs</title>
+  <meta name="description" content="Core ML 模型加载、图片推理和模型信息读取。">
+  <link rel="icon" href="../../assets/brand-mark.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="../../assets/docs-v2.css">
+  <script>window.PYTHONIDE_DOCS_PREFIX = "../../";</script>
+  <script defer src="../../assets/docs-v2.js"></script>
+</head>
+<body class="article-page">
+  <header class="topbar">
+    <button class="icon-button menu-toggle" type="button" aria-label="打开目录">☰</button>
+    <a class="brand" href="../../"><img class="brand-mark" src="../../assets/brand-mark.svg" alt="" width="30" height="30"><span class="brand-text">PythonIDE Docs</span></a>
+    <nav class="top-nav" aria-label="主导航">
+      <a class="active" href="../../">文档</a>
+      <a class="" href="../../pages/widget-api-reference/">API 参考</a>
+      <a class="" href="../../pages/appui-cookbook-index/">示例</a>
+    </nav>
+    <details class="language-menu">
+      <summary>中文</summary>
+      <div class="language-panel">
+        <span class="active">简体中文</span>
+        <button type="button" disabled>English <em>准备中</em></button>
+      </div>
+    </details>
+    <button class="theme-toggle" type="button" aria-label="切换主题">◐</button>
+  </header>
+  <div class="shell">
+    <aside class="sidebar">
+      <nav class="sidebar-nav" aria-label="Docs navigation">
+<button class="sidebar-search search-trigger" type="button"><span>搜索...</span><kbd>⌘K</kbd></button>
+<details class="nav-collection">
+<summary><a href="../../collections/appui/">appui</a></summary>
+<div class="nav-group">
+<div class="nav-group-title">开始</div>
+<a class="nav-link" href="../../pages/appui-module/">appui 概览</a>
+<a class="nav-link" href="../../pages/appui-quickstart/">快速上手</a>
+<a class="nav-link" href="../../pages/miniapp-choose-runtime/">运行时选择</a>
+<a class="nav-link" href="../../pages/miniapp-appui-ui-patterns/">AppUI UI 模式</a>
+<a class="nav-link" href="../../pages/miniapp-appui-api-index/">AppUI API 地图</a>
+<a class="nav-link" href="../../pages/miniapp-dev-troubleshooting/">MiniApp 开发排错</a>
+</div>
+<div class="nav-group">
+<div class="nav-group-title">指南</div>
+<a class="nav-link" href="../../pages/appui-guide-thinking/">appui 思维方式</a>
+<a class="nav-link" href="../../pages/appui-guide-state/">状态管理</a>
+<a class="nav-link" href="../../pages/appui-guide-layout/">布局系统</a>
+<a class="nav-link" href="../../pages/appui-guide-lists/">列表与表单</a>
+<a class="nav-link" href="../../pages/appui-guide-navigation/">导航与页面结构</a>
+<a class="nav-link" href="../../pages/appui-guide-interaction/">交互与回调</a>
+<a class="nav-link" href="../../pages/appui-guide-media/">媒体与系统集成</a>
+<a class="nav-link" href="../../pages/appui-guide-charts/">图表与绘图</a>
+<a class="nav-link" href="../../pages/appui-guide-darkmode/">深色模式与语义色</a>
+<a class="nav-link" href="../../pages/appui-guide-animation/">动画</a>
+<a class="nav-link" href="../../pages/appui-guide-hotreload/">热重载</a>
+<a class="nav-link" href="../../pages/appui-guide-realtime/">实时快路径</a>
+<a class="nav-link" href="../../pages/appui-guide-performance/">性能与实时界面</a>
+</div>
+<div class="nav-group">
+<div class="nav-group-title">API 参考</div>
+<a class="nav-link" href="../../pages/appui-ref-functions/">入口函数</a>
+<a class="nav-link" href="../../pages/appui-ref-state/">状态 API</a>
+<a class="nav-link" href="../../pages/appui-ref-layout/">布局 API</a>
+<a class="nav-link" href="../../pages/appui-ref-layout-stacks/">堆叠布局 API</a>
+<a class="nav-link" href="../../pages/appui-ref-layout-scroll/">滚动 API</a>
+<a class="nav-link" href="../../pages/appui-ref-layout-grids/">网格 API</a>
+<a class="nav-link" href="../../pages/appui-ref-layout-geometry/">几何与特殊布局 API</a>
+<a class="nav-link" href="../../pages/appui-ref-controls/">控件 API</a>
+<a class="nav-link" href="../../pages/appui-ref-navigation/">导航 API</a>
+<a class="nav-link" href="../../pages/appui-ref-data/">数据展示 API</a>
+<a class="nav-link" href="../../pages/appui-ref-presentation/">呈现 API</a>
+<a class="nav-link" href="../../pages/appui-ref-modifiers/">修饰符 API</a>
+<a class="nav-link" href="../../pages/appui-ref-environment/">环境值 API</a>
+<a class="nav-link" href="../../pages/appui-ref-media/">媒体 API</a>
+<a class="nav-link" href="../../pages/appui-ref-charts/">图表与画布 API</a>
+<a class="nav-link" href="../../pages/appui-ref-shapes/">形状 API</a>
+</div>
+<div class="nav-group">
+<div class="nav-group-title">示例</div>
+<a class="nav-link" href="../../pages/appui-cookbook-index/">示例索引</a>
+<a class="nav-link" href="../../pages/appui-cookbook-todo/">示例：待办列表</a>
+<a class="nav-link" href="../../pages/appui-cookbook-settings/">示例：设置表单</a>
+<a class="nav-link" href="../../pages/appui-cookbook-dashboard/">示例：紧凑仪表盘</a>
+<a class="nav-link" href="../../pages/appui-cookbook-native-list-detail/">示例：原生列表详情</a>
+<a class="nav-link" href="../../pages/appui-cookbook-network-list/">示例：网络列表</a>
+<a class="nav-link" href="../../pages/appui-cookbook-table-data-review/">示例：表格数据审核</a>
+<a class="nav-link" href="../../pages/appui-cookbook-chat/">示例：聊天界面</a>
+<a class="nav-link" href="../../pages/appui-cookbook-media-capture-gallery/">示例：媒体采集相册</a>
+<a class="nav-link" href="../../pages/appui-cookbook-gallery/">示例：相册浏览器</a>
+<a class="nav-link" href="../../pages/appui-cookbook-form-settings-controls/">示例：原生表单设置</a>
+<a class="nav-link" href="../../pages/appui-cookbook-chart-canvas-lab/">示例：图表与画布实验室</a>
+<a class="nav-link" href="../../pages/appui-cookbook-location-map/">示例：定位地图</a>
+<a class="nav-link" href="../../pages/appui-cookbook-motion-haptics-dashboard/">示例：运动传感器仪表盘</a>
+<a class="nav-link" href="../../pages/appui-cookbook-notification-reminder/">示例：通知提醒</a>
+<a class="nav-link" href="../../pages/appui-cookbook-health-blood-pressure/">示例：血压分析</a>
+<a class="nav-link" href="../../pages/appui-cookbook-secure-vault/">示例：安全凭据库</a>
+<a class="nav-link" href="../../pages/appui-cookbook-live-activity-background/">示例：实时活动与后台任务</a>
+<a class="nav-link" href="../../pages/appui-cookbook-shortcuts-launcher/">示例：快捷指令启动器</a>
+<a class="nav-link" href="../../pages/appui-cookbook-video-player/">示例：视频播放器</a>
+<a class="nav-link" href="../../pages/appui-cookbook-webview-share-export/">示例：WebView 与系统分享</a>
+</div>
+<div class="nav-group">
+<div class="nav-group-title">速查</div>
+<a class="nav-link" href="../../pages/appui-appendix-colors/">颜色参考</a>
+<a class="nav-link" href="../../pages/appui-appendix-symbols/">SF Symbols</a>
+<a class="nav-link" href="../../pages/appui-appendix-migration/">从 ui 迁移到 appui</a>
+</div>
+</details>
+<details class="nav-collection">
+<summary><a href="../../collections/widget/">widget</a></summary>
+<div class="nav-group">
+<div class="nav-group-title">小组件</div>
+<a class="nav-link" href="../../pages/widget-module/">widget</a>
+<a class="nav-link" href="../../pages/widget-quickstart-publish/">widget 从脚本到桌面</a>
+<a class="nav-link" href="../../pages/widget-layout/">widget 布局与尺寸</a>
+<a class="nav-link" href="../../pages/widget-parameters/">widget 参数面板</a>
+<a class="nav-link" href="../../pages/widget-interaction/">widget 状态和交互</a>
+<a class="nav-link" href="../../pages/widget-timeline/">widget 时间线和动画</a>
+<a class="nav-link" href="../../pages/widget-appearance-assets/">widget 资源与外观</a>
+<a class="nav-link" href="../../pages/widget-troubleshooting/">widget 排错</a>
+<a class="nav-link" href="../../pages/widget-api-index/">widget API 地图</a>
+<a class="nav-link" href="../../pages/widget-api-reference/">widget API 参考</a>
+</div>
+</details>
+<details class="nav-collection">
+<summary><a href="../../collections/ui/">ui</a></summary>
+<div class="nav-group">
+<div class="nav-group-title">快速上手</div>
+<a class="nav-link" href="../../pages/ui-module/">ui 概览</a>
+</div>
+<div class="nav-group">
+<div class="nav-group-title">API 参考</div>
+<a class="nav-link" href="../../pages/ui-api-index/">ui API 索引</a>
+<a class="nav-link" href="../../pages/ui-api-reference/">ui API 参考</a>
+</div>
+<div class="nav-group">
+<div class="nav-group-title">实时能力</div>
+<a class="nav-link" href="../../pages/aurora-system/">系统实时能力</a>
+<a class="nav-link" href="../../pages/aurora-toolkit/">实时更新工具</a>
+</div>
+</details>
+<details class="nav-collection">
+<summary><a href="../../collections/scene/">scene</a></summary>
+<div class="nav-group">
+<div class="nav-group-title">快速上手</div>
+<a class="nav-link" href="../../pages/scene-module/">scene 概览</a>
+<a class="nav-link" href="../../pages/turtle-module/">turtle</a>
+</div>
+<div class="nav-group">
+<div class="nav-group-title">API 参考</div>
+<a class="nav-link" href="../../pages/scene-api-index/">scene API 索引</a>
+<a class="nav-link" href="../../pages/scene-api-reference/">scene API 参考</a>
+</div>
+</details>
+<details class="nav-collection" open>
+<summary><a href="../../collections/ios-native/">iOS 原生模块</a></summary>
+<div class="nav-group">
+<div class="nav-group-title">快速上手</div>
+<a class="nav-link" href="../../pages/ios-native/">iOS 原生能力</a>
+<a class="nav-link" href="../../pages/modules-index/">全部模块总览</a>
+<a class="nav-link" href="../../pages/miniapp-native-capabilities/">原生能力入口</a>
+</div>
+<div class="nav-group">
+<div class="nav-group-title">设备与传感器</div>
+<a class="nav-link" href="../../pages/device-module/">device</a>
+<a class="nav-link" href="../../pages/location-module/">location</a>
+<a class="nav-link" href="../../pages/motion-module/">motion</a>
+<a class="nav-link" href="../../pages/haptics-module/">haptics</a>
+<a class="nav-link" href="../../pages/biometric-module/">biometric</a>
+<a class="nav-link" href="../../pages/health-module/">health</a>
+</div>
+<div class="nav-group">
+<div class="nav-group-title">媒体与视觉</div>
+<a class="nav-link" href="../../pages/photos-module/">photos</a>
+<a class="nav-link" href="../../pages/avplayer-module/">avplayer</a>
+<a class="nav-link" href="../../pages/sound-module/">sound</a>
+<a class="nav-link" href="../../pages/speech-module/">speech</a>
+<a class="nav-link" href="../../pages/vision-helper-module/">vision_helper</a>
+<a class="nav-link" href="../../pages/vision-module/">vision</a>
+<a class="nav-link active" href="../../pages/coreml-module/">coreml</a>
+</div>
+<div class="nav-group">
+<div class="nav-group-title">网络与数据</div>
+<a class="nav-link" href="../../pages/network-module/">network</a>
+<a class="nav-link" href="../../pages/websocket-module/">websocket</a>
+<a class="nav-link" href="../../pages/bluetooth-module/">bluetooth</a>
+<a class="nav-link" href="../../pages/background-module/">background</a>
+</div>
+<div class="nav-group">
+<div class="nav-group-title">系统服务</div>
+<a class="nav-link" href="../../pages/permission-module/">permission</a>
+<a class="nav-link" href="../../pages/storage-module/">storage</a>
+<a class="nav-link" href="../../pages/database-module/">database</a>
+<a class="nav-link" href="../../pages/keychain-module/">keychain</a>
+<a class="nav-link" href="../../pages/clipboard-module/">clipboard</a>
+<a class="nav-link" href="../../pages/dialogs-module/">dialogs</a>
+<a class="nav-link" href="../../pages/console-module/">console</a>
+<a class="nav-link" href="../../pages/notification-module/">notification</a>
+<a class="nav-link" href="../../pages/contacts-module/">contacts</a>
+<a class="nav-link" href="../../pages/calendar-events-module/">calendar_events</a>
+<a class="nav-link" href="../../pages/nfc-module/">nfc</a>
+</div>
+</details>
+<details class="nav-collection">
+<summary><a href="../../collections/automation-extension/">自动化与扩展</a></summary>
+<div class="nav-group">
+<div class="nav-group-title">快速上手</div>
+<a class="nav-link" href="../../pages/shortcuts-guide/">快捷指令</a>
+<a class="nav-link" href="../../pages/js-api/">JS API 说明</a>
+</div>
+<div class="nav-group">
+<div class="nav-group-title">模块</div>
+<a class="nav-link" href="../../pages/shortcuts-module/">shortcuts</a>
+<a class="nav-link" href="../../pages/live-activity-module/">live_activity</a>
+<a class="nav-link" href="../../pages/keyboard-module/">keyboard</a>
+<a class="nav-link" href="../../pages/objc-util-module/">objc_util</a>
+<a class="nav-link" href="../../pages/c-extensions-module/">c_extensions</a>
+</div>
+</details>
+</nav>
+    </aside>
+    <main class="content">
+      
+<article class="article" style="--page-accent:#7c3aed">
+  <header class="article-intro">
+    <div class="breadcrumb">iOS 原生模块 / 媒体与视觉</div>
+    <h1>coreml</h1>
+    <p>Core ML 模型加载、图片推理和模型信息读取。</p>
+  </header>
+  <div class="markdown-body">
+    <p><code>coreml</code> 用来加载 Core ML 模型、执行图片分类推理，并读取模型元数据。</p>
+<h2 id="预期效果"><a class="heading-anchor" href="#预期效果">#</a>预期效果</h2>
+<p>示例会展示模型列表、模型加载、图片推理和不可用时的兜底提示。</p>
+<h2 id="什么时候用"><a class="heading-anchor" href="#什么时候用">#</a>什么时候用</h2>
+<ul><li>运行已经打包到 App 或用户工作区里的 Core ML 图片分类模型。</li><li>列出可用模型，让用户选择一个模型后再推理。</li><li>在展示结果前读取模型说明、输入输出信息或作者元数据。</li></ul>
+<h2 id="核心模型"><a class="heading-anchor" href="#核心模型">#</a>核心模型</h2>
+<p><code>list_models()</code> 返回模型名称字符串列表。先用 <code>load_model(name)</code> 得到模型句柄，再把本地图片路径传给 <code>predict_image(model, image_path)</code>。当前文档只覆盖推理，不覆盖模型训练或在线下载模型。</p>
+<p><code>predict_image(...)</code> 接收的是图片文件路径，不是 <code>PIL.Image</code>、bytes 或 Base64。图片来自相册时，先保存到可访问路径，或者使用适合图片对象的其它模块。</p>
+<h2 id="快速开始"><a class="heading-anchor" href="#快速开始">#</a>快速开始</h2>
+<figure class="code-block" data-code-id="e8632d846a11">
+  <figcaption>
+    <span>python</span>
+    <button class="copy-code" type="button" data-copy-code="e8632d846a11">复制</button>
+  </figcaption>
+  <pre><code id="code-e8632d846a11" class="language-python">import coreml
+
+models = coreml.list_models()
+if not models:
+    print(&quot;没有可用模型&quot;)
+else:
+    model = coreml.load_model(models[0])
+    info = coreml.model_info(model)
+    print(info)
+
+    predictions = coreml.predict_image(model, &quot;photo.jpg&quot;)
+    for item in predictions:
+        print(item.get(&quot;label&quot;), item.get(&quot;confidence&quot;))</code></pre>
+</figure>
+<h2 id="appui-中怎么接"><a class="heading-anchor" href="#appui-中怎么接">#</a>AppUI 中怎么接</h2>
+<p>加载和推理都可能耗时，按钮回调里要显示状态。下面的示例不在页面构建时加载模型。</p>
+<figure class="code-block" data-code-id="9f99e66f7c29">
+  <figcaption>
+    <span>python</span>
+    <button class="copy-code" type="button" data-copy-code="9f99e66f7c29">复制</button>
+  </figcaption>
+  <pre><code id="code-9f99e66f7c29" class="language-python">import appui
+import coreml
+
+state = appui.State(status=&quot;未加载&quot;, detail=&quot;等待操作&quot;)
+
+
+def list_available_models():
+    models = coreml.list_models()
+    if not models:
+        state.batch_update(status=&quot;没有模型&quot;, detail=&quot;请先添加可用 Core ML 模型&quot;)
+    else:
+        state.batch_update(status=&quot;已找到模型&quot;, detail=&quot;, &quot;.join(models[:3]))
+
+
+def body():
+    return appui.NavigationStack(
+        appui.Form([
+            appui.Section(&quot;Core ML&quot;, [
+                appui.Button(&quot;List Models&quot;, action=list_available_models),
+                appui.Text(state.status),
+                appui.Text(state.detail),
+            ]),
+        ]).navigation_title(&quot;Core ML&quot;)
+    )
+
+
+appui.run(body, state=state)</code></pre>
+</figure>
+<h2 id="图片推理配方"><a class="heading-anchor" href="#图片推理配方">#</a>图片推理配方</h2>
+<p>当用户已经有一张可访问的本地图片时，可以把模型选择、图片路径和推理结果放进同一个 AppUI 页面。示例默认使用 <code>list_models()</code> 的第一个模型。</p>
+<figure class="code-block" data-code-id="2d4e432b3d0e">
+  <figcaption>
+    <span>python</span>
+    <button class="copy-code" type="button" data-copy-code="2d4e432b3d0e">复制</button>
+  </figcaption>
+  <pre><code id="code-2d4e432b3d0e" class="language-python">import appui
+import coreml
+
+state = appui.State(
+    status=&quot;未运行&quot;,
+    image_path=&quot;photo.jpg&quot;,
+    result=&quot;等待推理&quot;,
+)
+
+
+def set_image_path(value):
+    state.image_path = value
+
+
+def run_prediction():
+    models = coreml.list_models()
+    if not models:
+        state.batch_update(status=&quot;没有模型&quot;, result=&quot;请先添加 Core ML 模型&quot;)
+        return
+
+    try:
+        model = coreml.load_model(models[0])
+        predictions = coreml.predict_image(model, state.image_path)
+    except Exception as error:
+        state.batch_update(status=&quot;推理失败&quot;, result=str(error))
+        return
+
+    if not predictions:
+        state.batch_update(status=&quot;无结果&quot;, result=&quot;模型没有返回分类&quot;)
+        return
+
+    top = predictions[0]
+    label = str(top.get(&quot;label&quot;, &quot;未知&quot;))
+    confidence = float(top.get(&quot;confidence&quot;, 0))
+    state.batch_update(
+        status=f&quot;模型：{models[0]}&quot;,
+        result=f&quot;{label} · {confidence:.0%}&quot;,
+    )
+
+
+def body():
+    return appui.NavigationStack(
+        appui.Form([
+            appui.Section(&quot;输入&quot;, [
+                appui.TextField(
+                    &quot;图片路径&quot;,
+                    text=state.image_path,
+                    on_change=set_image_path,
+                ),
+                appui.Button(&quot;运行推理&quot;, action=run_prediction),
+            ]),
+            appui.Section(&quot;结果&quot;, [
+                appui.Text(state.status),
+                appui.Text(state.result).font(&quot;title3&quot;),
+            ]),
+        ]).navigation_title(&quot;Core ML&quot;)
+    )
+
+
+appui.run(body, state=state)</code></pre>
+</figure>
+<p>预期效果：页面允许输入图片路径并手动运行推理；没有模型、路径错误或空结果都会显示为页面状态。</p>
+<h2 id="公开-api"><a class="heading-anchor" href="#公开-api">#</a>公开 API</h2>
+<h3 id="coreml.list_models-list-str"><a class="heading-anchor" href="#coreml.list_models-list-str">#</a><code>coreml.list_models() -&gt; list[str]</code></h3>
+<p>返回可用模型列表，包括 App 内置模型和用户添加的 <code>.mlmodelc</code> 文件。</p>
+<h3 id="coreml.load_model-name-model"><a class="heading-anchor" href="#coreml.load_model-name-model">#</a><code>coreml.load_model(name) -&gt; Model</code></h3>
+<p>按名称加载模型。<code>name</code> 可以是模型名称或可访问的模型路径。</p>
+<h3 id="coreml.predict_image-model-image_path-list-dict"><a class="heading-anchor" href="#coreml.predict_image-model-image_path-list-dict">#</a><code>coreml.predict_image(model, image_path) -&gt; list[dict]</code></h3>
+<p>对图片分类模型执行推理，返回 top-5 结果。</p>
+<figure class="code-block" data-code-id="28c3a5c37a4d">
+  <figcaption>
+    <span>python</span>
+    <button class="copy-code" type="button" data-copy-code="28c3a5c37a4d">复制</button>
+  </figcaption>
+  <pre><code id="code-28c3a5c37a4d" class="language-python">results = coreml.predict_image(model, &quot;cat.jpg&quot;)
+# [{&quot;label&quot;: &quot;tabby cat&quot;, &quot;confidence&quot;: 0.92}, ...]</code></pre>
+</figure>
+<h3 id="coreml.model_info-model-dict"><a class="heading-anchor" href="#coreml.model_info-model-dict">#</a><code>coreml.model_info(model) -&gt; dict</code></h3>
+<p>获取模型元数据，例如输入输出规格、作者、描述等。</p>
+<h2 id="失败路径"><a class="heading-anchor" href="#失败路径">#</a>失败路径</h2>
+<div class="table-scroll"><table><thead><tr><th>情况</th><th>应该怎么处理</th></tr></thead><tbody><tr><td><code>list_models()</code> 返回空列表</td><td>显示“没有可用模型”，不要继续 <code>load_model</code>。</td></tr><tr><td><code>load_model(name)</code> 抛错</td><td>检查模型名称是否来自 <code>list_models()</code>。</td></tr><tr><td>图片路径不可访问</td><td>让用户重新选择或保存图片到可访问位置。</td></tr><tr><td>推理结果为空</td><td>显示空状态，不要伪造结果。</td></tr></tbody></table></div>
+<h2 id="常见错误"><a class="heading-anchor" href="#常见错误">#</a>常见错误</h2>
+<div class="table-scroll"><table><thead><tr><th>错误写法</th><th>后果</th><th>修正</th></tr></thead><tbody><tr><td><code>models[0][&quot;name&quot;]</code></td><td><code>list_models()</code> 返回字符串，代码会报错</td><td>使用 <code>models[0]</code>。</td></tr><tr><td>传入图片对象或 Base64</td><td><code>predict_image</code> 需要路径</td><td>传本地图片文件路径。</td></tr><tr><td>在 AppUI <code>body()</code> 里加载模型</td><td>页面刷新时重复加载</td><td>放到按钮或明确任务回调里。</td></tr></tbody></table></div>
+<h2 id="使用规则"><a class="heading-anchor" href="#使用规则">#</a>使用规则</h2>
+<ul><li>当前支持已编译的 <code>.mlmodelc</code> 模型推理，不支持训练。</li><li>大模型首次加载可能较慢，AppUI 中要给出加载状态。</li><li>图片路径必须是当前脚本可访问的文件路径。</li><li>不要调用以下划线开头的未公开接口，它们不是用户 API。</li></ul>
+  </div>
+  
+</article>
+
+    </main>
+    <aside class="toc"><div class="toc-title">本页目录</div><a class="toc-link" href="#预期效果">预期效果</a><a class="toc-link" href="#什么时候用">什么时候用</a><a class="toc-link" href="#核心模型">核心模型</a><a class="toc-link" href="#快速开始">快速开始</a><a class="toc-link" href="#appui-中怎么接">AppUI 中怎么接</a><a class="toc-link" href="#图片推理配方">图片推理配方</a><a class="toc-link" href="#公开-api">公开 API</a><a class="toc-link child" href="#coreml.list_models-list-str">coreml.list_models() list[str]</a><a class="toc-link child" href="#coreml.load_model-name-model">coreml.load_model(name) Model</a><a class="toc-link child" href="#coreml.predict_image-model-image_path-list-dict">coreml.predict_image(model, image_path) list[dict]</a><a class="toc-link child" href="#coreml.model_info-model-dict">coreml.model_info(model) dict</a><a class="toc-link" href="#失败路径">失败路径</a><a class="toc-link" href="#常见错误">常见错误</a><a class="toc-link" href="#使用规则">使用规则</a></aside>
+  </div>
+  <div class="mobile-backdrop"></div>
+  <div class="search-panel" role="dialog" aria-modal="true" aria-label="搜索">
+    <div class="search-box">
+      <input id="docs-search-input" type="search" placeholder="搜索 API、模块、指南..." autocomplete="off">
+      <button class="search-close" type="button">Close</button>
+    </div>
+    <div id="docs-search-results" class="search-results"></div>
+  </div>
+</body>
+</html>

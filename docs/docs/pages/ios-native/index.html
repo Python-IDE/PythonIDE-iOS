@@ -1,0 +1,349 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>iOS 原生能力 - PythonIDE Docs</title>
+  <meta name="description" content="相册、联系人、权限、相机、控制台和安全存储。">
+  <link rel="icon" href="../../assets/brand-mark.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="../../assets/docs-v2.css">
+  <script>window.PYTHONIDE_DOCS_PREFIX = "../../";</script>
+  <script defer src="../../assets/docs-v2.js"></script>
+</head>
+<body class="article-page">
+  <header class="topbar">
+    <button class="icon-button menu-toggle" type="button" aria-label="打开目录">☰</button>
+    <a class="brand" href="../../"><img class="brand-mark" src="../../assets/brand-mark.svg" alt="" width="30" height="30"><span class="brand-text">PythonIDE Docs</span></a>
+    <nav class="top-nav" aria-label="主导航">
+      <a class="active" href="../../">文档</a>
+      <a class="" href="../../pages/widget-api-reference/">API 参考</a>
+      <a class="" href="../../pages/appui-cookbook-index/">示例</a>
+    </nav>
+    <details class="language-menu">
+      <summary>中文</summary>
+      <div class="language-panel">
+        <span class="active">简体中文</span>
+        <button type="button" disabled>English <em>准备中</em></button>
+      </div>
+    </details>
+    <button class="theme-toggle" type="button" aria-label="切换主题">◐</button>
+  </header>
+  <div class="shell">
+    <aside class="sidebar">
+      <nav class="sidebar-nav" aria-label="Docs navigation">
+<button class="sidebar-search search-trigger" type="button"><span>搜索...</span><kbd>⌘K</kbd></button>
+<details class="nav-collection">
+<summary><a href="../../collections/appui/">appui</a></summary>
+<div class="nav-group">
+<div class="nav-group-title">开始</div>
+<a class="nav-link" href="../../pages/appui-module/">appui 概览</a>
+<a class="nav-link" href="../../pages/appui-quickstart/">快速上手</a>
+<a class="nav-link" href="../../pages/miniapp-choose-runtime/">运行时选择</a>
+<a class="nav-link" href="../../pages/miniapp-appui-ui-patterns/">AppUI UI 模式</a>
+<a class="nav-link" href="../../pages/miniapp-appui-api-index/">AppUI API 地图</a>
+<a class="nav-link" href="../../pages/miniapp-dev-troubleshooting/">MiniApp 开发排错</a>
+</div>
+<div class="nav-group">
+<div class="nav-group-title">指南</div>
+<a class="nav-link" href="../../pages/appui-guide-thinking/">appui 思维方式</a>
+<a class="nav-link" href="../../pages/appui-guide-state/">状态管理</a>
+<a class="nav-link" href="../../pages/appui-guide-layout/">布局系统</a>
+<a class="nav-link" href="../../pages/appui-guide-lists/">列表与表单</a>
+<a class="nav-link" href="../../pages/appui-guide-navigation/">导航与页面结构</a>
+<a class="nav-link" href="../../pages/appui-guide-interaction/">交互与回调</a>
+<a class="nav-link" href="../../pages/appui-guide-media/">媒体与系统集成</a>
+<a class="nav-link" href="../../pages/appui-guide-charts/">图表与绘图</a>
+<a class="nav-link" href="../../pages/appui-guide-darkmode/">深色模式与语义色</a>
+<a class="nav-link" href="../../pages/appui-guide-animation/">动画</a>
+<a class="nav-link" href="../../pages/appui-guide-hotreload/">热重载</a>
+<a class="nav-link" href="../../pages/appui-guide-realtime/">实时快路径</a>
+<a class="nav-link" href="../../pages/appui-guide-performance/">性能与实时界面</a>
+</div>
+<div class="nav-group">
+<div class="nav-group-title">API 参考</div>
+<a class="nav-link" href="../../pages/appui-ref-functions/">入口函数</a>
+<a class="nav-link" href="../../pages/appui-ref-state/">状态 API</a>
+<a class="nav-link" href="../../pages/appui-ref-layout/">布局 API</a>
+<a class="nav-link" href="../../pages/appui-ref-layout-stacks/">堆叠布局 API</a>
+<a class="nav-link" href="../../pages/appui-ref-layout-scroll/">滚动 API</a>
+<a class="nav-link" href="../../pages/appui-ref-layout-grids/">网格 API</a>
+<a class="nav-link" href="../../pages/appui-ref-layout-geometry/">几何与特殊布局 API</a>
+<a class="nav-link" href="../../pages/appui-ref-controls/">控件 API</a>
+<a class="nav-link" href="../../pages/appui-ref-navigation/">导航 API</a>
+<a class="nav-link" href="../../pages/appui-ref-data/">数据展示 API</a>
+<a class="nav-link" href="../../pages/appui-ref-presentation/">呈现 API</a>
+<a class="nav-link" href="../../pages/appui-ref-modifiers/">修饰符 API</a>
+<a class="nav-link" href="../../pages/appui-ref-environment/">环境值 API</a>
+<a class="nav-link" href="../../pages/appui-ref-media/">媒体 API</a>
+<a class="nav-link" href="../../pages/appui-ref-charts/">图表与画布 API</a>
+<a class="nav-link" href="../../pages/appui-ref-shapes/">形状 API</a>
+</div>
+<div class="nav-group">
+<div class="nav-group-title">示例</div>
+<a class="nav-link" href="../../pages/appui-cookbook-index/">示例索引</a>
+<a class="nav-link" href="../../pages/appui-cookbook-todo/">示例：待办列表</a>
+<a class="nav-link" href="../../pages/appui-cookbook-settings/">示例：设置表单</a>
+<a class="nav-link" href="../../pages/appui-cookbook-dashboard/">示例：紧凑仪表盘</a>
+<a class="nav-link" href="../../pages/appui-cookbook-native-list-detail/">示例：原生列表详情</a>
+<a class="nav-link" href="../../pages/appui-cookbook-network-list/">示例：网络列表</a>
+<a class="nav-link" href="../../pages/appui-cookbook-table-data-review/">示例：表格数据审核</a>
+<a class="nav-link" href="../../pages/appui-cookbook-chat/">示例：聊天界面</a>
+<a class="nav-link" href="../../pages/appui-cookbook-media-capture-gallery/">示例：媒体采集相册</a>
+<a class="nav-link" href="../../pages/appui-cookbook-gallery/">示例：相册浏览器</a>
+<a class="nav-link" href="../../pages/appui-cookbook-form-settings-controls/">示例：原生表单设置</a>
+<a class="nav-link" href="../../pages/appui-cookbook-chart-canvas-lab/">示例：图表与画布实验室</a>
+<a class="nav-link" href="../../pages/appui-cookbook-location-map/">示例：定位地图</a>
+<a class="nav-link" href="../../pages/appui-cookbook-motion-haptics-dashboard/">示例：运动传感器仪表盘</a>
+<a class="nav-link" href="../../pages/appui-cookbook-notification-reminder/">示例：通知提醒</a>
+<a class="nav-link" href="../../pages/appui-cookbook-health-blood-pressure/">示例：血压分析</a>
+<a class="nav-link" href="../../pages/appui-cookbook-secure-vault/">示例：安全凭据库</a>
+<a class="nav-link" href="../../pages/appui-cookbook-live-activity-background/">示例：实时活动与后台任务</a>
+<a class="nav-link" href="../../pages/appui-cookbook-shortcuts-launcher/">示例：快捷指令启动器</a>
+<a class="nav-link" href="../../pages/appui-cookbook-video-player/">示例：视频播放器</a>
+<a class="nav-link" href="../../pages/appui-cookbook-webview-share-export/">示例：WebView 与系统分享</a>
+</div>
+<div class="nav-group">
+<div class="nav-group-title">速查</div>
+<a class="nav-link" href="../../pages/appui-appendix-colors/">颜色参考</a>
+<a class="nav-link" href="../../pages/appui-appendix-symbols/">SF Symbols</a>
+<a class="nav-link" href="../../pages/appui-appendix-migration/">从 ui 迁移到 appui</a>
+</div>
+</details>
+<details class="nav-collection">
+<summary><a href="../../collections/widget/">widget</a></summary>
+<div class="nav-group">
+<div class="nav-group-title">小组件</div>
+<a class="nav-link" href="../../pages/widget-module/">widget</a>
+<a class="nav-link" href="../../pages/widget-quickstart-publish/">widget 从脚本到桌面</a>
+<a class="nav-link" href="../../pages/widget-layout/">widget 布局与尺寸</a>
+<a class="nav-link" href="../../pages/widget-parameters/">widget 参数面板</a>
+<a class="nav-link" href="../../pages/widget-interaction/">widget 状态和交互</a>
+<a class="nav-link" href="../../pages/widget-timeline/">widget 时间线和动画</a>
+<a class="nav-link" href="../../pages/widget-appearance-assets/">widget 资源与外观</a>
+<a class="nav-link" href="../../pages/widget-troubleshooting/">widget 排错</a>
+<a class="nav-link" href="../../pages/widget-api-index/">widget API 地图</a>
+<a class="nav-link" href="../../pages/widget-api-reference/">widget API 参考</a>
+</div>
+</details>
+<details class="nav-collection">
+<summary><a href="../../collections/ui/">ui</a></summary>
+<div class="nav-group">
+<div class="nav-group-title">快速上手</div>
+<a class="nav-link" href="../../pages/ui-module/">ui 概览</a>
+</div>
+<div class="nav-group">
+<div class="nav-group-title">API 参考</div>
+<a class="nav-link" href="../../pages/ui-api-index/">ui API 索引</a>
+<a class="nav-link" href="../../pages/ui-api-reference/">ui API 参考</a>
+</div>
+<div class="nav-group">
+<div class="nav-group-title">实时能力</div>
+<a class="nav-link" href="../../pages/aurora-system/">系统实时能力</a>
+<a class="nav-link" href="../../pages/aurora-toolkit/">实时更新工具</a>
+</div>
+</details>
+<details class="nav-collection">
+<summary><a href="../../collections/scene/">scene</a></summary>
+<div class="nav-group">
+<div class="nav-group-title">快速上手</div>
+<a class="nav-link" href="../../pages/scene-module/">scene 概览</a>
+<a class="nav-link" href="../../pages/turtle-module/">turtle</a>
+</div>
+<div class="nav-group">
+<div class="nav-group-title">API 参考</div>
+<a class="nav-link" href="../../pages/scene-api-index/">scene API 索引</a>
+<a class="nav-link" href="../../pages/scene-api-reference/">scene API 参考</a>
+</div>
+</details>
+<details class="nav-collection" open>
+<summary><a href="../../collections/ios-native/">iOS 原生模块</a></summary>
+<div class="nav-group">
+<div class="nav-group-title">快速上手</div>
+<a class="nav-link active" href="../../pages/ios-native/">iOS 原生能力</a>
+<a class="nav-link" href="../../pages/modules-index/">全部模块总览</a>
+<a class="nav-link" href="../../pages/miniapp-native-capabilities/">原生能力入口</a>
+</div>
+<div class="nav-group">
+<div class="nav-group-title">设备与传感器</div>
+<a class="nav-link" href="../../pages/device-module/">device</a>
+<a class="nav-link" href="../../pages/location-module/">location</a>
+<a class="nav-link" href="../../pages/motion-module/">motion</a>
+<a class="nav-link" href="../../pages/haptics-module/">haptics</a>
+<a class="nav-link" href="../../pages/biometric-module/">biometric</a>
+<a class="nav-link" href="../../pages/health-module/">health</a>
+</div>
+<div class="nav-group">
+<div class="nav-group-title">媒体与视觉</div>
+<a class="nav-link" href="../../pages/photos-module/">photos</a>
+<a class="nav-link" href="../../pages/avplayer-module/">avplayer</a>
+<a class="nav-link" href="../../pages/sound-module/">sound</a>
+<a class="nav-link" href="../../pages/speech-module/">speech</a>
+<a class="nav-link" href="../../pages/vision-helper-module/">vision_helper</a>
+<a class="nav-link" href="../../pages/vision-module/">vision</a>
+<a class="nav-link" href="../../pages/coreml-module/">coreml</a>
+</div>
+<div class="nav-group">
+<div class="nav-group-title">网络与数据</div>
+<a class="nav-link" href="../../pages/network-module/">network</a>
+<a class="nav-link" href="../../pages/websocket-module/">websocket</a>
+<a class="nav-link" href="../../pages/bluetooth-module/">bluetooth</a>
+<a class="nav-link" href="../../pages/background-module/">background</a>
+</div>
+<div class="nav-group">
+<div class="nav-group-title">系统服务</div>
+<a class="nav-link" href="../../pages/permission-module/">permission</a>
+<a class="nav-link" href="../../pages/storage-module/">storage</a>
+<a class="nav-link" href="../../pages/database-module/">database</a>
+<a class="nav-link" href="../../pages/keychain-module/">keychain</a>
+<a class="nav-link" href="../../pages/clipboard-module/">clipboard</a>
+<a class="nav-link" href="../../pages/dialogs-module/">dialogs</a>
+<a class="nav-link" href="../../pages/console-module/">console</a>
+<a class="nav-link" href="../../pages/notification-module/">notification</a>
+<a class="nav-link" href="../../pages/contacts-module/">contacts</a>
+<a class="nav-link" href="../../pages/calendar-events-module/">calendar_events</a>
+<a class="nav-link" href="../../pages/nfc-module/">nfc</a>
+</div>
+</details>
+<details class="nav-collection">
+<summary><a href="../../collections/automation-extension/">自动化与扩展</a></summary>
+<div class="nav-group">
+<div class="nav-group-title">快速上手</div>
+<a class="nav-link" href="../../pages/shortcuts-guide/">快捷指令</a>
+<a class="nav-link" href="../../pages/js-api/">JS API 说明</a>
+</div>
+<div class="nav-group">
+<div class="nav-group-title">模块</div>
+<a class="nav-link" href="../../pages/shortcuts-module/">shortcuts</a>
+<a class="nav-link" href="../../pages/live-activity-module/">live_activity</a>
+<a class="nav-link" href="../../pages/keyboard-module/">keyboard</a>
+<a class="nav-link" href="../../pages/objc-util-module/">objc_util</a>
+<a class="nav-link" href="../../pages/c-extensions-module/">c_extensions</a>
+</div>
+</details>
+</nav>
+    </aside>
+    <main class="content">
+      
+<article class="article" style="--page-accent:#0891b2">
+  <header class="article-intro">
+    <div class="breadcrumb">iOS 原生模块 / 快速上手</div>
+    <h1>iOS 原生能力</h1>
+    <p>相册、联系人、权限、相机、控制台和安全存储。</p>
+  </header>
+  <div class="markdown-body">
+    <p>相册、联系人、权限、相机、控制台和安全存储。</p>
+<h2 id="预期效果"><a class="heading-anchor" href="#预期效果">#</a>预期效果</h2>
+<p>示例会串联照片选择、剪贴板、HUD 和钥匙串，展示原生能力如何在脚本中组合。</p>
+<h2 id="先选模块"><a class="heading-anchor" href="#先选模块">#</a>先选模块</h2>
+<div class="table-scroll"><table><thead><tr><th>目标</th><th>首选模块</th><th>注意</th></tr></thead><tbody><tr><td>查询或申请权限</td><td><code>permission</code></td><td>只在用户点击后申请，不在页面构建时弹窗。</td></tr><tr><td>选择、拍照、保存图片</td><td><code>photos</code></td><td>用户取消时会返回空值，要先判断。</td></tr><tr><td>保存 token、密码和密钥</td><td><code>keychain</code></td><td>不要把 secret 写到 <code>storage</code> 或日志里。</td></tr><tr><td>保存普通设置</td><td><code>storage</code></td><td>适合主题、开关、筛选条件等非敏感数据。</td></tr><tr><td>弹窗、HUD、输入提示</td><td><code>console</code> / <code>dialogs</code></td><td>短反馈用 HUD，结构化输入用 dialogs。</td></tr><tr><td>定位、运动、健康、蓝牙、NFC</td><td>对应能力模块</td><td>先展示用途，再请求权限或开始扫描。</td></tr><tr><td>网络、下载、WebSocket</td><td><code>network</code> / <code>websocket</code></td><td>复杂请求不要放在 AppUI <code>body()</code> 中。</td></tr><tr><td>系统自动化入口</td><td><code>shortcuts</code> / <code>live_activity</code></td><td>必须由明确用户动作触发。</td></tr></tbody></table></div>
+<h2 id="最小组合"><a class="heading-anchor" href="#最小组合">#</a>最小组合</h2>
+<figure class="code-block" data-code-id="ef75f9b46450">
+  <figcaption>
+    <span>python</span>
+    <button class="copy-code" type="button" data-copy-code="ef75f9b46450">复制</button>
+  </figcaption>
+  <pre><code id="code-ef75f9b46450" class="language-python">import clipboard
+import console
+import keychain
+import photos
+
+image = photos.pick_image(raw_data=True)
+if image:
+    clipboard.set(f&quot;picked {len(image)} bytes&quot;)
+    console.hud_alert(&quot;已复制图片大小&quot;, &quot;success&quot;)
+
+keychain.set_password(&quot;demo&quot;, &quot;token&quot;, &quot;secret-value&quot;)
+print(keychain.get_password(&quot;demo&quot;, &quot;token&quot;))</code></pre>
+</figure>
+<h2 id="完整工作流示例"><a class="heading-anchor" href="#完整工作流示例">#</a>完整工作流示例</h2>
+<p>下面的 AppUI 示例把“选择照片、复制结果、保存配置状态”放进按钮回调里。页面构建只读取状态，不触发系统面板。</p>
+<figure class="code-block" data-code-id="4a3ded9aa1e9">
+  <figcaption>
+    <span>python</span>
+    <button class="copy-code" type="button" data-copy-code="4a3ded9aa1e9">复制</button>
+  </figcaption>
+  <pre><code id="code-4a3ded9aa1e9" class="language-python">import appui
+import clipboard
+import console
+import keychain
+import photos
+
+SERVICE = &quot;native-demo&quot;
+ACCOUNT = &quot;api-token&quot;
+
+state = appui.State(
+    picked=&quot;未选择&quot;,
+    token_status=&quot;未配置&quot;,
+    message=&quot;等待操作&quot;,
+)
+
+
+def pick_photo():
+    image = photos.pick_image(raw_data=True)
+    if not image:
+        state.message = &quot;已取消选择&quot;
+        return
+
+    size_text = f&quot;{len(image)} bytes&quot;
+    clipboard.set(size_text)
+    console.hud_alert(&quot;已复制图片大小&quot;, &quot;success&quot;)
+    state.batch_update(picked=size_text, message=&quot;照片信息已复制&quot;)
+
+
+def save_token():
+    ok = keychain.set_password(SERVICE, ACCOUNT, &quot;demo-token&quot;)
+    state.batch_update(
+        token_status=&quot;已保存&quot; if ok else &quot;保存失败&quot;,
+        message=&quot;配置已更新&quot; if ok else &quot;请稍后重试&quot;,
+    )
+
+
+def body():
+    return appui.NavigationStack(
+        appui.Form([
+            appui.Section(&quot;照片&quot;, [
+                appui.LabeledContent(&quot;结果&quot;, value=state.picked),
+                appui.Button(&quot;选择照片并复制大小&quot;, action=pick_photo),
+            ]),
+            appui.Section(&quot;安全配置&quot;, [
+                appui.LabeledContent(&quot;Token&quot;, value=state.token_status),
+                appui.Button(&quot;保存示例 Token&quot;, action=save_token),
+            ]),
+            appui.Section(&quot;状态&quot;, [
+                appui.Text(state.message).foreground_color(&quot;secondaryLabel&quot;),
+            ]),
+        ]).navigation_title(&quot;原生能力&quot;)
+    )
+
+
+appui.run(body, state=state)</code></pre>
+</figure>
+<p>预期效果：页面显示照片和配置状态；点击照片按钮后系统选择器出现，取消会保留页面，选择成功会把图片大小复制到剪贴板；点击保存按钮只展示保存状态，不暴露 token 明文。</p>
+<h2 id="能力地图"><a class="heading-anchor" href="#能力地图">#</a>能力地图</h2>
+<div class="table-scroll"><table><thead><tr><th>模块</th><th>适合做什么</th><th>需要权限</th><th>典型用途</th></tr></thead><tbody><tr><td><a href="../../pages/avplayer-module/"><code>avplayer</code></a></td><td>播放音频和视频</td><td>无</td><td>课程播放器、素材预览</td></tr><tr><td><a href="../../pages/background-module/"><code>background</code></a></td><td>查看后台运行状态和剩余时间</td><td>无</td><td>上传、同步、导出任务</td></tr><tr><td><a href="../../pages/biometric-module/"><code>biometric</code></a></td><td>使用 Face ID、Touch ID 或设备密码验证</td><td>生物识别</td><td>解锁敏感页面、确认高风险操作</td></tr><tr><td><a href="../../pages/bluetooth-module/"><code>bluetooth</code></a></td><td>扫描、连接和读写蓝牙设备</td><td>蓝牙</td><td>外设调试、传感器数据读取</td></tr><tr><td><a href="../../pages/c-extensions-module/"><code>c_extensions</code></a></td><td>使用随 App 提供的 C 扩展能力</td><td>无</td><td>科学计算、性能敏感脚本</td></tr><tr><td><a href="../../pages/calendar-events-module/"><code>calendar_events</code></a></td><td>读取和创建日历、提醒事项</td><td>日历、提醒事项</td><td>日程工具、提醒同步</td></tr><tr><td><a href="../../pages/clipboard-module/"><code>clipboard</code></a></td><td>读写剪贴板</td><td>无</td><td>复制结果、导入文本</td></tr><tr><td><a href="../../pages/console-module/"><code>console</code></a></td><td>显示 HUD、提示和简单输入</td><td>无</td><td>操作反馈、快速调试</td></tr><tr><td><a href="../../pages/contacts-module/"><code>contacts</code></a></td><td>读取、选择和编辑联系人</td><td>通讯录</td><td>客户列表、通讯录工具</td></tr><tr><td><a href="../../pages/coreml-module/"><code>coreml</code></a></td><td>加载模型并执行本地推理</td><td>无</td><td>图像分类、离线识别</td></tr><tr><td><a href="../../pages/database-module/"><code>database</code></a></td><td>使用 SQLite 保存结构化数据</td><td>无</td><td>列表、记录、缓存、历史数据</td></tr><tr><td><a href="../../pages/device-module/"><code>device</code></a></td><td>读取设备、电量、屏幕和系统状态</td><td>无</td><td>设备信息页、诊断面板</td></tr><tr><td><a href="../../pages/dialogs-module/"><code>dialogs</code></a></td><td>展示表单、选择器和系统弹窗</td><td>无</td><td>配置输入、确认操作</td></tr><tr><td><a href="../../pages/haptics-module/"><code>haptics</code></a></td><td>播放触感反馈</td><td>无</td><td>按钮反馈、完成提示</td></tr><tr><td><a href="../../pages/health-module/"><code>health</code></a></td><td>读取 HealthKit 健康数据</td><td>健康</td><td>步数、心率、睡眠、身体指标</td></tr><tr><td><a href="../../pages/keyboard-module/"><code>keyboard</code></a></td><td>自定义编辑器工具栏按钮</td><td>无</td><td>快速插入、脚本快捷操作</td></tr><tr><td><a href="../../pages/keychain-module/"><code>keychain</code></a></td><td>安全保存密码、token 和密钥</td><td>无</td><td>登录配置、私密凭据</td></tr><tr><td><a href="../../pages/live-activity-module/"><code>live_activity</code></a></td><td>在锁屏和灵动岛展示实时进度</td><td>无</td><td>倒计时、上传进度、任务状态</td></tr><tr><td><a href="../../pages/location-module/"><code>location</code></a></td><td>获取位置、方向和地理编码</td><td>位置</td><td>签到、路线、附近地点</td></tr><tr><td><a href="../../pages/motion-module/"><code>motion</code></a></td><td>读取加速度、陀螺仪和气压计数据</td><td>运动与健身</td><td>传感器面板、运动记录</td></tr><tr><td><a href="../../pages/network-module/"><code>network</code></a></td><td>发起 HTTP 请求、下载文件和检查网络</td><td>无</td><td>API 请求、文件下载</td></tr><tr><td><a href="../../pages/nfc-module/"><code>nfc</code></a></td><td>读取和写入 NFC 标签</td><td>NFC</td><td>标签工具、设备配对</td></tr><tr><td><a href="../../pages/notification-module/"><code>notification</code></a></td><td>创建本地通知、角标和计划提醒</td><td>通知</td><td>待办提醒、完成通知</td></tr><tr><td><a href="../../pages/objc-util-module/"><code>objc_util</code></a></td><td>补充少量系统能力调用</td><td>取决于调用内容</td><td>高级自动化、系统集成</td></tr><tr><td><a href="../../pages/permission-module/"><code>permission</code></a></td><td>查询和申请系统权限</td><td>取决于目标权限</td><td>设置页、权限引导</td></tr><tr><td><a href="../../pages/photos-module/"><code>photos</code></a></td><td>选择、拍摄、保存和读取图片视频</td><td>相册、相机</td><td>素材库、头像上传、相册工具</td></tr><tr><td><a href="../../pages/shortcuts-module/"><code>shortcuts</code></a></td><td>运行快捷指令、打开 URL 和系统设置</td><td>无</td><td>自动化入口、深链跳转</td></tr><tr><td><a href="../../pages/sound-module/"><code>sound</code></a></td><td>播放短音效和本地音频</td><td>无</td><td>操作提示、音频反馈</td></tr><tr><td><a href="../../pages/speech-module/"><code>speech</code></a></td><td>文本朗读和语音列表</td><td>语音</td><td>朗读工具、无障碍反馈</td></tr><tr><td><a href="../../pages/storage-module/"><code>storage</code></a></td><td>保存非敏感设置和 JSON 数据</td><td>无</td><td>偏好设置、草稿、轻量缓存</td></tr><tr><td><a href="../../pages/vision-module/"><code>vision</code></a></td><td>执行文字识别</td><td>无</td><td>扫描识别、票据提取</td></tr><tr><td><a href="../../pages/vision-helper-module/"><code>vision_helper</code></a></td><td>检测人脸、条码、矩形和图像分类</td><td>无</td><td>扫码、相机辅助、图片分析</td></tr><tr><td><a href="../../pages/websocket-module/"><code>websocket</code></a></td><td>连接实时消息服务</td><td>无</td><td>聊天、行情、实时日志</td></tr></tbody></table></div>
+<h2 id="平台与权限矩阵"><a class="heading-anchor" href="#平台与权限矩阵">#</a>平台与权限矩阵</h2>
+<div class="table-scroll"><table><thead><tr><th>能力</th><th>真机要求</th><th>权限</th><th>用户动作</th><th>推荐入口</th></tr></thead><tbody><tr><td>相册选择、拍照、保存</td><td>推荐真机</td><td><code>photos</code> / <code>camera</code></td><td>是</td><td><a href="../../pages/photos-module/">photos</a></td></tr><tr><td>位置、指南针、运动</td><td>真机</td><td><code>location</code> / <code>motion</code></td><td>是</td><td><a href="../../pages/location-module/">location</a>、<a href="../../pages/motion-module/">motion</a></td></tr><tr><td>HealthKit</td><td>真机</td><td><code>health</code></td><td>是</td><td><a href="../../pages/health-module/">health</a></td></tr><tr><td>BLE 扫描和连接</td><td>真机</td><td><code>bluetooth</code></td><td>是</td><td><a href="../../pages/bluetooth-module/">bluetooth</a></td></tr><tr><td>NFC 读取和写入</td><td>真机且设备支持 NFC</td><td><code>nfc</code></td><td>是</td><td><a href="../../pages/nfc-module/">nfc</a></td></tr><tr><td>本地通知</td><td>真机/模拟器均可测试部分流程</td><td><code>notifications</code></td><td>是</td><td><a href="../../pages/notification-module/">notification</a></td></tr><tr><td>Vision OCR 和检测</td><td>取决于系统能力</td><td>无</td><td>通常是</td><td><a href="../../pages/vision-module/">vision</a>、<a href="../../pages/vision-helper-module/">vision_helper</a></td></tr><tr><td>Core ML 推理</td><td>取决于模型和设备</td><td>无</td><td>否</td><td><a href="../../pages/coreml-module/">coreml</a></td></tr><tr><td>WebSocket</td><td>网络可用即可</td><td>无</td><td>否</td><td><a href="../../pages/websocket-module/">websocket</a></td></tr><tr><td>Keychain、Storage、Clipboard</td><td>App 环境</td><td>无</td><td>Clipboard 推荐用户动作</td><td><a href="../../pages/keychain-module/">keychain</a>、<a href="../../pages/storage-module/">storage</a>、<a href="../../pages/clipboard-module/">clipboard</a></td></tr></tbody></table></div>
+<p>需要系统面板、硬件扫描或读取隐私数据的能力，都应该由按钮、菜单、刷新或系统动作触发；不要在 AppUI <code>body()</code> 或模块导入时自动执行。</p>
+<h2 id="失败路径"><a class="heading-anchor" href="#失败路径">#</a>失败路径</h2>
+<div class="table-scroll"><table><thead><tr><th>情况</th><th>应该怎么处理</th></tr></thead><tbody><tr><td>权限被拒绝</td><td>显示当前状态和授权说明，不要循环弹出系统授权。</td></tr><tr><td>用户取消系统面板</td><td>处理 <code>None</code>、<code>False</code>、空列表或错误字典，保持页面可继续操作。</td></tr><tr><td>设备或系统版本不支持</td><td>显示不可用状态，并提供替代流程或禁用对应按钮。</td></tr><tr><td>返回数据为空</td><td>把空状态写回界面，不把空结果当作异常崩溃。</td></tr></tbody></table></div>
+<h2 id="发布前检查"><a class="heading-anchor" href="#发布前检查">#</a>发布前检查</h2>
+<div class="table-scroll"><table><thead><tr><th>检查项</th><th>合格标准</th></tr></thead><tbody><tr><td>用户动作</td><td>权限、照片、蓝牙、NFC、通知和快捷指令都由按钮或菜单触发。</td></tr><tr><td>空结果</td><td>对 <code>None</code>、<code>False</code>、空列表、空字符串和错误字典都有页面反馈。</td></tr><tr><td>权限</td><td>被拒绝后显示当前状态和设置入口，不循环申请。</td></tr><tr><td>隐私</td><td>token、联系人、健康、位置和照片内容不写入公开日志。</td></tr><tr><td>状态</td><td>AppUI <code>body()</code> 不执行系统调用，只读取 <code>State</code>。</td></tr></tbody></table></div>
+<h2 id="相关文档"><a class="heading-anchor" href="#相关文档">#</a>相关文档</h2>
+<div class="table-scroll"><table><thead><tr><th>文档</th><th>用途</th></tr></thead><tbody><tr><td><a href="../../pages/modules-index/">全部模块总览</a></td><td>按分类查看全部 30+ 内置 Python 模块。</td></tr><tr><td><a href="../../pages/permission-module/">permission</a></td><td>统一查询和请求相机、照片、位置、通知、通讯录、健康等权限。</td></tr><tr><td><a href="../../pages/storage-module/">storage</a></td><td>UserDefaults 持久键值存储。</td></tr><tr><td><a href="../../pages/database-module/">database</a></td><td>MiniApp 作用域内 SQLite 数据库和 JSON collection。</td></tr><tr><td><a href="../../pages/photos-module/">photos</a></td><td>相册选择、拍照、保存和资源查询。</td></tr><tr><td><a href="../../pages/location-module/">location</a></td><td>定位、指南针和地理编码。</td></tr><tr><td><a href="../../pages/notification-module/">notification</a></td><td>本地通知权限、定时通知和角标管理。</td></tr></tbody></table></div>
+  </div>
+  
+</article>
+
+    </main>
+    <aside class="toc"><div class="toc-title">本页目录</div><a class="toc-link" href="#预期效果">预期效果</a><a class="toc-link" href="#先选模块">先选模块</a><a class="toc-link" href="#最小组合">最小组合</a><a class="toc-link" href="#完整工作流示例">完整工作流示例</a><a class="toc-link" href="#能力地图">能力地图</a><a class="toc-link" href="#平台与权限矩阵">平台与权限矩阵</a><a class="toc-link" href="#失败路径">失败路径</a><a class="toc-link" href="#发布前检查">发布前检查</a><a class="toc-link" href="#相关文档">相关文档</a></aside>
+  </div>
+  <div class="mobile-backdrop"></div>
+  <div class="search-panel" role="dialog" aria-modal="true" aria-label="搜索">
+    <div class="search-box">
+      <input id="docs-search-input" type="search" placeholder="搜索 API、模块、指南..." autocomplete="off">
+      <button class="search-close" type="button">Close</button>
+    </div>
+    <div id="docs-search-results" class="search-results"></div>
+  </div>
+</body>
+</html>

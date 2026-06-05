@@ -1,0 +1,475 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>性能与实时界面 - PythonIDE Docs</title>
+  <meta name="description" content="普通 State、Timer、ReactiveState 和实时快路径的选择。">
+  <link rel="icon" href="../../assets/brand-mark.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="../../assets/docs-v2.css">
+  <script>window.PYTHONIDE_DOCS_PREFIX = "../../";</script>
+  <script defer src="../../assets/docs-v2.js"></script>
+</head>
+<body class="article-page">
+  <header class="topbar">
+    <button class="icon-button menu-toggle" type="button" aria-label="打开目录">☰</button>
+    <a class="brand" href="../../"><img class="brand-mark" src="../../assets/brand-mark.svg" alt="" width="30" height="30"><span class="brand-text">PythonIDE Docs</span></a>
+    <nav class="top-nav" aria-label="主导航">
+      <a class="active" href="../../">文档</a>
+      <a class="" href="../../pages/widget-api-reference/">API 参考</a>
+      <a class="" href="../../pages/appui-cookbook-index/">示例</a>
+    </nav>
+    <details class="language-menu">
+      <summary>中文</summary>
+      <div class="language-panel">
+        <span class="active">简体中文</span>
+        <button type="button" disabled>English <em>准备中</em></button>
+      </div>
+    </details>
+    <button class="theme-toggle" type="button" aria-label="切换主题">◐</button>
+  </header>
+  <div class="shell">
+    <aside class="sidebar">
+      <nav class="sidebar-nav" aria-label="Docs navigation">
+<button class="sidebar-search search-trigger" type="button"><span>搜索...</span><kbd>⌘K</kbd></button>
+<details class="nav-collection" open>
+<summary><a href="../../collections/appui/">appui</a></summary>
+<div class="nav-group">
+<div class="nav-group-title">开始</div>
+<a class="nav-link" href="../../pages/appui-module/">appui 概览</a>
+<a class="nav-link" href="../../pages/appui-quickstart/">快速上手</a>
+<a class="nav-link" href="../../pages/miniapp-choose-runtime/">运行时选择</a>
+<a class="nav-link" href="../../pages/miniapp-appui-ui-patterns/">AppUI UI 模式</a>
+<a class="nav-link" href="../../pages/miniapp-appui-api-index/">AppUI API 地图</a>
+<a class="nav-link" href="../../pages/miniapp-dev-troubleshooting/">MiniApp 开发排错</a>
+</div>
+<div class="nav-group">
+<div class="nav-group-title">指南</div>
+<a class="nav-link" href="../../pages/appui-guide-thinking/">appui 思维方式</a>
+<a class="nav-link" href="../../pages/appui-guide-state/">状态管理</a>
+<a class="nav-link" href="../../pages/appui-guide-layout/">布局系统</a>
+<a class="nav-link" href="../../pages/appui-guide-lists/">列表与表单</a>
+<a class="nav-link" href="../../pages/appui-guide-navigation/">导航与页面结构</a>
+<a class="nav-link" href="../../pages/appui-guide-interaction/">交互与回调</a>
+<a class="nav-link" href="../../pages/appui-guide-media/">媒体与系统集成</a>
+<a class="nav-link" href="../../pages/appui-guide-charts/">图表与绘图</a>
+<a class="nav-link" href="../../pages/appui-guide-darkmode/">深色模式与语义色</a>
+<a class="nav-link" href="../../pages/appui-guide-animation/">动画</a>
+<a class="nav-link" href="../../pages/appui-guide-hotreload/">热重载</a>
+<a class="nav-link" href="../../pages/appui-guide-realtime/">实时快路径</a>
+<a class="nav-link active" href="../../pages/appui-guide-performance/">性能与实时界面</a>
+</div>
+<div class="nav-group">
+<div class="nav-group-title">API 参考</div>
+<a class="nav-link" href="../../pages/appui-ref-functions/">入口函数</a>
+<a class="nav-link" href="../../pages/appui-ref-state/">状态 API</a>
+<a class="nav-link" href="../../pages/appui-ref-layout/">布局 API</a>
+<a class="nav-link" href="../../pages/appui-ref-layout-stacks/">堆叠布局 API</a>
+<a class="nav-link" href="../../pages/appui-ref-layout-scroll/">滚动 API</a>
+<a class="nav-link" href="../../pages/appui-ref-layout-grids/">网格 API</a>
+<a class="nav-link" href="../../pages/appui-ref-layout-geometry/">几何与特殊布局 API</a>
+<a class="nav-link" href="../../pages/appui-ref-controls/">控件 API</a>
+<a class="nav-link" href="../../pages/appui-ref-navigation/">导航 API</a>
+<a class="nav-link" href="../../pages/appui-ref-data/">数据展示 API</a>
+<a class="nav-link" href="../../pages/appui-ref-presentation/">呈现 API</a>
+<a class="nav-link" href="../../pages/appui-ref-modifiers/">修饰符 API</a>
+<a class="nav-link" href="../../pages/appui-ref-environment/">环境值 API</a>
+<a class="nav-link" href="../../pages/appui-ref-media/">媒体 API</a>
+<a class="nav-link" href="../../pages/appui-ref-charts/">图表与画布 API</a>
+<a class="nav-link" href="../../pages/appui-ref-shapes/">形状 API</a>
+</div>
+<div class="nav-group">
+<div class="nav-group-title">示例</div>
+<a class="nav-link" href="../../pages/appui-cookbook-index/">示例索引</a>
+<a class="nav-link" href="../../pages/appui-cookbook-todo/">示例：待办列表</a>
+<a class="nav-link" href="../../pages/appui-cookbook-settings/">示例：设置表单</a>
+<a class="nav-link" href="../../pages/appui-cookbook-dashboard/">示例：紧凑仪表盘</a>
+<a class="nav-link" href="../../pages/appui-cookbook-native-list-detail/">示例：原生列表详情</a>
+<a class="nav-link" href="../../pages/appui-cookbook-network-list/">示例：网络列表</a>
+<a class="nav-link" href="../../pages/appui-cookbook-table-data-review/">示例：表格数据审核</a>
+<a class="nav-link" href="../../pages/appui-cookbook-chat/">示例：聊天界面</a>
+<a class="nav-link" href="../../pages/appui-cookbook-media-capture-gallery/">示例：媒体采集相册</a>
+<a class="nav-link" href="../../pages/appui-cookbook-gallery/">示例：相册浏览器</a>
+<a class="nav-link" href="../../pages/appui-cookbook-form-settings-controls/">示例：原生表单设置</a>
+<a class="nav-link" href="../../pages/appui-cookbook-chart-canvas-lab/">示例：图表与画布实验室</a>
+<a class="nav-link" href="../../pages/appui-cookbook-location-map/">示例：定位地图</a>
+<a class="nav-link" href="../../pages/appui-cookbook-motion-haptics-dashboard/">示例：运动传感器仪表盘</a>
+<a class="nav-link" href="../../pages/appui-cookbook-notification-reminder/">示例：通知提醒</a>
+<a class="nav-link" href="../../pages/appui-cookbook-health-blood-pressure/">示例：血压分析</a>
+<a class="nav-link" href="../../pages/appui-cookbook-secure-vault/">示例：安全凭据库</a>
+<a class="nav-link" href="../../pages/appui-cookbook-live-activity-background/">示例：实时活动与后台任务</a>
+<a class="nav-link" href="../../pages/appui-cookbook-shortcuts-launcher/">示例：快捷指令启动器</a>
+<a class="nav-link" href="../../pages/appui-cookbook-video-player/">示例：视频播放器</a>
+<a class="nav-link" href="../../pages/appui-cookbook-webview-share-export/">示例：WebView 与系统分享</a>
+</div>
+<div class="nav-group">
+<div class="nav-group-title">速查</div>
+<a class="nav-link" href="../../pages/appui-appendix-colors/">颜色参考</a>
+<a class="nav-link" href="../../pages/appui-appendix-symbols/">SF Symbols</a>
+<a class="nav-link" href="../../pages/appui-appendix-migration/">从 ui 迁移到 appui</a>
+</div>
+</details>
+<details class="nav-collection">
+<summary><a href="../../collections/widget/">widget</a></summary>
+<div class="nav-group">
+<div class="nav-group-title">小组件</div>
+<a class="nav-link" href="../../pages/widget-module/">widget</a>
+<a class="nav-link" href="../../pages/widget-quickstart-publish/">widget 从脚本到桌面</a>
+<a class="nav-link" href="../../pages/widget-layout/">widget 布局与尺寸</a>
+<a class="nav-link" href="../../pages/widget-parameters/">widget 参数面板</a>
+<a class="nav-link" href="../../pages/widget-interaction/">widget 状态和交互</a>
+<a class="nav-link" href="../../pages/widget-timeline/">widget 时间线和动画</a>
+<a class="nav-link" href="../../pages/widget-appearance-assets/">widget 资源与外观</a>
+<a class="nav-link" href="../../pages/widget-troubleshooting/">widget 排错</a>
+<a class="nav-link" href="../../pages/widget-api-index/">widget API 地图</a>
+<a class="nav-link" href="../../pages/widget-api-reference/">widget API 参考</a>
+</div>
+</details>
+<details class="nav-collection">
+<summary><a href="../../collections/ui/">ui</a></summary>
+<div class="nav-group">
+<div class="nav-group-title">快速上手</div>
+<a class="nav-link" href="../../pages/ui-module/">ui 概览</a>
+</div>
+<div class="nav-group">
+<div class="nav-group-title">API 参考</div>
+<a class="nav-link" href="../../pages/ui-api-index/">ui API 索引</a>
+<a class="nav-link" href="../../pages/ui-api-reference/">ui API 参考</a>
+</div>
+<div class="nav-group">
+<div class="nav-group-title">实时能力</div>
+<a class="nav-link" href="../../pages/aurora-system/">系统实时能力</a>
+<a class="nav-link" href="../../pages/aurora-toolkit/">实时更新工具</a>
+</div>
+</details>
+<details class="nav-collection">
+<summary><a href="../../collections/scene/">scene</a></summary>
+<div class="nav-group">
+<div class="nav-group-title">快速上手</div>
+<a class="nav-link" href="../../pages/scene-module/">scene 概览</a>
+<a class="nav-link" href="../../pages/turtle-module/">turtle</a>
+</div>
+<div class="nav-group">
+<div class="nav-group-title">API 参考</div>
+<a class="nav-link" href="../../pages/scene-api-index/">scene API 索引</a>
+<a class="nav-link" href="../../pages/scene-api-reference/">scene API 参考</a>
+</div>
+</details>
+<details class="nav-collection">
+<summary><a href="../../collections/ios-native/">iOS 原生模块</a></summary>
+<div class="nav-group">
+<div class="nav-group-title">快速上手</div>
+<a class="nav-link" href="../../pages/ios-native/">iOS 原生能力</a>
+<a class="nav-link" href="../../pages/modules-index/">全部模块总览</a>
+<a class="nav-link" href="../../pages/miniapp-native-capabilities/">原生能力入口</a>
+</div>
+<div class="nav-group">
+<div class="nav-group-title">设备与传感器</div>
+<a class="nav-link" href="../../pages/device-module/">device</a>
+<a class="nav-link" href="../../pages/location-module/">location</a>
+<a class="nav-link" href="../../pages/motion-module/">motion</a>
+<a class="nav-link" href="../../pages/haptics-module/">haptics</a>
+<a class="nav-link" href="../../pages/biometric-module/">biometric</a>
+<a class="nav-link" href="../../pages/health-module/">health</a>
+</div>
+<div class="nav-group">
+<div class="nav-group-title">媒体与视觉</div>
+<a class="nav-link" href="../../pages/photos-module/">photos</a>
+<a class="nav-link" href="../../pages/avplayer-module/">avplayer</a>
+<a class="nav-link" href="../../pages/sound-module/">sound</a>
+<a class="nav-link" href="../../pages/speech-module/">speech</a>
+<a class="nav-link" href="../../pages/vision-helper-module/">vision_helper</a>
+<a class="nav-link" href="../../pages/vision-module/">vision</a>
+<a class="nav-link" href="../../pages/coreml-module/">coreml</a>
+</div>
+<div class="nav-group">
+<div class="nav-group-title">网络与数据</div>
+<a class="nav-link" href="../../pages/network-module/">network</a>
+<a class="nav-link" href="../../pages/websocket-module/">websocket</a>
+<a class="nav-link" href="../../pages/bluetooth-module/">bluetooth</a>
+<a class="nav-link" href="../../pages/background-module/">background</a>
+</div>
+<div class="nav-group">
+<div class="nav-group-title">系统服务</div>
+<a class="nav-link" href="../../pages/permission-module/">permission</a>
+<a class="nav-link" href="../../pages/storage-module/">storage</a>
+<a class="nav-link" href="../../pages/database-module/">database</a>
+<a class="nav-link" href="../../pages/keychain-module/">keychain</a>
+<a class="nav-link" href="../../pages/clipboard-module/">clipboard</a>
+<a class="nav-link" href="../../pages/dialogs-module/">dialogs</a>
+<a class="nav-link" href="../../pages/console-module/">console</a>
+<a class="nav-link" href="../../pages/notification-module/">notification</a>
+<a class="nav-link" href="../../pages/contacts-module/">contacts</a>
+<a class="nav-link" href="../../pages/calendar-events-module/">calendar_events</a>
+<a class="nav-link" href="../../pages/nfc-module/">nfc</a>
+</div>
+</details>
+<details class="nav-collection">
+<summary><a href="../../collections/automation-extension/">自动化与扩展</a></summary>
+<div class="nav-group">
+<div class="nav-group-title">快速上手</div>
+<a class="nav-link" href="../../pages/shortcuts-guide/">快捷指令</a>
+<a class="nav-link" href="../../pages/js-api/">JS API 说明</a>
+</div>
+<div class="nav-group">
+<div class="nav-group-title">模块</div>
+<a class="nav-link" href="../../pages/shortcuts-module/">shortcuts</a>
+<a class="nav-link" href="../../pages/live-activity-module/">live_activity</a>
+<a class="nav-link" href="../../pages/keyboard-module/">keyboard</a>
+<a class="nav-link" href="../../pages/objc-util-module/">objc_util</a>
+<a class="nav-link" href="../../pages/c-extensions-module/">c_extensions</a>
+</div>
+</details>
+</nav>
+    </aside>
+    <main class="content">
+      
+<article class="article" style="--page-accent:#16a34a">
+  <header class="article-intro">
+    <div class="breadcrumb">appui / 指南</div>
+    <h1>性能与实时界面</h1>
+    <p>普通 State、Timer、ReactiveState 和实时快路径的选择。</p>
+  </header>
+  <div class="markdown-body">
+    <p><code>appui</code> 的性能优化优先从界面结构、状态粒度和后台任务开始。大多数页面不需要特殊技巧，只要避免在 <code>body()</code> 里做重活，就能保持流畅。如果页面有高频属性更新，再看 <a href="../../pages/appui-guide-realtime/">实时快路径</a>。</p>
+<h2 id="预期效果"><a class="heading-anchor" href="#预期效果">#</a>预期效果</h2>
+<p>示例会展示列表筛选、状态粒度、Timer 和高频属性更新的性能写法。</p>
+<h2 id="优先优化的地方"><a class="heading-anchor" href="#优先优化的地方">#</a>优先优化的地方</h2>
+<div class="table-scroll"><table><thead><tr><th>场景</th><th>推荐做法</th></tr></thead><tbody><tr><td>列表数据</td><td>使用 <code>List + ForEach</code>，并提供稳定 key</td></tr><tr><td>设置页</td><td>使用 <code>Form + Section</code></td></tr><tr><td>多字段状态变化</td><td>使用 <code>state.batch_update(...)</code></td></tr><tr><td>派生搜索结果</td><td>使用普通函数或 <code>computed</code></td></tr><tr><td>计时器和进度</td><td>模块级 <code>Timer</code>，回调中更新状态</td></tr><tr><td>高频数值</td><td>先用 <code>State</code> 做正确，再按需切到 <code>ReactiveState</code></td></tr><tr><td>大文件读取</td><td>放到按钮动作、任务或后台流程中</td></tr><tr><td>图片和网络</td><td>先异步加载，再把结果写入状态</td></tr></tbody></table></div>
+<h2 id="避免在-body-中做重活"><a class="heading-anchor" href="#避免在-body-中做重活">#</a>避免在 body 中做重活</h2>
+<p><code>body()</code> 应该只描述界面。不要在里面同步读取大文件、下载网络内容、递归扫描目录、创建 Timer 或做复杂排序。</p>
+<figure class="code-block" data-code-id="1becdd3babb8">
+  <figcaption>
+    <span>python</span>
+    <button class="copy-code" type="button" data-copy-code="1becdd3babb8">复制</button>
+  </figcaption>
+  <pre><code id="code-1becdd3babb8" class="language-python">import appui
+
+state = appui.State(items=[&quot;main.py&quot;, &quot;notes.md&quot;, &quot;data.json&quot;], selected=&quot;None&quot;)
+
+
+def item_key(name):
+    return name
+
+
+def select_item(name):
+    state.selected = name
+
+
+def row_view(name):
+    def select_current():
+        select_item(name)
+
+    return appui.Button(
+        action=select_current,
+        content=appui.Text(name).frame(max_width=appui.infinity, alignment=&quot;leading&quot;),
+    ).button_style(&quot;plain&quot;)
+
+
+def body():
+    return appui.NavigationStack(
+        appui.List([
+            appui.Section(&quot;Files&quot;, [
+                appui.ForEach(state.items, row_builder=row_view, key=item_key)
+            ]),
+            appui.Section(&quot;State&quot;, [
+                appui.LabeledContent(&quot;Selected&quot;, value=state.selected)
+            ]),
+        ]).navigation_title(&quot;Files&quot;)
+    )
+
+
+appui.run(body, state=state, presentation=&quot;sheet&quot;)</code></pre>
+</figure>
+<p>如果数据来自耗时操作，先在事件中准备好，再更新状态。</p>
+<h2 id="控制状态刷新范围"><a class="heading-anchor" href="#控制状态刷新范围">#</a>控制状态刷新范围</h2>
+<p>把变化频繁的值放到明确字段里。一次动作改多个字段时用 <code>batch_update</code>，避免中间状态反复重建。</p>
+<figure class="code-block" data-code-id="93bf8f2d3b4f">
+  <figcaption>
+    <span>python</span>
+    <button class="copy-code" type="button" data-copy-code="93bf8f2d3b4f">复制</button>
+  </figcaption>
+  <pre><code id="code-93bf8f2d3b4f" class="language-python">import appui
+
+state = appui.State(count=0, message=&quot;Ready&quot;)
+
+
+def plus():
+    state.batch_update(count=state.count + 1, message=&quot;Updated&quot;)
+
+
+def reset():
+    state.batch_update(count=0, message=&quot;Reset&quot;)
+
+
+def body():
+    return appui.NavigationStack(
+        appui.Form([
+            appui.Section(&quot;Counter&quot;, [
+                appui.LabeledContent(&quot;Count&quot;, value=str(state.count)),
+                appui.HStack([
+                    appui.Button(&quot;增加&quot;, action=plus).button_style(&quot;bordered_prominent&quot;),
+                    appui.Button(&quot;重置&quot;, action=reset).button_style(&quot;bordered&quot;),
+                ], spacing=12),
+            ], footer=state.message)
+        ]).navigation_title(&quot;Refresh Scope&quot;)
+    )
+
+
+appui.run(body, state=state, presentation=&quot;sheet&quot;)</code></pre>
+</figure>
+<h2 id="列表和大数据"><a class="heading-anchor" href="#列表和大数据">#</a>列表和大数据</h2>
+<p>大列表优先使用原生列表组件。过滤、排序、分组这类派生数据不要在每个 row 里重复计算。</p>
+<figure class="code-block" data-code-id="272049e074bd">
+  <figcaption>
+    <span>python</span>
+    <button class="copy-code" type="button" data-copy-code="272049e074bd">复制</button>
+  </figcaption>
+  <pre><code id="code-272049e074bd" class="language-python">import appui
+
+rows = [{&quot;id&quot;: index, &quot;title&quot;: f&quot;Item {index}&quot;} for index in range(1, 101)]
+state = appui.State(query=&quot;&quot;, rows=rows, selected=&quot;None&quot;)
+
+
+def set_query(value):
+    state.query = value
+
+
+@appui.computed(state, depends_on=[&quot;query&quot;, &quot;rows&quot;])
+def filtered_rows():
+    keyword = state.query.strip().lower()
+    if not keyword:
+        return state.rows
+    return [row for row in state.rows if keyword in row[&quot;title&quot;].lower()]
+
+
+def row_key(row):
+    return row[&quot;id&quot;]
+
+
+def select_row(row):
+    state.selected = row[&quot;title&quot;]
+
+
+def row_view(row):
+    def select_current():
+        select_row(row)
+
+    return appui.Button(
+        action=select_current,
+        content=appui.HStack([
+            appui.Text(row[&quot;title&quot;]).frame(max_width=appui.infinity, alignment=&quot;leading&quot;),
+            appui.Image(system_name=&quot;chevron.right&quot;).foreground_color(&quot;tertiaryLabel&quot;),
+        ]),
+    ).button_style(&quot;plain&quot;)
+
+
+def body():
+    visible = filtered_rows()
+    return appui.NavigationStack(
+        appui.List([
+            appui.Section(f&quot;{len(visible)} results&quot;, [
+                appui.ForEach(visible, row_builder=row_view, key=row_key)
+            ]),
+            appui.Section(&quot;Selection&quot;, [
+                appui.LabeledContent(&quot;Selected&quot;, value=state.selected)
+            ]),
+        ])
+        .searchable(text=state.query, on_change=set_query)
+        .navigation_title(&quot;Large List&quot;)
+    )
+
+
+appui.run(body, state=state, presentation=&quot;sheet&quot;)</code></pre>
+</figure>
+<p>不要把大量行直接塞进普通 <code>VStack</code> 再放进 <code>ScrollView</code>。列表需要稳定的行身份和系统级复用能力。</p>
+<h2 id="timer-和中频刷新"><a class="heading-anchor" href="#timer-和中频刷新">#</a>Timer 和中频刷新</h2>
+<p>Timer 放模块级，启动和停止由回调控制，不要在 <code>body()</code> 里创建。</p>
+<figure class="code-block" data-code-id="6dc453cac392">
+  <figcaption>
+    <span>python</span>
+    <button class="copy-code" type="button" data-copy-code="6dc453cac392">复制</button>
+  </figcaption>
+  <pre><code id="code-6dc453cac392" class="language-python">import appui
+
+state = appui.State(seconds=0, running=False)
+
+
+def tick():
+    if state.running:
+        state.seconds += 1
+
+
+timer = appui.Timer(interval=1.0, action=tick)
+
+
+def start():
+    state.running = True
+    timer.start()
+
+
+def stop():
+    state.running = False
+    timer.stop()
+
+
+def body():
+    return appui.NavigationStack(
+        appui.Form([
+            appui.Section(&quot;Timer&quot;, [
+                appui.LabeledContent(&quot;Seconds&quot;, value=str(state.seconds)),
+                appui.HStack([
+                    appui.Button(&quot;Start&quot;, action=start).button_style(&quot;bordered_prominent&quot;),
+                    appui.Button(&quot;Stop&quot;, action=stop).button_style(&quot;bordered&quot;),
+                ], spacing=12),
+            ], footer=&quot;Running&quot; if state.running else &quot;Stopped&quot;)
+        ]).navigation_title(&quot;Timer&quot;)
+    )
+
+
+appui.run(body, state=state)</code></pre>
+</figure>
+<h2 id="高频属性更新"><a class="heading-anchor" href="#高频属性更新">#</a>高频属性更新</h2>
+<p>当页面结构稳定、只是已有控件的值持续变化时，可以使用 实时快路径模式。它适合进度、滑块、仪表盘、计时器和状态文本。</p>
+<p>关键原则：</p>
+<ul><li>先保证普通 <code>State</code> 版本正确。</li><li>高频字段再改成 <code>ReactiveState</code> 或组件绑定。</li><li>不要手动调用未公开接口。</li><li>结构变化仍然交给普通刷新。</li></ul>
+<figure class="code-block" data-code-id="d5da362224a3">
+  <figcaption>
+    <span>python</span>
+    <button class="copy-code" type="button" data-copy-code="d5da362224a3">复制</button>
+  </figcaption>
+  <pre><code id="code-d5da362224a3" class="language-python">import appui
+
+state = appui.ReactiveState(
+    title=&quot;Meter&quot;,
+    level=(0.0, 1),
+    peak=(0.0, 2),
+)
+
+
+def update_meter(level, peak):
+    state.level = level
+    state.peak = peak</code></pre>
+</figure>
+<h2 id="重型原生视图"><a class="heading-anchor" href="#重型原生视图">#</a>重型原生视图</h2>
+<p><code>VideoPlayer</code>、<code>MapView</code>、<code>WebView</code>、相机预览这类视图不要放进普通列表行里滚动。把它们放在稳定区域，让下方的控制项使用 <code>Form</code> 或 <code>List</code>。</p>
+<div class="table-scroll"><table><thead><tr><th>场景</th><th>推荐</th></tr></thead><tbody><tr><td>视频播放</td><td>顶部固定 <code>VideoPlayer</code>，下方 <code>Form</code> 控制区</td></tr><tr><td>地图选点</td><td>顶部 <code>MapView</code>，下方坐标和操作</td></tr><tr><td>WebView 帮助页</td><td><code>WebView</code> 独立稳定区域</td></tr><tr><td>图表仪表盘</td><td><code>Chart</code> 或 <code>Canvas</code> 放在固定高度卡片中</td></tr></tbody></table></div>
+<h2 id="小结"><a class="heading-anchor" href="#小结">#</a>小结</h2>
+<ul><li><code>body()</code> 只做界面描述。</li><li>数据准备、文件读取、网络请求放到界面构建之外。</li><li>结构变化用普通状态刷新。</li><li>多字段变化用 <code>batch_update</code>。</li><li>长列表用 <code>List + ForEach + stable key</code>。</li><li>高频属性变化看 <a href="../../pages/appui-guide-realtime/">实时快路径</a>；相机、传感器、音频或系统状态流看 <a href="../../pages/miniapp-native-capabilities/">iOS 原生能力地图</a>。</li></ul>
+  </div>
+  
+</article>
+
+    </main>
+    <aside class="toc"><div class="toc-title">本页目录</div><a class="toc-link" href="#预期效果">预期效果</a><a class="toc-link" href="#优先优化的地方">优先优化的地方</a><a class="toc-link" href="#避免在-body-中做重活">避免在 body 中做重活</a><a class="toc-link" href="#控制状态刷新范围">控制状态刷新范围</a><a class="toc-link" href="#列表和大数据">列表和大数据</a><a class="toc-link" href="#timer-和中频刷新">Timer 和中频刷新</a><a class="toc-link" href="#高频属性更新">高频属性更新</a><a class="toc-link" href="#重型原生视图">重型原生视图</a><a class="toc-link" href="#小结">小结</a></aside>
+  </div>
+  <div class="mobile-backdrop"></div>
+  <div class="search-panel" role="dialog" aria-modal="true" aria-label="搜索">
+    <div class="search-box">
+      <input id="docs-search-input" type="search" placeholder="搜索 API、模块、指南..." autocomplete="off">
+      <button class="search-close" type="button">Close</button>
+    </div>
+    <div id="docs-search-results" class="search-results"></div>
+  </div>
+</body>
+</html>

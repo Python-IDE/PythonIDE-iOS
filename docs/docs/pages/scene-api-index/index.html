@@ -1,0 +1,281 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>scene API 索引 - PythonIDE Docs</title>
+  <meta name="description" content="按类族、Classic 绘图、Action、Physics 和常量快速查 scene 公开名称。">
+  <link rel="icon" href="../../assets/brand-mark.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="../../assets/docs-v2.css">
+  <script>window.PYTHONIDE_DOCS_PREFIX = "../../";</script>
+  <script defer src="../../assets/docs-v2.js"></script>
+</head>
+<body class="article-page">
+  <header class="topbar">
+    <button class="icon-button menu-toggle" type="button" aria-label="打开目录">☰</button>
+    <a class="brand" href="../../"><img class="brand-mark" src="../../assets/brand-mark.svg" alt="" width="30" height="30"><span class="brand-text">PythonIDE Docs</span></a>
+    <nav class="top-nav" aria-label="主导航">
+      <a class="" href="../../">文档</a>
+      <a class="active" href="../../pages/widget-api-reference/">API 参考</a>
+      <a class="" href="../../pages/appui-cookbook-index/">示例</a>
+    </nav>
+    <details class="language-menu">
+      <summary>中文</summary>
+      <div class="language-panel">
+        <span class="active">简体中文</span>
+        <button type="button" disabled>English <em>准备中</em></button>
+      </div>
+    </details>
+    <button class="theme-toggle" type="button" aria-label="切换主题">◐</button>
+  </header>
+  <div class="shell">
+    <aside class="sidebar">
+      <nav class="sidebar-nav" aria-label="Docs navigation">
+<button class="sidebar-search search-trigger" type="button"><span>搜索...</span><kbd>⌘K</kbd></button>
+<details class="nav-collection">
+<summary><a href="../../collections/appui/">appui</a></summary>
+<div class="nav-group">
+<div class="nav-group-title">开始</div>
+<a class="nav-link" href="../../pages/appui-module/">appui 概览</a>
+<a class="nav-link" href="../../pages/appui-quickstart/">快速上手</a>
+<a class="nav-link" href="../../pages/miniapp-choose-runtime/">运行时选择</a>
+<a class="nav-link" href="../../pages/miniapp-appui-ui-patterns/">AppUI UI 模式</a>
+<a class="nav-link" href="../../pages/miniapp-appui-api-index/">AppUI API 地图</a>
+<a class="nav-link" href="../../pages/miniapp-dev-troubleshooting/">MiniApp 开发排错</a>
+</div>
+<div class="nav-group">
+<div class="nav-group-title">指南</div>
+<a class="nav-link" href="../../pages/appui-guide-thinking/">appui 思维方式</a>
+<a class="nav-link" href="../../pages/appui-guide-state/">状态管理</a>
+<a class="nav-link" href="../../pages/appui-guide-layout/">布局系统</a>
+<a class="nav-link" href="../../pages/appui-guide-lists/">列表与表单</a>
+<a class="nav-link" href="../../pages/appui-guide-navigation/">导航与页面结构</a>
+<a class="nav-link" href="../../pages/appui-guide-interaction/">交互与回调</a>
+<a class="nav-link" href="../../pages/appui-guide-media/">媒体与系统集成</a>
+<a class="nav-link" href="../../pages/appui-guide-charts/">图表与绘图</a>
+<a class="nav-link" href="../../pages/appui-guide-darkmode/">深色模式与语义色</a>
+<a class="nav-link" href="../../pages/appui-guide-animation/">动画</a>
+<a class="nav-link" href="../../pages/appui-guide-hotreload/">热重载</a>
+<a class="nav-link" href="../../pages/appui-guide-realtime/">实时快路径</a>
+<a class="nav-link" href="../../pages/appui-guide-performance/">性能与实时界面</a>
+</div>
+<div class="nav-group">
+<div class="nav-group-title">API 参考</div>
+<a class="nav-link" href="../../pages/appui-ref-functions/">入口函数</a>
+<a class="nav-link" href="../../pages/appui-ref-state/">状态 API</a>
+<a class="nav-link" href="../../pages/appui-ref-layout/">布局 API</a>
+<a class="nav-link" href="../../pages/appui-ref-layout-stacks/">堆叠布局 API</a>
+<a class="nav-link" href="../../pages/appui-ref-layout-scroll/">滚动 API</a>
+<a class="nav-link" href="../../pages/appui-ref-layout-grids/">网格 API</a>
+<a class="nav-link" href="../../pages/appui-ref-layout-geometry/">几何与特殊布局 API</a>
+<a class="nav-link" href="../../pages/appui-ref-controls/">控件 API</a>
+<a class="nav-link" href="../../pages/appui-ref-navigation/">导航 API</a>
+<a class="nav-link" href="../../pages/appui-ref-data/">数据展示 API</a>
+<a class="nav-link" href="../../pages/appui-ref-presentation/">呈现 API</a>
+<a class="nav-link" href="../../pages/appui-ref-modifiers/">修饰符 API</a>
+<a class="nav-link" href="../../pages/appui-ref-environment/">环境值 API</a>
+<a class="nav-link" href="../../pages/appui-ref-media/">媒体 API</a>
+<a class="nav-link" href="../../pages/appui-ref-charts/">图表与画布 API</a>
+<a class="nav-link" href="../../pages/appui-ref-shapes/">形状 API</a>
+</div>
+<div class="nav-group">
+<div class="nav-group-title">示例</div>
+<a class="nav-link" href="../../pages/appui-cookbook-index/">示例索引</a>
+<a class="nav-link" href="../../pages/appui-cookbook-todo/">示例：待办列表</a>
+<a class="nav-link" href="../../pages/appui-cookbook-settings/">示例：设置表单</a>
+<a class="nav-link" href="../../pages/appui-cookbook-dashboard/">示例：紧凑仪表盘</a>
+<a class="nav-link" href="../../pages/appui-cookbook-native-list-detail/">示例：原生列表详情</a>
+<a class="nav-link" href="../../pages/appui-cookbook-network-list/">示例：网络列表</a>
+<a class="nav-link" href="../../pages/appui-cookbook-table-data-review/">示例：表格数据审核</a>
+<a class="nav-link" href="../../pages/appui-cookbook-chat/">示例：聊天界面</a>
+<a class="nav-link" href="../../pages/appui-cookbook-media-capture-gallery/">示例：媒体采集相册</a>
+<a class="nav-link" href="../../pages/appui-cookbook-gallery/">示例：相册浏览器</a>
+<a class="nav-link" href="../../pages/appui-cookbook-form-settings-controls/">示例：原生表单设置</a>
+<a class="nav-link" href="../../pages/appui-cookbook-chart-canvas-lab/">示例：图表与画布实验室</a>
+<a class="nav-link" href="../../pages/appui-cookbook-location-map/">示例：定位地图</a>
+<a class="nav-link" href="../../pages/appui-cookbook-motion-haptics-dashboard/">示例：运动传感器仪表盘</a>
+<a class="nav-link" href="../../pages/appui-cookbook-notification-reminder/">示例：通知提醒</a>
+<a class="nav-link" href="../../pages/appui-cookbook-health-blood-pressure/">示例：血压分析</a>
+<a class="nav-link" href="../../pages/appui-cookbook-secure-vault/">示例：安全凭据库</a>
+<a class="nav-link" href="../../pages/appui-cookbook-live-activity-background/">示例：实时活动与后台任务</a>
+<a class="nav-link" href="../../pages/appui-cookbook-shortcuts-launcher/">示例：快捷指令启动器</a>
+<a class="nav-link" href="../../pages/appui-cookbook-video-player/">示例：视频播放器</a>
+<a class="nav-link" href="../../pages/appui-cookbook-webview-share-export/">示例：WebView 与系统分享</a>
+</div>
+<div class="nav-group">
+<div class="nav-group-title">速查</div>
+<a class="nav-link" href="../../pages/appui-appendix-colors/">颜色参考</a>
+<a class="nav-link" href="../../pages/appui-appendix-symbols/">SF Symbols</a>
+<a class="nav-link" href="../../pages/appui-appendix-migration/">从 ui 迁移到 appui</a>
+</div>
+</details>
+<details class="nav-collection">
+<summary><a href="../../collections/widget/">widget</a></summary>
+<div class="nav-group">
+<div class="nav-group-title">小组件</div>
+<a class="nav-link" href="../../pages/widget-module/">widget</a>
+<a class="nav-link" href="../../pages/widget-quickstart-publish/">widget 从脚本到桌面</a>
+<a class="nav-link" href="../../pages/widget-layout/">widget 布局与尺寸</a>
+<a class="nav-link" href="../../pages/widget-parameters/">widget 参数面板</a>
+<a class="nav-link" href="../../pages/widget-interaction/">widget 状态和交互</a>
+<a class="nav-link" href="../../pages/widget-timeline/">widget 时间线和动画</a>
+<a class="nav-link" href="../../pages/widget-appearance-assets/">widget 资源与外观</a>
+<a class="nav-link" href="../../pages/widget-troubleshooting/">widget 排错</a>
+<a class="nav-link" href="../../pages/widget-api-index/">widget API 地图</a>
+<a class="nav-link" href="../../pages/widget-api-reference/">widget API 参考</a>
+</div>
+</details>
+<details class="nav-collection">
+<summary><a href="../../collections/ui/">ui</a></summary>
+<div class="nav-group">
+<div class="nav-group-title">快速上手</div>
+<a class="nav-link" href="../../pages/ui-module/">ui 概览</a>
+</div>
+<div class="nav-group">
+<div class="nav-group-title">API 参考</div>
+<a class="nav-link" href="../../pages/ui-api-index/">ui API 索引</a>
+<a class="nav-link" href="../../pages/ui-api-reference/">ui API 参考</a>
+</div>
+<div class="nav-group">
+<div class="nav-group-title">实时能力</div>
+<a class="nav-link" href="../../pages/aurora-system/">系统实时能力</a>
+<a class="nav-link" href="../../pages/aurora-toolkit/">实时更新工具</a>
+</div>
+</details>
+<details class="nav-collection" open>
+<summary><a href="../../collections/scene/">scene</a></summary>
+<div class="nav-group">
+<div class="nav-group-title">快速上手</div>
+<a class="nav-link" href="../../pages/scene-module/">scene 概览</a>
+<a class="nav-link" href="../../pages/turtle-module/">turtle</a>
+</div>
+<div class="nav-group">
+<div class="nav-group-title">API 参考</div>
+<a class="nav-link active" href="../../pages/scene-api-index/">scene API 索引</a>
+<a class="nav-link" href="../../pages/scene-api-reference/">scene API 参考</a>
+</div>
+</details>
+<details class="nav-collection">
+<summary><a href="../../collections/ios-native/">iOS 原生模块</a></summary>
+<div class="nav-group">
+<div class="nav-group-title">快速上手</div>
+<a class="nav-link" href="../../pages/ios-native/">iOS 原生能力</a>
+<a class="nav-link" href="../../pages/modules-index/">全部模块总览</a>
+<a class="nav-link" href="../../pages/miniapp-native-capabilities/">原生能力入口</a>
+</div>
+<div class="nav-group">
+<div class="nav-group-title">设备与传感器</div>
+<a class="nav-link" href="../../pages/device-module/">device</a>
+<a class="nav-link" href="../../pages/location-module/">location</a>
+<a class="nav-link" href="../../pages/motion-module/">motion</a>
+<a class="nav-link" href="../../pages/haptics-module/">haptics</a>
+<a class="nav-link" href="../../pages/biometric-module/">biometric</a>
+<a class="nav-link" href="../../pages/health-module/">health</a>
+</div>
+<div class="nav-group">
+<div class="nav-group-title">媒体与视觉</div>
+<a class="nav-link" href="../../pages/photos-module/">photos</a>
+<a class="nav-link" href="../../pages/avplayer-module/">avplayer</a>
+<a class="nav-link" href="../../pages/sound-module/">sound</a>
+<a class="nav-link" href="../../pages/speech-module/">speech</a>
+<a class="nav-link" href="../../pages/vision-helper-module/">vision_helper</a>
+<a class="nav-link" href="../../pages/vision-module/">vision</a>
+<a class="nav-link" href="../../pages/coreml-module/">coreml</a>
+</div>
+<div class="nav-group">
+<div class="nav-group-title">网络与数据</div>
+<a class="nav-link" href="../../pages/network-module/">network</a>
+<a class="nav-link" href="../../pages/websocket-module/">websocket</a>
+<a class="nav-link" href="../../pages/bluetooth-module/">bluetooth</a>
+<a class="nav-link" href="../../pages/background-module/">background</a>
+</div>
+<div class="nav-group">
+<div class="nav-group-title">系统服务</div>
+<a class="nav-link" href="../../pages/permission-module/">permission</a>
+<a class="nav-link" href="../../pages/storage-module/">storage</a>
+<a class="nav-link" href="../../pages/database-module/">database</a>
+<a class="nav-link" href="../../pages/keychain-module/">keychain</a>
+<a class="nav-link" href="../../pages/clipboard-module/">clipboard</a>
+<a class="nav-link" href="../../pages/dialogs-module/">dialogs</a>
+<a class="nav-link" href="../../pages/console-module/">console</a>
+<a class="nav-link" href="../../pages/notification-module/">notification</a>
+<a class="nav-link" href="../../pages/contacts-module/">contacts</a>
+<a class="nav-link" href="../../pages/calendar-events-module/">calendar_events</a>
+<a class="nav-link" href="../../pages/nfc-module/">nfc</a>
+</div>
+</details>
+<details class="nav-collection">
+<summary><a href="../../collections/automation-extension/">自动化与扩展</a></summary>
+<div class="nav-group">
+<div class="nav-group-title">快速上手</div>
+<a class="nav-link" href="../../pages/shortcuts-guide/">快捷指令</a>
+<a class="nav-link" href="../../pages/js-api/">JS API 说明</a>
+</div>
+<div class="nav-group">
+<div class="nav-group-title">模块</div>
+<a class="nav-link" href="../../pages/shortcuts-module/">shortcuts</a>
+<a class="nav-link" href="../../pages/live-activity-module/">live_activity</a>
+<a class="nav-link" href="../../pages/keyboard-module/">keyboard</a>
+<a class="nav-link" href="../../pages/objc-util-module/">objc_util</a>
+<a class="nav-link" href="../../pages/c-extensions-module/">c_extensions</a>
+</div>
+</details>
+</nav>
+    </aside>
+    <main class="content">
+      
+<article class="article" style="--page-accent:#16a34a">
+  <header class="article-intro">
+    <div class="breadcrumb">scene / API 参考</div>
+    <h1>scene API 索引</h1>
+    <p>按类族、Classic 绘图、Action、Physics 和常量快速查 scene 公开名称。</p>
+  </header>
+  <div class="markdown-body">
+    <p>按类族、Classic 绘图、Action、Physics 和常量快速查 scene 公开名称。</p>
+<h2 id="预期效果"><a class="heading-anchor" href="#预期效果">#</a>预期效果</h2>
+<p>示例会启动一个最小 <code>Scene</code>，索引用来快速定位生命周期、节点、动作、物理和绘图 API。</p>
+<h2 id="最小入口"><a class="heading-anchor" href="#最小入口">#</a>最小入口</h2>
+<figure class="code-block" data-code-id="00c9fe90186f">
+  <figcaption>
+    <span>python</span>
+    <button class="copy-code" type="button" data-copy-code="00c9fe90186f">复制</button>
+  </figcaption>
+  <pre><code id="code-00c9fe90186f" class="language-python">import scene
+
+
+class DemoScene(scene.Scene):
+    def setup(self):
+        self.background_color = &quot;black&quot;
+
+    def draw(self):
+        scene.fill(1, 1, 1)
+        scene.text(&quot;scene&quot;, x=self.size.w / 2, y=self.size.h / 2)
+
+
+scene.run(DemoScene())</code></pre>
+</figure>
+<h2 id="先看哪一类"><a class="heading-anchor" href="#先看哪一类">#</a>先看哪一类</h2>
+<div class="table-scroll"><table><thead><tr><th>你要做什么</th><th>先看</th></tr></thead><tbody><tr><td>启动场景和处理生命周期</td><td><code>Scene</code>、<code>run</code>、<code>setup</code>、<code>update</code>、<code>draw</code></td></tr><tr><td>显示图片、文字和形状节点</td><td><code>SpriteNode</code>、<code>LabelNode</code>、<code>ShapeNode</code>、<code>Texture</code></td></tr><tr><td>做动画</td><td><code>Action.move_to</code>、<code>Action.scale_to</code>、<code>Action.sequence</code>、<code>Action.repeat_forever</code></td></tr><tr><td>做触摸交互</td><td><code>touch_began</code>、<code>touch_moved</code>、<code>touch_ended</code>、<code>Touch.location</code></td></tr><tr><td>做碰撞和约束</td><td><code>PhysicsWorld</code>、<code>PhysicsBody</code>、<code>Contact</code>、<code>PinJoint</code>、<code>SpringJoint</code></td></tr><tr><td>做 Classic 绘图</td><td><code>background</code>、<code>fill</code>、<code>rect</code>、<code>ellipse</code>、<code>line</code>、<code>text</code></td></tr></tbody></table></div>
+<h2 id="索引"><a class="heading-anchor" href="#索引">#</a>索引</h2>
+<div class="table-scroll"><table><thead><tr><th>分组</th><th>名称</th></tr></thead><tbody><tr><td>函数</td><td><code>run</code>, <code>get_screen_size</code>, <code>get_screen_scale</code>, <code>gravity</code>, <code>get_safe_area_insets</code>, <code>play_effect</code>, <code>get_image_path</code>, <code>get_controllers</code>, <code>background</code>, <code>fill</code>, <code>no_fill</code>, <code>stroke</code>, <code>no_stroke</code>, <code>stroke_weight</code>, <code>tint</code>, <code>no_tint</code>, <code>rect</code>, <code>ellipse</code>, <code>line</code>, <code>image</code>, <code>text</code>, <code>translate</code>, <code>rotate</code>, <code>scale</code>, <code>push_matrix</code>, <code>pop_matrix</code>, <code>blend_mode</code>, <code>use_shader</code>, <code>load_image</code>, <code>load_image_file</code>, <code>load_pil_image</code>, <code>render_text</code>, <code>unload_image</code>, <code>image_quad</code>, <code>triangle_strip</code></td></tr><tr><td>类</td><td><code>Vector2</code>, <code>EdgeInsets</code>, <code>Vector3</code>, <code>Point</code>, <code>Size</code>, <code>Rect</code>, <code>Touch</code>, <code>Contact</code>, <code>SceneView</code>, <code>Scene</code>, <code>Texture</code>, <code>PhysicsWorld</code>, <code>PhysicsBody</code>, <code>PinJoint</code>, <code>SpringJoint</code>, <code>RopeJoint</code>, <code>Shader</code>, <code>Node</code>, <code>SpriteNode</code>, <code>LabelNode</code>, <code>ShapeNode</code>, <code>EffectNode</code>, <code>EmitterNode</code>, <code>Action</code></td></tr><tr><td>方法</td><td><code>Size.w</code>, <code>Size.w</code>, <code>Size.h</code>, <code>Size.h</code>, <code>Rect.width</code>, <code>Rect.height</code>, <code>Rect.origin</code>, <code>Rect.size</code>, <code>Rect.min_x</code>, <code>Rect.max_x</code>, <code>Rect.min_y</code>, <code>Rect.max_y</code>, <code>Rect.center</code>, <code>Rect.contains_point</code>, <code>Rect.contains_rect</code>, <code>Rect.intersects</code>, <code>Rect.intersection</code>, <code>Rect.union</code>, <code>Rect.inset</code>, <code>Rect.translate</code>, <code>Touch.location</code>, <code>Touch.prev_location</code>, <code>SceneView.view</code>, <code>SceneView.scene</code>, <code>SceneView.scene</code>, <code>SceneView.paused</code>, <code>SceneView.paused</code>, <code>SceneView.frame_interval</code>, <code>SceneView.frame_interval</code>, <code>SceneView.anti_alias</code>, <code>SceneView.anti_alias</code>, <code>SceneView.shows_fps</code>, <code>SceneView.shows_fps</code>, <code>Scene.frame_count</code>, <code>Scene.touches</code>, <code>Scene.t</code>, <code>Scene.dt</code>, <code>Scene.background_color</code>, <code>Scene.background_color</code>, <code>Scene.children</code>, <code>Scene.physics_world</code>, <code>Scene.safe_area_insets</code>, <code>Scene.effects_enabled</code>, <code>Scene.effects_enabled</code>, <code>Scene.crop_rect</code>, <code>Scene.crop_rect</code>, <code>Scene.view</code>, <code>Scene.presented_scene</code>, <code>Scene.presenting_scene</code>, <code>Scene.setup</code>, <code>Scene.update</code>, <code>Scene.draw</code>, <code>Scene.did_evaluate_actions</code>, <code>Scene.touch_began</code>, <code>Scene.touch_moved</code>, <code>Scene.touch_ended</code>, <code>Scene.did_change_size</code>, <code>Scene.controller_changed</code>, <code>Scene.present_modal_scene</code>, <code>Scene.dismiss_modal_scene</code>, <code>Scene.pause</code>, <code>Scene.resume</code>, <code>Scene.stop</code>, <code>Scene.add_child</code>, <code>Scene.remove_all_children</code>, <code>Texture.size</code>, <code>Texture.filtering_mode</code>, <code>Texture.filtering_mode</code>, <code>Texture.subtexture</code>, <code>PhysicsWorld.gravity</code>, <code>PhysicsWorld.gravity</code>, <code>PhysicsBody.rectangle</code>, <code>PhysicsBody.circle</code>, <code>PhysicsBody.affected_by_gravity</code>, <code>PhysicsBody.affected_by_gravity</code>, <code>PhysicsBody.allows_rotation</code>, <code>PhysicsBody.allows_rotation</code>, <code>PhysicsBody.dynamic</code>, <code>PhysicsBody.dynamic</code>, <code>PhysicsBody.restitution</code>, ... (200 total)</td></tr><tr><td>常量</td><td><code>DEFAULT_ORIENTATION</code>, <code>PORTRAIT</code>, <code>LANDSCAPE</code>, <code>BLEND_NORMAL</code>, <code>BLEND_ADD</code>, <code>BLEND_MULTIPLY</code>, <code>TIMING_LINEAR</code>, <code>TIMING_EASE_IN</code>, <code>TIMING_EASE_IN_2</code>, <code>TIMING_EASE_OUT</code>, <code>TIMING_EASE_OUT_2</code>, <code>TIMING_EASE_IN_OUT</code>, <code>TIMING_SINODIAL</code>, <code>TIMING_ELASTIC_IN</code>, <code>TIMING_ELASTIC_OUT</code>, <code>TIMING_ELASTIC_IN_OUT</code>, <code>TIMING_BOUNCE_IN</code>, <code>TIMING_BOUNCE_OUT</code>, <code>TIMING_BOUNCE_IN_OUT</code>, <code>TIMING_EASE_BACK_IN</code>, <code>TIMING_EASE_BACK_OUT</code>, <code>TIMING_EASE_BACK_IN_OUT</code>, <code>FILTERING_LINEAR</code>, <code>FILTERING_NEAREST</code></td></tr></tbody></table></div>
+<h2 id="失败路径"><a class="heading-anchor" href="#失败路径">#</a>失败路径</h2>
+<div class="table-scroll"><table><thead><tr><th>情况</th><th>应该怎么处理</th></tr></thead><tbody><tr><td>场景不显示</td><td>确认最后调用 <code>scene.run(SceneSubclass())</code>，并且 <code>setup()</code> 没有抛错。</td></tr><tr><td>触摸无反应</td><td>使用 <code>touch_began</code> / <code>touch_moved</code> / <code>touch_ended</code>，不要把事件逻辑写进普通函数后忘记绑定。</td></tr><tr><td>帧率下降</td><td>不要在 <code>update()</code> 或 <code>draw()</code> 中做网络请求、文件大读写或反复创建大量节点。</td></tr><tr><td>普通表单很难做</td><td>表单、设置、列表和导航页改用 <code>appui</code>。</td></tr></tbody></table></div>
+<h2 id="相关文档"><a class="heading-anchor" href="#相关文档">#</a>相关文档</h2>
+<div class="table-scroll"><table><thead><tr><th>文档</th><th>用途</th></tr></thead><tbody><tr><td><a href="../../pages/scene-module/">scene 概览</a></td><td>2D 场景、Classic 绘图、节点、动作、物理和触摸循环。</td></tr><tr><td><a href="../../pages/scene-api-reference/">scene API 参考</a></td><td>集中列出 scene 生命周期、节点、Action、Physics 与 Classic 绘图签名。</td></tr></tbody></table></div>
+  </div>
+  <section class="related-section"><h2>相关文档</h2><div class="related-list"><a class="related-link" href="../scene-module/"><strong>scene 概览</strong><span>2D 场景、节点、动画、物理与绘制。</span></a><a class="related-link" href="../scene-api-reference/"><strong>scene API 参考</strong><span>集中列出 scene 生命周期、节点、Action、Physics 与 Classic 绘图签名。</span></a></div></section>
+</article>
+
+    </main>
+    <aside class="toc"><div class="toc-title">本页目录</div><a class="toc-link" href="#预期效果">预期效果</a><a class="toc-link" href="#最小入口">最小入口</a><a class="toc-link" href="#先看哪一类">先看哪一类</a><a class="toc-link" href="#索引">索引</a><a class="toc-link" href="#失败路径">失败路径</a><a class="toc-link" href="#相关文档">相关文档</a></aside>
+  </div>
+  <div class="mobile-backdrop"></div>
+  <div class="search-panel" role="dialog" aria-modal="true" aria-label="搜索">
+    <div class="search-box">
+      <input id="docs-search-input" type="search" placeholder="搜索 API、模块、指南..." autocomplete="off">
+      <button class="search-close" type="button">Close</button>
+    </div>
+    <div id="docs-search-results" class="search-results"></div>
+  </div>
+</body>
+</html>

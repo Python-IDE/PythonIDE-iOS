@@ -1,0 +1,303 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>avplayer - PythonIDE Docs</title>
+  <meta name="description" content="音视频加载、播放控制和原生播放器。">
+  <link rel="icon" href="../../assets/brand-mark.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="../../assets/docs-v2.css">
+  <script>window.PYTHONIDE_DOCS_PREFIX = "../../";</script>
+  <script defer src="../../assets/docs-v2.js"></script>
+</head>
+<body class="article-page">
+  <header class="topbar">
+    <button class="icon-button menu-toggle" type="button" aria-label="打开目录">☰</button>
+    <a class="brand" href="../../"><img class="brand-mark" src="../../assets/brand-mark.svg" alt="" width="30" height="30"><span class="brand-text">PythonIDE Docs</span></a>
+    <nav class="top-nav" aria-label="主导航">
+      <a class="active" href="../../">文档</a>
+      <a class="" href="../../pages/widget-api-reference/">API 参考</a>
+      <a class="" href="../../pages/appui-cookbook-index/">示例</a>
+    </nav>
+    <details class="language-menu">
+      <summary>中文</summary>
+      <div class="language-panel">
+        <span class="active">简体中文</span>
+        <button type="button" disabled>English <em>准备中</em></button>
+      </div>
+    </details>
+    <button class="theme-toggle" type="button" aria-label="切换主题">◐</button>
+  </header>
+  <div class="shell">
+    <aside class="sidebar">
+      <nav class="sidebar-nav" aria-label="Docs navigation">
+<button class="sidebar-search search-trigger" type="button"><span>搜索...</span><kbd>⌘K</kbd></button>
+<details class="nav-collection">
+<summary><a href="../../collections/appui/">appui</a></summary>
+<div class="nav-group">
+<div class="nav-group-title">开始</div>
+<a class="nav-link" href="../../pages/appui-module/">appui 概览</a>
+<a class="nav-link" href="../../pages/appui-quickstart/">快速上手</a>
+<a class="nav-link" href="../../pages/miniapp-choose-runtime/">运行时选择</a>
+<a class="nav-link" href="../../pages/miniapp-appui-ui-patterns/">AppUI UI 模式</a>
+<a class="nav-link" href="../../pages/miniapp-appui-api-index/">AppUI API 地图</a>
+<a class="nav-link" href="../../pages/miniapp-dev-troubleshooting/">MiniApp 开发排错</a>
+</div>
+<div class="nav-group">
+<div class="nav-group-title">指南</div>
+<a class="nav-link" href="../../pages/appui-guide-thinking/">appui 思维方式</a>
+<a class="nav-link" href="../../pages/appui-guide-state/">状态管理</a>
+<a class="nav-link" href="../../pages/appui-guide-layout/">布局系统</a>
+<a class="nav-link" href="../../pages/appui-guide-lists/">列表与表单</a>
+<a class="nav-link" href="../../pages/appui-guide-navigation/">导航与页面结构</a>
+<a class="nav-link" href="../../pages/appui-guide-interaction/">交互与回调</a>
+<a class="nav-link" href="../../pages/appui-guide-media/">媒体与系统集成</a>
+<a class="nav-link" href="../../pages/appui-guide-charts/">图表与绘图</a>
+<a class="nav-link" href="../../pages/appui-guide-darkmode/">深色模式与语义色</a>
+<a class="nav-link" href="../../pages/appui-guide-animation/">动画</a>
+<a class="nav-link" href="../../pages/appui-guide-hotreload/">热重载</a>
+<a class="nav-link" href="../../pages/appui-guide-realtime/">实时快路径</a>
+<a class="nav-link" href="../../pages/appui-guide-performance/">性能与实时界面</a>
+</div>
+<div class="nav-group">
+<div class="nav-group-title">API 参考</div>
+<a class="nav-link" href="../../pages/appui-ref-functions/">入口函数</a>
+<a class="nav-link" href="../../pages/appui-ref-state/">状态 API</a>
+<a class="nav-link" href="../../pages/appui-ref-layout/">布局 API</a>
+<a class="nav-link" href="../../pages/appui-ref-layout-stacks/">堆叠布局 API</a>
+<a class="nav-link" href="../../pages/appui-ref-layout-scroll/">滚动 API</a>
+<a class="nav-link" href="../../pages/appui-ref-layout-grids/">网格 API</a>
+<a class="nav-link" href="../../pages/appui-ref-layout-geometry/">几何与特殊布局 API</a>
+<a class="nav-link" href="../../pages/appui-ref-controls/">控件 API</a>
+<a class="nav-link" href="../../pages/appui-ref-navigation/">导航 API</a>
+<a class="nav-link" href="../../pages/appui-ref-data/">数据展示 API</a>
+<a class="nav-link" href="../../pages/appui-ref-presentation/">呈现 API</a>
+<a class="nav-link" href="../../pages/appui-ref-modifiers/">修饰符 API</a>
+<a class="nav-link" href="../../pages/appui-ref-environment/">环境值 API</a>
+<a class="nav-link" href="../../pages/appui-ref-media/">媒体 API</a>
+<a class="nav-link" href="../../pages/appui-ref-charts/">图表与画布 API</a>
+<a class="nav-link" href="../../pages/appui-ref-shapes/">形状 API</a>
+</div>
+<div class="nav-group">
+<div class="nav-group-title">示例</div>
+<a class="nav-link" href="../../pages/appui-cookbook-index/">示例索引</a>
+<a class="nav-link" href="../../pages/appui-cookbook-todo/">示例：待办列表</a>
+<a class="nav-link" href="../../pages/appui-cookbook-settings/">示例：设置表单</a>
+<a class="nav-link" href="../../pages/appui-cookbook-dashboard/">示例：紧凑仪表盘</a>
+<a class="nav-link" href="../../pages/appui-cookbook-native-list-detail/">示例：原生列表详情</a>
+<a class="nav-link" href="../../pages/appui-cookbook-network-list/">示例：网络列表</a>
+<a class="nav-link" href="../../pages/appui-cookbook-table-data-review/">示例：表格数据审核</a>
+<a class="nav-link" href="../../pages/appui-cookbook-chat/">示例：聊天界面</a>
+<a class="nav-link" href="../../pages/appui-cookbook-media-capture-gallery/">示例：媒体采集相册</a>
+<a class="nav-link" href="../../pages/appui-cookbook-gallery/">示例：相册浏览器</a>
+<a class="nav-link" href="../../pages/appui-cookbook-form-settings-controls/">示例：原生表单设置</a>
+<a class="nav-link" href="../../pages/appui-cookbook-chart-canvas-lab/">示例：图表与画布实验室</a>
+<a class="nav-link" href="../../pages/appui-cookbook-location-map/">示例：定位地图</a>
+<a class="nav-link" href="../../pages/appui-cookbook-motion-haptics-dashboard/">示例：运动传感器仪表盘</a>
+<a class="nav-link" href="../../pages/appui-cookbook-notification-reminder/">示例：通知提醒</a>
+<a class="nav-link" href="../../pages/appui-cookbook-health-blood-pressure/">示例：血压分析</a>
+<a class="nav-link" href="../../pages/appui-cookbook-secure-vault/">示例：安全凭据库</a>
+<a class="nav-link" href="../../pages/appui-cookbook-live-activity-background/">示例：实时活动与后台任务</a>
+<a class="nav-link" href="../../pages/appui-cookbook-shortcuts-launcher/">示例：快捷指令启动器</a>
+<a class="nav-link" href="../../pages/appui-cookbook-video-player/">示例：视频播放器</a>
+<a class="nav-link" href="../../pages/appui-cookbook-webview-share-export/">示例：WebView 与系统分享</a>
+</div>
+<div class="nav-group">
+<div class="nav-group-title">速查</div>
+<a class="nav-link" href="../../pages/appui-appendix-colors/">颜色参考</a>
+<a class="nav-link" href="../../pages/appui-appendix-symbols/">SF Symbols</a>
+<a class="nav-link" href="../../pages/appui-appendix-migration/">从 ui 迁移到 appui</a>
+</div>
+</details>
+<details class="nav-collection">
+<summary><a href="../../collections/widget/">widget</a></summary>
+<div class="nav-group">
+<div class="nav-group-title">小组件</div>
+<a class="nav-link" href="../../pages/widget-module/">widget</a>
+<a class="nav-link" href="../../pages/widget-quickstart-publish/">widget 从脚本到桌面</a>
+<a class="nav-link" href="../../pages/widget-layout/">widget 布局与尺寸</a>
+<a class="nav-link" href="../../pages/widget-parameters/">widget 参数面板</a>
+<a class="nav-link" href="../../pages/widget-interaction/">widget 状态和交互</a>
+<a class="nav-link" href="../../pages/widget-timeline/">widget 时间线和动画</a>
+<a class="nav-link" href="../../pages/widget-appearance-assets/">widget 资源与外观</a>
+<a class="nav-link" href="../../pages/widget-troubleshooting/">widget 排错</a>
+<a class="nav-link" href="../../pages/widget-api-index/">widget API 地图</a>
+<a class="nav-link" href="../../pages/widget-api-reference/">widget API 参考</a>
+</div>
+</details>
+<details class="nav-collection">
+<summary><a href="../../collections/ui/">ui</a></summary>
+<div class="nav-group">
+<div class="nav-group-title">快速上手</div>
+<a class="nav-link" href="../../pages/ui-module/">ui 概览</a>
+</div>
+<div class="nav-group">
+<div class="nav-group-title">API 参考</div>
+<a class="nav-link" href="../../pages/ui-api-index/">ui API 索引</a>
+<a class="nav-link" href="../../pages/ui-api-reference/">ui API 参考</a>
+</div>
+<div class="nav-group">
+<div class="nav-group-title">实时能力</div>
+<a class="nav-link" href="../../pages/aurora-system/">系统实时能力</a>
+<a class="nav-link" href="../../pages/aurora-toolkit/">实时更新工具</a>
+</div>
+</details>
+<details class="nav-collection">
+<summary><a href="../../collections/scene/">scene</a></summary>
+<div class="nav-group">
+<div class="nav-group-title">快速上手</div>
+<a class="nav-link" href="../../pages/scene-module/">scene 概览</a>
+<a class="nav-link" href="../../pages/turtle-module/">turtle</a>
+</div>
+<div class="nav-group">
+<div class="nav-group-title">API 参考</div>
+<a class="nav-link" href="../../pages/scene-api-index/">scene API 索引</a>
+<a class="nav-link" href="../../pages/scene-api-reference/">scene API 参考</a>
+</div>
+</details>
+<details class="nav-collection" open>
+<summary><a href="../../collections/ios-native/">iOS 原生模块</a></summary>
+<div class="nav-group">
+<div class="nav-group-title">快速上手</div>
+<a class="nav-link" href="../../pages/ios-native/">iOS 原生能力</a>
+<a class="nav-link" href="../../pages/modules-index/">全部模块总览</a>
+<a class="nav-link" href="../../pages/miniapp-native-capabilities/">原生能力入口</a>
+</div>
+<div class="nav-group">
+<div class="nav-group-title">设备与传感器</div>
+<a class="nav-link" href="../../pages/device-module/">device</a>
+<a class="nav-link" href="../../pages/location-module/">location</a>
+<a class="nav-link" href="../../pages/motion-module/">motion</a>
+<a class="nav-link" href="../../pages/haptics-module/">haptics</a>
+<a class="nav-link" href="../../pages/biometric-module/">biometric</a>
+<a class="nav-link" href="../../pages/health-module/">health</a>
+</div>
+<div class="nav-group">
+<div class="nav-group-title">媒体与视觉</div>
+<a class="nav-link" href="../../pages/photos-module/">photos</a>
+<a class="nav-link active" href="../../pages/avplayer-module/">avplayer</a>
+<a class="nav-link" href="../../pages/sound-module/">sound</a>
+<a class="nav-link" href="../../pages/speech-module/">speech</a>
+<a class="nav-link" href="../../pages/vision-helper-module/">vision_helper</a>
+<a class="nav-link" href="../../pages/vision-module/">vision</a>
+<a class="nav-link" href="../../pages/coreml-module/">coreml</a>
+</div>
+<div class="nav-group">
+<div class="nav-group-title">网络与数据</div>
+<a class="nav-link" href="../../pages/network-module/">network</a>
+<a class="nav-link" href="../../pages/websocket-module/">websocket</a>
+<a class="nav-link" href="../../pages/bluetooth-module/">bluetooth</a>
+<a class="nav-link" href="../../pages/background-module/">background</a>
+</div>
+<div class="nav-group">
+<div class="nav-group-title">系统服务</div>
+<a class="nav-link" href="../../pages/permission-module/">permission</a>
+<a class="nav-link" href="../../pages/storage-module/">storage</a>
+<a class="nav-link" href="../../pages/database-module/">database</a>
+<a class="nav-link" href="../../pages/keychain-module/">keychain</a>
+<a class="nav-link" href="../../pages/clipboard-module/">clipboard</a>
+<a class="nav-link" href="../../pages/dialogs-module/">dialogs</a>
+<a class="nav-link" href="../../pages/console-module/">console</a>
+<a class="nav-link" href="../../pages/notification-module/">notification</a>
+<a class="nav-link" href="../../pages/contacts-module/">contacts</a>
+<a class="nav-link" href="../../pages/calendar-events-module/">calendar_events</a>
+<a class="nav-link" href="../../pages/nfc-module/">nfc</a>
+</div>
+</details>
+<details class="nav-collection">
+<summary><a href="../../collections/automation-extension/">自动化与扩展</a></summary>
+<div class="nav-group">
+<div class="nav-group-title">快速上手</div>
+<a class="nav-link" href="../../pages/shortcuts-guide/">快捷指令</a>
+<a class="nav-link" href="../../pages/js-api/">JS API 说明</a>
+</div>
+<div class="nav-group">
+<div class="nav-group-title">模块</div>
+<a class="nav-link" href="../../pages/shortcuts-module/">shortcuts</a>
+<a class="nav-link" href="../../pages/live-activity-module/">live_activity</a>
+<a class="nav-link" href="../../pages/keyboard-module/">keyboard</a>
+<a class="nav-link" href="../../pages/objc-util-module/">objc_util</a>
+<a class="nav-link" href="../../pages/c-extensions-module/">c_extensions</a>
+</div>
+</details>
+</nav>
+    </aside>
+    <main class="content">
+      
+<article class="article" style="--page-accent:#dc2626">
+  <header class="article-intro">
+    <div class="breadcrumb">iOS 原生模块 / 媒体与视觉</div>
+    <h1>avplayer</h1>
+    <p>音视频加载、播放控制和原生播放器。</p>
+  </header>
+  <div class="markdown-body">
+    <p><code>avplayer</code> 是脚本级/底层原生 AVPlayer 能力模块，用于不写 AppUI 页面时加载远程或本地音视频、播放控制、跳转、调速、调音量和展示系统播放器。AppUI 页面里的视频控制优先用 <a href="../../pages/appui-ref-media/">AppUI 媒体控件</a> 的 <code>PlayerController</code>。</p>
+<h2 id="预期效果"><a class="heading-anchor" href="#预期效果">#</a>预期效果</h2>
+<p>示例会展示脚本级音视频加载、播放控制和播放失败处理。</p>
+<h2 id="什么时候用"><a class="heading-anchor" href="#什么时候用">#</a>什么时候用</h2>
+<ul><li>播放一个远程或本地媒体 URL。</li><li>非 AppUI 脚本需要多个命名播放器实例。</li><li>需要 <code>duration()</code>、<code>current_time()</code>、<code>seek(...)</code>、<code>set_rate(...)</code> 等播放控制。</li><li>视频需要系统播放器界面时调用 <code>present_video()</code>。</li></ul>
+<h2 id="不该用什么"><a class="heading-anchor" href="#不该用什么">#</a>不该用什么</h2>
+<div class="table-scroll"><table><thead><tr><th>情况</th><th>应该改用</th></tr></thead><tbody><tr><td>短 UI 音效</td><td><a href="../../pages/sound-module/">sound</a> 的 <code>play_effect</code></td></tr><tr><td>多个短音效或本地音频文件对象</td><td><a href="../../pages/sound-module/">sound</a> 的 <code>Player</code></td></tr><tr><td>AppUI 内嵌视频视图或页面内自定义控制</td><td><a href="../../pages/appui-ref-media/">AppUI 媒体控件</a> 的 <code>VideoPlayer</code> / <code>PlayerController</code></td></tr></tbody></table></div>
+<h2 id="核心模型"><a class="heading-anchor" href="#核心模型">#</a>核心模型</h2>
+<p><code>load(url)</code> 返回布尔值，成功后才能调用 <code>play()</code>、<code>pause()</code>、<code>seek()</code> 或 <code>present_video()</code>。模块级函数管理默认播放器会话；切换页面、切换媒体或脚本结束时应调用 <code>cleanup()</code>。</p>
+<p><code>Player(id=&quot;main&quot;)</code> 管理命名播放器实例，支持与模块级函数相同的播放控制，并额外隔离进度、结束、错误、状态和 PiP 回调。它是底层脚本入口，不是 AppUI 新页面的首选写法。</p>
+<p><code>on_progress(...)</code> 和 <code>on_end(...)</code> 面向需要回调 id 的高级场景。普通脚本优先用 <code>duration()</code>、<code>current_time()</code> 读取状态。</p>
+<h2 id="最小正确示例"><a class="heading-anchor" href="#最小正确示例">#</a>最小正确示例</h2>
+<figure class="code-block" data-code-id="fc3b1c453506">
+  <figcaption>
+    <span>python</span>
+    <button class="copy-code" type="button" data-copy-code="fc3b1c453506">复制</button>
+  </figcaption>
+  <pre><code id="code-fc3b1c453506" class="language-python">import avplayer
+
+url = (
+    &quot;https://devstreaming-cdn.apple.com/videos/streaming/examples/&quot;
+    &quot;img_bipbop_adv_example_ts/master.m3u8&quot;
+)
+if avplayer.load(url):
+    avplayer.set_volume(0.8)
+    avplayer.play()
+    print(avplayer.duration(), avplayer.current_time())
+    avplayer.pause()
+    avplayer.cleanup()
+else:
+    print(&quot;媒体加载失败&quot;)</code></pre>
+</figure>
+<h2 id="和-appui-的关系"><a class="heading-anchor" href="#和-appui-的关系">#</a>和 AppUI 的关系</h2>
+<p>AppUI 页面不要把 <code>VideoPlayer</code> 和 <code>avplayer</code> 混着控制。只展示视频时用 <code>appui.VideoPlayer(url=...)</code>；需要播放控制和事件时用 <code>appui.PlayerController</code>：</p>
+<figure class="code-block" data-code-id="e06452dcfadf">
+  <figcaption>
+    <span>python</span>
+    <button class="copy-code" type="button" data-copy-code="e06452dcfadf">复制</button>
+  </figcaption>
+  <pre><code id="code-e06452dcfadf" class="language-python">import appui
+
+player = appui.PlayerController(id=&quot;main&quot;, url=&quot;https://example.com/video.m3u8&quot;)
+
+def body():
+    return appui.VideoPlayer(player=player)</code></pre>
+</figure>
+<p><code>avplayer</code> 保留给纯脚本、兼容旧代码和底层能力调用。</p>
+<h2 id="失败路径"><a class="heading-anchor" href="#失败路径">#</a>失败路径</h2>
+<div class="table-scroll"><table><thead><tr><th>情况</th><th>应该怎么处理</th></tr></thead><tbody><tr><td><code>load(url)</code> 返回 <code>False</code></td><td>不调用播放控制，显示加载失败。</td></tr><tr><td><code>duration()</code> 为 0</td><td>视为未知时长或媒体未准备好。</td></tr><tr><td>页面关闭或切换媒体</td><td>调用 <code>cleanup()</code>。</td></tr><tr><td>视频需要系统播放器</td><td>成功 <code>load</code> 后再调用 <code>present_video()</code>。</td></tr></tbody></table></div>
+<h2 id="常见错误"><a class="heading-anchor" href="#常见错误">#</a>常见错误</h2>
+<div class="table-scroll"><table><thead><tr><th>错误写法</th><th>后果</th><th>修正</th></tr></thead><tbody><tr><td><code>play()</code> 前没有 <code>load()</code></td><td>没有媒体可播放</td><td>先检查 <code>load(url)</code>。</td></tr><tr><td>音频文件也 <code>present_video()</code></td><td>弹出不合适的播放器界面</td><td>只对视频使用。</td></tr><tr><td>退出页面不清理</td><td>旧媒体继续占资源</td><td>调用 <code>cleanup()</code>。</td></tr></tbody></table></div>
+<h2 id="api-参考"><a class="heading-anchor" href="#api-参考">#</a>API 参考</h2>
+<div class="table-scroll"><table><thead><tr><th>类型</th><th>API</th><th>签名</th><th>说明</th></tr></thead><tbody><tr><td>function</td><td><code>load</code></td><td><code>load(url) -&gt; Any</code></td><td>加载媒体 URL 或本地路径，成功返回 <code>True</code>。</td></tr><tr><td>function</td><td><code>play</code></td><td><code>play() -&gt; Any</code></td><td>开始或继续播放已加载媒体。</td></tr><tr><td>function</td><td><code>pause</code></td><td><code>pause() -&gt; Any</code></td><td>暂停播放，保留当前位置。</td></tr><tr><td>function</td><td><code>stop</code></td><td><code>stop() -&gt; Any</code></td><td>停止并回到开头。</td></tr><tr><td>function</td><td><code>seek</code></td><td><code>seek(seconds) -&gt; Any</code></td><td>跳转到指定秒数。</td></tr><tr><td>function</td><td><code>duration</code></td><td><code>duration() -&gt; Any</code></td><td>获取总时长，单位秒。</td></tr><tr><td>function</td><td><code>current_time</code></td><td><code>current_time() -&gt; Any</code></td><td>获取当前播放位置，单位秒。</td></tr><tr><td>function</td><td><code>is_playing</code></td><td><code>is_playing() -&gt; bool</code></td><td>当前是否正在播放。</td></tr><tr><td>function</td><td><code>set_volume</code></td><td><code>set_volume(volume) -&gt; None</code></td><td>设置音量，范围 0.0 到 1.0。</td></tr><tr><td>function</td><td><code>set_rate</code></td><td><code>set_rate(rate) -&gt; None</code></td><td>设置播放速度，<code>1.0</code> 为正常速度。</td></tr><tr><td>function</td><td><code>present_video</code></td><td><code>present_video() -&gt; Any</code></td><td>展示系统 AVPlayerViewController。</td></tr><tr><td>function</td><td><code>on_progress</code></td><td><code>on_progress(callback_id, interval_ms=500) -&gt; Any</code></td><td>注册进度回调。</td></tr><tr><td>function</td><td><code>stop_progress</code></td><td><code>stop_progress() -&gt; None</code></td><td>停止进度回调。</td></tr><tr><td>function</td><td><code>on_end</code></td><td><code>on_end(callback_id) -&gt; Any</code></td><td>注册播放结束回调。</td></tr><tr><td>function</td><td><code>cleanup</code></td><td><code>cleanup() -&gt; Any</code></td><td>释放播放器资源。</td></tr><tr><td>class</td><td><code>Player</code></td><td><code>Player(id=&#x27;default&#x27;)</code></td><td>命名原生播放器实例，方法包括 <code>load</code>、<code>play</code>、<code>pause</code>、<code>stop</code>、<code>seek</code>、<code>duration</code>、<code>current_time</code>、<code>is_playing</code>、<code>set_volume</code>、<code>set_rate</code>、<code>on_progress</code>、<code>stop_progress</code>、<code>on_end</code>、<code>on_error</code>、<code>on_status</code>、<code>on_pip</code>、<code>cleanup</code>。</td></tr></tbody></table></div>
+  </div>
+  
+</article>
+
+    </main>
+    <aside class="toc"><div class="toc-title">本页目录</div><a class="toc-link" href="#预期效果">预期效果</a><a class="toc-link" href="#什么时候用">什么时候用</a><a class="toc-link" href="#不该用什么">不该用什么</a><a class="toc-link" href="#核心模型">核心模型</a><a class="toc-link" href="#最小正确示例">最小正确示例</a><a class="toc-link" href="#和-appui-的关系">和 AppUI 的关系</a><a class="toc-link" href="#失败路径">失败路径</a><a class="toc-link" href="#常见错误">常见错误</a><a class="toc-link" href="#api-参考">API 参考</a></aside>
+  </div>
+  <div class="mobile-backdrop"></div>
+  <div class="search-panel" role="dialog" aria-modal="true" aria-label="搜索">
+    <div class="search-box">
+      <input id="docs-search-input" type="search" placeholder="搜索 API、模块、指南..." autocomplete="off">
+      <button class="search-close" type="button">Close</button>
+    </div>
+    <div id="docs-search-results" class="search-results"></div>
+  </div>
+</body>
+</html>

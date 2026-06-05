@@ -1,0 +1,399 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>photos - PythonIDE Docs</title>
+  <meta name="description" content="相册选择、拍照、保存和资源查询。">
+  <link rel="icon" href="../../assets/brand-mark.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="../../assets/docs-v2.css">
+  <script>window.PYTHONIDE_DOCS_PREFIX = "../../";</script>
+  <script defer src="../../assets/docs-v2.js"></script>
+</head>
+<body class="article-page">
+  <header class="topbar">
+    <button class="icon-button menu-toggle" type="button" aria-label="打开目录">☰</button>
+    <a class="brand" href="../../"><img class="brand-mark" src="../../assets/brand-mark.svg" alt="" width="30" height="30"><span class="brand-text">PythonIDE Docs</span></a>
+    <nav class="top-nav" aria-label="主导航">
+      <a class="active" href="../../">文档</a>
+      <a class="" href="../../pages/widget-api-reference/">API 参考</a>
+      <a class="" href="../../pages/appui-cookbook-index/">示例</a>
+    </nav>
+    <details class="language-menu">
+      <summary>中文</summary>
+      <div class="language-panel">
+        <span class="active">简体中文</span>
+        <button type="button" disabled>English <em>准备中</em></button>
+      </div>
+    </details>
+    <button class="theme-toggle" type="button" aria-label="切换主题">◐</button>
+  </header>
+  <div class="shell">
+    <aside class="sidebar">
+      <nav class="sidebar-nav" aria-label="Docs navigation">
+<button class="sidebar-search search-trigger" type="button"><span>搜索...</span><kbd>⌘K</kbd></button>
+<details class="nav-collection">
+<summary><a href="../../collections/appui/">appui</a></summary>
+<div class="nav-group">
+<div class="nav-group-title">开始</div>
+<a class="nav-link" href="../../pages/appui-module/">appui 概览</a>
+<a class="nav-link" href="../../pages/appui-quickstart/">快速上手</a>
+<a class="nav-link" href="../../pages/miniapp-choose-runtime/">运行时选择</a>
+<a class="nav-link" href="../../pages/miniapp-appui-ui-patterns/">AppUI UI 模式</a>
+<a class="nav-link" href="../../pages/miniapp-appui-api-index/">AppUI API 地图</a>
+<a class="nav-link" href="../../pages/miniapp-dev-troubleshooting/">MiniApp 开发排错</a>
+</div>
+<div class="nav-group">
+<div class="nav-group-title">指南</div>
+<a class="nav-link" href="../../pages/appui-guide-thinking/">appui 思维方式</a>
+<a class="nav-link" href="../../pages/appui-guide-state/">状态管理</a>
+<a class="nav-link" href="../../pages/appui-guide-layout/">布局系统</a>
+<a class="nav-link" href="../../pages/appui-guide-lists/">列表与表单</a>
+<a class="nav-link" href="../../pages/appui-guide-navigation/">导航与页面结构</a>
+<a class="nav-link" href="../../pages/appui-guide-interaction/">交互与回调</a>
+<a class="nav-link" href="../../pages/appui-guide-media/">媒体与系统集成</a>
+<a class="nav-link" href="../../pages/appui-guide-charts/">图表与绘图</a>
+<a class="nav-link" href="../../pages/appui-guide-darkmode/">深色模式与语义色</a>
+<a class="nav-link" href="../../pages/appui-guide-animation/">动画</a>
+<a class="nav-link" href="../../pages/appui-guide-hotreload/">热重载</a>
+<a class="nav-link" href="../../pages/appui-guide-realtime/">实时快路径</a>
+<a class="nav-link" href="../../pages/appui-guide-performance/">性能与实时界面</a>
+</div>
+<div class="nav-group">
+<div class="nav-group-title">API 参考</div>
+<a class="nav-link" href="../../pages/appui-ref-functions/">入口函数</a>
+<a class="nav-link" href="../../pages/appui-ref-state/">状态 API</a>
+<a class="nav-link" href="../../pages/appui-ref-layout/">布局 API</a>
+<a class="nav-link" href="../../pages/appui-ref-layout-stacks/">堆叠布局 API</a>
+<a class="nav-link" href="../../pages/appui-ref-layout-scroll/">滚动 API</a>
+<a class="nav-link" href="../../pages/appui-ref-layout-grids/">网格 API</a>
+<a class="nav-link" href="../../pages/appui-ref-layout-geometry/">几何与特殊布局 API</a>
+<a class="nav-link" href="../../pages/appui-ref-controls/">控件 API</a>
+<a class="nav-link" href="../../pages/appui-ref-navigation/">导航 API</a>
+<a class="nav-link" href="../../pages/appui-ref-data/">数据展示 API</a>
+<a class="nav-link" href="../../pages/appui-ref-presentation/">呈现 API</a>
+<a class="nav-link" href="../../pages/appui-ref-modifiers/">修饰符 API</a>
+<a class="nav-link" href="../../pages/appui-ref-environment/">环境值 API</a>
+<a class="nav-link" href="../../pages/appui-ref-media/">媒体 API</a>
+<a class="nav-link" href="../../pages/appui-ref-charts/">图表与画布 API</a>
+<a class="nav-link" href="../../pages/appui-ref-shapes/">形状 API</a>
+</div>
+<div class="nav-group">
+<div class="nav-group-title">示例</div>
+<a class="nav-link" href="../../pages/appui-cookbook-index/">示例索引</a>
+<a class="nav-link" href="../../pages/appui-cookbook-todo/">示例：待办列表</a>
+<a class="nav-link" href="../../pages/appui-cookbook-settings/">示例：设置表单</a>
+<a class="nav-link" href="../../pages/appui-cookbook-dashboard/">示例：紧凑仪表盘</a>
+<a class="nav-link" href="../../pages/appui-cookbook-native-list-detail/">示例：原生列表详情</a>
+<a class="nav-link" href="../../pages/appui-cookbook-network-list/">示例：网络列表</a>
+<a class="nav-link" href="../../pages/appui-cookbook-table-data-review/">示例：表格数据审核</a>
+<a class="nav-link" href="../../pages/appui-cookbook-chat/">示例：聊天界面</a>
+<a class="nav-link" href="../../pages/appui-cookbook-media-capture-gallery/">示例：媒体采集相册</a>
+<a class="nav-link" href="../../pages/appui-cookbook-gallery/">示例：相册浏览器</a>
+<a class="nav-link" href="../../pages/appui-cookbook-form-settings-controls/">示例：原生表单设置</a>
+<a class="nav-link" href="../../pages/appui-cookbook-chart-canvas-lab/">示例：图表与画布实验室</a>
+<a class="nav-link" href="../../pages/appui-cookbook-location-map/">示例：定位地图</a>
+<a class="nav-link" href="../../pages/appui-cookbook-motion-haptics-dashboard/">示例：运动传感器仪表盘</a>
+<a class="nav-link" href="../../pages/appui-cookbook-notification-reminder/">示例：通知提醒</a>
+<a class="nav-link" href="../../pages/appui-cookbook-health-blood-pressure/">示例：血压分析</a>
+<a class="nav-link" href="../../pages/appui-cookbook-secure-vault/">示例：安全凭据库</a>
+<a class="nav-link" href="../../pages/appui-cookbook-live-activity-background/">示例：实时活动与后台任务</a>
+<a class="nav-link" href="../../pages/appui-cookbook-shortcuts-launcher/">示例：快捷指令启动器</a>
+<a class="nav-link" href="../../pages/appui-cookbook-video-player/">示例：视频播放器</a>
+<a class="nav-link" href="../../pages/appui-cookbook-webview-share-export/">示例：WebView 与系统分享</a>
+</div>
+<div class="nav-group">
+<div class="nav-group-title">速查</div>
+<a class="nav-link" href="../../pages/appui-appendix-colors/">颜色参考</a>
+<a class="nav-link" href="../../pages/appui-appendix-symbols/">SF Symbols</a>
+<a class="nav-link" href="../../pages/appui-appendix-migration/">从 ui 迁移到 appui</a>
+</div>
+</details>
+<details class="nav-collection">
+<summary><a href="../../collections/widget/">widget</a></summary>
+<div class="nav-group">
+<div class="nav-group-title">小组件</div>
+<a class="nav-link" href="../../pages/widget-module/">widget</a>
+<a class="nav-link" href="../../pages/widget-quickstart-publish/">widget 从脚本到桌面</a>
+<a class="nav-link" href="../../pages/widget-layout/">widget 布局与尺寸</a>
+<a class="nav-link" href="../../pages/widget-parameters/">widget 参数面板</a>
+<a class="nav-link" href="../../pages/widget-interaction/">widget 状态和交互</a>
+<a class="nav-link" href="../../pages/widget-timeline/">widget 时间线和动画</a>
+<a class="nav-link" href="../../pages/widget-appearance-assets/">widget 资源与外观</a>
+<a class="nav-link" href="../../pages/widget-troubleshooting/">widget 排错</a>
+<a class="nav-link" href="../../pages/widget-api-index/">widget API 地图</a>
+<a class="nav-link" href="../../pages/widget-api-reference/">widget API 参考</a>
+</div>
+</details>
+<details class="nav-collection">
+<summary><a href="../../collections/ui/">ui</a></summary>
+<div class="nav-group">
+<div class="nav-group-title">快速上手</div>
+<a class="nav-link" href="../../pages/ui-module/">ui 概览</a>
+</div>
+<div class="nav-group">
+<div class="nav-group-title">API 参考</div>
+<a class="nav-link" href="../../pages/ui-api-index/">ui API 索引</a>
+<a class="nav-link" href="../../pages/ui-api-reference/">ui API 参考</a>
+</div>
+<div class="nav-group">
+<div class="nav-group-title">实时能力</div>
+<a class="nav-link" href="../../pages/aurora-system/">系统实时能力</a>
+<a class="nav-link" href="../../pages/aurora-toolkit/">实时更新工具</a>
+</div>
+</details>
+<details class="nav-collection">
+<summary><a href="../../collections/scene/">scene</a></summary>
+<div class="nav-group">
+<div class="nav-group-title">快速上手</div>
+<a class="nav-link" href="../../pages/scene-module/">scene 概览</a>
+<a class="nav-link" href="../../pages/turtle-module/">turtle</a>
+</div>
+<div class="nav-group">
+<div class="nav-group-title">API 参考</div>
+<a class="nav-link" href="../../pages/scene-api-index/">scene API 索引</a>
+<a class="nav-link" href="../../pages/scene-api-reference/">scene API 参考</a>
+</div>
+</details>
+<details class="nav-collection" open>
+<summary><a href="../../collections/ios-native/">iOS 原生模块</a></summary>
+<div class="nav-group">
+<div class="nav-group-title">快速上手</div>
+<a class="nav-link" href="../../pages/ios-native/">iOS 原生能力</a>
+<a class="nav-link" href="../../pages/modules-index/">全部模块总览</a>
+<a class="nav-link" href="../../pages/miniapp-native-capabilities/">原生能力入口</a>
+</div>
+<div class="nav-group">
+<div class="nav-group-title">设备与传感器</div>
+<a class="nav-link" href="../../pages/device-module/">device</a>
+<a class="nav-link" href="../../pages/location-module/">location</a>
+<a class="nav-link" href="../../pages/motion-module/">motion</a>
+<a class="nav-link" href="../../pages/haptics-module/">haptics</a>
+<a class="nav-link" href="../../pages/biometric-module/">biometric</a>
+<a class="nav-link" href="../../pages/health-module/">health</a>
+</div>
+<div class="nav-group">
+<div class="nav-group-title">媒体与视觉</div>
+<a class="nav-link active" href="../../pages/photos-module/">photos</a>
+<a class="nav-link" href="../../pages/avplayer-module/">avplayer</a>
+<a class="nav-link" href="../../pages/sound-module/">sound</a>
+<a class="nav-link" href="../../pages/speech-module/">speech</a>
+<a class="nav-link" href="../../pages/vision-helper-module/">vision_helper</a>
+<a class="nav-link" href="../../pages/vision-module/">vision</a>
+<a class="nav-link" href="../../pages/coreml-module/">coreml</a>
+</div>
+<div class="nav-group">
+<div class="nav-group-title">网络与数据</div>
+<a class="nav-link" href="../../pages/network-module/">network</a>
+<a class="nav-link" href="../../pages/websocket-module/">websocket</a>
+<a class="nav-link" href="../../pages/bluetooth-module/">bluetooth</a>
+<a class="nav-link" href="../../pages/background-module/">background</a>
+</div>
+<div class="nav-group">
+<div class="nav-group-title">系统服务</div>
+<a class="nav-link" href="../../pages/permission-module/">permission</a>
+<a class="nav-link" href="../../pages/storage-module/">storage</a>
+<a class="nav-link" href="../../pages/database-module/">database</a>
+<a class="nav-link" href="../../pages/keychain-module/">keychain</a>
+<a class="nav-link" href="../../pages/clipboard-module/">clipboard</a>
+<a class="nav-link" href="../../pages/dialogs-module/">dialogs</a>
+<a class="nav-link" href="../../pages/console-module/">console</a>
+<a class="nav-link" href="../../pages/notification-module/">notification</a>
+<a class="nav-link" href="../../pages/contacts-module/">contacts</a>
+<a class="nav-link" href="../../pages/calendar-events-module/">calendar_events</a>
+<a class="nav-link" href="../../pages/nfc-module/">nfc</a>
+</div>
+</details>
+<details class="nav-collection">
+<summary><a href="../../collections/automation-extension/">自动化与扩展</a></summary>
+<div class="nav-group">
+<div class="nav-group-title">快速上手</div>
+<a class="nav-link" href="../../pages/shortcuts-guide/">快捷指令</a>
+<a class="nav-link" href="../../pages/js-api/">JS API 说明</a>
+</div>
+<div class="nav-group">
+<div class="nav-group-title">模块</div>
+<a class="nav-link" href="../../pages/shortcuts-module/">shortcuts</a>
+<a class="nav-link" href="../../pages/live-activity-module/">live_activity</a>
+<a class="nav-link" href="../../pages/keyboard-module/">keyboard</a>
+<a class="nav-link" href="../../pages/objc-util-module/">objc_util</a>
+<a class="nav-link" href="../../pages/c-extensions-module/">c_extensions</a>
+</div>
+</details>
+</nav>
+    </aside>
+    <main class="content">
+      
+<article class="article" style="--page-accent:#16a34a">
+  <header class="article-intro">
+    <div class="breadcrumb">iOS 原生模块 / 媒体与视觉</div>
+    <h1>photos</h1>
+    <p>相册选择、拍照、保存和资源查询。</p>
+  </header>
+  <div class="markdown-body">
+    <p><code>photos</code> 用来选图、拍照、保存图片和视频、读取照片资源、管理相册，并把图片转换为 Base64。它默认走系统照片/相机界面，用户可以取消，因此每个流程都要处理 <code>None</code>、<code>False</code> 或空列表。</p>
+<h2 id="预期效果"><a class="heading-anchor" href="#预期效果">#</a>预期效果</h2>
+<p>示例会展示选图、拍照、保存和图片尺寸反馈，用户取消时页面保持可操作。</p>
+<h2 id="什么时候用"><a class="heading-anchor" href="#什么时候用">#</a>什么时候用</h2>
+<ul><li>从照片库选择一张图，传给 AppUI、Vision、Core ML 或上传流程。</li><li>使用相机拍照并保存到照片库。</li><li>把下载、生成或导出后的本地视频保存到系统照片库。</li><li>读取资源元数据、相册列表、收藏、最近图片或图片尺寸。</li><li>把图片转成 Base64，交给 <code>vision_helper</code>、网络接口或 JSON 数据。</li></ul>
+<h2 id="核心模型"><a class="heading-anchor" href="#核心模型">#</a>核心模型</h2>
+<p><code>pick_image()</code> 默认返回 <code>PIL.Image</code>；如果环境没有 Pillow，或者你需要原始 bytes，使用 <code>pick_image(raw_data=True)</code>。<code>capture_image()</code> 返回拍照后的图片对象；<code>save_image(...)</code> 支持 <code>PIL.Image</code> 或 bytes。</p>
+<p><code>save_video(path, ...)</code> 只接收本地视频文件路径，例如 <code>network.download(...)</code> 写入的 mp4 文件。视频不会读入 Python 内存，<code>album_name</code> 等兼容参数当前会被接受但忽略。</p>
+<p>资源接口使用 <code>Asset</code> 和 <code>AssetCollection</code>。读取大量资源时必须传 <code>limit</code>，不要一次性加载全部图片或图片数据。</p>
+<h2 id="最小正确示例"><a class="heading-anchor" href="#最小正确示例">#</a>最小正确示例</h2>
+<figure class="code-block" data-code-id="98a3a2924379">
+  <figcaption>
+    <span>python</span>
+    <button class="copy-code" type="button" data-copy-code="98a3a2924379">复制</button>
+  </figcaption>
+  <pre><code id="code-98a3a2924379" class="language-python">import photos
+
+image = photos.pick_image()
+if image is None:
+    print(&quot;用户取消选图&quot;)
+else:
+    print(&quot;size:&quot;, photos.get_image_size(image))
+
+raw = photos.pick_image(raw_data=True)
+print(&quot;raw bytes:&quot;, len(raw) if raw else 0)</code></pre>
+</figure>
+<h2 id="appui-中怎么接"><a class="heading-anchor" href="#appui-中怎么接">#</a>AppUI 中怎么接</h2>
+<p>选图和拍照必须在按钮回调里执行。下面的示例只展示尺寸和状态，不在页面构建时访问照片库。</p>
+<figure class="code-block" data-code-id="4acd1be121bc">
+  <figcaption>
+    <span>python</span>
+    <button class="copy-code" type="button" data-copy-code="4acd1be121bc">复制</button>
+  </figcaption>
+  <pre><code id="code-4acd1be121bc" class="language-python">import appui
+import photos
+
+state = appui.State(status=&quot;未选择&quot;, detail=&quot;等待操作&quot;)
+
+
+def pick_photo():
+    image = photos.pick_image()
+    if image is None:
+        state.batch_update(status=&quot;已取消&quot;, detail=&quot;没有选择图片&quot;)
+        return
+
+    state.batch_update(status=&quot;已选择&quot;, detail=str(photos.get_image_size(image)))
+
+
+def capture_photo():
+    image = photos.capture_image()
+    if image is None:
+        state.batch_update(status=&quot;已取消&quot;, detail=&quot;没有拍照&quot;)
+        return
+
+    saved = photos.save_image(image, format=&quot;JPEG&quot;, quality=0.85)
+    state.batch_update(status=&quot;已拍照&quot;, detail=&quot;保存成功&quot; if saved else &quot;保存失败&quot;)
+
+
+def body():
+    return appui.NavigationStack(
+        appui.Form([
+            appui.Section(&quot;Photos&quot;, [
+                appui.Button(&quot;Pick Photo&quot;, action=pick_photo),
+                appui.Button(&quot;Capture Photo&quot;, action=capture_photo),
+            ]),
+            appui.Section(&quot;Result&quot;, [
+                appui.Text(state.status),
+                appui.Text(state.detail),
+            ]),
+        ]).navigation_title(&quot;Photos&quot;)
+    )
+
+
+appui.run(body, state=state)</code></pre>
+</figure>
+<h2 id="保存视频"><a class="heading-anchor" href="#保存视频">#</a>保存视频</h2>
+<p>下载或生成视频后，把本地文件路径传给 <code>save_video(...)</code>。不要把视频 bytes 读入内存再传入。</p>
+<figure class="code-block" data-code-id="e2ce5733c303">
+  <figcaption>
+    <span>python</span>
+    <button class="copy-code" type="button" data-copy-code="e2ce5733c303">复制</button>
+  </figcaption>
+  <pre><code id="code-e2ce5733c303" class="language-python">import network
+import photos
+
+video_url = &quot;https://example.com/demo.mp4&quot;
+video_path = &quot;demo.mp4&quot;
+
+if network.download(video_url, video_path):
+    ok = photos.save_video(video_path)
+    print(&quot;已保存到相册&quot; if ok else &quot;保存失败&quot;)
+else:
+    print(&quot;下载失败&quot;)</code></pre>
+</figure>
+<p><code>save_video(...)</code> 返回 <code>True</code> 或 <code>False</code>。常见失败原因包括文件不存在、照片写入权限被拒、视频格式不被系统照片库支持，或文件过大导致系统处理耗时较长。</p>
+<h2 id="读取资源"><a class="heading-anchor" href="#读取资源">#</a>读取资源</h2>
+<figure class="code-block" data-code-id="9b8917ed2951">
+  <figcaption>
+    <span>python</span>
+    <button class="copy-code" type="button" data-copy-code="9b8917ed2951">复制</button>
+  </figcaption>
+  <pre><code id="code-9b8917ed2951" class="language-python">import photos
+
+assets = photos.get_assets(media_type=&quot;photo&quot;, limit=20)
+for asset in assets[:3]:
+    print(asset.local_identifier, asset.pixel_width, asset.pixel_height)</code></pre>
+</figure>
+<p><code>media_type</code> 支持 <code>photo</code>、<code>video</code>、<code>all</code>。<code>limit=0</code> 表示不限制，列表页不建议这样使用。</p>
+<h2 id="asset-对象"><a class="heading-anchor" href="#asset-对象">#</a>Asset 对象</h2>
+<p>常用属性：</p>
+<ul><li><code>local_identifier</code></li><li><code>media_type</code></li><li><code>pixel_width</code></li><li><code>pixel_height</code></li><li><code>creation_date</code></li><li><code>modification_date</code></li><li><code>location</code></li><li><code>duration</code></li><li><code>is_favorite</code></li></ul>
+<figure class="code-block" data-code-id="c1ea5ed042ae">
+  <figcaption>
+    <span>python</span>
+    <button class="copy-code" type="button" data-copy-code="c1ea5ed042ae">复制</button>
+  </figcaption>
+  <pre><code id="code-c1ea5ed042ae" class="language-python">import photos
+
+asset = photos.pick_asset()
+if asset:
+    image = asset.get_image(original=True)
+    raw = asset.get_image(original=True, raw_data=True)
+    print(asset.media_type, asset.pixel_width, asset.pixel_height, len(raw) if raw else 0)</code></pre>
+</figure>
+<h2 id="base64-与视觉识别"><a class="heading-anchor" href="#base64-与视觉识别">#</a>Base64 与视觉识别</h2>
+<p><code>vision_helper</code> 的检测 API 接收 Base64 字符串，<code>vision</code> 的 OCR API 接收 bytes。</p>
+<figure class="code-block" data-code-id="5ef5d4403684">
+  <figcaption>
+    <span>python</span>
+    <button class="copy-code" type="button" data-copy-code="5ef5d4403684">复制</button>
+  </figcaption>
+  <pre><code id="code-5ef5d4403684" class="language-python">import photos
+import vision_helper
+
+payload = photos.pick_image_base64(format=&quot;JPEG&quot;, quality=0.85)
+if payload:
+    result = vision_helper.detect_barcodes(payload)
+    print(result)</code></pre>
+</figure>
+<h2 id="相册与集合"><a class="heading-anchor" href="#相册与集合">#</a>相册与集合</h2>
+<div class="table-scroll"><table><thead><tr><th>API</th><th>说明</th></tr></thead><tbody><tr><td><code>get_albums()</code></td><td>用户相册。</td></tr><tr><td><code>get_smart_albums()</code></td><td>系统智能相册。</td></tr><tr><td><code>get_moments()</code></td><td>时刻分组。</td></tr><tr><td><code>create_album(title)</code></td><td>创建相册。</td></tr><tr><td><code>get_screenshots_album()</code></td><td>截图相册。</td></tr><tr><td><code>get_recently_added_album()</code></td><td>最近添加。</td></tr><tr><td><code>get_selfies_album()</code></td><td>自拍相册。</td></tr></tbody></table></div>
+<h2 id="失败路径"><a class="heading-anchor" href="#失败路径">#</a>失败路径</h2>
+<div class="table-scroll"><table><thead><tr><th>情况</th><th>应该怎么处理</th></tr></thead><tbody><tr><td>用户取消选图或拍照</td><td>返回 <code>None</code>，保持原状态并显示取消。</td></tr><tr><td>没有 Pillow</td><td>使用 <code>raw_data=True</code> 或 Base64 API。</td></tr><tr><td>照片权限被拒绝</td><td>显示授权说明，不循环打开选择器。</td></tr><tr><td>图片很大</td><td>读取尺寸或缩略信息，不把 bytes/Base64 放进 <code>storage</code>。</td></tr><tr><td>视频文件不存在或格式不支持</td><td>先确认下载/导出成功，再把本地路径传给 <code>save_video(...)</code>。</td></tr></tbody></table></div>
+<h2 id="常见错误"><a class="heading-anchor" href="#常见错误">#</a>常见错误</h2>
+<div class="table-scroll"><table><thead><tr><th>错误写法</th><th>后果</th><th>修正</th></tr></thead><tbody><tr><td>不判断 <code>pick_image()</code> 返回值</td><td>用户取消后代码崩溃</td><td>先判断 <code>if image is None</code>。</td></tr><tr><td>列表页 <code>get_assets(limit=0)</code></td><td>可能一次性加载过多</td><td>设置合理 <code>limit</code>。</td></tr><tr><td>把 Base64 图片存进 <code>storage</code></td><td>占用大且慢</td><td>存文件路径或重新选择。</td></tr><tr><td>把图片路径传给 <code>vision_helper</code></td><td>输入类型错误</td><td>先用 <code>pick_image_base64</code> 或 <code>image_to_base64</code>。</td></tr></tbody></table></div>
+<h2 id="api-参考"><a class="heading-anchor" href="#api-参考">#</a>API 参考</h2>
+<div class="table-scroll"><table><thead><tr><th>类型</th><th>API</th><th>签名</th><th>说明</th></tr></thead><tbody><tr><td>function</td><td><code>pick_image</code></td><td><code>pick_image(show_albums=False, include_metadata=False, original=True, raw_data=False, multi=False, **kwargs) -&gt; Any</code></td><td>从照片库选择图片；<code>raw_data=True</code> 返回 bytes。</td></tr><tr><td>function</td><td><code>capture_image</code></td><td><code>capture_image(camera=&quot;back&quot;, show_preview=True, flash=&quot;auto&quot;, **kwargs) -&gt; Any</code></td><td>使用系统相机拍照；相机参数为兼容入口，实际由系统界面控制。</td></tr><tr><td>function</td><td><code>save_image</code></td><td><code>save_image(image, format=&quot;JPEG&quot;, quality=0.85, album_name=None, **kwargs) -&gt; Any</code></td><td>保存图片到照片库。</td></tr><tr><td>function</td><td><code>save_video</code></td><td><code>save_video(path, album_name=None, **kwargs) -&gt; bool</code></td><td>保存本地视频文件到照片库；视频按路径传入，不读取为 bytes。</td></tr><tr><td>function</td><td><code>get_assets</code></td><td><code>get_assets(media_type=&quot;photo&quot;, limit=0, **kwargs) -&gt; Any</code></td><td>获取照片资源列表。</td></tr><tr><td>function</td><td><code>pick_asset</code></td><td><code>pick_asset(assets=None, title=None, multi=False, **kwargs) -&gt; Any</code></td><td>选择一个照片资源对象。</td></tr><tr><td>function</td><td><code>get_image</code></td><td><code>get_image(asset, original=True) -&gt; Any</code></td><td>从 <code>Asset</code> 获取图片。</td></tr><tr><td>class</td><td><code>Asset</code></td><td><code>Asset(info_dict) -&gt; None</code></td><td>照片资源对象，包含元数据和 <code>get_image(...)</code>。</td></tr><tr><td>class</td><td><code>AssetCollection</code></td><td><code>AssetCollection(title, identifier=None, count=0, collection_type=&quot;&quot;) -&gt; None</code></td><td>相册或智能相册对象。</td></tr><tr><td>function</td><td><code>get_albums</code></td><td><code>get_albums() -&gt; Any</code></td><td>获取用户相册。</td></tr><tr><td>function</td><td><code>get_smart_albums</code></td><td><code>get_smart_albums() -&gt; Any</code></td><td>获取系统智能相册。</td></tr><tr><td>function</td><td><code>get_moments</code></td><td><code>get_moments() -&gt; Any</code></td><td>获取时刻集合。</td></tr><tr><td>function</td><td><code>create_album</code></td><td><code>create_album(title) -&gt; Any</code></td><td>创建相册。</td></tr><tr><td>function</td><td><code>get_screenshots_album</code></td><td><code>get_screenshots_album() -&gt; Any</code></td><td>获取截图相册。</td></tr><tr><td>function</td><td><code>get_recently_added_album</code></td><td><code>get_recently_added_album() -&gt; Any</code></td><td>获取最近添加相册。</td></tr><tr><td>function</td><td><code>get_selfies_album</code></td><td><code>get_selfies_album() -&gt; Any</code></td><td>获取自拍相册。</td></tr><tr><td>function</td><td><code>pick_image_base64</code></td><td><code>pick_image_base64(format=&quot;JPEG&quot;, quality=0.85) -&gt; Any</code></td><td>选图并返回 Base64 字符串。</td></tr><tr><td>function</td><td><code>capture_image_base64</code></td><td><code>capture_image_base64(format=&quot;JPEG&quot;, quality=0.85) -&gt; Any</code></td><td>拍照并返回 Base64 字符串。</td></tr><tr><td>function</td><td><code>image_to_base64</code></td><td><code>image_to_base64(image, format=&quot;JPEG&quot;, quality=0.85) -&gt; Any</code></td><td>把图片对象或 bytes 转成 Base64。</td></tr><tr><td>function</td><td><code>base64_to_image</code></td><td><code>base64_to_image(b64_string) -&gt; Any</code></td><td>把 Base64 转回图片对象。</td></tr><tr><td>function</td><td><code>get_favorites</code></td><td><code>get_favorites() -&gt; Any</code></td><td>获取收藏照片。</td></tr><tr><td>function</td><td><code>get_count</code></td><td><code>get_count(media_type=&quot;photo&quot;) -&gt; Any</code></td><td>获取资源数量。</td></tr><tr><td>function</td><td><code>get_recent_images</code></td><td><code>get_recent_images(count=10) -&gt; Any</code></td><td>获取最近照片。</td></tr><tr><td>function</td><td><code>get_image_size</code></td><td><code>get_image_size(image) -&gt; Any</code></td><td>获取图片尺寸。</td></tr><tr><td>function</td><td><code>get_metadata</code></td><td><code>get_metadata(image) -&gt; Any</code></td><td>获取图片 EXIF 元数据。</td></tr><tr><td>function</td><td><code>is_available</code></td><td><code>is_available() -&gt; bool</code></td><td>检查照片能力是否可用。</td></tr></tbody></table></div>
+<h2 id="相关文档"><a class="heading-anchor" href="#相关文档">#</a>相关文档</h2>
+<div class="table-scroll"><table><thead><tr><th>文档</th><th>用途</th></tr></thead><tbody><tr><td><a href="../../pages/vision-module/">vision</a></td><td>图片 bytes OCR。</td></tr><tr><td><a href="../../pages/vision-helper-module/">vision_helper</a></td><td>Base64 图片的人脸、条码、分类和矩形检测。</td></tr><tr><td><a href="../../pages/miniapp-native-capabilities/">原生能力入口</a></td><td>MiniApp 常用原生能力入口。</td></tr></tbody></table></div>
+  </div>
+  <section class="related-section"><h2>相关文档</h2><div class="related-list"><a class="related-link" href="../miniapp-native-capabilities/"><strong>原生能力入口</strong><span>MiniApp 常用原生能力入口，不是完整模块总表。</span></a><a class="related-link" href="../miniapp-appui-ui-patterns/"><strong>AppUI UI 模式</strong><span>按页面类型选择 Form、List、NavigationStack、TabView 和媒体承载。</span></a><a class="related-link" href="../appui-ref-media/"><strong>媒体 API</strong><span>Image、AsyncImage、PhotoPicker、CameraPicker、VideoPlayer、WebView 和 MapView。</span></a></div></section>
+</article>
+
+    </main>
+    <aside class="toc"><div class="toc-title">本页目录</div><a class="toc-link" href="#预期效果">预期效果</a><a class="toc-link" href="#什么时候用">什么时候用</a><a class="toc-link" href="#核心模型">核心模型</a><a class="toc-link" href="#最小正确示例">最小正确示例</a><a class="toc-link" href="#appui-中怎么接">AppUI 中怎么接</a><a class="toc-link" href="#保存视频">保存视频</a><a class="toc-link" href="#读取资源">读取资源</a><a class="toc-link" href="#asset-对象">Asset 对象</a><a class="toc-link" href="#base64-与视觉识别">Base64 与视觉识别</a><a class="toc-link" href="#相册与集合">相册与集合</a><a class="toc-link" href="#失败路径">失败路径</a><a class="toc-link" href="#常见错误">常见错误</a><a class="toc-link" href="#api-参考">API 参考</a><a class="toc-link" href="#相关文档">相关文档</a></aside>
+  </div>
+  <div class="mobile-backdrop"></div>
+  <div class="search-panel" role="dialog" aria-modal="true" aria-label="搜索">
+    <div class="search-box">
+      <input id="docs-search-input" type="search" placeholder="搜索 API、模块、指南..." autocomplete="off">
+      <button class="search-close" type="button">Close</button>
+    </div>
+    <div id="docs-search-results" class="search-results"></div>
+  </div>
+</body>
+</html>

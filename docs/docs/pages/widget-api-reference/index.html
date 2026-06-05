@@ -1,0 +1,1796 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>API 参考 - PythonIDE Docs</title>
+  <meta name="description" content="公开 Widget() API 速查。">
+  <link rel="icon" href="../../assets/brand-mark.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="../../assets/docs-v2.css">
+  <script>window.PYTHONIDE_DOCS_PREFIX = "../../";</script>
+  <script defer src="../../assets/docs-v2.js"></script>
+</head>
+<body class="article-page">
+  <header class="topbar">
+    <button class="icon-button menu-toggle" type="button" aria-label="打开目录">☰</button>
+    <a class="brand" href="../../"><img class="brand-mark" src="../../assets/brand-mark.svg" alt="" width="30" height="30"><span class="brand-text">PythonIDE Docs</span></a>
+    <nav class="top-nav" aria-label="主导航">
+      <a class="" href="../../">文档</a>
+      <a class="active" href="../../pages/widget-api-reference/">API 参考</a>
+      <a class="" href="../../pages/appui-cookbook-index/">示例</a>
+    </nav>
+    <details class="language-menu">
+      <summary>中文</summary>
+      <div class="language-panel">
+        <span class="active">简体中文</span>
+        <button type="button" disabled>English <em>准备中</em></button>
+      </div>
+    </details>
+    <button class="theme-toggle" type="button" aria-label="切换主题">◐</button>
+  </header>
+  <div class="shell">
+    <aside class="sidebar">
+      <nav class="sidebar-nav" aria-label="Docs navigation">
+<button class="sidebar-search search-trigger" type="button"><span>搜索...</span><kbd>⌘K</kbd></button>
+<details class="nav-collection">
+<summary><a href="../../collections/appui/">appui</a></summary>
+<div class="nav-group">
+<div class="nav-group-title">开始</div>
+<a class="nav-link" href="../../pages/appui-module/">appui 概览</a>
+<a class="nav-link" href="../../pages/appui-quickstart/">快速上手</a>
+<a class="nav-link" href="../../pages/miniapp-choose-runtime/">运行时选择</a>
+<a class="nav-link" href="../../pages/miniapp-appui-ui-patterns/">AppUI UI 模式</a>
+<a class="nav-link" href="../../pages/miniapp-appui-api-index/">AppUI API 地图</a>
+<a class="nav-link" href="../../pages/miniapp-dev-troubleshooting/">MiniApp 开发排错</a>
+</div>
+<div class="nav-group">
+<div class="nav-group-title">指南</div>
+<a class="nav-link" href="../../pages/appui-guide-thinking/">appui 思维方式</a>
+<a class="nav-link" href="../../pages/appui-guide-state/">状态管理</a>
+<a class="nav-link" href="../../pages/appui-guide-layout/">布局系统</a>
+<a class="nav-link" href="../../pages/appui-guide-lists/">列表与表单</a>
+<a class="nav-link" href="../../pages/appui-guide-navigation/">导航与页面结构</a>
+<a class="nav-link" href="../../pages/appui-guide-interaction/">交互与回调</a>
+<a class="nav-link" href="../../pages/appui-guide-media/">媒体与系统集成</a>
+<a class="nav-link" href="../../pages/appui-guide-charts/">图表与绘图</a>
+<a class="nav-link" href="../../pages/appui-guide-darkmode/">深色模式与语义色</a>
+<a class="nav-link" href="../../pages/appui-guide-animation/">动画</a>
+<a class="nav-link" href="../../pages/appui-guide-hotreload/">热重载</a>
+<a class="nav-link" href="../../pages/appui-guide-realtime/">实时快路径</a>
+<a class="nav-link" href="../../pages/appui-guide-performance/">性能与实时界面</a>
+</div>
+<div class="nav-group">
+<div class="nav-group-title">API 参考</div>
+<a class="nav-link" href="../../pages/appui-ref-functions/">入口函数</a>
+<a class="nav-link" href="../../pages/appui-ref-state/">状态 API</a>
+<a class="nav-link" href="../../pages/appui-ref-layout/">布局 API</a>
+<a class="nav-link" href="../../pages/appui-ref-layout-stacks/">堆叠布局 API</a>
+<a class="nav-link" href="../../pages/appui-ref-layout-scroll/">滚动 API</a>
+<a class="nav-link" href="../../pages/appui-ref-layout-grids/">网格 API</a>
+<a class="nav-link" href="../../pages/appui-ref-layout-geometry/">几何与特殊布局 API</a>
+<a class="nav-link" href="../../pages/appui-ref-controls/">控件 API</a>
+<a class="nav-link" href="../../pages/appui-ref-navigation/">导航 API</a>
+<a class="nav-link" href="../../pages/appui-ref-data/">数据展示 API</a>
+<a class="nav-link" href="../../pages/appui-ref-presentation/">呈现 API</a>
+<a class="nav-link" href="../../pages/appui-ref-modifiers/">修饰符 API</a>
+<a class="nav-link" href="../../pages/appui-ref-environment/">环境值 API</a>
+<a class="nav-link" href="../../pages/appui-ref-media/">媒体 API</a>
+<a class="nav-link" href="../../pages/appui-ref-charts/">图表与画布 API</a>
+<a class="nav-link" href="../../pages/appui-ref-shapes/">形状 API</a>
+</div>
+<div class="nav-group">
+<div class="nav-group-title">示例</div>
+<a class="nav-link" href="../../pages/appui-cookbook-index/">示例索引</a>
+<a class="nav-link" href="../../pages/appui-cookbook-todo/">示例：待办列表</a>
+<a class="nav-link" href="../../pages/appui-cookbook-settings/">示例：设置表单</a>
+<a class="nav-link" href="../../pages/appui-cookbook-dashboard/">示例：紧凑仪表盘</a>
+<a class="nav-link" href="../../pages/appui-cookbook-native-list-detail/">示例：原生列表详情</a>
+<a class="nav-link" href="../../pages/appui-cookbook-network-list/">示例：网络列表</a>
+<a class="nav-link" href="../../pages/appui-cookbook-table-data-review/">示例：表格数据审核</a>
+<a class="nav-link" href="../../pages/appui-cookbook-chat/">示例：聊天界面</a>
+<a class="nav-link" href="../../pages/appui-cookbook-media-capture-gallery/">示例：媒体采集相册</a>
+<a class="nav-link" href="../../pages/appui-cookbook-gallery/">示例：相册浏览器</a>
+<a class="nav-link" href="../../pages/appui-cookbook-form-settings-controls/">示例：原生表单设置</a>
+<a class="nav-link" href="../../pages/appui-cookbook-chart-canvas-lab/">示例：图表与画布实验室</a>
+<a class="nav-link" href="../../pages/appui-cookbook-location-map/">示例：定位地图</a>
+<a class="nav-link" href="../../pages/appui-cookbook-motion-haptics-dashboard/">示例：运动传感器仪表盘</a>
+<a class="nav-link" href="../../pages/appui-cookbook-notification-reminder/">示例：通知提醒</a>
+<a class="nav-link" href="../../pages/appui-cookbook-health-blood-pressure/">示例：血压分析</a>
+<a class="nav-link" href="../../pages/appui-cookbook-secure-vault/">示例：安全凭据库</a>
+<a class="nav-link" href="../../pages/appui-cookbook-live-activity-background/">示例：实时活动与后台任务</a>
+<a class="nav-link" href="../../pages/appui-cookbook-shortcuts-launcher/">示例：快捷指令启动器</a>
+<a class="nav-link" href="../../pages/appui-cookbook-video-player/">示例：视频播放器</a>
+<a class="nav-link" href="../../pages/appui-cookbook-webview-share-export/">示例：WebView 与系统分享</a>
+</div>
+<div class="nav-group">
+<div class="nav-group-title">速查</div>
+<a class="nav-link" href="../../pages/appui-appendix-colors/">颜色参考</a>
+<a class="nav-link" href="../../pages/appui-appendix-symbols/">SF Symbols</a>
+<a class="nav-link" href="../../pages/appui-appendix-migration/">从 ui 迁移到 appui</a>
+</div>
+</details>
+<details class="nav-collection" open>
+<summary><a href="../../collections/widget/">widget</a></summary>
+<div class="nav-group">
+<div class="nav-group-title">小组件</div>
+<a class="nav-link" href="../../pages/widget-module/">widget</a>
+<a class="nav-link" href="../../pages/widget-quickstart-publish/">widget 从脚本到桌面</a>
+<a class="nav-link" href="../../pages/widget-layout/">widget 布局与尺寸</a>
+<a class="nav-link" href="../../pages/widget-parameters/">widget 参数面板</a>
+<a class="nav-link" href="../../pages/widget-interaction/">widget 状态和交互</a>
+<a class="nav-link" href="../../pages/widget-timeline/">widget 时间线和动画</a>
+<a class="nav-link" href="../../pages/widget-appearance-assets/">widget 资源与外观</a>
+<a class="nav-link" href="../../pages/widget-troubleshooting/">widget 排错</a>
+<a class="nav-link" href="../../pages/widget-api-index/">widget API 地图</a>
+<a class="nav-link active" href="../../pages/widget-api-reference/">widget API 参考</a>
+</div>
+</details>
+<details class="nav-collection">
+<summary><a href="../../collections/ui/">ui</a></summary>
+<div class="nav-group">
+<div class="nav-group-title">快速上手</div>
+<a class="nav-link" href="../../pages/ui-module/">ui 概览</a>
+</div>
+<div class="nav-group">
+<div class="nav-group-title">API 参考</div>
+<a class="nav-link" href="../../pages/ui-api-index/">ui API 索引</a>
+<a class="nav-link" href="../../pages/ui-api-reference/">ui API 参考</a>
+</div>
+<div class="nav-group">
+<div class="nav-group-title">实时能力</div>
+<a class="nav-link" href="../../pages/aurora-system/">系统实时能力</a>
+<a class="nav-link" href="../../pages/aurora-toolkit/">实时更新工具</a>
+</div>
+</details>
+<details class="nav-collection">
+<summary><a href="../../collections/scene/">scene</a></summary>
+<div class="nav-group">
+<div class="nav-group-title">快速上手</div>
+<a class="nav-link" href="../../pages/scene-module/">scene 概览</a>
+<a class="nav-link" href="../../pages/turtle-module/">turtle</a>
+</div>
+<div class="nav-group">
+<div class="nav-group-title">API 参考</div>
+<a class="nav-link" href="../../pages/scene-api-index/">scene API 索引</a>
+<a class="nav-link" href="../../pages/scene-api-reference/">scene API 参考</a>
+</div>
+</details>
+<details class="nav-collection">
+<summary><a href="../../collections/ios-native/">iOS 原生模块</a></summary>
+<div class="nav-group">
+<div class="nav-group-title">快速上手</div>
+<a class="nav-link" href="../../pages/ios-native/">iOS 原生能力</a>
+<a class="nav-link" href="../../pages/modules-index/">全部模块总览</a>
+<a class="nav-link" href="../../pages/miniapp-native-capabilities/">原生能力入口</a>
+</div>
+<div class="nav-group">
+<div class="nav-group-title">设备与传感器</div>
+<a class="nav-link" href="../../pages/device-module/">device</a>
+<a class="nav-link" href="../../pages/location-module/">location</a>
+<a class="nav-link" href="../../pages/motion-module/">motion</a>
+<a class="nav-link" href="../../pages/haptics-module/">haptics</a>
+<a class="nav-link" href="../../pages/biometric-module/">biometric</a>
+<a class="nav-link" href="../../pages/health-module/">health</a>
+</div>
+<div class="nav-group">
+<div class="nav-group-title">媒体与视觉</div>
+<a class="nav-link" href="../../pages/photos-module/">photos</a>
+<a class="nav-link" href="../../pages/avplayer-module/">avplayer</a>
+<a class="nav-link" href="../../pages/sound-module/">sound</a>
+<a class="nav-link" href="../../pages/speech-module/">speech</a>
+<a class="nav-link" href="../../pages/vision-helper-module/">vision_helper</a>
+<a class="nav-link" href="../../pages/vision-module/">vision</a>
+<a class="nav-link" href="../../pages/coreml-module/">coreml</a>
+</div>
+<div class="nav-group">
+<div class="nav-group-title">网络与数据</div>
+<a class="nav-link" href="../../pages/network-module/">network</a>
+<a class="nav-link" href="../../pages/websocket-module/">websocket</a>
+<a class="nav-link" href="../../pages/bluetooth-module/">bluetooth</a>
+<a class="nav-link" href="../../pages/background-module/">background</a>
+</div>
+<div class="nav-group">
+<div class="nav-group-title">系统服务</div>
+<a class="nav-link" href="../../pages/permission-module/">permission</a>
+<a class="nav-link" href="../../pages/storage-module/">storage</a>
+<a class="nav-link" href="../../pages/database-module/">database</a>
+<a class="nav-link" href="../../pages/keychain-module/">keychain</a>
+<a class="nav-link" href="../../pages/clipboard-module/">clipboard</a>
+<a class="nav-link" href="../../pages/dialogs-module/">dialogs</a>
+<a class="nav-link" href="../../pages/console-module/">console</a>
+<a class="nav-link" href="../../pages/notification-module/">notification</a>
+<a class="nav-link" href="../../pages/contacts-module/">contacts</a>
+<a class="nav-link" href="../../pages/calendar-events-module/">calendar_events</a>
+<a class="nav-link" href="../../pages/nfc-module/">nfc</a>
+</div>
+</details>
+<details class="nav-collection">
+<summary><a href="../../collections/automation-extension/">自动化与扩展</a></summary>
+<div class="nav-group">
+<div class="nav-group-title">快速上手</div>
+<a class="nav-link" href="../../pages/shortcuts-guide/">快捷指令</a>
+<a class="nav-link" href="../../pages/js-api/">JS API 说明</a>
+</div>
+<div class="nav-group">
+<div class="nav-group-title">模块</div>
+<a class="nav-link" href="../../pages/shortcuts-module/">shortcuts</a>
+<a class="nav-link" href="../../pages/live-activity-module/">live_activity</a>
+<a class="nav-link" href="../../pages/keyboard-module/">keyboard</a>
+<a class="nav-link" href="../../pages/objc-util-module/">objc_util</a>
+<a class="nav-link" href="../../pages/c-extensions-module/">c_extensions</a>
+</div>
+</details>
+</nav>
+    </aside>
+    <main class="content">
+      
+<article class="article" style="--page-accent:#7c3aed">
+  <header class="article-intro">
+    <div class="breadcrumb">widget / 小组件</div>
+    <h1>API 参考</h1>
+    <p>公开 Widget() API 速查。</p>
+  </header>
+  <div class="markdown-body">
+    <p>这页是公开 <code>Widget()</code> API 的签名索引。先用 <a href="../../pages/widget-api-index/">API 地图</a> 按任务选择能力，再回到这里核对函数名、参数名和返回句柄。</p>
+<h2 id="怎么查"><a class="heading-anchor" href="#怎么查">#</a>怎么查</h2>
+<ul><li>选能力：先看「常用组合」。</li><li>查签名：看「完整公开 API 索引」。</li><li>学写法：先看 <a href="../../pages/widget-module/">widget</a> 或 <a href="../../pages/widget-quickstart-publish/">从脚本到桌面</a>，再进入布局、参数、交互、时间线或外观指南。</li><li>排故障：先看 <a href="../../pages/widget-troubleshooting/">排错</a>，再回到这里核对签名。</li></ul>
+<h2 id="常用组合"><a class="heading-anchor" href="#常用组合">#</a>常用组合</h2>
+<div class="table-scroll"><table><thead><tr><th>目标</th><th>推荐 API</th></tr></thead><tbody><tr><td>普通信息卡</td><td><code>text</code>、<code>value</code>、<code>progress</code>、<code>row</code>、<code>column</code></td></tr><tr><td>精确表格</td><td><code>table</code>、<code>canvas</code>、<code>path</code>、<code>shape</code>、<code>.place()</code></td></tr><tr><td>可点击状态</td><td><code>widget.state</code>、<code>button</code>、<code>toggle</code></td></tr><tr><td>可调参数</td><td><code>widget.param.color/slider/text/bool/choice/file</code></td></tr><tr><td>动态数据</td><td><code>widget.entry</code>、<code>timeline</code>、<code>content_transition</code>、<code>flip</code></td></tr><tr><td>外观适配</td><td><code>container_background</code>、<code>content_margins</code>、<code>transparent_background</code>、<code>accentable</code></td></tr></tbody></table></div>
+<h2 id="行为契约"><a class="heading-anchor" href="#行为契约">#</a>行为契约</h2>
+<div class="table-scroll"><table><thead><tr><th>API</th><th>保证</th><th>注意</th></tr></thead><tbody><tr><td><code>Widget()</code></td><td>创建一个小组件根容器，控制背景、边距和整体样式。</td><td>一个脚本只保留一个最终渲染的小组件。</td></tr><tr><td><code>w.render()</code></td><td>输出当前小组件并结束构建流程。</td><td>放在脚本末尾；没有调用时预览和发布都不会得到内容。</td></tr><tr><td><code>widget.param.*</code></td><td>在预览面板提供可配置输入，构建时读取当前值。</td><td>参数不是桌面点击状态；改名后需要重新运行并发布。</td></tr><tr><td><code>widget.state.*</code></td><td>保存桌面交互状态，并为按钮或开关生成安全动作。</td><td>不要把普通 Python 回调传给桌面按钮。</td></tr><tr><td><code>w.button()</code> / <code>w.toggle()</code></td><td>创建系统允许的点击或开关交互。</td><td>交互区域要清晰，避免同一区域同时承担链接和按钮。</td></tr><tr><td><code>w.timeline()</code> / <code>widget.entry</code></td><td>声明一组未来显示结果，用于系统刷新和数据更新动画。</td><td>刷新时机由系统调度，不适合连续动画。</td></tr><tr><td><code>widget.family_value()</code></td><td>为不同 family 选择不同值。</td><td>small、medium、large 内容密度差异大，不要只缩小同一套布局。</td></tr><tr><td><code>.line_limit()</code> / <code>.min_scale()</code></td><td>限制可变文本的行数，并允许文字在小尺寸内缩放。</td><td>用户可改文本、按钮标题和主值默认都应该加。</td></tr><tr><td><code>w.container_background()</code></td><td>声明系统小组件背景。</td><td>透明、染色和背景移除是否生效取决于系统宿主环境。</td></tr></tbody></table></div>
+<h2 id="公开-api-速查"><a class="heading-anchor" href="#公开-api-速查">#</a>公开 API 速查</h2>
+<div class="table-scroll"><table><thead><tr><th>场景</th><th>常用 API</th><th>用途</th></tr></thead><tbody><tr><td>创建和运行</td><td><code>Widget()</code>、<code>w.render</code>、<code>w.validate</code>、<code>w.timeline</code></td><td>创建、检查、发布小组件，并声明更新时间线。</td></tr><tr><td>尺寸和数据</td><td><code>widget.context</code>、<code>widget.entry</code>、<code>widget.param</code>、<code>widget.state</code>、<code>widget.family_value</code></td><td>读取当前尺寸、时间线数据、参数和桌面交互状态。</td></tr><tr><td>文字和内容</td><td><code>w.text</code>、<code>w.rich_text</code>、<code>w.value</code>、<code>w.symbol</code>、<code>w.svg</code>、<code>w.image</code>、<code>w.badge</code></td><td>标题、数值、图标、图片和组合文字。</td></tr><tr><td>图表和进度</td><td><code>w.progress</code>、<code>w.ring_chart</code>、<code>w.line_chart</code>、<code>w.bar_chart</code></td><td>进度条、圆环、折线和柱状图。</td></tr><tr><td>布局</td><td><code>w.row</code>、<code>w.column</code>、<code>w.layer</code>、<code>w.grid</code>、<code>w.table</code>、<code>w.canvas</code>、<code>w.spacer</code>、<code>w.divider</code></td><td>从自动布局到精确表格、画布定位。</td></tr><tr><td>形状和线条</td><td><code>w.shape</code>、<code>w.rect</code>、<code>w.circle</code>、<code>w.path</code>；<code>.stroke</code>、<code>.clip_shape</code>、<code>.mask</code>、<code>.reverse_mask</code></td><td>线宽、虚线、裁切、遮罩和自定义图形。</td></tr><tr><td>交互</td><td><code>w.button</code>、<code>w.toggle</code>、<code>w.link</code>；<code>widget.action</code></td><td>AppIntent 按钮、开关、链接和状态动作。</td></tr><tr><td>外观</td><td><code>w.container_background</code>、<code>w.content_margins</code>、<code>w.transparent_background</code>、<code>w.background_image</code>；<code>.accentable</code>、<code>.privacy_sensitive</code>、<code>.redacted</code></td><td>深色、透明、染色、隐私和占位。</td></tr><tr><td>动画</td><td><code>w.flip</code>；<code>.content_transition</code>、<code>.animation</code>、<code>.transition</code>、<code>.id</code></td><td>WidgetKit 数据更新动画和稳定身份。</td></tr><tr><td>资源和缓存</td><td><code>widget.save_image</code>、<code>widget.cache_json</code>、<code>widget.history</code></td><td>保存图片、缓存网络数据和保留历史值。</td></tr></tbody></table></div>
+<h2 id="完整公开-api-索引"><a class="heading-anchor" href="#完整公开-api-索引">#</a>完整公开 API 索引</h2>
+<h3 id="常量"><a class="heading-anchor" href="#常量">#</a>常量</h3>
+<ul><li><code>widget.CIRCULAR</code>：<code>Family: circular</code></li><li><code>widget.INLINE</code>：<code>Family: inline</code></li><li><code>widget.LARGE</code>：<code>Family: large</code></li><li><code>widget.MEDIUM</code>：<code>Family: medium</code></li><li><code>widget.RECTANGULAR</code>：<code>Family: rectangular</code></li><li><code>widget.SMALL</code>：<code>Family: small</code></li></ul>
+<h3 id="运行值"><a class="heading-anchor" href="#运行值">#</a>运行值</h3>
+<ul><li><code>widget.action</code>：动作助手，用于创建受控刷新、状态和打开链接动作。</li><li><code>widget.color</code>：颜色助手，用于固定色、浅深色和系统角色色。</li><li><code>widget.context</code>：当前 family、尺寸和内容区域信息。</li><li><code>widget.entry</code>：当前 timeline entry 的字段读取入口。</li><li><code>widget.family</code>：当前小组件 family 名称。</li><li><code>widget.param</code>：预览面板参数声明入口。</li><li><code>widget.state</code>：桌面交互状态声明入口。</li><li><code>widget.storage</code>：小组件脚本可用的轻量存储入口。</li></ul>
+<h3 id="函数"><a class="heading-anchor" href="#函数">#</a>函数</h3>
+<h4 id="widget.cache_json"><a class="heading-anchor" href="#widget.cache_json">#</a><code>widget.cache_json</code></h4>
+<figure class="code-block" data-code-id="bcd465fdf4aa">
+  <figcaption>
+    <span>text</span>
+    <button class="copy-code" type="button" data-copy-code="bcd465fdf4aa">复制</button>
+  </figcaption>
+  <pre><code id="code-bcd465fdf4aa" class="language-text">widget.cache_json(
+    url: str,
+    *,
+    ttl: Optional[float] = 3600,
+    default: Any = None,
+    params: Optional[Dict[str, Any]] = None,
+    headers: Optional[Dict[str, str]] = None,
+    key: Optional[str] = None,
+    timeout: float = 8,
+) -&gt; Any</code></pre>
+</figure>
+<h4 id="widget.family_value"><a class="heading-anchor" href="#widget.family_value">#</a><code>widget.family_value</code></h4>
+<figure class="code-block" data-code-id="1ddadc5b5abc">
+  <figcaption>
+    <span>text</span>
+    <button class="copy-code" type="button" data-copy-code="1ddadc5b5abc">复制</button>
+  </figcaption>
+  <pre><code id="code-1ddadc5b5abc" class="language-text">widget.family_value(default: Any = None, **values: Any) -&gt; Any</code></pre>
+</figure>
+<h4 id="widget.history"><a class="heading-anchor" href="#widget.history">#</a><code>widget.history</code></h4>
+<figure class="code-block" data-code-id="6831ddd686a0">
+  <figcaption>
+    <span>text</span>
+    <button class="copy-code" type="button" data-copy-code="6831ddd686a0">复制</button>
+  </figcaption>
+  <pre><code id="code-6831ddd686a0" class="language-text">widget.history(
+    key: str,
+    value: Any = None,
+    limit: int = 7,
+    *,
+    bucket: Optional[str] = &quot;day&quot;,
+    default: Any = None,
+) -&gt; Any</code></pre>
+</figure>
+<h4 id="widget.save_image"><a class="heading-anchor" href="#widget.save_image">#</a><code>widget.save_image</code></h4>
+<figure class="code-block" data-code-id="a83faef5a3ff">
+  <figcaption>
+    <span>text</span>
+    <button class="copy-code" type="button" data-copy-code="a83faef5a3ff">复制</button>
+  </figcaption>
+  <pre><code id="code-a83faef5a3ff" class="language-text">widget.save_image(source: Union[str, bytes], name: str, *, variant: Optional[str] = None) -&gt; str</code></pre>
+</figure>
+<h3 id="widget-方法"><a class="heading-anchor" href="#widget-方法">#</a>Widget 方法</h3>
+<h4 id="w.background"><a class="heading-anchor" href="#w.background">#</a><code>w.background</code></h4>
+<figure class="code-block" data-code-id="4dae247dd505">
+  <figcaption>
+    <span>text</span>
+    <button class="copy-code" type="button" data-copy-code="4dae247dd505">复制</button>
+  </figcaption>
+  <pre><code id="code-4dae247dd505" class="language-text">w.background(value: WidgetBackground) -&gt; &quot;Widget&quot;</code></pre>
+</figure>
+<h4 id="w.background_image"><a class="heading-anchor" href="#w.background_image">#</a><code>w.background_image</code></h4>
+<figure class="code-block" data-code-id="795150b324c6">
+  <figcaption>
+    <span>text</span>
+    <button class="copy-code" type="button" data-copy-code="795150b324c6">复制</button>
+  </figcaption>
+  <pre><code id="code-795150b324c6" class="language-text">w.background_image(
+    asset: Optional[ImageLike] = None,
+    content_mode: str = &quot;fill&quot;,
+    dim: Optional[Union[bool, float]] = None,
+    scrim: Optional[Union[bool, str]] = None,
+    scrim_opacity: Optional[float] = None,
+    focal: str = &quot;center&quot;,
+    overlay_color: ColorLike = &quot;#000000&quot;,
+    *,
+    light: Optional[str] = None,
+    dark: Optional[str] = None,
+) -&gt; &quot;Widget&quot;</code></pre>
+</figure>
+<h4 id="w.badge"><a class="heading-anchor" href="#w.badge">#</a><code>w.badge</code></h4>
+<figure class="code-block" data-code-id="d6ce209d1eed">
+  <figcaption>
+    <span>text</span>
+    <button class="copy-code" type="button" data-copy-code="d6ce209d1eed">复制</button>
+  </figcaption>
+  <pre><code id="code-d6ce209d1eed" class="language-text">w.badge(
+    text: Union[str, int, float],
+    icon: Optional[str] = None,
+    tone: str = &quot;accent&quot;,
+    style: str = &quot;plain&quot;,
+) -&gt; WidgetNode</code></pre>
+</figure>
+<h4 id="w.bar_chart"><a class="heading-anchor" href="#w.bar_chart">#</a><code>w.bar_chart</code></h4>
+<figure class="code-block" data-code-id="33692bcee8ba">
+  <figcaption>
+    <span>text</span>
+    <button class="copy-code" type="button" data-copy-code="33692bcee8ba">复制</button>
+  </figcaption>
+  <pre><code id="code-33692bcee8ba" class="language-text">w.bar_chart(
+    values: List[Union[int, float]],
+    color: Optional[ColorLike] = None,
+    height: Optional[float] = None,
+    min_value: Optional[float] = None,
+    max_value: Optional[float] = None,
+    spacing: Optional[float] = None,
+    corner_radius: Optional[float] = None,
+    track_color: Optional[ColorLike] = None,
+    opacity: Optional[float] = None,
+    padding: Optional[Union[int, float]] = None,
+    frame: Optional[Dict[str, Any]] = None,
+    segment_colors: Optional[List[ColorLike]] = None,
+    baseline: Optional[float] = None,
+    threshold: Optional[float] = None,
+    labels: Optional[Union[List[Any], Dict[str, Any]]] = None,
+    label_color: Optional[ColorLike] = None,
+) -&gt; WidgetNode</code></pre>
+</figure>
+<h4 id="w.body"><a class="heading-anchor" href="#w.body">#</a><code>w.body</code></h4>
+<figure class="code-block" data-code-id="22cb5659e7f5">
+  <figcaption>
+    <span>text</span>
+    <button class="copy-code" type="button" data-copy-code="22cb5659e7f5">复制</button>
+  </figcaption>
+  <pre><code id="code-22cb5659e7f5" class="language-text">w.body(content: Union[str, int, float]) -&gt; WidgetNode</code></pre>
+</figure>
+<h4 id="w.button"><a class="heading-anchor" href="#w.button">#</a><code>w.button</code></h4>
+<figure class="code-block" data-code-id="2212b10da677">
+  <figcaption>
+    <span>text</span>
+    <button class="copy-code" type="button" data-copy-code="2212b10da677">复制</button>
+  </figcaption>
+  <pre><code id="code-2212b10da677" class="language-text">w.button(
+    title: Optional[str] = None,
+    action: Optional[Union[str, WidgetAction]] = None,
+    url: Optional[str] = None,
+    color: Optional[ColorLike] = None,
+    background: Optional[WidgetBackground] = None,
+    size: Optional[float] = None,
+    padding: Optional[Union[int, float]] = None,
+    *,
+    style: Optional[str] = None,
+    layout: Optional[str] = None,
+    press: Optional[Dict[str, Any]] = None,
+    normal: Optional[Dict[str, Any]] = None,
+) -&gt; WidgetNode</code></pre>
+</figure>
+<h4 id="w.canvas"><a class="heading-anchor" href="#w.canvas">#</a><code>w.canvas</code></h4>
+<figure class="code-block" data-code-id="ee21cff1f37e">
+  <figcaption>
+    <span>text</span>
+    <button class="copy-code" type="button" data-copy-code="ee21cff1f37e">复制</button>
+  </figcaption>
+  <pre><code id="code-ee21cff1f37e" class="language-text">w.canvas(
+    height: Optional[float] = None,
+    coordinate_space: str = &quot;relative&quot;,
+    align: str = &quot;center&quot;,
+    background: Optional[WidgetBackground] = None,
+    padding: Optional[Union[int, float]] = None,
+    corner_radius: Optional[float] = None,
+    border_color: Optional[ColorLike] = None,
+    border_width: Optional[float] = None,
+    opacity: Optional[float] = None,
+    frame: Optional[Dict[str, Any]] = None,
+    fill: bool = False,
+) -&gt; Canvas</code></pre>
+</figure>
+<h4 id="w.caption"><a class="heading-anchor" href="#w.caption">#</a><code>w.caption</code></h4>
+<figure class="code-block" data-code-id="ec476e2cf342">
+  <figcaption>
+    <span>text</span>
+    <button class="copy-code" type="button" data-copy-code="ec476e2cf342">复制</button>
+  </figcaption>
+  <pre><code id="code-ec476e2cf342" class="language-text">w.caption(content: Union[str, int, float]) -&gt; WidgetNode</code></pre>
+</figure>
+<h4 id="w.change"><a class="heading-anchor" href="#w.change">#</a><code>w.change</code></h4>
+<figure class="code-block" data-code-id="a5b53f43c2b9">
+  <figcaption>
+    <span>text</span>
+    <button class="copy-code" type="button" data-copy-code="a5b53f43c2b9">复制</button>
+  </figcaption>
+  <pre><code id="code-a5b53f43c2b9" class="language-text">w.change(
+    primary: Union[str, int, float],
+    secondary: Optional[Union[str, int, float]] = None,
+    direction: Optional[str] = None,
+) -&gt; WidgetNode</code></pre>
+</figure>
+<h4 id="w.circle"><a class="heading-anchor" href="#w.circle">#</a><code>w.circle</code></h4>
+<figure class="code-block" data-code-id="c50bb4d0c4a4">
+  <figcaption>
+    <span>text</span>
+    <button class="copy-code" type="button" data-copy-code="c50bb4d0c4a4">复制</button>
+  </figcaption>
+  <pre><code id="code-c50bb4d0c4a4" class="language-text">w.circle(
+    color: Optional[ColorLike] = None,
+    size: Optional[float] = None,
+    opacity: Optional[float] = None,
+    padding: Optional[Union[int, float]] = None,
+    frame: Optional[Dict[str, Any]] = None,
+    border_color: Optional[ColorLike] = None,
+    border_width: Optional[float] = None,
+) -&gt; WidgetNode</code></pre>
+</figure>
+<h4 id="w.column"><a class="heading-anchor" href="#w.column">#</a><code>w.column</code></h4>
+<figure class="code-block" data-code-id="b371a0ff394c">
+  <figcaption>
+    <span>text</span>
+    <button class="copy-code" type="button" data-copy-code="b371a0ff394c">复制</button>
+  </figcaption>
+  <pre><code id="code-b371a0ff394c" class="language-text">w.column(
+    spacing: Optional[Union[int, float]] = None,
+    align: Optional[str] = None,
+) -&gt; WidgetContainer</code></pre>
+</figure>
+<h4 id="w.container_background"><a class="heading-anchor" href="#w.container_background">#</a><code>w.container_background</code></h4>
+<figure class="code-block" data-code-id="0c9f68e37548">
+  <figcaption>
+    <span>text</span>
+    <button class="copy-code" type="button" data-copy-code="0c9f68e37548">复制</button>
+  </figcaption>
+  <pre><code id="code-0c9f68e37548" class="language-text">w.container_background(
+    value: Optional[WidgetBackground] = None,
+    *,
+    removable: Optional[bool] = None,
+) -&gt; &quot;Widget&quot;</code></pre>
+</figure>
+<h4 id="w.content_margins"><a class="heading-anchor" href="#w.content_margins">#</a><code>w.content_margins</code></h4>
+<figure class="code-block" data-code-id="01f9743a94b4">
+  <figcaption>
+    <span>text</span>
+    <button class="copy-code" type="button" data-copy-code="01f9743a94b4">复制</button>
+  </figcaption>
+  <pre><code id="code-01f9743a94b4" class="language-text">w.content_margins(
+    enabled: bool = True,
+    padding: Optional[Union[int, float, Sequence[float], Dict[str, float]]] = None,
+) -&gt; &quot;Widget&quot;</code></pre>
+</figure>
+<h4 id="w.context"><a class="heading-anchor" href="#w.context">#</a><code>w.context</code></h4>
+<figure class="code-block" data-code-id="7f88443ef68e">
+  <figcaption>
+    <span>text</span>
+    <button class="copy-code" type="button" data-copy-code="7f88443ef68e">复制</button>
+  </figcaption>
+  <pre><code id="code-7f88443ef68e" class="language-text">w.context() -&gt; WidgetContext</code></pre>
+</figure>
+<h4 id="w.countdown"><a class="heading-anchor" href="#w.countdown">#</a><code>w.countdown</code></h4>
+<figure class="code-block" data-code-id="0e7162548159">
+  <figcaption>
+    <span>text</span>
+    <button class="copy-code" type="button" data-copy-code="0e7162548159">复制</button>
+  </figcaption>
+  <pre><code id="code-0e7162548159" class="language-text">w.countdown(
+    title: Optional[Union[str, int, float]] = &quot;Countdown&quot;,
+    target: Optional[Union[datetime, str]] = None,
+    subtitle: Optional[Union[str, int, float]] = None,
+    icon: Optional[str] = None,
+    tone: Optional[str] = None,
+    accent: Optional[ColorLike] = None,
+) -&gt; WidgetBlock</code></pre>
+</figure>
+<h4 id="w.date"><a class="heading-anchor" href="#w.date">#</a><code>w.date</code></h4>
+<figure class="code-block" data-code-id="b63e8336ed46">
+  <figcaption>
+    <span>text</span>
+    <button class="copy-code" type="button" data-copy-code="b63e8336ed46">复制</button>
+  </figcaption>
+  <pre><code id="code-b63e8336ed46" class="language-text">w.date(target: Optional[Union[datetime, str]] = None, style: str = &quot;date&quot;) -&gt; WidgetNode</code></pre>
+</figure>
+<h4 id="w.divider"><a class="heading-anchor" href="#w.divider">#</a><code>w.divider</code></h4>
+<figure class="code-block" data-code-id="6619f22f4075">
+  <figcaption>
+    <span>text</span>
+    <button class="copy-code" type="button" data-copy-code="6619f22f4075">复制</button>
+  </figcaption>
+  <pre><code id="code-6619f22f4075" class="language-text">w.divider(color: Optional[ColorLike] = None, opacity: Optional[float] = None, ) -&gt; WidgetNode</code></pre>
+</figure>
+<h4 id="w.dynamic_date"><a class="heading-anchor" href="#w.dynamic_date">#</a><code>w.dynamic_date</code></h4>
+<figure class="code-block" data-code-id="46c038397882">
+  <figcaption>
+    <span>text</span>
+    <button class="copy-code" type="button" data-copy-code="46c038397882">复制</button>
+  </figcaption>
+  <pre><code id="code-46c038397882" class="language-text">w.dynamic_date(target: Optional[Union[datetime, str]] = None, style: str = &quot;date&quot;) -&gt; WidgetNode</code></pre>
+</figure>
+<h4 id="w.flip"><a class="heading-anchor" href="#w.flip">#</a><code>w.flip</code></h4>
+<figure class="code-block" data-code-id="df3d1d303ca2">
+  <figcaption>
+    <span>text</span>
+    <button class="copy-code" type="button" data-copy-code="df3d1d303ca2">复制</button>
+  </figcaption>
+  <pre><code id="code-df3d1d303ca2" class="language-text">w.flip(
+    value: Any,
+    previous: Optional[Any] = None,
+    *,
+    direction: str = &quot;up&quot;,
+    width: Optional[float] = None,
+    height: Optional[float] = None,
+    size: Optional[float] = None,
+    weight: str = &quot;bold&quot;,
+    color: Optional[ColorLike] = None,
+    background: Optional[WidgetBackground] = None,
+    corner_radius: Optional[float] = None,
+    duration: float = 0.55,
+    delta: Optional[float] = None,
+    perspective: float = 0.62,
+    shadow_opacity: float = 0.18,
+    padding: Optional[Union[int, float]] = None,
+    frame: Optional[Dict[str, Any]] = None,
+    design: Optional[str] = &quot;monospaced&quot;,
+) -&gt; WidgetNode</code></pre>
+</figure>
+<h4 id="w.grid"><a class="heading-anchor" href="#w.grid">#</a><code>w.grid</code></h4>
+<figure class="code-block" data-code-id="6330a0f10285">
+  <figcaption>
+    <span>text</span>
+    <button class="copy-code" type="button" data-copy-code="6330a0f10285">复制</button>
+  </figcaption>
+  <pre><code id="code-6330a0f10285" class="language-text">w.grid(
+    columns: int = 2,
+    spacing: Optional[Union[int, float]] = None,
+    row_spacing: Optional[Union[int, float]] = None,
+    column_spacing: Optional[Union[int, float]] = None,
+    align: Optional[str] = None,
+    padding: Optional[Union[int, float]] = None,
+    background: Optional[WidgetBackground] = None,
+    opacity: Optional[float] = None,
+    corner_radius: Optional[float] = None,
+    border_color: Optional[ColorLike] = None,
+    border_width: Optional[float] = None,
+    url: Optional[str] = None,
+    shadow_color: Optional[ColorLike] = None,
+    shadow_radius: Optional[float] = None,
+    shadow_x: float = 0,
+    shadow_y: float = 2,
+    rows: Optional[int] = None,
+    equal: bool = False,
+    fill: bool = False,
+) -&gt; WidgetContainer</code></pre>
+</figure>
+<h4 id="w.image"><a class="heading-anchor" href="#w.image">#</a><code>w.image</code></h4>
+<figure class="code-block" data-code-id="d068b4ba8b48">
+  <figcaption>
+    <span>text</span>
+    <button class="copy-code" type="button" data-copy-code="d068b4ba8b48">复制</button>
+  </figcaption>
+  <pre><code id="code-d068b4ba8b48" class="language-text">w.image(
+    name: Optional[ImageLike] = None,
+    width: Optional[float] = None,
+    height: Optional[float] = None,
+    corner_radius: Optional[float] = None,
+    opacity: Optional[float] = None,
+    padding: Optional[Union[int, float]] = None,
+    content_mode: Optional[str] = None,
+    *,
+    light: Optional[str] = None,
+    dark: Optional[str] = None,
+    rendering_mode: Optional[str] = None,
+) -&gt; WidgetNode</code></pre>
+</figure>
+<h4 id="w.layer"><a class="heading-anchor" href="#w.layer">#</a><code>w.layer</code></h4>
+<figure class="code-block" data-code-id="8384eb093dd7">
+  <figcaption>
+    <span>text</span>
+    <button class="copy-code" type="button" data-copy-code="8384eb093dd7">复制</button>
+  </figcaption>
+  <pre><code id="code-8384eb093dd7" class="language-text">w.layer(
+    align: str = &quot;center&quot;,
+    padding: Optional[Union[int, float]] = None,
+    background: Optional[WidgetBackground] = None,
+    corner_radius: Optional[float] = None,
+) -&gt; WidgetContainer</code></pre>
+</figure>
+<h4 id="w.line_chart"><a class="heading-anchor" href="#w.line_chart">#</a><code>w.line_chart</code></h4>
+<figure class="code-block" data-code-id="ba4c652b3a23">
+  <figcaption>
+    <span>text</span>
+    <button class="copy-code" type="button" data-copy-code="ba4c652b3a23">复制</button>
+  </figcaption>
+  <pre><code id="code-ba4c652b3a23" class="language-text">w.line_chart(
+    values: List[Union[int, float]],
+    color: Optional[ColorLike] = None,
+    height: Optional[float] = None,
+    min_value: Optional[float] = None,
+    max_value: Optional[float] = None,
+    fill: bool = True,
+    show_points: bool = True,
+    line_width: Optional[float] = None,
+    track_color: Optional[ColorLike] = None,
+    opacity: Optional[float] = None,
+    padding: Optional[Union[int, float]] = None,
+    frame: Optional[Dict[str, Any]] = None,
+    segment_colors: Optional[List[ColorLike]] = None,
+    baseline: Optional[float] = None,
+    threshold: Optional[float] = None,
+    labels: Optional[Union[List[Any], Dict[str, Any]]] = None,
+    label_color: Optional[ColorLike] = None,
+) -&gt; WidgetNode</code></pre>
+</figure>
+<h4 id="w.link"><a class="heading-anchor" href="#w.link">#</a><code>w.link</code></h4>
+<figure class="code-block" data-code-id="a7330b4d6a5a">
+  <figcaption>
+    <span>text</span>
+    <button class="copy-code" type="button" data-copy-code="a7330b4d6a5a">复制</button>
+  </figcaption>
+  <pre><code id="code-a7330b4d6a5a" class="language-text">w.link(
+    title: str,
+    url: str,
+    icon: Optional[str] = None,
+    color: Optional[ColorLike] = None,
+) -&gt; Union[WidgetNode, WidgetContainer]</code></pre>
+</figure>
+<h4 id="w.list"><a class="heading-anchor" href="#w.list">#</a><code>w.list</code></h4>
+<figure class="code-block" data-code-id="40f1e7571261">
+  <figcaption>
+    <span>text</span>
+    <button class="copy-code" type="button" data-copy-code="40f1e7571261">复制</button>
+  </figcaption>
+  <pre><code id="code-40f1e7571261" class="language-text">w.list(
+    items: List[Any],
+    title: Optional[Union[str, int, float]] = None,
+    limit: Optional[int] = None,
+    empty_text: Optional[Union[str, int, float]] = None,
+    dividers: bool = False,
+) -&gt; WidgetContainer</code></pre>
+</figure>
+<h4 id="w.path"><a class="heading-anchor" href="#w.path">#</a><code>w.path</code></h4>
+<figure class="code-block" data-code-id="4fa2eb4b084f">
+  <figcaption>
+    <span>text</span>
+    <button class="copy-code" type="button" data-copy-code="4fa2eb4b084f">复制</button>
+  </figcaption>
+  <pre><code id="code-4fa2eb4b084f" class="language-text">w.path(
+    points: List[PathPoint],
+    stroke: Optional[ColorLike] = None,
+    fill: Optional[ColorLike] = None,
+    line_width: Optional[Union[float, str]] = None,
+    closed: bool = False,
+    height: Optional[float] = None,
+    coordinate_space: str = &quot;relative&quot;,
+    opacity: Optional[float] = None,
+    padding: Optional[Union[int, float]] = None,
+    frame: Optional[Dict[str, Any]] = None,
+    line_cap: Optional[str] = None,
+    line_join: Optional[str] = None,
+    dash: Optional[Sequence[float]] = None,
+    miter_limit: Optional[float] = None,
+) -&gt; WidgetNode</code></pre>
+</figure>
+<h4 id="w.progress"><a class="heading-anchor" href="#w.progress">#</a><code>w.progress</code></h4>
+<figure class="code-block" data-code-id="cf264f56d342">
+  <figcaption>
+    <span>text</span>
+    <button class="copy-code" type="button" data-copy-code="cf264f56d342">复制</button>
+  </figcaption>
+  <pre><code id="code-cf264f56d342" class="language-text">w.progress(
+    value: Union[int, float],
+    total: float = 1.0,
+    color: Optional[ColorLike] = None,
+    height: Optional[float] = None,
+    track_color: Optional[ColorLike] = None,
+    *,
+    title: Optional[str] = None,
+    subtitle: Optional[str] = None,
+    unit: Optional[str] = None,
+    icon: Optional[str] = None,
+    tone: Optional[str] = None,
+    accent: Optional[str] = None,
+    style: Optional[str] = None,
+) -&gt; WidgetNode</code></pre>
+</figure>
+<h4 id="w.rect"><a class="heading-anchor" href="#w.rect">#</a><code>w.rect</code></h4>
+<figure class="code-block" data-code-id="344df879f557">
+  <figcaption>
+    <span>text</span>
+    <button class="copy-code" type="button" data-copy-code="344df879f557">复制</button>
+  </figcaption>
+  <pre><code id="code-344df879f557" class="language-text">w.rect(
+    color: Optional[ColorLike] = None,
+    width: Optional[float] = None,
+    height: Optional[float] = None,
+    corner_radius: Optional[float] = None,
+    opacity: Optional[float] = None,
+    padding: Optional[Union[int, float]] = None,
+    frame: Optional[Dict[str, Any]] = None,
+    border_color: Optional[ColorLike] = None,
+    border_width: Optional[float] = None,
+) -&gt; WidgetNode</code></pre>
+</figure>
+<h4 id="w.region"><a class="heading-anchor" href="#w.region">#</a><code>w.region</code></h4>
+<figure class="code-block" data-code-id="120a7c0f7a72">
+  <figcaption>
+    <span>text</span>
+    <button class="copy-code" type="button" data-copy-code="120a7c0f7a72">复制</button>
+  </figcaption>
+  <pre><code id="code-120a7c0f7a72" class="language-text">w.region(
+    slot: str = &quot;center&quot;,
+    spacing: Optional[Union[int, float]] = None,
+    align: Optional[str] = None,
+) -&gt; WidgetContainer</code></pre>
+</figure>
+<h4 id="w.relative_time"><a class="heading-anchor" href="#w.relative_time">#</a><code>w.relative_time</code></h4>
+<figure class="code-block" data-code-id="4eff2a1c76d3">
+  <figcaption>
+    <span>text</span>
+    <button class="copy-code" type="button" data-copy-code="4eff2a1c76d3">复制</button>
+  </figcaption>
+  <pre><code id="code-4eff2a1c76d3" class="language-text">w.relative_time(target: Optional[Union[datetime, str]] = None) -&gt; WidgetNode</code></pre>
+</figure>
+<h4 id="w.render"><a class="heading-anchor" href="#w.render">#</a><code>w.render</code></h4>
+<figure class="code-block" data-code-id="2ee672660da8">
+  <figcaption>
+    <span>text</span>
+    <button class="copy-code" type="button" data-copy-code="2ee672660da8">复制</button>
+  </figcaption>
+  <pre><code id="code-2ee672660da8" class="language-text">w.render(url: Optional[str] = None) -&gt; None</code></pre>
+</figure>
+<h4 id="w.rich_text"><a class="heading-anchor" href="#w.rich_text">#</a><code>w.rich_text</code></h4>
+<figure class="code-block" data-code-id="4628418037d4">
+  <figcaption>
+    <span>text</span>
+    <button class="copy-code" type="button" data-copy-code="4628418037d4">复制</button>
+  </figcaption>
+  <pre><code id="code-4628418037d4" class="language-text">w.rich_text(
+    parts: List[RichTextPart],
+    size: Optional[float] = None,
+    weight: Optional[str] = None,
+    color: Optional[ColorLike] = None,
+    align: Optional[str] = None,
+    max_lines: Optional[int] = None,
+    design: Optional[str] = None,
+    opacity: Optional[float] = None,
+    padding: Optional[Union[int, float]] = None,
+    frame: Optional[Dict[str, Any]] = None,
+    minimum_scale_factor: Optional[float] = None,
+    font_width: Optional[str] = None,
+) -&gt; WidgetNode</code></pre>
+</figure>
+<h4 id="w.ring_chart"><a class="heading-anchor" href="#w.ring_chart">#</a><code>w.ring_chart</code></h4>
+<figure class="code-block" data-code-id="edec8ceec48a">
+  <figcaption>
+    <span>text</span>
+    <button class="copy-code" type="button" data-copy-code="edec8ceec48a">复制</button>
+  </figcaption>
+  <pre><code id="code-edec8ceec48a" class="language-text">w.ring_chart(
+    value: Union[int, float],
+    total: float = 1.0,
+    label: Optional[str] = None,
+    color: Optional[ColorLike] = None,
+    track_color: Optional[ColorLike] = None,
+    size: Optional[float] = None,
+    line_width: Optional[float] = None,
+    opacity: Optional[float] = None,
+    padding: Optional[Union[int, float]] = None,
+    frame: Optional[Dict[str, Any]] = None,
+) -&gt; WidgetNode</code></pre>
+</figure>
+<h4 id="w.row"><a class="heading-anchor" href="#w.row">#</a><code>w.row</code></h4>
+<figure class="code-block" data-code-id="0cbc335a1dd8">
+  <figcaption>
+    <span>text</span>
+    <button class="copy-code" type="button" data-copy-code="0cbc335a1dd8">复制</button>
+  </figcaption>
+  <pre><code id="code-0cbc335a1dd8" class="language-text">w.row(
+    spacing: Optional[Union[int, float]] = None,
+    align: Optional[str] = None,
+) -&gt; WidgetContainer</code></pre>
+</figure>
+<h4 id="w.section"><a class="heading-anchor" href="#w.section">#</a><code>w.section</code></h4>
+<figure class="code-block" data-code-id="eb9521d79344">
+  <figcaption>
+    <span>text</span>
+    <button class="copy-code" type="button" data-copy-code="eb9521d79344">复制</button>
+  </figcaption>
+  <pre><code id="code-eb9521d79344" class="language-text">w.section(
+    title: Optional[Union[str, int, float]] = None,
+    spacing: Optional[Union[int, float]] = None,
+    subtitle: Optional[Union[str, int, float]] = None,
+    style: Optional[str] = None,
+) -&gt; WidgetContainer</code></pre>
+</figure>
+<h4 id="w.shape"><a class="heading-anchor" href="#w.shape">#</a><code>w.shape</code></h4>
+<figure class="code-block" data-code-id="eed02204274d">
+  <figcaption>
+    <span>text</span>
+    <button class="copy-code" type="button" data-copy-code="eed02204274d">复制</button>
+  </figcaption>
+  <pre><code id="code-eed02204274d" class="language-text">w.shape(
+    kind: str = &quot;rectangle&quot;,
+    color: Optional[ColorLike] = None,
+    width: Optional[float] = None,
+    height: Optional[float] = None,
+    size: Optional[float] = None,
+    corner_radius: Optional[float] = None,
+    opacity: Optional[float] = None,
+    padding: Optional[Union[int, float]] = None,
+    frame: Optional[Dict[str, Any]] = None,
+    border_color: Optional[ColorLike] = None,
+    border_width: Optional[float] = None,
+    shadow_color: Optional[ColorLike] = None,
+    shadow_radius: Optional[float] = None,
+    shadow_x: float = 0,
+    shadow_y: float = 2,
+    stroke_color: Optional[ColorLike] = None,
+    stroke_width: Optional[Union[float, str]] = None,
+    dash: Optional[Sequence[float]] = None,
+    line_cap: Optional[str] = None,
+    line_join: Optional[str] = None,
+    miter_limit: Optional[float] = None,
+    top_leading_radius: Optional[float] = None,
+    top_trailing_radius: Optional[float] = None,
+    bottom_leading_radius: Optional[float] = None,
+    bottom_trailing_radius: Optional[float] = None,
+) -&gt; WidgetNode</code></pre>
+</figure>
+<h4 id="w.spacer"><a class="heading-anchor" href="#w.spacer">#</a><code>w.spacer</code></h4>
+<figure class="code-block" data-code-id="77d7d17c15e1">
+  <figcaption>
+    <span>text</span>
+    <button class="copy-code" type="button" data-copy-code="77d7d17c15e1">复制</button>
+  </figcaption>
+  <pre><code id="code-77d7d17c15e1" class="language-text">w.spacer(length: Optional[Union[int, float]] = None) -&gt; WidgetNode</code></pre>
+</figure>
+<h4 id="w.surface"><a class="heading-anchor" href="#w.surface">#</a><code>w.surface</code></h4>
+<figure class="code-block" data-code-id="64daf0bcd296">
+  <figcaption>
+    <span>text</span>
+    <button class="copy-code" type="button" data-copy-code="64daf0bcd296">复制</button>
+  </figcaption>
+  <pre><code id="code-64daf0bcd296" class="language-text">w.surface(
+    role: str = &quot;panel&quot;,
+    spacing: Optional[Union[int, float]] = None,
+    align: Optional[str] = None,
+    padding: Optional[Union[int, float]] = None,
+    background: Optional[WidgetBackground] = None,
+    corner_radius: Optional[float] = None,
+    border_color: Optional[ColorLike] = None,
+    border_width: Optional[float] = None,
+    shadow_color: Optional[ColorLike] = None,
+    shadow_radius: Optional[float] = None,
+) -&gt; WidgetContainer</code></pre>
+</figure>
+<h4 id="w.svg"><a class="heading-anchor" href="#w.svg">#</a><code>w.svg</code></h4>
+<figure class="code-block" data-code-id="20d500c0cd7d">
+  <figcaption>
+    <span>text</span>
+    <button class="copy-code" type="button" data-copy-code="20d500c0cd7d">复制</button>
+  </figcaption>
+  <pre><code id="code-20d500c0cd7d" class="language-text">w.svg(
+    name: Optional[ImageLike] = None,
+    width: Optional[float] = None,
+    height: Optional[float] = None,
+    color: Optional[ColorLike] = None,
+    opacity: Optional[float] = None,
+    padding: Optional[Union[int, float]] = None,
+    content_mode: str = &quot;fit&quot;,
+    *,
+    light: Optional[str] = None,
+    dark: Optional[str] = None,
+) -&gt; WidgetNode</code></pre>
+</figure>
+<h4 id="w.symbol"><a class="heading-anchor" href="#w.symbol">#</a><code>w.symbol</code></h4>
+<figure class="code-block" data-code-id="be46553a1e74">
+  <figcaption>
+    <span>text</span>
+    <button class="copy-code" type="button" data-copy-code="be46553a1e74">复制</button>
+  </figcaption>
+  <pre><code id="code-be46553a1e74" class="language-text">w.symbol(
+    name: str,
+    rendering: Optional[str] = None,
+    palette: Optional[Sequence[ColorLike]] = None,
+    variant: Optional[str] = None,
+    scale: Optional[str] = None,
+) -&gt; WidgetNode</code></pre>
+</figure>
+<h4 id="w.table"><a class="heading-anchor" href="#w.table">#</a><code>w.table</code></h4>
+<figure class="code-block" data-code-id="4aef1cc63a26">
+  <figcaption>
+    <span>text</span>
+    <button class="copy-code" type="button" data-copy-code="4aef1cc63a26">复制</button>
+  </figcaption>
+  <pre><code id="code-4aef1cc63a26" class="language-text">w.table(
+    rows: int,
+    columns: int,
+    *,
+    line_color: Optional[ColorLike] = None,
+    line_width: Union[float, str] = &quot;hairline&quot;,
+    line_cap: str = &quot;butt&quot;,
+    line_join: str = &quot;miter&quot;,
+    dash: Optional[Sequence[float]] = None,
+    miter_limit: Optional[float] = None,
+    padding: Optional[Union[int, float]] = None,
+    frame: Optional[Dict[str, Any]] = None,
+    width: Optional[float] = None,
+    height: Optional[float] = None,
+    background: Optional[WidgetBackground] = None,
+    opacity: Optional[float] = None,
+    corner_radius: Optional[float] = None,
+    border: bool = True,
+    fill: bool = True,
+    align: str = &quot;center&quot;,
+) -&gt; Table</code></pre>
+</figure>
+<h4 id="w.text"><a class="heading-anchor" href="#w.text">#</a><code>w.text</code></h4>
+<figure class="code-block" data-code-id="930491647c99">
+  <figcaption>
+    <span>text</span>
+    <button class="copy-code" type="button" data-copy-code="930491647c99">复制</button>
+  </figcaption>
+  <pre><code id="code-930491647c99" class="language-text">w.text(
+    content: Union[str, int, float],
+    size: Optional[float] = None,
+    weight: Optional[str] = None,
+    color: Optional[ColorLike] = None,
+    align: Optional[str] = None,
+    max_lines: Optional[int] = None,
+    design: Optional[str] = None,
+    opacity: Optional[float] = None,
+    padding: Optional[Union[int, float]] = None,
+    frame: Optional[Dict[str, Any]] = None,
+    minimum_scale_factor: Optional[float] = None,
+    font_width: Optional[str] = None,
+) -&gt; WidgetNode</code></pre>
+</figure>
+<h4 id="w.time"><a class="heading-anchor" href="#w.time">#</a><code>w.time</code></h4>
+<figure class="code-block" data-code-id="642274312465">
+  <figcaption>
+    <span>text</span>
+    <button class="copy-code" type="button" data-copy-code="642274312465">复制</button>
+  </figcaption>
+  <pre><code id="code-642274312465" class="language-text">w.time(target: Optional[Union[datetime, str]] = None) -&gt; WidgetNode</code></pre>
+</figure>
+<h4 id="w.timeline"><a class="heading-anchor" href="#w.timeline">#</a><code>w.timeline</code></h4>
+<figure class="code-block" data-code-id="589a4452372f">
+  <figcaption>
+    <span>text</span>
+    <button class="copy-code" type="button" data-copy-code="589a4452372f">复制</button>
+  </figcaption>
+  <pre><code id="code-589a4452372f" class="language-text">w.timeline(
+    entries: Optional[List[Dict[str, Any]]] = None,
+    *,
+    update: str = &quot;after&quot;,
+    after: Any = None,
+    interval: Optional[float] = None,
+) -&gt; &quot;Widget&quot;</code></pre>
+</figure>
+<h4 id="w.timer_text"><a class="heading-anchor" href="#w.timer_text">#</a><code>w.timer_text</code></h4>
+<figure class="code-block" data-code-id="281c52121862">
+  <figcaption>
+    <span>text</span>
+    <button class="copy-code" type="button" data-copy-code="281c52121862">复制</button>
+  </figcaption>
+  <pre><code id="code-281c52121862" class="language-text">w.timer_text(target: Optional[Union[datetime, str]] = None) -&gt; WidgetNode</code></pre>
+</figure>
+<h4 id="w.title"><a class="heading-anchor" href="#w.title">#</a><code>w.title</code></h4>
+<figure class="code-block" data-code-id="269114561bdb">
+  <figcaption>
+    <span>text</span>
+    <button class="copy-code" type="button" data-copy-code="269114561bdb">复制</button>
+  </figcaption>
+  <pre><code id="code-269114561bdb" class="language-text">w.title(content: Union[str, int, float]) -&gt; WidgetNode</code></pre>
+</figure>
+<h4 id="w.toggle"><a class="heading-anchor" href="#w.toggle">#</a><code>w.toggle</code></h4>
+<figure class="code-block" data-code-id="2627b4ffd59d">
+  <figcaption>
+    <span>text</span>
+    <button class="copy-code" type="button" data-copy-code="2627b4ffd59d">复制</button>
+  </figcaption>
+  <pre><code id="code-2627b4ffd59d" class="language-text">w.toggle(
+    title: Optional[str] = None,
+    is_on: Union[bool, str] = False,
+    action: Optional[Union[str, WidgetAction]] = None,
+    url: Optional[str] = None,
+    color: Optional[ColorLike] = None,
+    background: Optional[WidgetBackground] = None,
+    size: Optional[float] = None,
+    padding: Optional[Union[int, float]] = None,
+    *,
+    value: Optional[Union[bool, str]] = None,
+    state: Optional[State[bool]] = None,
+    style: Optional[str] = None,
+    layout: Optional[str] = None,
+    press: Optional[Dict[str, Any]] = None,
+    normal: Optional[Dict[str, Any]] = None,
+) -&gt; WidgetNode</code></pre>
+</figure>
+<h4 id="w.transparent_background"><a class="heading-anchor" href="#w.transparent_background">#</a><code>w.transparent_background</code></h4>
+<figure class="code-block" data-code-id="1f25e74564bf">
+  <figcaption>
+    <span>text</span>
+    <button class="copy-code" type="button" data-copy-code="1f25e74564bf">复制</button>
+  </figcaption>
+  <pre><code id="code-1f25e74564bf" class="language-text">w.transparent_background(enabled: bool = True) -&gt; &quot;Widget&quot;</code></pre>
+</figure>
+<h4 id="w.unless"><a class="heading-anchor" href="#w.unless">#</a><code>w.unless</code></h4>
+<figure class="code-block" data-code-id="e76a491ce517">
+  <figcaption>
+    <span>text</span>
+    <button class="copy-code" type="button" data-copy-code="e76a491ce517">复制</button>
+  </figcaption>
+  <pre><code id="code-e76a491ce517" class="language-text">w.unless(*families: str, layout: str = &quot;layer&quot;) -&gt; WidgetContainer</code></pre>
+</figure>
+<h4 id="w.validate"><a class="heading-anchor" href="#w.validate">#</a><code>w.validate</code></h4>
+<figure class="code-block" data-code-id="de9f3f5bd389">
+  <figcaption>
+    <span>text</span>
+    <button class="copy-code" type="button" data-copy-code="de9f3f5bd389">复制</button>
+  </figcaption>
+  <pre><code id="code-de9f3f5bd389" class="language-text">w.validate(family: Optional[str] = None) -&gt; Dict[str, Any]</code></pre>
+</figure>
+<h4 id="w.value"><a class="heading-anchor" href="#w.value">#</a><code>w.value</code></h4>
+<figure class="code-block" data-code-id="b3301092ae35">
+  <figcaption>
+    <span>text</span>
+    <button class="copy-code" type="button" data-copy-code="b3301092ae35">复制</button>
+  </figcaption>
+  <pre><code id="code-b3301092ae35" class="language-text">w.value(
+    value: Union[str, int, float, State[int], State[float], State[str], State[str]],
+    unit: Optional[str] = None,
+    subtitle: Optional[str] = None,
+    format: Optional[str] = None,
+) -&gt; WidgetNode</code></pre>
+</figure>
+<h4 id="w.when"><a class="heading-anchor" href="#w.when">#</a><code>w.when</code></h4>
+<figure class="code-block" data-code-id="a13f169245a9">
+  <figcaption>
+    <span>text</span>
+    <button class="copy-code" type="button" data-copy-code="a13f169245a9">复制</button>
+  </figcaption>
+  <pre><code id="code-a13f169245a9" class="language-text">w.when(*families: str, layout: str = &quot;layer&quot;) -&gt; WidgetContainer</code></pre>
+</figure>
+<h3 id="修饰符"><a class="heading-anchor" href="#修饰符">#</a>修饰符</h3>
+<h4 id=".accentable"><a class="heading-anchor" href="#.accentable">#</a><code>.accentable</code></h4>
+<figure class="code-block" data-code-id="921bc0365a69">
+  <figcaption>
+    <span>text</span>
+    <button class="copy-code" type="button" data-copy-code="921bc0365a69">复制</button>
+  </figcaption>
+  <pre><code id="code-921bc0365a69" class="language-text">.accentable(enabled: bool = True) -&gt; Self</code></pre>
+</figure>
+<h4 id=".accessibility"><a class="heading-anchor" href="#.accessibility">#</a><code>.accessibility</code></h4>
+<figure class="code-block" data-code-id="dbb142c06caf">
+  <figcaption>
+    <span>text</span>
+    <button class="copy-code" type="button" data-copy-code="dbb142c06caf">复制</button>
+  </figcaption>
+  <pre><code id="code-dbb142c06caf" class="language-text">.accessibility(
+    label: Optional[str] = None,
+    value: Optional[str] = None,
+    hint: Optional[str] = None,
+    hidden: Optional[bool] = None,
+) -&gt; Self</code></pre>
+</figure>
+<h4 id=".align"><a class="heading-anchor" href="#.align">#</a><code>.align</code></h4>
+<figure class="code-block" data-code-id="d975253e6198">
+  <figcaption>
+    <span>text</span>
+    <button class="copy-code" type="button" data-copy-code="d975253e6198">复制</button>
+  </figcaption>
+  <pre><code id="code-d975253e6198" class="language-text">.align(value: str) -&gt; Self</code></pre>
+</figure>
+<h4 id=".animation"><a class="heading-anchor" href="#.animation">#</a><code>.animation</code></h4>
+<figure class="code-block" data-code-id="f00236f99e92">
+  <figcaption>
+    <span>text</span>
+    <button class="copy-code" type="button" data-copy-code="f00236f99e92">复制</button>
+  </figcaption>
+  <pre><code id="code-f00236f99e92" class="language-text">.animation(value: str = &quot;default&quot;) -&gt; Self</code></pre>
+</figure>
+<h4 id=".background"><a class="heading-anchor" href="#.background">#</a><code>.background</code></h4>
+<figure class="code-block" data-code-id="5dc4ec32f8c1">
+  <figcaption>
+    <span>text</span>
+    <button class="copy-code" type="button" data-copy-code="5dc4ec32f8c1">复制</button>
+  </figcaption>
+  <pre><code id="code-5dc4ec32f8c1" class="language-text">.background(value: WidgetBackground) -&gt; Self</code></pre>
+</figure>
+<h4 id=".bar_spacing"><a class="heading-anchor" href="#.bar_spacing">#</a><code>.bar_spacing</code></h4>
+<figure class="code-block" data-code-id="78e9af0f9f20">
+  <figcaption>
+    <span>text</span>
+    <button class="copy-code" type="button" data-copy-code="78e9af0f9f20">复制</button>
+  </figcaption>
+  <pre><code id="code-78e9af0f9f20" class="language-text">.bar_spacing(value: float) -&gt; Self</code></pre>
+</figure>
+<h4 id=".baseline"><a class="heading-anchor" href="#.baseline">#</a><code>.baseline</code></h4>
+<figure class="code-block" data-code-id="d5f250bb864b">
+  <figcaption>
+    <span>text</span>
+    <button class="copy-code" type="button" data-copy-code="d5f250bb864b">复制</button>
+  </figcaption>
+  <pre><code id="code-d5f250bb864b" class="language-text">.baseline(value: float = 0, color: Optional[ColorLike] = None) -&gt; Self</code></pre>
+</figure>
+<h4 id=".button_style"><a class="heading-anchor" href="#.button_style">#</a><code>.button_style</code></h4>
+<figure class="code-block" data-code-id="34e7c59f1efa">
+  <figcaption>
+    <span>text</span>
+    <button class="copy-code" type="button" data-copy-code="34e7c59f1efa">复制</button>
+  </figcaption>
+  <pre><code id="code-34e7c59f1efa" class="language-text">.button_style(value: str = &quot;plain&quot;) -&gt; Self</code></pre>
+</figure>
+<h4 id=".capsule"><a class="heading-anchor" href="#.capsule">#</a><code>.capsule</code></h4>
+<figure class="code-block" data-code-id="7cdb685741f6">
+  <figcaption>
+    <span>text</span>
+    <button class="copy-code" type="button" data-copy-code="7cdb685741f6">复制</button>
+  </figcaption>
+  <pre><code id="code-7cdb685741f6" class="language-text">.capsule(tone: Optional[str] = None, padding: Optional[Union[int, float]] = None, ) -&gt; Self</code></pre>
+</figure>
+<h4 id=".clip"><a class="heading-anchor" href="#.clip">#</a><code>.clip</code></h4>
+<figure class="code-block" data-code-id="60ba9270c414">
+  <figcaption>
+    <span>text</span>
+    <button class="copy-code" type="button" data-copy-code="60ba9270c414">复制</button>
+  </figcaption>
+  <pre><code id="code-60ba9270c414" class="language-text">.clip(kind: str = &quot;roundedRectangle&quot;, corner_radius: Optional[float] = None) -&gt; Self</code></pre>
+</figure>
+<h4 id=".clip_shape"><a class="heading-anchor" href="#.clip_shape">#</a><code>.clip_shape</code></h4>
+<figure class="code-block" data-code-id="c46503e7588a">
+  <figcaption>
+    <span>text</span>
+    <button class="copy-code" type="button" data-copy-code="c46503e7588a">复制</button>
+  </figcaption>
+  <pre><code id="code-c46503e7588a" class="language-text">.clip_shape(kind: str = &quot;roundedRectangle&quot;, corner_radius: Optional[float] = None) -&gt; Self</code></pre>
+</figure>
+<h4 id=".color"><a class="heading-anchor" href="#.color">#</a><code>.color</code></h4>
+<figure class="code-block" data-code-id="7f674522a5e3">
+  <figcaption>
+    <span>text</span>
+    <button class="copy-code" type="button" data-copy-code="7f674522a5e3">复制</button>
+  </figcaption>
+  <pre><code id="code-7f674522a5e3" class="language-text">.color(value: ColorLike) -&gt; Self</code></pre>
+</figure>
+<h4 id=".compressed"><a class="heading-anchor" href="#.compressed">#</a><code>.compressed</code></h4>
+<figure class="code-block" data-code-id="f3dfc577cd70">
+  <figcaption>
+    <span>text</span>
+    <button class="copy-code" type="button" data-copy-code="f3dfc577cd70">复制</button>
+  </figcaption>
+  <pre><code id="code-f3dfc577cd70" class="language-text">.compressed(enabled: bool = True) -&gt; Self</code></pre>
+</figure>
+<h4 id=".content_transition"><a class="heading-anchor" href="#.content_transition">#</a><code>.content_transition</code></h4>
+<figure class="code-block" data-code-id="49d497fe79a8">
+  <figcaption>
+    <span>text</span>
+    <button class="copy-code" type="button" data-copy-code="49d497fe79a8">复制</button>
+  </figcaption>
+  <pre><code id="code-49d497fe79a8" class="language-text">.content_transition(value: str = &quot;opacity&quot;) -&gt; Self</code></pre>
+</figure>
+<h4 id=".control_layout"><a class="heading-anchor" href="#.control_layout">#</a><code>.control_layout</code></h4>
+<figure class="code-block" data-code-id="1c655ebbf254">
+  <figcaption>
+    <span>text</span>
+    <button class="copy-code" type="button" data-copy-code="1c655ebbf254">复制</button>
+  </figcaption>
+  <pre><code id="code-1c655ebbf254" class="language-text">.control_layout(value: str = &quot;overlay&quot;) -&gt; Self</code></pre>
+</figure>
+<h4 id=".control_style"><a class="heading-anchor" href="#.control_style">#</a><code>.control_style</code></h4>
+<figure class="code-block" data-code-id="dc2bb6505e94">
+  <figcaption>
+    <span>text</span>
+    <button class="copy-code" type="button" data-copy-code="dc2bb6505e94">复制</button>
+  </figcaption>
+  <pre><code id="code-dc2bb6505e94" class="language-text">.control_style(value: str = &quot;plain&quot;) -&gt; Self</code></pre>
+</figure>
+<h4 id=".corner_radius"><a class="heading-anchor" href="#.corner_radius">#</a><code>.corner_radius</code></h4>
+<figure class="code-block" data-code-id="f4f747af5144">
+  <figcaption>
+    <span>text</span>
+    <button class="copy-code" type="button" data-copy-code="f4f747af5144">复制</button>
+  </figcaption>
+  <pre><code id="code-f4f747af5144" class="language-text">.corner_radius(value: float) -&gt; Self</code></pre>
+</figure>
+<h4 id=".fill"><a class="heading-anchor" href="#.fill">#</a><code>.fill</code></h4>
+<figure class="code-block" data-code-id="2b8be4019768">
+  <figcaption>
+    <span>text</span>
+    <button class="copy-code" type="button" data-copy-code="2b8be4019768">复制</button>
+  </figcaption>
+  <pre><code id="code-2b8be4019768" class="language-text">.fill(enabled: bool = True) -&gt; Self</code></pre>
+</figure>
+<h4 id=".fixed_size"><a class="heading-anchor" href="#.fixed_size">#</a><code>.fixed_size</code></h4>
+<figure class="code-block" data-code-id="9b638c3dbcab">
+  <figcaption>
+    <span>text</span>
+    <button class="copy-code" type="button" data-copy-code="9b638c3dbcab">复制</button>
+  </figcaption>
+  <pre><code id="code-9b638c3dbcab" class="language-text">.fixed_size(horizontal: bool = True, vertical: bool = True) -&gt; Self</code></pre>
+</figure>
+<h4 id=".font"><a class="heading-anchor" href="#.font">#</a><code>.font</code></h4>
+<figure class="code-block" data-code-id="1f01619b1aad">
+  <figcaption>
+    <span>text</span>
+    <button class="copy-code" type="button" data-copy-code="1f01619b1aad">复制</button>
+  </figcaption>
+  <pre><code id="code-1f01619b1aad" class="language-text">.font(
+    value: Optional[Union[str, int, float, Dict[str, Any]]] = None,
+    *,
+    size: Optional[Union[float, Dict[str, Any]]] = None,
+    weight: Optional[str] = None,
+    **size_values: Any,
+) -&gt; Self</code></pre>
+</figure>
+<h4 id=".font_size"><a class="heading-anchor" href="#.font_size">#</a><code>.font_size</code></h4>
+<figure class="code-block" data-code-id="b326f4b8f699">
+  <figcaption>
+    <span>text</span>
+    <button class="copy-code" type="button" data-copy-code="b326f4b8f699">复制</button>
+  </figcaption>
+  <pre><code id="code-b326f4b8f699" class="language-text">.font_size(size: float) -&gt; Self</code></pre>
+</figure>
+<h4 id=".font_style"><a class="heading-anchor" href="#.font_style">#</a><code>.font_style</code></h4>
+<figure class="code-block" data-code-id="e1c1f4fea0e7">
+  <figcaption>
+    <span>text</span>
+    <button class="copy-code" type="button" data-copy-code="e1c1f4fea0e7">复制</button>
+  </figcaption>
+  <pre><code id="code-e1c1f4fea0e7" class="language-text">.font_style(style: str) -&gt; Self</code></pre>
+</figure>
+<h4 id=".font_weight"><a class="heading-anchor" href="#.font_weight">#</a><code>.font_weight</code></h4>
+<figure class="code-block" data-code-id="edbf3374d582">
+  <figcaption>
+    <span>text</span>
+    <button class="copy-code" type="button" data-copy-code="edbf3374d582">复制</button>
+  </figcaption>
+  <pre><code id="code-edbf3374d582" class="language-text">.font_weight(weight: str) -&gt; Self</code></pre>
+</figure>
+<h4 id=".font_width"><a class="heading-anchor" href="#.font_width">#</a><code>.font_width</code></h4>
+<figure class="code-block" data-code-id="2c10adc4da99">
+  <figcaption>
+    <span>text</span>
+    <button class="copy-code" type="button" data-copy-code="2c10adc4da99">复制</button>
+  </figcaption>
+  <pre><code id="code-2c10adc4da99" class="language-text">.font_width(width: str) -&gt; Self</code></pre>
+</figure>
+<h4 id=".frame"><a class="heading-anchor" href="#.frame">#</a><code>.frame</code></h4>
+<figure class="code-block" data-code-id="ec738e0af610">
+  <figcaption>
+    <span>text</span>
+    <button class="copy-code" type="button" data-copy-code="ec738e0af610">复制</button>
+  </figcaption>
+  <pre><code id="code-ec738e0af610" class="language-text">.frame(**kwargs: Any) -&gt; Self</code></pre>
+</figure>
+<h4 id=".grid"><a class="heading-anchor" href="#.grid">#</a><code>.grid</code></h4>
+<figure class="code-block" data-code-id="5eb9c36d3a9b">
+  <figcaption>
+    <span>text</span>
+    <button class="copy-code" type="button" data-copy-code="5eb9c36d3a9b">复制</button>
+  </figcaption>
+  <pre><code id="code-5eb9c36d3a9b" class="language-text">.grid(
+    rows: int,
+    columns: int,
+    *,
+    padding: Union[int, float] = 0,
+    gap: Union[int, float] = 0,
+    row_gap: Optional[float] = None,
+    column_gap: Optional[float] = None,
+    line_width: Optional[float] = None,
+    border: bool = False,
+    x: float = 0,
+    y: float = 0,
+    width: Optional[float] = None,
+    height: Optional[float] = None,
+) -&gt; CanvasGrid</code></pre>
+</figure>
+<h4 id=".guide_lines"><a class="heading-anchor" href="#.guide_lines">#</a><code>.guide_lines</code></h4>
+<figure class="code-block" data-code-id="d302f3b315cd">
+  <figcaption>
+    <span>text</span>
+    <button class="copy-code" type="button" data-copy-code="d302f3b315cd">复制</button>
+  </figcaption>
+  <pre><code id="code-d302f3b315cd" class="language-text">.guide_lines(count: Union[bool, int] = True, color: Optional[ColorLike] = None) -&gt; Self</code></pre>
+</figure>
+<h4 id=".height"><a class="heading-anchor" href="#.height">#</a><code>.height</code></h4>
+<figure class="code-block" data-code-id="9ff8e48ba268">
+  <figcaption>
+    <span>text</span>
+    <button class="copy-code" type="button" data-copy-code="9ff8e48ba268">复制</button>
+  </figcaption>
+  <pre><code id="code-9ff8e48ba268" class="language-text">.height(value: Optional[Union[float, Dict[str, Any]]] = None, **values: Any) -&gt; Self</code></pre>
+</figure>
+<h4 id=".hide"><a class="heading-anchor" href="#.hide">#</a><code>.hide</code></h4>
+<figure class="code-block" data-code-id="bf95d536a6ba">
+  <figcaption>
+    <span>text</span>
+    <button class="copy-code" type="button" data-copy-code="bf95d536a6ba">复制</button>
+  </figcaption>
+  <pre><code id="code-bf95d536a6ba" class="language-text">.hide(*families: str) -&gt; Self</code></pre>
+</figure>
+<h4 id=".id"><a class="heading-anchor" href="#.id">#</a><code>.id</code></h4>
+<figure class="code-block" data-code-id="3d4effc15052">
+  <figcaption>
+    <span>text</span>
+    <button class="copy-code" type="button" data-copy-code="3d4effc15052">复制</button>
+  </figcaption>
+  <pre><code id="code-3d4effc15052" class="language-text">.id(value: Any) -&gt; Self</code></pre>
+</figure>
+<h4 id=".importance"><a class="heading-anchor" href="#.importance">#</a><code>.importance</code></h4>
+<figure class="code-block" data-code-id="ca21ea5f0af5">
+  <figcaption>
+    <span>text</span>
+    <button class="copy-code" type="button" data-copy-code="ca21ea5f0af5">复制</button>
+  </figcaption>
+  <pre><code id="code-ca21ea5f0af5" class="language-text">.importance(value: str = &quot;primary&quot;) -&gt; Self</code></pre>
+</figure>
+<h4 id=".intent"><a class="heading-anchor" href="#.intent">#</a><code>.intent</code></h4>
+<figure class="code-block" data-code-id="a10165c951a4">
+  <figcaption>
+    <span>text</span>
+    <button class="copy-code" type="button" data-copy-code="a10165c951a4">复制</button>
+  </figcaption>
+  <pre><code id="code-a10165c951a4" class="language-text">.intent(action: Union[str, WidgetAction]) -&gt; Self</code></pre>
+</figure>
+<h4 id=".labels"><a class="heading-anchor" href="#.labels">#</a><code>.labels</code></h4>
+<figure class="code-block" data-code-id="219a33a6cfb0">
+  <figcaption>
+    <span>text</span>
+    <button class="copy-code" type="button" data-copy-code="219a33a6cfb0">复制</button>
+  </figcaption>
+  <pre><code id="code-219a33a6cfb0" class="language-text">.labels(
+    start: Optional[Union[str, int, float]] = None,
+    end: Optional[Union[str, int, float]] = None,
+    color: Optional[ColorLike] = None,
+) -&gt; Self</code></pre>
+</figure>
+<h4 id=".layout_priority"><a class="heading-anchor" href="#.layout_priority">#</a><code>.layout_priority</code></h4>
+<figure class="code-block" data-code-id="be7b1e3946aa">
+  <figcaption>
+    <span>text</span>
+    <button class="copy-code" type="button" data-copy-code="be7b1e3946aa">复制</button>
+  </figcaption>
+  <pre><code id="code-be7b1e3946aa" class="language-text">.layout_priority(value: float = 1) -&gt; Self</code></pre>
+</figure>
+<h4 id=".line_limit"><a class="heading-anchor" href="#.line_limit">#</a><code>.line_limit</code></h4>
+<figure class="code-block" data-code-id="7225f107b33d">
+  <figcaption>
+    <span>text</span>
+    <button class="copy-code" type="button" data-copy-code="7225f107b33d">复制</button>
+  </figcaption>
+  <pre><code id="code-7225f107b33d" class="language-text">.line_limit(value: int) -&gt; Self</code></pre>
+</figure>
+<h4 id=".line_width"><a class="heading-anchor" href="#.line_width">#</a><code>.line_width</code></h4>
+<figure class="code-block" data-code-id="8d5207015945">
+  <figcaption>
+    <span>text</span>
+    <button class="copy-code" type="button" data-copy-code="8d5207015945">复制</button>
+  </figcaption>
+  <pre><code id="code-8d5207015945" class="language-text">.line_width(value: Union[float, str]) -&gt; Self</code></pre>
+</figure>
+<h4 id=".link"><a class="heading-anchor" href="#.link">#</a><code>.link</code></h4>
+<figure class="code-block" data-code-id="a6fdc4b06ad7">
+  <figcaption>
+    <span>text</span>
+    <button class="copy-code" type="button" data-copy-code="a6fdc4b06ad7">复制</button>
+  </figcaption>
+  <pre><code id="code-a6fdc4b06ad7" class="language-text">.link(url: str) -&gt; Self</code></pre>
+</figure>
+<h4 id=".mask"><a class="heading-anchor" href="#.mask">#</a><code>.mask</code></h4>
+<figure class="code-block" data-code-id="bb0be99a52ce">
+  <figcaption>
+    <span>text</span>
+    <button class="copy-code" type="button" data-copy-code="bb0be99a52ce">复制</button>
+  </figcaption>
+  <pre><code id="code-bb0be99a52ce" class="language-text">.mask(kind: str = &quot;roundedRectangle&quot;, corner_radius: Optional[float] = None) -&gt; Self</code></pre>
+</figure>
+<h4 id=".mask_view"><a class="heading-anchor" href="#.mask_view">#</a><code>.mask_view</code></h4>
+<figure class="code-block" data-code-id="3c27c8dcdb30">
+  <figcaption>
+    <span>text</span>
+    <button class="copy-code" type="button" data-copy-code="3c27c8dcdb30">复制</button>
+  </figcaption>
+  <pre><code id="code-3c27c8dcdb30" class="language-text">.mask_view(align: str = &quot;center&quot;) -&gt; Self</code></pre>
+</figure>
+<h4 id=".min_scale"><a class="heading-anchor" href="#.min_scale">#</a><code>.min_scale</code></h4>
+<figure class="code-block" data-code-id="03fa3968a8ae">
+  <figcaption>
+    <span>text</span>
+    <button class="copy-code" type="button" data-copy-code="03fa3968a8ae">复制</button>
+  </figcaption>
+  <pre><code id="code-03fa3968a8ae" class="language-text">.min_scale(value: float) -&gt; Self</code></pre>
+</figure>
+<h4 id=".monospaced"><a class="heading-anchor" href="#.monospaced">#</a><code>.monospaced</code></h4>
+<figure class="code-block" data-code-id="530c63e19cd2">
+  <figcaption>
+    <span>text</span>
+    <button class="copy-code" type="button" data-copy-code="530c63e19cd2">复制</button>
+  </figcaption>
+  <pre><code id="code-530c63e19cd2" class="language-text">.monospaced(enabled: bool = True) -&gt; Self</code></pre>
+</figure>
+<h4 id=".monospaced_digit"><a class="heading-anchor" href="#.monospaced_digit">#</a><code>.monospaced_digit</code></h4>
+<figure class="code-block" data-code-id="955bec1eebfe">
+  <figcaption>
+    <span>text</span>
+    <button class="copy-code" type="button" data-copy-code="955bec1eebfe">复制</button>
+  </figcaption>
+  <pre><code id="code-955bec1eebfe" class="language-text">.monospaced_digit(enabled: bool = True) -&gt; Self</code></pre>
+</figure>
+<h4 id=".normal"><a class="heading-anchor" href="#.normal">#</a><code>.normal</code></h4>
+<figure class="code-block" data-code-id="b2602348b835">
+  <figcaption>
+    <span>text</span>
+    <button class="copy-code" type="button" data-copy-code="b2602348b835">复制</button>
+  </figcaption>
+  <pre><code id="code-b2602348b835" class="language-text">.normal(**style: Any) -&gt; Self</code></pre>
+</figure>
+<h4 id=".offset"><a class="heading-anchor" href="#.offset">#</a><code>.offset</code></h4>
+<figure class="code-block" data-code-id="f52329a2a9f4">
+  <figcaption>
+    <span>text</span>
+    <button class="copy-code" type="button" data-copy-code="f52329a2a9f4">复制</button>
+  </figcaption>
+  <pre><code id="code-f52329a2a9f4" class="language-text">.offset(x: float = 0, y: float = 0) -&gt; Self</code></pre>
+</figure>
+<h4 id=".opacity"><a class="heading-anchor" href="#.opacity">#</a><code>.opacity</code></h4>
+<figure class="code-block" data-code-id="e9595a04297a">
+  <figcaption>
+    <span>text</span>
+    <button class="copy-code" type="button" data-copy-code="e9595a04297a">复制</button>
+  </figcaption>
+  <pre><code id="code-e9595a04297a" class="language-text">.opacity(value: float) -&gt; Self</code></pre>
+</figure>
+<h4 id=".overflow"><a class="heading-anchor" href="#.overflow">#</a><code>.overflow</code></h4>
+<figure class="code-block" data-code-id="dc801137e612">
+  <figcaption>
+    <span>text</span>
+    <button class="copy-code" type="button" data-copy-code="dc801137e612">复制</button>
+  </figcaption>
+  <pre><code id="code-dc801137e612" class="language-text">.overflow(
+    action: Optional[str] = None,
+    *,
+    importance: Optional[str] = None,
+    preserve: Optional[bool] = None,
+) -&gt; Self</code></pre>
+</figure>
+<h4 id=".overlay"><a class="heading-anchor" href="#.overlay">#</a><code>.overlay</code></h4>
+<figure class="code-block" data-code-id="417a4e369e8d">
+  <figcaption>
+    <span>text</span>
+    <button class="copy-code" type="button" data-copy-code="417a4e369e8d">复制</button>
+  </figcaption>
+  <pre><code id="code-417a4e369e8d" class="language-text">.overlay(color: ColorLike = &quot;#000000&quot;, opacity: float = 0.18) -&gt; Self</code></pre>
+</figure>
+<h4 id=".overlay_view"><a class="heading-anchor" href="#.overlay_view">#</a><code>.overlay_view</code></h4>
+<figure class="code-block" data-code-id="ac134727ffbc">
+  <figcaption>
+    <span>text</span>
+    <button class="copy-code" type="button" data-copy-code="ac134727ffbc">复制</button>
+  </figcaption>
+  <pre><code id="code-ac134727ffbc" class="language-text">.overlay_view(align: str = &quot;center&quot;) -&gt; Self</code></pre>
+</figure>
+<h4 id=".padding"><a class="heading-anchor" href="#.padding">#</a><code>.padding</code></h4>
+<figure class="code-block" data-code-id="4a2359028d88">
+  <figcaption>
+    <span>text</span>
+    <button class="copy-code" type="button" data-copy-code="4a2359028d88">复制</button>
+  </figcaption>
+  <pre><code id="code-4a2359028d88" class="language-text">.padding(
+    value: Optional[Union[int, float]] = None,
+    *,
+    horizontal: Optional[float] = None,
+    vertical: Optional[float] = None,
+    top: Optional[float] = None,
+    leading: Optional[float] = None,
+    bottom: Optional[float] = None,
+    trailing: Optional[float] = None,
+) -&gt; Self</code></pre>
+</figure>
+<h4 id=".palette"><a class="heading-anchor" href="#.palette">#</a><code>.palette</code></h4>
+<figure class="code-block" data-code-id="86e05f6aca47">
+  <figcaption>
+    <span>text</span>
+    <button class="copy-code" type="button" data-copy-code="86e05f6aca47">复制</button>
+  </figcaption>
+  <pre><code id="code-86e05f6aca47" class="language-text">.palette(colors: Sequence[ColorLike]) -&gt; Self</code></pre>
+</figure>
+<h4 id=".pixel_perfect_center"><a class="heading-anchor" href="#.pixel_perfect_center">#</a><code>.pixel_perfect_center</code></h4>
+<figure class="code-block" data-code-id="276f4aa90a58">
+  <figcaption>
+    <span>text</span>
+    <button class="copy-code" type="button" data-copy-code="276f4aa90a58">复制</button>
+  </figcaption>
+  <pre><code id="code-276f4aa90a58" class="language-text">.pixel_perfect_center(enabled: bool = True) -&gt; Self</code></pre>
+</figure>
+<h4 id=".place"><a class="heading-anchor" href="#.place">#</a><code>.place</code></h4>
+<figure class="code-block" data-code-id="1bfc87124bde">
+  <figcaption>
+    <span>text</span>
+    <button class="copy-code" type="button" data-copy-code="1bfc87124bde">复制</button>
+  </figcaption>
+  <pre><code id="code-1bfc87124bde" class="language-text">.place(x: Optional[float] = None, y: Optional[float] = None, unit: str = &quot;relative&quot;) -&gt; Self</code></pre>
+</figure>
+<h4 id=".plain"><a class="heading-anchor" href="#.plain">#</a><code>.plain</code></h4>
+<figure class="code-block" data-code-id="96321ccc1650">
+  <figcaption>
+    <span>text</span>
+    <button class="copy-code" type="button" data-copy-code="96321ccc1650">复制</button>
+  </figcaption>
+  <pre><code id="code-96321ccc1650" class="language-text">.plain(enabled: bool = True) -&gt; Self</code></pre>
+</figure>
+<h4 id=".points"><a class="heading-anchor" href="#.points">#</a><code>.points</code></h4>
+<figure class="code-block" data-code-id="08c15249c55e">
+  <figcaption>
+    <span>text</span>
+    <button class="copy-code" type="button" data-copy-code="08c15249c55e">复制</button>
+  </figcaption>
+  <pre><code id="code-08c15249c55e" class="language-text">.points(enabled: bool = True) -&gt; Self</code></pre>
+</figure>
+<h4 id=".position"><a class="heading-anchor" href="#.position">#</a><code>.position</code></h4>
+<figure class="code-block" data-code-id="ae7795cd187c">
+  <figcaption>
+    <span>text</span>
+    <button class="copy-code" type="button" data-copy-code="ae7795cd187c">复制</button>
+  </figcaption>
+  <pre><code id="code-ae7795cd187c" class="language-text">.position(x: Optional[float] = None, y: Optional[float] = None, unit: str = &quot;points&quot;) -&gt; Self</code></pre>
+</figure>
+<h4 id=".preserve"><a class="heading-anchor" href="#.preserve">#</a><code>.preserve</code></h4>
+<figure class="code-block" data-code-id="23160d536769">
+  <figcaption>
+    <span>text</span>
+    <button class="copy-code" type="button" data-copy-code="23160d536769">复制</button>
+  </figcaption>
+  <pre><code id="code-23160d536769" class="language-text">.preserve(enabled: bool = True) -&gt; Self</code></pre>
+</figure>
+<h4 id=".pressed"><a class="heading-anchor" href="#.pressed">#</a><code>.pressed</code></h4>
+<figure class="code-block" data-code-id="dfea8f24e756">
+  <figcaption>
+    <span>text</span>
+    <button class="copy-code" type="button" data-copy-code="dfea8f24e756">复制</button>
+  </figcaption>
+  <pre><code id="code-dfea8f24e756" class="language-text">.pressed(**style: Any) -&gt; Self</code></pre>
+</figure>
+<h4 id=".privacy_sensitive"><a class="heading-anchor" href="#.privacy_sensitive">#</a><code>.privacy_sensitive</code></h4>
+<figure class="code-block" data-code-id="a6e0e3d436f7">
+  <figcaption>
+    <span>text</span>
+    <button class="copy-code" type="button" data-copy-code="a6e0e3d436f7">复制</button>
+  </figcaption>
+  <pre><code id="code-a6e0e3d436f7" class="language-text">.privacy_sensitive(enabled: bool = True) -&gt; Self</code></pre>
+</figure>
+<h4 id=".redacted"><a class="heading-anchor" href="#.redacted">#</a><code>.redacted</code></h4>
+<figure class="code-block" data-code-id="61ed9c1dc408">
+  <figcaption>
+    <span>text</span>
+    <button class="copy-code" type="button" data-copy-code="61ed9c1dc408">复制</button>
+  </figcaption>
+  <pre><code id="code-61ed9c1dc408" class="language-text">.redacted(reason: str = &quot;placeholder&quot;) -&gt; Self</code></pre>
+</figure>
+<h4 id=".rendering"><a class="heading-anchor" href="#.rendering">#</a><code>.rendering</code></h4>
+<figure class="code-block" data-code-id="36dd0c127829">
+  <figcaption>
+    <span>text</span>
+    <button class="copy-code" type="button" data-copy-code="36dd0c127829">复制</button>
+  </figcaption>
+  <pre><code id="code-36dd0c127829" class="language-text">.rendering(mode: str, colors: Optional[Sequence[ColorLike]] = None) -&gt; Self</code></pre>
+</figure>
+<h4 id=".reverse_mask"><a class="heading-anchor" href="#.reverse_mask">#</a><code>.reverse_mask</code></h4>
+<figure class="code-block" data-code-id="5cdbc9277bc3">
+  <figcaption>
+    <span>text</span>
+    <button class="copy-code" type="button" data-copy-code="5cdbc9277bc3">复制</button>
+  </figcaption>
+  <pre><code id="code-5cdbc9277bc3" class="language-text">.reverse_mask(kind: str = &quot;roundedRectangle&quot;, corner_radius: Optional[float] = None) -&gt; Self</code></pre>
+</figure>
+<h4 id=".rotate"><a class="heading-anchor" href="#.rotate">#</a><code>.rotate</code></h4>
+<figure class="code-block" data-code-id="f772949bf0ab">
+  <figcaption>
+    <span>text</span>
+    <button class="copy-code" type="button" data-copy-code="f772949bf0ab">复制</button>
+  </figcaption>
+  <pre><code id="code-f772949bf0ab" class="language-text">.rotate(degrees: float) -&gt; Self</code></pre>
+</figure>
+<h4 id=".rotation"><a class="heading-anchor" href="#.rotation">#</a><code>.rotation</code></h4>
+<figure class="code-block" data-code-id="c710a942b625">
+  <figcaption>
+    <span>text</span>
+    <button class="copy-code" type="button" data-copy-code="c710a942b625">复制</button>
+  </figcaption>
+  <pre><code id="code-c710a942b625" class="language-text">.rotation(degrees: float) -&gt; Self</code></pre>
+</figure>
+<h4 id=".scale"><a class="heading-anchor" href="#.scale">#</a><code>.scale</code></h4>
+<figure class="code-block" data-code-id="704848b209e3">
+  <figcaption>
+    <span>text</span>
+    <button class="copy-code" type="button" data-copy-code="704848b209e3">复制</button>
+  </figcaption>
+  <pre><code id="code-704848b209e3" class="language-text">.scale(value: float) -&gt; Self</code></pre>
+</figure>
+<h4 id=".segment_colors"><a class="heading-anchor" href="#.segment_colors">#</a><code>.segment_colors</code></h4>
+<figure class="code-block" data-code-id="32f4c10ca945">
+  <figcaption>
+    <span>text</span>
+    <button class="copy-code" type="button" data-copy-code="32f4c10ca945">复制</button>
+  </figcaption>
+  <pre><code id="code-32f4c10ca945" class="language-text">.segment_colors(colors: List[ColorLike]) -&gt; Self</code></pre>
+</figure>
+<h4 id=".shadow"><a class="heading-anchor" href="#.shadow">#</a><code>.shadow</code></h4>
+<figure class="code-block" data-code-id="79cc8cc31cab">
+  <figcaption>
+    <span>text</span>
+    <button class="copy-code" type="button" data-copy-code="79cc8cc31cab">复制</button>
+  </figcaption>
+  <pre><code id="code-79cc8cc31cab" class="language-text">.shadow(color: ColorLike = &quot;#000000&quot;, radius: float = 4, x: float = 0, y: float = 2, ) -&gt; Self</code></pre>
+</figure>
+<h4 id=".slot"><a class="heading-anchor" href="#.slot">#</a><code>.slot</code></h4>
+<figure class="code-block" data-code-id="ec823a7ae742">
+  <figcaption>
+    <span>text</span>
+    <button class="copy-code" type="button" data-copy-code="ec823a7ae742">复制</button>
+  </figcaption>
+  <pre><code id="code-ec823a7ae742" class="language-text">.slot(value: str) -&gt; Self</code></pre>
+</figure>
+<h4 id=".soft_background"><a class="heading-anchor" href="#.soft_background">#</a><code>.soft_background</code></h4>
+<figure class="code-block" data-code-id="e596ade0e0db">
+  <figcaption>
+    <span>text</span>
+    <button class="copy-code" type="button" data-copy-code="e596ade0e0db">复制</button>
+  </figcaption>
+  <pre><code id="code-e596ade0e0db" class="language-text">.soft_background(
+    tone: Optional[str] = None,
+    corner_radius: Optional[float] = None,
+    padding: Optional[Union[int, float]] = None,
+) -&gt; Self</code></pre>
+</figure>
+<h4 id=".stroke"><a class="heading-anchor" href="#.stroke">#</a><code>.stroke</code></h4>
+<figure class="code-block" data-code-id="f7fbfbc69338">
+  <figcaption>
+    <span>text</span>
+    <button class="copy-code" type="button" data-copy-code="f7fbfbc69338">复制</button>
+  </figcaption>
+  <pre><code id="code-f7fbfbc69338" class="language-text">.stroke(
+    color: Optional[ColorLike] = None,
+    *,
+    width: Optional[Union[float, str]] = None,
+    dash: Optional[Sequence[float]] = None,
+    cap: Optional[str] = None,
+    join: Optional[str] = None,
+    miter_limit: Optional[float] = None,
+) -&gt; Self</code></pre>
+</figure>
+<h4 id=".threshold"><a class="heading-anchor" href="#.threshold">#</a><code>.threshold</code></h4>
+<figure class="code-block" data-code-id="20e30255bb31">
+  <figcaption>
+    <span>text</span>
+    <button class="copy-code" type="button" data-copy-code="20e30255bb31">复制</button>
+  </figcaption>
+  <pre><code id="code-20e30255bb31" class="language-text">.threshold(value: float, color: Optional[ColorLike] = None) -&gt; Self</code></pre>
+</figure>
+<h4 id=".toggle_style"><a class="heading-anchor" href="#.toggle_style">#</a><code>.toggle_style</code></h4>
+<figure class="code-block" data-code-id="30d77ccd6e66">
+  <figcaption>
+    <span>text</span>
+    <button class="copy-code" type="button" data-copy-code="30d77ccd6e66">复制</button>
+  </figcaption>
+  <pre><code id="code-30d77ccd6e66" class="language-text">.toggle_style(value: str = &quot;checkbox&quot;) -&gt; Self</code></pre>
+</figure>
+<h4 id=".tone"><a class="heading-anchor" href="#.tone">#</a><code>.tone</code></h4>
+<figure class="code-block" data-code-id="9b29fde95bcd">
+  <figcaption>
+    <span>text</span>
+    <button class="copy-code" type="button" data-copy-code="9b29fde95bcd">复制</button>
+  </figcaption>
+  <pre><code id="code-9b29fde95bcd" class="language-text">.tone(value: str) -&gt; Self</code></pre>
+</figure>
+<h4 id=".track_color"><a class="heading-anchor" href="#.track_color">#</a><code>.track_color</code></h4>
+<figure class="code-block" data-code-id="90fe92c5ba7a">
+  <figcaption>
+    <span>text</span>
+    <button class="copy-code" type="button" data-copy-code="90fe92c5ba7a">复制</button>
+  </figcaption>
+  <pre><code id="code-90fe92c5ba7a" class="language-text">.track_color(value: ColorLike) -&gt; Self</code></pre>
+</figure>
+<h4 id=".transition"><a class="heading-anchor" href="#.transition">#</a><code>.transition</code></h4>
+<figure class="code-block" data-code-id="02803a953dc1">
+  <figcaption>
+    <span>text</span>
+    <button class="copy-code" type="button" data-copy-code="02803a953dc1">复制</button>
+  </figcaption>
+  <pre><code id="code-02803a953dc1" class="language-text">.transition(value: str = &quot;opacity&quot;, edge: Optional[str] = None) -&gt; Self</code></pre>
+</figure>
+<h4 id=".variant"><a class="heading-anchor" href="#.variant">#</a><code>.variant</code></h4>
+<figure class="code-block" data-code-id="0a386d648a7f">
+  <figcaption>
+    <span>text</span>
+    <button class="copy-code" type="button" data-copy-code="0a386d648a7f">复制</button>
+  </figcaption>
+  <pre><code id="code-0a386d648a7f" class="language-text">.variant(value: str) -&gt; Self</code></pre>
+</figure>
+<h4 id=".width"><a class="heading-anchor" href="#.width">#</a><code>.width</code></h4>
+<figure class="code-block" data-code-id="472e95917ca2">
+  <figcaption>
+    <span>text</span>
+    <button class="copy-code" type="button" data-copy-code="472e95917ca2">复制</button>
+  </figcaption>
+  <pre><code id="code-472e95917ca2" class="language-text">.width(value: Optional[Union[float, Dict[str, Any]]] = None, **values: Any) -&gt; Self</code></pre>
+</figure>
+<h2 id="内容和文字"><a class="heading-anchor" href="#内容和文字">#</a>内容和文字</h2>
+<p>文字节点返回的是可继续修改的句柄：</p>
+<figure class="code-block" data-code-id="fdd06694aa57">
+  <figcaption>
+    <span>python</span>
+    <button class="copy-code" type="button" data-copy-code="fdd06694aa57">复制</button>
+  </figcaption>
+  <pre><code id="code-fdd06694aa57" class="language-python">w.text(&quot;ADHD Bingo&quot;, size=28, weight=&quot;bold&quot;, color=&quot;#242326&quot;) \
+    .line_limit(1) \
+    .min_scale(0.7)</code></pre>
+</figure>
+<p>数值用 <code>value()</code>，需要数字变化动画时加 <code>content_transition(&quot;numericText&quot;)</code> 和稳定身份：</p>
+<figure class="code-block" data-code-id="7da7a48631b9">
+  <figcaption>
+    <span>python</span>
+    <button class="copy-code" type="button" data-copy-code="7da7a48631b9">复制</button>
+  </figcaption>
+  <pre><code id="code-7da7a48631b9" class="language-python">w.value(count, format=&quot;{} 次&quot;) \
+    .id(&quot;count&quot;) \
+    .monospaced_digit() \
+    .content_transition(&quot;numericText&quot;) \
+    .line_limit(1) \
+    .min_scale(0.7)</code></pre>
+</figure>
+<h2 id="修饰顺序"><a class="heading-anchor" href="#修饰顺序">#</a>修饰顺序</h2>
+<p>推荐顺序是：内容 -&gt; 字体和颜色 -&gt; 尺寸 -&gt; 位置 -&gt; 动画或交互。</p>
+<figure class="code-block" data-code-id="972674e5ef4c">
+  <figcaption>
+    <span>python</span>
+    <button class="copy-code" type="button" data-copy-code="972674e5ef4c">复制</button>
+  </figcaption>
+  <pre><code id="code-972674e5ef4c" class="language-python">w.text(&quot;喝水&quot;) \
+    .font_size(16) \
+    .color(&quot;#242326&quot;) \
+    .line_limit(1) \
+    .min_scale(0.7) \
+    .frame(width=72, height=44) \
+    .place(120, 80, unit=&quot;points&quot;)</code></pre>
+</figure>
+<h2 id="什么时候用精确布局"><a class="heading-anchor" href="#什么时候用精确布局">#</a>什么时候用精确布局</h2>
+<p>信息卡、进度卡、列表优先用 <code>row()</code>、<code>column()</code>、<code>grid()</code>。需要做表格、键盘、翻页钟、海报式排版时，用 <code>table()</code>、<code>canvas()</code>、<code>.frame()</code> 和 <code>.place()</code> 读取 <code>w.context</code> 后按点位布局。</p>
+  </div>
+  <section class="related-section"><h2>相关文档</h2><div class="related-list"><a class="related-link" href="../widget-module/"><strong>widget</strong><span>用 Python 编写主屏、锁屏和 StandBy 小组件。</span></a></div></section>
+</article>
+
+    </main>
+    <aside class="toc"><div class="toc-title">本页目录</div><a class="toc-link" href="#怎么查">怎么查</a><a class="toc-link" href="#常用组合">常用组合</a><a class="toc-link" href="#行为契约">行为契约</a><a class="toc-link" href="#公开-api-速查">公开 API 速查</a><a class="toc-link" href="#完整公开-api-索引">完整公开 API 索引</a><a class="toc-link child" href="#常量">常量</a><a class="toc-link child" href="#运行值">运行值</a><a class="toc-link child" href="#函数">函数</a><a class="toc-link child" href="#widget-方法">Widget 方法</a><a class="toc-link child" href="#修饰符">修饰符</a><a class="toc-link" href="#内容和文字">内容和文字</a><a class="toc-link" href="#修饰顺序">修饰顺序</a><a class="toc-link" href="#什么时候用精确布局">什么时候用精确布局</a></aside>
+  </div>
+  <div class="mobile-backdrop"></div>
+  <div class="search-panel" role="dialog" aria-modal="true" aria-label="搜索">
+    <div class="search-box">
+      <input id="docs-search-input" type="search" placeholder="搜索 API、模块、指南..." autocomplete="off">
+      <button class="search-close" type="button">Close</button>
+    </div>
+    <div id="docs-search-results" class="search-results"></div>
+  </div>
+</body>
+</html>

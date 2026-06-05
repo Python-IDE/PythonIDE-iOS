@@ -1,0 +1,536 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>交互与回调 - PythonIDE Docs</title>
+  <meta name="description" content="按钮、输入、on_change、sheet 和行级回调的可靠写法。">
+  <link rel="icon" href="../../assets/brand-mark.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="../../assets/docs-v2.css">
+  <script>window.PYTHONIDE_DOCS_PREFIX = "../../";</script>
+  <script defer src="../../assets/docs-v2.js"></script>
+</head>
+<body class="article-page">
+  <header class="topbar">
+    <button class="icon-button menu-toggle" type="button" aria-label="打开目录">☰</button>
+    <a class="brand" href="../../"><img class="brand-mark" src="../../assets/brand-mark.svg" alt="" width="30" height="30"><span class="brand-text">PythonIDE Docs</span></a>
+    <nav class="top-nav" aria-label="主导航">
+      <a class="active" href="../../">文档</a>
+      <a class="" href="../../pages/widget-api-reference/">API 参考</a>
+      <a class="" href="../../pages/appui-cookbook-index/">示例</a>
+    </nav>
+    <details class="language-menu">
+      <summary>中文</summary>
+      <div class="language-panel">
+        <span class="active">简体中文</span>
+        <button type="button" disabled>English <em>准备中</em></button>
+      </div>
+    </details>
+    <button class="theme-toggle" type="button" aria-label="切换主题">◐</button>
+  </header>
+  <div class="shell">
+    <aside class="sidebar">
+      <nav class="sidebar-nav" aria-label="Docs navigation">
+<button class="sidebar-search search-trigger" type="button"><span>搜索...</span><kbd>⌘K</kbd></button>
+<details class="nav-collection" open>
+<summary><a href="../../collections/appui/">appui</a></summary>
+<div class="nav-group">
+<div class="nav-group-title">开始</div>
+<a class="nav-link" href="../../pages/appui-module/">appui 概览</a>
+<a class="nav-link" href="../../pages/appui-quickstart/">快速上手</a>
+<a class="nav-link" href="../../pages/miniapp-choose-runtime/">运行时选择</a>
+<a class="nav-link" href="../../pages/miniapp-appui-ui-patterns/">AppUI UI 模式</a>
+<a class="nav-link" href="../../pages/miniapp-appui-api-index/">AppUI API 地图</a>
+<a class="nav-link" href="../../pages/miniapp-dev-troubleshooting/">MiniApp 开发排错</a>
+</div>
+<div class="nav-group">
+<div class="nav-group-title">指南</div>
+<a class="nav-link" href="../../pages/appui-guide-thinking/">appui 思维方式</a>
+<a class="nav-link" href="../../pages/appui-guide-state/">状态管理</a>
+<a class="nav-link" href="../../pages/appui-guide-layout/">布局系统</a>
+<a class="nav-link" href="../../pages/appui-guide-lists/">列表与表单</a>
+<a class="nav-link" href="../../pages/appui-guide-navigation/">导航与页面结构</a>
+<a class="nav-link active" href="../../pages/appui-guide-interaction/">交互与回调</a>
+<a class="nav-link" href="../../pages/appui-guide-media/">媒体与系统集成</a>
+<a class="nav-link" href="../../pages/appui-guide-charts/">图表与绘图</a>
+<a class="nav-link" href="../../pages/appui-guide-darkmode/">深色模式与语义色</a>
+<a class="nav-link" href="../../pages/appui-guide-animation/">动画</a>
+<a class="nav-link" href="../../pages/appui-guide-hotreload/">热重载</a>
+<a class="nav-link" href="../../pages/appui-guide-realtime/">实时快路径</a>
+<a class="nav-link" href="../../pages/appui-guide-performance/">性能与实时界面</a>
+</div>
+<div class="nav-group">
+<div class="nav-group-title">API 参考</div>
+<a class="nav-link" href="../../pages/appui-ref-functions/">入口函数</a>
+<a class="nav-link" href="../../pages/appui-ref-state/">状态 API</a>
+<a class="nav-link" href="../../pages/appui-ref-layout/">布局 API</a>
+<a class="nav-link" href="../../pages/appui-ref-layout-stacks/">堆叠布局 API</a>
+<a class="nav-link" href="../../pages/appui-ref-layout-scroll/">滚动 API</a>
+<a class="nav-link" href="../../pages/appui-ref-layout-grids/">网格 API</a>
+<a class="nav-link" href="../../pages/appui-ref-layout-geometry/">几何与特殊布局 API</a>
+<a class="nav-link" href="../../pages/appui-ref-controls/">控件 API</a>
+<a class="nav-link" href="../../pages/appui-ref-navigation/">导航 API</a>
+<a class="nav-link" href="../../pages/appui-ref-data/">数据展示 API</a>
+<a class="nav-link" href="../../pages/appui-ref-presentation/">呈现 API</a>
+<a class="nav-link" href="../../pages/appui-ref-modifiers/">修饰符 API</a>
+<a class="nav-link" href="../../pages/appui-ref-environment/">环境值 API</a>
+<a class="nav-link" href="../../pages/appui-ref-media/">媒体 API</a>
+<a class="nav-link" href="../../pages/appui-ref-charts/">图表与画布 API</a>
+<a class="nav-link" href="../../pages/appui-ref-shapes/">形状 API</a>
+</div>
+<div class="nav-group">
+<div class="nav-group-title">示例</div>
+<a class="nav-link" href="../../pages/appui-cookbook-index/">示例索引</a>
+<a class="nav-link" href="../../pages/appui-cookbook-todo/">示例：待办列表</a>
+<a class="nav-link" href="../../pages/appui-cookbook-settings/">示例：设置表单</a>
+<a class="nav-link" href="../../pages/appui-cookbook-dashboard/">示例：紧凑仪表盘</a>
+<a class="nav-link" href="../../pages/appui-cookbook-native-list-detail/">示例：原生列表详情</a>
+<a class="nav-link" href="../../pages/appui-cookbook-network-list/">示例：网络列表</a>
+<a class="nav-link" href="../../pages/appui-cookbook-table-data-review/">示例：表格数据审核</a>
+<a class="nav-link" href="../../pages/appui-cookbook-chat/">示例：聊天界面</a>
+<a class="nav-link" href="../../pages/appui-cookbook-media-capture-gallery/">示例：媒体采集相册</a>
+<a class="nav-link" href="../../pages/appui-cookbook-gallery/">示例：相册浏览器</a>
+<a class="nav-link" href="../../pages/appui-cookbook-form-settings-controls/">示例：原生表单设置</a>
+<a class="nav-link" href="../../pages/appui-cookbook-chart-canvas-lab/">示例：图表与画布实验室</a>
+<a class="nav-link" href="../../pages/appui-cookbook-location-map/">示例：定位地图</a>
+<a class="nav-link" href="../../pages/appui-cookbook-motion-haptics-dashboard/">示例：运动传感器仪表盘</a>
+<a class="nav-link" href="../../pages/appui-cookbook-notification-reminder/">示例：通知提醒</a>
+<a class="nav-link" href="../../pages/appui-cookbook-health-blood-pressure/">示例：血压分析</a>
+<a class="nav-link" href="../../pages/appui-cookbook-secure-vault/">示例：安全凭据库</a>
+<a class="nav-link" href="../../pages/appui-cookbook-live-activity-background/">示例：实时活动与后台任务</a>
+<a class="nav-link" href="../../pages/appui-cookbook-shortcuts-launcher/">示例：快捷指令启动器</a>
+<a class="nav-link" href="../../pages/appui-cookbook-video-player/">示例：视频播放器</a>
+<a class="nav-link" href="../../pages/appui-cookbook-webview-share-export/">示例：WebView 与系统分享</a>
+</div>
+<div class="nav-group">
+<div class="nav-group-title">速查</div>
+<a class="nav-link" href="../../pages/appui-appendix-colors/">颜色参考</a>
+<a class="nav-link" href="../../pages/appui-appendix-symbols/">SF Symbols</a>
+<a class="nav-link" href="../../pages/appui-appendix-migration/">从 ui 迁移到 appui</a>
+</div>
+</details>
+<details class="nav-collection">
+<summary><a href="../../collections/widget/">widget</a></summary>
+<div class="nav-group">
+<div class="nav-group-title">小组件</div>
+<a class="nav-link" href="../../pages/widget-module/">widget</a>
+<a class="nav-link" href="../../pages/widget-quickstart-publish/">widget 从脚本到桌面</a>
+<a class="nav-link" href="../../pages/widget-layout/">widget 布局与尺寸</a>
+<a class="nav-link" href="../../pages/widget-parameters/">widget 参数面板</a>
+<a class="nav-link" href="../../pages/widget-interaction/">widget 状态和交互</a>
+<a class="nav-link" href="../../pages/widget-timeline/">widget 时间线和动画</a>
+<a class="nav-link" href="../../pages/widget-appearance-assets/">widget 资源与外观</a>
+<a class="nav-link" href="../../pages/widget-troubleshooting/">widget 排错</a>
+<a class="nav-link" href="../../pages/widget-api-index/">widget API 地图</a>
+<a class="nav-link" href="../../pages/widget-api-reference/">widget API 参考</a>
+</div>
+</details>
+<details class="nav-collection">
+<summary><a href="../../collections/ui/">ui</a></summary>
+<div class="nav-group">
+<div class="nav-group-title">快速上手</div>
+<a class="nav-link" href="../../pages/ui-module/">ui 概览</a>
+</div>
+<div class="nav-group">
+<div class="nav-group-title">API 参考</div>
+<a class="nav-link" href="../../pages/ui-api-index/">ui API 索引</a>
+<a class="nav-link" href="../../pages/ui-api-reference/">ui API 参考</a>
+</div>
+<div class="nav-group">
+<div class="nav-group-title">实时能力</div>
+<a class="nav-link" href="../../pages/aurora-system/">系统实时能力</a>
+<a class="nav-link" href="../../pages/aurora-toolkit/">实时更新工具</a>
+</div>
+</details>
+<details class="nav-collection">
+<summary><a href="../../collections/scene/">scene</a></summary>
+<div class="nav-group">
+<div class="nav-group-title">快速上手</div>
+<a class="nav-link" href="../../pages/scene-module/">scene 概览</a>
+<a class="nav-link" href="../../pages/turtle-module/">turtle</a>
+</div>
+<div class="nav-group">
+<div class="nav-group-title">API 参考</div>
+<a class="nav-link" href="../../pages/scene-api-index/">scene API 索引</a>
+<a class="nav-link" href="../../pages/scene-api-reference/">scene API 参考</a>
+</div>
+</details>
+<details class="nav-collection">
+<summary><a href="../../collections/ios-native/">iOS 原生模块</a></summary>
+<div class="nav-group">
+<div class="nav-group-title">快速上手</div>
+<a class="nav-link" href="../../pages/ios-native/">iOS 原生能力</a>
+<a class="nav-link" href="../../pages/modules-index/">全部模块总览</a>
+<a class="nav-link" href="../../pages/miniapp-native-capabilities/">原生能力入口</a>
+</div>
+<div class="nav-group">
+<div class="nav-group-title">设备与传感器</div>
+<a class="nav-link" href="../../pages/device-module/">device</a>
+<a class="nav-link" href="../../pages/location-module/">location</a>
+<a class="nav-link" href="../../pages/motion-module/">motion</a>
+<a class="nav-link" href="../../pages/haptics-module/">haptics</a>
+<a class="nav-link" href="../../pages/biometric-module/">biometric</a>
+<a class="nav-link" href="../../pages/health-module/">health</a>
+</div>
+<div class="nav-group">
+<div class="nav-group-title">媒体与视觉</div>
+<a class="nav-link" href="../../pages/photos-module/">photos</a>
+<a class="nav-link" href="../../pages/avplayer-module/">avplayer</a>
+<a class="nav-link" href="../../pages/sound-module/">sound</a>
+<a class="nav-link" href="../../pages/speech-module/">speech</a>
+<a class="nav-link" href="../../pages/vision-helper-module/">vision_helper</a>
+<a class="nav-link" href="../../pages/vision-module/">vision</a>
+<a class="nav-link" href="../../pages/coreml-module/">coreml</a>
+</div>
+<div class="nav-group">
+<div class="nav-group-title">网络与数据</div>
+<a class="nav-link" href="../../pages/network-module/">network</a>
+<a class="nav-link" href="../../pages/websocket-module/">websocket</a>
+<a class="nav-link" href="../../pages/bluetooth-module/">bluetooth</a>
+<a class="nav-link" href="../../pages/background-module/">background</a>
+</div>
+<div class="nav-group">
+<div class="nav-group-title">系统服务</div>
+<a class="nav-link" href="../../pages/permission-module/">permission</a>
+<a class="nav-link" href="../../pages/storage-module/">storage</a>
+<a class="nav-link" href="../../pages/database-module/">database</a>
+<a class="nav-link" href="../../pages/keychain-module/">keychain</a>
+<a class="nav-link" href="../../pages/clipboard-module/">clipboard</a>
+<a class="nav-link" href="../../pages/dialogs-module/">dialogs</a>
+<a class="nav-link" href="../../pages/console-module/">console</a>
+<a class="nav-link" href="../../pages/notification-module/">notification</a>
+<a class="nav-link" href="../../pages/contacts-module/">contacts</a>
+<a class="nav-link" href="../../pages/calendar-events-module/">calendar_events</a>
+<a class="nav-link" href="../../pages/nfc-module/">nfc</a>
+</div>
+</details>
+<details class="nav-collection">
+<summary><a href="../../collections/automation-extension/">自动化与扩展</a></summary>
+<div class="nav-group">
+<div class="nav-group-title">快速上手</div>
+<a class="nav-link" href="../../pages/shortcuts-guide/">快捷指令</a>
+<a class="nav-link" href="../../pages/js-api/">JS API 说明</a>
+</div>
+<div class="nav-group">
+<div class="nav-group-title">模块</div>
+<a class="nav-link" href="../../pages/shortcuts-module/">shortcuts</a>
+<a class="nav-link" href="../../pages/live-activity-module/">live_activity</a>
+<a class="nav-link" href="../../pages/keyboard-module/">keyboard</a>
+<a class="nav-link" href="../../pages/objc-util-module/">objc_util</a>
+<a class="nav-link" href="../../pages/c-extensions-module/">c_extensions</a>
+</div>
+</details>
+</nav>
+    </aside>
+    <main class="content">
+      
+<article class="article" style="--page-accent:#ea580c">
+  <header class="article-intro">
+    <div class="breadcrumb">appui / 指南</div>
+    <h1>交互与回调</h1>
+    <p>按钮、输入、on_change、sheet 和行级回调的可靠写法。</p>
+  </header>
+  <div class="markdown-body">
+    <p>触摸、长按、拖拽与捏合等交互通过视图修饰符绑定到 Python 回调。键盘与焦点用 <code>.focused</code> 与 <code>.keyboard_dismiss</code> 控制；上下文菜单用 <code>.context_menu</code>；需要与系统手势共存时用 <code>.simultaneous_gesture</code> 或 <code>.high_priority_gesture</code>。</p>
+<h2 id="预期效果"><a class="heading-anchor" href="#预期效果">#</a>预期效果</h2>
+<p>示例会展示点击、长按、焦点、键盘、拖拽和行级动作的反馈路径。</p>
+<h2 id="概念速览"><a class="heading-anchor" href="#概念速览">#</a>概念速览</h2>
+<div class="table-scroll"><table><thead><tr><th>能力</th><th>API</th></tr></thead><tbody><tr><td>点击 / 长按</td><td><code>.on_tap(action)</code>、<code>.on_long_press(...)</code></td></tr><tr><td>拖移 / 捏合 / 旋转</td><td><code>.on_drag</code>、<code>.on_magnification</code>、<code>.on_rotation</code></td></tr><tr><td>组合手势</td><td><code>.simultaneous_gesture(...)</code>、<code>.high_priority_gesture(...)</code></td></tr><tr><td>菜单</td><td><code>.context_menu(content=[...])</code></td></tr><tr><td>焦点与键盘</td><td><code>.focused(...)</code>、<code>.keyboard_dismiss(mode)</code></td></tr><tr><td>禁用</td><td><code>.disabled(value)</code></td></tr><tr><td>气泡菜单</td><td><code>.popover(is_presented, content, on_dismiss)</code></td></tr><tr><td>搜索和刷新</td><td><code>.searchable(...)</code>、<code>.refreshable(...)</code></td></tr><tr><td>列表动作</td><td><code>.swipe_actions(...)</code></td></tr></tbody></table></div>
+<h2 id="手势优先级"><a class="heading-anchor" href="#手势优先级">#</a>手势优先级</h2>
+<ul><li>普通子视图手势：默认由子控件（如 <code>Button</code>）消费点击。</li><li><code>simultaneous_gesture</code>：与视图自身手势并行，适合在可滚动区域附加轻量检测。</li><li><code>high_priority_gesture</code>：优先于子视图；仅在确有需要时使用，否则容易导致按钮点不动。</li></ul>
+<p><code>context_menu</code> 的 <code>content</code> 是 <code>Button</code> 视图列表，不要用任意字符串代替 <code>Button</code>。</p>
+<h2 id="基础示例"><a class="heading-anchor" href="#基础示例">#</a>基础示例</h2>
+<p>点击计数、长按提示、<code>context_menu</code> 弹出操作。示例使用命名回调，预览里每个动作都有状态反馈。</p>
+<figure class="code-block" data-code-id="78b82567abf3">
+  <figcaption>
+    <span>python</span>
+    <button class="copy-code" type="button" data-copy-code="78b82567abf3">复制</button>
+  </figcaption>
+  <pre><code id="code-78b82567abf3" class="language-python">import appui
+
+state = appui.State(count=0, hint=&quot;&quot;)
+
+
+def add_count():
+    state.count += 1
+
+
+def reset_count():
+    state.batch_update(count=0, hint=&quot;已归零&quot;)
+
+
+def double_count():
+    state.batch_update(count=state.count * 2, hint=&quot;已加倍&quot;)
+
+
+def show_long_press_hint():
+    state.hint = &quot;长按已触发&quot;
+
+
+def body():
+    block = (
+        appui.RoundedRectangle(corner_radius=16)
+        .fill(&quot;systemBlue&quot;)
+        .frame(width=140, height=90)
+        .on_tap(add_count)
+        .on_long_press(action=show_long_press_hint, min_duration=0.4)
+        .context_menu(content=[
+            appui.Button(&quot;归零&quot;, action=reset_count),
+            appui.Button(&quot;加倍&quot;, action=double_count),
+        ])
+    )
+
+    return appui.NavigationStack(
+        appui.ScrollView(
+            appui.VStack([
+                appui.Text(f&quot;计数: {state.count}&quot;).font(&quot;title&quot;),
+                appui.Text(state.hint or &quot;点击或长按蓝色块&quot;)
+                    .font(&quot;footnote&quot;)
+                    .foreground_color(&quot;secondaryLabel&quot;),
+                block,
+            ], spacing=20).padding()
+        )
+        .keyboard_dismiss(&quot;interactive&quot;)
+        .navigation_title(&quot;交互示例&quot;)
+    )
+
+
+appui.run(body, state=state)</code></pre>
+</figure>
+<h2 id="焦点-键盘和-popover"><a class="heading-anchor" href="#焦点-键盘和-popover">#</a>焦点、键盘和 Popover</h2>
+<p><code>focused(key=..., equals=...)</code> 适合多个输入字段之间切换焦点。<code>keyboard_dismiss(&quot;interactive&quot;)</code> 通常加在 <code>ScrollView</code> 或列表外层。</p>
+<figure class="code-block" data-code-id="0ca069cc06c0">
+  <figcaption>
+    <span>python</span>
+    <button class="copy-code" type="button" data-copy-code="0ca069cc06c0">复制</button>
+  </figcaption>
+  <pre><code id="code-0ca069cc06c0" class="language-python">import appui
+
+state = appui.State(
+    active_field=&quot;name&quot;,
+    name=&quot;Ada&quot;,
+    city=&quot;上海&quot;,
+    show_pop=False,
+    lock_inputs=False,
+    gesture_log=&quot;&quot;,
+)
+
+
+def set_name(value):
+    state.name = value
+
+
+def set_city(value):
+    state.city = value
+
+
+def focus_name():
+    state.active_field = &quot;name&quot;
+
+
+def focus_city():
+    state.active_field = &quot;city&quot;
+
+
+def set_lock_inputs(value):
+    state.lock_inputs = bool(value)
+
+
+def open_popover():
+    state.show_pop = True
+
+
+def close_popover():
+    state.show_pop = False
+
+
+def log_long_press():
+    state.gesture_log = &quot;叠加长按&quot;
+
+
+def popover_content():
+    return appui.VStack([
+        appui.Text(&quot;Popover / Sheet 内容&quot;).font(&quot;headline&quot;),
+        appui.Button(&quot;关闭&quot;, action=close_popover),
+    ], spacing=12).padding()
+
+
+def body():
+    popover_trigger = (
+        appui.Text(&quot;点我打开 Popover&quot;)
+        .padding()
+        .background(&quot;systemGray5&quot;, corner_radius=8)
+        .popover(is_presented=state.show_pop, on_dismiss=close_popover, content=popover_content)
+        .on_tap(open_popover)
+        .simultaneous_gesture(
+            gesture=&quot;long_press&quot;,
+            callback=log_long_press,
+            min_duration=0.35,
+        )
+        .disabled(state.lock_inputs)
+    )
+
+    return appui.NavigationStack(
+        appui.ScrollView(
+            appui.VStack([
+                appui.TextField(&quot;姓名&quot;, text=state.name, on_change=set_name)
+                    .text_field_style(&quot;rounded_border&quot;)
+                    .focused(key=&quot;name&quot;, equals=state.active_field)
+                    .on_submit(focus_city),
+                appui.TextField(&quot;城市&quot;, text=state.city, on_change=set_city)
+                    .text_field_style(&quot;rounded_border&quot;)
+                    .focused(key=&quot;city&quot;, equals=state.active_field),
+                appui.HStack([
+                    appui.Button(&quot;编辑姓名&quot;, action=focus_name).button_style(&quot;bordered&quot;),
+                    appui.Button(&quot;编辑城市&quot;, action=focus_city).button_style(&quot;bordered&quot;),
+                ], spacing=12),
+                appui.Toggle(&quot;锁定输入&quot;, is_on=state.lock_inputs, on_change=set_lock_inputs),
+                appui.Text(state.gesture_log or &quot;在灰色区域长按可触发 simultaneous_gesture&quot;)
+                    .font(&quot;caption&quot;)
+                    .foreground_color(&quot;secondaryLabel&quot;),
+                popover_trigger,
+            ], spacing=16).padding()
+        )
+        .keyboard_dismiss(&quot;interactive&quot;)
+        .navigation_title(&quot;焦点与手势&quot;)
+    )
+
+
+appui.run(body, state=state)</code></pre>
+</figure>
+<h2 id="拖拽-缩放和旋转"><a class="heading-anchor" href="#拖拽-缩放和旋转">#</a>拖拽、缩放和旋转</h2>
+<p><code>on_drag</code>、<code>on_magnification</code>、<code>on_rotation</code> 的回调由运行时传入测量值或字典。实际项目里先把返回值显示出来，再按需要解析字段。</p>
+<figure class="code-block" data-code-id="54bde4672f90">
+  <figcaption>
+    <span>python</span>
+    <button class="copy-code" type="button" data-copy-code="54bde4672f90">复制</button>
+  </figcaption>
+  <pre><code id="code-54bde4672f90" class="language-python">def drag_changed(value):
+    state.gesture_log = str(value)
+
+
+def drag_ended(value):
+    state.gesture_log = f&quot;ended: {value}&quot;
+
+
+view.on_drag(on_changed=drag_changed, on_ended=drag_ended)</code></pre>
+</figure>
+<p>如果子控件本身需要点击，谨慎使用 <code>high_priority_gesture</code>，它会优先于子视图手势。</p>
+<h2 id="行级动作和刷新"><a class="heading-anchor" href="#行级动作和刷新">#</a>行级动作和刷新</h2>
+<p>列表行的交互要绑定稳定 id，不要依赖过滤后的下标。下拉刷新使用 <code>.refreshable(action=...)</code>。</p>
+<figure class="code-block" data-code-id="0cbc9cfb4636">
+  <figcaption>
+    <span>python</span>
+    <button class="copy-code" type="button" data-copy-code="0cbc9cfb4636">复制</button>
+  </figcaption>
+  <pre><code id="code-0cbc9cfb4636" class="language-python">import appui
+
+state = appui.State(
+    query=&quot;&quot;,
+    selected=&quot;None&quot;,
+    refresh_count=0,
+    rows=[
+        {&quot;id&quot;: &quot;api&quot;, &quot;title&quot;: &quot;API reference&quot;, &quot;done&quot;: False},
+        {&quot;id&quot;: &quot;ui&quot;, &quot;title&quot;: &quot;Preview UI&quot;, &quot;done&quot;: True},
+        {&quot;id&quot;: &quot;docs&quot;, &quot;title&quot;: &quot;Docs guide&quot;, &quot;done&quot;: False},
+    ],
+)
+
+
+def row_key(row):
+    return row[&quot;id&quot;]
+
+
+def set_query(value):
+    state.query = value
+
+
+def filtered_rows():
+    keyword = state.query.strip().lower()
+    if not keyword:
+        return state.rows
+    return [row for row in state.rows if keyword in row[&quot;title&quot;].lower()]
+
+
+def refresh_rows():
+    state.refresh_count += 1
+
+
+def select_row(row_id):
+    for row in state.rows:
+        if row[&quot;id&quot;] == row_id:
+            state.selected = row[&quot;title&quot;]
+            break
+
+
+def toggle_row(row_id):
+    state.rows = [
+        {**row, &quot;done&quot;: not row[&quot;done&quot;]} if row[&quot;id&quot;] == row_id else row
+        for row in state.rows
+    ]
+
+
+def row_view(row):
+    def select_current():
+        select_row(row[&quot;id&quot;])
+
+    def toggle_current():
+        toggle_row(row[&quot;id&quot;])
+
+    icon = &quot;checkmark.circle.fill&quot; if row[&quot;done&quot;] else &quot;circle&quot;
+    return (
+        appui.Button(
+            action=select_current,
+            content=appui.HStack([
+                appui.Label(row[&quot;title&quot;], system_image=icon),
+                appui.Spacer(),
+                appui.Text(&quot;Open&quot;).foreground_color(&quot;secondaryLabel&quot;),
+            ]),
+        )
+        .button_style(&quot;plain&quot;)
+        .swipe_actions(actions=[
+            appui.Button(&quot;Toggle&quot;, action=toggle_current),
+        ])
+    )
+
+
+def body():
+    return appui.NavigationStack(
+        appui.List([
+            appui.Section(&quot;Rows&quot;, [
+                appui.ForEach(filtered_rows(), row_builder=row_view, key=row_key)
+            ]),
+            appui.Section(&quot;State&quot;, [
+                appui.LabeledContent(&quot;Selected&quot;, value=state.selected),
+                appui.LabeledContent(&quot;Refresh count&quot;, value=str(state.refresh_count)),
+            ]),
+        ])
+        .searchable(text=state.query, on_change=set_query)
+        .refreshable(action=refresh_rows)
+        .navigation_title(&quot;Callbacks&quot;)
+    )
+
+
+appui.run(body, state=state)</code></pre>
+</figure>
+<h2 id="常见误区"><a class="heading-anchor" href="#常见误区">#</a>常见误区</h2>
+<ol><li><code>on_long_press</code> 与 <code>context_menu</code> 都使用长按语义；同时启用时要实测是否冲突。</li><li><code>.focused(key=..., equals=...)</code> 的 <code>equals</code> 应绑定到 <code>State</code> 中的当前字段名。</li><li><code>simultaneous_gesture</code> 的 <code>gesture</code> 常用 <code>&#x27;tap&#x27;</code>、<code>&#x27;long_press&#x27;</code>、<code>&#x27;magnification&#x27;</code>。</li><li><code>high_priority_gesture</code> 过度使用会导致子按钮点击失效。</li><li><code>keyboard_dismiss</code> 通常加在 <code>ScrollView</code> 或列表外层。</li><li>行级按钮要操作稳定 id，不要操作过滤后的下标。</li></ol>
+<h2 id="延伸阅读"><a class="heading-anchor" href="#延伸阅读">#</a>延伸阅读</h2>
+<ul><li><a href="../../pages/appui-ref-modifiers/">修饰符 API</a>：查看手势、焦点和键盘相关修饰符签名。</li><li><a href="../../pages/appui-ref-presentation/">呈现 API</a>：查看 sheet、alert、refresh、swipe action。</li></ul>
+  </div>
+  
+</article>
+
+    </main>
+    <aside class="toc"><div class="toc-title">本页目录</div><a class="toc-link" href="#预期效果">预期效果</a><a class="toc-link" href="#概念速览">概念速览</a><a class="toc-link" href="#手势优先级">手势优先级</a><a class="toc-link" href="#基础示例">基础示例</a><a class="toc-link" href="#焦点-键盘和-popover">焦点、键盘和 Popover</a><a class="toc-link" href="#拖拽-缩放和旋转">拖拽、缩放和旋转</a><a class="toc-link" href="#行级动作和刷新">行级动作和刷新</a><a class="toc-link" href="#常见误区">常见误区</a><a class="toc-link" href="#延伸阅读">延伸阅读</a></aside>
+  </div>
+  <div class="mobile-backdrop"></div>
+  <div class="search-panel" role="dialog" aria-modal="true" aria-label="搜索">
+    <div class="search-box">
+      <input id="docs-search-input" type="search" placeholder="搜索 API、模块、指南..." autocomplete="off">
+      <button class="search-close" type="button">Close</button>
+    </div>
+    <div id="docs-search-results" class="search-results"></div>
+  </div>
+</body>
+</html>

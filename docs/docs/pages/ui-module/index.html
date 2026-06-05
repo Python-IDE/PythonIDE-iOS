@@ -1,0 +1,285 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ui 概览 - PythonIDE Docs</title>
+  <meta name="description" content="Pythonista 风格原生 UI 组件与交互。">
+  <link rel="icon" href="../../assets/brand-mark.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="../../assets/docs-v2.css">
+  <script>window.PYTHONIDE_DOCS_PREFIX = "../../";</script>
+  <script defer src="../../assets/docs-v2.js"></script>
+</head>
+<body class="article-page">
+  <header class="topbar">
+    <button class="icon-button menu-toggle" type="button" aria-label="打开目录">☰</button>
+    <a class="brand" href="../../"><img class="brand-mark" src="../../assets/brand-mark.svg" alt="" width="30" height="30"><span class="brand-text">PythonIDE Docs</span></a>
+    <nav class="top-nav" aria-label="主导航">
+      <a class="active" href="../../">文档</a>
+      <a class="" href="../../pages/widget-api-reference/">API 参考</a>
+      <a class="" href="../../pages/appui-cookbook-index/">示例</a>
+    </nav>
+    <details class="language-menu">
+      <summary>中文</summary>
+      <div class="language-panel">
+        <span class="active">简体中文</span>
+        <button type="button" disabled>English <em>准备中</em></button>
+      </div>
+    </details>
+    <button class="theme-toggle" type="button" aria-label="切换主题">◐</button>
+  </header>
+  <div class="shell">
+    <aside class="sidebar">
+      <nav class="sidebar-nav" aria-label="Docs navigation">
+<button class="sidebar-search search-trigger" type="button"><span>搜索...</span><kbd>⌘K</kbd></button>
+<details class="nav-collection">
+<summary><a href="../../collections/appui/">appui</a></summary>
+<div class="nav-group">
+<div class="nav-group-title">开始</div>
+<a class="nav-link" href="../../pages/appui-module/">appui 概览</a>
+<a class="nav-link" href="../../pages/appui-quickstart/">快速上手</a>
+<a class="nav-link" href="../../pages/miniapp-choose-runtime/">运行时选择</a>
+<a class="nav-link" href="../../pages/miniapp-appui-ui-patterns/">AppUI UI 模式</a>
+<a class="nav-link" href="../../pages/miniapp-appui-api-index/">AppUI API 地图</a>
+<a class="nav-link" href="../../pages/miniapp-dev-troubleshooting/">MiniApp 开发排错</a>
+</div>
+<div class="nav-group">
+<div class="nav-group-title">指南</div>
+<a class="nav-link" href="../../pages/appui-guide-thinking/">appui 思维方式</a>
+<a class="nav-link" href="../../pages/appui-guide-state/">状态管理</a>
+<a class="nav-link" href="../../pages/appui-guide-layout/">布局系统</a>
+<a class="nav-link" href="../../pages/appui-guide-lists/">列表与表单</a>
+<a class="nav-link" href="../../pages/appui-guide-navigation/">导航与页面结构</a>
+<a class="nav-link" href="../../pages/appui-guide-interaction/">交互与回调</a>
+<a class="nav-link" href="../../pages/appui-guide-media/">媒体与系统集成</a>
+<a class="nav-link" href="../../pages/appui-guide-charts/">图表与绘图</a>
+<a class="nav-link" href="../../pages/appui-guide-darkmode/">深色模式与语义色</a>
+<a class="nav-link" href="../../pages/appui-guide-animation/">动画</a>
+<a class="nav-link" href="../../pages/appui-guide-hotreload/">热重载</a>
+<a class="nav-link" href="../../pages/appui-guide-realtime/">实时快路径</a>
+<a class="nav-link" href="../../pages/appui-guide-performance/">性能与实时界面</a>
+</div>
+<div class="nav-group">
+<div class="nav-group-title">API 参考</div>
+<a class="nav-link" href="../../pages/appui-ref-functions/">入口函数</a>
+<a class="nav-link" href="../../pages/appui-ref-state/">状态 API</a>
+<a class="nav-link" href="../../pages/appui-ref-layout/">布局 API</a>
+<a class="nav-link" href="../../pages/appui-ref-layout-stacks/">堆叠布局 API</a>
+<a class="nav-link" href="../../pages/appui-ref-layout-scroll/">滚动 API</a>
+<a class="nav-link" href="../../pages/appui-ref-layout-grids/">网格 API</a>
+<a class="nav-link" href="../../pages/appui-ref-layout-geometry/">几何与特殊布局 API</a>
+<a class="nav-link" href="../../pages/appui-ref-controls/">控件 API</a>
+<a class="nav-link" href="../../pages/appui-ref-navigation/">导航 API</a>
+<a class="nav-link" href="../../pages/appui-ref-data/">数据展示 API</a>
+<a class="nav-link" href="../../pages/appui-ref-presentation/">呈现 API</a>
+<a class="nav-link" href="../../pages/appui-ref-modifiers/">修饰符 API</a>
+<a class="nav-link" href="../../pages/appui-ref-environment/">环境值 API</a>
+<a class="nav-link" href="../../pages/appui-ref-media/">媒体 API</a>
+<a class="nav-link" href="../../pages/appui-ref-charts/">图表与画布 API</a>
+<a class="nav-link" href="../../pages/appui-ref-shapes/">形状 API</a>
+</div>
+<div class="nav-group">
+<div class="nav-group-title">示例</div>
+<a class="nav-link" href="../../pages/appui-cookbook-index/">示例索引</a>
+<a class="nav-link" href="../../pages/appui-cookbook-todo/">示例：待办列表</a>
+<a class="nav-link" href="../../pages/appui-cookbook-settings/">示例：设置表单</a>
+<a class="nav-link" href="../../pages/appui-cookbook-dashboard/">示例：紧凑仪表盘</a>
+<a class="nav-link" href="../../pages/appui-cookbook-native-list-detail/">示例：原生列表详情</a>
+<a class="nav-link" href="../../pages/appui-cookbook-network-list/">示例：网络列表</a>
+<a class="nav-link" href="../../pages/appui-cookbook-table-data-review/">示例：表格数据审核</a>
+<a class="nav-link" href="../../pages/appui-cookbook-chat/">示例：聊天界面</a>
+<a class="nav-link" href="../../pages/appui-cookbook-media-capture-gallery/">示例：媒体采集相册</a>
+<a class="nav-link" href="../../pages/appui-cookbook-gallery/">示例：相册浏览器</a>
+<a class="nav-link" href="../../pages/appui-cookbook-form-settings-controls/">示例：原生表单设置</a>
+<a class="nav-link" href="../../pages/appui-cookbook-chart-canvas-lab/">示例：图表与画布实验室</a>
+<a class="nav-link" href="../../pages/appui-cookbook-location-map/">示例：定位地图</a>
+<a class="nav-link" href="../../pages/appui-cookbook-motion-haptics-dashboard/">示例：运动传感器仪表盘</a>
+<a class="nav-link" href="../../pages/appui-cookbook-notification-reminder/">示例：通知提醒</a>
+<a class="nav-link" href="../../pages/appui-cookbook-health-blood-pressure/">示例：血压分析</a>
+<a class="nav-link" href="../../pages/appui-cookbook-secure-vault/">示例：安全凭据库</a>
+<a class="nav-link" href="../../pages/appui-cookbook-live-activity-background/">示例：实时活动与后台任务</a>
+<a class="nav-link" href="../../pages/appui-cookbook-shortcuts-launcher/">示例：快捷指令启动器</a>
+<a class="nav-link" href="../../pages/appui-cookbook-video-player/">示例：视频播放器</a>
+<a class="nav-link" href="../../pages/appui-cookbook-webview-share-export/">示例：WebView 与系统分享</a>
+</div>
+<div class="nav-group">
+<div class="nav-group-title">速查</div>
+<a class="nav-link" href="../../pages/appui-appendix-colors/">颜色参考</a>
+<a class="nav-link" href="../../pages/appui-appendix-symbols/">SF Symbols</a>
+<a class="nav-link" href="../../pages/appui-appendix-migration/">从 ui 迁移到 appui</a>
+</div>
+</details>
+<details class="nav-collection">
+<summary><a href="../../collections/widget/">widget</a></summary>
+<div class="nav-group">
+<div class="nav-group-title">小组件</div>
+<a class="nav-link" href="../../pages/widget-module/">widget</a>
+<a class="nav-link" href="../../pages/widget-quickstart-publish/">widget 从脚本到桌面</a>
+<a class="nav-link" href="../../pages/widget-layout/">widget 布局与尺寸</a>
+<a class="nav-link" href="../../pages/widget-parameters/">widget 参数面板</a>
+<a class="nav-link" href="../../pages/widget-interaction/">widget 状态和交互</a>
+<a class="nav-link" href="../../pages/widget-timeline/">widget 时间线和动画</a>
+<a class="nav-link" href="../../pages/widget-appearance-assets/">widget 资源与外观</a>
+<a class="nav-link" href="../../pages/widget-troubleshooting/">widget 排错</a>
+<a class="nav-link" href="../../pages/widget-api-index/">widget API 地图</a>
+<a class="nav-link" href="../../pages/widget-api-reference/">widget API 参考</a>
+</div>
+</details>
+<details class="nav-collection" open>
+<summary><a href="../../collections/ui/">ui</a></summary>
+<div class="nav-group">
+<div class="nav-group-title">快速上手</div>
+<a class="nav-link active" href="../../pages/ui-module/">ui 概览</a>
+</div>
+<div class="nav-group">
+<div class="nav-group-title">API 参考</div>
+<a class="nav-link" href="../../pages/ui-api-index/">ui API 索引</a>
+<a class="nav-link" href="../../pages/ui-api-reference/">ui API 参考</a>
+</div>
+<div class="nav-group">
+<div class="nav-group-title">实时能力</div>
+<a class="nav-link" href="../../pages/aurora-system/">系统实时能力</a>
+<a class="nav-link" href="../../pages/aurora-toolkit/">实时更新工具</a>
+</div>
+</details>
+<details class="nav-collection">
+<summary><a href="../../collections/scene/">scene</a></summary>
+<div class="nav-group">
+<div class="nav-group-title">快速上手</div>
+<a class="nav-link" href="../../pages/scene-module/">scene 概览</a>
+<a class="nav-link" href="../../pages/turtle-module/">turtle</a>
+</div>
+<div class="nav-group">
+<div class="nav-group-title">API 参考</div>
+<a class="nav-link" href="../../pages/scene-api-index/">scene API 索引</a>
+<a class="nav-link" href="../../pages/scene-api-reference/">scene API 参考</a>
+</div>
+</details>
+<details class="nav-collection">
+<summary><a href="../../collections/ios-native/">iOS 原生模块</a></summary>
+<div class="nav-group">
+<div class="nav-group-title">快速上手</div>
+<a class="nav-link" href="../../pages/ios-native/">iOS 原生能力</a>
+<a class="nav-link" href="../../pages/modules-index/">全部模块总览</a>
+<a class="nav-link" href="../../pages/miniapp-native-capabilities/">原生能力入口</a>
+</div>
+<div class="nav-group">
+<div class="nav-group-title">设备与传感器</div>
+<a class="nav-link" href="../../pages/device-module/">device</a>
+<a class="nav-link" href="../../pages/location-module/">location</a>
+<a class="nav-link" href="../../pages/motion-module/">motion</a>
+<a class="nav-link" href="../../pages/haptics-module/">haptics</a>
+<a class="nav-link" href="../../pages/biometric-module/">biometric</a>
+<a class="nav-link" href="../../pages/health-module/">health</a>
+</div>
+<div class="nav-group">
+<div class="nav-group-title">媒体与视觉</div>
+<a class="nav-link" href="../../pages/photos-module/">photos</a>
+<a class="nav-link" href="../../pages/avplayer-module/">avplayer</a>
+<a class="nav-link" href="../../pages/sound-module/">sound</a>
+<a class="nav-link" href="../../pages/speech-module/">speech</a>
+<a class="nav-link" href="../../pages/vision-helper-module/">vision_helper</a>
+<a class="nav-link" href="../../pages/vision-module/">vision</a>
+<a class="nav-link" href="../../pages/coreml-module/">coreml</a>
+</div>
+<div class="nav-group">
+<div class="nav-group-title">网络与数据</div>
+<a class="nav-link" href="../../pages/network-module/">network</a>
+<a class="nav-link" href="../../pages/websocket-module/">websocket</a>
+<a class="nav-link" href="../../pages/bluetooth-module/">bluetooth</a>
+<a class="nav-link" href="../../pages/background-module/">background</a>
+</div>
+<div class="nav-group">
+<div class="nav-group-title">系统服务</div>
+<a class="nav-link" href="../../pages/permission-module/">permission</a>
+<a class="nav-link" href="../../pages/storage-module/">storage</a>
+<a class="nav-link" href="../../pages/database-module/">database</a>
+<a class="nav-link" href="../../pages/keychain-module/">keychain</a>
+<a class="nav-link" href="../../pages/clipboard-module/">clipboard</a>
+<a class="nav-link" href="../../pages/dialogs-module/">dialogs</a>
+<a class="nav-link" href="../../pages/console-module/">console</a>
+<a class="nav-link" href="../../pages/notification-module/">notification</a>
+<a class="nav-link" href="../../pages/contacts-module/">contacts</a>
+<a class="nav-link" href="../../pages/calendar-events-module/">calendar_events</a>
+<a class="nav-link" href="../../pages/nfc-module/">nfc</a>
+</div>
+</details>
+<details class="nav-collection">
+<summary><a href="../../collections/automation-extension/">自动化与扩展</a></summary>
+<div class="nav-group">
+<div class="nav-group-title">快速上手</div>
+<a class="nav-link" href="../../pages/shortcuts-guide/">快捷指令</a>
+<a class="nav-link" href="../../pages/js-api/">JS API 说明</a>
+</div>
+<div class="nav-group">
+<div class="nav-group-title">模块</div>
+<a class="nav-link" href="../../pages/shortcuts-module/">shortcuts</a>
+<a class="nav-link" href="../../pages/live-activity-module/">live_activity</a>
+<a class="nav-link" href="../../pages/keyboard-module/">keyboard</a>
+<a class="nav-link" href="../../pages/objc-util-module/">objc_util</a>
+<a class="nav-link" href="../../pages/c-extensions-module/">c_extensions</a>
+</div>
+</details>
+</nav>
+    </aside>
+    <main class="content">
+      
+<article class="article" style="--page-accent:#ea580c">
+  <header class="article-intro">
+    <div class="breadcrumb">ui / 快速上手</div>
+    <h1>ui 概览</h1>
+    <p>Pythonista 风格原生 UI 组件与交互。</p>
+  </header>
+  <div class="markdown-body">
+    <p>Pythonista 风格原生 UI 组件与交互。</p>
+<h2 id="预期效果"><a class="heading-anchor" href="#预期效果">#</a>预期效果</h2>
+<p>运行示例后会出现一个手动 frame 布局的原生 sheet，点击按钮会直接修改按钮标题。</p>
+<h2 id="适用场景"><a class="heading-anchor" href="#适用场景">#</a>适用场景</h2>
+<p>Pythonista 风格命令式 UI，使用 frame/flex 手动布局；新 MiniApp 默认优先用 appui。</p>
+<h2 id="先选写法"><a class="heading-anchor" href="#先选写法">#</a>先选写法</h2>
+<div class="table-scroll"><table><thead><tr><th>需求</th><th>首选</th><th>原因</th></tr></thead><tbody><tr><td>迁移 Pythonista 风格的 <code>ui</code> 脚本</td><td><code>ui</code></td><td>代码通常已经按 <code>View</code>、<code>frame</code>、<code>action(sender)</code> 组织。</td></tr><tr><td>新建设置页、表单、列表或多页面工具</td><td><code>appui</code></td><td>状态、导航、输入和动态列表更容易维护。</td></tr><tr><td>需要 Sprite、触摸循环、物理或逐帧绘制</td><td><code>scene</code></td><td>场景生命周期和渲染循环更适合动画与小游戏。</td></tr><tr><td>只需要桌面小组件</td><td><code>widget</code></td><td>小组件有独立的 WidgetKit 约束和刷新模型。</td></tr><tr><td>只想生成一张图片或画布</td><td><code>ui.ImageContext</code> / <code>CanvasView</code></td><td>不需要完整页面时，离屏绘图更轻。</td></tr></tbody></table></div>
+<h2 id="标准示例"><a class="heading-anchor" href="#标准示例">#</a>标准示例</h2>
+<figure class="code-block" data-code-id="d26394d475ed">
+  <figcaption>
+    <span>python</span>
+    <button class="copy-code" type="button" data-copy-code="d26394d475ed">复制</button>
+  </figcaption>
+  <pre><code id="code-d26394d475ed" class="language-python">import ui
+
+def tapped(sender):
+    sender.title = &quot;Tapped&quot;
+
+view = ui.View(frame=(0, 0, 320, 220))
+view.name = &quot;ui demo&quot;
+button = ui.Button(frame=(40, 80, 240, 44), title=&quot;Tap&quot;)
+button.action = tapped
+view.add_subview(button)
+view.present(&quot;sheet&quot;)</code></pre>
+</figure>
+<h2 id="写-ui-的心智模型"><a class="heading-anchor" href="#写-ui-的心智模型">#</a>写 ui 的心智模型</h2>
+<ol><li>根视图：创建一个有明确尺寸的 <code>ui.View(frame=...)</code>。</li><li>子视图：按钮、标签、输入框和图片用 <code>add_subview(...)</code> 挂到父视图。</li><li>布局：用 <code>frame</code> 设定初始位置，用 <code>flex</code> 处理简单的横竖屏变化。</li><li>交互：控件回调接收 <code>sender</code>，在回调里修改标题、文本、颜色或子视图。</li><li>呈现：脚本末尾调用一次 <code>present(...)</code>，不要在导入模块时弹出多个页面。</li><li>迁移：当状态、列表和导航开始变复杂，就把新页面迁到 <code>appui</code>。</li></ol>
+<h2 id="api-参考"><a class="heading-anchor" href="#api-参考">#</a>API 参考</h2>
+<div class="table-scroll"><table><thead><tr><th>类型</th><th>API</th><th>签名</th><th>说明</th></tr></thead><tbody><tr><td>class</td><td><code>Color</code></td><td><code>Color(r: float, g: float, b: float, a: float=1.0) -&gt; None</code></td><td>颜色类，兼容Pythonista的ui.Color</td></tr><tr><td>class</td><td><code>Point</code></td><td><code>Point(x: Union[float, Sequence[float]]=0.0, y: float=0.0) -&gt; None</code></td><td>二维点，兼容 Pythonista 的 ui.Point</td></tr><tr><td>class</td><td><code>Size</code></td><td><code>Size(w: Union[float, Sequence[float]]=0.0, h: float=0.0) -&gt; None</code></td><td>尺寸，兼容 Pythonista 的 ui.Size</td></tr><tr><td>class</td><td><code>Rect</code></td><td><code>Rect(x: Union[float, Sequence[float]]=0.0, y: float=0.0, w: float=0.0, h: float=0.0) -&gt; None</code></td><td>矩形，兼容 Pythonista 的 ui.Rect</td></tr><tr><td>class</td><td><code>Transform</code></td><td><code>Transform(a: float=1.0, b: float=0.0, c: float=0.0, d: float=1.0, tx: float=0.0, ty: float=0.0) -&gt; None</code></td><td>2D 仿射变换，兼容 Pythonista 的 ui.Transform</td></tr><tr><td>class</td><td><code>Touch</code></td><td><code>Touch(location: Sequence[float]=..., prev_location: Optional[Sequence[float]]=..., phase: str=..., touch_id: int=..., timestamp: Union[int, float]=...) -&gt; None</code></td><td>触摸事件，兼容 Pythonista 的 ui.Touch（简化实现）</td></tr><tr><td>class</td><td><code>GestureSender</code></td><td><code>GestureSender(view: Optional[View]=..., state: int=..., location: Sequence[float]=..., translation: Sequence[float]=..., scale: float=..., direction: int=...) -&gt; None</code></td><td>手势识别器回调的 sender 对象，兼容 Pythonista（state, location, translation, scale, direction）</td></tr><tr><td>class</td><td><code>GestureRecognizer</code></td><td><code>GestureRecognizer(gesture_id: str) -&gt; None</code></td><td>手势识别器基类，兼容 Pythonista（action(sender)）</td></tr><tr><td>class</td><td><code>TapGestureRecognizer</code></td><td><code>TapGestureRecognizer() -&gt; None</code></td><td>点击手势（Pythonista 兼容）</td></tr><tr><td>class</td><td><code>PanGestureRecognizer</code></td><td><code>PanGestureRecognizer() -&gt; None</code></td><td>拖动手势（Pythonista 兼容）</td></tr><tr><td>class</td><td><code>PinchGestureRecognizer</code></td><td><code>PinchGestureRecognizer() -&gt; None</code></td><td>捏合手势（Pythonista 兼容）</td></tr><tr><td>class</td><td><code>SwipeGestureRecognizer</code></td><td><code>SwipeGestureRecognizer() -&gt; None</code></td><td>滑动手势（Pythonista 兼容），direction: LEFT=1, RIGHT=2, UP=3, DOWN=4</td></tr><tr><td>class</td><td><code>LongPressGestureRecognizer</code></td><td><code>LongPressGestureRecognizer() -&gt; None</code></td><td>长按手势（Pythonista 兼容）</td></tr><tr><td>function</td><td><code>parse_color</code></td><td><code>parse_color(color: Any) -&gt; Tuple[float, float, float, float]</code></td><td>解析颜色参数为RGBA元组，支持语义色（systemBackground 等）自适应深色/浅色模式</td></tr><tr><td>class</td><td><code>Font</code></td><td><code>Font(name: str=..., size: float=...) -&gt; None</code></td><td>字体类，兼容Pythonista的ui.Font</td></tr><tr><td>function</td><td><code>parse_font</code></td><td><code>parse_font(font: Any) -&gt; Tuple[str, float]</code></td><td>解析字体参数为(name, size)元组</td></tr><tr><td>class</td><td><code>View</code></td><td><code>View(frame: Optional[_Frame]=..., **kwargs: Any) -&gt; None</code></td><td>视图基类，所有UI组件的父类</td></tr><tr><td>class</td><td><code>ButtonItem</code></td><td><code>ButtonItem(title: str=..., image: Any=..., action: Optional[Callable[..., Any]]=..., **kwargs: Any) -&gt; None</code></td><td>导航栏按钮项，用于 left_button_items / right_button_items</td></tr><tr><td>class</td><td><code>Button</code></td><td><code>Button(frame: Optional[_Frame]=..., title: str=..., **kwargs: Any) -&gt; None</code></td><td>按钮组件</td></tr><tr><td>class</td><td><code>Label</code></td><td><code>Label(frame: Optional[_Frame]=..., text: str=..., **kwargs: Any) -&gt; None</code></td><td>文本标签组件</td></tr><tr><td>class</td><td><code>TextField</code></td><td><code>TextField(frame: Optional[_Frame]=..., text: str=..., placeholder: str=..., **kwargs: Any) -&gt; None</code></td><td>单行文本输入组件</td></tr><tr><td>class</td><td><code>TextView</code></td><td><code>TextView(frame: Optional[_Frame]=..., text: str=..., **kwargs: Any) -&gt; None</code></td><td>多行文本输入组件</td></tr><tr><td>class</td><td><code>ImageView</code></td><td><code>ImageView(frame: Optional[_Frame]=..., **kwargs: Any) -&gt; None</code></td><td>图片显示组件</td></tr><tr><td>class</td><td><code>WebView</code></td><td><code>WebView(frame: Optional[_Frame]=..., **kwargs: Any) -&gt; None</code></td><td>网页视图</td></tr><tr><td>class</td><td><code>ActivityIndicator</code></td><td><code>ActivityIndicator(frame: Optional[_Frame]=..., **kwargs: Any) -&gt; None</code></td><td>加载指示器</td></tr><tr><td>class</td><td><code>TableView</code></td><td><code>TableView(frame: Optional[_Frame]=..., **kwargs: Any) -&gt; None</code></td><td>表格视图</td></tr><tr><td>class</td><td><code>ListDataSource</code></td><td><code>ListDataSource() -&gt; None</code></td><td>TableView 数据源协议 子类实现 tableview_number_of_sections, tableview_number_of_rows, tableview_cell_for_row 等</td></tr><tr><td>class</td><td><code>TableViewCell</code></td><td><code>TableViewCell(style: str=..., **kwargs: Any) -&gt; None</code></td><td>表格行单元，兼容 Pythonista</td></tr><tr><td>class</td><td><code>Switch</code></td><td><code>Switch(frame: Optional[_Frame]=..., value: bool=..., **kwargs: Any) -&gt; None</code></td><td>开关组件</td></tr><tr><td>class</td><td><code>Slider</code></td><td><code>Slider(frame: Optional[_Frame]=..., **kwargs: Any) -&gt; None</code></td><td>滑块组件</td></tr><tr><td>class</td><td><code>SegmentedControl</code></td><td><code>SegmentedControl(frame: Optional[_Frame]=..., **kwargs: Any) -&gt; None</code></td><td>分段控制器</td></tr><tr><td>class</td><td><code>DatePicker</code></td><td><code>DatePicker(frame: Optional[_Frame]=..., **kwargs: Any) -&gt; None</code></td><td>日期时间选择器</td></tr><tr><td>class</td><td><code>ProgressView</code></td><td><code>ProgressView(frame: Optional[_Frame]=..., **kwargs: Any) -&gt; None</code></td><td>进度条组件，兼容 Pythonista 的 ui.ProgressView</td></tr><tr><td>class</td><td><code>Stepper</code></td><td><code>Stepper(frame: Optional[_Frame]=..., **kwargs: Any) -&gt; None</code></td><td>步进器组件，兼容 Pythonista 的 ui.Stepper</td></tr><tr><td>class</td><td><code>NavigationView</code></td><td><code>NavigationView(view: Optional[View]=..., **kwargs: Any) -&gt; None</code></td><td>导航视图，支持 push_view / pop_view 兼容 Pythonista 的 ui.NavigationView</td></tr><tr><td>class</td><td><code>ScrollView</code></td><td><code>ScrollView(frame: Optional[_Frame]=..., **kwargs: Any) -&gt; None</code></td><td>滚动视图，兼容 Pythonista 的 ui.ScrollView 可容纳超出可见区域的子视图并支持滚动</td></tr><tr><td>class</td><td><code>Path</code></td><td><code>Path() -&gt; None</code></td><td>路径类，兼容 Pythonista 的 ui.Path 在 ImageContext 内使用</td></tr><tr><td>class</td><td><code>GState</code></td><td><code>GState()</code></td><td>with ui.GState(): 保存和恢复绘图状态</td></tr><tr><td>class</td><td><code>ImageContext</code></td><td><code>ImageContext(width: float, height: float) -&gt; None</code></td><td>离屏绘图上下文，兼容 Pythonista 的 ui.ImageContext with ui.ImageContext(100, 100) as ctx: ui.set_color(&#x27;red&#x27;) ui.fill_rect(0, 0, 50, 50) img = ctx.get_image() # 可在 with 块内调用，会立即结束上下文并返回图像</td></tr><tr><td>class</td><td><code>Image</code></td><td><code>Image(data: bytes=...) -&gt; None</code></td><td>图像类，兼容 Pythonista 的 ui.Image</td></tr><tr><td>function</td><td><code>begin_image_context</code></td><td><code>begin_image_context(width: float, height: float) -&gt; None</code></td><td>Start an image drawing context (Pythonista-compatible standalone function).</td></tr><tr><td>function</td><td><code>end_image_context</code></td><td><code>end_image_context() -&gt; None</code></td><td>End the current image drawing context.</td></tr><tr><td>function</td><td><code>get_image_from_current_context</code></td><td><code>get_image_from_current_context() -&gt; Image</code></td><td>Capture the current drawing context as an Image. Call before end_image_context() to get the drawn image, or after end_image_context() to retrieve the last captured result.</td></tr><tr><td>function</td><td><code>set_color</code></td><td><code>set_color(color: _ColorLike) -&gt; None</code></td><td>设置当前绘图颜色</td></tr><tr><td>function</td><td><code>fill_rect</code></td><td><code>fill_rect(x: float, y: float, w: float, h: float) -&gt; None</code></td><td>填充矩形</td></tr><tr><td>function</td><td><code>stroke_rect</code></td><td><code>stroke_rect(x: float, y: float, w: float, h: float) -&gt; None</code></td><td>描边矩形</td></tr><tr><td>function</td><td><code>draw_string</code></td><td><code>draw_string(text: str, rect: Any=..., font: _FontLike=..., color: _ColorLike=..., alignment: int=..., line_break_mode: int=...) -&gt; None</code></td><td>绘制字符串 rect: (x, y, w, h) 元组</td></tr><tr><td>class</td><td><code>CanvasView</code></td><td><code>CanvasView(frame: Optional[_Frame]=..., **kwargs: Any) -&gt; None</code></td><td>画布视图，通过 render(draw_func) 自绘内容 兼容 Pythonista 的 ui 画布用法</td></tr><tr><td>function</td><td><code>get_screen_size</code></td><td><code>get_screen_size() -&gt; Tuple[float, float]</code></td><td>获取屏幕尺寸</td></tr><tr><td>function</td><td><code>get_window_size</code></td><td><code>get_window_size() -&gt; Size</code></td><td>获取窗口尺寸（同 get_screen_size）</td></tr><tr><td>function</td><td><code>get_keyboard_frame</code></td><td><code>get_keyboard_frame() -&gt; Tuple[float, float, float, float]</code></td><td>获取键盘在屏幕上的 frame (x, y, width, height)；未显示时为 (0, 0, 0, 0)（Pythonista 兼容）</td></tr><tr><td>function</td><td><code>get_ui_style</code></td><td><code>get_ui_style() -&gt; str</code></td><td>获取当前 UI 风格：&#x27;light&#x27; 或 &#x27;dark&#x27;（Pythonista 兼容）</td></tr><tr><td>function</td><td><code>measure_string</code></td><td><code>measure_string(text: str, max_width: float=..., font: _FontLike=..., alignment: int=..., line_break_mode: int=...) -&gt; Tuple[float, float]</code></td><td>测量字符串尺寸，返回 (width, height)</td></tr><tr><td>function</td><td><code>delay</code></td><td><code>delay(seconds: float, func: Callable[..., Any]) -&gt; None</code></td><td>延迟 seconds 秒后执行 func（Pythonista 兼容）。可用 cancel_delays() 取消未执行的 delay。</td></tr><tr><td>function</td><td><code>cancel_delays</code></td><td><code>cancel_delays() -&gt; None</code></td><td>取消所有通过 delay() 调度且尚未执行的回调（Pythonista 兼容）</td></tr><tr><td>function</td><td><code>in_background</code></td><td><code>in_background(fn: Callable[..., Any]) -&gt; Callable[..., None]</code></td><td>装饰器：在后台线程执行函数</td></tr><tr><td>function</td><td><code>animate</code></td><td><code>animate(animation: Callable[[], Any], duration: float=..., delay_sec: float=..., completion: Optional[Callable[[], Any]]=...) -&gt; None</code></td><td>执行动画。按指定延迟执行动画回调，并在 duration 秒后执行 completion。注意：回调异步执行，适合轻量属性更新。</td></tr><tr><td>function</td><td><code>convert_point</code></td><td><code>convert_point(point: Any=..., from_view: Optional[View]=..., to_view: Optional[View]=...) -&gt; Point</code></td><td>坐标转换。from_view/to_view 为 None 表示窗口坐标系</td></tr><tr><td>function</td><td><code>convert_rect</code></td><td><code>convert_rect(rect: Any=..., from_view: Optional[View]=..., to_view: Optional[View]=...) -&gt; Rect</code></td><td>矩形坐标转换</td></tr><tr><td>function</td><td><code>set_blend_mode</code></td><td><code>set_blend_mode(mode: int) -&gt; None</code></td><td>设置绘图混合模式 (BLEND_* 常量)</td></tr><tr><td>function</td><td><code>set_shadow</code></td><td><code>set_shadow(color: Optional[_ColorLike], offset_x: float, offset_y: float, blur_radius: float) -&gt; None</code></td><td>设置阴影。color 为 None 时清除阴影</td></tr><tr><td>class</td><td><code>autoreleasepool</code></td><td><code>autoreleasepool()</code></td><td>autoreleasepool 上下文（Python 中为 no-op）</td></tr><tr><td>function</td><td><code>load_view</code></td><td><code>load_view(name: Optional[str]=..., bindings: Optional[Dict[str, Any]]=..., stackframe: Any=..., verbose: bool=...) -&gt; View</code></td><td>加载 .pyui 文件。 name: 文件名（不含扩展名会自动加 .pyui） bindings: 名称到可调用对象的映射，用于绑定 action 等</td></tr><tr><td>function</td><td><code>load_view_str</code></td><td><code>load_view_str(json_str: str, bindings: Optional[Dict[str, Any]]=..., stackframe: Any=..., verbose: bool=...) -&gt; View</code></td><td>从 JSON 字符串加载视图</td></tr><tr><td>function</td><td><code>close_all</code></td><td><code>close_all(animated: bool=...) -&gt; None</code></td><td>关闭所有已展示的 UI 界面（Pythonista 兼容）</td></tr><tr><td>function</td><td><code>dump_view</code></td><td><code>dump_view(view: View, indent: int=...) -&gt; None</code></td><td>调试输出视图树（Pythonista 兼容）</td></tr></tbody></table></div>
+<h2 id="失败路径"><a class="heading-anchor" href="#失败路径">#</a>失败路径</h2>
+<div class="table-scroll"><table><thead><tr><th>情况</th><th>应该怎么处理</th></tr></thead><tbody><tr><td>页面空白</td><td>确认已创建根 <code>ui.View</code>，设置了非零 <code>frame</code>，并调用 <code>present(...)</code>。</td></tr><tr><td>点击无反应</td><td>回调要赋函数对象，例如 <code>button.action = tapped</code>，不要写成 <code>tapped()</code>。</td></tr><tr><td>布局错位</td><td>检查 <code>frame</code>、<code>flex</code> 和父视图尺寸；复杂响应式页面优先改用 <code>appui</code>。</td></tr><tr><td>输入或列表状态难维护</td><td>把新页面迁到 <code>appui.State</code>、<code>Form</code>、<code>List</code> 和 <code>NavigationStack</code>。</td></tr></tbody></table></div>
+<h2 id="发布前检查"><a class="heading-anchor" href="#发布前检查">#</a>发布前检查</h2>
+<div class="table-scroll"><table><thead><tr><th>检查项</th><th>合格标准</th></tr></thead><tbody><tr><td>根视图</td><td>有非零 <code>frame</code>，并设置清晰的 <code>name</code> 或标题。</td></tr><tr><td>子视图</td><td>所有控件都已加入父视图，位置不依赖魔法数字之外的隐式状态。</td></tr><tr><td>回调</td><td><code>action</code> 传函数对象，不写成 <code>action=handler()</code>。</td></tr><tr><td>布局</td><td>横竖屏或不同窗口尺寸下，关键控件不会移出可见区域。</td></tr><tr><td>边界</td><td>新功能不混用 <code>ui</code> 和 <code>appui</code> 组件树。</td></tr></tbody></table></div>
+<h2 id="使用规则"><a class="heading-anchor" href="#使用规则">#</a>使用规则</h2>
+<ul><li>不要把 ui 组件和 appui 组件混在同一棵界面树里。</li><li>需要响应式原生表单、列表或导航时优先选 appui。</li><li>ui 页面必须显式设置 frame/flex，并通过 present(...) 呈现。</li></ul>
+  </div>
+  
+</article>
+
+    </main>
+    <aside class="toc"><div class="toc-title">本页目录</div><a class="toc-link" href="#预期效果">预期效果</a><a class="toc-link" href="#适用场景">适用场景</a><a class="toc-link" href="#先选写法">先选写法</a><a class="toc-link" href="#标准示例">标准示例</a><a class="toc-link" href="#写-ui-的心智模型">写 ui 的心智模型</a><a class="toc-link" href="#api-参考">API 参考</a><a class="toc-link" href="#失败路径">失败路径</a><a class="toc-link" href="#发布前检查">发布前检查</a><a class="toc-link" href="#使用规则">使用规则</a></aside>
+  </div>
+  <div class="mobile-backdrop"></div>
+  <div class="search-panel" role="dialog" aria-modal="true" aria-label="搜索">
+    <div class="search-box">
+      <input id="docs-search-input" type="search" placeholder="搜索 API、模块、指南..." autocomplete="off">
+      <button class="search-close" type="button">Close</button>
+    </div>
+    <div id="docs-search-results" class="search-results"></div>
+  </div>
+</body>
+</html>

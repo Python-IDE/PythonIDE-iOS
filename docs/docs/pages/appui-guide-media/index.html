@@ -1,0 +1,531 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>媒体 - PythonIDE Docs</title>
+  <meta name="description" content="图片、相册、相机、地图、视频和 WebView 的页面模式。">
+  <link rel="icon" href="../../assets/brand-mark.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="../../assets/docs-v2.css">
+  <script>window.PYTHONIDE_DOCS_PREFIX = "../../";</script>
+  <script defer src="../../assets/docs-v2.js"></script>
+</head>
+<body class="article-page">
+  <header class="topbar">
+    <button class="icon-button menu-toggle" type="button" aria-label="打开目录">☰</button>
+    <a class="brand" href="../../"><img class="brand-mark" src="../../assets/brand-mark.svg" alt="" width="30" height="30"><span class="brand-text">PythonIDE Docs</span></a>
+    <nav class="top-nav" aria-label="主导航">
+      <a class="active" href="../../">文档</a>
+      <a class="" href="../../pages/widget-api-reference/">API 参考</a>
+      <a class="" href="../../pages/appui-cookbook-index/">示例</a>
+    </nav>
+    <details class="language-menu">
+      <summary>中文</summary>
+      <div class="language-panel">
+        <span class="active">简体中文</span>
+        <button type="button" disabled>English <em>准备中</em></button>
+      </div>
+    </details>
+    <button class="theme-toggle" type="button" aria-label="切换主题">◐</button>
+  </header>
+  <div class="shell">
+    <aside class="sidebar">
+      <nav class="sidebar-nav" aria-label="Docs navigation">
+<button class="sidebar-search search-trigger" type="button"><span>搜索...</span><kbd>⌘K</kbd></button>
+<details class="nav-collection" open>
+<summary><a href="../../collections/appui/">appui</a></summary>
+<div class="nav-group">
+<div class="nav-group-title">开始</div>
+<a class="nav-link" href="../../pages/appui-module/">appui 概览</a>
+<a class="nav-link" href="../../pages/appui-quickstart/">快速上手</a>
+<a class="nav-link" href="../../pages/miniapp-choose-runtime/">运行时选择</a>
+<a class="nav-link" href="../../pages/miniapp-appui-ui-patterns/">AppUI UI 模式</a>
+<a class="nav-link" href="../../pages/miniapp-appui-api-index/">AppUI API 地图</a>
+<a class="nav-link" href="../../pages/miniapp-dev-troubleshooting/">MiniApp 开发排错</a>
+</div>
+<div class="nav-group">
+<div class="nav-group-title">指南</div>
+<a class="nav-link" href="../../pages/appui-guide-thinking/">appui 思维方式</a>
+<a class="nav-link" href="../../pages/appui-guide-state/">状态管理</a>
+<a class="nav-link" href="../../pages/appui-guide-layout/">布局系统</a>
+<a class="nav-link" href="../../pages/appui-guide-lists/">列表与表单</a>
+<a class="nav-link" href="../../pages/appui-guide-navigation/">导航与页面结构</a>
+<a class="nav-link" href="../../pages/appui-guide-interaction/">交互与回调</a>
+<a class="nav-link active" href="../../pages/appui-guide-media/">媒体与系统集成</a>
+<a class="nav-link" href="../../pages/appui-guide-charts/">图表与绘图</a>
+<a class="nav-link" href="../../pages/appui-guide-darkmode/">深色模式与语义色</a>
+<a class="nav-link" href="../../pages/appui-guide-animation/">动画</a>
+<a class="nav-link" href="../../pages/appui-guide-hotreload/">热重载</a>
+<a class="nav-link" href="../../pages/appui-guide-realtime/">实时快路径</a>
+<a class="nav-link" href="../../pages/appui-guide-performance/">性能与实时界面</a>
+</div>
+<div class="nav-group">
+<div class="nav-group-title">API 参考</div>
+<a class="nav-link" href="../../pages/appui-ref-functions/">入口函数</a>
+<a class="nav-link" href="../../pages/appui-ref-state/">状态 API</a>
+<a class="nav-link" href="../../pages/appui-ref-layout/">布局 API</a>
+<a class="nav-link" href="../../pages/appui-ref-layout-stacks/">堆叠布局 API</a>
+<a class="nav-link" href="../../pages/appui-ref-layout-scroll/">滚动 API</a>
+<a class="nav-link" href="../../pages/appui-ref-layout-grids/">网格 API</a>
+<a class="nav-link" href="../../pages/appui-ref-layout-geometry/">几何与特殊布局 API</a>
+<a class="nav-link" href="../../pages/appui-ref-controls/">控件 API</a>
+<a class="nav-link" href="../../pages/appui-ref-navigation/">导航 API</a>
+<a class="nav-link" href="../../pages/appui-ref-data/">数据展示 API</a>
+<a class="nav-link" href="../../pages/appui-ref-presentation/">呈现 API</a>
+<a class="nav-link" href="../../pages/appui-ref-modifiers/">修饰符 API</a>
+<a class="nav-link" href="../../pages/appui-ref-environment/">环境值 API</a>
+<a class="nav-link" href="../../pages/appui-ref-media/">媒体 API</a>
+<a class="nav-link" href="../../pages/appui-ref-charts/">图表与画布 API</a>
+<a class="nav-link" href="../../pages/appui-ref-shapes/">形状 API</a>
+</div>
+<div class="nav-group">
+<div class="nav-group-title">示例</div>
+<a class="nav-link" href="../../pages/appui-cookbook-index/">示例索引</a>
+<a class="nav-link" href="../../pages/appui-cookbook-todo/">示例：待办列表</a>
+<a class="nav-link" href="../../pages/appui-cookbook-settings/">示例：设置表单</a>
+<a class="nav-link" href="../../pages/appui-cookbook-dashboard/">示例：紧凑仪表盘</a>
+<a class="nav-link" href="../../pages/appui-cookbook-native-list-detail/">示例：原生列表详情</a>
+<a class="nav-link" href="../../pages/appui-cookbook-network-list/">示例：网络列表</a>
+<a class="nav-link" href="../../pages/appui-cookbook-table-data-review/">示例：表格数据审核</a>
+<a class="nav-link" href="../../pages/appui-cookbook-chat/">示例：聊天界面</a>
+<a class="nav-link" href="../../pages/appui-cookbook-media-capture-gallery/">示例：媒体采集相册</a>
+<a class="nav-link" href="../../pages/appui-cookbook-gallery/">示例：相册浏览器</a>
+<a class="nav-link" href="../../pages/appui-cookbook-form-settings-controls/">示例：原生表单设置</a>
+<a class="nav-link" href="../../pages/appui-cookbook-chart-canvas-lab/">示例：图表与画布实验室</a>
+<a class="nav-link" href="../../pages/appui-cookbook-location-map/">示例：定位地图</a>
+<a class="nav-link" href="../../pages/appui-cookbook-motion-haptics-dashboard/">示例：运动传感器仪表盘</a>
+<a class="nav-link" href="../../pages/appui-cookbook-notification-reminder/">示例：通知提醒</a>
+<a class="nav-link" href="../../pages/appui-cookbook-health-blood-pressure/">示例：血压分析</a>
+<a class="nav-link" href="../../pages/appui-cookbook-secure-vault/">示例：安全凭据库</a>
+<a class="nav-link" href="../../pages/appui-cookbook-live-activity-background/">示例：实时活动与后台任务</a>
+<a class="nav-link" href="../../pages/appui-cookbook-shortcuts-launcher/">示例：快捷指令启动器</a>
+<a class="nav-link" href="../../pages/appui-cookbook-video-player/">示例：视频播放器</a>
+<a class="nav-link" href="../../pages/appui-cookbook-webview-share-export/">示例：WebView 与系统分享</a>
+</div>
+<div class="nav-group">
+<div class="nav-group-title">速查</div>
+<a class="nav-link" href="../../pages/appui-appendix-colors/">颜色参考</a>
+<a class="nav-link" href="../../pages/appui-appendix-symbols/">SF Symbols</a>
+<a class="nav-link" href="../../pages/appui-appendix-migration/">从 ui 迁移到 appui</a>
+</div>
+</details>
+<details class="nav-collection">
+<summary><a href="../../collections/widget/">widget</a></summary>
+<div class="nav-group">
+<div class="nav-group-title">小组件</div>
+<a class="nav-link" href="../../pages/widget-module/">widget</a>
+<a class="nav-link" href="../../pages/widget-quickstart-publish/">widget 从脚本到桌面</a>
+<a class="nav-link" href="../../pages/widget-layout/">widget 布局与尺寸</a>
+<a class="nav-link" href="../../pages/widget-parameters/">widget 参数面板</a>
+<a class="nav-link" href="../../pages/widget-interaction/">widget 状态和交互</a>
+<a class="nav-link" href="../../pages/widget-timeline/">widget 时间线和动画</a>
+<a class="nav-link" href="../../pages/widget-appearance-assets/">widget 资源与外观</a>
+<a class="nav-link" href="../../pages/widget-troubleshooting/">widget 排错</a>
+<a class="nav-link" href="../../pages/widget-api-index/">widget API 地图</a>
+<a class="nav-link" href="../../pages/widget-api-reference/">widget API 参考</a>
+</div>
+</details>
+<details class="nav-collection">
+<summary><a href="../../collections/ui/">ui</a></summary>
+<div class="nav-group">
+<div class="nav-group-title">快速上手</div>
+<a class="nav-link" href="../../pages/ui-module/">ui 概览</a>
+</div>
+<div class="nav-group">
+<div class="nav-group-title">API 参考</div>
+<a class="nav-link" href="../../pages/ui-api-index/">ui API 索引</a>
+<a class="nav-link" href="../../pages/ui-api-reference/">ui API 参考</a>
+</div>
+<div class="nav-group">
+<div class="nav-group-title">实时能力</div>
+<a class="nav-link" href="../../pages/aurora-system/">系统实时能力</a>
+<a class="nav-link" href="../../pages/aurora-toolkit/">实时更新工具</a>
+</div>
+</details>
+<details class="nav-collection">
+<summary><a href="../../collections/scene/">scene</a></summary>
+<div class="nav-group">
+<div class="nav-group-title">快速上手</div>
+<a class="nav-link" href="../../pages/scene-module/">scene 概览</a>
+<a class="nav-link" href="../../pages/turtle-module/">turtle</a>
+</div>
+<div class="nav-group">
+<div class="nav-group-title">API 参考</div>
+<a class="nav-link" href="../../pages/scene-api-index/">scene API 索引</a>
+<a class="nav-link" href="../../pages/scene-api-reference/">scene API 参考</a>
+</div>
+</details>
+<details class="nav-collection">
+<summary><a href="../../collections/ios-native/">iOS 原生模块</a></summary>
+<div class="nav-group">
+<div class="nav-group-title">快速上手</div>
+<a class="nav-link" href="../../pages/ios-native/">iOS 原生能力</a>
+<a class="nav-link" href="../../pages/modules-index/">全部模块总览</a>
+<a class="nav-link" href="../../pages/miniapp-native-capabilities/">原生能力入口</a>
+</div>
+<div class="nav-group">
+<div class="nav-group-title">设备与传感器</div>
+<a class="nav-link" href="../../pages/device-module/">device</a>
+<a class="nav-link" href="../../pages/location-module/">location</a>
+<a class="nav-link" href="../../pages/motion-module/">motion</a>
+<a class="nav-link" href="../../pages/haptics-module/">haptics</a>
+<a class="nav-link" href="../../pages/biometric-module/">biometric</a>
+<a class="nav-link" href="../../pages/health-module/">health</a>
+</div>
+<div class="nav-group">
+<div class="nav-group-title">媒体与视觉</div>
+<a class="nav-link" href="../../pages/photos-module/">photos</a>
+<a class="nav-link" href="../../pages/avplayer-module/">avplayer</a>
+<a class="nav-link" href="../../pages/sound-module/">sound</a>
+<a class="nav-link" href="../../pages/speech-module/">speech</a>
+<a class="nav-link" href="../../pages/vision-helper-module/">vision_helper</a>
+<a class="nav-link" href="../../pages/vision-module/">vision</a>
+<a class="nav-link" href="../../pages/coreml-module/">coreml</a>
+</div>
+<div class="nav-group">
+<div class="nav-group-title">网络与数据</div>
+<a class="nav-link" href="../../pages/network-module/">network</a>
+<a class="nav-link" href="../../pages/websocket-module/">websocket</a>
+<a class="nav-link" href="../../pages/bluetooth-module/">bluetooth</a>
+<a class="nav-link" href="../../pages/background-module/">background</a>
+</div>
+<div class="nav-group">
+<div class="nav-group-title">系统服务</div>
+<a class="nav-link" href="../../pages/permission-module/">permission</a>
+<a class="nav-link" href="../../pages/storage-module/">storage</a>
+<a class="nav-link" href="../../pages/database-module/">database</a>
+<a class="nav-link" href="../../pages/keychain-module/">keychain</a>
+<a class="nav-link" href="../../pages/clipboard-module/">clipboard</a>
+<a class="nav-link" href="../../pages/dialogs-module/">dialogs</a>
+<a class="nav-link" href="../../pages/console-module/">console</a>
+<a class="nav-link" href="../../pages/notification-module/">notification</a>
+<a class="nav-link" href="../../pages/contacts-module/">contacts</a>
+<a class="nav-link" href="../../pages/calendar-events-module/">calendar_events</a>
+<a class="nav-link" href="../../pages/nfc-module/">nfc</a>
+</div>
+</details>
+<details class="nav-collection">
+<summary><a href="../../collections/automation-extension/">自动化与扩展</a></summary>
+<div class="nav-group">
+<div class="nav-group-title">快速上手</div>
+<a class="nav-link" href="../../pages/shortcuts-guide/">快捷指令</a>
+<a class="nav-link" href="../../pages/js-api/">JS API 说明</a>
+</div>
+<div class="nav-group">
+<div class="nav-group-title">模块</div>
+<a class="nav-link" href="../../pages/shortcuts-module/">shortcuts</a>
+<a class="nav-link" href="../../pages/live-activity-module/">live_activity</a>
+<a class="nav-link" href="../../pages/keyboard-module/">keyboard</a>
+<a class="nav-link" href="../../pages/objc-util-module/">objc_util</a>
+<a class="nav-link" href="../../pages/c-extensions-module/">c_extensions</a>
+</div>
+</details>
+</nav>
+    </aside>
+    <main class="content">
+      
+<article class="article" style="--page-accent:#0891b2">
+  <header class="article-intro">
+    <div class="breadcrumb">appui / 指南</div>
+    <h1>媒体</h1>
+    <p>图片、相册、相机、地图、视频和 WebView 的页面模式。</p>
+  </header>
+  <div class="markdown-body">
+    <p><code>appui</code> 中与图片、相册、相机、文件导入、视频、网页与地图相关的视图。下列示例均可在应用内 AppUI 预览环境运行。</p>
+<h2 id="预期效果"><a class="heading-anchor" href="#预期效果">#</a>预期效果</h2>
+<p>示例会展示图片、网络图、相册、文件、相机、视频、网页和地图控件如何嵌入 AppUI 页面。</p>
+<h2 id="设计原则"><a class="heading-anchor" href="#设计原则">#</a>设计原则</h2>
+<ul><li><strong>资源图</strong>用 <code>Image(name=...)</code>；<strong>SF Symbols</strong> 用 <code>Image(system_name=...)</code>。</li><li><strong>网络图</strong>用 <code>AsyncImage</code>，占位与失败视图通过子视图传入。</li><li><strong>相册 / 相机</strong>返回的是设备上的<strong>文件路径字符串</strong>（由系统写入临时目录后回调）。</li><li><strong>Files App / 文档提供方</strong>用 <code>FileImporter</code>，默认复制到 App 可访问位置后返回路径列表。</li><li><strong>WebView</strong> 只能二选一：<code>url</code> 或 <code>html</code>。</li><li><strong>MapView</strong> 的 <code>markers</code> 为字典列表，键包括 <code>latitude</code>、<code>longitude</code>、<code>title</code>。</li></ul>
+<hr>
+<h2 id="image-本地资源与-sf-symbol"><a class="heading-anchor" href="#image-本地资源与-sf-symbol">#</a>Image：本地资源与 SF Symbol</h2>
+<p><code>Image</code> 支持链式修饰：<code>resizable()</code>、<code>aspect_ratio(ratio, content_mode)</code>、<code>symbol_rendering_mode(mode)</code>、<code>image_scale(scale)</code>。</p>
+<figure class="code-block" data-code-id="4db421ef642b">
+  <figcaption>
+    <span>python</span>
+    <button class="copy-code" type="button" data-copy-code="4db421ef642b">复制</button>
+  </figcaption>
+  <pre><code id="code-4db421ef642b" class="language-python">import appui
+
+state = appui.State(kind=&quot;SF Symbol&quot;)
+
+
+def body():
+    return appui.NavigationStack(
+        appui.VStack([
+            appui.Text(state.kind).font(&quot;headline&quot;),
+            appui.Image(system_name=&quot;star.fill&quot;)
+                .resizable()
+                .aspect_ratio(content_mode=&quot;fit&quot;)
+                .symbol_rendering_mode(&quot;palette&quot;)
+                .image_scale(&quot;large&quot;)
+                .frame(width=56, height=56)
+                .foreground_color(&quot;systemYellow&quot;),
+            appui.Label(&quot;设置&quot;, system_image=&quot;gear&quot;),
+        ], spacing=16).padding()
+        .navigation_title(&quot;Image&quot;)
+    )
+
+
+appui.run(body, state=state, presentation=&quot;sheet&quot;)</code></pre>
+</figure>
+<p><code>content_mode</code> 为 <code>&#x27;fit&#x27;</code> 或 <code>&#x27;fill&#x27;</code>。<code>symbol_rendering_mode</code> 常用：<code>&#x27;hierarchical&#x27;</code>、<code>&#x27;palette&#x27;</code>、<code>&#x27;multicolor&#x27;</code>（未识别时回退为单色）。</p>
+<p><code>image_scale</code> 为 <code>&#x27;small&#x27;</code>、<code>&#x27;medium&#x27;</code>（默认）、<code>&#x27;large&#x27;</code>。</p>
+<hr>
+<h2 id="asyncimage-网络图片"><a class="heading-anchor" href="#asyncimage-网络图片">#</a>AsyncImage：网络图片</h2>
+<p>参数：<code>url</code>、<code>placeholder</code>、<code>error_view</code>、<code>content_mode</code>、<code>on_success</code>、<code>on_failure</code>。占位与错误视图为<strong>子节点</strong>（前两个子视图依次为占位、错误）。</p>
+<figure class="code-block" data-code-id="972292fbeb42">
+  <figcaption>
+    <span>python</span>
+    <button class="copy-code" type="button" data-copy-code="972292fbeb42">复制</button>
+  </figcaption>
+  <pre><code id="code-972292fbeb42" class="language-python">import appui
+
+state = appui.State(status=&quot;等待加载&quot;)
+
+
+def image_loaded():
+    state.status = &quot;图片已加载&quot;
+
+
+def image_failed():
+    state.status = &quot;图片加载失败&quot;
+
+
+def body():
+    return appui.NavigationStack(
+        appui.VStack([
+            appui.AsyncImage(
+                url=&quot;https://www.apple.com/ac/structured-data/images/knowledge_graph_logo.png&quot;,
+                placeholder=appui.ProgressView(label=&quot;Loading&quot;),
+                error_view=appui.Image(system_name=&quot;exclamationmark.triangle&quot;),
+                content_mode=&quot;fit&quot;,
+                on_success=image_loaded,
+                on_failure=image_failed,
+            ).frame(height=120),
+            appui.LabeledContent(&quot;状态&quot;, value=state.status),
+        ], spacing=16).padding()
+        .navigation_title(&quot;AsyncImage&quot;)
+    )
+
+
+appui.run(body, state=state, presentation=&quot;sheet&quot;)</code></pre>
+</figure>
+<hr>
+<h2 id="photopicker-相册"><a class="heading-anchor" href="#photopicker-相册">#</a>PhotoPicker：相册</h2>
+<p><code>selection_limit</code>：<code>1</code> 表示单选；<code>0</code> 表示不限制（以系统行为为准）。<code>filter</code>：<code>&#x27;images&#x27;</code>、<code>&#x27;videos&#x27;</code>、<code>&#x27;all&#x27;</code>。<code>on_picked</code> 收到 <strong>路径列表</strong>。</p>
+<figure class="code-block" data-code-id="2cba6d0e45af">
+  <figcaption>
+    <span>python</span>
+    <button class="copy-code" type="button" data-copy-code="2cba6d0e45af">复制</button>
+  </figcaption>
+  <pre><code id="code-2cba6d0e45af" class="language-python">import appui
+
+state = appui.State(paths=[])
+
+
+def on_picked(paths):
+    state.paths = paths or []
+
+
+def body():
+    return appui.VStack([
+        appui.Text(&quot;已选: &quot; + (&quot; | &quot;.join(state.paths) if state.paths else &quot;无&quot;)).font(&quot;caption&quot;),
+        appui.PhotoPicker(
+            selection_limit=1,
+            filter=&quot;images&quot;,
+            on_picked=on_picked,
+            label=appui.Label(&quot;选择照片&quot;, system_image=&quot;photo.on.rectangle&quot;),
+        ),
+    ], spacing=12).padding()
+
+appui.run(body, state=state, presentation=&quot;sheet&quot;)</code></pre>
+</figure>
+<hr>
+<h2 id="fileimporter-文件导入"><a class="heading-anchor" href="#fileimporter-文件导入">#</a>FileImporter：文件导入</h2>
+<p><code>allowed_types</code> 可传类型名、扩展名或 MIME 类型，例如 <code>&#x27;text&#x27;</code>、<code>&#x27;pdf&#x27;</code>、<code>&#x27;csv&#x27;</code>、<code>&#x27;image/png&#x27;</code>。<code>allows_multiple=True</code> 允许多选。<code>copy=True</code> 是默认值，表示先复制进 App 可访问位置，再把路径列表传给 <code>on_picked</code>。</p>
+<figure class="code-block" data-code-id="a8c890750dbc">
+  <figcaption>
+    <span>python</span>
+    <button class="copy-code" type="button" data-copy-code="a8c890750dbc">复制</button>
+  </figcaption>
+  <pre><code id="code-a8c890750dbc" class="language-python">import appui
+
+state = appui.State(files=[])
+
+
+def on_files(paths):
+    state.files = paths or []
+
+
+def body():
+    rows = [
+        appui.Text(path).font(&quot;caption&quot;).line_limit(1)
+        for path in state.files
+    ]
+    return appui.NavigationStack(
+        appui.Form([
+            appui.Section(&quot;导入&quot;, [
+                appui.FileImporter(
+                    allowed_types=[&quot;text&quot;, &quot;pdf&quot;, &quot;csv&quot;],
+                    allows_multiple=True,
+                    on_picked=on_files,
+                    label=appui.Label(&quot;选择文件&quot;, system_image=&quot;doc.badge.plus&quot;),
+                ),
+            ]),
+            appui.Section(&quot;文件&quot;, rows or [
+                appui.ContentUnavailableView(&quot;暂无文件&quot;, system_image=&quot;doc&quot;, description=&quot;从系统文件选择器导入&quot;)
+            ]),
+        ]).navigation_title(&quot;文件导入&quot;)
+    )
+
+
+appui.run(body, state=state, presentation=&quot;sheet&quot;)</code></pre>
+</figure>
+<p>文件选择由系统界面完成；用户取消时通常不会触发有效路径。需要读取文件内容时，在回调里保存路径，再在按钮动作、刷新函数或后台流程中读取，避免在 <code>body()</code> 里同步读大文件。</p>
+<hr>
+<h2 id="camerapicker-相机"><a class="heading-anchor" href="#camerapicker-相机">#</a>CameraPicker：相机</h2>
+<p><code>source</code>：<code>&#x27;camera&#x27;</code> 或 <code>&#x27;front&#x27;</code>。<code>media_type</code>：<code>&#x27;photo&#x27;</code> 或 <code>&#x27;video&#x27;</code>。<code>on_captured</code> 收到<strong>单个路径字符串</strong>。</p>
+<figure class="code-block" data-code-id="f659be529241">
+  <figcaption>
+    <span>python</span>
+    <button class="copy-code" type="button" data-copy-code="f659be529241">复制</button>
+  </figcaption>
+  <pre><code id="code-f659be529241" class="language-python">import appui
+
+state = appui.State(last=&quot;&quot;)
+
+
+def on_captured(path):
+    state.last = path or &quot;&quot;
+
+
+def body():
+    return appui.VStack([
+        appui.Text(state.last or &quot;尚未拍摄&quot;).font(&quot;caption&quot;),
+        appui.CameraPicker(
+            source=&quot;camera&quot;,
+            media_type=&quot;photo&quot;,
+            on_captured=on_captured,
+            label=appui.Label(&quot;拍照&quot;, system_image=&quot;camera.fill&quot;),
+        ),
+    ], spacing=12).padding()
+
+appui.run(body, state=state, presentation=&quot;sheet&quot;)</code></pre>
+</figure>
+<hr>
+<h2 id="videoplayer-avkit"><a class="heading-anchor" href="#videoplayer-avkit">#</a>VideoPlayer：AVKit</h2>
+<p><code>url</code> 可为远程 HTTPS 或应用内可访问的本地文件名。<code>autoplay</code>、<code>loop</code>、<code>show_controls</code> 控制播放行为。</p>
+<p>只展示视频时直接用 <code>VideoPlayer(url=...)</code>。如果页面需要播放/暂停/seek、保存进度、倍速、PiP 状态或切集，使用 <code>PlayerController</code> 并传给 <code>VideoPlayer(player=player)</code>；AppUI 新页面不要再 import <code>avplayer</code> 控制同一块内嵌视频。</p>
+<figure class="code-block" data-code-id="0a676d2847d7">
+  <figcaption>
+    <span>python</span>
+    <button class="copy-code" type="button" data-copy-code="0a676d2847d7">复制</button>
+  </figcaption>
+  <pre><code id="code-0a676d2847d7" class="language-python">import appui
+
+state = appui.State(status=&quot;可播放&quot;)
+
+def body():
+    return appui.NavigationStack(
+        appui.VStack([
+            appui.VideoPlayer(
+                url=&quot;https://media.w3.org/2010/05/sintel/trailer.mp4&quot;,
+                autoplay=False,
+                loop=False,
+                show_controls=True,
+            ).frame(height=220),
+            appui.LabeledContent(&quot;状态&quot;, value=state.status),
+        ], spacing=16).padding()
+        .navigation_title(&quot;VideoPlayer&quot;)
+    )
+
+appui.run(body, state=state, presentation=&quot;sheet&quot;)</code></pre>
+</figure>
+<hr>
+<h2 id="webview-url-或-html"><a class="heading-anchor" href="#webview-url-或-html">#</a>WebView：URL 或 HTML</h2>
+<figure class="code-block" data-code-id="310b7469c2ab">
+  <figcaption>
+    <span>python</span>
+    <button class="copy-code" type="button" data-copy-code="310b7469c2ab">复制</button>
+  </figcaption>
+  <pre><code id="code-310b7469c2ab" class="language-python">import appui
+
+state = appui.State()
+
+def body():
+    return appui.WebView(
+        html=&quot;&lt;html&gt;&lt;body style=&#x27;font-family:system-ui&#x27;&gt;&lt;h1&gt;appui&lt;/h1&gt;&lt;p&gt;内嵌 HTML&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;&quot;
+    ).frame(height=360).padding()
+
+appui.run(body, state=state, presentation=&quot;sheet&quot;)</code></pre>
+</figure>
+<p>远程页面示例：<code>appui.WebView(url=&quot;https://www.apple.com&quot;).frame(height=360)</code>。</p>
+<hr>
+<h2 id="mapview-地图与标注"><a class="heading-anchor" href="#mapview-地图与标注">#</a>MapView：地图与标注</h2>
+<p>默认中心为旧金山坐标。<code>span</code> 为经纬跨度。<code>map_style</code> 可为 <code>&#x27;automatic&#x27;</code>（默认，不传样式）、<code>&#x27;standard&#x27;</code>、<code>&#x27;satellite&#x27;</code>、<code>&#x27;hybrid&#x27;</code>。</p>
+<figure class="code-block" data-code-id="a42024b94299">
+  <figcaption>
+    <span>python</span>
+    <button class="copy-code" type="button" data-copy-code="a42024b94299">复制</button>
+  </figcaption>
+  <pre><code id="code-a42024b94299" class="language-python">import appui
+
+state = appui.State()
+
+def body():
+    return appui.MapView(
+        latitude=37.7749,
+        longitude=-122.4194,
+        span=0.08,
+        markers=[
+            {&quot;latitude&quot;: 37.78, &quot;longitude&quot;: -122.40, &quot;title&quot;: &quot;标记 A&quot;},
+        ],
+        map_style=&quot;standard&quot;,
+    ).frame(height=280).padding()
+
+appui.run(body, state=state, presentation=&quot;sheet&quot;)</code></pre>
+</figure>
+<hr>
+<h2 id="与旧版-ui-模块对照-迁移"><a class="heading-anchor" href="#与旧版-ui-模块对照-迁移">#</a>与旧版 <code>ui</code> 模块对照（迁移）</h2>
+<p><code>ui</code> 为 Pythonista 风格命令式 API；同一应用内可对照理解差异：</p>
+<figure class="code-block" data-code-id="55e61655dc1b">
+  <figcaption>
+    <span>python</span>
+    <button class="copy-code" type="button" data-copy-code="55e61655dc1b">复制</button>
+  </figcaption>
+  <pre><code id="code-55e61655dc1b" class="language-python">import ui
+
+v = ui.View()
+b = ui.Button(title=&quot;Go&quot;)
+
+
+def on_button(sender):
+    pass
+
+
+b.action = on_button
+v.add_subview(b)
+# v.present(&#x27;sheet&#x27;)  # 需在 AppUI 预览环境中调用</code></pre>
+</figure>
+<p><code>appui</code> 用声明式 <code>body()</code> 返回 <code>View</code>，由 <code>appui.run(body, state=..., presentation=&quot;sheet&quot;)</code> 呈现。</p>
+<hr>
+<h2 id="小结"><a class="heading-anchor" href="#小结">#</a>小结</h2>
+<div class="table-scroll"><table><thead><tr><th>视图</th><th>典型用途</th></tr></thead><tbody><tr><td><code>Image</code></td><td>资源图、SF Symbol、缩放与宽高比</td></tr><tr><td><code>AsyncImage</code></td><td>网络图片与阶段 UI</td></tr><tr><td><code>PhotoPicker</code> / <code>CameraPicker</code></td><td>系统相册与相机，路径回调</td></tr><tr><td><code>FileImporter</code></td><td>系统文件选择器，路径列表回调</td></tr><tr><td><code>VideoPlayer</code></td><td>流媒体或本地视频</td></tr><tr><td><code>WebView</code></td><td><code>url</code> 或 <code>html</code> 嵌入网页</td></tr><tr><td><code>MapView</code></td><td>坐标、跨度、标注与样式</td></tr></tbody></table></div>
+<p>更完整的参数说明见同目录下的 <code>appui-ref-media.md</code>。</p>
+  </div>
+  
+</article>
+
+    </main>
+    <aside class="toc"><div class="toc-title">本页目录</div><a class="toc-link" href="#预期效果">预期效果</a><a class="toc-link" href="#设计原则">设计原则</a><a class="toc-link" href="#image-本地资源与-sf-symbol">Image：本地资源与 SF Symbol</a><a class="toc-link" href="#asyncimage-网络图片">AsyncImage：网络图片</a><a class="toc-link" href="#photopicker-相册">PhotoPicker：相册</a><a class="toc-link" href="#fileimporter-文件导入">FileImporter：文件导入</a><a class="toc-link" href="#camerapicker-相机">CameraPicker：相机</a><a class="toc-link" href="#videoplayer-avkit">VideoPlayer：AVKit</a><a class="toc-link" href="#webview-url-或-html">WebView：URL 或 HTML</a><a class="toc-link" href="#mapview-地图与标注">MapView：地图与标注</a><a class="toc-link" href="#与旧版-ui-模块对照-迁移">与旧版 ui 模块对照（迁移）</a><a class="toc-link" href="#小结">小结</a></aside>
+  </div>
+  <div class="mobile-backdrop"></div>
+  <div class="search-panel" role="dialog" aria-modal="true" aria-label="搜索">
+    <div class="search-box">
+      <input id="docs-search-input" type="search" placeholder="搜索 API、模块、指南..." autocomplete="off">
+      <button class="search-close" type="button">Close</button>
+    </div>
+    <div id="docs-search-results" class="search-results"></div>
+  </div>
+</body>
+</html>

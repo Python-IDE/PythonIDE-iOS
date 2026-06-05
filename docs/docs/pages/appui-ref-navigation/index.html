@@ -1,0 +1,413 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>导航 API - PythonIDE Docs</title>
+  <meta name="description" content="NavigationStack、NavigationLink、TabView、ToolbarItem。">
+  <link rel="icon" href="../../assets/brand-mark.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="../../assets/docs-v2.css">
+  <script>window.PYTHONIDE_DOCS_PREFIX = "../../";</script>
+  <script defer src="../../assets/docs-v2.js"></script>
+</head>
+<body class="article-page">
+  <header class="topbar">
+    <button class="icon-button menu-toggle" type="button" aria-label="打开目录">☰</button>
+    <a class="brand" href="../../"><img class="brand-mark" src="../../assets/brand-mark.svg" alt="" width="30" height="30"><span class="brand-text">PythonIDE Docs</span></a>
+    <nav class="top-nav" aria-label="主导航">
+      <a class="" href="../../">文档</a>
+      <a class="active" href="../../pages/widget-api-reference/">API 参考</a>
+      <a class="" href="../../pages/appui-cookbook-index/">示例</a>
+    </nav>
+    <details class="language-menu">
+      <summary>中文</summary>
+      <div class="language-panel">
+        <span class="active">简体中文</span>
+        <button type="button" disabled>English <em>准备中</em></button>
+      </div>
+    </details>
+    <button class="theme-toggle" type="button" aria-label="切换主题">◐</button>
+  </header>
+  <div class="shell">
+    <aside class="sidebar">
+      <nav class="sidebar-nav" aria-label="Docs navigation">
+<button class="sidebar-search search-trigger" type="button"><span>搜索...</span><kbd>⌘K</kbd></button>
+<details class="nav-collection" open>
+<summary><a href="../../collections/appui/">appui</a></summary>
+<div class="nav-group">
+<div class="nav-group-title">开始</div>
+<a class="nav-link" href="../../pages/appui-module/">appui 概览</a>
+<a class="nav-link" href="../../pages/appui-quickstart/">快速上手</a>
+<a class="nav-link" href="../../pages/miniapp-choose-runtime/">运行时选择</a>
+<a class="nav-link" href="../../pages/miniapp-appui-ui-patterns/">AppUI UI 模式</a>
+<a class="nav-link" href="../../pages/miniapp-appui-api-index/">AppUI API 地图</a>
+<a class="nav-link" href="../../pages/miniapp-dev-troubleshooting/">MiniApp 开发排错</a>
+</div>
+<div class="nav-group">
+<div class="nav-group-title">指南</div>
+<a class="nav-link" href="../../pages/appui-guide-thinking/">appui 思维方式</a>
+<a class="nav-link" href="../../pages/appui-guide-state/">状态管理</a>
+<a class="nav-link" href="../../pages/appui-guide-layout/">布局系统</a>
+<a class="nav-link" href="../../pages/appui-guide-lists/">列表与表单</a>
+<a class="nav-link" href="../../pages/appui-guide-navigation/">导航与页面结构</a>
+<a class="nav-link" href="../../pages/appui-guide-interaction/">交互与回调</a>
+<a class="nav-link" href="../../pages/appui-guide-media/">媒体与系统集成</a>
+<a class="nav-link" href="../../pages/appui-guide-charts/">图表与绘图</a>
+<a class="nav-link" href="../../pages/appui-guide-darkmode/">深色模式与语义色</a>
+<a class="nav-link" href="../../pages/appui-guide-animation/">动画</a>
+<a class="nav-link" href="../../pages/appui-guide-hotreload/">热重载</a>
+<a class="nav-link" href="../../pages/appui-guide-realtime/">实时快路径</a>
+<a class="nav-link" href="../../pages/appui-guide-performance/">性能与实时界面</a>
+</div>
+<div class="nav-group">
+<div class="nav-group-title">API 参考</div>
+<a class="nav-link" href="../../pages/appui-ref-functions/">入口函数</a>
+<a class="nav-link" href="../../pages/appui-ref-state/">状态 API</a>
+<a class="nav-link" href="../../pages/appui-ref-layout/">布局 API</a>
+<a class="nav-link" href="../../pages/appui-ref-layout-stacks/">堆叠布局 API</a>
+<a class="nav-link" href="../../pages/appui-ref-layout-scroll/">滚动 API</a>
+<a class="nav-link" href="../../pages/appui-ref-layout-grids/">网格 API</a>
+<a class="nav-link" href="../../pages/appui-ref-layout-geometry/">几何与特殊布局 API</a>
+<a class="nav-link" href="../../pages/appui-ref-controls/">控件 API</a>
+<a class="nav-link active" href="../../pages/appui-ref-navigation/">导航 API</a>
+<a class="nav-link" href="../../pages/appui-ref-data/">数据展示 API</a>
+<a class="nav-link" href="../../pages/appui-ref-presentation/">呈现 API</a>
+<a class="nav-link" href="../../pages/appui-ref-modifiers/">修饰符 API</a>
+<a class="nav-link" href="../../pages/appui-ref-environment/">环境值 API</a>
+<a class="nav-link" href="../../pages/appui-ref-media/">媒体 API</a>
+<a class="nav-link" href="../../pages/appui-ref-charts/">图表与画布 API</a>
+<a class="nav-link" href="../../pages/appui-ref-shapes/">形状 API</a>
+</div>
+<div class="nav-group">
+<div class="nav-group-title">示例</div>
+<a class="nav-link" href="../../pages/appui-cookbook-index/">示例索引</a>
+<a class="nav-link" href="../../pages/appui-cookbook-todo/">示例：待办列表</a>
+<a class="nav-link" href="../../pages/appui-cookbook-settings/">示例：设置表单</a>
+<a class="nav-link" href="../../pages/appui-cookbook-dashboard/">示例：紧凑仪表盘</a>
+<a class="nav-link" href="../../pages/appui-cookbook-native-list-detail/">示例：原生列表详情</a>
+<a class="nav-link" href="../../pages/appui-cookbook-network-list/">示例：网络列表</a>
+<a class="nav-link" href="../../pages/appui-cookbook-table-data-review/">示例：表格数据审核</a>
+<a class="nav-link" href="../../pages/appui-cookbook-chat/">示例：聊天界面</a>
+<a class="nav-link" href="../../pages/appui-cookbook-media-capture-gallery/">示例：媒体采集相册</a>
+<a class="nav-link" href="../../pages/appui-cookbook-gallery/">示例：相册浏览器</a>
+<a class="nav-link" href="../../pages/appui-cookbook-form-settings-controls/">示例：原生表单设置</a>
+<a class="nav-link" href="../../pages/appui-cookbook-chart-canvas-lab/">示例：图表与画布实验室</a>
+<a class="nav-link" href="../../pages/appui-cookbook-location-map/">示例：定位地图</a>
+<a class="nav-link" href="../../pages/appui-cookbook-motion-haptics-dashboard/">示例：运动传感器仪表盘</a>
+<a class="nav-link" href="../../pages/appui-cookbook-notification-reminder/">示例：通知提醒</a>
+<a class="nav-link" href="../../pages/appui-cookbook-health-blood-pressure/">示例：血压分析</a>
+<a class="nav-link" href="../../pages/appui-cookbook-secure-vault/">示例：安全凭据库</a>
+<a class="nav-link" href="../../pages/appui-cookbook-live-activity-background/">示例：实时活动与后台任务</a>
+<a class="nav-link" href="../../pages/appui-cookbook-shortcuts-launcher/">示例：快捷指令启动器</a>
+<a class="nav-link" href="../../pages/appui-cookbook-video-player/">示例：视频播放器</a>
+<a class="nav-link" href="../../pages/appui-cookbook-webview-share-export/">示例：WebView 与系统分享</a>
+</div>
+<div class="nav-group">
+<div class="nav-group-title">速查</div>
+<a class="nav-link" href="../../pages/appui-appendix-colors/">颜色参考</a>
+<a class="nav-link" href="../../pages/appui-appendix-symbols/">SF Symbols</a>
+<a class="nav-link" href="../../pages/appui-appendix-migration/">从 ui 迁移到 appui</a>
+</div>
+</details>
+<details class="nav-collection">
+<summary><a href="../../collections/widget/">widget</a></summary>
+<div class="nav-group">
+<div class="nav-group-title">小组件</div>
+<a class="nav-link" href="../../pages/widget-module/">widget</a>
+<a class="nav-link" href="../../pages/widget-quickstart-publish/">widget 从脚本到桌面</a>
+<a class="nav-link" href="../../pages/widget-layout/">widget 布局与尺寸</a>
+<a class="nav-link" href="../../pages/widget-parameters/">widget 参数面板</a>
+<a class="nav-link" href="../../pages/widget-interaction/">widget 状态和交互</a>
+<a class="nav-link" href="../../pages/widget-timeline/">widget 时间线和动画</a>
+<a class="nav-link" href="../../pages/widget-appearance-assets/">widget 资源与外观</a>
+<a class="nav-link" href="../../pages/widget-troubleshooting/">widget 排错</a>
+<a class="nav-link" href="../../pages/widget-api-index/">widget API 地图</a>
+<a class="nav-link" href="../../pages/widget-api-reference/">widget API 参考</a>
+</div>
+</details>
+<details class="nav-collection">
+<summary><a href="../../collections/ui/">ui</a></summary>
+<div class="nav-group">
+<div class="nav-group-title">快速上手</div>
+<a class="nav-link" href="../../pages/ui-module/">ui 概览</a>
+</div>
+<div class="nav-group">
+<div class="nav-group-title">API 参考</div>
+<a class="nav-link" href="../../pages/ui-api-index/">ui API 索引</a>
+<a class="nav-link" href="../../pages/ui-api-reference/">ui API 参考</a>
+</div>
+<div class="nav-group">
+<div class="nav-group-title">实时能力</div>
+<a class="nav-link" href="../../pages/aurora-system/">系统实时能力</a>
+<a class="nav-link" href="../../pages/aurora-toolkit/">实时更新工具</a>
+</div>
+</details>
+<details class="nav-collection">
+<summary><a href="../../collections/scene/">scene</a></summary>
+<div class="nav-group">
+<div class="nav-group-title">快速上手</div>
+<a class="nav-link" href="../../pages/scene-module/">scene 概览</a>
+<a class="nav-link" href="../../pages/turtle-module/">turtle</a>
+</div>
+<div class="nav-group">
+<div class="nav-group-title">API 参考</div>
+<a class="nav-link" href="../../pages/scene-api-index/">scene API 索引</a>
+<a class="nav-link" href="../../pages/scene-api-reference/">scene API 参考</a>
+</div>
+</details>
+<details class="nav-collection">
+<summary><a href="../../collections/ios-native/">iOS 原生模块</a></summary>
+<div class="nav-group">
+<div class="nav-group-title">快速上手</div>
+<a class="nav-link" href="../../pages/ios-native/">iOS 原生能力</a>
+<a class="nav-link" href="../../pages/modules-index/">全部模块总览</a>
+<a class="nav-link" href="../../pages/miniapp-native-capabilities/">原生能力入口</a>
+</div>
+<div class="nav-group">
+<div class="nav-group-title">设备与传感器</div>
+<a class="nav-link" href="../../pages/device-module/">device</a>
+<a class="nav-link" href="../../pages/location-module/">location</a>
+<a class="nav-link" href="../../pages/motion-module/">motion</a>
+<a class="nav-link" href="../../pages/haptics-module/">haptics</a>
+<a class="nav-link" href="../../pages/biometric-module/">biometric</a>
+<a class="nav-link" href="../../pages/health-module/">health</a>
+</div>
+<div class="nav-group">
+<div class="nav-group-title">媒体与视觉</div>
+<a class="nav-link" href="../../pages/photos-module/">photos</a>
+<a class="nav-link" href="../../pages/avplayer-module/">avplayer</a>
+<a class="nav-link" href="../../pages/sound-module/">sound</a>
+<a class="nav-link" href="../../pages/speech-module/">speech</a>
+<a class="nav-link" href="../../pages/vision-helper-module/">vision_helper</a>
+<a class="nav-link" href="../../pages/vision-module/">vision</a>
+<a class="nav-link" href="../../pages/coreml-module/">coreml</a>
+</div>
+<div class="nav-group">
+<div class="nav-group-title">网络与数据</div>
+<a class="nav-link" href="../../pages/network-module/">network</a>
+<a class="nav-link" href="../../pages/websocket-module/">websocket</a>
+<a class="nav-link" href="../../pages/bluetooth-module/">bluetooth</a>
+<a class="nav-link" href="../../pages/background-module/">background</a>
+</div>
+<div class="nav-group">
+<div class="nav-group-title">系统服务</div>
+<a class="nav-link" href="../../pages/permission-module/">permission</a>
+<a class="nav-link" href="../../pages/storage-module/">storage</a>
+<a class="nav-link" href="../../pages/database-module/">database</a>
+<a class="nav-link" href="../../pages/keychain-module/">keychain</a>
+<a class="nav-link" href="../../pages/clipboard-module/">clipboard</a>
+<a class="nav-link" href="../../pages/dialogs-module/">dialogs</a>
+<a class="nav-link" href="../../pages/console-module/">console</a>
+<a class="nav-link" href="../../pages/notification-module/">notification</a>
+<a class="nav-link" href="../../pages/contacts-module/">contacts</a>
+<a class="nav-link" href="../../pages/calendar-events-module/">calendar_events</a>
+<a class="nav-link" href="../../pages/nfc-module/">nfc</a>
+</div>
+</details>
+<details class="nav-collection">
+<summary><a href="../../collections/automation-extension/">自动化与扩展</a></summary>
+<div class="nav-group">
+<div class="nav-group-title">快速上手</div>
+<a class="nav-link" href="../../pages/shortcuts-guide/">快捷指令</a>
+<a class="nav-link" href="../../pages/js-api/">JS API 说明</a>
+</div>
+<div class="nav-group">
+<div class="nav-group-title">模块</div>
+<a class="nav-link" href="../../pages/shortcuts-module/">shortcuts</a>
+<a class="nav-link" href="../../pages/live-activity-module/">live_activity</a>
+<a class="nav-link" href="../../pages/keyboard-module/">keyboard</a>
+<a class="nav-link" href="../../pages/objc-util-module/">objc_util</a>
+<a class="nav-link" href="../../pages/c-extensions-module/">c_extensions</a>
+</div>
+</details>
+</nav>
+    </aside>
+    <main class="content">
+      
+<article class="article" style="--page-accent:#7c3aed">
+  <header class="article-intro">
+    <div class="breadcrumb">appui / API 参考</div>
+    <h1>导航 API</h1>
+    <p>NavigationStack、NavigationLink、TabView、ToolbarItem。</p>
+  </header>
+  <div class="markdown-body">
+    <p>本页覆盖 <code>NavigationStack</code>、<code>NavigationLink</code>、<code>NavigationSplitView</code>、<code>TabView</code>、<code>Tab</code>、<code>NavigationPath</code>、<code>ToolbarItem</code> 和 <code>ToolbarSpacer</code>。页面级结构优先用这些原生导航容器，不要用手写按钮去模拟系统导航。</p>
+<h2 id="什么时候用"><a class="heading-anchor" href="#什么时候用">#</a>什么时候用</h2>
+<div class="table-scroll"><table><thead><tr><th>目标</th><th>首选 API</th><th>说明</th></tr></thead><tbody><tr><td>普通推入详情页</td><td><code>NavigationStack</code> + <code>NavigationLink</code></td><td>列表到详情、设置项到二级页。</td></tr><tr><td>代码控制 push/pop</td><td><code>NavigationStack(path=...)</code> + <code>NavigationPath</code></td><td>登录流程、分步表单、点击完成后跳转。</td></tr><tr><td>多个主栏目</td><td><code>TabView</code> + <code>Tab</code></td><td>首页、搜索、我的等顶层导航。</td></tr><tr><td>iPad 多列</td><td><code>NavigationSplitView</code></td><td>侧边栏 + 详情页，可加 supplementary 第三列。</td></tr><tr><td>顶栏/底栏命令</td><td><code>.toolbar([...])</code> + <code>ToolbarItem</code></td><td>保存、关闭、编辑、分享等页面命令。</td></tr></tbody></table></div>
+<h2 id="最小正确示例"><a class="heading-anchor" href="#最小正确示例">#</a>最小正确示例</h2>
+<figure class="code-block" data-code-id="7bbff2f2a4dd">
+  <figcaption>
+    <span>python</span>
+    <button class="copy-code" type="button" data-copy-code="7bbff2f2a4dd">复制</button>
+  </figcaption>
+  <pre><code id="code-7bbff2f2a4dd" class="language-python">import appui
+
+items = [
+    {&quot;id&quot;: &quot;a&quot;, &quot;title&quot;: &quot;Alpha&quot;, &quot;status&quot;: &quot;Ready&quot;},
+    {&quot;id&quot;: &quot;b&quot;, &quot;title&quot;: &quot;Beta&quot;, &quot;status&quot;: &quot;Draft&quot;},
+]
+
+
+def item_key(item):
+    return item[&quot;id&quot;]
+
+
+def close_page():
+    appui.dismiss()
+
+
+def detail_view(item):
+    return (
+        appui.Form([
+            appui.Section(&quot;详情&quot;, [
+                appui.LabeledContent(&quot;Title&quot;, value=item[&quot;title&quot;]),
+                appui.LabeledContent(&quot;Status&quot;, value=item[&quot;status&quot;]),
+            ])
+        ])
+        .navigation_title(item[&quot;title&quot;])
+        .toolbar([
+            appui.ToolbarItem(
+                placement=&quot;navigation_bar_trailing&quot;,
+                content=appui.CloseButton(),
+                role=&quot;close&quot;,
+            )
+        ])
+    )
+
+
+def row_view(item):
+    return appui.NavigationLink(
+        destination=detail_view(item),
+        label=appui.Label(item[&quot;title&quot;], system_image=&quot;doc.text&quot;),
+    )
+
+
+def body():
+    root = appui.List([
+        appui.Section(&quot;Items&quot;, [
+            appui.ForEach(items, row_builder=row_view, key=item_key)
+        ])
+    ]).navigation_title(&quot;Navigation&quot;)
+
+    return appui.NavigationStack(root)
+
+
+appui.run(body)</code></pre>
+</figure>
+<h2 id="导航容器签名"><a class="heading-anchor" href="#导航容器签名">#</a>导航容器签名</h2>
+<div class="table-scroll"><table><thead><tr><th>API</th><th>签名</th><th>分类</th></tr></thead><tbody><tr><td><code>NavigationStack</code></td><td><code>NavigationStack(content: Optional[View] = None, path: Optional[NavigationPath] = None, destinations: Optional[Dict[str, Callable]] = None)</code></td><td><code>navigation</code></td></tr><tr><td><code>NavigationView</code></td><td><code>NavigationView = NavigationStack</code></td><td><code>兼容别名</code></td></tr><tr><td><code>NavigationLink</code></td><td><code>NavigationLink(title: Optional[str] = None, destination: Optional[View] = None, label: Optional[View] = None)</code></td><td><code>navigation</code></td></tr><tr><td><code>NavigationSplitView</code></td><td><code>NavigationSplitView(sidebar: Optional[View] = None, detail: Optional[View] = None, supplementary: Optional[View] = None, column_visibility: str = &#x27;all&#x27;)</code></td><td><code>navigation</code></td></tr><tr><td><code>TabView</code></td><td><code>TabView(tabs: Optional[List[&quot;Tab&quot;]] = None, selection: Optional[int] = None, on_change: Optional[Callable] = None, onChange: Optional[Callable] = None)</code></td><td><code>navigation</code></td></tr><tr><td><code>Tab</code></td><td><code>Tab(title: str = &#x27;&#x27;, system_image: Optional[str] = None, image: Optional[str] = None, content: Optional[View] = None, badge: Optional[int] = None, tag: Optional[int] = None, systemImage: Optional[str] = None, role: Optional[str] = None)</code></td><td><code>navigation</code></td></tr><tr><td><code>NavigationPath</code></td><td><code>NavigationPath()</code></td><td><code>公开类型</code></td></tr><tr><td><code>ToolbarItem</code></td><td><code>ToolbarItem(placement: str = &#x27;automatic&#x27;, content: Optional[View] = None, role: Optional[str] = None)</code></td><td><code>presentation</code></td></tr><tr><td><code>ToolbarSpacer</code></td><td><code>ToolbarSpacer(sizing: str = &#x27;fixed&#x27;, placement: str = &#x27;automatic&#x27;)</code></td><td><code>presentation</code></td></tr></tbody></table></div>
+<h2 id="navigationpath-方法"><a class="heading-anchor" href="#navigationpath-方法">#</a>NavigationPath 方法</h2>
+<div class="table-scroll"><table><thead><tr><th>API</th><th>签名</th><th>所属类型</th></tr></thead><tbody><tr><td><code>append</code></td><td><code>append(view_or_value: Union[&quot;View&quot;, str, int, Dict[str, Any]]) -&gt; None</code></td><td><code>NavigationPath</code></td></tr><tr><td><code>pop</code></td><td><code>pop(count: int = 1) -&gt; None</code></td><td><code>NavigationPath</code></td></tr><tr><td><code>pop_to_root</code></td><td><code>pop_to_root() -&gt; None</code></td><td><code>NavigationPath</code></td></tr><tr><td><code>replace</code></td><td><code>replace(items: List[Any]) -&gt; None</code></td><td><code>NavigationPath</code></td></tr></tbody></table></div>
+<figure class="code-block" data-code-id="5c55809cd824">
+  <figcaption>
+    <span>python</span>
+    <button class="copy-code" type="button" data-copy-code="5c55809cd824">复制</button>
+  </figcaption>
+  <pre><code id="code-5c55809cd824" class="language-python">import appui
+
+path = appui.NavigationPath()
+state = appui.State(selected=&quot;&quot;)
+
+
+def open_profile():
+    path.append(&quot;profile&quot;)
+
+
+def go_root():
+    path.pop_to_root()
+
+
+def make_destination(route):
+    if route == &quot;profile&quot;:
+        return appui.Form([
+            appui.Section(&quot;Profile&quot;, [
+                appui.Text(&quot;Programmatic destination&quot;),
+                appui.Button(&quot;Back to root&quot;, action=go_root),
+            ])
+        ]).navigation_title(&quot;Profile&quot;)
+    return appui.Text(&quot;Unknown&quot;).navigation_title(&quot;Unknown&quot;)
+
+
+def body():
+    return appui.NavigationStack(
+        appui.Form([
+            appui.Section(&quot;Actions&quot;, [
+                appui.Button(&quot;Open profile&quot;, action=open_profile),
+            ])
+        ]).navigation_title(&quot;Root&quot;),
+        path=path,
+        destinations={&quot;profile&quot;: make_destination},
+    )
+
+
+appui.run(body, state=state)</code></pre>
+</figure>
+<h2 id="tabview-示例"><a class="heading-anchor" href="#tabview-示例">#</a>TabView 示例</h2>
+<figure class="code-block" data-code-id="3a3852ec6dca">
+  <figcaption>
+    <span>python</span>
+    <button class="copy-code" type="button" data-copy-code="3a3852ec6dca">复制</button>
+  </figcaption>
+  <pre><code id="code-3a3852ec6dca" class="language-python">import appui
+
+state = appui.State(tab=0)
+
+
+def set_tab(value):
+    state.tab = value
+
+
+def home_view():
+    return appui.NavigationStack(
+        appui.Text(&quot;Home&quot;).padding().navigation_title(&quot;Home&quot;)
+    )
+
+
+def settings_view():
+    return appui.NavigationStack(
+        appui.Form([
+            appui.Section(&quot;Settings&quot;, [
+                appui.Toggle(&quot;Enabled&quot;, is_on=True),
+            ])
+        ]).navigation_title(&quot;Settings&quot;)
+    )
+
+
+def body():
+    return appui.TabView(
+        tabs=[
+            appui.Tab(&quot;Home&quot;, system_image=&quot;house&quot;, content=home_view(), tag=0),
+            appui.Tab(&quot;Settings&quot;, system_image=&quot;gear&quot;, content=settings_view(), tag=1),
+        ],
+        selection=state.tab,
+        on_change=set_tab,
+    )
+
+
+appui.run(body, state=state)</code></pre>
+</figure>
+<h2 id="常用修饰符"><a class="heading-anchor" href="#常用修饰符">#</a>常用修饰符</h2>
+<div class="table-scroll"><table><thead><tr><th>API</th><th>签名</th><th>所属类型</th></tr></thead><tbody><tr><td><code>.navigation_title</code></td><td><code>.navigation_title(title: Union[str, &quot;View&quot;]) -&gt; Self</code></td><td><code>View</code></td></tr><tr><td><code>.navigation_bar_title_display_mode</code></td><td><code>.navigation_bar_title_display_mode(mode: str) -&gt; Self</code></td><td><code>View</code></td></tr><tr><td><code>.navigation_bar_back_button_hidden</code></td><td><code>.navigation_bar_back_button_hidden(value: bool = True) -&gt; Self</code></td><td><code>View</code></td></tr><tr><td><code>.toolbar</code></td><td><code>.toolbar(items: Any) -&gt; Self</code></td><td><code>View</code></td></tr><tr><td><code>.toolbar_background</code></td><td><code>.toolbar_background(visibility: str = &#x27;visible&#x27;, bars: str = &#x27;navigation_bar&#x27;) -&gt; Self</code></td><td><code>View</code></td></tr><tr><td><code>.toolbar_color_scheme</code></td><td><code>.toolbar_color_scheme(scheme: str = &#x27;dark&#x27;, bars: str = &#x27;navigation_bar&#x27;) -&gt; Self</code></td><td><code>View</code></td></tr><tr><td><code>.navigation_destination</code></td><td><code>.navigation_destination(is_presented: bool = False, content: Optional[&quot;View&quot;] = None, on_dismiss: Optional[Callable] = None, isPresented: Optional[bool] = None, onDismiss: Optional[Callable] = None) -&gt; Self</code></td><td><code>View</code></td></tr></tbody></table></div>
+<h2 id="与相邻-api-的区别"><a class="heading-anchor" href="#与相邻-api-的区别">#</a>与相邻 API 的区别</h2>
+<div class="table-scroll"><table><thead><tr><th>API</th><th>不同点</th></tr></thead><tbody><tr><td><code>NavigationLink</code> vs <code>NavigationPath</code></td><td><code>NavigationLink</code> 适合用户点击某一行进入详情；<code>NavigationPath</code> 适合业务逻辑主动跳转。</td></tr><tr><td><code>TabView</code> vs <code>NavigationStack</code></td><td><code>TabView</code> 是顶层栏目切换；每个 Tab 里面通常再放自己的 <code>NavigationStack</code>。</td></tr><tr><td><code>NavigationSplitView</code> vs <code>TabView</code></td><td><code>NavigationSplitView</code> 是同一任务的多列信息架构；<code>TabView</code> 是多个任务域的顶层切换。</td></tr><tr><td><code>.toolbar</code> vs 页面正文按钮</td><td>页面级命令放工具栏；内容相关动作放在表单、列表或卡片中。</td></tr><tr><td><code>CloseButton</code> vs 普通 <code>Button</code></td><td>关闭 MiniApp 时使用 <code>CloseButton</code> 或 <code>ToolbarItem(role=&quot;close&quot;)</code>，系统能识别关闭语义。</td></tr><tr><td><code>ToolbarSpacer</code> vs 空白 <code>Spacer</code></td><td><code>ToolbarSpacer</code> 是工具栏项；正文布局留白继续用 <code>Spacer</code>。</td></tr></tbody></table></div>
+<h2 id="常见错误"><a class="heading-anchor" href="#常见错误">#</a>常见错误</h2>
+<div class="table-scroll"><table><thead><tr><th>错误</th><th>正确做法</th></tr></thead><tbody><tr><td>只用 <code>VStack</code> 加按钮模拟页面切换。</td><td>使用 <code>NavigationStack</code>、<code>NavigationLink</code> 或 <code>NavigationPath</code>。</td></tr><tr><td>在 <code>TabView</code> 外面只包一个全局 <code>NavigationStack</code>。</td><td>每个 Tab 里面放自己的 <code>NavigationStack</code>，避免标题和返回栈互相污染。</td></tr><tr><td>隐藏返回按钮但没有替代路径。</td><td>用 toolbar 放明确的返回、取消或关闭按钮。</td></tr><tr><td><code>ForEach</code> 行没有稳定 <code>key</code>。</td><td>给 <code>ForEach</code> 传稳定键函数，避免列表刷新后导航状态错位。</td></tr><tr><td><code>ToolbarItem</code> 使用旧 placement 名称。</td><td>使用 AppUI 文档中的 <code>navigation_bar_trailing</code>。</td></tr></tbody></table></div>
+<h2 id="相关文档"><a class="heading-anchor" href="#相关文档">#</a>相关文档</h2>
+<div class="table-scroll"><table><thead><tr><th>文档</th><th>用途</th></tr></thead><tbody><tr><td><a href="../../pages/appui-guide-navigation/">导航与页面结构</a></td><td>TabView、NavigationStack、NavigationPath 和 sheet 的完整模式。</td></tr><tr><td><a href="../../pages/appui-ref-presentation/">呈现 API</a></td><td>sheet、alert、popover、confirmation dialog。</td></tr><tr><td><a href="../../pages/appui-ref-shapes/">形状 API</a></td><td><code>ToolbarItem</code> 也在形状/工具栏页中保留了签名。</td></tr></tbody></table></div>
+  </div>
+  
+</article>
+
+    </main>
+    <aside class="toc"><div class="toc-title">本页目录</div><a class="toc-link" href="#什么时候用">什么时候用</a><a class="toc-link" href="#最小正确示例">最小正确示例</a><a class="toc-link" href="#导航容器签名">导航容器签名</a><a class="toc-link" href="#navigationpath-方法">NavigationPath 方法</a><a class="toc-link" href="#tabview-示例">TabView 示例</a><a class="toc-link" href="#常用修饰符">常用修饰符</a><a class="toc-link" href="#与相邻-api-的区别">与相邻 API 的区别</a><a class="toc-link" href="#常见错误">常见错误</a><a class="toc-link" href="#相关文档">相关文档</a></aside>
+  </div>
+  <div class="mobile-backdrop"></div>
+  <div class="search-panel" role="dialog" aria-modal="true" aria-label="搜索">
+    <div class="search-box">
+      <input id="docs-search-input" type="search" placeholder="搜索 API、模块、指南..." autocomplete="off">
+      <button class="search-close" type="button">Close</button>
+    </div>
+    <div id="docs-search-results" class="search-results"></div>
+  </div>
+</body>
+</html>
