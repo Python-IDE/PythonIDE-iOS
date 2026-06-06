@@ -14,6 +14,10 @@
     <img src="https://img.shields.io/badge/App%20Store-Download-black?style=for-the-badge&logo=apple" alt="Download on App Store" height="40" />
   </a>
   &nbsp;
+  <a href="https://pythonide.xin/docs/">
+    <img src="https://img.shields.io/badge/Docs-pythonide.xin-3776AB?style=for-the-badge" alt="PythonIDE docs" height="40" />
+  </a>
+  &nbsp;
   <a href="https://github.com/jinwandalaohu66/PythonIDE-iOS">
     <img src="https://img.shields.io/github/stars/jinwandalaohu66/PythonIDE-iOS?style=for-the-badge&logo=github" alt="GitHub stars" height="40" />
   </a>
@@ -24,141 +28,135 @@
   <img src="https://img.shields.io/badge/Python-3.13-3776AB?style=flat-square&logo=python" alt="Python 3.13" />
   <img src="https://img.shields.io/badge/Swift-5.9-FA7343?style=flat-square&logo=swift" alt="Swift" />
   <img src="https://img.shields.io/badge/AI-Agent-6D5DFB?style=flat-square" alt="AI Agent" />
-  <img src="https://img.shields.io/badge/Widgets-MiniApps-F2C94C?style=flat-square" alt="Widgets and MiniApps" />
+  <img src="https://img.shields.io/badge/Widget-MiniApp-F2C94C?style=flat-square" alt="Widget and MiniApp" />
   <img src="https://img.shields.io/badge/SSH-Git-22C55E?style=flat-square" alt="SSH and Git" />
 </p>
 
 ---
 
-## What is PythonIDE?
+## 项目定位
 
-PythonIDE is a mobile Python workspace for iPhone and iPad. It is not only a code editor or a local Python runner: it connects scripts with AI Agent workflows, widgets, MiniApps, remote servers, Git repositories, iOS automation, and a script community.
+PythonIDE 不是只把桌面 IDE 缩小到手机屏幕里。它更像是一套 iOS 上的 Python 工作流：你可以在 iPhone / iPad 上管理文件、编辑代码、运行脚本、安装库、让 AI Agent 处理项目任务，也可以继续把脚本做成小组件、MiniApp、快捷指令自动化、服务器脚本或社区作品。
 
-The goal is simple:
+核心目标是让 Python 脚本不只停在编辑器和控制台里：
 
 ```text
-Write a script
-  -> run and inspect it locally
-  -> ask Agent to edit, debug, or complete the task
-  -> turn the result into a Widget, MiniApp, Shortcut, server workflow, or shared script
+写脚本
+  -> 本地运行和调试
+  -> 让 AI Agent 修改、验证和修复
+  -> 接入 Widget / MiniApp / Shortcuts / SSH / Git / 社区脚本库
 ```
 
-PythonIDE is built for mobile scenarios where a script should become something you can run, reuse, automate, display, deploy, or share directly from iPhone / iPad.
+---
+
+## 核心能力
+
+| 能力 | 说明 |
+|---|---|
+| **AI Agent** | AI 聊天、行内编辑、Agent 执行项目任务、跨文件读写、运行 Python、工具调用、BYOK 与平台额度 |
+| **小组件 / Widget** | Python 脚本小组件、Widget Studio、预览、桌面/锁屏组件、Control Center 控件、Live Activity / 灵动岛 |
+| **MiniApp** | MiniApp 启动器、创建、编辑、打包、导入导出、AppUI / HTML / WebBridge 运行、隐藏库、日志中心 |
+| **SSH / 服务器** | SSH 连接、终端、SFTP 文件管理、服务器监控、部署、密钥管理、命令片段 |
+| **Git / WebDAV** | 仓库状态、diff、暂存、提交、同步、历史、分支、远端、stash、tags、冲突处理；WebDAV 远程文件 |
+| **社区 / 脚本库** | 脚本浏览、分类、详情、导入、运行、投稿、审核、点赞、用户资料 |
+| **本地 Python 环境** | Python 3.13、本地运行、JavaScriptCore、HTML 预览、Rich/ANSI 输出、图片/图表/HTML 内联输出 |
 
 ---
 
-## Highlights
+## 典型工作流
 
-| Area | What it brings to PythonIDE |
+### 让 Agent 处理项目任务
+
+当任务不只是改一行代码时，Agent 可以读取项目、修改文件、运行 Python、查看输出，并根据错误继续修复。
+
+| 场景 | Agent 可以做什么 |
 |---|---|
-| **AI Agent** | AI chat, inline edits, project task execution, cross-file read/write, Python execution, tool calling, BYOK and platform quota |
-| **Widgets** | Python script widgets, Widget Studio, preview, Home Screen / Lock Screen widgets, Control Center controls, Live Activity / Dynamic Island |
-| **MiniApp** | MiniApp launcher, editor, packaging, import/export, AppUI / HTML / WebBridge runtimes, hidden libraries, logs |
-| **SSH / Server** | SSH connections, terminal, SFTP file manager, server monitoring, deployment, key management, command snippets |
-| **Git / WebDAV** | Repository status, diff, staging, commits, sync, history, branches, remotes, stash, tags, conflict handling, WebDAV remote files |
-| **Script Community** | Browse, categorize, view details, import, run, submit, review, like, and discover scripts from other users |
+| 修复脚本报错 | 读取 traceback，定位文件，修改代码，重新运行 |
+| 跨文件任务 | 读取多个文件后统一修改、创建或整理项目结构 |
+| MiniApp / Widget 接入 | 生成结构、连接脚本逻辑、辅助调试 |
+| 远程任务 | 配合 SSH / SFTP / Git 工作流处理服务器或项目问题 |
+| 模型使用 | 支持平台额度，也支持自带 API Key |
+
+### 把脚本变成 iOS 入口
+
+很多脚本不是为了运行一次，而是为了长期使用。PythonIDE 提供多个移动端出口：
+
+| 出口 | 适合场景 |
+|---|---|
+| **控制台** | 临时运行、调试、查看 Rich / ANSI / 图片 / 图表 / HTML 输出 |
+| **Widget** | 每日数据、状态卡片、进度、统计、主屏/锁屏信息 |
+| **Control Center** | 快速触发脚本或控制动作 |
+| **Live Activity / 灵动岛** | 长任务状态、运行进度、可见反馈 |
+| **快捷指令 / App Intents** | Siri、自动化、运行脚本、运行剪贴板代码、查询输出 |
+| **Share Extension** | 从其他 App 分享内容进入 PythonIDE 处理 |
+| **MiniApp** | 带界面的小工具、表单、列表、日志、状态反馈 |
+
+### 接入真实项目和服务器
+
+PythonIDE 也可以处理更接近开发者工作流的任务：
+
+| 工作流 | 能力 |
+|---|---|
+| **Git** | 状态、diff、暂存、提交、同步、历史、分支、远端、stash、tags、冲突处理 |
+| **SSH** | 连接服务器、交互式终端、命令片段、部署、服务器监控 |
+| **SFTP** | 远程目录、上传下载、远程编辑、批量操作 |
+| **WebDAV** | 远程目录、上传下载、远程编辑、收藏、缓存、证书固定 |
+| **SQLite** | 本地数据库浏览和检查 |
 
 ---
 
-## Core Workflows
+## 功能总览
 
-### AI-assisted project work
-
-Use Agent when a task is larger than a single edit. It can inspect project files, modify code, run Python, read output, continue from errors, and coordinate with tools such as Git, SSH, MiniApp, web, or native capability adapters.
-
-| Workflow | Example |
+| 模块 | 能力 |
 |---|---|
-| Fix a failing script | Read traceback, locate files, patch code, rerun Python |
-| Modify a project | Create or update multiple files with context |
-| Prepare a MiniApp | Generate AppUI / HTML structure and connect script logic |
-| Work with remote tasks | Combine project context with SSH / SFTP workflows |
-| Control model usage | Use platform quota or bring your own API key |
-
-### From script to system entry
-
-Some scripts are not meant to stay in the console. PythonIDE gives them mobile entry points:
-
-| Output form | Good for |
-|---|---|
-| **Widget** | Daily data, status cards, counters, dashboards, quick glance information |
-| **Control Center** | Fast script actions and controls |
-| **Live Activity / Dynamic Island** | Long-running tasks and visible run status |
-| **Shortcuts / App Intents** | Script automation from Siri, Shortcuts, and system actions |
-| **Share Extension** | Import or process content shared from other apps |
-| **MiniApp** | Script tools that need UI, forms, lists, logs, or packaging |
-
-### Real project and server workflows
-
-PythonIDE also connects local scripts with real development infrastructure:
-
-| Area | Capabilities |
-|---|---|
-| **Git** | Status, diff, staging, commit, sync, history, branch, remote, stash, tags, conflict handling |
-| **SSH** | Terminal, command snippets, password/key auth, deployment, server monitoring |
-| **SFTP** | Remote browsing, upload/download, remote editing, batch operations |
-| **WebDAV** | Remote directories, upload/download, remote editing, favorites, cache, certificate pinning |
-| **SQLite** | Local database browsing and inspection workflows |
+| **首页 / 文件管理** | 本地文件、文件夹、导入、外部文件夹、搜索、排序、置顶、颜色标记、批量操作、回收站、文件预览 |
+| **代码编辑器** | Python / JS / HTML / CSS / JSON / Markdown，语法高亮、快捷输入栏、查找替换、Jedi 补全、Python lint、AI 行内编辑 |
+| **运行与控制台** | Python 3.13 本地运行、JavaScriptCore 运行、HTML 预览、交互式 input、Rich/ANSI 输出、图片/图表/HTML 内联输出、错误跳转和修复入口 |
+| **AI Agent** | AI 聊天、Agent 执行项目任务、跨文件读写、运行 Python、Git / SSH / MiniApp / 网页 / 原生能力工具调用、BYOK 和平台额度 |
+| **社区 / 脚本库** | 脚本浏览、分类、详情、导入、运行、投稿、审核、点赞、用户资料 |
+| **MiniApp** | 启动器、创建、编辑、打包、导入导出、AppUI / HTML / WebBridge 运行、隐藏库、日志中心 |
+| **小组件 / Widget** | Python 脚本小组件、Widget Studio、预览、桌面/锁屏组件、Control Center 控件、Live Activity / 灵动岛 |
+| **SSH / 服务器** | SSH 连接、终端、SFTP 文件管理、服务器监控、部署、密钥管理、命令片段 |
+| **Git** | 仓库状态、diff、暂存、提交、同步、历史、分支、远端、stash、tags、冲突处理 |
+| **WebDAV** | WebDAV 服务器、远程目录、上传下载、远程编辑、批量操作、收藏、缓存、证书固定 |
+| **工具箱** | 编解码、JSON、API 调试、二维码、图片 URL、HTML 转图片、时间戳、进制转换、正则、直链下载 |
+| **Python 库管理** | 内置 Python 包、C 扩展包、Wheel 安装、PyPI 搜索安装、包推荐 |
+| **iOS 原生模块** | `photos`、`contacts`、`location`、`motion`、`speech`、`notification`、`vision`、`device`、`network`、`haptics`、`calendar`、`bluetooth`、`health`、`sound`、`websocket` 等 |
+| **快捷指令 / 自动化** | App Intents、运行脚本、运行剪贴板代码、保存文本为脚本、查询运行状态/输出、停止运行、x-callback-url |
+| **设置 / 个性化 / 安全 / 付费** | AI 设置、外观、编辑器、控制台、小组件、隐私安全、App 锁、Keychain、换图标、BYOK / Premium / 捐赠权益、帮助反馈、开发者文档 |
+| **支撑板块** | Share Extension 分享导入、SQLite 浏览器、开发者文档中心、AgentSkillsV2 技能系统 |
 
 ---
 
-## Feature Overview
+## 文档入口
 
-| Module | Capabilities |
+优先阅读在线文档站点，跳转路径比 GitHub 源文件更适合用户阅读：
+
+| 主题 | 在线文档 |
 |---|---|
-| **Home / File Management** | Local files and folders, import, external folders, search, sorting, pinning, color labels, batch actions, trash, preview |
-| **Code Editor** | Python / JavaScript / HTML / CSS / JSON / Markdown editing, syntax highlighting, shortcut bar, find & replace, Jedi completion, Python lint, AI inline edits |
-| **Runtime & Console** | Local Python 3.13, JavaScriptCore, HTML preview, interactive `input()`, Rich / ANSI output, inline images, charts and HTML, error jump and repair entry |
-| **AI Agent** | AI chat, Agent execution, cross-file read/write, Python execution, Git / SSH / MiniApp / web / native tool calling, BYOK and platform quota |
-| **Community / Script Library** | Browse scripts, categories, details, import, run, submit, review, like, user profiles |
-| **MiniApp** | Launcher, creation, editing, packaging, import/export, AppUI / HTML / WebBridge runtime, hidden libraries, log center |
-| **Widgets** | Python script widgets, Widget Studio, preview, Home Screen / Lock Screen widgets, Control Center controls, Live Activity / Dynamic Island |
-| **SSH / Server** | SSH connection, terminal, SFTP file manager, monitoring, deployment, key management, command snippets |
-| **Git** | Repository status, diff, staging, commit, sync, history, branch, remote, stash, tags, conflict handling |
-| **WebDAV** | WebDAV server, remote directories, upload/download, remote editing, batch operations, favorites, cache, certificate pinning |
-| **Toolbox** | Encoding/decoding, JSON, API debugging, QR code, image URL, HTML to image, timestamp, base conversion, regex, direct download |
-| **Package Management** | Built-in Python packages, C extension packages, Wheel install, PyPI search/install, package recommendations |
-| **iOS Native Modules** | `photos`, `contacts`, `location`, `motion`, `speech`, `notification`, `vision`, `device`, `network`, `haptics`, `calendar`, `bluetooth`, `health`, `sound`, `websocket`, and more |
-| **Shortcuts / Automation** | App Intents, run script, run clipboard code, save text as script, query run status/output, stop run, x-callback-url |
-| **Settings / Security / Personalization** | AI settings, appearance, editor, console, widgets, privacy, app lock, Keychain, app icons, BYOK, Premium, donation benefits, help and feedback |
-| **Supporting Modules** | Share Extension import, SQLite browser, developer docs center, AgentSkillsV2 skill system |
+| **文档首页** | [pythonide.xin/docs](https://pythonide.xin/docs/) |
+| **AppUI / MiniApp** | [AppUI 文档集合](https://pythonide.xin/docs/collections/appui/) |
+| **Widget 小组件** | [Widget 文档集合](https://pythonide.xin/docs/collections/widget/) |
+| **iOS 原生模块** | [iOS 原生模块集合](https://pythonide.xin/docs/collections/ios-native/) |
+| **快捷指令 / 自动化 / 扩展** | [自动化与扩展集合](https://pythonide.xin/docs/collections/automation-extension/) |
+| **ui 模块** | [ui 文档集合](https://pythonide.xin/docs/collections/ui/) |
+| **scene / turtle** | [scene 文档集合](https://pythonide.xin/docs/collections/scene/) |
+| **Widget API 参考** | [widget API reference](https://pythonide.xin/docs/pages/widget-api-reference/) |
+| **AppUI 示例** | [AppUI cookbook](https://pythonide.xin/docs/pages/appui-cookbook-index/) |
+| **JS API** | [JavaScript API](https://pythonide.xin/docs/pages/js-api/) |
+| **C 扩展模块** | [C extensions](https://pythonide.xin/docs/pages/c-extensions-module/) |
+
+仓库内源码文档入口：
+
+| 类型 | 仓库路径 |
+|---|---|
+| Python 模块源文档 | [pythonide/Docs](pythonide/Docs/) |
+| AgentSkillsV2 技能系统 | [AgentSkillsV2](AgentSkillsV2/) |
+| 社区 API | [community-function/API.md](community-function/API.md) |
 
 ---
 
-## Local Runtime
-
-PythonIDE includes a local Python runtime designed for iOS:
-
-| Runtime area | Details |
-|---|---|
-| **Python** | Python 3.13 local execution with standard library support |
-| **JavaScript** | JavaScriptCore execution for `.js` workflows |
-| **HTML** | WKWebView preview for HTML files and local assets |
-| **Console** | Interactive input, ANSI/Rich output, media previews, error jump |
-| **Packages** | Built-in packages, C extensions, pure Python wheels, Wheel import, PyPI search/install |
-
-The runtime is the foundation. The larger goal is to let scripts continue into Agent tasks, widgets, MiniApps, automation, remote workflows, and shared community scripts.
-
----
-
-## Documentation
-
-Detailed API references and implementation guides live in the repository docs. Start here:
-
-| Topic | Link |
-|---|---|
-| Developer Docs Site | [docs/](docs/) |
-| AppUI / MiniApp | [appui.md](pythonide/Docs/appui.md), [miniapp-appui-api-index.md](pythonide/Docs/miniapp-appui-api-index.md), [miniapp-choose-runtime.md](pythonide/Docs/miniapp-choose-runtime.md) |
-| Widget API | [widget-api-index.md](pythonide/Docs/widget-api-index.md), [widget-api-reference.md](pythonide/Docs/widget-api-reference.md), [widget-quickstart-publish.md](pythonide/Docs/widget-quickstart-publish.md) |
-| iOS Native Modules | [modules-index.md](pythonide/Docs/modules-index.md), [ios-native.md](pythonide/Docs/ios-native.md) |
-| Shortcuts / Automation | [shortcuts-guide.md](pythonide/Docs/shortcuts-guide.md), [shortcuts-module.md](pythonide/Docs/shortcuts-module.md) |
-| JavaScript Runtime | [js-api.md](pythonide/Docs/js-api.md) |
-| C Extensions | [c-extensions-module.md](pythonide/Docs/c-extensions-module.md) |
-| Agent Skills | [AgentSkillsV2/](AgentSkillsV2/) |
-| Community API | [community-function/API.md](community-function/API.md) |
-
----
-
-## Install
+## 安装
 
 <p align="center">
   <a href="https://apps.apple.com/app/id6753987304">
@@ -166,58 +164,58 @@ Detailed API references and implementation guides live in the repository docs. S
   </a>
 </p>
 
-| Requirement | Detail |
+| 要求 | 说明 |
 |---|---|
-| **System** | iOS 16.2 or later |
-| **Device** | iPhone and iPad |
-| **Distribution** | App Store |
-| **AI usage** | Platform quota and BYOK are supported |
+| **系统** | iOS 16.2 或更高版本 |
+| **设备** | iPhone / iPad |
+| **分发** | App Store |
+| **AI 使用** | 支持平台额度和 BYOK |
 
 ---
 
-## Screenshots
+## 截图
 
-For current screenshots and feature previews, visit the App Store page:
+当前截图和功能预览请先查看 App Store 页面：
 
 [View PythonIDE on the App Store](https://apps.apple.com/app/id6753987304)
 
-Recommended repository screenshot set:
+后续建议在仓库中补充这些截图：
 
-| Screenshot | Purpose |
+| 截图 | 用途 |
 |---|---|
-| Home / Files | Show file management and project entry |
-| Editor + Console | Show coding, execution, Rich output, error jump |
-| AI Agent | Show project task execution and diff/apply flow |
-| Widget Studio | Show script result turning into widgets |
-| MiniApp | Show script tool with UI |
-| SSH / Git | Show real project and server workflow |
-| Community | Show script discovery, import, and running |
+| 首页 / 文件 | 展示文件管理和项目入口 |
+| 编辑器 + 控制台 | 展示代码编辑、本地运行、Rich 输出、错误跳转 |
+| AI Agent | 展示项目任务、diff、运行验证 |
+| Widget Studio | 展示脚本结果变成小组件 |
+| MiniApp | 展示脚本工具界面 |
+| SSH / Git | 展示真实项目和服务器工作流 |
+| 社区脚本库 | 展示脚本发现、导入和运行 |
 
 ---
 
-## Community & Feedback
+## 社区与反馈
 
-| Channel | Link |
+| 渠道 | 链接 |
 |---|---|
 | Telegram | [iOS 端 Py 编程 IDE](https://t.me/pythonzwb) |
-| Feature requests | [GitHub Discussions](https://github.com/jinwandalaohu66/PythonIDE-iOS/discussions) |
-| Issues | [GitHub Issues](https://github.com/jinwandalaohu66/PythonIDE-iOS/issues) |
+| 功能建议 | [GitHub Discussions](https://github.com/jinwandalaohu66/PythonIDE-iOS/discussions) |
+| 问题反馈 | [GitHub Issues](https://github.com/jinwandalaohu66/PythonIDE-iOS/issues) |
 | App Store | [PythonIDE on App Store](https://apps.apple.com/app/id6753987304) |
 
 ---
 
-## Support Development
+## 支持开发
 
-If PythonIDE is useful to you:
+如果 PythonIDE 对你有帮助，可以通过这些方式支持后续开发：
 
-- Star this repository so more developers can discover the project.
-- Leave an App Store review.
-- Send feedback from the app so issues can be reproduced with the right context.
-- Support development through the in-app donation / Premium options.
+- 给这个仓库点 Star，让更多开发者看到项目。
+- 在 App Store 留下评价。
+- 通过应用内反馈发送问题和建议。
+- 通过应用内 Premium / 捐赠权益支持开发。
 
 ---
 
 <p align="center">
   <strong>PythonIDE</strong><br/>
-  Mobile Python workspace for scripts, Agent workflows, widgets, MiniApps, servers, Git, and community scripts.
+  iPhone / iPad 上的 Python 工作台。
 </p>
