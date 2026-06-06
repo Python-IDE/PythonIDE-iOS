@@ -175,21 +175,13 @@ PythonIDE 也可以处理更接近开发者工作流的任务：
 
 ## 截图
 
-当前截图和功能预览请先查看 App Store 页面：
+当前界面截图和功能预览以 App Store 页面为准：
 
-[View PythonIDE on the App Store](https://apps.apple.com/app/id6753987304)
-
-后续建议在仓库中补充这些截图：
-
-| 截图 | 用途 |
-|---|---|
-| 首页 / 文件 | 展示文件管理和项目入口 |
-| 编辑器 + 控制台 | 展示代码编辑、本地运行、Rich 输出、错误跳转 |
-| AI Agent | 展示项目任务、diff、运行验证 |
-| Widget Studio | 展示脚本结果变成小组件 |
-| MiniApp | 展示脚本工具界面 |
-| SSH / Git | 展示真实项目和服务器工作流 |
-| 社区脚本库 | 展示脚本发现、导入和运行 |
+<p align="center">
+  <a href="https://apps.apple.com/app/id6753987304">
+    <img src="https://img.shields.io/badge/App%20Store-查看截图-black?style=for-the-badge&logo=apple" alt="View screenshots on App Store" height="44" />
+  </a>
+</p>
 
 ---
 
