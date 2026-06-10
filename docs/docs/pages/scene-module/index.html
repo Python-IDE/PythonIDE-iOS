@@ -3,8 +3,8 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>scene 概览 - PythonIDE Docs</title>
-  <meta name="description" content="2D 场景、节点、动画、物理与绘制。">
+  <title>scene - PythonIDE Docs</title>
+  <meta name="description" content="2D 场景、精灵节点、触摸、Action 动画、物理与 Classic 绘图。">
   <link rel="icon" href="../../assets/brand-mark.svg" type="image/svg+xml">
   <link rel="stylesheet" href="../../assets/docs-v2.css">
   <script>window.PYTHONIDE_DOCS_PREFIX = "../../";</script>
@@ -146,7 +146,7 @@
 <summary><a href="../../collections/scene/">scene</a></summary>
 <div class="nav-group">
 <div class="nav-group-title">快速上手</div>
-<a class="nav-link active" href="../../pages/scene-module/">scene 概览</a>
+<a class="nav-link active" href="../../pages/scene-module/">scene</a>
 <a class="nav-link" href="../../pages/turtle-module/">turtle</a>
 </div>
 <div class="nav-group">
@@ -160,8 +160,16 @@
 <div class="nav-group">
 <div class="nav-group-title">快速上手</div>
 <a class="nav-link" href="../../pages/ios-native/">iOS 原生能力</a>
-<a class="nav-link" href="../../pages/modules-index/">全部模块总览</a>
-<a class="nav-link" href="../../pages/miniapp-native-capabilities/">原生能力入口</a>
+</div>
+<div class="nav-group">
+<div class="nav-group-title">基础与权限</div>
+<a class="nav-link" href="../../pages/permission-module/">permission</a>
+<a class="nav-link" href="../../pages/storage-module/">storage</a>
+<a class="nav-link" href="../../pages/database-module/">database</a>
+<a class="nav-link" href="../../pages/keychain-module/">keychain</a>
+<a class="nav-link" href="../../pages/clipboard-module/">clipboard</a>
+<a class="nav-link" href="../../pages/console-module/">console</a>
+<a class="nav-link" href="../../pages/dialogs-module/">dialogs</a>
 </div>
 <div class="nav-group">
 <div class="nav-group-title">设备与传感器</div>
@@ -173,35 +181,69 @@
 <a class="nav-link" href="../../pages/health-module/">health</a>
 </div>
 <div class="nav-group">
-<div class="nav-group-title">媒体与视觉</div>
-<a class="nav-link" href="../../pages/photos-module/">photos</a>
-<a class="nav-link" href="../../pages/avplayer-module/">avplayer</a>
-<a class="nav-link" href="../../pages/sound-module/">sound</a>
-<a class="nav-link" href="../../pages/speech-module/">speech</a>
-<a class="nav-link" href="../../pages/vision-helper-module/">vision_helper</a>
-<a class="nav-link" href="../../pages/vision-module/">vision</a>
-<a class="nav-link" href="../../pages/coreml-module/">coreml</a>
-</div>
-<div class="nav-group">
-<div class="nav-group-title">网络与数据</div>
-<a class="nav-link" href="../../pages/network-module/">network</a>
-<a class="nav-link" href="../../pages/websocket-module/">websocket</a>
-<a class="nav-link" href="../../pages/bluetooth-module/">bluetooth</a>
-<a class="nav-link" href="../../pages/background-module/">background</a>
-</div>
-<div class="nav-group">
-<div class="nav-group-title">系统服务</div>
-<a class="nav-link" href="../../pages/permission-module/">permission</a>
-<a class="nav-link" href="../../pages/storage-module/">storage</a>
-<a class="nav-link" href="../../pages/database-module/">database</a>
-<a class="nav-link" href="../../pages/keychain-module/">keychain</a>
-<a class="nav-link" href="../../pages/clipboard-module/">clipboard</a>
-<a class="nav-link" href="../../pages/dialogs-module/">dialogs</a>
-<a class="nav-link" href="../../pages/console-module/">console</a>
+<div class="nav-group-title">界面与系统</div>
+<a class="nav-link" href="../../pages/file-picker-module/">file_picker</a>
+<a class="nav-link" href="../../pages/share-module/">share</a>
+<a class="nav-link" href="../../pages/font-picker-module/">font_picker</a>
 <a class="nav-link" href="../../pages/notification-module/">notification</a>
+<a class="nav-link" href="../../pages/live-activity-module/">live_activity</a>
 <a class="nav-link" href="../../pages/contacts-module/">contacts</a>
 <a class="nav-link" href="../../pages/calendar-events-module/">calendar_events</a>
+</div>
+<div class="nav-group">
+<div class="nav-group-title">媒体</div>
+<div class="nav-subgroup-title">采集</div>
+<a class="nav-link" href="../../pages/photos-module/">photos</a>
+<a class="nav-link" href="../../pages/camera-module/">camera</a>
+<a class="nav-link" href="../../pages/video-recorder-module/">video_recorder</a>
+<a class="nav-link" href="../../pages/audio-recorder-module/">audio_recorder</a>
+<div class="nav-subgroup-title">播放</div>
+<a class="nav-link" href="../../pages/sound-module/">sound</a>
+<a class="nav-link" href="../../pages/avplayer-module/">avplayer</a>
+<a class="nav-link" href="../../pages/music-module/">music</a>
+<a class="nav-link" href="../../pages/now-playing-module/">now_playing</a>
+<a class="nav-link" href="../../pages/audio-session-module/">audio_session</a>
+<div class="nav-subgroup-title">语音</div>
+<a class="nav-link" href="../../pages/speech-module/">speech</a>
+<a class="nav-link" href="../../pages/speech-recognition-module/">speech_recognition</a>
+<a class="nav-link" href="../../pages/shazam-module/">shazam</a>
+<div class="nav-subgroup-title">合成</div>
+<a class="nav-link" href="../../pages/media-composer-module/">media_composer</a>
+</div>
+<div class="nav-group">
+<div class="nav-group-title">视觉与文档</div>
+<a class="nav-link" href="../../pages/vision-module/">vision</a>
+<a class="nav-link" href="../../pages/vision-helper-module/">vision_helper</a>
+<a class="nav-link" href="../../pages/coreml-module/">coreml</a>
+<a class="nav-link" href="../../pages/qrcode-module/">qrcode</a>
+<a class="nav-link" href="../../pages/pdf-module/">pdf</a>
+</div>
+<div class="nav-group">
+<div class="nav-group-title">连接与后台</div>
+<div class="nav-subgroup-title">联网</div>
+<a class="nav-link" href="../../pages/network-module/">network</a>
+<a class="nav-link" href="../../pages/websocket-module/">websocket</a>
+<a class="nav-link" href="../../pages/weather-module/">weather</a>
+<div class="nav-subgroup-title">近场</div>
+<a class="nav-link" href="../../pages/bluetooth-module/">bluetooth</a>
+<a class="nav-link" href="../../pages/ble-peripheral-module/">ble_peripheral</a>
+<div class="nav-subgroup-title">后台</div>
+<a class="nav-link" href="../../pages/background-module/">background</a>
+<a class="nav-link" href="../../pages/background-download-module/">background_download</a>
+<div class="nav-subgroup-title">本地服务</div>
+<a class="nav-link" href="../../pages/http-server-module/">http_server</a>
+<a class="nav-link" href="../../pages/ssh-module/">ssh</a>
+</div>
+<div class="nav-group">
+<div class="nav-group-title">通信与智能</div>
+<a class="nav-link" href="../../pages/mail-module/">mail</a>
+<a class="nav-link" href="../../pages/message-module/">message</a>
+<a class="nav-link" href="../../pages/translation-module/">translation</a>
 <a class="nav-link" href="../../pages/nfc-module/">nfc</a>
+<a class="nav-link" href="../../pages/alarm-module/">alarm</a>
+<a class="nav-link" href="../../pages/storekit-module/">storekit</a>
+<a class="nav-link" href="../../pages/foundation-models-module/">foundation_models</a>
+<a class="nav-link" href="../../pages/assistant-module/">assistant</a>
 </div>
 </details>
 <details class="nav-collection">
@@ -214,10 +256,14 @@
 <div class="nav-group">
 <div class="nav-group-title">模块</div>
 <a class="nav-link" href="../../pages/shortcuts-module/">shortcuts</a>
-<a class="nav-link" href="../../pages/live-activity-module/">live_activity</a>
 <a class="nav-link" href="../../pages/keyboard-module/">keyboard</a>
 <a class="nav-link" href="../../pages/objc-util-module/">objc_util</a>
 <a class="nav-link" href="../../pages/c-extensions-module/">c_extensions</a>
+</div>
+<div class="nav-group">
+<div class="nav-group-title">参考</div>
+<a class="nav-link" href="../../pages/modules-index/">全部模块总览</a>
+<a class="nav-link" href="../../pages/miniapp-native-capabilities/">原生能力入口</a>
 </div>
 </details>
 </nav>
@@ -227,65 +273,79 @@
 <article class="article" style="--page-accent:#16a34a">
   <header class="article-intro">
     <div class="breadcrumb">scene / 快速上手</div>
-    <h1>scene 概览</h1>
-    <p>2D 场景、节点、动画、物理与绘制。</p>
+    <h1>scene</h1>
+    <p>2D 场景、精灵节点、触摸、Action 动画、物理与 Classic 绘图。</p>
   </header>
   <div class="markdown-body">
-    <p><code>scene</code> 是 Pythonista 风格的 2D 场景运行时，适合小游戏、粒子、Sprite、触摸交互、持续绘制和物理效果。普通表单、设置页和业务工具优先用 <a href="../../pages/appui-module/">appui</a>。</p>
-<h2 id="预期效果"><a class="heading-anchor" href="#预期效果">#</a>预期效果</h2>
-<p>运行示例后会打开 2D 场景，显示可点击坐标、循环动画精灵和 Classic 绘制图形。</p>
-<h2 id="先选写法"><a class="heading-anchor" href="#先选写法">#</a>先选写法</h2>
-<div class="table-scroll"><table><thead><tr><th>需求</th><th>首选</th><th>原因</th></tr></thead><tbody><tr><td>小游戏、Sprite、粒子、碰撞、触摸循环</td><td><code>scene</code></td><td>有持续帧循环、节点树、Action 和 Physics。</td></tr><tr><td>普通工具页、设置页、列表、图表和媒体控制</td><td><code>appui</code></td><td>原生控件和状态管理更稳定。</td></tr><tr><td>Pythonista 风格命令式窗口</td><td><code>ui</code></td><td>适合迁移命令式脚本和简单自定义控件。</td></tr><tr><td>主屏、锁屏或 StandBy 展示</td><td><code>widget</code></td><td>系统小组件不是实时场景，必须用 WidgetKit 模型。</td></tr><tr><td>只需要教材式 turtle 绘图</td><td><code>turtle</code></td><td>API 更接近教学脚本，不需要节点和物理。</td></tr></tbody></table></div>
-<h2 id="最小场景"><a class="heading-anchor" href="#最小场景">#</a>最小场景</h2>
-<figure class="code-block" data-code-id="7dc7835c26d0">
+    <p>Pythonista 风格的 2D 场景运行时：精灵节点、触摸、逐帧 <code>update()</code>、Classic 绘图、动作动画与 SpriteKit 物理。</p>
+<blockquote class="callout note"><strong>边界</strong>：<code>scene</code> 适合小游戏、画布动画和物理交互。普通表单、设置页、列表导航请用 <a href="../../pages/appui-module/">appui</a>；教材式海龟绘图用 <a href="../../pages/turtle-module/">turtle</a>；主屏小组件用 <a href="../../pages/widget-module/">widget</a>。坐标原点在<strong>左下角</strong>（与 Pythonista 一致）。</blockquote>
+<h2 id="模块概览"><a class="heading-anchor" href="#模块概览">#</a>模块概览</h2>
+<div class="table-scroll"><table><thead><tr><th>项</th><th>说明</th></tr></thead><tbody><tr><td>导入</td><td><code>import scene</code></td></tr><tr><td>适合做什么</td><td>触摸游戏、精灵动画、粒子、碰撞、Classic 画布、手柄输入</td></tr><tr><td>入口</td><td>定义 <code>Scene</code> 子类，脚本末尾<strong>只调用一次</strong> <code>scene.run(MyScene())</code></td></tr><tr><td>生命周期</td><td><code>setup()</code> 建节点；<code>update()</code> 每帧逻辑；<code>draw()</code> Classic 绘图；触摸走 <code>touch_*</code></td></tr><tr><td>关闭方式</td><td><code>scene.run()</code> 会阻塞直到场景关闭（界面上的关闭按钮或系统下滑 dismiss）</td></tr><tr><td>MiniApp</td><td>Scene 类型 MiniApp 入口同样是 <code>scene.run(...)</code>，不是 <code>appui.run()</code></td></tr><tr><td>文档示例</td><td>代码块标记 <code>previewScene</code>，点「预览」直接打开全屏场景，不弹控制台 sheet</td></tr></tbody></table></div>
+<hr>
+<h2 id="快速开始"><a class="heading-anchor" href="#快速开始">#</a>快速开始</h2>
+<p>点击运行后会打开全屏 2D 场景；触摸屏幕可看到坐标更新。</p>
+<figure class="code-block" data-code-id="49dec9809300">
   <figcaption>
     <span>python</span>
-    <button class="copy-code" type="button" data-copy-code="7dc7835c26d0">复制</button>
+    <button class="copy-code" type="button" data-copy-code="49dec9809300">复制</button>
   </figcaption>
-  <pre><code id="code-7dc7835c26d0" class="language-python">import scene
+  <pre><code id="code-49dec9809300" class="language-python">import scene
 
 
-class Demo(scene.Scene):
+class TapDemo(scene.Scene):
     def setup(self):
         self.background_color = (0.08, 0.09, 0.12)
-        self.label = scene.LabelNode(&quot;Tap anywhere&quot;, position=self.size / 2, parent=self)
+        self.label = scene.LabelNode(
+            &quot;Tap anywhere&quot;,
+            font=(&quot;Helvetica&quot;, 22),
+            position=(self.size.w / 2, self.size.h / 2),
+            parent=self,
+        )
 
     def touch_began(self, touch):
         self.label.text = f&quot;{touch.location.x:.0f}, {touch.location.y:.0f}&quot;
 
 
-scene.run(Demo(), show_fps=True)</code></pre>
+scene.run(TapDemo(), show_fps=True)</code></pre>
 </figure>
-<h2 id="sprite-和-action"><a class="heading-anchor" href="#sprite-和-action">#</a>Sprite 和 Action</h2>
-<figure class="code-block" data-code-id="0c8321c62540">
+<hr>
+<h2 id="可运行示例"><a class="heading-anchor" href="#可运行示例">#</a>可运行示例</h2>
+<h3 id="精灵与-action-动画"><a class="heading-anchor" href="#精灵与-action-动画">#</a>精灵与 Action 动画</h3>
+<p><code>SpriteNode</code> 的第一个位置参数是<strong>纹理名</strong>；纯色块请用关键字 <code>color=</code>。动画用 <code>node.run_action(...)</code> 启动。</p>
+<figure class="code-block" data-code-id="13b5d4c6473b">
   <figcaption>
     <span>python</span>
-    <button class="copy-code" type="button" data-copy-code="0c8321c62540">复制</button>
+    <button class="copy-code" type="button" data-copy-code="13b5d4c6473b">复制</button>
   </figcaption>
-  <pre><code id="code-0c8321c62540" class="language-python">import scene
+  <pre><code id="code-13b5d4c6473b" class="language-python">import scene
 
 
 class SpriteDemo(scene.Scene):
     def setup(self):
         self.background_color = &quot;black&quot;
-        node = scene.SpriteNode(color=&quot;cyan&quot;, size=(80, 80), position=self.size / 2, parent=self)
-        node.run_action(scene.Action.repeat_forever(
-            scene.Action.sequence([
-                scene.Action.scale_to(1.2, 0.5),
-                scene.Action.scale_to(0.8, 0.5),
-            ])
-        ))
+        self.box = scene.SpriteNode(
+            color=&quot;cyan&quot;,
+            size=(80, 80),
+            position=(self.size.w / 2, self.size.h / 2),
+            parent=self,
+        )
+        pulse = scene.Action.sequence([
+            scene.Action.scale_to(1.2, 0.5),
+            scene.Action.scale_to(0.8, 0.5),
+        ])
+        self.box.run_action(scene.Action.repeat_forever(pulse))
 
 
 scene.run(SpriteDemo(), show_fps=True)</code></pre>
 </figure>
-<h2 id="经典绘制"><a class="heading-anchor" href="#经典绘制">#</a>经典绘制</h2>
-<figure class="code-block" data-code-id="719200524317">
+<h3 id="classic-绘制-draw"><a class="heading-anchor" href="#classic-绘制-draw">#</a>Classic 绘制（<code>draw()</code>）</h3>
+<p><code>fill</code>、<code>rect</code>、<code>line</code>、<code>text</code> 等<strong>只能在</strong> <code>draw()</code> 里调用。</p>
+<figure class="code-block" data-code-id="9187eda6db37">
   <figcaption>
     <span>python</span>
-    <button class="copy-code" type="button" data-copy-code="719200524317">复制</button>
+    <button class="copy-code" type="button" data-copy-code="9187eda6db37">复制</button>
   </figcaption>
-  <pre><code id="code-719200524317" class="language-python">import scene
+  <pre><code id="code-9187eda6db37" class="language-python">import scene
 
 
 class DrawDemo(scene.Scene):
@@ -296,27 +356,158 @@ class DrawDemo(scene.Scene):
         scene.stroke(1.0, 1.0, 1.0, 0.8)
         scene.stroke_weight(3)
         scene.line(40, 40, 180, 120)
+        scene.fill(1, 1, 1)
+        scene.text(&quot;Draw&quot;, x=100, y=130, font_size=20)
 
 
 scene.run(DrawDemo())</code></pre>
 </figure>
-<h2 id="写-scene-的心智模型"><a class="heading-anchor" href="#写-scene-的心智模型">#</a>写 scene 的心智模型</h2>
-<ol><li>入口：定义 <code>Scene</code> 子类，脚本末尾调用一次 <code>scene.run(MyScene())</code>。</li><li>初始化：<code>setup()</code> 里创建节点、纹理、物理体和稳定引用。</li><li>持续逻辑：<code>update()</code> 里只做轻量状态推进，不做网络请求或大文件读写。</li><li>自绘：<code>draw()</code> 适合 Classic 绘图；节点动画优先用 <code>Action</code>。</li><li>触摸：<code>touch_began</code>、<code>touch_moved</code>、<code>touch_ended</code> 只更新场景状态。</li><li>资源：图片、音效和控制器状态要缓存，避免每帧重复加载。</li></ol>
-<h2 id="能力入口"><a class="heading-anchor" href="#能力入口">#</a>能力入口</h2>
-<div class="table-scroll"><table><thead><tr><th>分组</th><th>代表 API</th></tr></thead><tbody><tr><td>运行和屏幕</td><td><code>run</code>、<code>get_screen_size</code>、<code>get_screen_scale</code>、<code>get_safe_area_insets</code></td></tr><tr><td>基础类型</td><td><code>Point</code>、<code>Size</code>、<code>Rect</code>、<code>Vector2</code>、<code>Vector3</code>、<code>EdgeInsets</code>、<code>Touch</code>、<code>Contact</code></td></tr><tr><td>节点</td><td><code>Scene</code>、<code>SceneView</code>、<code>Node</code>、<code>SpriteNode</code>、<code>LabelNode</code>、<code>ShapeNode</code>、<code>EffectNode</code>、<code>EmitterNode</code>、<code>Texture</code></td></tr><tr><td>动作和物理</td><td><code>Action</code>、<code>PhysicsWorld</code>、<code>PhysicsBody</code>、<code>PinJoint</code>、<code>SpringJoint</code>、<code>RopeJoint</code></td></tr><tr><td>绘制</td><td><code>background</code>、<code>fill</code>、<code>no_fill</code>、<code>stroke</code>、<code>no_stroke</code>、<code>stroke_weight</code>、<code>rect</code>、<code>ellipse</code>、<code>line</code>、<code>image</code>、<code>text</code></td></tr><tr><td>变换和资源</td><td><code>translate</code>、<code>rotate</code>、<code>scale</code>、<code>push_matrix</code>、<code>pop_matrix</code>、<code>load_image</code>、<code>load_image_file</code>、<code>load_pil_image</code>、<code>unload_image</code></td></tr><tr><td>高级绘制</td><td><code>Shader</code>、<code>blend_mode</code>、<code>use_shader</code>、<code>render_text</code>、<code>image_quad</code>、<code>triangle_strip</code>、<code>tint</code>、<code>no_tint</code></td></tr><tr><td>设备能力</td><td><code>gravity</code>、<code>play_effect</code>、<code>get_image_path</code>、<code>get_controllers</code></td></tr></tbody></table></div>
-<p>完整签名看 <a href="../../pages/scene-api-index/">scene API 索引</a> 和 <a href="../../pages/scene-api-reference/">scene API 参考</a>。</p>
+<h3 id="物理与碰撞"><a class="heading-anchor" href="#物理与碰撞">#</a>物理与碰撞</h3>
+<p>给节点设置 <code>physics_body</code>；静态地面设 <code>dynamic = False</code>。需要碰撞回调时重写 <code>contact_began(contact)</code>。</p>
+<figure class="code-block" data-code-id="64a08a9546b9">
+  <figcaption>
+    <span>python</span>
+    <button class="copy-code" type="button" data-copy-code="64a08a9546b9">复制</button>
+  </figcaption>
+  <pre><code id="code-64a08a9546b9" class="language-python">import scene
+
+
+class PhysicsDemo(scene.Scene):
+    def setup(self):
+        self.background_color = &quot;#101820&quot;
+        w, h = self.size.w, self.size.h
+
+        floor = scene.SpriteNode(
+            color=&quot;#444&quot;,
+            size=(w, 120),
+            position=(w / 2, 60),
+            parent=self,
+        )
+        floor_body = scene.PhysicsBody.rectangle(w=w, h=120)
+        floor_body.dynamic = False
+        floor.physics_body = floor_body
+
+        self.ball = scene.SpriteNode(
+            color=&quot;#ff8c42&quot;,
+            size=(44, 44),
+            position=(w / 2, h - 100),
+            parent=self,
+        )
+        ball_body = scene.PhysicsBody.circle(r=22)
+        ball_body.restitution = 0.65
+        self.ball.physics_body = ball_body
+
+    def touch_began(self, touch):
+        self.ball.position = (touch.location.x, touch.location.y)
+
+
+scene.run(PhysicsDemo(), show_fps=True)</code></pre>
+</figure>
+<h3 id="模态子场景"><a class="heading-anchor" href="#模态子场景">#</a>模态子场景</h3>
+<p>主场景 <code>present_modal_scene</code>，子场景 <code>dismiss_modal_scene</code> 关闭。</p>
+<figure class="code-block" data-code-id="2d2ac416362d">
+  <figcaption>
+    <span>python</span>
+    <button class="copy-code" type="button" data-copy-code="2d2ac416362d">复制</button>
+  </figcaption>
+  <pre><code id="code-2d2ac416362d" class="language-python">import scene
+
+
+class SubScene(scene.Scene):
+    def setup(self):
+        self.background_color = (0.1, 0.1, 0.15, 0.92)
+        self.label = scene.LabelNode(
+            &quot;子场景 — 点一下关闭&quot;,
+            font=(&quot;Helvetica&quot;, 20),
+            position=(self.size.w / 2, self.size.h / 2),
+            parent=self,
+        )
+
+    def touch_began(self, touch):
+        self.dismiss_modal_scene()
+
+
+class MainScene(scene.Scene):
+    def setup(self):
+        self.label = scene.LabelNode(
+            &quot;主场景 — 点一下打开子场景&quot;,
+            font=(&quot;Helvetica&quot;, 20),
+            position=(self.size.w / 2, self.size.h / 2),
+            parent=self,
+        )
+
+    def touch_began(self, touch):
+        self.present_modal_scene(SubScene())
+
+
+scene.run(MainScene())</code></pre>
+</figure>
+<hr>
+<h2 id="心智模型"><a class="heading-anchor" href="#心智模型">#</a>心智模型</h2>
+<ol><li><strong>入口</strong>：<code>scene.run(SceneSubclass(), ...)</code> 阻塞当前脚本，直到用户关闭场景视图。</li><li><strong>初始化</strong>：在 <code>setup()</code> 创建节点、纹理、物理体；此时 <code>self.size</code> 已由运行时注入。</li><li><strong>持续逻辑</strong>：轻量状态推进放 <code>update()</code>；节点位移/缩放优先 <code>Action</code>，避免每帧新建节点。</li><li><strong>自绘</strong>：Classic API（<code>scene.rect</code> 等）只放在 <code>draw()</code>；保留式 UI 用 <code>SpriteNode</code> / <code>LabelNode</code>。</li><li><strong>触摸</strong>：实现 <code>touch_began</code> / <code>touch_moved</code> / <code>touch_ended</code>，用 <code>touch.location.x/y</code>。</li><li><strong>资源</strong>：图片、音效、控制器状态在 <code>setup()</code> 缓存，不要在每帧重复加载。</li></ol>
+<h3 id="与-appui-turtle-怎么选"><a class="heading-anchor" href="#与-appui-turtle-怎么选">#</a>与 appui / turtle 怎么选</h3>
+<div class="table-scroll"><table><thead><tr><th>需求</th><th>首选</th><th>原因</th></tr></thead><tbody><tr><td>小游戏、Sprite、粒子、碰撞、触摸循环</td><td><code>scene</code></td><td>帧循环、节点树、Action、Physics</td></tr><tr><td>设置页、列表、图表、导航</td><td><code>appui</code></td><td>原生控件与状态管理</td></tr><tr><td>Pythonista 命令式 UIKit 控件</td><td><code>ui</code></td><td>迁移旧 <code>ui</code> 脚本</td></tr><tr><td>教材海龟、几何作图</td><td><code>turtle</code></td><td>API 更简单，无节点/物理</td></tr><tr><td>主屏/锁屏展示</td><td><code>widget</code></td><td>WidgetKit 时间线模型</td></tr></tbody></table></div>
+<hr>
+<h2 id="api-参考"><a class="heading-anchor" href="#api-参考">#</a>API 参考</h2>
+<h3 id="速查"><a class="heading-anchor" href="#速查">#</a>速查</h3>
+<div class="table-scroll"><table><thead><tr><th>API</th><th>作用</th></tr></thead><tbody><tr><td><code>run(scene, *, orientation=0, frame_interval=1, ...)</code></td><td>全屏运行场景（阻塞至关闭）</td></tr><tr><td><code>Scene</code></td><td>场景基类：<code>setup</code> / <code>update</code> / <code>draw</code> / <code>touch_*</code></td></tr><tr><td><code>SpriteNode</code> / <code>LabelNode</code> / <code>ShapeNode</code></td><td>精灵、文字、矢量形状</td></tr><tr><td><code>Action.move_to</code> / <code>sequence</code> / <code>repeat_forever</code></td><td>节点动画</td></tr><tr><td><code>PhysicsBody</code> / <code>PhysicsWorld</code></td><td>碰撞与重力</td></tr><tr><td><code>background</code> / <code>fill</code> / <code>rect</code> / <code>text</code></td><td>Classic 绘图（仅 <code>draw()</code>）</td></tr><tr><td><code>get_screen_size()</code> / <code>get_safe_area_insets()</code></td><td>屏幕与安全区</td></tr><tr><td><code>PORTRAIT</code> / <code>LANDSCAPE</code></td><td><code>run()</code> 的方向常量</td></tr></tbody></table></div>
+<h3 id="scene.run"><a class="heading-anchor" href="#scene.run">#</a><code>scene.run()</code></h3>
+<figure class="code-block" data-code-id="17f602de9ce4">
+  <figcaption>
+    <span>python</span>
+    <button class="copy-code" type="button" data-copy-code="17f602de9ce4">复制</button>
+  </figcaption>
+  <pre><code id="code-17f602de9ce4" class="language-python">scene.run(
+    MyScene(),
+    orientation=scene.PORTRAIT,   # DEFAULT_ORIENTATION=0, PORTRAIT=1, LANDSCAPE=2
+    frame_interval=1,             # 1≈60fps，2≈30fps
+    anti_alias=True,
+    show_fps=True,
+    multi_touch=True,
+)</code></pre>
+</figure>
+<p>IDE / MiniApp 的 <strong>Scene 模式</strong> 会在内部使用主线程回调（<code>_mode=&#x27;main&#x27;</code>）；文档里直接运行上述示例即可。</p>
+<h3 id="常用节点构造"><a class="heading-anchor" href="#常用节点构造">#</a>常用节点构造</h3>
+<figure class="code-block" data-code-id="d38350ec2454">
+  <figcaption>
+    <span>python</span>
+    <button class="copy-code" type="button" data-copy-code="d38350ec2454">复制</button>
+  </figcaption>
+  <pre><code id="code-d38350ec2454" class="language-python"># 纹理精灵（texture 为资源名或 Texture）
+scene.SpriteNode(&quot;Player&quot;, position=(100, 200), parent=self)
+
+# 纯色块 — 必须用 color= 关键字，不要把颜色当第一个位置参数
+scene.SpriteNode(color=&quot;cyan&quot;, size=(60, 60), position=(x, y), parent=self)
+
+# 文字
+scene.LabelNode(&quot;Hello&quot;, font=(&quot;Helvetica&quot;, 24), position=(x, y), parent=self)
+
+# 形状
+scene.ShapeNode(fill_color=&quot;yellow&quot;, stroke_color=&quot;white&quot;, parent=self)</code></pre>
+</figure>
+<h3 id="action-timing"><a class="heading-anchor" href="#action-timing">#</a>Action  Timing</h3>
+<p><code>Action.move_to(x, y, duration, timing_mode=scene.TIMING_LINEAR)</code> 常用 timing：<code>TIMING_EASE_IN_OUT</code>、<code>TIMING_BOUNCE_OUT</code> 等（见 <a href="../../pages/scene-api-reference/">API 参考</a>）。</p>
+<h3 id="classic-绘图要点"><a class="heading-anchor" href="#classic-绘图要点">#</a>Classic 绘图要点</h3>
+<div class="table-scroll"><table><thead><tr><th>API</th><th>说明</th></tr></thead><tbody><tr><td><code>scene.text(txt, x=0, y=0, font_name=&#x27;Helvetica&#x27;, font_size=16)</code></td><td>在 <code>draw()</code> 中绘制文字</td></tr><tr><td><code>scene.rect(x, y, w, h, corner_radius=0)</code></td><td>矩形；先 <code>fill</code> / <code>stroke</code> 再画</td></tr><tr><td><code>scene.image(name, x, y, w, h)</code></td><td>绘制已加载图片</td></tr></tbody></table></div>
+<p><code>image_quad</code>、<code>triangle_strip</code> 在兼容层中<strong>尚未实现</strong>，调用会抛 <code>NotImplementedError</code>。</p>
+<h3 id="场景属性-运行时"><a class="heading-anchor" href="#场景属性-运行时">#</a>场景属性（运行时）</h3>
+<div class="table-scroll"><table><thead><tr><th>属性</th><th>说明</th></tr></thead><tbody><tr><td><code>self.size</code> / <code>self.size.w</code> / <code>self.size.h</code></td><td>场景尺寸（<code>Size</code>，支持 <code>/ 2</code> 等向量运算）</td></tr><tr><td><code>self.dt</code> / <code>self.t</code></td><td>帧间隔 / 累计时间（秒）</td></tr><tr><td><code>self.frame_count</code></td><td>帧计数</td></tr><tr><td><code>self.physics_world</code></td><td>物理世界，可改 <code>gravity</code></td></tr><tr><td><code>self.safe_area_insets</code></td><td>刘海/底栏安全区</td></tr></tbody></table></div>
+<p>完整签名见 <a href="../../pages/scene-api-index/">scene API 索引</a> 与 <a href="../../pages/scene-api-reference/">scene API 参考</a>。</p>
+<hr>
+<h2 id="常见错误"><a class="heading-anchor" href="#常见错误">#</a>常见错误</h2>
+<div class="table-scroll"><table><thead><tr><th>错误写法</th><th>后果</th><th>修正</th></tr></thead><tbody><tr><td><code>SpriteNode(&quot;cyan&quot;, ...)</code></td><td><code>&quot;cyan&quot;</code> 被当成纹理名</td><td>使用 <code>SpriteNode(color=&quot;cyan&quot;, ...)</code></td></tr><tr><td>在 <code>setup()</code> 里调用 <code>scene.rect()</code></td><td>不显示或行为异常</td><td>绘图放进 <code>draw()</code></td></tr><tr><td>只创建 <code>Action.move_to(...)</code> 不 <code>run_action</code></td><td>节点不动</td><td><code>node.run_action(action)</code></td></tr><tr><td>脚本里没有 <code>scene.run(...)</code></td><td>场景不出现</td><td>末尾调用一次 <code>scene.run(MyScene())</code></td></tr><tr><td>在 <code>update()</code> 里做网络/大文件 I/O</td><td>掉帧、卡顿</td><td>放后台线程，主线程只改状态</td></tr><tr><td>用 <code>appui.Button</code> 做场景 HUD</td><td>API 不存在</td><td>用 <code>LabelNode</code> + 触摸，或改用 <code>appui</code></td></tr><tr><td>表单/设置页整页用 <code>scene</code></td><td>难维护</td><td>改用 <code>appui</code> 的 <code>Form</code> / <code>List</code></td></tr></tbody></table></div>
+<hr>
 <h2 id="失败路径"><a class="heading-anchor" href="#失败路径">#</a>失败路径</h2>
-<div class="table-scroll"><table><thead><tr><th>情况</th><th>应该怎么处理</th></tr></thead><tbody><tr><td>场景不显示</td><td>确认最后调用 <code>scene.run(SceneSubclass())</code>，并且 <code>setup()</code> 没有抛错。</td></tr><tr><td>触摸无反应</td><td>使用 <code>touch_began</code> / <code>touch_moved</code> / <code>touch_ended</code>，不要把事件逻辑写进普通函数后忘记绑定。</td></tr><tr><td>帧率下降</td><td>不要在 <code>update()</code> 或 <code>draw()</code> 中做网络请求、文件大读写或反复创建大量节点。</td></tr><tr><td>普通表单很难做</td><td>表单、设置、列表和导航页改用 <code>appui</code>。</td></tr></tbody></table></div>
-<h2 id="发布前检查"><a class="heading-anchor" href="#发布前检查">#</a>发布前检查</h2>
-<div class="table-scroll"><table><thead><tr><th>检查项</th><th>合格标准</th></tr></thead><tbody><tr><td>入口</td><td>脚本末尾只调用一次 <code>scene.run(...)</code>。</td></tr><tr><td>生命周期</td><td>节点在 <code>setup()</code> 创建，持续变化在 <code>update()</code> 或 <code>Action</code> 中完成。</td></tr><tr><td>帧循环</td><td>每帧不创建大量节点、不重复加载图片、不做阻塞 I/O。</td></tr><tr><td>触摸</td><td>触摸方法使用 <code>touch.location</code>，并能处理多次点击或拖动。</td></tr><tr><td>边界</td><td>普通表单、设置和长列表没有写进 <code>scene</code>。</td></tr></tbody></table></div>
-<h2 id="使用规则"><a class="heading-anchor" href="#使用规则">#</a>使用规则</h2>
-<ul><li><code>setup()</code> 创建节点和资源，<code>update()</code> 放持续逻辑，<code>draw()</code> 放经典绘制，触摸逻辑放 <code>touch_began</code> / <code>touch_moved</code> / <code>touch_ended</code>。</li><li>不要把普通数据列表或设置页写成 scene；那类界面用 AppUI 的 <code>List</code> / <code>Form</code>。</li><li>节点动画优先用 <code>Action</code>，不要在 <code>update()</code> 里重复创建节点。</li><li>物理和触摸对象要用稳定引用，避免每帧重新分配大量对象。</li></ul>
+<div class="table-scroll"><table><thead><tr><th>情况</th><th>处理</th></tr></thead><tbody><tr><td>场景不显示</td><td>确认调用了 <code>scene.run(SceneSubclass())</code>，且 <code>setup()</code> 未抛错</td></tr><tr><td>触摸无反应</td><td>实现 <code>touch_began</code> 等，坐标用 <code>touch.location</code></td></tr><tr><td>节点在 <code>(0,0)</code></td><td>检查 <code>position=</code> 是否在 <code>setup()</code> 里用 <code>self.size.w/h</code> 居中</td></tr><tr><td>物理不碰撞</td><td>设置 <code>physics_body</code>，静态体 <code>dynamic=False</code></td></tr><tr><td>关闭后文档里再运行提示忙</td><td>等上一次 <code>scene.run</code> 完全结束，或先停止当前 Python 运行</td></tr></tbody></table></div>
+<hr>
+<h2 id="相关文档"><a class="heading-anchor" href="#相关文档">#</a>相关文档</h2>
+<div class="table-scroll"><table><thead><tr><th>文档</th><th>用途</th></tr></thead><tbody><tr><td><a href="../../pages/scene-api-index/">scene API 索引</a></td><td>按类族快速查名称</td></tr><tr><td><a href="../../pages/scene-api-reference/">scene API 参考</a></td><td>生命周期、节点、Action、Physics 签名</td></tr><tr><td><a href="../../pages/turtle-module/">turtle</a></td><td>海龟教学绘图</td></tr><tr><td><a href="../../pages/appui-module/">appui</a></td><td>原生表单与导航 UI</td></tr><tr><td><a href="../../pages/ui-module/">ui</a></td><td>Pythonista 风格 <code>ui</code> 控件</td></tr><tr><td><a href="../../pages/motion-module/">motion</a></td><td>加速度计/陀螺仪（可与 scene 配合）</td></tr></tbody></table></div>
   </div>
-  
+  <section class="related-section"><h2>相关文档</h2><div class="related-list"><a class="related-link" href="../scene-api-index/"><strong>scene API 索引</strong><span>按生命周期、节点、Action、Physics、Classic 绘图与常量查 scene 公开名称。</span></a><a class="related-link" href="../scene-api-reference/"><strong>scene API 参考</strong><span>集中列出 scene 生命周期、节点、Action、Physics 与 Classic 绘图签名。</span></a><a class="related-link" href="../turtle-module/"><strong>turtle</strong><span>Tk-free 原生 turtle 绘图，兼容教材脚本、填充、多画笔和事件。</span></a></div></section>
 </article>
 
     </main>
-    <aside class="toc"><div class="toc-title">本页目录</div><a class="toc-link" href="#预期效果">预期效果</a><a class="toc-link" href="#先选写法">先选写法</a><a class="toc-link" href="#最小场景">最小场景</a><a class="toc-link" href="#sprite-和-action">Sprite 和 Action</a><a class="toc-link" href="#经典绘制">经典绘制</a><a class="toc-link" href="#写-scene-的心智模型">写 scene 的心智模型</a><a class="toc-link" href="#能力入口">能力入口</a><a class="toc-link" href="#失败路径">失败路径</a><a class="toc-link" href="#发布前检查">发布前检查</a><a class="toc-link" href="#使用规则">使用规则</a></aside>
+    <aside class="toc"><div class="toc-title">本页目录</div><a class="toc-link" href="#模块概览">模块概览</a><a class="toc-link" href="#快速开始">快速开始</a><a class="toc-link" href="#可运行示例">可运行示例</a><a class="toc-link child" href="#精灵与-action-动画">精灵与 Action 动画</a><a class="toc-link child" href="#classic-绘制-draw">Classic 绘制（draw()）</a><a class="toc-link child" href="#物理与碰撞">物理与碰撞</a><a class="toc-link child" href="#模态子场景">模态子场景</a><a class="toc-link" href="#心智模型">心智模型</a><a class="toc-link child" href="#与-appui-turtle-怎么选">与 appui / turtle 怎么选</a><a class="toc-link" href="#api-参考">API 参考</a><a class="toc-link child" href="#速查">速查</a><a class="toc-link child" href="#scene.run">scene.run()</a><a class="toc-link child" href="#常用节点构造">常用节点构造</a><a class="toc-link child" href="#action-timing">Action Timing</a><a class="toc-link child" href="#classic-绘图要点">Classic 绘图要点</a><a class="toc-link child" href="#场景属性-运行时">场景属性（运行时）</a><a class="toc-link" href="#常见错误">常见错误</a><a class="toc-link" href="#失败路径">失败路径</a><a class="toc-link" href="#相关文档">相关文档</a></aside>
   </div>
   <div class="mobile-backdrop"></div>
   <div class="search-panel" role="dialog" aria-modal="true" aria-label="搜索">

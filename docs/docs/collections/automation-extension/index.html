@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>自动化与扩展 - PythonIDE Docs</title>
-  <meta name="description" content="Shortcuts、Live Activity、键盘栏、JS API 和底层扩展能力。">
+  <meta name="description" content="快捷指令、编辑器键盘栏、JS API 与底层 Runtime 扩展。">
   <link rel="icon" href="../../assets/brand-mark.svg" type="image/svg+xml">
   <link rel="stylesheet" href="../../assets/docs-v2.css">
   <script>window.PYTHONIDE_DOCS_PREFIX = "../../";</script>
@@ -146,7 +146,7 @@
 <summary><a href="../../collections/scene/">scene</a></summary>
 <div class="nav-group">
 <div class="nav-group-title">快速上手</div>
-<a class="nav-link" href="../../pages/scene-module/">scene 概览</a>
+<a class="nav-link" href="../../pages/scene-module/">scene</a>
 <a class="nav-link" href="../../pages/turtle-module/">turtle</a>
 </div>
 <div class="nav-group">
@@ -160,8 +160,16 @@
 <div class="nav-group">
 <div class="nav-group-title">快速上手</div>
 <a class="nav-link" href="../../pages/ios-native/">iOS 原生能力</a>
-<a class="nav-link" href="../../pages/modules-index/">全部模块总览</a>
-<a class="nav-link" href="../../pages/miniapp-native-capabilities/">原生能力入口</a>
+</div>
+<div class="nav-group">
+<div class="nav-group-title">基础与权限</div>
+<a class="nav-link" href="../../pages/permission-module/">permission</a>
+<a class="nav-link" href="../../pages/storage-module/">storage</a>
+<a class="nav-link" href="../../pages/database-module/">database</a>
+<a class="nav-link" href="../../pages/keychain-module/">keychain</a>
+<a class="nav-link" href="../../pages/clipboard-module/">clipboard</a>
+<a class="nav-link" href="../../pages/console-module/">console</a>
+<a class="nav-link" href="../../pages/dialogs-module/">dialogs</a>
 </div>
 <div class="nav-group">
 <div class="nav-group-title">设备与传感器</div>
@@ -173,35 +181,69 @@
 <a class="nav-link" href="../../pages/health-module/">health</a>
 </div>
 <div class="nav-group">
-<div class="nav-group-title">媒体与视觉</div>
-<a class="nav-link" href="../../pages/photos-module/">photos</a>
-<a class="nav-link" href="../../pages/avplayer-module/">avplayer</a>
-<a class="nav-link" href="../../pages/sound-module/">sound</a>
-<a class="nav-link" href="../../pages/speech-module/">speech</a>
-<a class="nav-link" href="../../pages/vision-helper-module/">vision_helper</a>
-<a class="nav-link" href="../../pages/vision-module/">vision</a>
-<a class="nav-link" href="../../pages/coreml-module/">coreml</a>
-</div>
-<div class="nav-group">
-<div class="nav-group-title">网络与数据</div>
-<a class="nav-link" href="../../pages/network-module/">network</a>
-<a class="nav-link" href="../../pages/websocket-module/">websocket</a>
-<a class="nav-link" href="../../pages/bluetooth-module/">bluetooth</a>
-<a class="nav-link" href="../../pages/background-module/">background</a>
-</div>
-<div class="nav-group">
-<div class="nav-group-title">系统服务</div>
-<a class="nav-link" href="../../pages/permission-module/">permission</a>
-<a class="nav-link" href="../../pages/storage-module/">storage</a>
-<a class="nav-link" href="../../pages/database-module/">database</a>
-<a class="nav-link" href="../../pages/keychain-module/">keychain</a>
-<a class="nav-link" href="../../pages/clipboard-module/">clipboard</a>
-<a class="nav-link" href="../../pages/dialogs-module/">dialogs</a>
-<a class="nav-link" href="../../pages/console-module/">console</a>
+<div class="nav-group-title">界面与系统</div>
+<a class="nav-link" href="../../pages/file-picker-module/">file_picker</a>
+<a class="nav-link" href="../../pages/share-module/">share</a>
+<a class="nav-link" href="../../pages/font-picker-module/">font_picker</a>
 <a class="nav-link" href="../../pages/notification-module/">notification</a>
+<a class="nav-link" href="../../pages/live-activity-module/">live_activity</a>
 <a class="nav-link" href="../../pages/contacts-module/">contacts</a>
 <a class="nav-link" href="../../pages/calendar-events-module/">calendar_events</a>
+</div>
+<div class="nav-group">
+<div class="nav-group-title">媒体</div>
+<div class="nav-subgroup-title">采集</div>
+<a class="nav-link" href="../../pages/photos-module/">photos</a>
+<a class="nav-link" href="../../pages/camera-module/">camera</a>
+<a class="nav-link" href="../../pages/video-recorder-module/">video_recorder</a>
+<a class="nav-link" href="../../pages/audio-recorder-module/">audio_recorder</a>
+<div class="nav-subgroup-title">播放</div>
+<a class="nav-link" href="../../pages/sound-module/">sound</a>
+<a class="nav-link" href="../../pages/avplayer-module/">avplayer</a>
+<a class="nav-link" href="../../pages/music-module/">music</a>
+<a class="nav-link" href="../../pages/now-playing-module/">now_playing</a>
+<a class="nav-link" href="../../pages/audio-session-module/">audio_session</a>
+<div class="nav-subgroup-title">语音</div>
+<a class="nav-link" href="../../pages/speech-module/">speech</a>
+<a class="nav-link" href="../../pages/speech-recognition-module/">speech_recognition</a>
+<a class="nav-link" href="../../pages/shazam-module/">shazam</a>
+<div class="nav-subgroup-title">合成</div>
+<a class="nav-link" href="../../pages/media-composer-module/">media_composer</a>
+</div>
+<div class="nav-group">
+<div class="nav-group-title">视觉与文档</div>
+<a class="nav-link" href="../../pages/vision-module/">vision</a>
+<a class="nav-link" href="../../pages/vision-helper-module/">vision_helper</a>
+<a class="nav-link" href="../../pages/coreml-module/">coreml</a>
+<a class="nav-link" href="../../pages/qrcode-module/">qrcode</a>
+<a class="nav-link" href="../../pages/pdf-module/">pdf</a>
+</div>
+<div class="nav-group">
+<div class="nav-group-title">连接与后台</div>
+<div class="nav-subgroup-title">联网</div>
+<a class="nav-link" href="../../pages/network-module/">network</a>
+<a class="nav-link" href="../../pages/websocket-module/">websocket</a>
+<a class="nav-link" href="../../pages/weather-module/">weather</a>
+<div class="nav-subgroup-title">近场</div>
+<a class="nav-link" href="../../pages/bluetooth-module/">bluetooth</a>
+<a class="nav-link" href="../../pages/ble-peripheral-module/">ble_peripheral</a>
+<div class="nav-subgroup-title">后台</div>
+<a class="nav-link" href="../../pages/background-module/">background</a>
+<a class="nav-link" href="../../pages/background-download-module/">background_download</a>
+<div class="nav-subgroup-title">本地服务</div>
+<a class="nav-link" href="../../pages/http-server-module/">http_server</a>
+<a class="nav-link" href="../../pages/ssh-module/">ssh</a>
+</div>
+<div class="nav-group">
+<div class="nav-group-title">通信与智能</div>
+<a class="nav-link" href="../../pages/mail-module/">mail</a>
+<a class="nav-link" href="../../pages/message-module/">message</a>
+<a class="nav-link" href="../../pages/translation-module/">translation</a>
 <a class="nav-link" href="../../pages/nfc-module/">nfc</a>
+<a class="nav-link" href="../../pages/alarm-module/">alarm</a>
+<a class="nav-link" href="../../pages/storekit-module/">storekit</a>
+<a class="nav-link" href="../../pages/foundation-models-module/">foundation_models</a>
+<a class="nav-link" href="../../pages/assistant-module/">assistant</a>
 </div>
 </details>
 <details class="nav-collection" open>
@@ -214,10 +256,14 @@
 <div class="nav-group">
 <div class="nav-group-title">模块</div>
 <a class="nav-link" href="../../pages/shortcuts-module/">shortcuts</a>
-<a class="nav-link" href="../../pages/live-activity-module/">live_activity</a>
 <a class="nav-link" href="../../pages/keyboard-module/">keyboard</a>
 <a class="nav-link" href="../../pages/objc-util-module/">objc_util</a>
 <a class="nav-link" href="../../pages/c-extensions-module/">c_extensions</a>
+</div>
+<div class="nav-group">
+<div class="nav-group-title">参考</div>
+<a class="nav-link" href="../../pages/modules-index/">全部模块总览</a>
+<a class="nav-link" href="../../pages/miniapp-native-capabilities/">原生能力入口</a>
 </div>
 </details>
 </nav>
@@ -228,13 +274,13 @@
   <header class="article-intro">
     <div class="breadcrumb">PythonIDE Docs</div>
     <h1>自动化与扩展</h1>
-    <p>Shortcuts、Live Activity、键盘栏、JS API 和底层扩展能力。</p>
+    <p>快捷指令、编辑器键盘栏、JS API 与底层 Runtime 扩展。</p>
   </header>
-  <section id="快速上手" class="collection-group"><h2>快速上手</h2><p>先看系统自动化和脚本运行时入口。</p><div class="doc-link-list"><a class="doc-link" href="../../pages/shortcuts-guide/"><strong>快捷指令</strong><span>系统快捷指令集成、自动化和 URL 跳转。</span></a><a class="doc-link" href="../../pages/js-api/"><strong>JS API 说明</strong><span>.js 文件可调用的接口与示例。</span></a></div></section><section id="模块" class="collection-group"><h2>模块</h2><p>系统扩展、自动化和底层运行时模块。</p><div class="doc-link-list"><a class="doc-link" href="../../pages/shortcuts-module/"><strong>shortcuts</strong><span>运行快捷指令、打开 URL、进入设置。</span></a><a class="doc-link" href="../../pages/live-activity-module/"><strong>live_activity</strong><span>锁屏和 Dynamic Island 的 Live Activity 控制。</span></a><a class="doc-link" href="../../pages/keyboard-module/"><strong>keyboard</strong><span>编辑器自定义键盘工具栏与插入动作。</span></a><a class="doc-link" href="../../pages/objc-util-module/"><strong>objc_util</strong><span>Objective-C Runtime 调用与系统框架访问。</span></a><a class="doc-link" href="../../pages/c-extensions-module/"><strong>c_extensions</strong><span>内置扩展库清单、可用范围和替代建议。</span></a></div></section>
+  <section id="快速上手" class="collection-group"><h2>快速上手</h2><p>先看系统自动化和脚本运行时入口。</p><div class="doc-link-list"><a class="doc-link" href="../../pages/shortcuts-guide/"><strong>快捷指令</strong><span>系统快捷指令集成、自动化和 URL 跳转。</span></a><a class="doc-link" href="../../pages/js-api/"><strong>JS API 说明</strong><span>.js 文件可调用的接口与示例。</span></a></div></section><section id="模块" class="collection-group"><h2>模块</h2><p>快捷指令、编辑器工具栏与底层扩展。</p><div class="doc-link-list"><a class="doc-link" href="../../pages/shortcuts-module/"><strong>shortcuts</strong><span>运行快捷指令、打开 URL、进入设置。</span></a><a class="doc-link" href="../../pages/keyboard-module/"><strong>keyboard</strong><span>编辑器自定义键盘工具栏与插入动作。</span></a><a class="doc-link" href="../../pages/objc-util-module/"><strong>objc_util</strong><span>Objective-C Runtime 调用与系统框架访问。</span></a><a class="doc-link" href="../../pages/c-extensions-module/"><strong>c_extensions</strong><span>内置扩展库清单、可用范围和替代建议。</span></a></div></section><section id="参考" class="collection-group"><h2>参考</h2><p>完整模块表与历史入口（主文档已合并到 iOS 原生能力）。</p><div class="doc-link-list"><a class="doc-link" href="../../pages/modules-index/"><strong>全部模块总览</strong><span>按分类查看全部 30+ 内置 Python 模块。</span></a><a class="doc-link" href="../../pages/miniapp-native-capabilities/"><strong>原生能力入口</strong><span>MiniApp 常用原生能力入口，不是完整模块总表。</span></a></div></section>
 </article>
 
     </main>
-    <aside class="toc"><div class="toc-title">本页目录</div><a class="toc-link" href="#快速上手">快速上手</a><a class="toc-link" href="#模块">模块</a></aside>
+    <aside class="toc"><div class="toc-title">本页目录</div><a class="toc-link" href="#快速上手">快速上手</a><a class="toc-link" href="#模块">模块</a><a class="toc-link" href="#参考">参考</a></aside>
   </div>
   <div class="mobile-backdrop"></div>
   <div class="search-panel" role="dialog" aria-modal="true" aria-label="搜索">

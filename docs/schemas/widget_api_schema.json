@@ -1,0 +1,1974 @@
+{
+  "schema": "pythonide.widget.api.v1",
+  "version": 1,
+  "module": "widget",
+  "status": "public",
+  "description": "PythonIDE Widget public API. Write one Widget() script with documented primitives, parameters, state actions, timeline entries, and render().",
+  "preferredEntrypoint": "Widget",
+  "families": [
+    "small",
+    "medium",
+    "large",
+    "circular",
+    "rectangular",
+    "inline"
+  ],
+  "accessoryFamilies": [
+    "circular",
+    "rectangular",
+    "inline"
+  ],
+  "types": {
+    "ColorLike": "string color, [lightColor, darkColor], or widget.color.fixed/adaptive/role object",
+    "WidgetBackground": "system, clear/transparent/none, ColorLike, or {'gradient': [color, color], 'direction': string}",
+    "Frame": "dictionary with width, height, minWidth, maxWidth, minHeight, maxHeight, alignment",
+    "NumberList": "list[int|float]",
+    "Family": "small|medium|large|circular|rectangular|inline",
+    "LayoutMode": "auto|fixed",
+    "RichTextPart": "string, (text, color[, weight[, size]]), or {text/content, color, weight, size, design}",
+    "PathPoint": "(x, y), [x, y], or {'x': x, 'y': y}; relative 0..1 by default"
+  },
+  "moduleApi": {
+    "constants": {
+      "SMALL": {
+        "type": "Family",
+        "value": "small",
+        "public": true
+      },
+      "MEDIUM": {
+        "type": "Family",
+        "value": "medium",
+        "public": true
+      },
+      "LARGE": {
+        "type": "Family",
+        "value": "large",
+        "public": true
+      },
+      "CIRCULAR": {
+        "type": "Family",
+        "value": "circular",
+        "public": true
+      },
+      "RECTANGULAR": {
+        "type": "Family",
+        "value": "rectangular",
+        "public": true
+      },
+      "INLINE": {
+        "type": "Family",
+        "value": "inline",
+        "public": true
+      }
+    },
+    "runtimeValues": {
+      "family": {
+        "type": "Family",
+        "public": true
+      },
+      "storage": {
+        "type": "object",
+        "public": true
+      },
+      "color": {
+        "type": "WidgetColorHelper",
+        "public": true,
+        "description": "Structured colors: color.fixed(value), color.adaptive(light, dark), color.role(name)."
+      },
+      "context": {
+        "type": "WidgetContext",
+        "public": true,
+        "description": "Current WidgetKit family and canvas size context."
+      },
+      "entry": {
+        "type": "WidgetTimelineEntry",
+        "public": true,
+        "description": "Current WidgetKit timeline entry fields for native data-update animations."
+      },
+      "param": {
+        "type": "object",
+        "public": true,
+        "description": "Studio-editable widget parameter declarations."
+      },
+      "state": {
+        "type": "WidgetState",
+        "public": true,
+        "description": "StateRef factory. Use widget.state.int/bool/str/list and pass generated actions to button/toggle."
+      },
+      "action": {
+        "type": "WidgetActionHelper",
+        "public": true,
+        "description": "Native widget AppIntent action helpers for safe state updates, refresh, and app/deep-link actions."
+      }
+    },
+    "functions": {
+      "save_image": {
+        "public": true,
+        "parameters": [
+          {
+            "name": "source",
+            "type": "file path|http(s) URL|bytes",
+            "required": true
+          },
+          {
+            "name": "name",
+            "type": "str",
+            "required": true
+          }
+        ],
+        "returns": "str"
+      },
+      "family_value": {
+        "public": true,
+        "parameters": [
+          {
+            "name": "default",
+            "type": "Any"
+          },
+          {
+            "name": "**values",
+            "type": "dict[Family|alias, Any]"
+          }
+        ],
+        "returns": "Any"
+      },
+      "history": {
+        "public": true,
+        "parameters": [
+          {
+            "name": "key",
+            "type": "str",
+            "required": true
+          },
+          {
+            "name": "value",
+            "type": "Any"
+          },
+          {
+            "name": "limit",
+            "type": "int",
+            "default": 7
+          },
+          {
+            "name": "bucket",
+            "type": "str|null",
+            "keywordOnly": true,
+            "default": "day"
+          },
+          {
+            "name": "default",
+            "type": "Any",
+            "keywordOnly": true
+          }
+        ],
+        "returns": "list|Any"
+      },
+      "cache_json": {
+        "public": true,
+        "parameters": [
+          {
+            "name": "url",
+            "type": "str",
+            "required": true
+          },
+          {
+            "name": "ttl",
+            "type": "float|null",
+            "keywordOnly": true,
+            "default": 3600
+          },
+          {
+            "name": "default",
+            "type": "Any",
+            "keywordOnly": true
+          },
+          {
+            "name": "params",
+            "type": "dict|null",
+            "keywordOnly": true
+          },
+          {
+            "name": "headers",
+            "type": "dict[str,str]|null",
+            "keywordOnly": true
+          },
+          {
+            "name": "key",
+            "type": "str|null",
+            "keywordOnly": true
+          },
+          {
+            "name": "timeout",
+            "type": "float",
+            "keywordOnly": true,
+            "default": 8
+          }
+        ],
+        "returns": "Any"
+      }
+    }
+  },
+  "classes": {
+    "Widget": {
+      "public": true,
+      "constructor": {
+        "parameters": [
+          {
+            "name": "background",
+            "type": "WidgetBackground|null"
+          },
+          {
+            "name": "padding",
+            "type": "float|null"
+          },
+          {
+            "name": "style",
+            "type": "str|null",
+            "keywordOnly": true,
+            "status": "public"
+          }
+        ]
+      },
+      "methods": {
+        "title": {
+          "node": "content",
+          "status": "public",
+          "parameters": [
+            {
+              "name": "content",
+              "type": "str|int|float",
+              "required": true
+            }
+          ]
+        },
+        "caption": {
+          "node": "content",
+          "status": "public",
+          "parameters": [
+            {
+              "name": "content",
+              "type": "str|int|float",
+              "required": true
+            }
+          ]
+        },
+        "body": {
+          "node": "text",
+          "status": "public",
+          "parameters": [
+            {
+              "name": "content",
+              "type": "str|int|float",
+              "required": true
+            }
+          ]
+        },
+        "value": {
+          "node": "content",
+          "status": "public",
+          "parameters": [
+            {
+              "name": "value",
+              "type": "str|int|float|StateRef",
+              "required": true
+            },
+            {
+              "name": "unit",
+              "type": "str|null"
+            },
+            {
+              "name": "subtitle",
+              "type": "str|null"
+            },
+            {
+              "name": "format",
+              "type": "str|null"
+            }
+          ],
+          "notes": [
+            "Final public form: w.value(count, format=\"{} 次\"). StateRef identity is generated automatically."
+          ]
+        },
+        "change": {
+          "node": "content",
+          "status": "public",
+          "parameters": [
+            {
+              "name": "primary",
+              "type": "str|int|float",
+              "required": true
+            },
+            {
+              "name": "secondary",
+              "type": "str|int|float|null"
+            },
+            {
+              "name": "direction",
+              "type": "up|down|neutral|null"
+            }
+          ]
+        },
+        "symbol": {
+          "node": "media",
+          "status": "public",
+          "parameters": [
+            {
+              "name": "name",
+              "type": "str",
+              "required": true
+            },
+            {
+              "name": "rendering",
+              "type": "monochrome|hierarchical|palette|multicolor|null"
+            },
+            {
+              "name": "palette",
+              "type": "list[ColorLike]|null"
+            },
+            {
+              "name": "variant",
+              "type": "fill|slash|circle|square|null"
+            },
+            {
+              "name": "scale",
+              "type": "small|medium|large|null"
+            }
+          ]
+        },
+        "svg": {
+          "node": "svg",
+          "status": "public",
+          "parameters": [
+            {
+              "name": "name",
+              "type": "asset name|local SVG path|http(s) SVG URL|null"
+            },
+            {
+              "name": "width",
+              "type": "float|null"
+            },
+            {
+              "name": "height",
+              "type": "float|null"
+            },
+            {
+              "name": "color",
+              "type": "ColorLike|null"
+            },
+            {
+              "name": "opacity",
+              "type": "float|null"
+            },
+            {
+              "name": "padding",
+              "type": "float|null"
+            },
+            {
+              "name": "content_mode",
+              "type": "fit|fill",
+              "default": "fit"
+            },
+            {
+              "name": "light",
+              "type": "asset name|local SVG path|http(s) SVG URL|null"
+            },
+            {
+              "name": "dark",
+              "type": "asset name|local SVG path|http(s) SVG URL|null"
+            }
+          ]
+        },
+        "badge": {
+          "node": "content",
+          "status": "public",
+          "parameters": [
+            {
+              "name": "text",
+              "type": "str|int|float",
+              "required": true
+            },
+            {
+              "name": "icon",
+              "type": "str|null"
+            },
+            {
+              "name": "tone",
+              "type": "str",
+              "default": "accent"
+            },
+            {
+              "name": "style",
+              "type": "plain|soft",
+              "default": "plain"
+            }
+          ]
+        },
+        "row": {
+          "node": "layout",
+          "status": "public",
+          "container": true,
+          "parameters": [
+            {
+              "name": "spacing",
+              "type": "float|null"
+            },
+            {
+              "name": "align",
+              "type": "str|null"
+            }
+          ]
+        },
+        "column": {
+          "node": "layout",
+          "status": "public",
+          "container": true,
+          "parameters": [
+            {
+              "name": "spacing",
+              "type": "float|null"
+            },
+            {
+              "name": "align",
+              "type": "str|null"
+            }
+          ]
+        },
+        "layer": {
+          "node": "layout",
+          "status": "public",
+          "container": true,
+          "parameters": [
+            {
+              "name": "align",
+              "type": "str",
+              "default": "center"
+            },
+            {
+              "name": "padding",
+              "type": "float|null"
+            },
+            {
+              "name": "background",
+              "type": "WidgetBackground|null"
+            },
+            {
+              "name": "corner_radius",
+              "type": "float|null"
+            }
+          ]
+        },
+        "surface": {
+          "node": "layout",
+          "status": "public",
+          "container": true,
+          "parameters": [
+            {
+              "name": "role",
+              "type": "panel|plain|clear|str",
+              "default": "panel"
+            },
+            {
+              "name": "spacing",
+              "type": "float|null"
+            },
+            {
+              "name": "align",
+              "type": "str|null"
+            },
+            {
+              "name": "padding",
+              "type": "float|null"
+            },
+            {
+              "name": "background",
+              "type": "WidgetBackground|null"
+            },
+            {
+              "name": "corner_radius",
+              "type": "float|null"
+            },
+            {
+              "name": "border_color",
+              "type": "ColorLike|null"
+            },
+            {
+              "name": "border_width",
+              "type": "float|null"
+            },
+            {
+              "name": "shadow_color",
+              "type": "ColorLike|null"
+            },
+            {
+              "name": "shadow_radius",
+              "type": "float|null"
+            }
+          ]
+        },
+        "section": {
+          "node": "layout",
+          "status": "public",
+          "container": true,
+          "parameters": [
+            {
+              "name": "title",
+              "type": "str|int|float|null"
+            },
+            {
+              "name": "spacing",
+              "type": "float|null"
+            },
+            {
+              "name": "subtitle",
+              "type": "str|int|float|null"
+            }
+          ]
+        },
+        "list": {
+          "node": "layout",
+          "status": "public",
+          "container": true,
+          "parameters": [
+            {
+              "name": "items",
+              "type": "list[str|tuple|dict]",
+              "required": true
+            },
+            {
+              "name": "title",
+              "type": "str|int|float|null"
+            },
+            {
+              "name": "limit",
+              "type": "int|null"
+            },
+            {
+              "name": "empty_text",
+              "type": "str|int|float|null"
+            },
+            {
+              "name": "dividers",
+              "type": "bool",
+              "default": false
+            }
+          ]
+        },
+        "countdown": {
+          "node": "content",
+          "status": "public",
+          "parameters": [
+            {
+              "name": "title",
+              "type": "str|int|float|null",
+              "default": "Countdown"
+            },
+            {
+              "name": "target",
+              "type": "datetime|str|null"
+            },
+            {
+              "name": "subtitle",
+              "type": "str|int|float|null"
+            },
+            {
+              "name": "icon",
+              "type": "str|null"
+            },
+            {
+              "name": "tone",
+              "type": "str|null"
+            },
+            {
+              "name": "accent",
+              "type": "ColorLike|null"
+            }
+          ]
+        },
+        "region": {
+          "node": "layout",
+          "status": "public",
+          "container": true,
+          "parameters": [
+            {
+              "name": "slot",
+              "type": "str",
+              "default": "center"
+            },
+            {
+              "name": "spacing",
+              "type": "float|null"
+            },
+            {
+              "name": "align",
+              "type": "str|null"
+            }
+          ]
+        },
+        "text": {
+          "node": "content",
+          "status": "public",
+          "parameters": [
+            {
+              "name": "content",
+              "type": "str|int|float",
+              "required": true
+            },
+            {
+              "name": "size",
+              "type": "float|null"
+            },
+            {
+              "name": "weight",
+              "type": "str|null"
+            },
+            {
+              "name": "color",
+              "type": "ColorLike|null"
+            },
+            {
+              "name": "align",
+              "type": "str|null"
+            },
+            {
+              "name": "max_lines",
+              "type": "int|null"
+            },
+            {
+              "name": "design",
+              "type": "str|null"
+            },
+            {
+              "name": "font_width",
+              "type": "str|null"
+            },
+            {
+              "name": "opacity",
+              "type": "float|null"
+            },
+            {
+              "name": "padding",
+              "type": "float|null"
+            },
+            {
+              "name": "frame",
+              "type": "Frame|null"
+            },
+            {
+              "name": "minimum_scale_factor",
+              "type": "float|null"
+            }
+          ]
+        },
+        "rich_text": {
+          "node": "content",
+          "status": "public",
+          "parameters": [
+            {
+              "name": "parts",
+              "type": "list[RichTextPart]",
+              "required": true
+            },
+            {
+              "name": "size",
+              "type": "float|null"
+            },
+            {
+              "name": "weight",
+              "type": "str|null"
+            },
+            {
+              "name": "color",
+              "type": "ColorLike|null"
+            },
+            {
+              "name": "align",
+              "type": "str|null"
+            },
+            {
+              "name": "max_lines",
+              "type": "int|null"
+            },
+            {
+              "name": "design",
+              "type": "str|null"
+            },
+            {
+              "name": "font_width",
+              "type": "str|null"
+            },
+            {
+              "name": "opacity",
+              "type": "float|null"
+            },
+            {
+              "name": "padding",
+              "type": "float|null"
+            },
+            {
+              "name": "minimum_scale_factor",
+              "type": "float|null"
+            }
+          ]
+        },
+        "spacer": {
+          "node": "layout",
+          "status": "public",
+          "parameters": [
+            {
+              "name": "length",
+              "type": "float|null"
+            }
+          ]
+        },
+        "divider": {
+          "node": "layout",
+          "status": "public",
+          "parameters": [
+            {
+              "name": "color",
+              "type": "ColorLike|null"
+            },
+            {
+              "name": "opacity",
+              "type": "float|null"
+            }
+          ]
+        },
+        "shape": {
+          "node": "media",
+          "status": "public",
+          "advancedSemantic": true,
+          "parameters": [
+            {
+              "name": "kind",
+              "type": "rectangle|rounded_rectangle|circle|capsule",
+              "default": "rectangle"
+            },
+            {
+              "name": "color",
+              "type": "ColorLike|null"
+            },
+            {
+              "name": "width",
+              "type": "float|null"
+            },
+            {
+              "name": "height",
+              "type": "float|null"
+            },
+            {
+              "name": "size",
+              "type": "float|null"
+            },
+            {
+              "name": "corner_radius",
+              "type": "float|null"
+            },
+            {
+              "name": "opacity",
+              "type": "float|null"
+            },
+            {
+              "name": "padding",
+              "type": "float|null"
+            },
+            {
+              "name": "frame",
+              "type": "Frame|null"
+            },
+            {
+              "name": "border_color",
+              "type": "ColorLike|null"
+            },
+            {
+              "name": "border_width",
+              "type": "float|null"
+            },
+            {
+              "name": "shadow_color",
+              "type": "ColorLike|null"
+            },
+            {
+              "name": "shadow_radius",
+              "type": "float|null"
+            },
+            {
+              "name": "shadow_x",
+              "type": "float",
+              "default": 0
+            },
+            {
+              "name": "shadow_y",
+              "type": "float",
+              "default": 2
+            }
+          ]
+        },
+        "progress": {
+          "description": "Add a low-level progress bar. Compose labels, icons, and layout manually with text(), row(), column(), and grid().",
+          "parameters": [
+            {
+              "name": "value",
+              "type": "float",
+              "required": true
+            },
+            {
+              "name": "total",
+              "type": "float",
+              "default": 1
+            },
+            {
+              "name": "color",
+              "type": "ColorLike|null"
+            },
+            {
+              "name": "height",
+              "type": "float|null"
+            },
+            {
+              "name": "track_color",
+              "type": "ColorLike|null"
+            }
+          ],
+          "returns": "WidgetNode",
+          "node": "chart",
+          "semanticBlock": true,
+          "notes": "Creates one progress node; title, value, and bar layout are handled by PythonIDE."
+        },
+        "line_chart": {
+          "node": "chart",
+          "status": "public",
+          "parameters": [
+            {
+              "name": "values",
+              "type": "NumberList",
+              "required": true
+            },
+            {
+              "name": "color",
+              "type": "ColorLike|null"
+            },
+            {
+              "name": "height",
+              "type": "float|null"
+            },
+            {
+              "name": "min_value",
+              "type": "float|null"
+            },
+            {
+              "name": "max_value",
+              "type": "float|null"
+            },
+            {
+              "name": "fill",
+              "type": "bool",
+              "default": true
+            },
+            {
+              "name": "show_points",
+              "type": "bool",
+              "default": true
+            },
+            {
+              "name": "line_width",
+              "type": "float|null"
+            },
+            {
+              "name": "track_color",
+              "type": "ColorLike|null"
+            },
+            {
+              "name": "opacity",
+              "type": "float|null"
+            },
+            {
+              "name": "padding",
+              "type": "float|null"
+            },
+            {
+              "name": "frame",
+              "type": "Frame|null"
+            },
+            {
+              "name": "baseline",
+              "type": "float|null"
+            },
+            {
+              "name": "threshold",
+              "type": "float|null"
+            },
+            {
+              "name": "labels",
+              "type": "list|dict|null"
+            },
+            {
+              "name": "label_color",
+              "type": "ColorLike|null"
+            }
+          ]
+        },
+        "bar_chart": {
+          "node": "chart",
+          "status": "public",
+          "parameters": [
+            {
+              "name": "values",
+              "type": "NumberList",
+              "required": true
+            },
+            {
+              "name": "color",
+              "type": "ColorLike|null"
+            },
+            {
+              "name": "height",
+              "type": "float|null"
+            },
+            {
+              "name": "min_value",
+              "type": "float|null"
+            },
+            {
+              "name": "max_value",
+              "type": "float|null"
+            },
+            {
+              "name": "spacing",
+              "type": "float|null"
+            },
+            {
+              "name": "corner_radius",
+              "type": "float|null"
+            },
+            {
+              "name": "track_color",
+              "type": "ColorLike|null"
+            },
+            {
+              "name": "opacity",
+              "type": "float|null"
+            },
+            {
+              "name": "padding",
+              "type": "float|null"
+            },
+            {
+              "name": "frame",
+              "type": "Frame|null"
+            },
+            {
+              "name": "baseline",
+              "type": "float|null"
+            },
+            {
+              "name": "threshold",
+              "type": "float|null"
+            },
+            {
+              "name": "labels",
+              "type": "list|dict|null"
+            },
+            {
+              "name": "label_color",
+              "type": "ColorLike|null"
+            }
+          ]
+        },
+        "ring_chart": {
+          "node": "chart",
+          "status": "public",
+          "parameters": [
+            {
+              "name": "value",
+              "type": "float",
+              "required": true
+            },
+            {
+              "name": "total",
+              "type": "float",
+              "default": 1
+            },
+            {
+              "name": "label",
+              "type": "str|null"
+            },
+            {
+              "name": "color",
+              "type": "ColorLike|null"
+            },
+            {
+              "name": "track_color",
+              "type": "ColorLike|null"
+            },
+            {
+              "name": "size",
+              "type": "float|null"
+            },
+            {
+              "name": "line_width",
+              "type": "float|null"
+            },
+            {
+              "name": "opacity",
+              "type": "float|null"
+            },
+            {
+              "name": "padding",
+              "type": "float|null"
+            },
+            {
+              "name": "frame",
+              "type": "Frame|null"
+            }
+          ]
+        },
+        "date": {
+          "node": "content",
+          "status": "public",
+          "parameters": [
+            {
+              "name": "target",
+              "type": "datetime|str|null"
+            },
+            {
+              "name": "style",
+              "type": "str",
+              "default": "date"
+            }
+          ]
+        },
+        "time": {
+          "node": "content",
+          "status": "public",
+          "parameters": [
+            {
+              "name": "target",
+              "type": "datetime|str|null"
+            }
+          ]
+        },
+        "relative_time": {
+          "node": "content",
+          "status": "public",
+          "parameters": [
+            {
+              "name": "target",
+              "type": "datetime|str|null"
+            }
+          ]
+        },
+        "timer_text": {
+          "node": "content",
+          "status": "public",
+          "parameters": [
+            {
+              "name": "target",
+              "type": "datetime|str|null"
+            }
+          ]
+        },
+        "background_image": {
+          "node": "appearance",
+          "status": "public",
+          "parameters": [
+            {
+              "name": "asset",
+              "type": "asset name|local path|http(s) URL",
+              "required": true
+            },
+            {
+              "name": "content_mode",
+              "type": "fit|fill",
+              "default": "fill"
+            },
+            {
+              "name": "dim",
+              "type": "bool|float|null"
+            },
+            {
+              "name": "scrim",
+              "type": "bool|bottom|top|leading|trailing|full|null"
+            },
+            {
+              "name": "scrim_opacity",
+              "type": "float|null"
+            },
+            {
+              "name": "focal",
+              "type": "center|top|bottom|leading|trailing|topLeading|topTrailing|bottomLeading|bottomTrailing",
+              "default": "center"
+            },
+            {
+              "name": "overlay_color",
+              "type": "ColorLike",
+              "default": "#000000"
+            }
+          ]
+        },
+        "background": {
+          "node": "appearance",
+          "status": "public",
+          "parameters": [
+            {
+              "name": "value",
+              "type": "WidgetBackground",
+              "required": true
+            }
+          ],
+          "returns": "Widget"
+        },
+        "image": {
+          "node": "media",
+          "status": "public",
+          "parameters": [
+            {
+              "name": "name",
+              "type": "asset name|http(s) URL",
+              "required": true
+            },
+            {
+              "name": "width",
+              "type": "float|null"
+            },
+            {
+              "name": "height",
+              "type": "float|null"
+            },
+            {
+              "name": "corner_radius",
+              "type": "float|null"
+            },
+            {
+              "name": "opacity",
+              "type": "float|null"
+            },
+            {
+              "name": "padding",
+              "type": "float|null"
+            },
+            {
+              "name": "content_mode",
+              "type": "fit|fill|null"
+            }
+          ]
+        },
+        "button": {
+          "node": "interaction",
+          "status": "public",
+          "parameters": [
+            {
+              "name": "title",
+              "type": "str|null"
+            },
+            {
+              "name": "action",
+              "type": "str|WidgetAction|null"
+            },
+            {
+              "name": "url",
+              "type": "str|null"
+            },
+            {
+              "name": "color",
+              "type": "ColorLike|null"
+            },
+            {
+              "name": "background",
+              "type": "WidgetBackground|null"
+            },
+            {
+              "name": "size",
+              "type": "float|null"
+            },
+            {
+              "name": "padding",
+              "type": "float|null"
+            },
+            {
+              "name": "style",
+              "type": "plain|prominent|soft|null",
+              "keywordOnly": true
+            },
+            {
+              "name": "layout",
+              "type": "overlay|row|column|null",
+              "keywordOnly": true
+            }
+          ],
+          "notes": [
+            "title may be omitted when using button as a custom control container inside canvas/layer/grid."
+          ]
+        },
+        "link": {
+          "node": "interaction",
+          "status": "public",
+          "parameters": [
+            {
+              "name": "title",
+              "type": "str",
+              "required": true
+            },
+            {
+              "name": "url",
+              "type": "str",
+              "required": true
+            },
+            {
+              "name": "icon",
+              "type": "str|null"
+            },
+            {
+              "name": "color",
+              "type": "ColorLike|null"
+            }
+          ]
+        },
+        "toggle": {
+          "node": "interaction",
+          "status": "public",
+          "parameters": [
+            {
+              "name": "title",
+              "type": "str|null"
+            },
+            {
+              "name": "state",
+              "type": "BoolStateRef|null",
+              "keywordOnly": true
+            },
+            {
+              "name": "url",
+              "type": "str|null"
+            },
+            {
+              "name": "color",
+              "type": "ColorLike|null"
+            },
+            {
+              "name": "background",
+              "type": "WidgetBackground|null"
+            },
+            {
+              "name": "size",
+              "type": "float|null"
+            },
+            {
+              "name": "padding",
+              "type": "float|null"
+            },
+            {
+              "name": "style",
+              "type": "plain|prominent|soft|null",
+              "keywordOnly": true
+            },
+            {
+              "name": "layout",
+              "type": "overlay|row|column|null",
+              "keywordOnly": true
+            }
+          ],
+          "notes": [
+            "Final public form: w.toggle(title, state=done). The toggle action is inferred from the bool StateRef.",
+            "title may be omitted when custom children draw the toggle content."
+          ]
+        },
+        "grid": {
+          "node": "layout",
+          "status": "public",
+          "container": true,
+          "advancedSemantic": true,
+          "parameters": [
+            {
+              "name": "columns",
+              "type": "int",
+              "default": 2
+            },
+            {
+              "name": "spacing",
+              "type": "float|null"
+            },
+            {
+              "name": "rows",
+              "type": "int|null"
+            },
+            {
+              "name": "equal",
+              "type": "bool",
+              "default": false
+            },
+            {
+              "name": "fill",
+              "type": "bool",
+              "default": false
+            }
+          ]
+        },
+        "validate": {
+          "parameters": [
+            {
+              "name": "family",
+              "type": "Family|null"
+            }
+          ],
+          "returns": "dict",
+          "node": "lifecycle"
+        },
+        "render": {
+          "parameters": [
+            {
+              "name": "url",
+              "type": "str|null"
+            }
+          ],
+          "returns": "None",
+          "node": "lifecycle"
+        },
+        "canvas": {
+          "node": "media",
+          "status": "public",
+          "advancedSemantic": true,
+          "container": true,
+          "parameters": [
+            {
+              "name": "height",
+              "type": "float|null"
+            },
+            {
+              "name": "coordinate_space",
+              "type": "relative|points",
+              "default": "relative"
+            },
+            {
+              "name": "align",
+              "type": "str",
+              "default": "center"
+            },
+            {
+              "name": "background",
+              "type": "WidgetBackground|null"
+            },
+            {
+              "name": "padding",
+              "type": "float|null"
+            },
+            {
+              "name": "corner_radius",
+              "type": "float|null"
+            },
+            {
+              "name": "border_color",
+              "type": "ColorLike|null"
+            },
+            {
+              "name": "border_width",
+              "type": "float|null"
+            },
+            {
+              "name": "opacity",
+              "type": "float|null"
+            },
+            {
+              "name": "fill",
+              "type": "bool",
+              "default": false
+            }
+          ],
+          "notes": [
+            "Use for poster-like exact placement or custom vector decoration. Prefer normal layout primitives unless exact drawing is needed."
+          ]
+        },
+        "path": {
+          "node": "media",
+          "status": "public",
+          "advancedSemantic": true,
+          "parameters": [
+            {
+              "name": "points",
+              "type": "list[PathPoint]",
+              "required": true
+            },
+            {
+              "name": "stroke",
+              "type": "ColorLike|null"
+            },
+            {
+              "name": "fill",
+              "type": "ColorLike|null"
+            },
+            {
+              "name": "line_width",
+              "type": "float|null"
+            },
+            {
+              "name": "closed",
+              "type": "bool",
+              "default": false
+            },
+            {
+              "name": "height",
+              "type": "float|null"
+            },
+            {
+              "name": "coordinate_space",
+              "type": "relative|points",
+              "default": "relative"
+            },
+            {
+              "name": "opacity",
+              "type": "float|null"
+            },
+            {
+              "name": "padding",
+              "type": "float|null"
+            }
+          ],
+          "notes": [
+            "Relative points use 0..1 coordinates inside the path drawing area or canvas."
+          ]
+        },
+        "timeline": {
+          "description": "Set this widget's timeline refresh policy.",
+          "parameters": [
+            {
+              "name": "entries"
+            },
+            {
+              "name": "update",
+              "default": "after"
+            },
+            {
+              "name": "after"
+            },
+            {
+              "name": "interval"
+            }
+          ],
+          "node": "lifecycle"
+        },
+        "context": {
+          "node": "-",
+          "status": "public",
+          "parameters": []
+        },
+        "container_background": {
+          "node": "appearance",
+          "status": "public",
+          "parameters": [
+            {
+              "name": "value",
+              "type": "WidgetBackground|null"
+            },
+            {
+              "name": "removable",
+              "type": "bool|null"
+            }
+          ]
+        },
+        "content_margins": {
+          "node": "appearance",
+          "status": "public",
+          "parameters": [
+            {
+              "name": "enabled",
+              "type": "bool",
+              "default": true
+            }
+          ]
+        },
+        "transparent_background": {
+          "node": "appearance",
+          "status": "public",
+          "parameters": [
+            {
+              "name": "enabled",
+              "type": "bool",
+              "default": true
+            }
+          ]
+        },
+        "when": {
+          "node": "layout",
+          "status": "public",
+          "container": true,
+          "parameters": [
+            {
+              "name": "*families",
+              "type": "str"
+            },
+            {
+              "name": "layout",
+              "type": "layer|row|column",
+              "default": "layer"
+            }
+          ]
+        },
+        "unless": {
+          "node": "layout",
+          "status": "public",
+          "container": true,
+          "parameters": [
+            {
+              "name": "*families",
+              "type": "str"
+            },
+            {
+              "name": "layout",
+              "type": "layer|row|column",
+              "default": "layer"
+            }
+          ]
+        },
+        "rect": {
+          "node": "shape",
+          "status": "public",
+          "parameters": [
+            {
+              "name": "color",
+              "type": "ColorLike|null"
+            },
+            {
+              "name": "width",
+              "type": "float|null"
+            },
+            {
+              "name": "height",
+              "type": "float|null"
+            },
+            {
+              "name": "corner_radius",
+              "type": "float|null"
+            }
+          ]
+        },
+        "circle": {
+          "node": "shape",
+          "status": "public",
+          "parameters": [
+            {
+              "name": "color",
+              "type": "ColorLike|null"
+            },
+            {
+              "name": "size",
+              "type": "float|null"
+            },
+            {
+              "name": "opacity",
+              "type": "float|null"
+            },
+            {
+              "name": "padding",
+              "type": "float|null"
+            },
+            {
+              "name": "border_color",
+              "type": "ColorLike|null"
+            },
+            {
+              "name": "border_width",
+              "type": "float|null"
+            }
+          ]
+        },
+        "dynamic_date": {
+          "node": "timer",
+          "status": "public",
+          "parameters": [
+            {
+              "name": "date",
+              "type": "datetime|str|float|int"
+            },
+            {
+              "name": "style",
+              "type": "timer|date|time|relative",
+              "default": "relative"
+            }
+          ]
+        },
+        "flip": {
+          "node": "animation",
+          "status": "public",
+          "parameters": [
+            {
+              "name": "value",
+              "type": "str|int|float|state"
+            },
+            {
+              "name": "previous",
+              "type": "str|int|float|null"
+            },
+            {
+              "name": "width",
+              "type": "float|null"
+            },
+            {
+              "name": "height",
+              "type": "float|null"
+            },
+            {
+              "name": "size",
+              "type": "float|null"
+            },
+            {
+              "name": "duration",
+              "type": "float",
+              "default": 0.55
+            },
+            {
+              "name": "direction",
+              "type": "up|down|left|right",
+              "default": "up"
+            },
+            {
+              "name": "perspective",
+              "type": "float",
+              "default": 0.62
+            },
+            {
+              "name": "shadow_opacity",
+              "type": "float",
+              "default": 0.18
+            }
+          ]
+        },
+        "table": {
+          "node": "table",
+          "status": "public",
+          "container": true,
+          "parameters": [
+            {
+              "name": "rows",
+              "type": "int",
+              "required": true
+            },
+            {
+              "name": "columns",
+              "type": "int",
+              "required": true
+            },
+            {
+              "name": "line_color",
+              "type": "ColorLike|null"
+            },
+            {
+              "name": "line_width",
+              "type": "float|hairline",
+              "default": "hairline"
+            },
+            {
+              "name": "line_cap",
+              "type": "butt|round|square",
+              "default": "butt"
+            },
+            {
+              "name": "line_join",
+              "type": "miter|round|bevel",
+              "default": "miter"
+            },
+            {
+              "name": "width",
+              "type": "float|null"
+            },
+            {
+              "name": "height",
+              "type": "float|null"
+            }
+          ]
+        }
+      }
+    }
+  },
+  "modifiers": {
+    "shadow": [
+      "color",
+      "radius",
+      "x",
+      "y"
+    ],
+    "background": [
+      "value"
+    ],
+    "overlay": [
+      "color",
+      "opacity"
+    ],
+    "clip": [
+      "kind",
+      "corner_radius"
+    ],
+    "clip_shape": [
+      "kind",
+      "corner_radius"
+    ],
+    "mask": [
+      "kind",
+      "corner_radius"
+    ],
+    "reverse_mask": [
+      "kind",
+      "corner_radius"
+    ],
+    "link": [
+      "url"
+    ],
+    "accessibility": [
+      "label",
+      "value",
+      "hint",
+      "hidden"
+    ],
+    "capsule": [
+      "tone",
+      "padding"
+    ],
+    "soft_background": [
+      "tone",
+      "corner_radius",
+      "padding"
+    ],
+    "slot": [
+      "value"
+    ],
+    "frame": [
+      "width",
+      "height",
+      "minWidth",
+      "maxWidth",
+      "minHeight",
+      "maxHeight",
+      "alignment"
+    ],
+    "font": [
+      "value",
+      "size",
+      "weight",
+      "**sizes"
+    ],
+    "font_size": [
+      "size"
+    ],
+    "font_style": [
+      "style"
+    ],
+    "font_weight": [
+      "weight"
+    ],
+    "font_width": [
+      "width"
+    ],
+    "monospaced": [
+      "enabled"
+    ],
+    "monospaced_digit": [
+      "enabled"
+    ],
+    "compressed": [
+      "enabled"
+    ],
+    "color": [
+      "value"
+    ],
+    "tone": [
+      "value"
+    ],
+    "height": [
+      "value",
+      "small",
+      "medium",
+      "large",
+      "rectangular",
+      "circular",
+      "inline"
+    ],
+    "width": [
+      "value",
+      "small",
+      "medium",
+      "large",
+      "rectangular",
+      "circular",
+      "inline"
+    ],
+    "padding": [
+      "value",
+      "horizontal",
+      "vertical",
+      "top",
+      "leading",
+      "bottom",
+      "trailing"
+    ],
+    "align": [
+      "value"
+    ],
+    "corner_radius": [
+      "value"
+    ],
+    "opacity": [
+      "value"
+    ],
+    "guide_lines": [
+      "count",
+      "color"
+    ],
+    "grid": [
+      "count",
+      "color"
+    ],
+    "points": [
+      "enabled"
+    ],
+    "fill": [
+      "enabled"
+    ],
+    "line_width": [
+      "value"
+    ],
+    "track_color": [
+      "value"
+    ],
+    "bar_spacing": [
+      "value"
+    ],
+    "segment_colors": [
+      "colors"
+    ],
+    "line_limit": [
+      "value"
+    ],
+    "min_scale": [
+      "value"
+    ],
+    "offset": [
+      "x",
+      "y"
+    ],
+    "layout_priority": [
+      "value"
+    ],
+    "fixed_size": [
+      "horizontal",
+      "vertical"
+    ],
+    "hide": [
+      "*families"
+    ],
+    "overlay_view": [
+      "align"
+    ],
+    "mask_view": [
+      "align"
+    ],
+    "place": [
+      "x",
+      "y",
+      "unit"
+    ],
+    "position": [
+      "x",
+      "y",
+      "unit"
+    ],
+    "pixel_perfect_center": [
+      "enabled"
+    ],
+    "stroke": [
+      "color",
+      "width",
+      "dash",
+      "cap",
+      "join",
+      "miter_limit"
+    ],
+    "animation": [
+      "value",
+      "duration",
+      "value_by"
+    ],
+    "content_transition": [
+      "value"
+    ],
+    "transition": [
+      "value",
+      "edge"
+    ],
+    "id": [
+      "value"
+    ],
+    "button_style": [
+      "value"
+    ],
+    "toggle_style": [
+      "value"
+    ],
+    "pressed": [
+      "**style"
+    ],
+    "normal": [
+      "**style"
+    ],
+    "intent": [
+      "action"
+    ],
+    "rendering": [
+      "mode",
+      "colors"
+    ],
+    "palette": [
+      "colors"
+    ],
+    "variant": [
+      "value"
+    ],
+    "accentable": [
+      "enabled"
+    ],
+    "privacy_sensitive": [
+      "enabled"
+    ],
+    "redacted": [
+      "reason"
+    ],
+    "baseline": [
+      "value",
+      "color"
+    ],
+    "threshold": [
+      "value",
+      "color"
+    ],
+    "labels": [
+      "start",
+      "end",
+      "color"
+    ],
+    "importance": [
+      "value"
+    ],
+    "preserve": [
+      "enabled"
+    ],
+    "overflow": [
+      "action",
+      "importance",
+      "preserve"
+    ],
+    "plain": [],
+    "control_style": [
+      "value"
+    ],
+    "control_layout": [
+      "value"
+    ],
+    "rotation": [
+      "degrees"
+    ],
+    "rotate": [
+      "degrees"
+    ],
+    "scale": [
+      "value"
+    ]
+  }
+}

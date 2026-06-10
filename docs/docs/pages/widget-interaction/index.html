@@ -3,8 +3,8 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>状态和交互 - PythonIDE Docs</title>
-  <meta name="description" content="AppIntent 按钮、Toggle、链接和 widget.state。">
+  <title>widget 状态和交互 - PythonIDE Docs</title>
+  <meta name="description" content="widget.state、按钮 ±、习惯清单、开关与链接；AppIntent 桌面交互。">
   <link rel="icon" href="../../assets/brand-mark.svg" type="image/svg+xml">
   <link rel="stylesheet" href="../../assets/docs-v2.css">
   <script>window.PYTHONIDE_DOCS_PREFIX = "../../";</script>
@@ -146,7 +146,7 @@
 <summary><a href="../../collections/scene/">scene</a></summary>
 <div class="nav-group">
 <div class="nav-group-title">快速上手</div>
-<a class="nav-link" href="../../pages/scene-module/">scene 概览</a>
+<a class="nav-link" href="../../pages/scene-module/">scene</a>
 <a class="nav-link" href="../../pages/turtle-module/">turtle</a>
 </div>
 <div class="nav-group">
@@ -160,8 +160,16 @@
 <div class="nav-group">
 <div class="nav-group-title">快速上手</div>
 <a class="nav-link" href="../../pages/ios-native/">iOS 原生能力</a>
-<a class="nav-link" href="../../pages/modules-index/">全部模块总览</a>
-<a class="nav-link" href="../../pages/miniapp-native-capabilities/">原生能力入口</a>
+</div>
+<div class="nav-group">
+<div class="nav-group-title">基础与权限</div>
+<a class="nav-link" href="../../pages/permission-module/">permission</a>
+<a class="nav-link" href="../../pages/storage-module/">storage</a>
+<a class="nav-link" href="../../pages/database-module/">database</a>
+<a class="nav-link" href="../../pages/keychain-module/">keychain</a>
+<a class="nav-link" href="../../pages/clipboard-module/">clipboard</a>
+<a class="nav-link" href="../../pages/console-module/">console</a>
+<a class="nav-link" href="../../pages/dialogs-module/">dialogs</a>
 </div>
 <div class="nav-group">
 <div class="nav-group-title">设备与传感器</div>
@@ -173,35 +181,69 @@
 <a class="nav-link" href="../../pages/health-module/">health</a>
 </div>
 <div class="nav-group">
-<div class="nav-group-title">媒体与视觉</div>
-<a class="nav-link" href="../../pages/photos-module/">photos</a>
-<a class="nav-link" href="../../pages/avplayer-module/">avplayer</a>
-<a class="nav-link" href="../../pages/sound-module/">sound</a>
-<a class="nav-link" href="../../pages/speech-module/">speech</a>
-<a class="nav-link" href="../../pages/vision-helper-module/">vision_helper</a>
-<a class="nav-link" href="../../pages/vision-module/">vision</a>
-<a class="nav-link" href="../../pages/coreml-module/">coreml</a>
-</div>
-<div class="nav-group">
-<div class="nav-group-title">网络与数据</div>
-<a class="nav-link" href="../../pages/network-module/">network</a>
-<a class="nav-link" href="../../pages/websocket-module/">websocket</a>
-<a class="nav-link" href="../../pages/bluetooth-module/">bluetooth</a>
-<a class="nav-link" href="../../pages/background-module/">background</a>
-</div>
-<div class="nav-group">
-<div class="nav-group-title">系统服务</div>
-<a class="nav-link" href="../../pages/permission-module/">permission</a>
-<a class="nav-link" href="../../pages/storage-module/">storage</a>
-<a class="nav-link" href="../../pages/database-module/">database</a>
-<a class="nav-link" href="../../pages/keychain-module/">keychain</a>
-<a class="nav-link" href="../../pages/clipboard-module/">clipboard</a>
-<a class="nav-link" href="../../pages/dialogs-module/">dialogs</a>
-<a class="nav-link" href="../../pages/console-module/">console</a>
+<div class="nav-group-title">界面与系统</div>
+<a class="nav-link" href="../../pages/file-picker-module/">file_picker</a>
+<a class="nav-link" href="../../pages/share-module/">share</a>
+<a class="nav-link" href="../../pages/font-picker-module/">font_picker</a>
 <a class="nav-link" href="../../pages/notification-module/">notification</a>
+<a class="nav-link" href="../../pages/live-activity-module/">live_activity</a>
 <a class="nav-link" href="../../pages/contacts-module/">contacts</a>
 <a class="nav-link" href="../../pages/calendar-events-module/">calendar_events</a>
+</div>
+<div class="nav-group">
+<div class="nav-group-title">媒体</div>
+<div class="nav-subgroup-title">采集</div>
+<a class="nav-link" href="../../pages/photos-module/">photos</a>
+<a class="nav-link" href="../../pages/camera-module/">camera</a>
+<a class="nav-link" href="../../pages/video-recorder-module/">video_recorder</a>
+<a class="nav-link" href="../../pages/audio-recorder-module/">audio_recorder</a>
+<div class="nav-subgroup-title">播放</div>
+<a class="nav-link" href="../../pages/sound-module/">sound</a>
+<a class="nav-link" href="../../pages/avplayer-module/">avplayer</a>
+<a class="nav-link" href="../../pages/music-module/">music</a>
+<a class="nav-link" href="../../pages/now-playing-module/">now_playing</a>
+<a class="nav-link" href="../../pages/audio-session-module/">audio_session</a>
+<div class="nav-subgroup-title">语音</div>
+<a class="nav-link" href="../../pages/speech-module/">speech</a>
+<a class="nav-link" href="../../pages/speech-recognition-module/">speech_recognition</a>
+<a class="nav-link" href="../../pages/shazam-module/">shazam</a>
+<div class="nav-subgroup-title">合成</div>
+<a class="nav-link" href="../../pages/media-composer-module/">media_composer</a>
+</div>
+<div class="nav-group">
+<div class="nav-group-title">视觉与文档</div>
+<a class="nav-link" href="../../pages/vision-module/">vision</a>
+<a class="nav-link" href="../../pages/vision-helper-module/">vision_helper</a>
+<a class="nav-link" href="../../pages/coreml-module/">coreml</a>
+<a class="nav-link" href="../../pages/qrcode-module/">qrcode</a>
+<a class="nav-link" href="../../pages/pdf-module/">pdf</a>
+</div>
+<div class="nav-group">
+<div class="nav-group-title">连接与后台</div>
+<div class="nav-subgroup-title">联网</div>
+<a class="nav-link" href="../../pages/network-module/">network</a>
+<a class="nav-link" href="../../pages/websocket-module/">websocket</a>
+<a class="nav-link" href="../../pages/weather-module/">weather</a>
+<div class="nav-subgroup-title">近场</div>
+<a class="nav-link" href="../../pages/bluetooth-module/">bluetooth</a>
+<a class="nav-link" href="../../pages/ble-peripheral-module/">ble_peripheral</a>
+<div class="nav-subgroup-title">后台</div>
+<a class="nav-link" href="../../pages/background-module/">background</a>
+<a class="nav-link" href="../../pages/background-download-module/">background_download</a>
+<div class="nav-subgroup-title">本地服务</div>
+<a class="nav-link" href="../../pages/http-server-module/">http_server</a>
+<a class="nav-link" href="../../pages/ssh-module/">ssh</a>
+</div>
+<div class="nav-group">
+<div class="nav-group-title">通信与智能</div>
+<a class="nav-link" href="../../pages/mail-module/">mail</a>
+<a class="nav-link" href="../../pages/message-module/">message</a>
+<a class="nav-link" href="../../pages/translation-module/">translation</a>
 <a class="nav-link" href="../../pages/nfc-module/">nfc</a>
+<a class="nav-link" href="../../pages/alarm-module/">alarm</a>
+<a class="nav-link" href="../../pages/storekit-module/">storekit</a>
+<a class="nav-link" href="../../pages/foundation-models-module/">foundation_models</a>
+<a class="nav-link" href="../../pages/assistant-module/">assistant</a>
 </div>
 </details>
 <details class="nav-collection">
@@ -214,10 +256,14 @@
 <div class="nav-group">
 <div class="nav-group-title">模块</div>
 <a class="nav-link" href="../../pages/shortcuts-module/">shortcuts</a>
-<a class="nav-link" href="../../pages/live-activity-module/">live_activity</a>
 <a class="nav-link" href="../../pages/keyboard-module/">keyboard</a>
 <a class="nav-link" href="../../pages/objc-util-module/">objc_util</a>
 <a class="nav-link" href="../../pages/c-extensions-module/">c_extensions</a>
+</div>
+<div class="nav-group">
+<div class="nav-group-title">参考</div>
+<a class="nav-link" href="../../pages/modules-index/">全部模块总览</a>
+<a class="nav-link" href="../../pages/miniapp-native-capabilities/">原生能力入口</a>
 </div>
 </details>
 </nav>
@@ -227,80 +273,186 @@
 <article class="article" style="--page-accent:#7c3aed">
   <header class="article-intro">
     <div class="breadcrumb">widget / 小组件</div>
-    <h1>状态和交互</h1>
-    <p>AppIntent 按钮、Toggle、链接和 widget.state。</p>
+    <h1>widget 状态和交互</h1>
+    <p>widget.state、按钮 ±、习惯清单、开关与链接；AppIntent 桌面交互。</p>
   </header>
   <div class="markdown-body">
-    <p>桌面 Widget 不执行任意 Python 回调。按钮和开关只能触发受控 AppIntent：修改 <code>widget.state</code>、刷新小组件，或打开链接。</p>
-<h2 id="计数器"><a class="heading-anchor" href="#计数器">#</a>计数器</h2>
-<figure class="code-block" data-code-id="cf78b8c07aa7">
+    <p>桌面小组件<strong>不执行任意 Python 回调</strong>。按钮、开关、列表勾选只能触发受控 <strong>AppIntent</strong>：改写 <code>widget.state</code>、刷新时间线，或打开链接。</p>
+<blockquote class="callout note"><strong>边界</strong>：本篇讲<strong>桌面点击</strong>与 <code>widget.state</code>。预览面板里的配色、标题默认值用 <a href="../../pages/widget-parameters/">widget.param</a>，不要混用。</blockquote>
+<h2 id="本篇目标"><a class="heading-anchor" href="#本篇目标">#</a>本篇目标</h2>
+<div class="table-scroll"><table><thead><tr><th>项</th><th>说明</th></tr></thead><tbody><tr><td>何时用</td><td>计数器、完成开关、习惯勾选、打开网页/深链</td></tr><tr><td>核心 API</td><td><code>widget.state.*</code> → <code>.increment()</code> / <code>.toggle()</code> / <code>.toggle_item()</code></td></tr><tr><td>节点</td><td><code>w.button(..., action=)</code>、<code>w.toggle(..., state=)</code>、<code>w.link(...)</code></td></tr><tr><td>限制</td><td><code>action=</code> 必须来自 state 工厂；不能传 Python 函数</td></tr><tr><td>发布后</td><td>改 state key 需重新发布；桌面可能需删组件重装</td></tr></tbody></table></div>
+<hr>
+<h2 id="快速开始"><a class="heading-anchor" href="#快速开始">#</a>快速开始</h2>
+<p>单按钮累加 + 数字过渡：比 <a href="../../pages/widget-module/#快速开始">概览 · 饮水打卡</a> 的 ± 环图更简单，专讲 <code>action</code> 与 <code>numericText</code>。</p>
+<figure class="code-block" data-code-id="79c9c8a6422d">
   <figcaption>
     <span>python</span>
-    <button class="copy-code" type="button" data-copy-code="cf78b8c07aa7">复制</button>
+    <button class="copy-code" type="button" data-copy-code="79c9c8a6422d">复制</button>
   </figcaption>
-  <pre><code id="code-cf78b8c07aa7" class="language-python">import widget
+  <pre><code id="code-79c9c8a6422d" class="language-python">import widget
 
-count = widget.state.int(&quot;count&quot;, 0)
-done = widget.state.bool(&quot;done&quot;, False)
+streak = widget.state.int(&quot;streak&quot;, 0)
+accent = widget.param.color(&quot;主色&quot;, &quot;#2563EB&quot;)
 
-w = widget.Widget(background=&quot;#FFFFFF&quot;, padding=16)
-w.text(&quot;计数器&quot;, size=18, weight=&quot;semibold&quot;).line_limit(1).min_scale(0.72)
+w = widget.Widget(background=(&quot;#FFFFFF&quot;, &quot;#0F172A&quot;), padding=14)
+w.text(&quot;连续签到&quot;, size=16, weight=&quot;semibold&quot;).line_limit(1)
 (
-    w.value(count, format=&quot;{} 次&quot;)
-    .id(&quot;counter&quot;)
+    w.value(streak, unit=&quot;天&quot;)
+    .id(&quot;streak&quot;)
     .content_transition(&quot;numericText&quot;)
     .monospaced_digit()
     .line_limit(1)
     .min_scale(0.72)
 )
-
-with w.row(spacing=8):
-    (
-        w.button(&quot;-&quot;, action=count.decrement(), style=&quot;plain&quot;)
-        .line_limit(1)
-        .min_scale(0.72)
-        .pressed(scale=0.94)
-    )
-    (
-        w.button(&quot;+&quot;, action=count.increment(), background=&quot;#2563EB&quot;, color=&quot;#FFFFFF&quot;)
-        .line_limit(1)
-        .min_scale(0.72)
-        .pressed(scale=0.94)
-    )
-
-w.toggle(&quot;完成&quot;, state=done, style=&quot;checkbox&quot;).line_limit(1).min_scale(0.72)
+(
+    w.button(&quot;签到&quot;, action=streak.increment(), background=accent, color=&quot;#FFFFFF&quot;)
+    .line_limit(1)
+    .min_scale(0.72)
+    .pressed(scale=0.94)
+)
 w.render()</code></pre>
 </figure>
-<p>预期效果：点击 <code>+</code> 或 <code>-</code> 修改计数，Toggle 保存完成状态；所有交互文字都保持在按钮或行内。</p>
-<h2 id="状态类型"><a class="heading-anchor" href="#状态类型">#</a>状态类型</h2>
-<div class="table-scroll"><table><thead><tr><th>状态</th><th>适合</th></tr></thead><tbody><tr><td><code>widget.state.int</code></td><td>次数、步数、分数</td></tr><tr><td><code>widget.state.float</code></td><td>进度、价格、比例</td></tr><tr><td><code>widget.state.bool</code></td><td>完成、开启、收藏</td></tr><tr><td><code>widget.state.str</code></td><td>当前模式、选中项</td></tr><tr><td><code>widget.state.list</code></td><td>勾选列表、Bingo、习惯打卡</td></tr></tbody></table></div>
-<h2 id="常用动作"><a class="heading-anchor" href="#常用动作">#</a>常用动作</h2>
-<ul><li><code>count.increment()</code>、<code>count.decrement()</code>、<code>count.set(value)</code>。</li><li><code>done.toggle()</code>。</li><li><code>items.toggle_item(item)</code>。</li><li><code>w.button(..., action=...)</code>。</li><li><code>w.toggle(..., state=...)</code>。</li></ul>
-<h2 id="链接"><a class="heading-anchor" href="#链接">#</a>链接</h2>
-<figure class="code-block" data-code-id="fe04331be59b">
+<p>要点：</p>
+<ul><li><code>streak.increment()</code> 返回 AppIntent，赋给 <code>action=</code>；<strong>不能</strong>写字符串或 Python 函数。</li><li><code>.content_transition(&quot;numericText&quot;)</code> + <code>.id(...)</code>：数字变化时系统过渡动画。</li><li><code>.pressed(scale=0.94)</code> 等价于 <code>button(..., press={&quot;scale&quot;: 0.94})</code>。</li><li><code>widget.param.color</code> 只调配色，不改桌面计数值。</li></ul>
+<hr>
+<h2 id="交互示例"><a class="heading-anchor" href="#交互示例">#</a>交互示例</h2>
+<h3 id="习惯清单-state.list-toggle_item"><a class="heading-anchor" href="#习惯清单-state.list-toggle_item">#</a>习惯清单（<code>state.list</code> + <code>toggle_item</code>）</h3>
+<p>多项勾选用 <code>widget.state.list</code>；每项 <code>done.toggle_item(i)</code> 切换是否在列表里。</p>
+<figure class="code-block" data-code-id="ee80fd41e017">
   <figcaption>
     <span>python</span>
-    <button class="copy-code" type="button" data-copy-code="fe04331be59b">复制</button>
+    <button class="copy-code" type="button" data-copy-code="ee80fd41e017">复制</button>
   </figcaption>
-  <pre><code id="code-fe04331be59b" class="language-python">import widget
+  <pre><code id="code-ee80fd41e017" class="language-python">import widget
 
-w = widget.Widget(background=&quot;#FFFFFF&quot;, padding=16)
-w.text(&quot;链接&quot;, size=18, weight=&quot;semibold&quot;).line_limit(1).min_scale(0.72)
-w.link(&quot;Apple&quot;, &quot;https://www.apple.com&quot;).line_limit(1).min_scale(0.72)
+habits = [&quot;晨跑&quot;, &quot;喝水 8 杯&quot;, &quot;阅读 30 分&quot;, &quot;整理桌面&quot;]
+done = widget.state.list(&quot;habits_done&quot;, [])
+accent = widget.param.color(&quot;完成色&quot;, &quot;#22C55E&quot;)
+
+w = widget.Widget(background=(&quot;#FAFAFA&quot;, &quot;#1C1C1E&quot;), padding=14)
+w.text(&quot;今日习惯&quot;, size=16, weight=&quot;semibold&quot;).line_limit(1)
+for i, label in enumerate(habits):
+    checked = done.contains(i)
+    mark = &quot;✓ &quot; if checked else &quot;○ &quot;
+    (
+        w.button(
+            mark + label,
+            action=done.toggle_item(i),
+            style=&quot;plain&quot;,
+            color=accent if checked else &quot;secondary&quot;,
+            size=13,
+        )
+        .line_limit(1)
+        .min_scale(0.72)
+    )
 w.render()</code></pre>
 </figure>
-<p>预期效果：显示一个链接入口，点击后打开 URL；链接标题短且不会和其他交互区域重叠。</p>
-<p>如果一个容器里已经有按钮或开关，不要再给整个容器加链接。交互区域应该清楚：整块链接、局部链接、按钮、开关只能按层级明确共存。</p>
-<h2 id="失败路径"><a class="heading-anchor" href="#失败路径">#</a>失败路径</h2>
-<ul><li>按钮点击没反应：<code>action</code> 必须来自 <code>widget.state</code>，例如 <code>count.increment()</code>、<code>done.toggle()</code> 或 <code>items.toggle_item(i)</code>。</li><li>Toggle 显示但不保存：优先写 <code>w.toggle(&quot;完成&quot;, state=done)</code>，不要把静态布尔值和手写 action 拼在一起。</li><li>链接和按钮冲突：整块链接、局部链接、按钮、开关要分清层级；同一块区域不要同时承担多个动作。</li><li>点击后桌面仍旧：AppIntent 已执行但 WidgetKit 可能缓存显示，重新运行并发布；必要时删除桌面小组件后重新添加。</li></ul>
+<ul><li><code>done.contains(i)</code>：预览/桌面判断第 <code>i</code> 项是否已勾选；<code>toggle_item(i)</code> 的 <code>i</code> 类型须与 <code>contains</code> 一致。</li><li>多项也可用多个 <code>w.toggle(..., state=)</code>；长清单用 <code>state.list</code> 更省节点。</li><li>九宫格、Bingo 等表格布局见 <a href="../../pages/widget-layout/">布局与尺寸</a> 的 <code>table()</code> 示例。</li></ul>
+<h3 id="开关-state.bool-w.toggle"><a class="heading-anchor" href="#开关-state.bool-w.toggle">#</a>开关（<code>state.bool</code> + <code>w.toggle</code>）</h3>
+<p>布尔状态用 <code>state=</code> 绑定，<strong>不要</strong>手写静态 <code>True/False</code> 配假 action。</p>
+<figure class="code-block" data-code-id="25e06c31414b">
+  <figcaption>
+    <span>python</span>
+    <button class="copy-code" type="button" data-copy-code="25e06c31414b">复制</button>
+  </figcaption>
+  <pre><code id="code-25e06c31414b" class="language-python">import widget
+
+alarm_on = widget.state.bool(&quot;alarm_on&quot;, False)
+accent = widget.param.color(&quot;开启色&quot;, &quot;#F59E0B&quot;)
+
+w = widget.Widget(background=(&quot;#FFFBEB&quot;, &quot;#292524&quot;), padding=14)
+w.text(&quot;早起闹钟&quot;, size=16, weight=&quot;semibold&quot;).line_limit(1)
+w.toggle(&quot;明早 7:00&quot;, state=alarm_on, color=accent, style=&quot;switch&quot;)
+# 脚本每次重建时读取 state 当前值（非 AppUI 式实时绑定）
+status = &quot;已开启，记得早睡&quot; if alarm_on else &quot;已关闭&quot;
+w.text(status, size=13, color=accent if alarm_on else &quot;secondary&quot;).line_limit(1).min_scale(0.72)
+w.render()</code></pre>
+</figure>
+<ul><li><code>w.toggle(..., color=accent)</code>：着色用 <code>color=</code>，<strong>没有</strong> <code>tint=</code> 参数。</li><li><code>style=&quot;switch&quot;</code> / <code>&quot;checkbox&quot;</code> 控制外观；与 <code>state=</code> 搭配最省事。</li></ul>
+<h3 id="链接-w.link"><a class="heading-anchor" href="#链接-w.link">#</a>链接（<code>w.link</code>）</h3>
+<p>链接打开 URL；与按钮/开关<strong>不要叠在同一块可点区域</strong>。</p>
+<figure class="code-block" data-code-id="18eee6b7efd6">
+  <figcaption>
+    <span>python</span>
+    <button class="copy-code" type="button" data-copy-code="18eee6b7efd6">复制</button>
+  </figcaption>
+  <pre><code id="code-18eee6b7efd6" class="language-python">import widget
+
+label = widget.param.text(&quot;链接标题&quot;, &quot;Apple 官网&quot;)
+accent = widget.param.color(&quot;链接色&quot;, &quot;#2563EB&quot;)
+
+w = widget.Widget(background=(&quot;#FFFFFF&quot;, &quot;#111827&quot;), padding=14)
+w.text(&quot;快捷入口&quot;, size=16, weight=&quot;semibold&quot;).line_limit(1)
+w.link(label, &quot;https://www.apple.com&quot;, icon=&quot;safari.fill&quot;, color=accent)
+w.text(&quot;点击在 Safari 打开&quot;, size=12, color=&quot;secondary&quot;).line_limit(1).min_scale(0.72)
+w.render()</code></pre>
+</figure>
+<ul><li>第一参数是显示标题，第二参数是 URL 字符串。</li><li>可选 <code>icon=</code> 在标题旁显示 SF Symbol。</li><li><strong><code>icon=</code> 时返回行容器，不能链 <code>.line_limit()</code></strong>；无 <code>icon</code> 时返回 text 句柄才可链修饰符。</li><li>整块链接与局部 <code>button</code> 分清层级；同一容器不要既当链接又塞按钮。</li></ul>
+<hr>
+<h2 id="心智模型"><a class="heading-anchor" href="#心智模型">#</a>心智模型</h2>
+<figure class="code-block" data-code-id="468753da2d4e">
+  <figcaption>
+    <span>text</span>
+    <button class="copy-code" type="button" data-copy-code="468753da2d4e">复制</button>
+  </figcaption>
+  <pre><code id="code-468753da2d4e" class="language-text">widget.state.int/bool/list/...   ← 桌面持久化
+        ↓
+.increment() / .toggle() / .toggle_item(i)   ← AppIntent 工厂
+        ↓
+w.button(..., action=...)  或  w.toggle(..., state=...)
+        ↓
+用户点击 → 扩展执行 Intent → 状态改写 → WidgetKit 刷新时间线</code></pre>
+</figure>
+<ol><li><strong>先声明 state</strong>：在 <code>Widget()</code> 构建前，与 <code>widget.param</code> 同级。</li><li><strong>action 只接工厂方法</strong>：<code>count.increment()</code>、<code>done.toggle()</code>、<code>items.toggle_item(2)</code>。</li><li><strong>开关优先 <code>state=</code></strong>：<code>w.toggle(&quot;标题&quot;, state=done)</code>，让运行时自动绑 <code>done.toggle()</code>。</li><li><strong>链接不走 state</strong>：<code>w.link(title, url)</code> 直接打开；深链同样写 URL 字符串。</li><li><strong>改 key 要重发</strong>：<code>&quot;score&quot;</code> 改成 <code>&quot;points&quot;</code> 后，旧桌面实例可能仍读写 <code>&quot;score&quot;</code>。</li></ol>
+<h3 id="与-widget.param-怎么分"><a class="heading-anchor" href="#与-widget.param-怎么分">#</a>与 <code>widget.param</code> 怎么分</h3>
+<div class="table-scroll"><table><thead><tr><th></th><th><code>widget.param</code></th><th><code>widget.state</code></th></tr></thead><tbody><tr><td>谁改</td><td>预览面板 / Studio</td><td>桌面点击</td></tr><tr><td>典型</td><td>主题色、默认标题</td><td>计数、开关、清单勾选</td></tr><tr><td>传给 UI</td><td><code>color=</code>、<code>background=</code></td><td><code>value</code> / <code>state=</code> + <code>action</code></td></tr></tbody></table></div>
+<hr>
 <h2 id="api-参考"><a class="heading-anchor" href="#api-参考">#</a>API 参考</h2>
-<p>交互完整签名见 <a href="../../pages/widget-api-reference/">API 参考</a>：重点查 <code>widget.state</code>、<code>w.button</code>、<code>w.toggle</code>、<code>w.link</code>、<code>.pressed()</code> 和 <code>.intent()</code>。</p>
+<h3 id="状态类型"><a class="heading-anchor" href="#状态类型">#</a>状态类型</h3>
+<div class="table-scroll"><table><thead><tr><th>API</th><th>适合</th><th>常用动作</th></tr></thead><tbody><tr><td><code>widget.state.int(key, default)</code></td><td>次数、步数、分数</td><td><code>.increment(by=1)</code>、<code>.decrement(by=1)</code>、<code>.set(n)</code></td></tr><tr><td><code>widget.state.float(key, default)</code></td><td>进度、比例</td><td>同上</td></tr><tr><td><code>widget.state.bool(key, default)</code></td><td>完成、开启</td><td><code>.toggle()</code>；配合 <code>w.toggle(..., state=)</code></td></tr><tr><td><code>widget.state.str(key, default)</code></td><td>当前模式、选中项</td><td><code>.set(&quot;模式A&quot;)</code></td></tr><tr><td><code>widget.state.list(key, default)</code></td><td>多选清单、Bingo</td><td><code>.toggle_item(item)</code>、<code>.contains(item)</code>、<code>.set([])</code></td></tr></tbody></table></div>
+<p><code>key</code> 是持久化 ID；改名等同新状态，需重新发布。</p>
+<h3 id="交互节点"><a class="heading-anchor" href="#交互节点">#</a>交互节点</h3>
+<figure class="code-block" data-code-id="20ac380f5dc1">
+  <figcaption>
+    <span>python</span>
+    <button class="copy-code" type="button" data-copy-code="20ac380f5dc1">复制</button>
+  </figcaption>
+  <pre><code id="code-20ac380f5dc1" class="language-python">count = widget.state.int(&quot;count&quot;, 0)
+done = widget.state.bool(&quot;done&quot;, False)
+items = widget.state.list(&quot;picked&quot;, [])
+
+w.button(&quot;加 1&quot;, action=count.increment())
+w.button(&quot;减 2&quot;, action=count.decrement(by=2))
+w.button(&quot;归零&quot;, action=count.set(0), style=&quot;plain&quot;)
+w.toggle(&quot;完成&quot;, state=done, color=&quot;#22C55E&quot;)
+w.button(&quot;选 A&quot;, action=items.toggle_item(&quot;A&quot;), style=&quot;plain&quot;)
+w.link(&quot;文档&quot;, &quot;https://example.com&quot;, icon=&quot;book.fill&quot;)</code></pre>
+</figure>
+<h3 id="动效修饰-可选"><a class="heading-anchor" href="#动效修饰-可选">#</a>动效修饰（可选）</h3>
+<figure class="code-block" data-code-id="4b60be2affca">
+  <figcaption>
+    <span>python</span>
+    <button class="copy-code" type="button" data-copy-code="4b60be2affca">复制</button>
+  </figcaption>
+  <pre><code id="code-4b60be2affca" class="language-python">w.button(&quot;+&quot;, action=count.increment()).pressed(scale=0.94)
+w.value(count).content_transition(&quot;numericText&quot;).monospaced_digit()</code></pre>
+</figure>
+<p>数字变化动画见 <a href="../../pages/widget-timeline/">时间线和动画</a>；完整签名见 <a href="../../pages/widget-api-reference/">API 参考</a>。</p>
+<hr>
+<h2 id="常见错误"><a class="heading-anchor" href="#常见错误">#</a>常见错误</h2>
+<div class="table-scroll"><table><thead><tr><th>错误写法</th><th>后果</th><th>修正</th></tr></thead><tbody><tr><td><code>action=&quot;increment&quot;</code> 或 Python 函数</td><td>点击无反应</td><td>用 <code>count.increment()</code> 等工厂</td></tr><tr><td><code>w.toggle(..., tint=accent)</code></td><td><code>TypeError</code></td><td>用 <code>color=accent</code></td></tr><tr><td>静态 <code>True</code> + 手写 toggle action</td><td>开关不保存</td><td><code>w.toggle(..., state=done)</code></td></tr><tr><td>用 <code>widget.param.bool</code> 当桌面开关</td><td>只在预览里变</td><td>交互用 <code>widget.state.bool</code></td></tr><tr><td>链接容器里再塞 <code>button</code></td><td>点击区域冲突</td><td>链接、按钮分块布局</td></tr><tr><td>改 state key 不重发</td><td>计数错乱或归零</td><td>重新发布；删桌面组件重装</td></tr></tbody></table></div>
+<hr>
+<h2 id="失败路径"><a class="heading-anchor" href="#失败路径">#</a>失败路径</h2>
+<div class="table-scroll"><table><thead><tr><th>现象</th><th>处理</th></tr></thead><tbody><tr><td>按钮点击没反应</td><td>确认 <code>action</code> 来自 <code>widget.state</code> 工厂方法</td></tr><tr><td>Toggle 显示但不记忆</td><td>改用 <code>state=</code>，勿拼静态布尔</td></tr><tr><td>清单勾选无效</td><td><code>toggle_item</code> 的参数类型与 <code>contains</code> 一致（都用 <code>int</code> 或都用 <code>str</code>）</td></tr><tr><td>链接打不开</td><td>检查 URL 含 <code>https://</code>；勿与按钮叠层</td></tr><tr><td>点击后桌面仍旧</td><td>AppIntent 已执行但 WidgetKit 缓存 → 重新运行发布；删组件重装</td></tr><tr><td>预览能点、桌面不能</td><td>确认已走 <a href="../../pages/widget-quickstart-publish/">从脚本到桌面</a> 发布流程</td></tr></tbody></table></div>
+<hr>
+<h2 id="相关文档"><a class="heading-anchor" href="#相关文档">#</a>相关文档</h2>
+<div class="table-scroll"><table><thead><tr><th>文档</th><th>用途</th></tr></thead><tbody><tr><td><a href="../../pages/widget-module/">widget 概览</a></td><td>总览与入门示例</td></tr><tr><td><a href="../../pages/widget-parameters/">参数面板</a></td><td><code>widget.param</code> 与 state 区分</td></tr><tr><td><a href="../../pages/widget-quickstart-publish/">从脚本到桌面</a></td><td>发布后在桌面验证交互</td></tr><tr><td><a href="../../pages/widget-layout/">布局与尺寸</a></td><td><code>table()</code> 九宫格、<code>row()</code> 横排</td></tr><tr><td><a href="../../pages/widget-timeline/">时间线和动画</a></td><td><code>content_transition</code>、数字过渡</td></tr><tr><td><a href="../../pages/widget-troubleshooting/">排错</a></td><td>预览/桌面不一致</td></tr><tr><td><a href="../../pages/widget-api-reference/">API 参考</a></td><td><code>widget.state</code>、<code>button</code>、<code>toggle</code>、<code>link</code> 签名</td></tr></tbody></table></div>
   </div>
-  <section class="related-section"><h2>相关文档</h2><div class="related-list"><a class="related-link" href="../widget-module/"><strong>widget</strong><span>用 Python 编写主屏、锁屏和 StandBy 小组件。</span></a><a class="related-link" href="../widget-timeline/"><strong>widget 时间线和动画</strong><span>Timeline entry、numericText、transition 和 flip。</span></a><a class="related-link" href="../widget-troubleshooting/"><strong>widget 排错</strong><span>空白、溢出、桌面缓存、点击和动画问题。</span></a></div></section>
+  <section class="related-section"><h2>相关文档</h2><div class="related-list"><a class="related-link" href="../widget-module/"><strong>widget</strong><span>Python 编写 WidgetKit 小组件：参数、状态、布局与发布到桌面。</span></a><a class="related-link" href="../widget-parameters/"><strong>widget 参数面板</strong><span>widget.param 声明预览可调配置，与 widget.state 桌面交互区分。</span></a><a class="related-link" href="../widget-quickstart-publish/"><strong>widget 从脚本到桌面</strong><span>Widget Studio 预览、发布、系统添加主屏小组件与桌面验证。</span></a><a class="related-link" href="../widget-layout/"><strong>widget 布局与尺寸</strong><span>row/column/grid/table/canvas、family 预算、when/unless 与锁屏 accessory。</span></a><a class="related-link" href="../widget-timeline/"><strong>widget 时间线和动画</strong><span>timeline/entry、state 数字动画、flip 翻页与 countdown 倒计时。</span></a><a class="related-link" href="../widget-troubleshooting/"><strong>widget 排错</strong><span>基线排查、预览≠桌面、裁切/点击/动画、w.validate 诊断。</span></a></div></section>
 </article>
 
     </main>
-    <aside class="toc"><div class="toc-title">本页目录</div><a class="toc-link" href="#计数器">计数器</a><a class="toc-link" href="#状态类型">状态类型</a><a class="toc-link" href="#常用动作">常用动作</a><a class="toc-link" href="#链接">链接</a><a class="toc-link" href="#失败路径">失败路径</a><a class="toc-link" href="#api-参考">API 参考</a></aside>
+    <aside class="toc"><div class="toc-title">本页目录</div><a class="toc-link" href="#本篇目标">本篇目标</a><a class="toc-link" href="#快速开始">快速开始</a><a class="toc-link" href="#交互示例">交互示例</a><a class="toc-link child" href="#习惯清单-state.list-toggle_item">习惯清单（state.list + toggle_item）</a><a class="toc-link child" href="#开关-state.bool-w.toggle">开关（state.bool + w.toggle）</a><a class="toc-link child" href="#链接-w.link">链接（w.link）</a><a class="toc-link" href="#心智模型">心智模型</a><a class="toc-link child" href="#与-widget.param-怎么分">与 widget.param 怎么分</a><a class="toc-link" href="#api-参考">API 参考</a><a class="toc-link child" href="#状态类型">状态类型</a><a class="toc-link child" href="#交互节点">交互节点</a><a class="toc-link child" href="#动效修饰-可选">动效修饰（可选）</a><a class="toc-link" href="#常见错误">常见错误</a><a class="toc-link" href="#失败路径">失败路径</a><a class="toc-link" href="#相关文档">相关文档</a></aside>
   </div>
   <div class="mobile-backdrop"></div>
   <div class="search-panel" role="dialog" aria-modal="true" aria-label="搜索">

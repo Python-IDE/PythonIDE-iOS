@@ -1,0 +1,445 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>speech_recognition - PythonIDE Docs</title>
+  <meta name="description" content="语音转文字：实时听写和音频文件转写。">
+  <link rel="icon" href="../../assets/brand-mark.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="../../assets/docs-v2.css">
+  <script>window.PYTHONIDE_DOCS_PREFIX = "../../";</script>
+  <script defer src="../../assets/docs-v2.js"></script>
+</head>
+<body class="article-page">
+  <header class="topbar">
+    <button class="icon-button menu-toggle" type="button" aria-label="打开目录">☰</button>
+    <a class="brand" href="../../"><img class="brand-mark" src="../../assets/brand-mark.svg" alt="" width="30" height="30"><span class="brand-text">PythonIDE Docs</span></a>
+    <nav class="top-nav" aria-label="主导航">
+      <a class="active" href="../../">文档</a>
+      <a class="" href="../../pages/widget-api-reference/">API 参考</a>
+      <a class="" href="../../pages/appui-cookbook-index/">示例</a>
+    </nav>
+    <details class="language-menu">
+      <summary>中文</summary>
+      <div class="language-panel">
+        <span class="active">简体中文</span>
+        <button type="button" disabled>English <em>准备中</em></button>
+      </div>
+    </details>
+    <button class="theme-toggle" type="button" aria-label="切换主题">◐</button>
+  </header>
+  <div class="shell">
+    <aside class="sidebar">
+      <nav class="sidebar-nav" aria-label="Docs navigation">
+<button class="sidebar-search search-trigger" type="button"><span>搜索...</span><kbd>⌘K</kbd></button>
+<details class="nav-collection">
+<summary><a href="../../collections/appui/">appui</a></summary>
+<div class="nav-group">
+<div class="nav-group-title">开始</div>
+<a class="nav-link" href="../../pages/appui-module/">appui 概览</a>
+<a class="nav-link" href="../../pages/appui-quickstart/">快速上手</a>
+<a class="nav-link" href="../../pages/miniapp-choose-runtime/">运行时选择</a>
+<a class="nav-link" href="../../pages/miniapp-appui-ui-patterns/">AppUI UI 模式</a>
+<a class="nav-link" href="../../pages/miniapp-appui-api-index/">AppUI API 地图</a>
+<a class="nav-link" href="../../pages/miniapp-dev-troubleshooting/">MiniApp 开发排错</a>
+</div>
+<div class="nav-group">
+<div class="nav-group-title">指南</div>
+<a class="nav-link" href="../../pages/appui-guide-thinking/">appui 思维方式</a>
+<a class="nav-link" href="../../pages/appui-guide-state/">状态管理</a>
+<a class="nav-link" href="../../pages/appui-guide-layout/">布局系统</a>
+<a class="nav-link" href="../../pages/appui-guide-lists/">列表与表单</a>
+<a class="nav-link" href="../../pages/appui-guide-navigation/">导航与页面结构</a>
+<a class="nav-link" href="../../pages/appui-guide-interaction/">交互与回调</a>
+<a class="nav-link" href="../../pages/appui-guide-media/">媒体与系统集成</a>
+<a class="nav-link" href="../../pages/appui-guide-charts/">图表与绘图</a>
+<a class="nav-link" href="../../pages/appui-guide-darkmode/">深色模式与语义色</a>
+<a class="nav-link" href="../../pages/appui-guide-animation/">动画</a>
+<a class="nav-link" href="../../pages/appui-guide-hotreload/">热重载</a>
+<a class="nav-link" href="../../pages/appui-guide-realtime/">实时快路径</a>
+<a class="nav-link" href="../../pages/appui-guide-performance/">性能与实时界面</a>
+</div>
+<div class="nav-group">
+<div class="nav-group-title">API 参考</div>
+<a class="nav-link" href="../../pages/appui-ref-functions/">入口函数</a>
+<a class="nav-link" href="../../pages/appui-ref-state/">状态 API</a>
+<a class="nav-link" href="../../pages/appui-ref-layout/">布局 API</a>
+<a class="nav-link" href="../../pages/appui-ref-layout-stacks/">堆叠布局 API</a>
+<a class="nav-link" href="../../pages/appui-ref-layout-scroll/">滚动 API</a>
+<a class="nav-link" href="../../pages/appui-ref-layout-grids/">网格 API</a>
+<a class="nav-link" href="../../pages/appui-ref-layout-geometry/">几何与特殊布局 API</a>
+<a class="nav-link" href="../../pages/appui-ref-controls/">控件 API</a>
+<a class="nav-link" href="../../pages/appui-ref-navigation/">导航 API</a>
+<a class="nav-link" href="../../pages/appui-ref-data/">数据展示 API</a>
+<a class="nav-link" href="../../pages/appui-ref-presentation/">呈现 API</a>
+<a class="nav-link" href="../../pages/appui-ref-modifiers/">修饰符 API</a>
+<a class="nav-link" href="../../pages/appui-ref-environment/">环境值 API</a>
+<a class="nav-link" href="../../pages/appui-ref-media/">媒体 API</a>
+<a class="nav-link" href="../../pages/appui-ref-charts/">图表与画布 API</a>
+<a class="nav-link" href="../../pages/appui-ref-shapes/">形状 API</a>
+</div>
+<div class="nav-group">
+<div class="nav-group-title">示例</div>
+<a class="nav-link" href="../../pages/appui-cookbook-index/">示例索引</a>
+<a class="nav-link" href="../../pages/appui-cookbook-todo/">示例：待办列表</a>
+<a class="nav-link" href="../../pages/appui-cookbook-settings/">示例：设置表单</a>
+<a class="nav-link" href="../../pages/appui-cookbook-dashboard/">示例：紧凑仪表盘</a>
+<a class="nav-link" href="../../pages/appui-cookbook-native-list-detail/">示例：原生列表详情</a>
+<a class="nav-link" href="../../pages/appui-cookbook-network-list/">示例：网络列表</a>
+<a class="nav-link" href="../../pages/appui-cookbook-table-data-review/">示例：表格数据审核</a>
+<a class="nav-link" href="../../pages/appui-cookbook-chat/">示例：聊天界面</a>
+<a class="nav-link" href="../../pages/appui-cookbook-media-capture-gallery/">示例：媒体采集相册</a>
+<a class="nav-link" href="../../pages/appui-cookbook-gallery/">示例：相册浏览器</a>
+<a class="nav-link" href="../../pages/appui-cookbook-form-settings-controls/">示例：原生表单设置</a>
+<a class="nav-link" href="../../pages/appui-cookbook-chart-canvas-lab/">示例：图表与画布实验室</a>
+<a class="nav-link" href="../../pages/appui-cookbook-location-map/">示例：定位地图</a>
+<a class="nav-link" href="../../pages/appui-cookbook-motion-haptics-dashboard/">示例：运动传感器仪表盘</a>
+<a class="nav-link" href="../../pages/appui-cookbook-notification-reminder/">示例：通知提醒</a>
+<a class="nav-link" href="../../pages/appui-cookbook-health-blood-pressure/">示例：血压分析</a>
+<a class="nav-link" href="../../pages/appui-cookbook-secure-vault/">示例：安全凭据库</a>
+<a class="nav-link" href="../../pages/appui-cookbook-live-activity-background/">示例：实时活动与后台任务</a>
+<a class="nav-link" href="../../pages/appui-cookbook-shortcuts-launcher/">示例：快捷指令启动器</a>
+<a class="nav-link" href="../../pages/appui-cookbook-video-player/">示例：视频播放器</a>
+<a class="nav-link" href="../../pages/appui-cookbook-webview-share-export/">示例：WebView 与系统分享</a>
+</div>
+<div class="nav-group">
+<div class="nav-group-title">速查</div>
+<a class="nav-link" href="../../pages/appui-appendix-colors/">颜色参考</a>
+<a class="nav-link" href="../../pages/appui-appendix-symbols/">SF Symbols</a>
+<a class="nav-link" href="../../pages/appui-appendix-migration/">从 ui 迁移到 appui</a>
+</div>
+</details>
+<details class="nav-collection">
+<summary><a href="../../collections/widget/">widget</a></summary>
+<div class="nav-group">
+<div class="nav-group-title">小组件</div>
+<a class="nav-link" href="../../pages/widget-module/">widget</a>
+<a class="nav-link" href="../../pages/widget-quickstart-publish/">widget 从脚本到桌面</a>
+<a class="nav-link" href="../../pages/widget-layout/">widget 布局与尺寸</a>
+<a class="nav-link" href="../../pages/widget-parameters/">widget 参数面板</a>
+<a class="nav-link" href="../../pages/widget-interaction/">widget 状态和交互</a>
+<a class="nav-link" href="../../pages/widget-timeline/">widget 时间线和动画</a>
+<a class="nav-link" href="../../pages/widget-appearance-assets/">widget 资源与外观</a>
+<a class="nav-link" href="../../pages/widget-troubleshooting/">widget 排错</a>
+<a class="nav-link" href="../../pages/widget-api-index/">widget API 地图</a>
+<a class="nav-link" href="../../pages/widget-api-reference/">widget API 参考</a>
+</div>
+</details>
+<details class="nav-collection">
+<summary><a href="../../collections/ui/">ui</a></summary>
+<div class="nav-group">
+<div class="nav-group-title">快速上手</div>
+<a class="nav-link" href="../../pages/ui-module/">ui 概览</a>
+</div>
+<div class="nav-group">
+<div class="nav-group-title">API 参考</div>
+<a class="nav-link" href="../../pages/ui-api-index/">ui API 索引</a>
+<a class="nav-link" href="../../pages/ui-api-reference/">ui API 参考</a>
+</div>
+<div class="nav-group">
+<div class="nav-group-title">实时能力</div>
+<a class="nav-link" href="../../pages/aurora-system/">系统实时能力</a>
+<a class="nav-link" href="../../pages/aurora-toolkit/">实时更新工具</a>
+</div>
+</details>
+<details class="nav-collection">
+<summary><a href="../../collections/scene/">scene</a></summary>
+<div class="nav-group">
+<div class="nav-group-title">快速上手</div>
+<a class="nav-link" href="../../pages/scene-module/">scene</a>
+<a class="nav-link" href="../../pages/turtle-module/">turtle</a>
+</div>
+<div class="nav-group">
+<div class="nav-group-title">API 参考</div>
+<a class="nav-link" href="../../pages/scene-api-index/">scene API 索引</a>
+<a class="nav-link" href="../../pages/scene-api-reference/">scene API 参考</a>
+</div>
+</details>
+<details class="nav-collection" open>
+<summary><a href="../../collections/ios-native/">iOS 原生模块</a></summary>
+<div class="nav-group">
+<div class="nav-group-title">快速上手</div>
+<a class="nav-link" href="../../pages/ios-native/">iOS 原生能力</a>
+</div>
+<div class="nav-group">
+<div class="nav-group-title">基础与权限</div>
+<a class="nav-link" href="../../pages/permission-module/">permission</a>
+<a class="nav-link" href="../../pages/storage-module/">storage</a>
+<a class="nav-link" href="../../pages/database-module/">database</a>
+<a class="nav-link" href="../../pages/keychain-module/">keychain</a>
+<a class="nav-link" href="../../pages/clipboard-module/">clipboard</a>
+<a class="nav-link" href="../../pages/console-module/">console</a>
+<a class="nav-link" href="../../pages/dialogs-module/">dialogs</a>
+</div>
+<div class="nav-group">
+<div class="nav-group-title">设备与传感器</div>
+<a class="nav-link" href="../../pages/device-module/">device</a>
+<a class="nav-link" href="../../pages/location-module/">location</a>
+<a class="nav-link" href="../../pages/motion-module/">motion</a>
+<a class="nav-link" href="../../pages/haptics-module/">haptics</a>
+<a class="nav-link" href="../../pages/biometric-module/">biometric</a>
+<a class="nav-link" href="../../pages/health-module/">health</a>
+</div>
+<div class="nav-group">
+<div class="nav-group-title">界面与系统</div>
+<a class="nav-link" href="../../pages/file-picker-module/">file_picker</a>
+<a class="nav-link" href="../../pages/share-module/">share</a>
+<a class="nav-link" href="../../pages/font-picker-module/">font_picker</a>
+<a class="nav-link" href="../../pages/notification-module/">notification</a>
+<a class="nav-link" href="../../pages/live-activity-module/">live_activity</a>
+<a class="nav-link" href="../../pages/contacts-module/">contacts</a>
+<a class="nav-link" href="../../pages/calendar-events-module/">calendar_events</a>
+</div>
+<div class="nav-group">
+<div class="nav-group-title">媒体</div>
+<div class="nav-subgroup-title">采集</div>
+<a class="nav-link" href="../../pages/photos-module/">photos</a>
+<a class="nav-link" href="../../pages/camera-module/">camera</a>
+<a class="nav-link" href="../../pages/video-recorder-module/">video_recorder</a>
+<a class="nav-link" href="../../pages/audio-recorder-module/">audio_recorder</a>
+<div class="nav-subgroup-title">播放</div>
+<a class="nav-link" href="../../pages/sound-module/">sound</a>
+<a class="nav-link" href="../../pages/avplayer-module/">avplayer</a>
+<a class="nav-link" href="../../pages/music-module/">music</a>
+<a class="nav-link" href="../../pages/now-playing-module/">now_playing</a>
+<a class="nav-link" href="../../pages/audio-session-module/">audio_session</a>
+<div class="nav-subgroup-title">语音</div>
+<a class="nav-link" href="../../pages/speech-module/">speech</a>
+<a class="nav-link active" href="../../pages/speech-recognition-module/">speech_recognition</a>
+<a class="nav-link" href="../../pages/shazam-module/">shazam</a>
+<div class="nav-subgroup-title">合成</div>
+<a class="nav-link" href="../../pages/media-composer-module/">media_composer</a>
+</div>
+<div class="nav-group">
+<div class="nav-group-title">视觉与文档</div>
+<a class="nav-link" href="../../pages/vision-module/">vision</a>
+<a class="nav-link" href="../../pages/vision-helper-module/">vision_helper</a>
+<a class="nav-link" href="../../pages/coreml-module/">coreml</a>
+<a class="nav-link" href="../../pages/qrcode-module/">qrcode</a>
+<a class="nav-link" href="../../pages/pdf-module/">pdf</a>
+</div>
+<div class="nav-group">
+<div class="nav-group-title">连接与后台</div>
+<div class="nav-subgroup-title">联网</div>
+<a class="nav-link" href="../../pages/network-module/">network</a>
+<a class="nav-link" href="../../pages/websocket-module/">websocket</a>
+<a class="nav-link" href="../../pages/weather-module/">weather</a>
+<div class="nav-subgroup-title">近场</div>
+<a class="nav-link" href="../../pages/bluetooth-module/">bluetooth</a>
+<a class="nav-link" href="../../pages/ble-peripheral-module/">ble_peripheral</a>
+<div class="nav-subgroup-title">后台</div>
+<a class="nav-link" href="../../pages/background-module/">background</a>
+<a class="nav-link" href="../../pages/background-download-module/">background_download</a>
+<div class="nav-subgroup-title">本地服务</div>
+<a class="nav-link" href="../../pages/http-server-module/">http_server</a>
+<a class="nav-link" href="../../pages/ssh-module/">ssh</a>
+</div>
+<div class="nav-group">
+<div class="nav-group-title">通信与智能</div>
+<a class="nav-link" href="../../pages/mail-module/">mail</a>
+<a class="nav-link" href="../../pages/message-module/">message</a>
+<a class="nav-link" href="../../pages/translation-module/">translation</a>
+<a class="nav-link" href="../../pages/nfc-module/">nfc</a>
+<a class="nav-link" href="../../pages/alarm-module/">alarm</a>
+<a class="nav-link" href="../../pages/storekit-module/">storekit</a>
+<a class="nav-link" href="../../pages/foundation-models-module/">foundation_models</a>
+<a class="nav-link" href="../../pages/assistant-module/">assistant</a>
+</div>
+</details>
+<details class="nav-collection">
+<summary><a href="../../collections/automation-extension/">自动化与扩展</a></summary>
+<div class="nav-group">
+<div class="nav-group-title">快速上手</div>
+<a class="nav-link" href="../../pages/shortcuts-guide/">快捷指令</a>
+<a class="nav-link" href="../../pages/js-api/">JS API 说明</a>
+</div>
+<div class="nav-group">
+<div class="nav-group-title">模块</div>
+<a class="nav-link" href="../../pages/shortcuts-module/">shortcuts</a>
+<a class="nav-link" href="../../pages/keyboard-module/">keyboard</a>
+<a class="nav-link" href="../../pages/objc-util-module/">objc_util</a>
+<a class="nav-link" href="../../pages/c-extensions-module/">c_extensions</a>
+</div>
+<div class="nav-group">
+<div class="nav-group-title">参考</div>
+<a class="nav-link" href="../../pages/modules-index/">全部模块总览</a>
+<a class="nav-link" href="../../pages/miniapp-native-capabilities/">原生能力入口</a>
+</div>
+</details>
+</nav>
+    </aside>
+    <main class="content">
+      
+<article class="article" style="--page-accent:#0f766e">
+  <header class="article-intro">
+    <div class="breadcrumb">iOS 原生模块 / 媒体</div>
+    <h1>speech_recognition</h1>
+    <p>语音转文字：实时听写和音频文件转写。</p>
+  </header>
+  <div class="markdown-body">
+    <p>语音转文字（SFSpeechRecognizer）：实时麦克风听写，或转写音频文件。</p>
+<blockquote class="callout note"><strong>边界</strong>：与 <a href="../../pages/speech-module/">speech</a>（文字→语音）方向相反。实时模式需要<strong>语音识别 + 麦克风</strong>系统授权；<code>start()</code> 未授权时会报 <code>denied</code>。统一 <a href="../../pages/permission-module/">permission</a> 的 <code>request()</code> 暂不支持 <code>speech</code>/<code>microphone</code> 弹窗，需在系统设置中开启权限。</blockquote>
+<h2 id="模块概览"><a class="heading-anchor" href="#模块概览">#</a>模块概览</h2>
+<div class="table-scroll"><table><thead><tr><th>项</th><th>说明</th></tr></thead><tbody><tr><td>导入</td><td><code>import speech_recognition as sr</code></td></tr><tr><td>适合做什么</td><td>语音输入、听写备忘、语音搜索、音频转文字</td></tr><tr><td>调用时机</td><td><code>start()</code> / <code>recognize_file()</code> 放在按钮回调</td></tr><tr><td>实时模式</td><td><code>start</code> → 轮询 <code>text()</code> → <code>stop()</code> 拿最终文本</td></tr><tr><td>文件模式</td><td><code>recognize_file(path)</code> 一次性返回完整稿</td></tr></tbody></table></div>
+<hr>
+<h2 id="快速开始"><a class="heading-anchor" href="#快速开始">#</a>快速开始</h2>
+<p>下面脚本检查能力并开始中文实时听写（需在系统设置中已授权）：</p>
+<figure class="code-block" data-code-id="42447590ad17">
+  <figcaption>
+    <span>python</span>
+    <button class="copy-code" type="button" data-copy-code="42447590ad17">复制</button>
+  </figcaption>
+  <pre><code id="code-42447590ad17" class="language-python">import speech_recognition as sr
+
+print(&quot;支持:&quot;, sr.is_available())
+print(&quot;语言示例:&quot;, sr.supported_locales()[:5])
+
+try:
+    sr.start(locale=&quot;zh-CN&quot;)
+    # 用户说话期间可轮询 sr.text()
+    print(&quot;中间结果:&quot;, sr.text())
+    final = sr.stop()
+    print(&quot;最终结果:&quot;, final)
+except sr.SpeechRecognitionError as exc:
+    print(&quot;失败:&quot;, exc, f&quot;code={exc.code}&quot;)</code></pre>
+</figure>
+<hr>
+<h2 id="appui-示例"><a class="heading-anchor" href="#appui-示例">#</a>AppUI 示例</h2>
+<p>开始/停止放在按钮回调；用 <code>Timer</code> 轮询中间结果。</p>
+<figure class="code-block" data-code-id="95ba66b85af7">
+  <figcaption>
+    <span>python</span>
+    <button class="copy-code" type="button" data-copy-code="95ba66b85af7">复制</button>
+  </figcaption>
+  <pre><code id="code-95ba66b85af7" class="language-python">import appui
+import speech_recognition as sr
+
+state = appui.State(
+    listening=False,
+    transcript=&quot;点击开始听写&quot;,
+    status=&quot;空闲&quot;,
+)
+
+
+def tick():
+    if state.listening:
+        state.transcript = sr.text() or &quot;（正在聆听…）&quot;
+
+
+poll_timer = appui.Timer(interval=0.3, repeats=True, action=tick)
+
+
+def toggle_listening():
+    if state.listening:
+        poll_timer.stop()
+        state.transcript = sr.stop() or &quot;（无识别内容）&quot;
+        state.batch_update(listening=False, status=&quot;已停止&quot;)
+        return
+
+    try:
+        sr.start(locale=&quot;zh-CN&quot;, partial=True)
+        state.batch_update(
+            listening=True,
+            status=&quot;聆听中&quot;,
+            transcript=&quot;（正在聆听…）&quot;,
+        )
+        poll_timer.start()
+    except sr.SpeechRecognitionError as exc:
+        state.transcript = (
+            f&quot;无法开始: {exc}\n&quot;
+            &quot;请在系统设置中开启「语音识别」和「麦克风」&quot;
+        )
+        state.status = str(exc.code or &quot;error&quot;)
+
+
+def cancel_listening():
+    if state.listening:
+        poll_timer.stop()
+        sr.cancel()
+        state.batch_update(
+            listening=False,
+            status=&quot;已取消&quot;,
+            transcript=&quot;听写已取消&quot;,
+        )
+
+
+def check_locales():
+    locales = sr.supported_locales()
+    state.status = f&quot;支持 {len(locales)} 种语言&quot;
+
+
+def body():
+    label = &quot;停止听写&quot; if state.listening else &quot;开始听写&quot;
+    return appui.NavigationStack(
+        appui.Form([
+            appui.Section(&quot;听写&quot;, [
+                appui.Text(state.transcript).foreground_color(&quot;secondaryLabel&quot;),
+                appui.LabeledContent(&quot;状态&quot;, value=state.status),
+            ]),
+            appui.Section(&quot;操作&quot;, [
+                appui.Button(label, action=toggle_listening)
+                .button_style(&quot;bordered_prominent&quot;),
+                appui.Button(&quot;取消&quot;, action=cancel_listening, role=&quot;destructive&quot;),
+                appui.Button(&quot;查看支持语言&quot;, action=check_locales),
+            ], footer=&quot;真机测试最可靠；需语音识别与麦克风权限。&quot;),
+        ]).navigation_title(&quot;语音听写&quot;)
+    )
+
+
+appui.run(body, state=state)</code></pre>
+</figure>
+<hr>
+<h2 id="api-参考"><a class="heading-anchor" href="#api-参考">#</a>API 参考</h2>
+<h3 id="速查"><a class="heading-anchor" href="#速查">#</a>速查</h3>
+<div class="table-scroll"><table><thead><tr><th>API</th><th>作用</th></tr></thead><tbody><tr><td><code>is_available()</code></td><td>设备/语言是否支持</td></tr><tr><td><code>supported_locales()</code></td><td>支持的 BCP-47 语言列表</td></tr><tr><td><code>start(locale, on_device, partial)</code></td><td>开始实时听写</td></tr><tr><td><code>text()</code> / <code>status()</code></td><td>当前识别文本 / 完整状态</td></tr><tr><td><code>stop()</code></td><td>停止并返回最终文本</td></tr><tr><td><code>cancel()</code></td><td>立即停止并丢弃结果</td></tr><tr><td><code>recognize_file(path, locale)</code></td><td>转写音频文件</td></tr></tbody></table></div>
+<h3 id="实时听写"><a class="heading-anchor" href="#实时听写">#</a>实时听写</h3>
+<figure class="code-block" data-code-id="71b8ce501ad9">
+  <figcaption>
+    <span>python</span>
+    <button class="copy-code" type="button" data-copy-code="71b8ce501ad9">复制</button>
+  </figcaption>
+  <pre><code id="code-71b8ce501ad9" class="language-python">import speech_recognition as sr
+
+sr.start(locale=&quot;zh-CN&quot;, on_device=False, partial=True)
+while sr.is_listening():
+    print(sr.text())
+final = sr.stop()</code></pre>
+</figure>
+<div class="table-scroll"><table><thead><tr><th>参数</th><th>说明</th></tr></thead><tbody><tr><td><code>locale</code></td><td>BCP-47，如 <code>zh-CN</code>、<code>en-US</code></td></tr><tr><td><code>on_device</code></td><td>优先离线识别（设备支持时）</td></tr><tr><td><code>partial</code></td><td>是否返回中间结果</td></tr></tbody></table></div>
+<p><strong><code>status()</code></strong> 返回：<code>listening</code>、<code>transcript</code>、<code>is_final</code>、<code>error</code>。</p>
+<p>已在听写时再次 <code>start()</code> 会抛 <code>SpeechRecognitionError(code=&quot;already_listening&quot;)</code>。</p>
+<h3 id="文件转写"><a class="heading-anchor" href="#文件转写">#</a>文件转写</h3>
+<p>只需语音识别权限（不需麦克风）：</p>
+<figure class="code-block" data-code-id="32d20154b02b">
+  <figcaption>
+    <span>python</span>
+    <button class="copy-code" type="button" data-copy-code="32d20154b02b">复制</button>
+  </figcaption>
+  <pre><code id="code-32d20154b02b" class="language-python">text = sr.recognize_file(&quot;/path/to/audio.m4a&quot;, locale=&quot;zh-CN&quot;)</code></pre>
+</figure>
+<h3 id="异常"><a class="heading-anchor" href="#异常">#</a>异常</h3>
+<p>失败时抛出 <code>SpeechRecognitionError</code>，可通过 <code>exc.code</code> 区分：</p>
+<div class="table-scroll"><table><thead><tr><th><code>code</code></th><th>含义</th></tr></thead><tbody><tr><td><code>denied</code></td><td>语音识别未授权</td></tr><tr><td><code>already_listening</code></td><td>重复 <code>start()</code></td></tr><tr><td><code>unavailable</code></td><td>语言或设备不支持</td></tr></tbody></table></div>
+<hr>
+<h2 id="常见错误"><a class="heading-anchor" href="#常见错误">#</a>常见错误</h2>
+<div class="table-scroll"><table><thead><tr><th>错误写法</th><th>后果</th><th>修正</th></tr></thead><tbody><tr><td>在 <code>body()</code> 里 <code>start()</code></td><td>刷新时重复启动</td><td>放进按钮回调</td></tr><tr><td>未授权就 <code>start()</code></td><td><code>denied</code> 异常</td><td>系统设置开启权限</td></tr><tr><td>把 <code>permission.request()</code> 当 bool</td><td>判断错误且暂不支持弹窗</td><td>用 <code>try/except</code> 处理 <code>start()</code></td></tr><tr><td>高频轮询 <code>text()</code></td><td>浪费 CPU</td><td>用 <code>Timer(interval=0.3)</code> 节流</td></tr></tbody></table></div>
+<hr>
+<h2 id="相关文档"><a class="heading-anchor" href="#相关文档">#</a>相关文档</h2>
+<div class="table-scroll"><table><thead><tr><th>文档</th><th>用途</th></tr></thead><tbody><tr><td><a href="../../pages/speech-module/">speech</a></td><td>文字转语音（相反方向）</td></tr><tr><td><a href="../../pages/audio-recorder-module/">audio_recorder</a></td><td>录音到文件再转写</td></tr><tr><td><a href="../../pages/permission-module/">permission</a></td><td>权限状态查询</td></tr><tr><td><a href="../../pages/miniapp-native-capabilities/">原生能力入口</a></td><td>MiniApp 场景配方</td></tr></tbody></table></div>
+  </div>
+  
+</article>
+
+    </main>
+    <aside class="toc"><div class="toc-title">本页目录</div><a class="toc-link" href="#模块概览">模块概览</a><a class="toc-link" href="#快速开始">快速开始</a><a class="toc-link" href="#appui-示例">AppUI 示例</a><a class="toc-link" href="#api-参考">API 参考</a><a class="toc-link child" href="#速查">速查</a><a class="toc-link child" href="#实时听写">实时听写</a><a class="toc-link child" href="#文件转写">文件转写</a><a class="toc-link child" href="#异常">异常</a><a class="toc-link" href="#常见错误">常见错误</a><a class="toc-link" href="#相关文档">相关文档</a></aside>
+  </div>
+  <div class="mobile-backdrop"></div>
+  <div class="search-panel" role="dialog" aria-modal="true" aria-label="搜索">
+    <div class="search-box">
+      <input id="docs-search-input" type="search" placeholder="搜索 API、模块、指南..." autocomplete="off">
+      <button class="search-close" type="button">Close</button>
+    </div>
+    <div id="docs-search-results" class="search-results"></div>
+  </div>
+</body>
+</html>

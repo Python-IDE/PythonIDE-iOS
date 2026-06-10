@@ -1,0 +1,29 @@
+# PythonIDE Docs
+
+> Public docs and machine-readable contracts for generating PythonIDE Mini Apps, widgets, scene scripts, ui scripts, and iOS native capability calls.
+
+## Start Here
+
+- [One-page docs](https://pythonide.xin/docs/ai/): human-readable and AI-readable PythonIDE guide.
+- [Developer docs portal](https://pythonide.xin/docs/): browsable AppUI, Widget, and native module documentation.
+- [Full AI context](https://pythonide.xin/llms-full.txt): combined generation rules, quick starts, and complete public API surfaces.
+
+## Machine-Readable API Contracts
+
+- [AppUI schema](https://pythonide.xin/schemas/appui_api_schema.json): canonical AppUI public API projection.
+- [Widget schema](https://pythonide.xin/schemas/widget_api_schema.json): canonical Widget public API projection.
+- [Native capabilities schema](https://pythonide.xin/schemas/native_capabilities_schema.json): canonical iOS native capability projection.
+- [appui.pyi](https://pythonide.xin/stubs/appui.pyi): AppUI typing surface.
+- [widget.pyi](https://pythonide.xin/stubs/widget.pyi): Widget typing surface.
+- [ui.pyi](https://pythonide.xin/stubs/ui.pyi): Pythonista-compatible ui typing surface.
+- [scene.pyi](https://pythonide.xin/stubs/scene.pyi): Pythonista-compatible scene typing surface.
+
+## Generation Rules
+
+- Use `appui` for Mini Apps and interactive native UI.
+- Use `widget` for iOS Home Screen widgets.
+- Use `scene` for 2D scene/game scripts.
+- Use `ui` only for Pythonista-compatible UI scripts.
+- Use iOS native modules only when listed in the native capabilities schema.
+- Do not invent APIs. Do not use tkinter, PyQt, Flask, Streamlit, or browser/server frameworks for Mini Apps or widgets.
+- Output runnable Python code for PythonIDE unless the user asks for explanation only.

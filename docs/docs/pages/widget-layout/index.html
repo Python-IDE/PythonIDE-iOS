@@ -3,8 +3,8 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>布局与尺寸 - PythonIDE Docs</title>
-  <meta name="description" content="row、column、grid、table、canvas 和三尺寸适配。">
+  <title>widget 布局与尺寸 - PythonIDE Docs</title>
+  <meta name="description" content="row/column/grid/table/canvas、family 预算、when/unless 与锁屏 accessory。">
   <link rel="icon" href="../../assets/brand-mark.svg" type="image/svg+xml">
   <link rel="stylesheet" href="../../assets/docs-v2.css">
   <script>window.PYTHONIDE_DOCS_PREFIX = "../../";</script>
@@ -146,7 +146,7 @@
 <summary><a href="../../collections/scene/">scene</a></summary>
 <div class="nav-group">
 <div class="nav-group-title">快速上手</div>
-<a class="nav-link" href="../../pages/scene-module/">scene 概览</a>
+<a class="nav-link" href="../../pages/scene-module/">scene</a>
 <a class="nav-link" href="../../pages/turtle-module/">turtle</a>
 </div>
 <div class="nav-group">
@@ -160,8 +160,16 @@
 <div class="nav-group">
 <div class="nav-group-title">快速上手</div>
 <a class="nav-link" href="../../pages/ios-native/">iOS 原生能力</a>
-<a class="nav-link" href="../../pages/modules-index/">全部模块总览</a>
-<a class="nav-link" href="../../pages/miniapp-native-capabilities/">原生能力入口</a>
+</div>
+<div class="nav-group">
+<div class="nav-group-title">基础与权限</div>
+<a class="nav-link" href="../../pages/permission-module/">permission</a>
+<a class="nav-link" href="../../pages/storage-module/">storage</a>
+<a class="nav-link" href="../../pages/database-module/">database</a>
+<a class="nav-link" href="../../pages/keychain-module/">keychain</a>
+<a class="nav-link" href="../../pages/clipboard-module/">clipboard</a>
+<a class="nav-link" href="../../pages/console-module/">console</a>
+<a class="nav-link" href="../../pages/dialogs-module/">dialogs</a>
 </div>
 <div class="nav-group">
 <div class="nav-group-title">设备与传感器</div>
@@ -173,35 +181,69 @@
 <a class="nav-link" href="../../pages/health-module/">health</a>
 </div>
 <div class="nav-group">
-<div class="nav-group-title">媒体与视觉</div>
-<a class="nav-link" href="../../pages/photos-module/">photos</a>
-<a class="nav-link" href="../../pages/avplayer-module/">avplayer</a>
-<a class="nav-link" href="../../pages/sound-module/">sound</a>
-<a class="nav-link" href="../../pages/speech-module/">speech</a>
-<a class="nav-link" href="../../pages/vision-helper-module/">vision_helper</a>
-<a class="nav-link" href="../../pages/vision-module/">vision</a>
-<a class="nav-link" href="../../pages/coreml-module/">coreml</a>
-</div>
-<div class="nav-group">
-<div class="nav-group-title">网络与数据</div>
-<a class="nav-link" href="../../pages/network-module/">network</a>
-<a class="nav-link" href="../../pages/websocket-module/">websocket</a>
-<a class="nav-link" href="../../pages/bluetooth-module/">bluetooth</a>
-<a class="nav-link" href="../../pages/background-module/">background</a>
-</div>
-<div class="nav-group">
-<div class="nav-group-title">系统服务</div>
-<a class="nav-link" href="../../pages/permission-module/">permission</a>
-<a class="nav-link" href="../../pages/storage-module/">storage</a>
-<a class="nav-link" href="../../pages/database-module/">database</a>
-<a class="nav-link" href="../../pages/keychain-module/">keychain</a>
-<a class="nav-link" href="../../pages/clipboard-module/">clipboard</a>
-<a class="nav-link" href="../../pages/dialogs-module/">dialogs</a>
-<a class="nav-link" href="../../pages/console-module/">console</a>
+<div class="nav-group-title">界面与系统</div>
+<a class="nav-link" href="../../pages/file-picker-module/">file_picker</a>
+<a class="nav-link" href="../../pages/share-module/">share</a>
+<a class="nav-link" href="../../pages/font-picker-module/">font_picker</a>
 <a class="nav-link" href="../../pages/notification-module/">notification</a>
+<a class="nav-link" href="../../pages/live-activity-module/">live_activity</a>
 <a class="nav-link" href="../../pages/contacts-module/">contacts</a>
 <a class="nav-link" href="../../pages/calendar-events-module/">calendar_events</a>
+</div>
+<div class="nav-group">
+<div class="nav-group-title">媒体</div>
+<div class="nav-subgroup-title">采集</div>
+<a class="nav-link" href="../../pages/photos-module/">photos</a>
+<a class="nav-link" href="../../pages/camera-module/">camera</a>
+<a class="nav-link" href="../../pages/video-recorder-module/">video_recorder</a>
+<a class="nav-link" href="../../pages/audio-recorder-module/">audio_recorder</a>
+<div class="nav-subgroup-title">播放</div>
+<a class="nav-link" href="../../pages/sound-module/">sound</a>
+<a class="nav-link" href="../../pages/avplayer-module/">avplayer</a>
+<a class="nav-link" href="../../pages/music-module/">music</a>
+<a class="nav-link" href="../../pages/now-playing-module/">now_playing</a>
+<a class="nav-link" href="../../pages/audio-session-module/">audio_session</a>
+<div class="nav-subgroup-title">语音</div>
+<a class="nav-link" href="../../pages/speech-module/">speech</a>
+<a class="nav-link" href="../../pages/speech-recognition-module/">speech_recognition</a>
+<a class="nav-link" href="../../pages/shazam-module/">shazam</a>
+<div class="nav-subgroup-title">合成</div>
+<a class="nav-link" href="../../pages/media-composer-module/">media_composer</a>
+</div>
+<div class="nav-group">
+<div class="nav-group-title">视觉与文档</div>
+<a class="nav-link" href="../../pages/vision-module/">vision</a>
+<a class="nav-link" href="../../pages/vision-helper-module/">vision_helper</a>
+<a class="nav-link" href="../../pages/coreml-module/">coreml</a>
+<a class="nav-link" href="../../pages/qrcode-module/">qrcode</a>
+<a class="nav-link" href="../../pages/pdf-module/">pdf</a>
+</div>
+<div class="nav-group">
+<div class="nav-group-title">连接与后台</div>
+<div class="nav-subgroup-title">联网</div>
+<a class="nav-link" href="../../pages/network-module/">network</a>
+<a class="nav-link" href="../../pages/websocket-module/">websocket</a>
+<a class="nav-link" href="../../pages/weather-module/">weather</a>
+<div class="nav-subgroup-title">近场</div>
+<a class="nav-link" href="../../pages/bluetooth-module/">bluetooth</a>
+<a class="nav-link" href="../../pages/ble-peripheral-module/">ble_peripheral</a>
+<div class="nav-subgroup-title">后台</div>
+<a class="nav-link" href="../../pages/background-module/">background</a>
+<a class="nav-link" href="../../pages/background-download-module/">background_download</a>
+<div class="nav-subgroup-title">本地服务</div>
+<a class="nav-link" href="../../pages/http-server-module/">http_server</a>
+<a class="nav-link" href="../../pages/ssh-module/">ssh</a>
+</div>
+<div class="nav-group">
+<div class="nav-group-title">通信与智能</div>
+<a class="nav-link" href="../../pages/mail-module/">mail</a>
+<a class="nav-link" href="../../pages/message-module/">message</a>
+<a class="nav-link" href="../../pages/translation-module/">translation</a>
 <a class="nav-link" href="../../pages/nfc-module/">nfc</a>
+<a class="nav-link" href="../../pages/alarm-module/">alarm</a>
+<a class="nav-link" href="../../pages/storekit-module/">storekit</a>
+<a class="nav-link" href="../../pages/foundation-models-module/">foundation_models</a>
+<a class="nav-link" href="../../pages/assistant-module/">assistant</a>
 </div>
 </details>
 <details class="nav-collection">
@@ -214,10 +256,14 @@
 <div class="nav-group">
 <div class="nav-group-title">模块</div>
 <a class="nav-link" href="../../pages/shortcuts-module/">shortcuts</a>
-<a class="nav-link" href="../../pages/live-activity-module/">live_activity</a>
 <a class="nav-link" href="../../pages/keyboard-module/">keyboard</a>
 <a class="nav-link" href="../../pages/objc-util-module/">objc_util</a>
 <a class="nav-link" href="../../pages/c-extensions-module/">c_extensions</a>
+</div>
+<div class="nav-group">
+<div class="nav-group-title">参考</div>
+<a class="nav-link" href="../../pages/modules-index/">全部模块总览</a>
+<a class="nav-link" href="../../pages/miniapp-native-capabilities/">原生能力入口</a>
 </div>
 </details>
 </nav>
@@ -227,145 +273,349 @@
 <article class="article" style="--page-accent:#7c3aed">
   <header class="article-intro">
     <div class="breadcrumb">widget / 小组件</div>
-    <h1>布局与尺寸</h1>
-    <p>row、column、grid、table、canvas 和三尺寸适配。</p>
+    <h1>widget 布局与尺寸</h1>
+    <p>row/column/grid/table/canvas、family 预算、when/unless 与锁屏 accessory。</p>
   </header>
   <div class="markdown-body">
-    <p>小组件布局以 family 为边界。先确认目标尺寸，再决定信息密度；不要把 large 布局直接缩进 small。</p>
-<h2 id="基础布局"><a class="heading-anchor" href="#基础布局">#</a>基础布局</h2>
-<figure class="code-block" data-code-id="76125063c22f">
+    <p>小组件布局以 <strong>WidgetKit family</strong> 为边界：先定目标尺寸与信息密度，再选容器；不要把 large 的内容硬塞进 small。</p>
+<blockquote class="callout note"><strong>边界</strong>：本篇讲 <strong>row/column/grid/table/canvas</strong>、<code>widget.context</code> 与防裁切。桌面点击与 <code>widget.state</code> 见 <a href="../../pages/widget-interaction/">状态和交互</a>；参数面板见 <a href="../../pages/widget-parameters/">参数面板</a>。</blockquote>
+<h2 id="本篇目标"><a class="heading-anchor" href="#本篇目标">#</a>本篇目标</h2>
+<div class="table-scroll"><table><thead><tr><th>项</th><th>说明</th></tr></thead><tbody><tr><td>核心原则</td><td><strong>按 family 设计</strong>，不是把同一套 UI 整体缩小</td></tr><tr><td>容器</td><td><code>row()</code> / <code>column()</code> / <code>grid()</code> / <code>table()</code> / <code>canvas()</code> / <code>layer()</code></td></tr><tr><td>尺寸 API</td><td><code>widget.context</code>、<code>widget.family_value()</code>、<code>w.when()</code> / <code>w.unless()</code></td></tr><tr><td>主屏</td><td><code>small</code> / <code>medium</code> / <code>large</code>（158²、338×158、338×354 内容区）</td></tr><tr><td>锁屏</td><td><code>circular</code> / <code>rectangular</code> / <code>inline</code> — 极简，节点数严格受限</td></tr><tr><td>收尾</td><td>可变文案加 <code>.line_limit(1).min_scale(0.65+)</code></td></tr></tbody></table></div>
+<hr>
+<h2 id="快速开始"><a class="heading-anchor" href="#快速开始">#</a>快速开始</h2>
+<p><code>row()</code> 横排三列指标，<code>column()</code> 在每列里纵向叠标题与数值——适合仪表盘，比单列更省高度。</p>
+<figure class="code-block" data-code-id="a56a1def5ec5">
   <figcaption>
     <span>python</span>
-    <button class="copy-code" type="button" data-copy-code="76125063c22f">复制</button>
+    <button class="copy-code" type="button" data-copy-code="a56a1def5ec5">复制</button>
   </figcaption>
-  <pre><code id="code-76125063c22f" class="language-python">import widget
+  <pre><code id="code-a56a1def5ec5" class="language-python">import widget
 
-w = widget.Widget(background=&quot;#FFFFFF&quot;, padding=16)
-w.text(&quot;今日&quot;, size=18, weight=&quot;semibold&quot;).line_limit(1).min_scale(0.75)
+steps = widget.param.number(&quot;步数&quot;, 8420, min=0, max=50000)
+calories = widget.param.number(&quot;千卡&quot;, 420, min=0, max=5000)
+sleep_h = widget.param.number(&quot;睡眠(h)&quot;, 7, min=0, max=12)
+accent = widget.param.color(&quot;主色&quot;, &quot;#10B981&quot;)
 
-with w.row(spacing=10):
-    w.value(&quot;8&quot;, unit=&quot;完成&quot;).line_limit(1).min_scale(0.72)
-    w.value(&quot;3&quot;, unit=&quot;待办&quot;).line_limit(1).min_scale(0.72)
-
-w.progress(0.72, height=8)
+w = widget.Widget(background=(&quot;#ECFDF5&quot;, &quot;#064E3B&quot;), padding=14)
+w.text(&quot;今日健康&quot;, size=16, weight=&quot;semibold&quot;).line_limit(1)
+with w.row(spacing=12):
+    with w.column(spacing=2):
+        w.text(&quot;步数&quot;, size=11, color=&quot;secondary&quot;).line_limit(1)
+        w.value(steps).monospaced_digit().line_limit(1).min_scale(0.72)
+    with w.column(spacing=2):
+        w.text(&quot;千卡&quot;, size=11, color=&quot;secondary&quot;).line_limit(1)
+        w.value(calories).monospaced_digit().line_limit(1).min_scale(0.72)
+    with w.column(spacing=2):
+        w.text(&quot;睡眠&quot;, size=11, color=&quot;secondary&quot;).line_limit(1)
+        (
+            w.value(sleep_h, unit=&quot;h&quot;)
+            .monospaced_digit()
+            .line_limit(1)
+            .min_scale(0.72)
+        )
+w.rect(color=accent, height=3, corner_radius=2)
 w.render()</code></pre>
 </figure>
-<p>预期效果：medium 尺寸显示一行两个数值和一条进度条；每个数值单元保持单行并可缩放。</p>
-<p>常用容器：</p>
-<div class="table-scroll"><table><thead><tr><th>API</th><th>用途</th></tr></thead><tbody><tr><td><code>row()</code></td><td>横向排列</td></tr><tr><td><code>column()</code></td><td>纵向排列</td></tr><tr><td><code>layer()</code></td><td>叠放</td></tr><tr><td><code>grid()</code></td><td>等列网格</td></tr><tr><td><code>table()</code></td><td>精确表格线</td></tr><tr><td><code>canvas()</code></td><td>点坐标绘制</td></tr></tbody></table></div>
-<h2 id="三尺寸适配"><a class="heading-anchor" href="#三尺寸适配">#</a>三尺寸适配</h2>
-<figure class="code-block" data-code-id="fdd8ab189258">
+<p>要点：</p>
+<ul><li>容器必须用 <strong><code>with w.row():</code> / <code>with w.column():</code></strong> 上下文管理器，不要把子节点当位置参数传入。</li><li><code>spacing=</code> 控制子项间距；<code>align=</code> 可选 <code>leading</code> / <code>center</code> / <code>trailing</code>。</li><li>预览右上角切换 family，确认三列在 <strong>small</strong> 仍可读。</li></ul>
+<hr>
+<h2 id="心智模型"><a class="heading-anchor" href="#心智模型">#</a>心智模型</h2>
+<figure class="code-block" data-code-id="9261cef9ee13">
+  <figcaption>
+    <span>text</span>
+    <button class="copy-code" type="button" data-copy-code="9261cef9ee13">复制</button>
+  </figcaption>
+  <pre><code id="code-9261cef9ee13" class="language-text">选定 family（small / medium / large / 锁屏 accessory）
+        ↓
+读 widget.context → content_width × content_height（扣掉 padding 后的可画区域）
+        ↓
+决定信息层级：标题 → 主值 → 次要说明 → 图表/表格
+        ↓
+选容器：语义流式用 row/column/grid；精确格子用 table；点位绘制用 canvas
+        ↓
+防裁切：line_limit + min_scale；small 隐藏次要行</code></pre>
+</figure>
+<h3 id="内容区预算-点"><a class="heading-anchor" href="#内容区预算-点">#</a>内容区预算（点）</h3>
+<p>以下为默认 padding 下的<strong>内容区</strong>宽高，脚本里用 <code>widget.context</code> 或 <code>w.context</code> 读取（<strong>属性，不可调用</strong>；不要写 <code>widget.context()</code>）：</p>
+<div class="table-scroll"><table><thead><tr><th>Family</th><th>约 content 宽 × 高</th><th>设计建议</th></tr></thead><tbody><tr><td><code>small</code></td><td>158 × 158</td><td>标题 + 1 主值 + 1 视觉元素</td></tr><tr><td><code>medium</code></td><td>338 × 158</td><td>默认主力版；可横排 2–3 列</td></tr><tr><td><code>large</code></td><td>338 × 354</td><td>可加第二段：图表、表格、说明行</td></tr><tr><td><code>circular</code></td><td>64 × 64</td><td>SF Symbol + 极短数字/缩写</td></tr><tr><td><code>rectangular</code></td><td>160 × 56</td><td>一行或图标+一行字</td></tr><tr><td><code>inline</code></td><td>220 × 22</td><td>单行文字，无图表/表格</td></tr></tbody></table></div>
+<p>常量：<code>widget.SMALL</code>、<code>widget.MEDIUM</code>、<code>widget.LARGE</code>、<code>widget.CIRCULAR</code>、<code>widget.RECTANGULAR</code>、<code>widget.INLINE</code>。</p>
+<h3 id="容器怎么选"><a class="heading-anchor" href="#容器怎么选">#</a>容器怎么选</h3>
+<div class="table-scroll"><table><thead><tr><th>API</th><th>底层</th><th>适合</th></tr></thead><tbody><tr><td><code>row(spacing=, align=)</code></td><td>横向栈</td><td>多指标横排、按钮组</td></tr><tr><td><code>column(spacing=, align=)</code></td><td>纵向栈</td><td>表单式上下结构</td></tr><tr><td><code>layer(align=)</code></td><td>叠放</td><td>背景块上叠文字/图标</td></tr><tr><td><code>grid(columns=, spacing=, equal=)</code></td><td>等列网格</td><td>周历、四宫格摘要</td></tr><tr><td><code>table(rows, columns)</code></td><td>单路径表格线</td><td>Bingo、日历格、精确分割线</td></tr><tr><td><code>canvas(fill=, coordinate_space=)</code></td><td>点位坐标</td><td>表盘、键盘、自定义图形</td></tr></tbody></table></div>
+<p>日常卡片优先 <strong>row / column</strong>；需要<strong>不重叠的细表格线</strong>用 <code>table()</code>，不要用多个 <code>rect</code> 拼边框（线宽会叠粗、交点发圆）。</p>
+<hr>
+<h2 id="布局示例"><a class="heading-anchor" href="#布局示例">#</a>布局示例</h2>
+<h3 id="三尺寸信息密度-is_family-分支"><a class="heading-anchor" href="#三尺寸信息密度-is_family-分支">#</a>三尺寸信息密度（<code>is_family</code> 分支）</h3>
+<p>同一脚本为 small 只保留单号+状态，medium 加图标行，large 再补预计送达。</p>
+<figure class="code-block" data-code-id="28a7a3607ab2">
   <figcaption>
     <span>python</span>
-    <button class="copy-code" type="button" data-copy-code="fdd8ab189258">复制</button>
+    <button class="copy-code" type="button" data-copy-code="28a7a3607ab2">复制</button>
   </figcaption>
-  <pre><code id="code-fdd8ab189258" class="language-python">import widget
+  <pre><code id="code-28a7a3607ab2" class="language-python">import widget
 
-w = widget.Widget(background=&quot;#F8FAFC&quot;, padding=12)
-ctx = w.context
+tracking = widget.param.text(&quot;单号&quot;, &quot;SF1234567890&quot;)
+status = widget.param.text(&quot;状态&quot;, &quot;运输中&quot;)
+eta = widget.param.text(&quot;预计&quot;, &quot;明天 18:00&quot;)
+accent = widget.param.color(&quot;主色&quot;, &quot;#F59E0B&quot;)
+ctx = widget.context
+pad = widget.family_value(14, small=10, large=16)
+
+w = widget.Widget(background=(&quot;#FFFBEB&quot;, &quot;#292524&quot;), padding=pad)
 
 if ctx.is_family(&quot;small&quot;):
-    w.text(&quot;今日&quot;, size=15, weight=&quot;semibold&quot;).line_limit(1).min_scale(0.75)
-    w.value(&quot;8&quot;, unit=&quot;项&quot;).line_limit(1).min_scale(0.72)
+    w.text(&quot;快递&quot;, size=14, weight=&quot;semibold&quot;, color=accent).line_limit(1)
+    w.text(tracking, size=12).line_limit(1).min_scale(0.6)
+    w.text(status, size=11, color=&quot;secondary&quot;).line_limit(1).min_scale(0.72)
 else:
-    with w.row(spacing=10):
-        w.value(&quot;8&quot;, unit=&quot;完成&quot;).line_limit(1).min_scale(0.72)
-        w.value(&quot;3&quot;, unit=&quot;待办&quot;).line_limit(1).min_scale(0.72)
-    w.progress(0.72, height=8)
+    w.text(&quot;快递追踪&quot;, size=16, weight=&quot;semibold&quot;).line_limit(1)
+    w.text(tracking, size=12, color=&quot;secondary&quot;).line_limit(1).min_scale(0.65)
+    with w.row(spacing=8):
+        w.symbol(&quot;shippingbox.fill&quot;).color(accent).font_size(16)
+        w.text(status, size=14, weight=&quot;semibold&quot;).line_limit(1).min_scale(0.72)
+    if ctx.is_family(&quot;large&quot;):
+        w.text(f&quot;预计送达 {eta}&quot;, size=12, color=&quot;secondary&quot;).line_limit(1)
+    else:
+        w.text(f&quot;预计 {eta}&quot;, size=12, color=&quot;secondary&quot;).line_limit(1).min_scale(0.72)
 
 w.render()</code></pre>
 </figure>
-<p>预期效果：small 尺寸只显示标题和主值；medium/large 尺寸显示两个数值和进度条。</p>
-<p>只切换一个值时，用 <code>family_value()</code>：</p>
-<figure class="code-block" data-code-id="af21bc860d20">
+<ul><li><code>ctx.is_family(&quot;small&quot;)</code> 等价于 <code>ctx.is_family(widget.SMALL)</code>。</li><li>长单号在 small 必须 <code>.min_scale(0.6)</code> 或缩短显示字段。</li></ul>
+<h3 id="family_value-与-w.when-large"><a class="heading-anchor" href="#family_value-与-w.when-large">#</a><code>family_value</code> 与 <code>w.when(&quot;large&quot;)</code></h3>
+<p>只改字号/边距用 <code>family_value</code>；<strong>整段 UI 仅 large 出现</strong>时用 <code>w.when</code>。</p>
+<figure class="code-block" data-code-id="93a4294b7773">
   <figcaption>
     <span>python</span>
-    <button class="copy-code" type="button" data-copy-code="af21bc860d20">复制</button>
+    <button class="copy-code" type="button" data-copy-code="93a4294b7773">复制</button>
   </figcaption>
-  <pre><code id="code-af21bc860d20" class="language-python">import widget
+  <pre><code id="code-93a4294b7773" class="language-python">import widget
 
-title_size = widget.family_value(18, small=15, large=22)
-padding = widget.family_value(14, small=10, large=20)
+show = widget.param.text(&quot;节目&quot;, &quot;心灵马杀鸡&quot;)
+episode = widget.param.text(&quot;集数&quot;, &quot;第 128 期&quot;)
+progress = widget.param.slider(&quot;进度&quot;, 0.42, min=0, max=1, step=0.01)
+accent = widget.param.color(&quot;主色&quot;, &quot;#8B5CF6&quot;)
 
-w = widget.Widget(background=&quot;#FFFFFF&quot;, padding=padding)
-w.text(&quot;小组件&quot;, size=title_size, weight=&quot;bold&quot;).line_limit(1).min_scale(0.72)
-w.render()</code></pre>
-</figure>
-<p>预期效果：不同 family 使用不同字号和边距，标题保持单行。</p>
-<h2 id="精确尺寸上下文"><a class="heading-anchor" href="#精确尺寸上下文">#</a>精确尺寸上下文</h2>
-<p>需要自己算格子、键盘、表盘时读取画布上下文：</p>
-<figure class="code-block" data-code-id="fe034b196373">
-  <figcaption>
-    <span>python</span>
-    <button class="copy-code" type="button" data-copy-code="fe034b196373">复制</button>
-  </figcaption>
-  <pre><code id="code-fe034b196373" class="language-python">import widget
+title_size = widget.family_value(16, small=14, large=18)
+bar_h = widget.family_value(6, small=5, large=8)
+pad = widget.family_value(14, small=10, large=16)
 
-w = widget.Widget(background=&quot;#FFFFFF&quot;, padding=0)
-ctx = w.context
-width = ctx.width
-height = ctx.height
+w = widget.Widget(background=(&quot;#FAF5FF&quot;, &quot;#1E1B4B&quot;), padding=pad)
+w.text(show, size=title_size, weight=&quot;semibold&quot;).line_limit(1).min_scale(0.72)
+w.text(episode, size=12, color=&quot;secondary&quot;).line_limit(1).min_scale(0.72)
+w.progress(float(progress), total=1, color=accent, height=bar_h)
 
-with w.canvas(fill=True, coordinate_space=&quot;points&quot;) as c:
-    c.rect(color=&quot;#EEF2F7&quot;, width=width, height=height).place(
-        width / 2,
-        height / 2,
-        unit=&quot;points&quot;,
-    )
-    (
-        c.text(f&quot;{int(width)} × {int(height)}&quot;, size=16, weight=&quot;semibold&quot;)
-        .line_limit(1)
-        .min_scale(0.72)
-        .place(width / 2, height / 2, unit=&quot;points&quot;)
-    )
+with w.when(&quot;large&quot;, layout=&quot;column&quot;):
+    w.text(&quot;继续收听 →&quot;, size=12, color=accent).line_limit(1)
 
 w.render()</code></pre>
 </figure>
-<p>预期效果：画布背景铺满当前 family，并在中心显示实际点尺寸。</p>
-<h2 id="表格线"><a class="heading-anchor" href="#表格线">#</a>表格线</h2>
-<p>表格、Bingo、日历这类作品优先用 <code>table()</code>，不要用一堆粗矩形硬拼线。</p>
-<figure class="code-block" data-code-id="c4f196fcfdc6">
+<ul><li><code>w.when(&quot;large&quot;, layout=&quot;column&quot;)</code>：仅 large 渲染块内子节点；<code>layout</code> 还可为 <code>&quot;row&quot;</code> / <code>&quot;layer&quot;</code>。</li><li><code>w.unless(&quot;small&quot;)</code>：除 small 外都显示，适合「medium/large 才显示的脚注」。</li></ul>
+<h3 id="grid-周历打卡"><a class="heading-anchor" href="#grid-周历打卡">#</a><code>grid</code> 周历打卡</h3>
+<p><code>grid(columns=7)</code> 按子节点顺序从左到右、从上到下填格；<code>equal=True</code> 等宽列。</p>
+<figure class="code-block" data-code-id="d132f8afd8cf">
   <figcaption>
     <span>python</span>
-    <button class="copy-code" type="button" data-copy-code="c4f196fcfdc6">复制</button>
+    <button class="copy-code" type="button" data-copy-code="d132f8afd8cf">复制</button>
   </figcaption>
-  <pre><code id="code-c4f196fcfdc6" class="language-python">import widget
+  <pre><code id="code-d132f8afd8cf" class="language-python">import widget
+
+days = [&quot;一&quot;, &quot;二&quot;, &quot;三&quot;, &quot;四&quot;, &quot;五&quot;, &quot;六&quot;, &quot;日&quot;]
+plan = widget.param.choice(&quot;打卡计划&quot;, [&quot;一三五&quot;, &quot;天天练&quot;, &quot;周末&quot;], default=&quot;一三五&quot;)
+accent = widget.param.color(&quot;打卡色&quot;, &quot;#EF4444&quot;)
+
+active_sets = {
+    &quot;一三五&quot;: {0, 2, 4},
+    &quot;天天练&quot;: set(range(7)),
+    &quot;周末&quot;: {5, 6},
+}
+active = active_sets[str(plan)]
+
+w = widget.Widget(background=(&quot;#FFFFFF&quot;, &quot;#1C1C1E&quot;), padding=12)
+w.text(&quot;本周训练&quot;, size=15, weight=&quot;semibold&quot;).line_limit(1)
+with w.grid(columns=7, spacing=4, equal=True):
+    for i, day in enumerate(days):
+        mark = &quot;●&quot; if i in active else &quot;○&quot;
+        (
+            w.text(day + mark, size=10, color=accent if i in active else &quot;secondary&quot;)
+            .line_limit(1)
+            .min_scale(0.55)
+            .align(&quot;center&quot;)
+        )
+w.render()</code></pre>
+</figure>
+<h3 id="table-九宫格-bingo"><a class="heading-anchor" href="#table-九宫格-bingo">#</a><code>table</code> 九宫格（Bingo）</h3>
+<p>习惯打卡的<strong>纵向列表</strong>见 <a href="../../pages/widget-interaction/">状态和交互</a>；需要<strong>可见格线</strong>时用 <code>table()</code> + <code>table.cell(row, col)</code>。</p>
+<figure class="code-block" data-code-id="edb9bb0d9a08">
+  <figcaption>
+    <span>python</span>
+    <button class="copy-code" type="button" data-copy-code="edb9bb0d9a08">复制</button>
+  </figcaption>
+  <pre><code id="code-edb9bb0d9a08" class="language-python">import widget
 
 items = [&quot;喝水&quot;, &quot;散步&quot;, &quot;整理&quot;, &quot;阅读&quot;, &quot;计划&quot;, &quot;备份&quot;, &quot;写作&quot;, &quot;放松&quot;, &quot;复盘&quot;]
-done = widget.state.list(&quot;done&quot;, [])
+done = widget.state.list(&quot;bingo_done&quot;, [])
+accent = widget.param.color(&quot;完成色&quot;, &quot;#4F9A48&quot;)
 
 w = widget.Widget(background=(&quot;#FBFAF5&quot;, &quot;#141414&quot;), padding=10)
-w.text(&quot;今日九宫格&quot;, size=18, weight=&quot;bold&quot;).line_limit(1).min_scale(0.72).align(&quot;center&quot;)
+w.text(&quot;今日九宫格&quot;, size=17, weight=&quot;bold&quot;).line_limit(1).min_scale(0.72).align(&quot;center&quot;)
 
-with w.table(rows=3, columns=3, line_color=&quot;#4F9A48&quot;, line_width=&quot;hairline&quot;, fill=True) as table:
+with w.table(rows=3, columns=3, line_color=accent, line_width=&quot;hairline&quot;, fill=True) as table:
     for i, label in enumerate(items):
-        active = done.contains(i)
+        checked = done.contains(i)
         with table.cell(i // 3, i % 3):
-            w.button(
-                &quot;✓ &quot; + label if active else label,
-                action=done.toggle_item(i),
-                style=&quot;plain&quot;,
-                color=&quot;#242326&quot;,
-                size=13,
-                press={&quot;scale&quot;: 0.94},
-                normal={&quot;scale&quot;: 1},
-            ).line_limit(1).min_scale(0.6).align(&quot;center&quot;)
+            (
+                w.button(
+                    (&quot;✓ &quot; if checked else &quot;&quot;) + label,
+                    action=done.toggle_item(i),
+                    style=&quot;plain&quot;,
+                    color=accent if checked else &quot;#242326&quot;,
+                    size=12,
+                    press={&quot;scale&quot;: 0.94},
+                    normal={&quot;scale&quot;: 1},
+                )
+                .line_limit(1)
+                .min_scale(0.55)
+                .align(&quot;center&quot;)
+            )
 
 w.render()</code></pre>
 </figure>
-<p>预期效果：九宫格使用细线表格，按钮文字在每个格子内居中并保持单行。</p>
 <p>表格线建议：</p>
-<ul><li><code>line_width=&quot;hairline&quot;</code>：像素级细线。</li><li><code>line_cap=&quot;butt&quot;</code>：端点不变圆。</li><li><code>line_join=&quot;miter&quot;</code>：交点保持直角。</li></ul>
-<h2 id="失败路径"><a class="heading-anchor" href="#失败路径">#</a>失败路径</h2>
-<ul><li>small 里文字被裁切：只保留标题、主值和一个视觉元素，并给长文本加 <code>.line_limit(1).min_scale(0.6)</code>。</li><li>medium 正常但 large 太空：用 <code>w.when(&quot;large&quot;)</code> 或 <code>widget.family_value(...)</code> 增加额外行、图表或表格内容。</li><li>表格线发粗或交点圆：优先调 <code>line_width=&quot;hairline&quot;</code>、<code>line_cap=&quot;butt&quot;</code>、<code>line_join=&quot;miter&quot;</code>，不要用矩形拼线。</li><li>canvas 内容跑出边界：读取 <code>w.context.content_width</code> 和 <code>w.context.content_height</code>，按点位计算后再 <code>.place(...)</code>。</li></ul>
+<ul><li><code>line_width=&quot;hairline&quot;</code>：最细像素线。</li><li><code>line_cap=&quot;butt&quot;</code>、<code>line_join=&quot;miter&quot;</code>：端点不圆、交点直角。</li><li>格内文字 <code>.min_scale(0.55)</code>，避免 small 格子裁切。</li></ul>
+<h3 id="canvas-读取可画区域"><a class="heading-anchor" href="#canvas-读取可画区域">#</a><code>canvas</code> 读取可画区域</h3>
+<p>需要按<strong>点坐标</strong>摆放（表盘刻度、自定义键盘）时，先读 <code>content_width</code> / <code>content_height</code>，再 <code>.place()</code>。</p>
+<figure class="code-block" data-code-id="218240afba85">
+  <figcaption>
+    <span>python</span>
+    <button class="copy-code" type="button" data-copy-code="218240afba85">复制</button>
+  </figcaption>
+  <pre><code id="code-218240afba85" class="language-python">import widget
+
+w = widget.Widget(background=&quot;#FFFFFF&quot;, padding=12)
+ctx = widget.context
+cw = ctx.content_width
+ch = ctx.content_height
+
+with w.canvas(fill=True, coordinate_space=&quot;points&quot;) as c:
+    c.rect(color=&quot;#EEF2F7&quot;, width=cw, height=ch).place(cw / 2, ch / 2, unit=&quot;points&quot;)
+    (
+        c.text(f&quot;{int(cw)} × {int(ch)} pt&quot;, size=14, weight=&quot;semibold&quot;)
+        .line_limit(1)
+        .min_scale(0.72)
+        .place(cw / 2, ch / 2, unit=&quot;points&quot;)
+    )
+    (
+        c.text(ctx.family, size=11, color=&quot;secondary&quot;)
+        .line_limit(1)
+        .place(cw / 2, ch / 2 + 16, unit=&quot;points&quot;)
+    )
+
+w.render()</code></pre>
+</figure>
+<ul><li><code>ctx.width</code> / <code>ctx.height</code> 含 padding 前预算；<strong>摆放内容用 <code>content_*</code></strong>。</li><li><code>coordinate_space=&quot;points&quot;</code>：<code>.place(x, y, unit=&quot;points&quot;)</code> 以画布左上为原点。</li></ul>
+<h3 id="锁屏-accessory-精简版"><a class="heading-anchor" href="#锁屏-accessory-精简版">#</a>锁屏 accessory 精简版</h3>
+<p>锁屏圆形/矩形/行内节点上限低（见上表）；按 family <strong>分别写布局</strong>，不要复用 medium 整块 UI。</p>
+<figure class="code-block" data-code-id="8af3644b2461">
+  <figcaption>
+    <span>python</span>
+    <button class="copy-code" type="button" data-copy-code="8af3644b2461">复制</button>
+  </figcaption>
+  <pre><code id="code-8af3644b2461" class="language-python">import widget
+
+steps = widget.state.int(&quot;steps&quot;, 6234)
+accent = widget.param.color(&quot;主色&quot;, &quot;#34D399&quot;)
+ctx = widget.context
+
+w = widget.Widget(background=(&quot;#F0FDF4&quot;, &quot;#14532D&quot;), padding=widget.family_value(8, circular=0, rectangular=4, inline=0))
+
+if ctx.is_family(&quot;circular&quot;):
+    w.symbol(&quot;figure.walk&quot;).color(accent).font_size(14)
+    w.text(str(int(steps) // 1000) + &quot;k&quot;, size=11, weight=&quot;bold&quot;).line_limit(1).min_scale(0.6)
+elif ctx.is_family(&quot;rectangular&quot;):
+    with w.row(spacing=6):
+        w.symbol(&quot;figure.walk&quot;).color(accent).font_size(14)
+        (
+            w.value(steps, unit=&quot;步&quot;)
+            .monospaced_digit()
+            .line_limit(1)
+            .min_scale(0.65)
+        )
+elif ctx.is_family(&quot;inline&quot;):
+    w.text(f&quot;今日 {int(steps)} 步&quot;, size=12).line_limit(1).min_scale(0.72)
+else:
+    w.text(&quot;请切换到锁屏 accessory 预览&quot;, size=13, color=&quot;secondary&quot;).line_limit(2).min_scale(0.7)
+
+w.render()</code></pre>
+</figure>
+<p>预览里选 <strong>circular / rectangular / inline</strong> 查看效果；发布后在锁屏编辑界面单独添加（见 <a href="../../pages/widget-quickstart-publish/">从脚本到桌面</a>）。</p>
+<hr>
+<h2 id="防裁切清单"><a class="heading-anchor" href="#防裁切清单">#</a>防裁切清单</h2>
+<div class="table-scroll"><table><thead><tr><th>手段</th><th>用法</th></tr></thead><tbody><tr><td>单行 + 缩放</td><td><code>.line_limit(1).min_scale(0.65)</code>（small 可降到 <code>0.55</code>）</td></tr><tr><td>等宽数字</td><td><code>.monospaced_digit()</code> 避免数字跳动挤版</td></tr><tr><td>按 family 藏行</td><td><code>if not ctx.is_family(&quot;small&quot;): w.text(...)</code></td></tr><tr><td>按 family 改字号</td><td><code>widget.family_value(16, small=14, large=18)</code></td></tr><tr><td>按 family 改边距</td><td><code>padding=widget.family_value(14, small=10, large=18)</code></td></tr><tr><td>large 填空白</td><td><code>w.when(&quot;large&quot;)</code> 增加图表、说明、第二表格</td></tr><tr><td>格内文字</td><td>表格/Bingo <code>.min_scale(0.55)</code> + <code>.align(&quot;center&quot;)</code></td></tr></tbody></table></div>
+<hr>
 <h2 id="api-参考"><a class="heading-anchor" href="#api-参考">#</a>API 参考</h2>
-<p>布局相关完整签名见 <a href="../../pages/widget-api-reference/">API 参考</a>：重点查 <code>row</code>、<code>column</code>、<code>grid</code>、<code>table</code>、<code>canvas</code>、<code>when</code>、<code>unless</code>、<code>family_value</code> 和 <code>.place()</code>。</p>
+<h3 id="widget.context"><a class="heading-anchor" href="#widget.context">#</a><code>widget.context</code></h3>
+<figure class="code-block" data-code-id="d70fdd8380eb">
+  <figcaption>
+    <span>python</span>
+    <button class="copy-code" type="button" data-copy-code="d70fdd8380eb">复制</button>
+  </figcaption>
+  <pre><code id="code-d70fdd8380eb" class="language-python">ctx = widget.context          # 或 w.context（绑定 Widget padding）
+ctx.family                    # &quot;small&quot; | &quot;medium&quot; | &quot;large&quot; | ...
+ctx.width / ctx.height        # family 预算（点）
+ctx.content_width             # 扣 padding 后可画宽
+ctx.content_height            # 扣 padding 后可画高
+ctx.is_family(&quot;small&quot;, &quot;medium&quot;)
+ctx.value(default, small=..., large=...)  # 同 family_value，读当前 family</code></pre>
+</figure>
+<h3 id="widget.family_value"><a class="heading-anchor" href="#widget.family_value">#</a><code>widget.family_value</code></h3>
+<figure class="code-block" data-code-id="3c8500dd8428">
+  <figcaption>
+    <span>python</span>
+    <button class="copy-code" type="button" data-copy-code="3c8500dd8428">复制</button>
+  </figcaption>
+  <pre><code id="code-3c8500dd8428" class="language-python">size = widget.family_value(16, small=14, medium=16, large=20)
+pad = widget.family_value(14, small=10, rectangular=6, circular=4, inline=0)</code></pre>
+</figure>
+<h3 id="容器上下文管理器"><a class="heading-anchor" href="#容器上下文管理器">#</a>容器上下文管理器</h3>
+<figure class="code-block" data-code-id="e983519ddda8">
+  <figcaption>
+    <span>python</span>
+    <button class="copy-code" type="button" data-copy-code="e983519ddda8">复制</button>
+  </figcaption>
+  <pre><code id="code-e983519ddda8" class="language-python">with w.row(spacing=10, align=&quot;center&quot;):
+    w.symbol(&quot;star.fill&quot;).color(&quot;#F59E0B&quot;)
+    w.text(&quot;标题&quot;)
+
+with w.column(spacing=4, align=&quot;leading&quot;):
+    w.text(&quot;副标题&quot;, size=12, color=&quot;secondary&quot;)
+
+with w.layer(align=&quot;center&quot;, background=&quot;#EEF2F7&quot;, corner_radius=8):
+    w.text(&quot;叠放&quot;)
+
+with w.grid(columns=2, spacing=8, equal=True):
+    w.text(&quot;A&quot;)
+    w.text(&quot;B&quot;)
+
+with w.when(&quot;large&quot;, layout=&quot;column&quot;):
+    w.line_chart([1, 3, 2, 5])</code></pre>
+</figure>
+<p>完整签名见 <a href="../../pages/widget-api-reference/">API 参考</a>：<code>row</code>、<code>column</code>、<code>grid</code>、<code>table</code>、<code>canvas</code>、<code>when</code>、<code>unless</code>、<code>family_value</code>、<code>.place()</code>、<code>.align()</code>。</p>
+<hr>
+<h2 id="常见错误"><a class="heading-anchor" href="#常见错误">#</a>常见错误</h2>
+<div class="table-scroll"><table><thead><tr><th>错误写法</th><th>后果</th><th>修正</th></tr></thead><tbody><tr><td><code>w.row(w.text(...), spacing=8)</code></td><td>子节点不进容器</td><td><code>with w.row():</code> 块内添加</td></tr><tr><td>large 布局原样给 small</td><td>文字裁切、按钮重叠</td><td><code>is_family</code> / <code>family_value</code> 分支</td></tr><tr><td>多个 <code>rect</code> 拼表格线</td><td>线粗、交点圆</td><td>用 <code>w.table(...)</code></td></tr><tr><td>锁屏用 medium 整块 UI</td><td>构建警告或裁切</td><td>circular/rectangular/inline 单独写</td></tr><tr><td>canvas 用 <code>width</code> 当边界</td><td>内容溢出 padding</td><td>用 <code>content_width</code> / <code>content_height</code></td></tr><tr><td>忘记 <code>line_limit</code></td><td>多行撑破高度</td><td>可变文案 <code>.line_limit(1).min_scale(...)</code></td></tr><tr><td><code>grid</code> 子节点过多</td><td>挤到下一行难控</td><td>控制列数与单元内容极简</td></tr><tr><td><code>widget.context()</code> / <code>w.context()</code></td><td><code>TypeError: not callable</code></td><td>用 <code>ctx = widget.context</code> 或 <code>w.context</code></td></tr></tbody></table></div>
+<h3 id="按钮按压样式"><a class="heading-anchor" href="#按钮按压样式">#</a>按钮按压样式</h3>
+<p><code>press={&quot;scale&quot;: 0.94}</code> 写在 <code>w.button(...)</code> 参数里；<code>.pressed(scale=0.94)</code> 是链式修饰符，二者等价。交互示例见 <a href="../../pages/widget-interaction/#快速开始">状态和交互</a>。</p>
+<hr>
+<h2 id="失败路径"><a class="heading-anchor" href="#失败路径">#</a>失败路径</h2>
+<div class="table-scroll"><table><thead><tr><th>现象</th><th>处理</th></tr></thead><tbody><tr><td>small 文字被裁切</td><td>减行数；<code>min_scale</code> 降到 0.55–0.65；隐藏次要 <code>text</code></td></tr><tr><td>medium 正常、large 空</td><td><code>w.when(&quot;large&quot;)</code> 加图表/说明；勿只放大字号</td></tr><tr><td>表格线发粗/交点圆</td><td><code>line_width=&quot;hairline&quot;</code>、<code>line_cap=&quot;butt&quot;</code>、<code>line_join=&quot;miter&quot;</code></td></tr><tr><td>canvas 元素跑出边界</td><td>改用 <code>content_*</code> 算坐标；<code>fill=True</code> 铺满可画区</td></tr><tr><td>锁屏 accessory 空白</td><td>预览切换到 circular/rectangular/inline；检查是否走了 <code>else</code> 占位分支</td></tr><tr><td>row 里列挤成一团</td><td>增大 <code>spacing</code>；减少列数；small 改单列 <code>column</code></td></tr><tr><td>预览与桌面布局不一致</td><td>两端的 family 要一致；查 <a href="../../pages/widget-troubleshooting/">排错</a></td></tr></tbody></table></div>
+<hr>
+<h2 id="相关文档"><a class="heading-anchor" href="#相关文档">#</a>相关文档</h2>
+<div class="table-scroll"><table><thead><tr><th>文档</th><th>用途</th></tr></thead><tbody><tr><td><a href="../../pages/widget-module/">widget 概览</a></td><td>总览与入门</td></tr><tr><td><a href="../../pages/widget-parameters/">参数面板</a></td><td><code>widget.param</code> 与布局配色</td></tr><tr><td><a href="../../pages/widget-interaction/">状态和交互</a></td><td>表格格内 <code>toggle_item</code>、按钮</td></tr><tr><td><a href="../../pages/widget-quickstart-publish/">从脚本到桌面</a></td><td>锁屏 accessory 添加步骤</td></tr><tr><td><a href="../../pages/widget-timeline/">时间线和动画</a></td><td>数字过渡、flip 动画</td></tr><tr><td><a href="../../pages/widget-appearance-assets/">资源与外观</a></td><td>背景、渐变、图片</td></tr><tr><td><a href="../../pages/widget-troubleshooting/">排错</a></td><td>裁切与预览不一致</td></tr><tr><td><a href="../../pages/widget-api-reference/">API 参考</a></td><td>布局节点完整签名</td></tr></tbody></table></div>
   </div>
-  <section class="related-section"><h2>相关文档</h2><div class="related-list"><a class="related-link" href="../widget-module/"><strong>widget</strong><span>用 Python 编写主屏、锁屏和 StandBy 小组件。</span></a><a class="related-link" href="../widget-parameters/"><strong>widget 参数面板</strong><span>让用户在预览面板调颜色、字号、开关、选项和文件。</span></a><a class="related-link" href="../widget-interaction/"><strong>widget 状态和交互</strong><span>AppIntent 按钮、Toggle、链接和 widget.state。</span></a></div></section>
+  <section class="related-section"><h2>相关文档</h2><div class="related-list"><a class="related-link" href="../widget-module/"><strong>widget</strong><span>Python 编写 WidgetKit 小组件：参数、状态、布局与发布到桌面。</span></a><a class="related-link" href="../widget-parameters/"><strong>widget 参数面板</strong><span>widget.param 声明预览可调配置，与 widget.state 桌面交互区分。</span></a><a class="related-link" href="../widget-interaction/"><strong>widget 状态和交互</strong><span>widget.state、按钮 ±、习惯清单、开关与链接；AppIntent 桌面交互。</span></a><a class="related-link" href="../widget-quickstart-publish/"><strong>widget 从脚本到桌面</strong><span>Widget Studio 预览、发布、系统添加主屏小组件与桌面验证。</span></a><a class="related-link" href="../widget-troubleshooting/"><strong>widget 排错</strong><span>基线排查、预览≠桌面、裁切/点击/动画、w.validate 诊断。</span></a><a class="related-link" href="../widget-api-reference/"><strong>widget API 参考</strong><span>公开 Widget() API 速查。</span></a></div></section>
 </article>
 
     </main>
-    <aside class="toc"><div class="toc-title">本页目录</div><a class="toc-link" href="#基础布局">基础布局</a><a class="toc-link" href="#三尺寸适配">三尺寸适配</a><a class="toc-link" href="#精确尺寸上下文">精确尺寸上下文</a><a class="toc-link" href="#表格线">表格线</a><a class="toc-link" href="#失败路径">失败路径</a><a class="toc-link" href="#api-参考">API 参考</a></aside>
+    <aside class="toc"><div class="toc-title">本页目录</div><a class="toc-link" href="#本篇目标">本篇目标</a><a class="toc-link" href="#快速开始">快速开始</a><a class="toc-link" href="#心智模型">心智模型</a><a class="toc-link child" href="#内容区预算-点">内容区预算（点）</a><a class="toc-link child" href="#容器怎么选">容器怎么选</a><a class="toc-link" href="#布局示例">布局示例</a><a class="toc-link child" href="#三尺寸信息密度-is_family-分支">三尺寸信息密度（is_family 分支）</a><a class="toc-link child" href="#family_value-与-w.when-large">family_value 与 w.when(&quot;large&quot;)</a><a class="toc-link child" href="#grid-周历打卡">grid 周历打卡</a><a class="toc-link child" href="#table-九宫格-bingo">table 九宫格（Bingo）</a><a class="toc-link child" href="#canvas-读取可画区域">canvas 读取可画区域</a><a class="toc-link child" href="#锁屏-accessory-精简版">锁屏 accessory 精简版</a><a class="toc-link" href="#防裁切清单">防裁切清单</a><a class="toc-link" href="#api-参考">API 参考</a><a class="toc-link child" href="#widget.context">widget.context</a><a class="toc-link child" href="#widget.family_value">widget.family_value</a><a class="toc-link child" href="#容器上下文管理器">容器上下文管理器</a><a class="toc-link" href="#常见错误">常见错误</a><a class="toc-link child" href="#按钮按压样式">按钮按压样式</a><a class="toc-link" href="#失败路径">失败路径</a><a class="toc-link" href="#相关文档">相关文档</a></aside>
   </div>
   <div class="mobile-backdrop"></div>
   <div class="search-panel" role="dialog" aria-modal="true" aria-label="搜索">

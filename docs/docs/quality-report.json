@@ -1,0 +1,7 @@
+{
+  "generated_pages": 149,
+  "document_items": 142,
+  "findings": [
+    "widget-module: contains public-blocked term '公开入口'"
+  ]
+}

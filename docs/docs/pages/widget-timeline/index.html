@@ -3,8 +3,8 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>时间线和动画 - PythonIDE Docs</title>
-  <meta name="description" content="Timeline entry、numericText、transition 和 flip。">
+  <title>widget 时间线和动画 - PythonIDE Docs</title>
+  <meta name="description" content="timeline/entry、state 数字动画、flip 翻页与 countdown 倒计时。">
   <link rel="icon" href="../../assets/brand-mark.svg" type="image/svg+xml">
   <link rel="stylesheet" href="../../assets/docs-v2.css">
   <script>window.PYTHONIDE_DOCS_PREFIX = "../../";</script>
@@ -146,7 +146,7 @@
 <summary><a href="../../collections/scene/">scene</a></summary>
 <div class="nav-group">
 <div class="nav-group-title">快速上手</div>
-<a class="nav-link" href="../../pages/scene-module/">scene 概览</a>
+<a class="nav-link" href="../../pages/scene-module/">scene</a>
 <a class="nav-link" href="../../pages/turtle-module/">turtle</a>
 </div>
 <div class="nav-group">
@@ -160,8 +160,16 @@
 <div class="nav-group">
 <div class="nav-group-title">快速上手</div>
 <a class="nav-link" href="../../pages/ios-native/">iOS 原生能力</a>
-<a class="nav-link" href="../../pages/modules-index/">全部模块总览</a>
-<a class="nav-link" href="../../pages/miniapp-native-capabilities/">原生能力入口</a>
+</div>
+<div class="nav-group">
+<div class="nav-group-title">基础与权限</div>
+<a class="nav-link" href="../../pages/permission-module/">permission</a>
+<a class="nav-link" href="../../pages/storage-module/">storage</a>
+<a class="nav-link" href="../../pages/database-module/">database</a>
+<a class="nav-link" href="../../pages/keychain-module/">keychain</a>
+<a class="nav-link" href="../../pages/clipboard-module/">clipboard</a>
+<a class="nav-link" href="../../pages/console-module/">console</a>
+<a class="nav-link" href="../../pages/dialogs-module/">dialogs</a>
 </div>
 <div class="nav-group">
 <div class="nav-group-title">设备与传感器</div>
@@ -173,35 +181,69 @@
 <a class="nav-link" href="../../pages/health-module/">health</a>
 </div>
 <div class="nav-group">
-<div class="nav-group-title">媒体与视觉</div>
-<a class="nav-link" href="../../pages/photos-module/">photos</a>
-<a class="nav-link" href="../../pages/avplayer-module/">avplayer</a>
-<a class="nav-link" href="../../pages/sound-module/">sound</a>
-<a class="nav-link" href="../../pages/speech-module/">speech</a>
-<a class="nav-link" href="../../pages/vision-helper-module/">vision_helper</a>
-<a class="nav-link" href="../../pages/vision-module/">vision</a>
-<a class="nav-link" href="../../pages/coreml-module/">coreml</a>
-</div>
-<div class="nav-group">
-<div class="nav-group-title">网络与数据</div>
-<a class="nav-link" href="../../pages/network-module/">network</a>
-<a class="nav-link" href="../../pages/websocket-module/">websocket</a>
-<a class="nav-link" href="../../pages/bluetooth-module/">bluetooth</a>
-<a class="nav-link" href="../../pages/background-module/">background</a>
-</div>
-<div class="nav-group">
-<div class="nav-group-title">系统服务</div>
-<a class="nav-link" href="../../pages/permission-module/">permission</a>
-<a class="nav-link" href="../../pages/storage-module/">storage</a>
-<a class="nav-link" href="../../pages/database-module/">database</a>
-<a class="nav-link" href="../../pages/keychain-module/">keychain</a>
-<a class="nav-link" href="../../pages/clipboard-module/">clipboard</a>
-<a class="nav-link" href="../../pages/dialogs-module/">dialogs</a>
-<a class="nav-link" href="../../pages/console-module/">console</a>
+<div class="nav-group-title">界面与系统</div>
+<a class="nav-link" href="../../pages/file-picker-module/">file_picker</a>
+<a class="nav-link" href="../../pages/share-module/">share</a>
+<a class="nav-link" href="../../pages/font-picker-module/">font_picker</a>
 <a class="nav-link" href="../../pages/notification-module/">notification</a>
+<a class="nav-link" href="../../pages/live-activity-module/">live_activity</a>
 <a class="nav-link" href="../../pages/contacts-module/">contacts</a>
 <a class="nav-link" href="../../pages/calendar-events-module/">calendar_events</a>
+</div>
+<div class="nav-group">
+<div class="nav-group-title">媒体</div>
+<div class="nav-subgroup-title">采集</div>
+<a class="nav-link" href="../../pages/photos-module/">photos</a>
+<a class="nav-link" href="../../pages/camera-module/">camera</a>
+<a class="nav-link" href="../../pages/video-recorder-module/">video_recorder</a>
+<a class="nav-link" href="../../pages/audio-recorder-module/">audio_recorder</a>
+<div class="nav-subgroup-title">播放</div>
+<a class="nav-link" href="../../pages/sound-module/">sound</a>
+<a class="nav-link" href="../../pages/avplayer-module/">avplayer</a>
+<a class="nav-link" href="../../pages/music-module/">music</a>
+<a class="nav-link" href="../../pages/now-playing-module/">now_playing</a>
+<a class="nav-link" href="../../pages/audio-session-module/">audio_session</a>
+<div class="nav-subgroup-title">语音</div>
+<a class="nav-link" href="../../pages/speech-module/">speech</a>
+<a class="nav-link" href="../../pages/speech-recognition-module/">speech_recognition</a>
+<a class="nav-link" href="../../pages/shazam-module/">shazam</a>
+<div class="nav-subgroup-title">合成</div>
+<a class="nav-link" href="../../pages/media-composer-module/">media_composer</a>
+</div>
+<div class="nav-group">
+<div class="nav-group-title">视觉与文档</div>
+<a class="nav-link" href="../../pages/vision-module/">vision</a>
+<a class="nav-link" href="../../pages/vision-helper-module/">vision_helper</a>
+<a class="nav-link" href="../../pages/coreml-module/">coreml</a>
+<a class="nav-link" href="../../pages/qrcode-module/">qrcode</a>
+<a class="nav-link" href="../../pages/pdf-module/">pdf</a>
+</div>
+<div class="nav-group">
+<div class="nav-group-title">连接与后台</div>
+<div class="nav-subgroup-title">联网</div>
+<a class="nav-link" href="../../pages/network-module/">network</a>
+<a class="nav-link" href="../../pages/websocket-module/">websocket</a>
+<a class="nav-link" href="../../pages/weather-module/">weather</a>
+<div class="nav-subgroup-title">近场</div>
+<a class="nav-link" href="../../pages/bluetooth-module/">bluetooth</a>
+<a class="nav-link" href="../../pages/ble-peripheral-module/">ble_peripheral</a>
+<div class="nav-subgroup-title">后台</div>
+<a class="nav-link" href="../../pages/background-module/">background</a>
+<a class="nav-link" href="../../pages/background-download-module/">background_download</a>
+<div class="nav-subgroup-title">本地服务</div>
+<a class="nav-link" href="../../pages/http-server-module/">http_server</a>
+<a class="nav-link" href="../../pages/ssh-module/">ssh</a>
+</div>
+<div class="nav-group">
+<div class="nav-group-title">通信与智能</div>
+<a class="nav-link" href="../../pages/mail-module/">mail</a>
+<a class="nav-link" href="../../pages/message-module/">message</a>
+<a class="nav-link" href="../../pages/translation-module/">translation</a>
 <a class="nav-link" href="../../pages/nfc-module/">nfc</a>
+<a class="nav-link" href="../../pages/alarm-module/">alarm</a>
+<a class="nav-link" href="../../pages/storekit-module/">storekit</a>
+<a class="nav-link" href="../../pages/foundation-models-module/">foundation_models</a>
+<a class="nav-link" href="../../pages/assistant-module/">assistant</a>
 </div>
 </details>
 <details class="nav-collection">
@@ -214,10 +256,14 @@
 <div class="nav-group">
 <div class="nav-group-title">模块</div>
 <a class="nav-link" href="../../pages/shortcuts-module/">shortcuts</a>
-<a class="nav-link" href="../../pages/live-activity-module/">live_activity</a>
 <a class="nav-link" href="../../pages/keyboard-module/">keyboard</a>
 <a class="nav-link" href="../../pages/objc-util-module/">objc_util</a>
 <a class="nav-link" href="../../pages/c-extensions-module/">c_extensions</a>
+</div>
+<div class="nav-group">
+<div class="nav-group-title">参考</div>
+<a class="nav-link" href="../../pages/modules-index/">全部模块总览</a>
+<a class="nav-link" href="../../pages/miniapp-native-capabilities/">原生能力入口</a>
 </div>
 </details>
 </nav>
@@ -227,91 +273,294 @@
 <article class="article" style="--page-accent:#7c3aed">
   <header class="article-intro">
     <div class="breadcrumb">widget / 小组件</div>
-    <h1>时间线和动画</h1>
-    <p>Timeline entry、numericText、transition 和 flip。</p>
+    <h1>widget 时间线和动画</h1>
+    <p>timeline/entry、state 数字动画、flip 翻页与 countdown 倒计时。</p>
   </header>
   <div class="markdown-body">
-    <p>Widget 动画由 WidgetKit 在数据更新时触发。它不是普通 App 的 60fps 动画，也不会持续循环。</p>
-<h2 id="数字变化"><a class="heading-anchor" href="#数字变化">#</a>数字变化</h2>
-<figure class="code-block" data-code-id="8121f8f3f66f">
+    <p>Widget 动画由 <strong>WidgetKit 在数据更新时</strong>触发：timeline entry 切换、AppIntent 改写 <code>widget.state</code>，或系统按计划刷新。不是 App 里的 60fps 循环动画。</p>
+<blockquote class="callout note"><strong>边界</strong>：本篇讲 <code>w.timeline</code>、<code>widget.entry</code>、数字过渡与 <code>flip</code>。布局防裁切见 <a href="../../pages/widget-layout/">布局与尺寸</a>；按钮触发 state 见 <a href="../../pages/widget-interaction/">状态和交互</a>。</blockquote>
+<h2 id="本篇目标"><a class="heading-anchor" href="#本篇目标">#</a>本篇目标</h2>
+<div class="table-scroll"><table><thead><tr><th>项</th><th>说明</th></tr></thead><tbody><tr><td>两类数据源</td><td><strong><code>widget.state</code></strong>（桌面点击）与 <strong><code>widget.entry</code></strong>（时间线条目字段）</td></tr><tr><td>数字动画</td><td><code>.content_transition(&quot;numericText&quot;)</code> + <code>.monospaced_digit()</code> + <code>.id(...)</code></td></tr><tr><td>时间线</td><td><code>w.timeline(entries=[...], update=, after=)</code> 声明未来快照</td></tr><tr><td>翻页块</td><td><code>w.flip(current, previous=...)</code> 配合 entry 前后值</td></tr><tr><td>系统计时</td><td><code>w.countdown</code> / <code>w.timer_text</code> — WidgetKit 原生倒计时</td></tr><tr><td>限制</td><td>无持续循环；刷新时机由系统调度</td></tr></tbody></table></div>
+<hr>
+<h2 id="快速开始"><a class="heading-anchor" href="#快速开始">#</a>快速开始</h2>
+<p>桌面点「消费」后余额数字滚动过渡——这是 <strong>state + numericText</strong>，不依赖 timeline。</p>
+<figure class="code-block" data-code-id="0afbe1d7b3e7">
   <figcaption>
     <span>python</span>
-    <button class="copy-code" type="button" data-copy-code="8121f8f3f66f">复制</button>
+    <button class="copy-code" type="button" data-copy-code="0afbe1d7b3e7">复制</button>
   </figcaption>
-  <pre><code id="code-8121f8f3f66f" class="language-python">import widget
+  <pre><code id="code-0afbe1d7b3e7" class="language-python">import widget
 
-count = widget.state.int(&quot;count&quot;, 0)
-number_size = widget.family_value(50, small=38, large=60)
+balance = widget.state.int(&quot;balance&quot;, 1280)
+accent = widget.param.color(&quot;主色&quot;, &quot;#10B981&quot;)
+num_size = widget.family_value(42, small=34, large=52)
 
-w = widget.Widget(background=&quot;#0B1220&quot;, padding=18)
-w.text(&quot;数字动画&quot;, size=15, color=&quot;#94A3B8&quot;).line_limit(1).min_scale(0.72)
+w = widget.Widget(background=(&quot;#ECFDF5&quot;, &quot;#064E3B&quot;), padding=14)
+w.text(&quot;零钱罐&quot;, size=14, color=&quot;secondary&quot;).line_limit(1)
 (
-    w.value(count, format=&quot;{:02d}&quot;)
-    .id(&quot;count&quot;)
-    .font_size(number_size)
+    w.value(balance.text(&quot;¥{}&quot;))
+    .id(&quot;balance&quot;)
+    .font_size(num_size)
     .monospaced_digit()
     .content_transition(&quot;numericText&quot;)
     .line_limit(1)
     .min_scale(0.65)
 )
 (
-    w.button(&quot;+1&quot;, action=count.increment(), background=&quot;#38BDF8&quot;, color=&quot;#06111F&quot;)
+    w.button(&quot;消费 ¥10&quot;, action=balance.decrement(by=10), background=accent, color=&quot;#FFFFFF&quot;)
     .line_limit(1)
     .min_scale(0.72)
 )
 w.render()</code></pre>
 </figure>
-<p>预期效果：点击按钮后数字用 <code>numericText</code> 过渡；small 尺寸自动使用较小字号。</p>
-<h2 id="时间线-entry"><a class="heading-anchor" href="#时间线-entry">#</a>时间线 entry</h2>
-<figure class="code-block" data-code-id="2e4242a5e50e">
+<p>要点：</p>
+<ul><li><code>balance.text(&quot;¥{}&quot;)</code>：把 state 格式化成带货币符号的展示串，同时保留 state 绑定。</li><li><code>.content_transition(&quot;numericText&quot;)</code>：数值变化时系统数字滚动动画。</li><li><code>.id(&quot;balance&quot;)</code>：给变化节点稳定身份，动画更可靠。</li><li>预览里点按钮即可看动画；桌面需发布后在小组件上点击。</li></ul>
+<hr>
+<h2 id="心智模型"><a class="heading-anchor" href="#心智模型">#</a>心智模型</h2>
+<figure class="code-block" data-code-id="923830da4bed">
+  <figcaption>
+    <span>text</span>
+    <button class="copy-code" type="button" data-copy-code="923830da4bed">复制</button>
+  </figcaption>
+  <pre><code id="code-923830da4bed" class="language-text">                    ┌─────────────────────────────────────┐
+                    │         WidgetKit 刷新时机           │
+                    └─────────────────────────────────────┘
+         系统调度 / timeline 到期 / AppIntent 改 state
+                              ↓
+              当前 entry 字段 或  state 新值 写入快照
+                              ↓
+        节点带 content_transition / flip / animation / transition
+                              ↓
+                    系统播放一次过渡动画</code></pre>
+</figure>
+<h3 id="widget.state-vs-widget.entry"><a class="heading-anchor" href="#widget.state-vs-widget.entry">#</a><code>widget.state</code> vs <code>widget.entry</code></h3>
+<div class="table-scroll"><table><thead><tr><th></th><th><code>widget.state</code></th><th><code>widget.entry</code></th></tr></thead><tbody><tr><td>谁写入</td><td>桌面 <strong>AppIntent</strong>（按钮、开关）</td><td><strong><code>w.timeline</code> entries</strong> 每条快照</td></tr><tr><td>典型用途</td><td>计数器、余额、开关</td><td>按计划变化的展示数、翻页前后值</td></tr><tr><td>绑定写法</td><td><code>widget.state.int(&quot;key&quot;, 0)</code></td><td><code>widget.entry.int(&quot;price&quot;, 0.58)</code></td></tr><tr><td>格式化</td><td><code>count.text(&quot;{} 次&quot;)</code></td><td><code>price.text(&quot;{:.2f}&quot;)</code></td></tr><tr><td>动画触发</td><td>点击后 state 变</td><td>预览/桌面切到下一 entry</td></tr></tbody></table></div>
+<p>同一张卡片可以<strong>同时</strong>有 state（交互）和 entry（定时），但动画字段要各绑各的 key，不要混用。</p>
+<h3 id="动画-api-怎么选"><a class="heading-anchor" href="#动画-api-怎么选">#</a>动画 API 怎么选</h3>
+<div class="table-scroll"><table><thead><tr><th>API</th><th>适合</th></tr></thead><tbody><tr><td><code>.content_transition(&quot;numericText&quot;)</code></td><td><code>value()</code> / 数字 state / entry 变化</td></tr><tr><td><code>.content_transition(&quot;opacity&quot;)</code></td><td>文案淡入淡出</td></tr><tr><td><code>.animation(&quot;smooth&quot;, value_by=&quot;price&quot;)</code></td><td>entry 字段变化时额外平滑（常配合 numericText）</td></tr><tr><td><code>.transition(&quot;push&quot;, edge=&quot;bottom&quot;)</code></td><td>节点插入/替换方向</td></tr><tr><td><code>w.flip(current, previous=...)</code></td><td>翻页钟、日历块、前后对比数字</td></tr><tr><td><code>w.countdown(..., target=)</code></td><td>距某时刻剩余时间（系统驱动）</td></tr></tbody></table></div>
+<hr>
+<h2 id="时间线示例"><a class="heading-anchor" href="#时间线示例">#</a>时间线示例</h2>
+<h3 id="分时电价-timeline-entry-数字动画"><a class="heading-anchor" href="#分时电价-timeline-entry-数字动画">#</a>分时电价（<code>timeline</code> + <code>entry</code> + 数字动画）</h3>
+<p>声明 3 条未来快照；<code>price</code> / <code>prev_price</code> 为 entry 字段。预览里时间线会按条目轮播（Studio 约每秒切一帧）。</p>
+<figure class="code-block" data-code-id="f11abc801122">
   <figcaption>
     <span>python</span>
-    <button class="copy-code" type="button" data-copy-code="2e4242a5e50e">复制</button>
+    <button class="copy-code" type="button" data-copy-code="f11abc801122">复制</button>
   </figcaption>
-  <pre><code id="code-2e4242a5e50e" class="language-python">import widget
+  <pre><code id="code-f11abc801122" class="language-python">import widget
 from datetime import datetime, timedelta, timezone
 
-w = widget.Widget(background=&quot;#0B1220&quot;, padding=18)
-flip_width = widget.family_value(124, small=92, large=150)
-flip_height = widget.family_value(82, small=64, large=98)
-flip_size = widget.family_value(48, small=34, large=58)
-
-current = widget.entry.int(&quot;value&quot;, 31)
-previous = widget.entry.int(&quot;previous&quot;, 30)
 now = datetime.now(timezone.utc).replace(second=0, microsecond=0)
+price = widget.entry.float(&quot;price&quot;, 0.62)
+prev_price = widget.entry.float(&quot;prev_price&quot;, 0.68)
+accent = widget.param.color(&quot;强调色&quot;, &quot;#F59E0B&quot;)
 
+w = widget.Widget(background=(&quot;#FFFBEB&quot;, &quot;#292524&quot;), padding=14)
 w.timeline(
     entries=[
-        {&quot;date&quot;: now.isoformat(), &quot;value&quot;: 31, &quot;previous&quot;: 30},
-        {&quot;date&quot;: (now + timedelta(minutes=1)).isoformat(), &quot;value&quot;: 32, &quot;previous&quot;: 31},
+        {&quot;date&quot;: now.isoformat(), &quot;price&quot;: 0.68, &quot;prev_price&quot;: 0.72},
+        {&quot;date&quot;: (now + timedelta(hours=1)).isoformat(), &quot;price&quot;: 0.62, &quot;prev_price&quot;: 0.68},
+        {&quot;date&quot;: (now + timedelta(hours=2)).isoformat(), &quot;price&quot;: 0.55, &quot;prev_price&quot;: 0.62},
     ],
     update=&quot;end&quot;,
 )
+w.text(&quot;分时电价&quot;, size=14, color=&quot;secondary&quot;).line_limit(1)
+(
+    w.value(price.text(&quot;{:.2f}&quot;), unit=&quot;元/度&quot;)
+    .content_transition(&quot;numericText&quot;)
+    .animation(&quot;smooth&quot;, duration=0.35, value_by=&quot;price&quot;)
+    .monospaced_digit()
+    .line_limit(1)
+    .min_scale(0.72)
+)
+if not widget.context.is_family(&quot;small&quot;):
+    (
+        w.text(prev_price.text(&quot;上一档 {:.2f}&quot;), size=11, color=&quot;secondary&quot;)
+        .line_limit(1)
+        .min_scale(0.72)
+    )
+w.render()</code></pre>
+</figure>
+<ul><li>每条 entry 是 <code>dict</code>；<strong>必须含 <code>date</code></strong>（ISO 8601 字符串，建议 UTC）。</li><li>entry 里其它 key（<code>price</code>、<code>prev_price</code>）与 <code>widget.entry.*(&quot;price&quot;, ...)</code> 的 name 对应。</li><li><code>update=&quot;end&quot;</code>：在最后一条 entry 之后请求刷新（映射 WidgetKit <code>.atEnd</code>）。</li></ul>
+<h3 id="翻页分钟-flip"><a class="heading-anchor" href="#翻页分钟-flip">#</a>翻页分钟（<code>flip</code>）</h3>
+<p><code>flip</code> 需要<strong>当前值</strong>与 <strong>previous</strong> 两个 entry 字段；适合时钟、日历翻页。</p>
+<figure class="code-block" data-code-id="13bb9e50de4a">
+  <figcaption>
+    <span>python</span>
+    <button class="copy-code" type="button" data-copy-code="13bb9e50de4a">复制</button>
+  </figcaption>
+  <pre><code id="code-13bb9e50de4a" class="language-python">import widget
+from datetime import datetime, timedelta, timezone
 
-w.text(&quot;Timeline&quot;, size=14, color=&quot;#94A3B8&quot;).line_limit(1).min_scale(0.72)
-w.flip(
-    current.text(&quot;{:02d}&quot;),
-    previous=previous.text(&quot;{:02d}&quot;),
-    width=flip_width,
-    height=flip_height,
-    size=flip_size,
+now = datetime.now(timezone.utc).replace(second=0, microsecond=0)
+minute = widget.entry.int(&quot;minute&quot;, 41)
+prev_minute = widget.entry.int(&quot;prev_minute&quot;, 40)
+accent = widget.param.color(&quot;数字色&quot;, &quot;#38BDF8&quot;)
+
+flip_w = widget.family_value(110, small=88, large=130)
+flip_h = widget.family_value(72, small=58, large=88)
+flip_sz = widget.family_value(44, small=32, large=52)
+
+w = widget.Widget(background=(&quot;#0B1220&quot;, &quot;#020617&quot;), padding=16)
+w.timeline(
+    entries=[
+        {&quot;date&quot;: now.isoformat(), &quot;minute&quot;: 41, &quot;prev_minute&quot;: 40},
+        {&quot;date&quot;: (now + timedelta(minutes=1)).isoformat(), &quot;minute&quot;: 42, &quot;prev_minute&quot;: 41},
+        {&quot;date&quot;: (now + timedelta(minutes=2)).isoformat(), &quot;minute&quot;: 43, &quot;prev_minute&quot;: 42},
+    ],
+    update=&quot;end&quot;,
+)
+w.text(&quot;当前分钟&quot;, size=13, color=&quot;#94A3B8&quot;).line_limit(1)
+(
+    w.flip(
+        minute.text(&quot;{:02d}&quot;),
+        previous=prev_minute.text(&quot;{:02d}&quot;),
+        width=flip_w,
+        height=flip_h,
+        size=flip_sz,
+        color=&quot;#F8FAFC&quot;,
+        background=&quot;#1E293B&quot;,
+        corner_radius=10,
+        direction=&quot;up&quot;,
+    )
+    .id(&quot;flip-minute&quot;)
 )
 w.render()</code></pre>
 </figure>
-<p>预期效果：时间线 entry 更新时显示翻页数字块；不同 family 使用不同翻页尺寸。</p>
-<h2 id="能用的动画"><a class="heading-anchor" href="#能用的动画">#</a>能用的动画</h2>
-<ul><li><code>.content_transition(&quot;numericText&quot;)</code>：数字变化。</li><li><code>.transition(&quot;push&quot;, edge=&quot;bottom&quot;)</code>：节点插入或替换。</li><li><code>.animation(&quot;smooth&quot;, value_by=&quot;progress&quot;)</code>：对指定数据变化使用系统动画。</li><li><code>.id(&quot;stable-id&quot;)</code>：给变化节点稳定身份。</li><li><code>w.flip(...)</code>：翻页数字块，适合时间线或状态变化测试。</li></ul>
-<p>桌面小组件什么时候刷新由 WidgetKit 决定。排查时如果桌面仍显示旧内容，重新运行并发布；必要时删除桌面小组件后重新添加。</p>
+<ul><li><code>minute.text(&quot;{:02d}&quot;)</code>：entry 整数格式化为两位（与 Python 占位符一致）。</li><li><code>direction=&quot;up&quot;</code> / <code>&quot;down&quot;</code> 控制翻页方向；尺寸用 <code>family_value</code> 防 small 溢出。</li></ul>
+<h3 id="阶段文案-entry-transition"><a class="heading-anchor" href="#阶段文案-entry-transition">#</a>阶段文案（<code>entry</code> + <code>transition</code>）</h3>
+<p>非数字也可用 entry 驱动；文案切换加 <code>content_transition</code> / <code>transition</code>。</p>
+<figure class="code-block" data-code-id="d7ff9376a81a">
+  <figcaption>
+    <span>python</span>
+    <button class="copy-code" type="button" data-copy-code="d7ff9376a81a">复制</button>
+  </figcaption>
+  <pre><code id="code-d7ff9376a81a" class="language-python">import widget
+from datetime import datetime, timedelta, timezone
+
+now = datetime.now(timezone.utc).replace(second=0, microsecond=0)
+phase = widget.entry.str(&quot;phase&quot;, &quot;候场&quot;)
+accent = widget.param.color(&quot;主色&quot;, &quot;#8B5CF6&quot;)
+
+w = widget.Widget(background=(&quot;#FAF5FF&quot;, &quot;#1E1B4B&quot;), padding=14)
+w.timeline(
+    entries=[
+        {&quot;date&quot;: now.isoformat(), &quot;phase&quot;: &quot;候场&quot;},
+        {&quot;date&quot;: (now + timedelta(minutes=3)).isoformat(), &quot;phase&quot;: &quot;演讲进行中&quot;},
+        {&quot;date&quot;: (now + timedelta(minutes=20)).isoformat(), &quot;phase&quot;: &quot;问答环节&quot;},
+    ],
+    update=&quot;end&quot;,
+)
+w.text(&quot;活动状态&quot;, size=14, color=&quot;secondary&quot;).line_limit(1)
+(
+    w.text(phase, size=18, weight=&quot;semibold&quot;, color=accent)
+    .id(&quot;phase-label&quot;)
+    .content_transition(&quot;opacity&quot;)
+    .transition(&quot;push&quot;, edge=&quot;bottom&quot;)
+    .line_limit(1)
+    .min_scale(0.72)
+)
+w.render()</code></pre>
+</figure>
+<hr>
+<h2 id="系统倒计时-无需手写-entries"><a class="heading-anchor" href="#系统倒计时-无需手写-entries">#</a>系统倒计时（无需手写 entries）</h2>
+<p>距目标时刻的剩余时间由 WidgetKit <strong>自动走时</strong>；适合会议、车次、截止时间。</p>
+<figure class="code-block" data-code-id="41bbff169fe0">
+  <figcaption>
+    <span>python</span>
+    <button class="copy-code" type="button" data-copy-code="41bbff169fe0">复制</button>
+  </figcaption>
+  <pre><code id="code-41bbff169fe0" class="language-python">import widget
+from datetime import datetime, timedelta, timezone
+
+eta = datetime.now(timezone.utc) + timedelta(hours=1, minutes=25)
+accent = widget.param.color(&quot;主色&quot;, &quot;#6366F1&quot;)
+
+w = widget.Widget(background=(&quot;#EEF2FF&quot;, &quot;#1E1B4B&quot;), padding=14)
+(
+    w.countdown(
+        &quot;距离会议&quot;,
+        target=eta.isoformat(),
+        subtitle=&quot;三楼 302 · 可提前 5 分钟入场&quot;,
+        accent=accent,
+    )
+)
+w.render()</code></pre>
+</figure>
+<ul><li><code>target</code> 接受 ISO 8601 字符串或 <code>datetime</code>。</li><li>底层使用 <code>timer_text</code>；与 <code>w.timeline</code> 互补：一个管「走到某时刻」，一个管「预先排好的多条快照」。</li></ul>
+<hr>
+<h2 id="w.timeline-刷新策略"><a class="heading-anchor" href="#w.timeline-刷新策略">#</a><code>w.timeline</code> 刷新策略</h2>
+<div class="table-scroll"><table><thead><tr><th><code>update</code></th><th>行为</th></tr></thead><tbody><tr><td><code>&quot;after&quot;</code>（默认）</td><td>在 <code>after</code> 指定时刻之后请求下次刷新；或用 <code>interval</code>（秒）</td></tr><tr><td><code>&quot;end&quot;</code> / <code>&quot;atEnd&quot;</code></td><td>在最后一条 entry 之后刷新</td></tr><tr><td><code>&quot;never&quot;</code></td><td>不再自动刷新</td></tr><tr><td><code>&quot;rapid&quot;</code></td><td>向系统请求更频繁刷新；<strong>不保证</strong>实时频率，仍受 WidgetKit 预算合并</td></tr></tbody></table></div>
+<figure class="code-block" data-code-id="989d3f972994">
+  <figcaption>
+    <span>python</span>
+    <button class="copy-code" type="button" data-copy-code="989d3f972994">复制</button>
+  </figcaption>
+  <pre><code id="code-989d3f972994" class="language-python">from datetime import datetime, timedelta, timezone
+
+now = datetime.now(timezone.utc)
+w.timeline(
+    entries=[{&quot;date&quot;: now.isoformat(), &quot;value&quot;: 1}],
+    update=&quot;after&quot;,
+    after=(now + timedelta(minutes=30)).isoformat(),
+)
+
+# 或用间隔秒数（桌面映射为 after = now + interval）
+w.timeline(entries=[...], update=&quot;after&quot;, interval=900)</code></pre>
+</figure>
+<p>注意：</p>
+<ul><li><strong>没有 timeline</strong> 时，桌面主要靠系统刷新预算 + 用户点击改 state。</li><li><code>update=&quot;rapid&quot;</code> 适合「希望尽量跟紧」的场景（如短周期电价、临近截止的倒计时），但仍是<strong>请求</strong>而非定时器；系统可能合并或延后刷新，构建诊断可能给出 warning。</li><li>预览里 Studio 轮播 entry（约每秒一帧）<strong>不等于</strong>桌面刷新频率；桌面由 WidgetKit 调度。</li><li><code>.animation(..., duration=, value_by=)</code> 的 <code>duration</code> 控制过渡时长；<code>value_by</code> 填 entry 字段名（如 <code>&quot;price&quot;</code>），与 <code>content_transition(&quot;numericText&quot;)</code> 常一起用。</li></ul>
+<hr>
+<h2 id="推荐写法速查"><a class="heading-anchor" href="#推荐写法速查">#</a>推荐写法速查</h2>
+<h3 id="交互数字-state"><a class="heading-anchor" href="#交互数字-state">#</a>交互数字（state）</h3>
+<figure class="code-block" data-code-id="605b5ad2d42e">
+  <figcaption>
+    <span>python</span>
+    <button class="copy-code" type="button" data-copy-code="605b5ad2d42e">复制</button>
+  </figcaption>
+  <pre><code id="code-605b5ad2d42e" class="language-python">score = widget.state.int(&quot;score&quot;, 0)
+(
+    w.value(score, unit=&quot;分&quot;)
+    .id(&quot;score&quot;)
+    .monospaced_digit()
+    .content_transition(&quot;numericText&quot;)
+)
+w.button(&quot;+&quot;, action=score.increment())</code></pre>
+</figure>
+<h3 id="时间线数字-entry"><a class="heading-anchor" href="#时间线数字-entry">#</a>时间线数字（entry）</h3>
+<figure class="code-block" data-code-id="45a6226bb57f">
+  <figcaption>
+    <span>python</span>
+    <button class="copy-code" type="button" data-copy-code="45a6226bb57f">复制</button>
+  </figcaption>
+  <pre><code id="code-45a6226bb57f" class="language-python">amount = widget.entry.int(&quot;amount&quot;, 100)
+w.timeline(entries=[
+    {&quot;date&quot;: &quot;2026-06-10T08:00:00Z&quot;, &quot;amount&quot;: 100},
+    {&quot;date&quot;: &quot;2026-06-10T09:00:00Z&quot;, &quot;amount&quot;: 128},
+], update=&quot;end&quot;)
+(
+    w.value(amount.text(&quot;{}&quot;))
+    .content_transition(&quot;numericText&quot;)
+    .animation(&quot;smooth&quot;, value_by=&quot;amount&quot;)
+)</code></pre>
+</figure>
+<h3 id="稳定身份"><a class="heading-anchor" href="#稳定身份">#</a>稳定身份</h3>
+<p>变化频繁的节点建议 <code>.id(&quot;唯一串&quot;)</code>；entry 绑定节点也可自动生成 <code>entry:price</code> 类身份，显式 <code>id</code> 更利于排查。</p>
+<hr>
+<h2 id="常见错误"><a class="heading-anchor" href="#常见错误">#</a>常见错误</h2>
+<div class="table-scroll"><table><thead><tr><th>错误写法</th><th>后果</th><th>修正</th></tr></thead><tbody><tr><td>只有 <code>value(count)</code> 无 <code>content_transition</code></td><td>数字跳变无动画</td><td>加 <code>.content_transition(&quot;numericText&quot;)</code></td></tr><tr><td>用 <code>widget.state</code> 绑 timeline 字段</td><td>entry 不随时间线变</td><td>timeline 字段用 <code>widget.entry.*</code></td></tr><tr><td>entry 无 <code>date</code></td><td>顺序错乱或只用间隔推算</td><td>每条写 ISO <code>date</code></td></tr><tr><td><code>flip</code> 只有当前值无 <code>previous</code></td><td>翻页效果弱</td><td>同时声明 <code>previous=prev_*.text(...)</code></td></tr><tr><td>期望 60fps 循环</td><td>Widget 不支持</td><td>改用 timeline 分段或 <code>countdown</code></td></tr><tr><td>改 timeline 不重新发布</td><td>桌面仍旧快照</td><td>重新运行发布</td></tr></tbody></table></div>
+<hr>
 <h2 id="失败路径"><a class="heading-anchor" href="#失败路径">#</a>失败路径</h2>
-<ul><li>动画没有连续播放：Widget 只在 timeline entry 或 AppIntent 状态变化时更新，不适合 60fps 循环动画。</li><li>数字没动画：给数值节点加 <code>.content_transition(&quot;numericText&quot;)</code> 和 <code>.monospaced_digit()</code>，变化节点需要稳定身份时再加 <code>.id(...)</code>。</li><li>时间线不刷新：确认 entry 的 <code>date</code> 是 ISO 字符串，并且 <code>update</code>/<code>after</code>/<code>interval</code> 符合你希望的刷新策略。</li><li>预览和桌面不同步：重新运行并发布脚本；桌面仍旧时删除小组件后重新添加。</li></ul>
-<h2 id="api-参考"><a class="heading-anchor" href="#api-参考">#</a>API 参考</h2>
-<p>时间线和动画完整签名见 <a href="../../pages/widget-api-reference/">API 参考</a>：重点查 <code>w.timeline</code>、<code>widget.entry</code>、<code>w.flip</code>、<code>.content_transition()</code>、<code>.transition()</code>、<code>.animation()</code> 和 <code>.id()</code>。</p>
+<div class="table-scroll"><table><thead><tr><th>现象</th><th>处理</th></tr></thead><tbody><tr><td>点击按钮数字不动</td><td>确认 <code>action</code> 来自 <code>widget.state</code>；已加 <code>content_transition</code></td></tr><tr><td>预览 timeline 不轮播</td><td>检查 <code>entries</code> 非空、<code>date</code> 合法；重新运行预览</td></tr><tr><td>数字无动画、直接跳</td><td>加 <code>.monospaced_digit()</code>、<code>.id(...)</code>、<code>content_transition</code></td></tr><tr><td><code>flip</code> 不翻页</td><td>确认 <code>previous</code> 绑 entry；timeline 至少 2 条</td></tr><tr><td>桌面时间不更新</td><td>发布最新构建；<code>countdown</code> 的 <code>target</code> 是否在未来</td></tr><tr><td>预览正常、桌面无动画</td><td>系统可能合并刷新；删小组件重装；查 <a href="../../pages/widget-troubleshooting/">排错</a></td></tr><tr><td>动画卡顿或缺失</td><td>减少同屏动画节点；small 降低 <code>font_size</code> / flip 尺寸</td></tr></tbody></table></div>
+<hr>
+<h2 id="相关文档"><a class="heading-anchor" href="#相关文档">#</a>相关文档</h2>
+<div class="table-scroll"><table><thead><tr><th>文档</th><th>用途</th></tr></thead><tbody><tr><td><a href="../../pages/widget-module/">widget 概览</a></td><td>总览</td></tr><tr><td><a href="../../pages/widget-interaction/">状态和交互</a></td><td><code>widget.state</code>、AppIntent</td></tr><tr><td><a href="../../pages/widget-layout/">布局与尺寸</a></td><td><code>family_value</code>、防裁切</td></tr><tr><td><a href="../../pages/widget-quickstart-publish/">从脚本到桌面</a></td><td>发布后在桌面验证</td></tr><tr><td><a href="../../pages/widget-troubleshooting/">排错</a></td><td>预览/桌面不一致</td></tr><tr><td><a href="../../pages/widget-api-reference/">API 参考</a></td><td><code>timeline</code>、<code>entry</code>、<code>flip</code>、修饰符签名</td></tr></tbody></table></div>
   </div>
-  <section class="related-section"><h2>相关文档</h2><div class="related-list"><a class="related-link" href="../widget-module/"><strong>widget</strong><span>用 Python 编写主屏、锁屏和 StandBy 小组件。</span></a><a class="related-link" href="../widget-interaction/"><strong>widget 状态和交互</strong><span>AppIntent 按钮、Toggle、链接和 widget.state。</span></a><a class="related-link" href="../widget-troubleshooting/"><strong>widget 排错</strong><span>空白、溢出、桌面缓存、点击和动画问题。</span></a></div></section>
+  <section class="related-section"><h2>相关文档</h2><div class="related-list"><a class="related-link" href="../widget-module/"><strong>widget</strong><span>Python 编写 WidgetKit 小组件：参数、状态、布局与发布到桌面。</span></a><a class="related-link" href="../widget-interaction/"><strong>widget 状态和交互</strong><span>widget.state、按钮 ±、习惯清单、开关与链接；AppIntent 桌面交互。</span></a><a class="related-link" href="../widget-layout/"><strong>widget 布局与尺寸</strong><span>row/column/grid/table/canvas、family 预算、when/unless 与锁屏 accessory。</span></a><a class="related-link" href="../widget-quickstart-publish/"><strong>widget 从脚本到桌面</strong><span>Widget Studio 预览、发布、系统添加主屏小组件与桌面验证。</span></a><a class="related-link" href="../widget-troubleshooting/"><strong>widget 排错</strong><span>基线排查、预览≠桌面、裁切/点击/动画、w.validate 诊断。</span></a><a class="related-link" href="../widget-api-reference/"><strong>widget API 参考</strong><span>公开 Widget() API 速查。</span></a></div></section>
 </article>
 
     </main>
-    <aside class="toc"><div class="toc-title">本页目录</div><a class="toc-link" href="#数字变化">数字变化</a><a class="toc-link" href="#时间线-entry">时间线 entry</a><a class="toc-link" href="#能用的动画">能用的动画</a><a class="toc-link" href="#失败路径">失败路径</a><a class="toc-link" href="#api-参考">API 参考</a></aside>
+    <aside class="toc"><div class="toc-title">本页目录</div><a class="toc-link" href="#本篇目标">本篇目标</a><a class="toc-link" href="#快速开始">快速开始</a><a class="toc-link" href="#心智模型">心智模型</a><a class="toc-link child" href="#widget.state-vs-widget.entry">widget.state vs widget.entry</a><a class="toc-link child" href="#动画-api-怎么选">动画 API 怎么选</a><a class="toc-link" href="#时间线示例">时间线示例</a><a class="toc-link child" href="#分时电价-timeline-entry-数字动画">分时电价（timeline + entry + 数字动画）</a><a class="toc-link child" href="#翻页分钟-flip">翻页分钟（flip）</a><a class="toc-link child" href="#阶段文案-entry-transition">阶段文案（entry + transition）</a><a class="toc-link" href="#系统倒计时-无需手写-entries">系统倒计时（无需手写 entries）</a><a class="toc-link" href="#w.timeline-刷新策略">w.timeline 刷新策略</a><a class="toc-link" href="#推荐写法速查">推荐写法速查</a><a class="toc-link child" href="#交互数字-state">交互数字（state）</a><a class="toc-link child" href="#时间线数字-entry">时间线数字（entry）</a><a class="toc-link child" href="#稳定身份">稳定身份</a><a class="toc-link" href="#常见错误">常见错误</a><a class="toc-link" href="#失败路径">失败路径</a><a class="toc-link" href="#相关文档">相关文档</a></aside>
   </div>
   <div class="mobile-backdrop"></div>
   <div class="search-panel" role="dialog" aria-modal="true" aria-label="搜索">

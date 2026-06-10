@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>scene API 索引 - PythonIDE Docs</title>
-  <meta name="description" content="按类族、Classic 绘图、Action、Physics 和常量快速查 scene 公开名称。">
+  <meta name="description" content="按生命周期、节点、Action、Physics、Classic 绘图与常量查 scene 公开名称。">
   <link rel="icon" href="../../assets/brand-mark.svg" type="image/svg+xml">
   <link rel="stylesheet" href="../../assets/docs-v2.css">
   <script>window.PYTHONIDE_DOCS_PREFIX = "../../";</script>
@@ -146,7 +146,7 @@
 <summary><a href="../../collections/scene/">scene</a></summary>
 <div class="nav-group">
 <div class="nav-group-title">快速上手</div>
-<a class="nav-link" href="../../pages/scene-module/">scene 概览</a>
+<a class="nav-link" href="../../pages/scene-module/">scene</a>
 <a class="nav-link" href="../../pages/turtle-module/">turtle</a>
 </div>
 <div class="nav-group">
@@ -160,8 +160,16 @@
 <div class="nav-group">
 <div class="nav-group-title">快速上手</div>
 <a class="nav-link" href="../../pages/ios-native/">iOS 原生能力</a>
-<a class="nav-link" href="../../pages/modules-index/">全部模块总览</a>
-<a class="nav-link" href="../../pages/miniapp-native-capabilities/">原生能力入口</a>
+</div>
+<div class="nav-group">
+<div class="nav-group-title">基础与权限</div>
+<a class="nav-link" href="../../pages/permission-module/">permission</a>
+<a class="nav-link" href="../../pages/storage-module/">storage</a>
+<a class="nav-link" href="../../pages/database-module/">database</a>
+<a class="nav-link" href="../../pages/keychain-module/">keychain</a>
+<a class="nav-link" href="../../pages/clipboard-module/">clipboard</a>
+<a class="nav-link" href="../../pages/console-module/">console</a>
+<a class="nav-link" href="../../pages/dialogs-module/">dialogs</a>
 </div>
 <div class="nav-group">
 <div class="nav-group-title">设备与传感器</div>
@@ -173,35 +181,69 @@
 <a class="nav-link" href="../../pages/health-module/">health</a>
 </div>
 <div class="nav-group">
-<div class="nav-group-title">媒体与视觉</div>
-<a class="nav-link" href="../../pages/photos-module/">photos</a>
-<a class="nav-link" href="../../pages/avplayer-module/">avplayer</a>
-<a class="nav-link" href="../../pages/sound-module/">sound</a>
-<a class="nav-link" href="../../pages/speech-module/">speech</a>
-<a class="nav-link" href="../../pages/vision-helper-module/">vision_helper</a>
-<a class="nav-link" href="../../pages/vision-module/">vision</a>
-<a class="nav-link" href="../../pages/coreml-module/">coreml</a>
-</div>
-<div class="nav-group">
-<div class="nav-group-title">网络与数据</div>
-<a class="nav-link" href="../../pages/network-module/">network</a>
-<a class="nav-link" href="../../pages/websocket-module/">websocket</a>
-<a class="nav-link" href="../../pages/bluetooth-module/">bluetooth</a>
-<a class="nav-link" href="../../pages/background-module/">background</a>
-</div>
-<div class="nav-group">
-<div class="nav-group-title">系统服务</div>
-<a class="nav-link" href="../../pages/permission-module/">permission</a>
-<a class="nav-link" href="../../pages/storage-module/">storage</a>
-<a class="nav-link" href="../../pages/database-module/">database</a>
-<a class="nav-link" href="../../pages/keychain-module/">keychain</a>
-<a class="nav-link" href="../../pages/clipboard-module/">clipboard</a>
-<a class="nav-link" href="../../pages/dialogs-module/">dialogs</a>
-<a class="nav-link" href="../../pages/console-module/">console</a>
+<div class="nav-group-title">界面与系统</div>
+<a class="nav-link" href="../../pages/file-picker-module/">file_picker</a>
+<a class="nav-link" href="../../pages/share-module/">share</a>
+<a class="nav-link" href="../../pages/font-picker-module/">font_picker</a>
 <a class="nav-link" href="../../pages/notification-module/">notification</a>
+<a class="nav-link" href="../../pages/live-activity-module/">live_activity</a>
 <a class="nav-link" href="../../pages/contacts-module/">contacts</a>
 <a class="nav-link" href="../../pages/calendar-events-module/">calendar_events</a>
+</div>
+<div class="nav-group">
+<div class="nav-group-title">媒体</div>
+<div class="nav-subgroup-title">采集</div>
+<a class="nav-link" href="../../pages/photos-module/">photos</a>
+<a class="nav-link" href="../../pages/camera-module/">camera</a>
+<a class="nav-link" href="../../pages/video-recorder-module/">video_recorder</a>
+<a class="nav-link" href="../../pages/audio-recorder-module/">audio_recorder</a>
+<div class="nav-subgroup-title">播放</div>
+<a class="nav-link" href="../../pages/sound-module/">sound</a>
+<a class="nav-link" href="../../pages/avplayer-module/">avplayer</a>
+<a class="nav-link" href="../../pages/music-module/">music</a>
+<a class="nav-link" href="../../pages/now-playing-module/">now_playing</a>
+<a class="nav-link" href="../../pages/audio-session-module/">audio_session</a>
+<div class="nav-subgroup-title">语音</div>
+<a class="nav-link" href="../../pages/speech-module/">speech</a>
+<a class="nav-link" href="../../pages/speech-recognition-module/">speech_recognition</a>
+<a class="nav-link" href="../../pages/shazam-module/">shazam</a>
+<div class="nav-subgroup-title">合成</div>
+<a class="nav-link" href="../../pages/media-composer-module/">media_composer</a>
+</div>
+<div class="nav-group">
+<div class="nav-group-title">视觉与文档</div>
+<a class="nav-link" href="../../pages/vision-module/">vision</a>
+<a class="nav-link" href="../../pages/vision-helper-module/">vision_helper</a>
+<a class="nav-link" href="../../pages/coreml-module/">coreml</a>
+<a class="nav-link" href="../../pages/qrcode-module/">qrcode</a>
+<a class="nav-link" href="../../pages/pdf-module/">pdf</a>
+</div>
+<div class="nav-group">
+<div class="nav-group-title">连接与后台</div>
+<div class="nav-subgroup-title">联网</div>
+<a class="nav-link" href="../../pages/network-module/">network</a>
+<a class="nav-link" href="../../pages/websocket-module/">websocket</a>
+<a class="nav-link" href="../../pages/weather-module/">weather</a>
+<div class="nav-subgroup-title">近场</div>
+<a class="nav-link" href="../../pages/bluetooth-module/">bluetooth</a>
+<a class="nav-link" href="../../pages/ble-peripheral-module/">ble_peripheral</a>
+<div class="nav-subgroup-title">后台</div>
+<a class="nav-link" href="../../pages/background-module/">background</a>
+<a class="nav-link" href="../../pages/background-download-module/">background_download</a>
+<div class="nav-subgroup-title">本地服务</div>
+<a class="nav-link" href="../../pages/http-server-module/">http_server</a>
+<a class="nav-link" href="../../pages/ssh-module/">ssh</a>
+</div>
+<div class="nav-group">
+<div class="nav-group-title">通信与智能</div>
+<a class="nav-link" href="../../pages/mail-module/">mail</a>
+<a class="nav-link" href="../../pages/message-module/">message</a>
+<a class="nav-link" href="../../pages/translation-module/">translation</a>
 <a class="nav-link" href="../../pages/nfc-module/">nfc</a>
+<a class="nav-link" href="../../pages/alarm-module/">alarm</a>
+<a class="nav-link" href="../../pages/storekit-module/">storekit</a>
+<a class="nav-link" href="../../pages/foundation-models-module/">foundation_models</a>
+<a class="nav-link" href="../../pages/assistant-module/">assistant</a>
 </div>
 </details>
 <details class="nav-collection">
@@ -214,10 +256,14 @@
 <div class="nav-group">
 <div class="nav-group-title">模块</div>
 <a class="nav-link" href="../../pages/shortcuts-module/">shortcuts</a>
-<a class="nav-link" href="../../pages/live-activity-module/">live_activity</a>
 <a class="nav-link" href="../../pages/keyboard-module/">keyboard</a>
 <a class="nav-link" href="../../pages/objc-util-module/">objc_util</a>
 <a class="nav-link" href="../../pages/c-extensions-module/">c_extensions</a>
+</div>
+<div class="nav-group">
+<div class="nav-group-title">参考</div>
+<a class="nav-link" href="../../pages/modules-index/">全部模块总览</a>
+<a class="nav-link" href="../../pages/miniapp-native-capabilities/">原生能力入口</a>
 </div>
 </details>
 </nav>
@@ -228,19 +274,18 @@
   <header class="article-intro">
     <div class="breadcrumb">scene / API 参考</div>
     <h1>scene API 索引</h1>
-    <p>按类族、Classic 绘图、Action、Physics 和常量快速查 scene 公开名称。</p>
+    <p>按生命周期、节点、Action、Physics、Classic 绘图与常量查 scene 公开名称。</p>
   </header>
   <div class="markdown-body">
-    <p>按类族、Classic 绘图、Action、Physics 和常量快速查 scene 公开名称。</p>
-<h2 id="预期效果"><a class="heading-anchor" href="#预期效果">#</a>预期效果</h2>
-<p>示例会启动一个最小 <code>Scene</code>，索引用来快速定位生命周期、节点、动作、物理和绘图 API。</p>
+    <p>按生命周期、节点、Action、Physics、Classic 绘图与常量快速查找 <code>scene</code> 公开名称。</p>
+<blockquote class="callout note">精确签名以 <a href="../../pages/scene-api-reference/">scene API 参考</a> 与 <code>pyboot/scene.pyi</code> 为准。</blockquote>
 <h2 id="最小入口"><a class="heading-anchor" href="#最小入口">#</a>最小入口</h2>
-<figure class="code-block" data-code-id="00c9fe90186f">
+<figure class="code-block" data-code-id="c3b7561cc668">
   <figcaption>
     <span>python</span>
-    <button class="copy-code" type="button" data-copy-code="00c9fe90186f">复制</button>
+    <button class="copy-code" type="button" data-copy-code="c3b7561cc668">复制</button>
   </figcaption>
-  <pre><code id="code-00c9fe90186f" class="language-python">import scene
+  <pre><code id="code-c3b7561cc668" class="language-python">import scene
 
 
 class DemoScene(scene.Scene):
@@ -249,25 +294,41 @@ class DemoScene(scene.Scene):
 
     def draw(self):
         scene.fill(1, 1, 1)
-        scene.text(&quot;scene&quot;, x=self.size.w / 2, y=self.size.h / 2)
+        scene.text(&quot;scene&quot;, x=self.size.w / 2, y=self.size.h / 2, font_size=24)
 
 
 scene.run(DemoScene())</code></pre>
 </figure>
+<hr>
 <h2 id="先看哪一类"><a class="heading-anchor" href="#先看哪一类">#</a>先看哪一类</h2>
-<div class="table-scroll"><table><thead><tr><th>你要做什么</th><th>先看</th></tr></thead><tbody><tr><td>启动场景和处理生命周期</td><td><code>Scene</code>、<code>run</code>、<code>setup</code>、<code>update</code>、<code>draw</code></td></tr><tr><td>显示图片、文字和形状节点</td><td><code>SpriteNode</code>、<code>LabelNode</code>、<code>ShapeNode</code>、<code>Texture</code></td></tr><tr><td>做动画</td><td><code>Action.move_to</code>、<code>Action.scale_to</code>、<code>Action.sequence</code>、<code>Action.repeat_forever</code></td></tr><tr><td>做触摸交互</td><td><code>touch_began</code>、<code>touch_moved</code>、<code>touch_ended</code>、<code>Touch.location</code></td></tr><tr><td>做碰撞和约束</td><td><code>PhysicsWorld</code>、<code>PhysicsBody</code>、<code>Contact</code>、<code>PinJoint</code>、<code>SpringJoint</code></td></tr><tr><td>做 Classic 绘图</td><td><code>background</code>、<code>fill</code>、<code>rect</code>、<code>ellipse</code>、<code>line</code>、<code>text</code></td></tr></tbody></table></div>
+<div class="table-scroll"><table><thead><tr><th>你要做什么</th><th>先看</th></tr></thead><tbody><tr><td>启动与关闭场景</td><td><code>run</code>、<code>Scene.setup</code>、<code>Scene.stop</code>（关闭回调）</td></tr><tr><td>每帧逻辑</td><td><code>update</code>、<code>dt</code>、<code>t</code>、<code>frame_count</code></td></tr><tr><td>精灵 / 文字 / 形状</td><td><code>SpriteNode</code>、<code>LabelNode</code>、<code>ShapeNode</code>、<code>Texture</code></td></tr><tr><td>动画</td><td><code>Action.move_to</code>、<code>Action.sequence</code>、<code>Action.repeat_forever</code></td></tr><tr><td>触摸</td><td><code>touch_began</code>、<code>Touch.location</code></td></tr><tr><td>碰撞</td><td><code>PhysicsBody</code>、<code>contact_began</code>、<code>Contact</code></td></tr><tr><td>Classic 画布</td><td><code>background</code>、<code>fill</code>、<code>rect</code>、<code>ellipse</code>、<code>line</code>、<code>text</code></td></tr><tr><td>屏幕与安全区</td><td><code>get_screen_size</code>、<code>get_safe_area_insets</code></td></tr><tr><td>模态场景</td><td><code>present_modal_scene</code>、<code>dismiss_modal_scene</code></td></tr></tbody></table></div>
+<hr>
 <h2 id="索引"><a class="heading-anchor" href="#索引">#</a>索引</h2>
-<div class="table-scroll"><table><thead><tr><th>分组</th><th>名称</th></tr></thead><tbody><tr><td>函数</td><td><code>run</code>, <code>get_screen_size</code>, <code>get_screen_scale</code>, <code>gravity</code>, <code>get_safe_area_insets</code>, <code>play_effect</code>, <code>get_image_path</code>, <code>get_controllers</code>, <code>background</code>, <code>fill</code>, <code>no_fill</code>, <code>stroke</code>, <code>no_stroke</code>, <code>stroke_weight</code>, <code>tint</code>, <code>no_tint</code>, <code>rect</code>, <code>ellipse</code>, <code>line</code>, <code>image</code>, <code>text</code>, <code>translate</code>, <code>rotate</code>, <code>scale</code>, <code>push_matrix</code>, <code>pop_matrix</code>, <code>blend_mode</code>, <code>use_shader</code>, <code>load_image</code>, <code>load_image_file</code>, <code>load_pil_image</code>, <code>render_text</code>, <code>unload_image</code>, <code>image_quad</code>, <code>triangle_strip</code></td></tr><tr><td>类</td><td><code>Vector2</code>, <code>EdgeInsets</code>, <code>Vector3</code>, <code>Point</code>, <code>Size</code>, <code>Rect</code>, <code>Touch</code>, <code>Contact</code>, <code>SceneView</code>, <code>Scene</code>, <code>Texture</code>, <code>PhysicsWorld</code>, <code>PhysicsBody</code>, <code>PinJoint</code>, <code>SpringJoint</code>, <code>RopeJoint</code>, <code>Shader</code>, <code>Node</code>, <code>SpriteNode</code>, <code>LabelNode</code>, <code>ShapeNode</code>, <code>EffectNode</code>, <code>EmitterNode</code>, <code>Action</code></td></tr><tr><td>方法</td><td><code>Size.w</code>, <code>Size.w</code>, <code>Size.h</code>, <code>Size.h</code>, <code>Rect.width</code>, <code>Rect.height</code>, <code>Rect.origin</code>, <code>Rect.size</code>, <code>Rect.min_x</code>, <code>Rect.max_x</code>, <code>Rect.min_y</code>, <code>Rect.max_y</code>, <code>Rect.center</code>, <code>Rect.contains_point</code>, <code>Rect.contains_rect</code>, <code>Rect.intersects</code>, <code>Rect.intersection</code>, <code>Rect.union</code>, <code>Rect.inset</code>, <code>Rect.translate</code>, <code>Touch.location</code>, <code>Touch.prev_location</code>, <code>SceneView.view</code>, <code>SceneView.scene</code>, <code>SceneView.scene</code>, <code>SceneView.paused</code>, <code>SceneView.paused</code>, <code>SceneView.frame_interval</code>, <code>SceneView.frame_interval</code>, <code>SceneView.anti_alias</code>, <code>SceneView.anti_alias</code>, <code>SceneView.shows_fps</code>, <code>SceneView.shows_fps</code>, <code>Scene.frame_count</code>, <code>Scene.touches</code>, <code>Scene.t</code>, <code>Scene.dt</code>, <code>Scene.background_color</code>, <code>Scene.background_color</code>, <code>Scene.children</code>, <code>Scene.physics_world</code>, <code>Scene.safe_area_insets</code>, <code>Scene.effects_enabled</code>, <code>Scene.effects_enabled</code>, <code>Scene.crop_rect</code>, <code>Scene.crop_rect</code>, <code>Scene.view</code>, <code>Scene.presented_scene</code>, <code>Scene.presenting_scene</code>, <code>Scene.setup</code>, <code>Scene.update</code>, <code>Scene.draw</code>, <code>Scene.did_evaluate_actions</code>, <code>Scene.touch_began</code>, <code>Scene.touch_moved</code>, <code>Scene.touch_ended</code>, <code>Scene.did_change_size</code>, <code>Scene.controller_changed</code>, <code>Scene.present_modal_scene</code>, <code>Scene.dismiss_modal_scene</code>, <code>Scene.pause</code>, <code>Scene.resume</code>, <code>Scene.stop</code>, <code>Scene.add_child</code>, <code>Scene.remove_all_children</code>, <code>Texture.size</code>, <code>Texture.filtering_mode</code>, <code>Texture.filtering_mode</code>, <code>Texture.subtexture</code>, <code>PhysicsWorld.gravity</code>, <code>PhysicsWorld.gravity</code>, <code>PhysicsBody.rectangle</code>, <code>PhysicsBody.circle</code>, <code>PhysicsBody.affected_by_gravity</code>, <code>PhysicsBody.affected_by_gravity</code>, <code>PhysicsBody.allows_rotation</code>, <code>PhysicsBody.allows_rotation</code>, <code>PhysicsBody.dynamic</code>, <code>PhysicsBody.dynamic</code>, <code>PhysicsBody.restitution</code>, ... (200 total)</td></tr><tr><td>常量</td><td><code>DEFAULT_ORIENTATION</code>, <code>PORTRAIT</code>, <code>LANDSCAPE</code>, <code>BLEND_NORMAL</code>, <code>BLEND_ADD</code>, <code>BLEND_MULTIPLY</code>, <code>TIMING_LINEAR</code>, <code>TIMING_EASE_IN</code>, <code>TIMING_EASE_IN_2</code>, <code>TIMING_EASE_OUT</code>, <code>TIMING_EASE_OUT_2</code>, <code>TIMING_EASE_IN_OUT</code>, <code>TIMING_SINODIAL</code>, <code>TIMING_ELASTIC_IN</code>, <code>TIMING_ELASTIC_OUT</code>, <code>TIMING_ELASTIC_IN_OUT</code>, <code>TIMING_BOUNCE_IN</code>, <code>TIMING_BOUNCE_OUT</code>, <code>TIMING_BOUNCE_IN_OUT</code>, <code>TIMING_EASE_BACK_IN</code>, <code>TIMING_EASE_BACK_OUT</code>, <code>TIMING_EASE_BACK_IN_OUT</code>, <code>FILTERING_LINEAR</code>, <code>FILTERING_NEAREST</code></td></tr></tbody></table></div>
-<h2 id="失败路径"><a class="heading-anchor" href="#失败路径">#</a>失败路径</h2>
-<div class="table-scroll"><table><thead><tr><th>情况</th><th>应该怎么处理</th></tr></thead><tbody><tr><td>场景不显示</td><td>确认最后调用 <code>scene.run(SceneSubclass())</code>，并且 <code>setup()</code> 没有抛错。</td></tr><tr><td>触摸无反应</td><td>使用 <code>touch_began</code> / <code>touch_moved</code> / <code>touch_ended</code>，不要把事件逻辑写进普通函数后忘记绑定。</td></tr><tr><td>帧率下降</td><td>不要在 <code>update()</code> 或 <code>draw()</code> 中做网络请求、文件大读写或反复创建大量节点。</td></tr><tr><td>普通表单很难做</td><td>表单、设置、列表和导航页改用 <code>appui</code>。</td></tr></tbody></table></div>
+<h3 id="模块函数"><a class="heading-anchor" href="#模块函数">#</a>模块函数</h3>
+<div class="table-scroll"><table><thead><tr><th>名称</th><th>说明</th></tr></thead><tbody><tr><td><code>run</code></td><td>运行 <code>Scene</code> 子类（阻塞至关闭）</td></tr><tr><td><code>get_screen_size</code></td><td>屏幕尺寸 → <code>Size</code></td></tr><tr><td><code>get_screen_scale</code></td><td>屏幕缩放因子</td></tr><tr><td><code>get_safe_area_insets</code></td><td>安全区 → <code>EdgeInsets</code></td></tr><tr><td><code>gravity</code></td><td>设备重力向量 → <code>Vector3</code></td></tr><tr><td><code>play_effect</code></td><td>播放系统音效</td></tr><tr><td><code>get_image_path</code></td><td>解析内置图片路径</td></tr><tr><td><code>get_controllers</code></td><td>已连接游戏手柄列表</td></tr></tbody></table></div>
+<h3 id="classic-绘图"><a class="heading-anchor" href="#classic-绘图">#</a>Classic 绘图</h3>
+<div class="table-scroll"><table><thead><tr><th>名称</th><th>说明</th></tr></thead><tbody><tr><td><code>background</code></td><td>清屏背景色</td></tr><tr><td><code>fill</code> / <code>no_fill</code></td><td>填充色</td></tr><tr><td><code>stroke</code> / <code>no_stroke</code> / <code>stroke_weight</code></td><td>描边</td></tr><tr><td><code>tint</code> / <code>no_tint</code></td><td>着色</td></tr><tr><td><code>rect</code> / <code>ellipse</code> / <code>line</code></td><td>基础图形</td></tr><tr><td><code>image</code> / <code>text</code></td><td>图片与文字</td></tr><tr><td><code>translate</code> / <code>rotate</code> / <code>scale</code></td><td>变换</td></tr><tr><td><code>push_matrix</code> / <code>pop_matrix</code></td><td>矩阵栈</td></tr><tr><td><code>blend_mode</code> / <code>use_shader</code></td><td>混合与着色器</td></tr><tr><td><code>load_image</code> / <code>load_image_file</code> / <code>load_pil_image</code> / <code>unload_image</code></td><td>图片资源</td></tr><tr><td><code>render_text</code></td><td>预渲染文字纹理</td></tr><tr><td><code>image_quad</code> ⚠️</td><td>未实现</td></tr><tr><td><code>triangle_strip</code> ⚠️</td><td>未实现</td></tr></tbody></table></div>
+<h3 id="几何与输入"><a class="heading-anchor" href="#几何与输入">#</a>几何与输入</h3>
+<div class="table-scroll"><table><thead><tr><th>名称</th><th>说明</th></tr></thead><tbody><tr><td><code>Point</code> / <code>Size</code> / <code>Rect</code> / <code>Vector2</code> / <code>Vector3</code></td><td>几何类型</td></tr><tr><td><code>EdgeInsets</code></td><td>安全区内边距</td></tr><tr><td><code>Touch</code></td><td><code>location</code>、<code>prev_location</code>、<code>touch_id</code></td></tr><tr><td><code>Contact</code></td><td>物理碰撞回调：<code>node_a</code>、<code>node_b</code>、<code>contact_point</code></td></tr></tbody></table></div>
+<h3 id="类"><a class="heading-anchor" href="#类">#</a>类</h3>
+<div class="table-scroll"><table><thead><tr><th>名称</th><th>说明</th></tr></thead><tbody><tr><td><code>Scene</code></td><td>场景基类</td></tr><tr><td><code>SceneView</code></td><td>嵌入式场景视图（高级）</td></tr><tr><td><code>Node</code></td><td>节点基类</td></tr><tr><td><code>SpriteNode</code></td><td>精灵</td></tr><tr><td><code>LabelNode</code></td><td>文字</td></tr><tr><td><code>ShapeNode</code></td><td>矢量路径</td></tr><tr><td><code>EffectNode</code></td><td>特效节点</td></tr><tr><td><code>EmitterNode</code></td><td>粒子发射器</td></tr><tr><td><code>Texture</code></td><td>纹理</td></tr><tr><td><code>Shader</code></td><td>自定义着色器</td></tr><tr><td><code>Action</code></td><td>动作工厂</td></tr><tr><td><code>PhysicsWorld</code> / <code>PhysicsBody</code></td><td>物理</td></tr><tr><td><code>PinJoint</code> / <code>SpringJoint</code> / <code>RopeJoint</code></td><td>关节约束</td></tr></tbody></table></div>
+<h3 id="scene-生命周期方法"><a class="heading-anchor" href="#scene-生命周期方法">#</a><code>Scene</code> 生命周期方法</h3>
+<p><code>setup</code>、<code>update</code>、<code>draw</code>、<code>did_evaluate_actions</code>、<code>touch_began</code>、<code>touch_moved</code>、<code>touch_ended</code>、<code>did_change_size</code>、<code>controller_changed</code>、<code>contact_began</code>、<code>present_modal_scene</code>、<code>dismiss_modal_scene</code>、<code>pause</code>、<code>resume</code>、<code>stop</code></p>
+<h3 id="scene-常用属性"><a class="heading-anchor" href="#scene-常用属性">#</a><code>Scene</code> 常用属性</h3>
+<p><code>size</code>、<code>bounds</code>、<code>background_color</code>、<code>children</code>、<code>physics_world</code>、<code>safe_area_insets</code>、<code>dt</code>、<code>t</code>、<code>frame_count</code>、<code>touches</code>、<code>effects_enabled</code>、<code>crop_rect</code>、<code>view</code>、<code>presented_scene</code>、<code>presenting_scene</code></p>
+<h3 id="action-静态方法"><a class="heading-anchor" href="#action-静态方法">#</a><code>Action</code> 静态方法</h3>
+<p><code>move_to</code>、<code>move_by</code>、<code>rotate_to</code>、<code>rotate_by</code>、<code>scale_to</code>、<code>scale_by</code>、<code>scale_x_to</code>、<code>scale_y_to</code>、<code>fade_to</code>、<code>fade_by</code>、<code>sequence</code>、<code>group</code>、<code>repeat</code>、<code>repeat_forever</code>、<code>wait</code>、<code>remove</code>、<code>call</code>、<code>set_uniform</code></p>
+<h3 id="常量"><a class="heading-anchor" href="#常量">#</a>常量</h3>
+<div class="table-scroll"><table><thead><tr><th>分组</th><th>名称</th></tr></thead><tbody><tr><td>方向</td><td><code>DEFAULT_ORIENTATION</code>、<code>PORTRAIT</code>、<code>LANDSCAPE</code></td></tr><tr><td>混合</td><td><code>BLEND_NORMAL</code>、<code>BLEND_ADD</code>、<code>BLEND_MULTIPLY</code></td></tr><tr><td>纹理过滤</td><td><code>FILTERING_LINEAR</code>、<code>FILTERING_NEAREST</code></td></tr><tr><td>缓动</td><td><code>TIMING_LINEAR</code>、<code>TIMING_EASE_IN</code>、<code>TIMING_EASE_OUT</code>、<code>TIMING_EASE_IN_OUT</code>、<code>TIMING_SINODIAL</code>、<code>TIMING_BOUNCE_*</code>、<code>TIMING_ELASTIC_*</code>、<code>TIMING_EASE_BACK_*</code></td></tr></tbody></table></div>
+<hr>
 <h2 id="相关文档"><a class="heading-anchor" href="#相关文档">#</a>相关文档</h2>
-<div class="table-scroll"><table><thead><tr><th>文档</th><th>用途</th></tr></thead><tbody><tr><td><a href="../../pages/scene-module/">scene 概览</a></td><td>2D 场景、Classic 绘图、节点、动作、物理和触摸循环。</td></tr><tr><td><a href="../../pages/scene-api-reference/">scene API 参考</a></td><td>集中列出 scene 生命周期、节点、Action、Physics 与 Classic 绘图签名。</td></tr></tbody></table></div>
+<div class="table-scroll"><table><thead><tr><th>文档</th><th>用途</th></tr></thead><tbody><tr><td><a href="../../pages/scene-module/">scene 概览</a></td><td>教程、可运行示例、常见错误</td></tr><tr><td><a href="../../pages/scene-api-reference/">scene API 参考</a></td><td>构造函数与参数详解</td></tr></tbody></table></div>
   </div>
-  <section class="related-section"><h2>相关文档</h2><div class="related-list"><a class="related-link" href="../scene-module/"><strong>scene 概览</strong><span>2D 场景、节点、动画、物理与绘制。</span></a><a class="related-link" href="../scene-api-reference/"><strong>scene API 参考</strong><span>集中列出 scene 生命周期、节点、Action、Physics 与 Classic 绘图签名。</span></a></div></section>
+  <section class="related-section"><h2>相关文档</h2><div class="related-list"><a class="related-link" href="../scene-module/"><strong>scene</strong><span>2D 场景、精灵节点、触摸、Action 动画、物理与 Classic 绘图。</span></a><a class="related-link" href="../scene-api-reference/"><strong>scene API 参考</strong><span>集中列出 scene 生命周期、节点、Action、Physics 与 Classic 绘图签名。</span></a></div></section>
 </article>
 
     </main>
-    <aside class="toc"><div class="toc-title">本页目录</div><a class="toc-link" href="#预期效果">预期效果</a><a class="toc-link" href="#最小入口">最小入口</a><a class="toc-link" href="#先看哪一类">先看哪一类</a><a class="toc-link" href="#索引">索引</a><a class="toc-link" href="#失败路径">失败路径</a><a class="toc-link" href="#相关文档">相关文档</a></aside>
+    <aside class="toc"><div class="toc-title">本页目录</div><a class="toc-link" href="#最小入口">最小入口</a><a class="toc-link" href="#先看哪一类">先看哪一类</a><a class="toc-link" href="#索引">索引</a><a class="toc-link child" href="#模块函数">模块函数</a><a class="toc-link child" href="#classic-绘图">Classic 绘图</a><a class="toc-link child" href="#几何与输入">几何与输入</a><a class="toc-link child" href="#类">类</a><a class="toc-link child" href="#scene-生命周期方法">Scene 生命周期方法</a><a class="toc-link child" href="#scene-常用属性">Scene 常用属性</a><a class="toc-link child" href="#action-静态方法">Action 静态方法</a><a class="toc-link child" href="#常量">常量</a><a class="toc-link" href="#相关文档">相关文档</a></aside>
   </div>
   <div class="mobile-backdrop"></div>
   <div class="search-panel" role="dialog" aria-modal="true" aria-label="搜索">

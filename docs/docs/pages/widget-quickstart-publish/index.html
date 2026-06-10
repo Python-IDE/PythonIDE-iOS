@@ -3,8 +3,8 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>从脚本到桌面 - PythonIDE Docs</title>
-  <meta name="description" content="写脚本、预览、调参数、发布到桌面并排错。">
+  <title>widget 从脚本到桌面 - PythonIDE Docs</title>
+  <meta name="description" content="Widget Studio 预览、发布、系统添加主屏小组件与桌面验证。">
   <link rel="icon" href="../../assets/brand-mark.svg" type="image/svg+xml">
   <link rel="stylesheet" href="../../assets/docs-v2.css">
   <script>window.PYTHONIDE_DOCS_PREFIX = "../../";</script>
@@ -146,7 +146,7 @@
 <summary><a href="../../collections/scene/">scene</a></summary>
 <div class="nav-group">
 <div class="nav-group-title">快速上手</div>
-<a class="nav-link" href="../../pages/scene-module/">scene 概览</a>
+<a class="nav-link" href="../../pages/scene-module/">scene</a>
 <a class="nav-link" href="../../pages/turtle-module/">turtle</a>
 </div>
 <div class="nav-group">
@@ -160,8 +160,16 @@
 <div class="nav-group">
 <div class="nav-group-title">快速上手</div>
 <a class="nav-link" href="../../pages/ios-native/">iOS 原生能力</a>
-<a class="nav-link" href="../../pages/modules-index/">全部模块总览</a>
-<a class="nav-link" href="../../pages/miniapp-native-capabilities/">原生能力入口</a>
+</div>
+<div class="nav-group">
+<div class="nav-group-title">基础与权限</div>
+<a class="nav-link" href="../../pages/permission-module/">permission</a>
+<a class="nav-link" href="../../pages/storage-module/">storage</a>
+<a class="nav-link" href="../../pages/database-module/">database</a>
+<a class="nav-link" href="../../pages/keychain-module/">keychain</a>
+<a class="nav-link" href="../../pages/clipboard-module/">clipboard</a>
+<a class="nav-link" href="../../pages/console-module/">console</a>
+<a class="nav-link" href="../../pages/dialogs-module/">dialogs</a>
 </div>
 <div class="nav-group">
 <div class="nav-group-title">设备与传感器</div>
@@ -173,35 +181,69 @@
 <a class="nav-link" href="../../pages/health-module/">health</a>
 </div>
 <div class="nav-group">
-<div class="nav-group-title">媒体与视觉</div>
-<a class="nav-link" href="../../pages/photos-module/">photos</a>
-<a class="nav-link" href="../../pages/avplayer-module/">avplayer</a>
-<a class="nav-link" href="../../pages/sound-module/">sound</a>
-<a class="nav-link" href="../../pages/speech-module/">speech</a>
-<a class="nav-link" href="../../pages/vision-helper-module/">vision_helper</a>
-<a class="nav-link" href="../../pages/vision-module/">vision</a>
-<a class="nav-link" href="../../pages/coreml-module/">coreml</a>
-</div>
-<div class="nav-group">
-<div class="nav-group-title">网络与数据</div>
-<a class="nav-link" href="../../pages/network-module/">network</a>
-<a class="nav-link" href="../../pages/websocket-module/">websocket</a>
-<a class="nav-link" href="../../pages/bluetooth-module/">bluetooth</a>
-<a class="nav-link" href="../../pages/background-module/">background</a>
-</div>
-<div class="nav-group">
-<div class="nav-group-title">系统服务</div>
-<a class="nav-link" href="../../pages/permission-module/">permission</a>
-<a class="nav-link" href="../../pages/storage-module/">storage</a>
-<a class="nav-link" href="../../pages/database-module/">database</a>
-<a class="nav-link" href="../../pages/keychain-module/">keychain</a>
-<a class="nav-link" href="../../pages/clipboard-module/">clipboard</a>
-<a class="nav-link" href="../../pages/dialogs-module/">dialogs</a>
-<a class="nav-link" href="../../pages/console-module/">console</a>
+<div class="nav-group-title">界面与系统</div>
+<a class="nav-link" href="../../pages/file-picker-module/">file_picker</a>
+<a class="nav-link" href="../../pages/share-module/">share</a>
+<a class="nav-link" href="../../pages/font-picker-module/">font_picker</a>
 <a class="nav-link" href="../../pages/notification-module/">notification</a>
+<a class="nav-link" href="../../pages/live-activity-module/">live_activity</a>
 <a class="nav-link" href="../../pages/contacts-module/">contacts</a>
 <a class="nav-link" href="../../pages/calendar-events-module/">calendar_events</a>
+</div>
+<div class="nav-group">
+<div class="nav-group-title">媒体</div>
+<div class="nav-subgroup-title">采集</div>
+<a class="nav-link" href="../../pages/photos-module/">photos</a>
+<a class="nav-link" href="../../pages/camera-module/">camera</a>
+<a class="nav-link" href="../../pages/video-recorder-module/">video_recorder</a>
+<a class="nav-link" href="../../pages/audio-recorder-module/">audio_recorder</a>
+<div class="nav-subgroup-title">播放</div>
+<a class="nav-link" href="../../pages/sound-module/">sound</a>
+<a class="nav-link" href="../../pages/avplayer-module/">avplayer</a>
+<a class="nav-link" href="../../pages/music-module/">music</a>
+<a class="nav-link" href="../../pages/now-playing-module/">now_playing</a>
+<a class="nav-link" href="../../pages/audio-session-module/">audio_session</a>
+<div class="nav-subgroup-title">语音</div>
+<a class="nav-link" href="../../pages/speech-module/">speech</a>
+<a class="nav-link" href="../../pages/speech-recognition-module/">speech_recognition</a>
+<a class="nav-link" href="../../pages/shazam-module/">shazam</a>
+<div class="nav-subgroup-title">合成</div>
+<a class="nav-link" href="../../pages/media-composer-module/">media_composer</a>
+</div>
+<div class="nav-group">
+<div class="nav-group-title">视觉与文档</div>
+<a class="nav-link" href="../../pages/vision-module/">vision</a>
+<a class="nav-link" href="../../pages/vision-helper-module/">vision_helper</a>
+<a class="nav-link" href="../../pages/coreml-module/">coreml</a>
+<a class="nav-link" href="../../pages/qrcode-module/">qrcode</a>
+<a class="nav-link" href="../../pages/pdf-module/">pdf</a>
+</div>
+<div class="nav-group">
+<div class="nav-group-title">连接与后台</div>
+<div class="nav-subgroup-title">联网</div>
+<a class="nav-link" href="../../pages/network-module/">network</a>
+<a class="nav-link" href="../../pages/websocket-module/">websocket</a>
+<a class="nav-link" href="../../pages/weather-module/">weather</a>
+<div class="nav-subgroup-title">近场</div>
+<a class="nav-link" href="../../pages/bluetooth-module/">bluetooth</a>
+<a class="nav-link" href="../../pages/ble-peripheral-module/">ble_peripheral</a>
+<div class="nav-subgroup-title">后台</div>
+<a class="nav-link" href="../../pages/background-module/">background</a>
+<a class="nav-link" href="../../pages/background-download-module/">background_download</a>
+<div class="nav-subgroup-title">本地服务</div>
+<a class="nav-link" href="../../pages/http-server-module/">http_server</a>
+<a class="nav-link" href="../../pages/ssh-module/">ssh</a>
+</div>
+<div class="nav-group">
+<div class="nav-group-title">通信与智能</div>
+<a class="nav-link" href="../../pages/mail-module/">mail</a>
+<a class="nav-link" href="../../pages/message-module/">message</a>
+<a class="nav-link" href="../../pages/translation-module/">translation</a>
 <a class="nav-link" href="../../pages/nfc-module/">nfc</a>
+<a class="nav-link" href="../../pages/alarm-module/">alarm</a>
+<a class="nav-link" href="../../pages/storekit-module/">storekit</a>
+<a class="nav-link" href="../../pages/foundation-models-module/">foundation_models</a>
+<a class="nav-link" href="../../pages/assistant-module/">assistant</a>
 </div>
 </details>
 <details class="nav-collection">
@@ -214,10 +256,14 @@
 <div class="nav-group">
 <div class="nav-group-title">模块</div>
 <a class="nav-link" href="../../pages/shortcuts-module/">shortcuts</a>
-<a class="nav-link" href="../../pages/live-activity-module/">live_activity</a>
 <a class="nav-link" href="../../pages/keyboard-module/">keyboard</a>
 <a class="nav-link" href="../../pages/objc-util-module/">objc_util</a>
 <a class="nav-link" href="../../pages/c-extensions-module/">c_extensions</a>
+</div>
+<div class="nav-group">
+<div class="nav-group-title">参考</div>
+<a class="nav-link" href="../../pages/modules-index/">全部模块总览</a>
+<a class="nav-link" href="../../pages/miniapp-native-capabilities/">原生能力入口</a>
 </div>
 </details>
 </nav>
@@ -227,70 +273,82 @@
 <article class="article" style="--page-accent:#7c3aed">
   <header class="article-intro">
     <div class="breadcrumb">widget / 小组件</div>
-    <h1>从脚本到桌面</h1>
-    <p>写脚本、预览、调参数、发布到桌面并排错。</p>
+    <h1>widget 从脚本到桌面</h1>
+    <p>Widget Studio 预览、发布、系统添加主屏小组件与桌面验证。</p>
   </header>
   <div class="markdown-body">
-    <p>这篇教程给出一条完整路径：写最小脚本、预览、调整参数、发布到桌面，再处理常见失败。</p>
-<p>适合第一次发布小组件时使用。已经熟悉流程后，可以直接查 <a href="../../pages/widget-layout/">布局与尺寸</a>、<a href="../../pages/widget-parameters/">参数面板</a>、<a href="../../pages/widget-interaction/">状态和交互</a> 或 <a href="../../pages/widget-api-index/">API 地图</a>。</p>
-<h2 id="完整示例"><a class="heading-anchor" href="#完整示例">#</a>完整示例</h2>
-<figure class="code-block" data-code-id="ae5c4747f4ae">
+    <p>从第一行 Python 脚本到主屏/锁屏真正显示：写脚本 → 预览 → 调参 → 发布 → 系统添加小组件。</p>
+<blockquote class="callout note"><strong>边界</strong>：本篇讲<strong>发布流程</strong>。API 与节点写法见 <a href="../../pages/widget-module/">widget 概览</a>；文档里的 <code>previewWidget</code> <strong>只能预览</strong>，不能直接发布到桌面。</blockquote>
+<h2 id="本篇目标"><a class="heading-anchor" href="#本篇目标">#</a>本篇目标</h2>
+<div class="table-scroll"><table><thead><tr><th>项</th><th>说明</th></tr></thead><tbody><tr><td>读完你会</td><td>完成一次端到端发布，并在桌面验证按钮交互</td></tr><tr><td>前提</td><td>脚本含 <code>Widget()</code> + <code>w.render()</code>，且能正常预览</td></tr><tr><td>推荐路径</td><td><strong>Widget Studio</strong> 独立项目（最省事）</td></tr><tr><td>耗时</td><td>首次约 5–10 分钟（含系统添加小组件）</td></tr></tbody></table></div>
+<hr>
+<h2 id="发布用脚本-可预览"><a class="heading-anchor" href="#发布用脚本-可预览">#</a>发布用脚本（可预览）</h2>
+<p>本篇示例专注<strong>发布验证</strong>：一个开关 + 状态文案，便于在桌面确认 AppIntent 是否生效。完整 API 写法（环形图、± 按钮等）见 <a href="../../pages/widget-module/#快速开始">widget 概览 · 饮水打卡</a>。</p>
+<figure class="code-block" data-code-id="efc095904d6f">
   <figcaption>
     <span>python</span>
-    <button class="copy-code" type="button" data-copy-code="ae5c4747f4ae">复制</button>
+    <button class="copy-code" type="button" data-copy-code="efc095904d6f">复制</button>
   </figcaption>
-  <pre><code id="code-ae5c4747f4ae" class="language-python">import widget
+  <pre><code id="code-efc095904d6f" class="language-python">import widget
 
-title = widget.param.text(&quot;标题&quot;, &quot;今日目标&quot;)
-accent = widget.param.color(&quot;强调色&quot;, &quot;#2563EB&quot;)
-target = widget.param.number(&quot;目标次数&quot;, 8, min=1, max=20)
-count = widget.state.int(&quot;count&quot;, 0)
+habit = widget.param.text(&quot;习惯名&quot;, &quot;每日阅读&quot;)
+done = widget.state.bool(&quot;done&quot;, False)
+accent = widget.param.color(&quot;主色&quot;, &quot;#7C3AED&quot;)
 
-progress = min(int(count), int(target)) / max(int(target), 1)
-title_size = widget.family_value(17, small=15, large=20)
-
-w = widget.Widget(background=(&quot;#FFFFFF&quot;, &quot;#111827&quot;), padding=14)
-w.text(title, size=title_size, weight=&quot;semibold&quot;).line_limit(1).min_scale(0.72)
-(
-    w.value(count, unit=&quot;次&quot;)
-    .id(&quot;count&quot;)
-    .content_transition(&quot;numericText&quot;)
-    .monospaced_digit()
-    .line_limit(1)
-    .min_scale(0.72)
-)
-w.progress(progress, total=1, color=accent, height=8)
-
-if not widget.context.is_family(&quot;small&quot;):
-    (
-        w.text(f&quot;目标 {int(target)} 次&quot;, size=12, color=&quot;secondary&quot;)
-        .line_limit(1)
-        .min_scale(0.72)
-    )
-
-(
-    w.button(&quot;加 1&quot;, action=count.increment(), background=accent, color=&quot;#FFFFFF&quot;)
-    .line_limit(1)
-    .min_scale(0.72)
-)
+w = widget.Widget(background=(&quot;#FAF5FF&quot;, &quot;#1E1B4B&quot;), padding=14)
+w.text(habit, size=16, weight=&quot;semibold&quot;).line_limit(1).min_scale(0.72)
+w.toggle(&quot;今日完成&quot;, state=done, color=accent, style=&quot;switch&quot;)
+status = &quot;已完成，发布验证通过&quot; if done else &quot;桌面点开关以验证&quot;
+w.text(status, size=12, color=accent if done else &quot;secondary&quot;).line_limit(1).min_scale(0.72)
 w.render()</code></pre>
 </figure>
-<p>预期效果：medium 尺寸显示标题、主数值、进度条、目标说明和按钮；small 尺寸保留标题、主数值、进度条和按钮，隐藏次要说明以避免拥挤。</p>
-<h2 id="发布流程"><a class="heading-anchor" href="#发布流程">#</a>发布流程</h2>
-<ol><li>运行脚本，打开小组件预览。</li><li>在预览面板调整 <code>标题</code>、<code>强调色</code> 和 <code>目标次数</code>。</li><li>确认 small、medium 或目标 family 内没有文字裁切。</li><li>发布到桌面。</li><li>在桌面点击按钮，确认数值变化并刷新。</li></ol>
-<p>如果改了参数名、状态 key 或布局结构，重新运行并发布。桌面仍显示旧内容时，删除桌面小组件后重新添加。</p>
+<p><strong>预期效果</strong></p>
+<ul><li><strong>medium</strong>：习惯名、开关、状态说明</li><li>桌面点开关后文案变为「已完成…」即表示 <code>widget.state</code> 与发布链路正常</li></ul>
+<hr>
+<h2 id="三条入口-别搞混"><a class="heading-anchor" href="#三条入口-别搞混">#</a>三条入口，别搞混</h2>
+<div class="table-scroll"><table><thead><tr><th>入口</th><th>能预览</th><th>能发布到桌面</th><th>适用</th></tr></thead><tbody><tr><td>文档 <code>previewWidget</code></td><td>✅</td><td>❌</td><td>学 API、看效果</td></tr><tr><td><strong>Widget Studio</strong></td><td>✅</td><td>✅</td><td><strong>日常开发发布（推荐）</strong></td></tr><tr><td>MiniApp Widget 工程</td><td>✅</td><td>✅</td><td>工程内多文件 widget 目录</td></tr></tbody></table></div>
+<p>文档示例要上线：把代码<strong>复制</strong>到 Studio 新建脚本，或放进自己的 Widget 工程后再发布。</p>
+<hr>
+<h2 id="发布流程-widget-studio"><a class="heading-anchor" href="#发布流程-widget-studio">#</a>发布流程（Widget Studio）</h2>
+<h3 id="1.-准备脚本"><a class="heading-anchor" href="#1.-准备脚本">#</a>1. 准备脚本</h3>
+<ul><li>只创建一个 <code>w = widget.Widget(...)</code></li><li>末尾调用 <code>w.render()</code></li><li>交互按钮使用 <code>widget.state</code> 的 <code>count.increment()</code> 等 action</li></ul>
+<h3 id="2.-创建或打开项目"><a class="heading-anchor" href="#2.-创建或打开项目">#</a>2. 创建或打开项目</h3>
+<ol><li>打开 App 内 <strong>Widget Studio</strong>（小组件工作区）</li><li><strong>新建</strong>独立小组件项目，或打开已有脚本对应的项目</li><li>将上例代码保存为项目的 Python 脚本</li></ol>
+<h3 id="3.-运行预览"><a class="heading-anchor" href="#3.-运行预览">#</a>3. 运行预览</h3>
+<ol><li>在项目卡片上点 <strong>运行</strong>（或等价入口）</li><li>进入全屏/Sheet <strong>小组件预览</strong></li><li>右上角切换 <strong>small / medium / large</strong>，确认无文字裁切</li><li>在预览侧栏调整 <code>widget.param</code>（习惯名、主色等）</li></ol>
+<p>预览成功时，Studio 会生成<strong>草稿快照</strong>；满足条件时会<strong>自动发布</strong>到 App 的 Widget 扩展缓存（状态栏常见提示：「已生成并发布 N 个尺寸」或「Widget 已更新，可在桌面选择」）。</p>
+<h3 id="4.-添加到-ios-主屏幕"><a class="heading-anchor" href="#4.-添加到-ios-主屏幕">#</a>4. 添加到 iOS 主屏幕</h3>
+<p>发布只代表 App 内已有可渲染快照；<strong>还要在系统里添加一次小组件</strong>：</p>
+<ol><li>回到 iPhone <strong>主屏幕</strong>（或锁屏编辑界面）</li><li><strong>长按</strong>空白处 → <strong>编辑主屏幕</strong> → 点左上角 <strong>+</strong></li><li>搜索并选择 <strong>Python IDE</strong>（或你的 App 显示名）</li><li>选择尺寸（小/中/大或锁屏 accessory）</li><li>若出现多个槽位/项目，选与 Studio <strong>同名</strong> 的项目</li><li>点 <strong>添加小组件</strong></li></ol>
+<p>锁屏 accessory（圆形/矩形/行内）需在锁屏编辑界面单独添加，布局要更精简（见 <a href="../../pages/widget-layout/">布局与尺寸</a>）。</p>
+<h3 id="5.-桌面验证交互"><a class="heading-anchor" href="#5.-桌面验证交互">#</a>5. 桌面验证交互</h3>
+<ol><li>在主屏小组件上点 <strong>「今日完成」</strong> 开关</li><li>状态文案应变为「已完成，发布验证通过」</li><li>若不变：回到 Studio <strong>重新运行</strong>发布，或删除桌面小组件后重新添加</li></ol>
+<hr>
+<h2 id="miniapp-widget-工程-简表"><a class="heading-anchor" href="#miniapp-widget-工程-简表">#</a>MiniApp Widget 工程（简表）</h2>
+<p>若 widget 脚本在 MiniApp 的 <code>widgets/</code> 目录下：</p>
+<ol><li>在 MiniApp 编辑器打开 widget 脚本</li><li>运行 Widget 预览（工具栏/运行菜单）</li><li>构建成功且可发布时，同样会提示 <strong>「Widget 已更新，可在桌面选择」</strong></li><li>按上一节 <strong>§4</strong> 在系统里添加或刷新小组件</li></ol>
+<p>多 widget _manifest、槽位与工程结构见 MiniApp 内说明；本篇不展开工程细节。</p>
+<hr>
 <h2 id="发布前检查"><a class="heading-anchor" href="#发布前检查">#</a>发布前检查</h2>
-<div class="table-scroll"><table><thead><tr><th>检查项</th><th>合格标准</th></tr></thead><tbody><tr><td>入口</td><td>只创建一个 <code>Widget()</code>，最后调用 <code>w.render()</code></td></tr><tr><td>文本</td><td>用户可改文本、按钮和主值使用 <code>.line_limit(1).min_scale(...)</code></td></tr><tr><td>尺寸</td><td>small 只保留核心信息，medium/large 再增加辅助内容</td></tr><tr><td>参数</td><td><code>widget.param.*</code> 在构建 UI 前声明，默认值类型正确</td></tr><tr><td>状态</td><td>按钮和开关使用 <code>widget.state</code> 生成的 action</td></tr><tr><td>外观</td><td>浅色/深色、透明/染色模式下仍然可读</td></tr></tbody></table></div>
+<div class="table-scroll"><table><thead><tr><th>检查项</th><th>合格标准</th></tr></thead><tbody><tr><td>入口</td><td>仅一个 <code>Widget()</code>，最后 <code>w.render()</code></td></tr><tr><td>预览</td><td>Studio/文档预览非空白，无构建错误日志</td></tr><tr><td>文本</td><td>可变文案有 <code>.line_limit(1).min_scale(0.65+)</code></td></tr><tr><td>尺寸</td><td>small 只保留核心信息；medium 为默认主力</td></tr><tr><td>参数</td><td><code>widget.param.*</code> 在 UI 构建<strong>之前</strong>声明</td></tr><tr><td>状态</td><td>按钮 <code>action=count.increment()</code>；开关 <code>w.toggle(..., state=done)</code></td></tr><tr><td>外观</td><td>浅色/深色模式下对比度可读</td></tr><tr><td>发布</td><td>Studio 出现「已发布」类成功提示</td></tr><tr><td>桌面</td><td>系统已添加小组件，且选中正确项目/槽位</td></tr></tbody></table></div>
+<hr>
+<h2 id="常见错误"><a class="heading-anchor" href="#常见错误">#</a>常见错误</h2>
+<div class="table-scroll"><table><thead><tr><th>错误</th><th>后果</th><th>修正</th></tr></thead><tbody><tr><td>只在文档里预览就认为已上桌面</td><td>主屏没有组件</td><td>必须走 Studio 发布 + 系统添加</td></tr><tr><td>预览成功但未在系统里添加小组件</td><td>桌面看不到</td><td>长按主屏幕 → + → 选 App</td></tr><tr><td>选了错误的 Studio 项目槽位</td><td>显示别的 widget</td><td>添加时核对项目名称</td></tr><tr><td>改了 <code>widget.state</code> 的 key</td><td>点击计数错乱</td><td>重新发布；删桌面组件重装</td></tr><tr><td>改了布局/参数默认值</td><td>桌面仍旧版</td><td>重新运行发布；必要时删组件重装</td></tr><tr><td>small 塞满 large 内容</td><td>裁切、难读</td><td><code>widget.context.is_family(&quot;small&quot;)</code> 分支</td></tr><tr><td><code>action</code> 写死字符串</td><td>点击无效</td><td>用 <code>widget.state</code> 生成 action</td></tr></tbody></table></div>
+<hr>
 <h2 id="失败路径"><a class="heading-anchor" href="#失败路径">#</a>失败路径</h2>
-<ul><li>预览空白：检查 <code>w.render()</code>，并确认脚本没有混用 AppUI、网页框架或普通 App 页面代码。</li><li>文本裁切：先缩短文字，再加 <code>.line_limit(1).min_scale(0.6)</code>；仍然拥挤时按 family 隐藏次要内容。</li><li>参数不显示：确认使用的是 <code>widget.param.text/color/slider/number/bool/choice/file</code>，并且声明在 <code>w.render()</code> 之前。</li><li>点击没反应：确认 <code>action</code> 来自 <code>widget.state</code>，例如 <code>count.increment()</code> 或 <code>done.toggle()</code>。</li><li>桌面不刷新：重新运行并发布；仍旧时删除桌面小组件后重新添加。</li></ul>
-<h2 id="api-参考"><a class="heading-anchor" href="#api-参考">#</a>API 参考</h2>
-<p>继续查 <a href="../../pages/widget-api-index/">API 地图</a> 选择能力；查精确签名时看 <a href="../../pages/widget-api-reference/">API 参考</a>。</p>
+<div class="table-scroll"><table><thead><tr><th>现象</th><th>处理</th></tr></thead><tbody><tr><td>预览空白</td><td>查 <code>w.render()</code>；勿混用 appui/scene → <a href="../../pages/widget-troubleshooting/">排错</a></td></tr><tr><td>发布失败 / 无成功提示</td><td>看预览控制台日志；修脚本后重新运行</td></tr><tr><td>参数面板为空</td><td><code>widget.param</code> 须在 <code>render()</code> 前声明 → <a href="../../pages/widget-parameters/">参数面板</a></td></tr><tr><td>桌面不刷新</td><td>重新运行发布；删主屏小组件 → 重新添加</td></tr><tr><td>预览正常、桌面异常</td><td>确认已发布且选对口槽位；查 <a href="../../pages/widget-troubleshooting/">排错</a></td></tr><tr><td>点击无反应</td><td><code>action</code> 必须来自 <code>widget.state</code> → <a href="../../pages/widget-interaction/">状态和交互</a></td></tr></tbody></table></div>
+<hr>
+<h2 id="改脚本后要不要重新发布"><a class="heading-anchor" href="#改脚本后要不要重新发布">#</a>改脚本后要不要重新发布？</h2>
+<div class="table-scroll"><table><thead><tr><th>变更类型</th><th>建议</th></tr></thead><tbody><tr><td>改颜色默认值、文案</td><td>重新运行发布；参数可在预览里覆盖</td></tr><tr><td>改 <code>widget.state</code> key</td><td><strong>必须</strong>重新发布；建议删桌面组件重装</td></tr><tr><td>改布局结构 / 新增 family</td><td>重新运行发布，逐尺寸检查</td></tr><tr><td>仅改注释</td><td>可不发布（桌面无变化）</td></tr></tbody></table></div>
+<hr>
+<h2 id="相关文档"><a class="heading-anchor" href="#相关文档">#</a>相关文档</h2>
+<div class="table-scroll"><table><thead><tr><th>文档</th><th>用途</th></tr></thead><tbody><tr><td><a href="../../pages/widget-module/">widget 概览</a></td><td>API、示例、心智模型</td></tr><tr><td><a href="../../pages/widget-parameters/">参数面板</a></td><td><code>widget.param</code> 详解</td></tr><tr><td><a href="../../pages/widget-interaction/">状态和交互</a></td><td>按钮、开关、链接</td></tr><tr><td><a href="../../pages/widget-layout/">布局与尺寸</a></td><td>small/medium/large、锁屏 accessory</td></tr><tr><td><a href="../../pages/widget-troubleshooting/">排错</a></td><td>预览/桌面不一致</td></tr><tr><td><a href="../../pages/widget-api-index/">API 索引</a></td><td>按任务选 API</td></tr></tbody></table></div>
   </div>
-  <section class="related-section"><h2>相关文档</h2><div class="related-list"><a class="related-link" href="../widget-module/"><strong>widget</strong><span>用 Python 编写主屏、锁屏和 StandBy 小组件。</span></a><a class="related-link" href="../widget-layout/"><strong>widget 布局与尺寸</strong><span>row、column、grid、table、canvas 和三尺寸适配。</span></a><a class="related-link" href="../widget-parameters/"><strong>widget 参数面板</strong><span>让用户在预览面板调颜色、字号、开关、选项和文件。</span></a><a class="related-link" href="../widget-interaction/"><strong>widget 状态和交互</strong><span>AppIntent 按钮、Toggle、链接和 widget.state。</span></a><a class="related-link" href="../widget-troubleshooting/"><strong>widget 排错</strong><span>空白、溢出、桌面缓存、点击和动画问题。</span></a></div></section>
+  <section class="related-section"><h2>相关文档</h2><div class="related-list"><a class="related-link" href="../widget-module/"><strong>widget</strong><span>Python 编写 WidgetKit 小组件：参数、状态、布局与发布到桌面。</span></a><a class="related-link" href="../widget-layout/"><strong>widget 布局与尺寸</strong><span>row/column/grid/table/canvas、family 预算、when/unless 与锁屏 accessory。</span></a><a class="related-link" href="../widget-parameters/"><strong>widget 参数面板</strong><span>widget.param 声明预览可调配置，与 widget.state 桌面交互区分。</span></a><a class="related-link" href="../widget-interaction/"><strong>widget 状态和交互</strong><span>widget.state、按钮 ±、习惯清单、开关与链接；AppIntent 桌面交互。</span></a><a class="related-link" href="../widget-troubleshooting/"><strong>widget 排错</strong><span>基线排查、预览≠桌面、裁切/点击/动画、w.validate 诊断。</span></a></div></section>
 </article>
 
     </main>
-    <aside class="toc"><div class="toc-title">本页目录</div><a class="toc-link" href="#完整示例">完整示例</a><a class="toc-link" href="#发布流程">发布流程</a><a class="toc-link" href="#发布前检查">发布前检查</a><a class="toc-link" href="#失败路径">失败路径</a><a class="toc-link" href="#api-参考">API 参考</a></aside>
+    <aside class="toc"><div class="toc-title">本页目录</div><a class="toc-link" href="#本篇目标">本篇目标</a><a class="toc-link" href="#发布用脚本-可预览">发布用脚本（可预览）</a><a class="toc-link" href="#三条入口-别搞混">三条入口，别搞混</a><a class="toc-link" href="#发布流程-widget-studio">发布流程（Widget Studio）</a><a class="toc-link child" href="#1.-准备脚本">1. 准备脚本</a><a class="toc-link child" href="#2.-创建或打开项目">2. 创建或打开项目</a><a class="toc-link child" href="#3.-运行预览">3. 运行预览</a><a class="toc-link child" href="#4.-添加到-ios-主屏幕">4. 添加到 iOS 主屏幕</a><a class="toc-link child" href="#5.-桌面验证交互">5. 桌面验证交互</a><a class="toc-link" href="#miniapp-widget-工程-简表">MiniApp Widget 工程（简表）</a><a class="toc-link" href="#发布前检查">发布前检查</a><a class="toc-link" href="#常见错误">常见错误</a><a class="toc-link" href="#失败路径">失败路径</a><a class="toc-link" href="#改脚本后要不要重新发布">改脚本后要不要重新发布？</a><a class="toc-link" href="#相关文档">相关文档</a></aside>
   </div>
   <div class="mobile-backdrop"></div>
   <div class="search-panel" role="dialog" aria-modal="true" aria-label="搜索">

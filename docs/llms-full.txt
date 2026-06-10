@@ -1,0 +1,1814 @@
+# PythonIDE Public AI Generation Context
+
+Canonical docs URL: https://pythonide.xin/docs/
+AI one-page URL: https://pythonide.xin/docs/ai/
+
+## Hard Rules
+
+- Generate PythonIDE code only.
+- Use `appui` for Mini Apps and interactive native UI.
+- Use `widget` for iOS Home Screen widgets. Widget scripts must use one `widget.Widget()` entry, not AppUI views or undocumented layout helpers.
+- Use `scene` for 2D scenes and game-style scripts.
+- Use `ui` for Pythonista-compatible view scripts.
+- Route native capabilities from `native_capabilities_schema.json` v2 by entry kind: `module` (`import`), `appui_bridge` (`appui` component), `topic` (no import), or `reference`.
+- Do not invent APIs or parameters.
+- Do not use tkinter, PyQt, Flask, Streamlit, web servers, or browser UI frameworks.
+- Output one runnable Python file unless the user asks for a package.
+
+## Mini App Quick Start
+
+```python
+import appui
+
+state = appui.State(count=0)
+
+def increase():
+    state.batch_update(count=state.count + 1)
+
+def body(view_state):
+    return appui.NavigationStack(
+        appui.VStack([
+            appui.Text("Mini App").font("title2").bold(),
+            appui.Text(f"Count: {view_state.count}").font("title3"),
+            appui.Button("Increase", action=increase).button_style("bordered_prominent"),
+        ], spacing=16).padding()
+    ).navigation_title("Counter")
+
+appui.run(body, state=state)
+```
+
+## Widget Quick Start
+
+```python
+import widget
+
+accent = widget.param.color("主色", "#34D399")
+count = widget.state.int("count", 0)
+
+w = widget.Widget(background=("#F8FAFC", "#0B1220"), padding=14)
+w.text("今日进度", size=16, weight="semibold")
+w.value(count, unit="次").content_transition("numericText").monospaced_digit()
+w.progress(min(int(count), 10), total=10, color=accent, height=8)
+w.button("加 1", action=count.increment(), background=accent, color="#FFFFFF")
+w.render()
+```
+
+## Widget Writing Rules
+
+- Use `widget.param` for user-editable preview sheet values: colors, sliders, switches, choices, text, and files.
+- Use `widget.state` StateRef actions for desktop interactions: `increment`, `decrement`, `set`, `toggle`, and `toggle_item`.
+- Branch with `widget.family`, `widget.family_value(...)`, `w.when(...)`, or `w.unless(...)` when supporting multiple families.
+- Use `table(..., line_width="hairline")`, `canvas(...)`, `path(...)`, `.place(...)`, and `.frame(...)` for exact visual layouts.
+- Widget animations are data-update animations from timeline entries or AppIntent state changes, not continuous app animations.
+
+## AppUI Complete Public Surface
+
+- Exported symbols: 122
+- Module functions: `adaptive`, `animate`, `auto_refresh`, `bind`, `call_native`, `computed`, `custom_font`, `dismiss`, `dismiss_all`, `dynamic`, `effect`, `fixed`, `flexible`, `get_native_lib`, `grid_item`, `preload`, `presentation_dismiss`, `presentation_dismiss_all`, `presentation_present`, `run`, `set_custom_prop`
+- Views: `Alert`, `AsyncImage`, `AttributedText`, `Badge`, `Button`, `CameraPicker`, `Canvas`, `Capsule`, `Chart`, `Circle`, `CloseButton`, `Color`, `ColorPicker`, `ConfirmationDialog`, `ContentUnavailableView`, `ControlGroup`, `DatePicker`, `DisclosureGroup`, `Divider`, `EditButton`, `Ellipse`, `FileImporter`, `ForEach`, `Form`, `Gauge`, `GeometryReader`, `Grid`, `GridRow`, `Group`, `GroupBox`, `HStack`, `Image`, `InlinePickerStyle`, `Label`, `LabeledContent`, `LazyHGrid`, `LazyHStack`, `LazyVGrid`, `LazyVStack`, `Link`, `List`, `MapView`, `Menu`, `MultiDatePicker`, `NavigationLink`, `NavigationSplitView`, `NavigationStack`, `Overlay`, `PasteButton`, `Path`, `PhotoPicker`, `Picker`, `Popover`, `ProgressView`, `Rectangle`, `Refreshable`, `RenameButton`, `RoundedRectangle`, `SafeAreaInset`, `ScrollView`, `ScrollViewReader`, `SearchField`, `Section`, `SecureField`, `SegmentedControl`, `ShareLink`, `SignInWithAppleButton`, `Slider`, `Spacer`, `Stepper`, `SwipeActions`, `Tab`, `TabView`, `Table`, `Text`, `TextEditor`, `TextField`, `TextFieldLink`, `TimelineView`, `Toggle`, `ToolbarItem`, `ToolbarSpacer`, `VStack`, `VideoPlayer`, `ViewThatFits`, `WebView`, `WheelPicker`, `ZStack`
+- Typed helpers/classes: `DrawingContext`, `NavigationPath`, `ObservableDict`, `ObservableList`, `PersistentState`, `PlayerController`, `Prop`, `ReactiveState`, `Ref`, `State`, `Timer`, `View`, `infinity`
+- View modifiers: `.accessibility_hidden`, `.accessibility_label`, `.alert`, `.alignment_guide`, `.animation`, `.aspect_ratio`, `.background`, `.background_extension_effect`, `.badge`, `.blur`, `.bold`, `.border`, `.brightness`, `.button_style`, `.clip_shape`, `.clipped`, `.confirmation_dialog`, `.container_relative_frame`, `.content_margins`, `.content_shape`, `.content_transition`, `.context_menu`, `.contrast`, `.corner_radius`, `.date_picker_style`, `.default_scroll_anchor`, `.disabled`, `.drawing_group`, `.environment`, `.fill`, `.fixed_size`, `.focused`, `.font`, `.foreground_color`, `.foreground_style`, `.frame`, `.full_screen_cover`, `.gauge_style`, `.glass_effect`, `.glass_effect_id`, `.glass_effect_transition`, `.glass_effect_union`, `.grayscale`, `.hidden`, `.high_priority_gesture`, `.id`, `.ignores_safe_area`, `.image_scale`, `.inspector`, `.italic`, `.keyboard_dismiss`, `.layout_priority`, `.line_limit`, `.list_row_background`, `.list_row_insets`, `.list_row_separator`, `.list_style`, `.mask`, `.matched_geometry_effect`, `.minimum_scale_factor`, `.multiline_text_alignment`, `.navigation_bar_back_button_hidden`, `.navigation_bar_title_display_mode`, `.navigation_destination`, `.navigation_title`, `.offset`, `.on_appear`, `.on_disappear`, `.on_drag_gesture`, `.on_drop`, `.on_geometry`, `.on_long_press_gesture`, `.on_magnification_gesture`, `.on_rotation_gesture`, `.on_submit`, `.on_tap_gesture`, `.opacity`, `.overlay`, `.padding`, `.phase_animator`, `.picker_style`, `.popover`, `.position`, `.progress_view_style`, `.refreshable`, `.resizable`, `.rotation_3d_effect`, `.rotation_effect`, `.safe_area_bar`, `.safe_area_inset`, `.saturation`, `.scale_effect`, `.scroll_clip_disabled`, `.scroll_content_background`, `.scroll_edge_effect_hidden`, `.scroll_edge_effect_style`, `.scroll_position`, `.scroll_target_behavior`, `.scroll_target_layout`, `.scroll_transition`, `.search_toolbar_behavior`, `.searchable`, `.sensory_feedback`, `.shadow`, `.sheet`, `.simultaneous_gesture`, `.strikethrough`, `.stroke`, `.submit_label`, `.swipe_actions`, `.symbol_effect`, `.symbol_rendering_mode`, `.tab_bar_minimize_behavior`, `.tab_view_bottom_accessory`, `.tab_view_search_activation`, `.tab_view_style`, `.task`, `.text_field_style`, `.tint`, `.toggle_style`, `.toolbar`, `.toolbar_background`, `.toolbar_color_scheme`, `.transition`, `.truncation_mode`, `.underline`, `.z_index`
+
+## Widget Complete Public Surface
+
+- Constants/runtime values: `CIRCULAR`, `INLINE`, `LARGE`, `MEDIUM`, `RECTANGULAR`, `SMALL`, `action`, `color`, `context`, `entry`, `family`, `param`, `state`, `storage`
+- Public Widget methods: `background`, `background_image`, `badge`, `bar_chart`, `body`, `button`, `canvas`, `caption`, `change`, `circle`, `column`, `container_background`, `content_margins`, `context`, `countdown`, `date`, `divider`, `dynamic_date`, `flip`, `grid`, `image`, `layer`, `line_chart`, `link`, `list`, `path`, `progress`, `rect`, `region`, `relative_time`, `render`, `rich_text`, `ring_chart`, `row`, `section`, `shape`, `spacer`, `surface`, `svg`, `symbol`, `table`, `text`, `time`, `timeline`, `timer_text`, `title`, `toggle`, `transparent_background`, `unless`, `validate`, `value`, `when`
+| API | Kind | Signature |
+| --- | --- | --- |
+| `widget.action` | runtime | `action helper` |
+| `widget.color` | runtime | `color helper` |
+| `widget.context` | runtime | `current family and size context` |
+| `widget.entry` | runtime | `current timeline entry fields` |
+| `widget.family` | runtime | `current widget family` |
+| `widget.param` | runtime | `preview parameter declarations` |
+| `widget.state` | runtime | `desktop interaction state declarations` |
+| `widget.storage` | runtime | `lightweight widget storage` |
+| `widget.cache_json` | helper | `cache_json( url: str, *, ttl: Optional[float] = 3600, default: Any = None, params: Optional[Dict[str, Any]] = None, headers: Optional[Dict[str, str]] = None, key: Optional[str] = None, timeout: float = 8, ) -> Any` |
+| `widget.family_value` | helper | `family_value(default: Any = None, **values: Any) -> Any` |
+| `widget.history` | helper | `history( key: str, value: Any = None, limit: int = 7, *, bucket: Optional[str] = "day", default: Any = None, ) -> Any` |
+| `widget.save_image` | helper | `save_image(source: Union[str, bytes], name: str, *, variant: Optional[str] = None) -> str` |
+| `Widget.background` | appearance | `background(value: WidgetBackground) -> "Widget"` |
+| `Widget.background_image` | appearance | `background_image(asset: Optional[ImageLike] = None, content_mode: str = "fill", dim: Optional[Union[bool, float]] = None, scrim: Optional[Union[bool, str]] = None, scrim_opacity: Optional[float] = None, focal: str = "center", overlay_color: ColorLike = "#000000", *, light: Optional[str] = None, dark: Optional[str] = None, ) -> "Widget"` |
+| `Widget.badge` | content | `badge(text: Union[str, int, float], icon: Optional[str] = None, tone: str = "accent", style: str = "plain", ) -> WidgetNode` |
+| `Widget.bar_chart` | chart | `bar_chart(values: List[Union[int, float]], color: Optional[ColorLike] = None, height: Optional[float] = None, min_value: Optional[float] = None, max_value: Optional[float] = None, spacing: Optional[float] = None, corner_radius: Optional[float] = None, track_color: Optional[ColorLike] = None, opacity: Optional[float] = None, padding: Optional[Union[int, float]] = None, frame: Optional[Dict[str, Any]] = None, segment_colors: Optional[List[ColorLike]] = None, baseline: Optional[float] = None, threshold: Optional[float] = None, labels: Optional[Union[List[Any], Dict[str, Any]]] = None, label_color: Optional[ColorLike] = None, ) -> WidgetNode` |
+| `Widget.body` | text | `body(content: Union[str, int, float]) -> WidgetNode` |
+| `Widget.button` | interaction | `button(title: Optional[str] = None, action: Optional[Union[str, WidgetAction]] = None, url: Optional[str] = None, color: Optional[ColorLike] = None, background: Optional[WidgetBackground] = None, size: Optional[float] = None, padding: Optional[Union[int, float]] = None, *, style: Optional[str] = None, layout: Optional[str] = None, press: Optional[Dict[str, Any]] = None, normal: Optional[Dict[str, Any]] = None, ) -> WidgetNode` |
+| `Widget.canvas` | media | `canvas(height: Optional[float] = None, coordinate_space: str = "relative", align: str = "center", background: Optional[WidgetBackground] = None, padding: Optional[Union[int, float]] = None, corner_radius: Optional[float] = None, border_color: Optional[ColorLike] = None, border_width: Optional[float] = None, opacity: Optional[float] = None, frame: Optional[Dict[str, Any]] = None, fill: bool = False, ) -> Canvas` |
+| `Widget.caption` | content | `caption(content: Union[str, int, float]) -> WidgetNode` |
+| `Widget.change` | content | `change(primary: Union[str, int, float], secondary: Optional[Union[str, int, float]] = None, direction: Optional[str] = None, ) -> WidgetNode` |
+| `Widget.circle` | shape | `circle(color: Optional[ColorLike] = None, size: Optional[float] = None, opacity: Optional[float] = None, padding: Optional[Union[int, float]] = None, frame: Optional[Dict[str, Any]] = None, border_color: Optional[ColorLike] = None, border_width: Optional[float] = None, ) -> WidgetNode` |
+| `Widget.column` | layout | `column(spacing: Optional[Union[int, float]] = None, align: Optional[str] = None, ) -> WidgetContainer` |
+| `Widget.container_background` | appearance | `container_background(value: Optional[WidgetBackground] = None, *, removable: Optional[bool] = None, ) -> "Widget"` |
+| `Widget.content_margins` | appearance | `content_margins(enabled: bool = True, padding: Optional[Union[int, float, Sequence[float], Dict[str, float]]] = None, ) -> "Widget"` |
+| `Widget.context` | - | `context() -> WidgetContext` |
+| `Widget.countdown` | content | `countdown(title: Optional[Union[str, int, float]] = "Countdown", target: Optional[Union[datetime, str]] = None, subtitle: Optional[Union[str, int, float]] = None, icon: Optional[str] = None, tone: Optional[str] = None, accent: Optional[ColorLike] = None, ) -> WidgetBlock` |
+| `Widget.date` | content | `date(target: Optional[Union[datetime, str]] = None, style: str = "date") -> WidgetNode` |
+| `Widget.divider` | layout | `divider(color: Optional[ColorLike] = None, opacity: Optional[float] = None, ) -> WidgetNode` |
+| `Widget.dynamic_date` | timer | `dynamic_date(target: Optional[Union[datetime, str]] = None, style: str = "date") -> WidgetNode` |
+| `Widget.flip` | animation | `flip(value: Any, previous: Optional[Any] = None, *, direction: str = "up", width: Optional[float] = None, height: Optional[float] = None, size: Optional[float] = None, weight: str = "bold", color: Optional[ColorLike] = None, background: Optional[WidgetBackground] = None, corner_radius: Optional[float] = None, duration: float = 0.55, delta: Optional[float] = None, perspective: float = 0.62, shadow_opacity: float = 0.18, padding: Optional[Union[int, float]] = None, frame: Optional[Dict[str, Any]] = None, design: Optional[str] = "monospaced", ) -> WidgetNode` |
+| `Widget.grid` | layout | `grid(columns: int = 2, spacing: Optional[Union[int, float]] = None, row_spacing: Optional[Union[int, float]] = None, column_spacing: Optional[Union[int, float]] = None, align: Optional[str] = None, padding: Optional[Union[int, float]] = None, background: Optional[WidgetBackground] = None, opacity: Optional[float] = None, corner_radius: Optional[float] = None, border_color: Optional[ColorLike] = None, border_width: Optional[float] = None, url: Optional[str] = None, shadow_color: Optional[ColorLike] = None, shadow_radius: Optional[float] = None, shadow_x: float = 0, shadow_y: float = 2, rows: Optional[int] = None, equal: bool = False, fill: bool = False, ) -> WidgetContainer` |
+| `Widget.image` | media | `image(name: Optional[ImageLike] = None, width: Optional[float] = None, height: Optional[float] = None, corner_radius: Optional[float] = None, opacity: Optional[float] = None, padding: Optional[Union[int, float]] = None, content_mode: Optional[str] = None, *, light: Optional[str] = None, dark: Optional[str] = None, rendering_mode: Optional[str] = None, ) -> WidgetNode` |
+| `Widget.layer` | layout | `layer(align: str = "center", padding: Optional[Union[int, float]] = None, background: Optional[WidgetBackground] = None, corner_radius: Optional[float] = None, ) -> WidgetContainer` |
+| `Widget.line_chart` | chart | `line_chart(values: List[Union[int, float]], color: Optional[ColorLike] = None, height: Optional[float] = None, min_value: Optional[float] = None, max_value: Optional[float] = None, fill: bool = True, show_points: bool = True, line_width: Optional[float] = None, track_color: Optional[ColorLike] = None, opacity: Optional[float] = None, padding: Optional[Union[int, float]] = None, frame: Optional[Dict[str, Any]] = None, segment_colors: Optional[List[ColorLike]] = None, baseline: Optional[float] = None, threshold: Optional[float] = None, labels: Optional[Union[List[Any], Dict[str, Any]]] = None, label_color: Optional[ColorLike] = None, ) -> WidgetNode` |
+| `Widget.link` | interaction | `link(title: str, url: str, icon: Optional[str] = None, color: Optional[ColorLike] = None, ) -> Union[WidgetNode, WidgetContainer]` |
+| `Widget.list` | layout | `list(items: List[Any], title: Optional[Union[str, int, float]] = None, limit: Optional[int] = None, empty_text: Optional[Union[str, int, float]] = None, dividers: bool = False, ) -> WidgetContainer` |
+| `Widget.path` | media | `path(points: List[PathPoint], stroke: Optional[ColorLike] = None, fill: Optional[ColorLike] = None, line_width: Optional[Union[float, str]] = None, closed: bool = False, height: Optional[float] = None, coordinate_space: str = "relative", opacity: Optional[float] = None, padding: Optional[Union[int, float]] = None, frame: Optional[Dict[str, Any]] = None, line_cap: Optional[str] = None, line_join: Optional[str] = None, dash: Optional[Sequence[float]] = None, miter_limit: Optional[float] = None, ) -> WidgetNode` |
+| `Widget.progress` | chart | `progress(value: Union[int, float], total: float = 1.0, color: Optional[ColorLike] = None, height: Optional[float] = None, track_color: Optional[ColorLike] = None, *, title: Optional[str] = None, subtitle: Optional[str] = None, unit: Optional[str] = None, icon: Optional[str] = None, tone: Optional[str] = None, accent: Optional[str] = None, style: Optional[str] = None, ) -> WidgetNode` |
+| `Widget.rect` | shape | `rect(color: Optional[ColorLike] = None, width: Optional[float] = None, height: Optional[float] = None, corner_radius: Optional[float] = None, opacity: Optional[float] = None, padding: Optional[Union[int, float]] = None, frame: Optional[Dict[str, Any]] = None, border_color: Optional[ColorLike] = None, border_width: Optional[float] = None, ) -> WidgetNode` |
+| `Widget.region` | layout | `region(slot: str = "center", spacing: Optional[Union[int, float]] = None, align: Optional[str] = None, ) -> WidgetContainer` |
+| `Widget.relative_time` | content | `relative_time(target: Optional[Union[datetime, str]] = None) -> WidgetNode` |
+| `Widget.render` | lifecycle | `render(url: Optional[str] = None) -> None` |
+| `Widget.rich_text` | content | `rich_text(parts: List[RichTextPart], size: Optional[float] = None, weight: Optional[str] = None, color: Optional[ColorLike] = None, align: Optional[str] = None, max_lines: Optional[int] = None, design: Optional[str] = None, opacity: Optional[float] = None, padding: Optional[Union[int, float]] = None, frame: Optional[Dict[str, Any]] = None, minimum_scale_factor: Optional[float] = None, font_width: Optional[str] = None, ) -> WidgetNode` |
+| `Widget.ring_chart` | chart | `ring_chart(value: Union[int, float], total: float = 1.0, label: Optional[str] = None, color: Optional[ColorLike] = None, track_color: Optional[ColorLike] = None, size: Optional[float] = None, line_width: Optional[float] = None, opacity: Optional[float] = None, padding: Optional[Union[int, float]] = None, frame: Optional[Dict[str, Any]] = None, ) -> WidgetNode` |
+| `Widget.row` | layout | `row(spacing: Optional[Union[int, float]] = None, align: Optional[str] = None, ) -> WidgetContainer` |
+| `Widget.section` | layout | `section(title: Optional[Union[str, int, float]] = None, spacing: Optional[Union[int, float]] = None, subtitle: Optional[Union[str, int, float]] = None, style: Optional[str] = None, ) -> WidgetContainer` |
+| `Widget.shape` | media | `shape(kind: str = "rectangle", color: Optional[ColorLike] = None, width: Optional[float] = None, height: Optional[float] = None, size: Optional[float] = None, corner_radius: Optional[float] = None, opacity: Optional[float] = None, padding: Optional[Union[int, float]] = None, frame: Optional[Dict[str, Any]] = None, border_color: Optional[ColorLike] = None, border_width: Optional[float] = None, shadow_color: Optional[ColorLike] = None, shadow_radius: Optional[float] = None, shadow_x: float = 0, shadow_y: float = 2, stroke_color: Optional[ColorLike] = None, stroke_width: Optional[Union[float, str]] = None, dash: Optional[Sequence[float]] = None, line_cap: Optional[str] = None, line_join: Optional[str] = None, miter_limit: Optional[float] = None, top_leading_radius: Optional[float] = None, top_trailing_radius: Optional[float] = None, bottom_leading_radius: Optional[float] = None, bottom_trailing_radius: Optional[float] = None, ) -> WidgetNode` |
+| `Widget.spacer` | layout | `spacer(length: Optional[Union[int, float]] = None) -> WidgetNode` |
+| `Widget.surface` | layout | `surface(role: str = "panel", spacing: Optional[Union[int, float]] = None, align: Optional[str] = None, padding: Optional[Union[int, float]] = None, background: Optional[WidgetBackground] = None, corner_radius: Optional[float] = None, border_color: Optional[ColorLike] = None, border_width: Optional[float] = None, shadow_color: Optional[ColorLike] = None, shadow_radius: Optional[float] = None, ) -> WidgetContainer` |
+| `Widget.svg` | svg | `svg(name: Optional[ImageLike] = None, width: Optional[float] = None, height: Optional[float] = None, color: Optional[ColorLike] = None, opacity: Optional[float] = None, padding: Optional[Union[int, float]] = None, content_mode: str = "fit", *, light: Optional[str] = None, dark: Optional[str] = None, ) -> WidgetNode` |
+| `Widget.symbol` | media | `symbol(name: str, rendering: Optional[str] = None, palette: Optional[Sequence[ColorLike]] = None, variant: Optional[str] = None, scale: Optional[str] = None, ) -> WidgetNode` |
+| `Widget.table` | table | `table(rows: int, columns: int, *, line_color: Optional[ColorLike] = None, line_width: Union[float, str] = "hairline", line_cap: str = "butt", line_join: str = "miter", dash: Optional[Sequence[float]] = None, miter_limit: Optional[float] = None, padding: Optional[Union[int, float]] = None, frame: Optional[Dict[str, Any]] = None, width: Optional[float] = None, height: Optional[float] = None, background: Optional[WidgetBackground] = None, opacity: Optional[float] = None, corner_radius: Optional[float] = None, border: bool = True, fill: bool = True, align: str = "center", ) -> Table` |
+| `Widget.text` | content | `text(content: Union[str, int, float], size: Optional[float] = None, weight: Optional[str] = None, color: Optional[ColorLike] = None, align: Optional[str] = None, max_lines: Optional[int] = None, design: Optional[str] = None, opacity: Optional[float] = None, padding: Optional[Union[int, float]] = None, frame: Optional[Dict[str, Any]] = None, minimum_scale_factor: Optional[float] = None, font_width: Optional[str] = None, ) -> WidgetNode` |
+| `Widget.time` | content | `time(target: Optional[Union[datetime, str]] = None) -> WidgetNode` |
+| `Widget.timeline` | lifecycle | `timeline(entries: Optional[List[Dict[str, Any]]] = None, *, update: str = "after", after: Any = None, interval: Optional[float] = None, ) -> "Widget"` |
+| `Widget.timer_text` | content | `timer_text(target: Optional[Union[datetime, str]] = None) -> WidgetNode` |
+| `Widget.title` | content | `title(content: Union[str, int, float]) -> WidgetNode` |
+| `Widget.toggle` | interaction | `toggle(title: Optional[str] = None, is_on: Union[bool, str] = False, action: Optional[Union[str, WidgetAction]] = None, url: Optional[str] = None, color: Optional[ColorLike] = None, background: Optional[WidgetBackground] = None, size: Optional[float] = None, padding: Optional[Union[int, float]] = None, *, value: Optional[Union[bool, str]] = None, state: Optional[State[bool]] = None, style: Optional[str] = None, layout: Optional[str] = None, press: Optional[Dict[str, Any]] = None, normal: Optional[Dict[str, Any]] = None, ) -> WidgetNode` |
+| `Widget.transparent_background` | appearance | `transparent_background(enabled: bool = True) -> "Widget"` |
+| `Widget.unless` | layout | `unless(*families: str, layout: str = "layer") -> WidgetContainer` |
+| `Widget.validate` | lifecycle | `validate(family: Optional[str] = None) -> Dict[str, Any]` |
+| `Widget.value` | content | `value(value: Union[str, int, float, State[int], State[float], State[str], State[str]], unit: Optional[str] = None, subtitle: Optional[str] = None, format: Optional[str] = None, ) -> WidgetNode` |
+| `Widget.when` | layout | `when(*families: str, layout: str = "layer") -> WidgetContainer` |
+| `.accentable` | modifier | `.accentable(enabled: bool = True) -> Self` |
+| `.accessibility` | modifier | `.accessibility(label: Optional[str] = None, value: Optional[str] = None, hint: Optional[str] = None, hidden: Optional[bool] = None, ) -> Self` |
+| `.align` | modifier | `.align(value: str) -> Self` |
+| `.animation` | modifier | `.animation(value: str = "default") -> Self` |
+| `.background` | modifier | `.background(value: WidgetBackground) -> Self` |
+| `.bar_spacing` | modifier | `.bar_spacing(value: float) -> Self` |
+| `.baseline` | modifier | `.baseline(value: float = 0, color: Optional[ColorLike] = None) -> Self` |
+| `.button_style` | modifier | `.button_style(value: str = "plain") -> Self` |
+| `.capsule` | modifier | `.capsule(tone: Optional[str] = None, padding: Optional[Union[int, float]] = None, ) -> Self` |
+| `.clip` | modifier | `.clip(kind: str = "roundedRectangle", corner_radius: Optional[float] = None) -> Self` |
+| `.clip_shape` | modifier | `.clip_shape(kind: str = "roundedRectangle", corner_radius: Optional[float] = None) -> Self` |
+| `.color` | modifier | `.color(value: ColorLike) -> Self` |
+| `.compressed` | modifier | `.compressed(enabled: bool = True) -> Self` |
+| `.content_transition` | modifier | `.content_transition(value: str = "opacity") -> Self` |
+| `.control_layout` | modifier | `.control_layout(value: str = "overlay") -> Self` |
+| `.control_style` | modifier | `.control_style(value: str = "plain") -> Self` |
+| `.corner_radius` | modifier | `.corner_radius(value: float) -> Self` |
+| `.fill` | modifier | `.fill(enabled: bool = True) -> Self` |
+| `.fixed_size` | modifier | `.fixed_size(horizontal: bool = True, vertical: bool = True) -> Self` |
+| `.font` | modifier | `.font(value: Optional[Union[str, int, float, Dict[str, Any]]] = None, *, size: Optional[Union[float, Dict[str, Any]]] = None, weight: Optional[str] = None, **size_values: Any, ) -> Self` |
+| `.font_size` | modifier | `.font_size(size: float) -> Self` |
+| `.font_style` | modifier | `.font_style(style: str) -> Self` |
+| `.font_weight` | modifier | `.font_weight(weight: str) -> Self` |
+| `.font_width` | modifier | `.font_width(width: str) -> Self` |
+| `.frame` | modifier | `.frame(**kwargs: Any) -> Self` |
+| `.grid` | modifier | `.grid(rows: int, columns: int, *, padding: Union[int, float] = 0, gap: Union[int, float] = 0, row_gap: Optional[float] = None, column_gap: Optional[float] = None, line_width: Optional[float] = None, border: bool = False, x: float = 0, y: float = 0, width: Optional[float] = None, height: Optional[float] = None, ) -> CanvasGrid` |
+| `.guide_lines` | modifier | `.guide_lines(count: Union[bool, int] = True, color: Optional[ColorLike] = None) -> Self` |
+| `.height` | modifier | `.height(value: Optional[Union[float, Dict[str, Any]]] = None, **values: Any) -> Self` |
+| `.hide` | modifier | `.hide(*families: str) -> Self` |
+| `.id` | modifier | `.id(value: Any) -> Self` |
+| `.importance` | modifier | `.importance(value: str = "primary") -> Self` |
+| `.intent` | modifier | `.intent(action: Union[str, WidgetAction]) -> Self` |
+| `.labels` | modifier | `.labels(start: Optional[Union[str, int, float]] = None, end: Optional[Union[str, int, float]] = None, color: Optional[ColorLike] = None, ) -> Self` |
+| `.layout_priority` | modifier | `.layout_priority(value: float = 1) -> Self` |
+| `.line_limit` | modifier | `.line_limit(value: int) -> Self` |
+| `.line_width` | modifier | `.line_width(value: Union[float, str]) -> Self` |
+| `.link` | modifier | `.link(url: str) -> Self` |
+| `.mask` | modifier | `.mask(kind: str = "roundedRectangle", corner_radius: Optional[float] = None) -> Self` |
+| `.mask_view` | modifier | `.mask_view(align: str = "center") -> Self` |
+| `.min_scale` | modifier | `.min_scale(value: float) -> Self` |
+| `.monospaced` | modifier | `.monospaced(enabled: bool = True) -> Self` |
+| `.monospaced_digit` | modifier | `.monospaced_digit(enabled: bool = True) -> Self` |
+| `.normal` | modifier | `.normal(**style: Any) -> Self` |
+| `.offset` | modifier | `.offset(x: float = 0, y: float = 0) -> Self` |
+| `.opacity` | modifier | `.opacity(value: float) -> Self` |
+| `.overflow` | modifier | `.overflow(action: Optional[str] = None, *, importance: Optional[str] = None, preserve: Optional[bool] = None, ) -> Self` |
+| `.overlay` | modifier | `.overlay(color: ColorLike = "#000000", opacity: float = 0.18) -> Self` |
+| `.overlay_view` | modifier | `.overlay_view(align: str = "center") -> Self` |
+| `.padding` | modifier | `.padding(value: Optional[Union[int, float]] = None, *, horizontal: Optional[float] = None, vertical: Optional[float] = None, top: Optional[float] = None, leading: Optional[float] = None, bottom: Optional[float] = None, trailing: Optional[float] = None, ) -> Self` |
+| `.palette` | modifier | `.palette(colors: Sequence[ColorLike]) -> Self` |
+| `.pixel_perfect_center` | modifier | `.pixel_perfect_center(enabled: bool = True) -> Self` |
+| `.place` | modifier | `.place(x: Optional[float] = None, y: Optional[float] = None, unit: str = "relative") -> Self` |
+| `.plain` | modifier | `.plain(enabled: bool = True) -> Self` |
+| `.points` | modifier | `.points(enabled: bool = True) -> Self` |
+| `.position` | modifier | `.position(x: Optional[float] = None, y: Optional[float] = None, unit: str = "points") -> Self` |
+| `.preserve` | modifier | `.preserve(enabled: bool = True) -> Self` |
+| `.pressed` | modifier | `.pressed(**style: Any) -> Self` |
+| `.privacy_sensitive` | modifier | `.privacy_sensitive(enabled: bool = True) -> Self` |
+| `.redacted` | modifier | `.redacted(reason: str = "placeholder") -> Self` |
+| `.rendering` | modifier | `.rendering(mode: str, colors: Optional[Sequence[ColorLike]] = None) -> Self` |
+| `.reverse_mask` | modifier | `.reverse_mask(kind: str = "roundedRectangle", corner_radius: Optional[float] = None) -> Self` |
+| `.rotate` | modifier | `.rotate(degrees: float) -> Self` |
+| `.rotation` | modifier | `.rotation(degrees: float) -> Self` |
+| `.scale` | modifier | `.scale(value: float) -> Self` |
+| `.segment_colors` | modifier | `.segment_colors(colors: List[ColorLike]) -> Self` |
+| `.shadow` | modifier | `.shadow(color: ColorLike = "#000000", radius: float = 4, x: float = 0, y: float = 2, ) -> Self` |
+| `.slot` | modifier | `.slot(value: str) -> Self` |
+| `.soft_background` | modifier | `.soft_background(tone: Optional[str] = None, corner_radius: Optional[float] = None, padding: Optional[Union[int, float]] = None, ) -> Self` |
+| `.stroke` | modifier | `.stroke(color: Optional[ColorLike] = None, *, width: Optional[Union[float, str]] = None, dash: Optional[Sequence[float]] = None, cap: Optional[str] = None, join: Optional[str] = None, miter_limit: Optional[float] = None, ) -> Self` |
+| `.threshold` | modifier | `.threshold(value: float, color: Optional[ColorLike] = None) -> Self` |
+| `.toggle_style` | modifier | `.toggle_style(value: str = "checkbox") -> Self` |
+| `.tone` | modifier | `.tone(value: str) -> Self` |
+| `.track_color` | modifier | `.track_color(value: ColorLike) -> Self` |
+| `.transition` | modifier | `.transition(value: str = "opacity", edge: Optional[str] = None) -> Self` |
+| `.variant` | modifier | `.variant(value: str) -> Self` |
+| `.width` | modifier | `.width(value: Optional[Union[float, Dict[str, Any]]] = None, **values: Any) -> Self` |
+
+Compatibility names are intentionally omitted from public AI output.
+
+## Native iOS Capabilities
+
+| Module | Category | Permissions | Capabilities | Core APIs |
+| --- | --- | --- | --- | --- |
+| `alarm` | `系统服务` | - | `alarm_schedule`, `alarm_cancel` | `alarm.is_available`, `alarm.request_authorization`, `alarm.schedule`, `alarm.cancel`, `alarm.list_alarms`, `alarm.AlarmError` |
+| `assistant` | `系统服务` | - | `assistant_tools`, `device_context_answers` | `assistant.is_available`, `assistant.list_tools`, `assistant.run`, `assistant.AssistantError` |
+| `audio_recorder` | `媒体与视觉` | `microphone` | `microphone_capture`, `recording_control`, `level_metering` | `audio_recorder.start`, `audio_recorder.stop`, `audio_recorder.pause`, `audio_recorder.resume`, `audio_recorder.cancel`, `audio_recorder.status`, `audio_recorder.is_recording`, `audio_recorder.duration`, `audio_recorder.metering`, `audio_recorder.AudioRecorderError` |
+| `audio_session` | `媒体与视觉` | - | `audio_session_category`, `audio_route_query` | `audio_session.set_category`, `audio_session.set_active`, `audio_session.current_route`, `audio_session.AudioSessionError` |
+| `avplayer` | `媒体与视觉` | - | `audio_video_load`, `playback_control`, `native_player` | `avplayer.Player`, `avplayer.load`, `avplayer.play`, `avplayer.pause`, `avplayer.stop`, `avplayer.seek`, `avplayer.duration`, `avplayer.current_time`, `avplayer.is_playing`, `avplayer.set_volume`, `avplayer.set_rate`, `avplayer.present_video`, `avplayer.on_progress`, `avplayer.stop_progress`, `avplayer.on_end`, `avplayer.cleanup` |
+| `background` | `网络与连接` | - | `background_task`, `remaining_time`, `app_state` | `background.begin_task`, `background.end_task`, `background.remaining_time`, `background.app_state`, `background.start_keep_alive`, `background.stop_keep_alive`, `background.schedule_refresh`, `background.schedule_processing` |
+| `background_download` | `网络与连接` | - | `background_download`, `download_progress` | `background_download.download`, `background_download.status`, `background_download.cancel`, `background_download.BackgroundDownloadError` |
+| `biometric` | `设备与传感器` | `biometric` | `face_id`, `touch_id`, `passcode_fallback` | `biometric.biometric_type`, `biometric.is_available`, `biometric.authenticate`, `biometric.authenticate_with_passcode` |
+| `ble_peripheral` | `网络与连接` | - | `ble_peripheral_advertising`, `ble_characteristic_update` | `ble_peripheral.start_advertising`, `ble_peripheral.stop_advertising`, `ble_peripheral.status`, `ble_peripheral.update_value`, `ble_peripheral.BlePeripheralError` |
+| `bluetooth` | `网络与连接` | `bluetooth` | `ble_scan`, `ble_connect`, `read`, `write` | `bluetooth.state`, `bluetooth.scan`, `bluetooth.stop_scan`, `bluetooth.connect`, `bluetooth.disconnect`, `bluetooth.discover_services`, `bluetooth.read`, `bluetooth.write` |
+| `c_extensions` | `网络与连接` | - | `扩展清单`, `兼容性说明` | - |
+| `calendar_events` | `系统服务` | `calendar`, `reminders` | `calendar_read`, `calendar_write`, `reminders` | `calendar_events.authorization_status`, `calendar_events.request_access`, `calendar_events.get_calendars`, `calendar_events.get_events`, `calendar_events.create_event`, `calendar_events.delete_event`, `calendar_events.request_reminder_access`, `calendar_events.get_reminders`, `calendar_events.create_reminder`, `calendar_events.complete_reminder`, `calendar_events.delete_reminder` |
+| `clipboard` | `系统服务` | - | `read_clipboard`, `write_clipboard`, `clear_clipboard` | `clipboard.get`, `clipboard.set`, `clipboard.clear`, `clipboard.get_text`, `clipboard.set_text` |
+| `console` | `系统服务` | - | `hud`, `alerts`, `input_dialogs` | `console.alert`, `console.hud_alert`, `console.input_alert`, `console.login_alert`, `console.password_alert`, `console.set_color`, `console.set_font`, `console.clear`, `console.write_link` |
+| `contacts` | `系统服务` | `contacts` | `contacts_read`, `contacts_picker`, `contacts_edit` | `contacts.PERSON`, `contacts.ORGANIZATION`, `contacts.ContactsError`, `contacts.Person`, `contacts.Group`, `contacts.Container`, `contacts.PropertySelection`, `contacts.authorization_status`, `contacts.capabilities`, `contacts.is_authorized`, `contacts.request_access`, `contacts.get_all_people`, `contacts.get_person`, `contacts.get_me`, `contacts.find`, `contacts.find_by_phone`, `contacts.find_by_email`, `contacts.add_person`, `contacts.remove_person`, `contacts.save`, `contacts.revert`, `contacts.get_all_groups`, `contacts.get_group`, `contacts.add_group`, `contacts.remove_group`, `contacts.get_all_containers`, `contacts.get_default_container`, `contacts.get_people_in_group`, `contacts.get_people_in_container`, `contacts.get_groups_in_container`, `contacts.pick_contact`, `contacts.pick_contacts`, `contacts.pick_property`, `contacts.show_person`, `contacts.edit_person`, `contacts.new_person`, `contacts.export_vcards`, `contacts.import_vcards`, `contacts.get_change_history`, `contacts.manage_limited_access`, `contacts.localized_label` |
+| `coreml` | `媒体与视觉` | - | `model_listing`, `model_loading`, `image_prediction` | `coreml.list_models`, `coreml.load_model`, `coreml.predict_image`, `coreml.model_info` |
+| `database` | `系统服务` | - | `sqlite`, `collections`, `transactions` | `database.Database`, `database.Collection`, `database.open`, `database.connect`, `database.default_database`, `database.collection`, `database.database_path` |
+| `device` | `设备与传感器` | - | `device_state`, `screen`, `battery`, `thermal_state` | `device.name`, `device.model`, `device.system_name`, `device.system_version`, `device.identifier_for_vendor`, `device.battery_level`, `device.battery_state`, `device.orientation`, `device.screen_width`, `device.screen_height`, `device.screen_size`, `device.screen_scale`, `device.screen_brightness`, `device.set_screen_brightness`, `device.total_memory`, `device.processor_count`, `device.system_uptime`, `device.thermal_state`, `device.is_low_power_mode`, `device.locale`, `device.timezone`, `device.preferred_languages` |
+| `dialogs` | `系统服务` | - | `native_dialogs`, `forms`, `pickers` | `dialogs.alert`, `dialogs.input_alert`, `dialogs.list_dialog`, `dialogs.form_dialog`, `dialogs.date_dialog`, `dialogs.hud_alert`, `dialogs.editor` |
+| `font_picker` | `系统服务` | - | `font_picker_ui` | `font_picker.pick`, `font_picker.FontPickerError` |
+| `foundation_models` | `系统服务` | - | `on_device_generation`, `summarization`, `error_explanation` | `foundation_models.is_available`, `foundation_models.respond`, `foundation_models.summarize`, `foundation_models.explain_error`, `foundation_models.FoundationModelsError` |
+| `haptics` | `设备与传感器` | - | `impact_feedback`, `notification_feedback`, `core_haptics` | `haptics.impact`, `haptics.notification`, `haptics.selection`, `haptics.success`, `haptics.warning`, `haptics.error`, `haptics.light`, `haptics.medium`, `haptics.heavy`, `haptics.is_supported`, `haptics.play`, `haptics.stop` |
+| `health` | `设备与传感器` | `health` | `steps`, `heart_rate`, `sleep`, `body_metrics` | `health.is_available`, `health.request_authorization`, `health.authorization_status`, `health.query_steps`, `health.query_heart_rate`, `health.query_weight`, `health.save_weight`, `health.query_workouts`, `health.query_sleep`, `health.query_quantity`, `health.query_blood_pressure`, `health.summarize_blood_pressure` |
+| `http_server` | `网络与连接` | - | `local_http_server`, `file_serving` | `http_server.start`, `http_server.stop`, `http_server.status`, `http_server.HttpServerError` |
+| `keyboard` | `自动化与扩展` | - | `toolbar_buttons`, `insert_text`, `set_buttons` | `keyboard.add_button`, `keyboard.add_group`, `keyboard.remove_button`, `keyboard.clear`, `keyboard.insert_text`, `keyboard.insert_snippet`, `keyboard.move_cursor`, `keyboard.Button`, `keyboard.set_buttons` |
+| `keychain` | `系统服务` | - | `secure_password_storage`, `service_listing` | `keychain.get_password`, `keychain.set_password`, `keychain.delete_password`, `keychain.get_services` |
+| `live_activity` | `系统服务` | - | `dynamic_island`, `lock_screen_activity` | `live_activity.start`, `live_activity.update`, `live_activity.end`, `live_activity.is_supported` |
+| `location` | `设备与传感器` | `location` | `gps`, `heading`, `geocoding` | `location.authorization_status`, `location.is_authorized`, `location.request_access`, `location.start_updates`, `location.stop_updates`, `location.get_location`, `location.start_heading`, `location.stop_heading`, `location.get_heading`, `location.reverse_geocode`, `location.geocode` |
+| `mail` | `系统服务` | - | `mail_compose`, `attachment_send` | `mail.can_send`, `mail.compose`, `mail.MailError` |
+| `media_composer` | `媒体与视觉` | - | `video_merge`, `audio_mux`, `media_export` | `media_composer.merge_videos`, `media_composer.merge_audio`, `media_composer.export`, `media_composer.MediaComposerError` |
+| `message` | `系统服务` | - | `sms_compose`, `imessage_compose` | `message.can_send`, `message.compose`, `message.MessageError` |
+| `motion` | `设备与传感器` | `motion` | `accelerometer`, `gyroscope`, `attitude`, `barometer` | `motion.is_available`, `motion.start_updates`, `motion.stop_updates`, `motion.start_accelerometer`, `motion.stop_accelerometer`, `motion.start_gyroscope`, `motion.stop_gyroscope`, `motion.start_magnetometer`, `motion.stop_magnetometer`, `motion.start_altimeter`, `motion.stop_altimeter`, `motion.get_acceleration`, `motion.get_gravity`, `motion.get_rotation_rate`, `motion.get_magnetic_field`, `motion.get_attitude`, `motion.get_altitude` |
+| `music` | `媒体与视觉` | - | `music_playback`, `catalog_search` | `music.authorization_status`, `music.request_authorization`, `music.play`, `music.play_song`, `music.play_songs`, `music.play_search_result`, `music.pause`, `music.skip_to_next`, `music.skip_to_previous`, `music.current_track`, `music.search`, `music.MusicError` |
+| `network` | `网络与连接` | - | `http`, `download`, `connectivity` | `network.is_connected`, `network.connection_type`, `network.is_expensive`, `network.is_constrained`, `network.request`, `network.get`, `network.post`, `network.put`, `network.delete`, `network.patch`, `network.download`, `network.Response` |
+| `nfc` | `系统服务` | `nfc` | `ndef_scan`, `ndef_write` | `nfc.is_available`, `nfc.scan`, `nfc.write` |
+| `notification` | `系统服务` | `notifications` | `local_notifications`, `badges`, `scheduled_alerts` | `notification.request_permission`, `notification.authorization_status`, `notification.schedule`, `notification.schedule_at_date`, `notification.remove_pending`, `notification.remove_all_pending`, `notification.pending_count`, `notification.pending_identifiers`, `notification.set_badge` |
+| `now_playing` | `媒体与视觉` | - | `now_playing_metadata`, `playback_progress` | `now_playing.set_info`, `now_playing.update_elapsed`, `now_playing.clear`, `now_playing.NowPlayingError` |
+| `objc_util` | `自动化与扩展` | - | `Objective-C 桥接`, `系统框架访问` | `objc_util.c`, `objc_util.LP64`, `objc_util.CGFloat`, `objc_util.NSInteger`, `objc_util.NSUInteger`, `objc_util.NSNotFound`, `objc_util.NSUTF8StringEncoding`, `objc_util.NS_UTF8`, `objc_util.CGPoint`, `objc_util.CGSize`, `objc_util.CGVector`, `objc_util.CGRect`, `objc_util.CGAffineTransform`, `objc_util.UIEdgeInsets`, `objc_util.NSRange`, `objc_util.sel`, `objc_util.ObjCClass`, `objc_util.ObjCInstance`, `objc_util.ObjCClassMethod`, `objc_util.ObjCInstanceMethod`, `objc_util.NSObject`, `objc_util.NSArray`, `objc_util.NSMutableArray`, `objc_util.NSDictionary`, `objc_util.NSMutableDictionary`, `objc_util.NSSet`, `objc_util.NSMutableSet`, `objc_util.NSString`, `objc_util.NSMutableString`, `objc_util.NSData`, `objc_util.NSMutableData`, `objc_util.NSNumber`, `objc_util.NSURL`, `objc_util.NSEnumerator`, `objc_util.NSThread`, `objc_util.NSBundle`, `objc_util.UIColor`, `objc_util.UIImage`, `objc_util.UIBezierPath`, `objc_util.UIApplication`, `objc_util.UIView`, `objc_util.ObjCBlock`, `objc_util.ns`, `objc_util.nsurl`, `objc_util.retain_global`, `objc_util.release_global`, `objc_util.on_main_thread`, `objc_util.create_objc_class`, `objc_util.Structure`, `objc_util.sizeof`, `objc_util.byref`, `objc_util.c_void_p`, `objc_util.c_char`, `objc_util.c_byte`, `objc_util.c_char_p`, `objc_util.c_double`, `objc_util.c_float`, `objc_util.c_int`, `objc_util.c_longlong`, `objc_util.c_short`, `objc_util.c_bool`, `objc_util.c_long`, `objc_util.c_int32`, `objc_util.c_ubyte`, `objc_util.c_uint`, `objc_util.c_ushort`, `objc_util.c_ulong`, `objc_util.c_ulonglong`, `objc_util.POINTER`, `objc_util.pointer`, `objc_util.load_framework`, `objc_util.nsdata_to_bytes`, `objc_util.uiimage_to_png`, `objc_util.autoreleasepool` |
+| `pdf` | `媒体与视觉` | - | `pdf_creation`, `text_extraction`, `page_rendering`, `quicklook_preview` | `pdf.create_from_text`, `pdf.create_from_images`, `pdf.from_html`, `pdf.extract_text`, `pdf.info`, `pdf.page_image`, `pdf.preview`, `pdf.PDFError` |
+| `permission` | `系统服务` | - | `permission_status`, `permission_request` | `permission.status`, `permission.request`, `permission.status_all`, `permission.MODULES` |
+| `photos` | `媒体与视觉` | `photos`, `camera` | `photo_picker`, `camera_capture`, `photo_save`, `video_save`, `asset_read` | `photos.pick_image`, `photos.capture_image`, `photos.save_image`, `photos.save_video`, `photos.get_assets`, `photos.pick_asset`, `photos.get_image`, `photos.Asset`, `photos.AssetCollection`, `photos.get_albums`, `photos.get_smart_albums`, `photos.get_moments`, `photos.create_album`, `photos.get_screenshots_album`, `photos.get_recently_added_album`, `photos.get_selfies_album`, `photos.pick_image_base64`, `photos.capture_image_base64`, `photos.image_to_base64`, `photos.base64_to_image`, `photos.get_favorites`, `photos.get_count`, `photos.get_recent_images`, `photos.get_image_size`, `photos.get_metadata`, `photos.is_available` |
+| `qrcode` | `媒体与视觉` | - | `qr_generation`, `png_export` | `qrcode.generate`, `qrcode.generate_base64`, `qrcode.save`, `qrcode.QRCodeError` |
+| `shazam` | `媒体与视觉` | `microphone` | `music_identification`, `microphone_recognition`, `file_recognition` | `shazam.is_available`, `shazam.status`, `shazam.recognize`, `shazam.recognize_file`, `shazam.cancel`, `shazam.ShazamError` |
+| `shortcuts` | `自动化与扩展` | - | `run_shortcut`, `open_url`, `open_settings` | `shortcuts.run_shortcut`, `shortcuts.open_url`, `shortcuts.open_settings` |
+| `sound` | `媒体与视觉` | - | `sound_effects`, `audio_player` | `sound.play_effect`, `sound.stop_effect`, `sound.stop_all_effects`, `sound.Player`, `sound.MIDIPlayer`, `sound.set_volume`, `sound.set_honors_silent_switch`, `sound.get_volume` |
+| `speech` | `媒体与视觉` | `speech` | `text_to_speech`, `voice_listing` | `speech.say`, `speech.stop`, `speech.pause`, `speech.resume`, `speech.is_speaking`, `speech.available_voices` |
+| `speech_recognition` | `媒体与视觉` | `speech`, `microphone` | `live_transcription`, `file_transcription`, `locale_listing` | `speech_recognition.is_available`, `speech_recognition.supported_locales`, `speech_recognition.start`, `speech_recognition.status`, `speech_recognition.text`, `speech_recognition.is_listening`, `speech_recognition.stop`, `speech_recognition.cancel`, `speech_recognition.recognize_file`, `speech_recognition.SpeechRecognitionError` |
+| `ssh` | `网络与连接` | - | `ssh_exec`, `sftp_upload`, `sftp_download` | `ssh.connect`, `ssh.execute`, `ssh.upload`, `ssh.download`, `ssh.disconnect`, `ssh.SSHError` |
+| `storage` | `系统服务` | - | `user_defaults`, `json_values` | `storage.get`, `storage.set`, `storage.get_int`, `storage.set_int`, `storage.get_float`, `storage.set_float`, `storage.get_bool`, `storage.set_bool`, `storage.get_json`, `storage.set_json`, `storage.remove`, `storage.has_key`, `storage.all_keys` |
+| `storekit` | `系统服务` | - | `iap_purchase`, `subscription_status`, `product_catalog` | `storekit.load_products`, `storekit.purchase`, `storekit.restore`, `storekit.subscription_status`, `storekit.show_manage_subscriptions`, `storekit.StoreKitError` |
+| `translation` | `系统服务` | - | `on_device_translation`, `language_listing` | `translation.is_available`, `translation.supported_languages`, `translation.translate`, `translation.TranslationError` |
+| `video_recorder` | `媒体与视觉` | `camera` | `video_recording` | `video_recorder.start`, `video_recorder.stop`, `video_recorder.cancel`, `video_recorder.status`, `video_recorder.VideoRecorderError` |
+| `vision` | `媒体与视觉` | - | `ocr` | `vision.setup_vision_framework`, `vision.is_vision_available`, `vision.recognize_text_from_image_data` |
+| `vision_helper` | `媒体与视觉` | - | `face_detection`, `barcode_detection`, `rectangle_detection`, `classification` | `vision_helper.setup_vision_framework`, `vision_helper.is_vision_available`, `vision_helper.detect_faces`, `vision_helper.detect_face_landmarks`, `vision_helper.detect_barcodes`, `vision_helper.classify_image`, `vision_helper.detect_rectangles`, `vision_helper.async_request`, `vision_helper.poll_result` |
+| `weather` | `网络与连接` | `location` | `current_conditions`, `daily_forecast`, `hourly_forecast` | `weather.current`, `weather.current_location`, `weather.daily`, `weather.hourly`, `weather.WeatherError` |
+| `websocket` | `网络与连接` | - | `websocket_connect`, `send`, `receive`, `close` | `websocket.connect`, `websocket.WebSocket` |
+
+## ui Module Public Surface
+
+- Classes: `View`, `Button`, `Label`, `TextField`, `TextView`, `ImageView`, `Switch`, `Slider`, `SegmentedControl`, `DatePicker`, `ScrollView`, `CanvasView`, `ActivityIndicator`, `TableView`, `WebView`, `NavigationView`, `ButtonItem`, `ProgressView`, `Stepper`, `ListDataSource`, `TableViewCell`, `GestureRecognizer`, `TapGestureRecognizer`, `PanGestureRecognizer`, `PinchGestureRecognizer`, `SwipeGestureRecognizer`, `LongPressGestureRecognizer`, `GestureSender`, `Color`, `Font`, `Path`, `GState`, `ImageContext`, `Image`, `Point`, `Size`, `Rect`, `Transform`, `Touch`, `autoreleasepool`
+- Functions: `parse_color`, `parse_font`, `set_color`, `fill_rect`, `stroke_rect`, `draw_string`, `begin_image_context`, `end_image_context`, `get_image_from_current_context`, `get_screen_size`, `get_window_size`, `get_keyboard_frame`, `get_ui_style`, `load_view`, `load_view_str`, `close_all`, `dump_view`, `animate`, `delay`, `cancel_delays`, `in_background`, `convert_point`, `convert_rect`, `measure_string`, `set_blend_mode`, `set_shadow`
+- Constants: `ALIGN_LEFT`, `ALIGN_CENTER`, `ALIGN_RIGHT`, `ALIGN_JUSTIFIED`, `ALIGN_NATURAL`, `LB_WORD_WRAP`, `LB_CHAR_WRAP`, `LB_CLIP`, `LB_TRUNCATE_HEAD`, `LB_TRUNCATE_TAIL`, `LB_TRUNCATE_MIDDLE`, `KEYBOARD_DEFAULT`, `KEYBOARD_ASCII`, `KEYBOARD_NUMBERS`, `KEYBOARD_URL`, `KEYBOARD_NUMBER_PAD`, `KEYBOARD_PHONE_PAD`, `KEYBOARD_NAME_PHONE_PAD`, `KEYBOARD_EMAIL`, `KEYBOARD_DECIMAL_PAD`, `KEYBOARD_TWITTER`, `KEYBOARD_WEB_SEARCH`, `BLEND_NORMAL`, `BLEND_MULTIPLY`, `BLEND_SCREEN`, `BLEND_OVERLAY`, `BLEND_DARKEN`, `BLEND_LIGHTEN`, `BLEND_COLOR_DODGE`, `BLEND_COLOR_BURN`, `BLEND_SOFT_LIGHT`, `BLEND_HARD_LIGHT`, `BLEND_DIFFERENCE`, `BLEND_EXCLUSION`, `BLEND_HUE`, `BLEND_SATURATION`, `BLEND_COLOR`, `BLEND_LUMINOSITY`, `BLEND_CLEAR`, `BLEND_COPY`, `BLEND_SOURCE_IN`, `BLEND_SOURCE_OUT`, `BLEND_SOURCE_ATOP`, `BLEND_DESTINATION_OVER`, `BLEND_DESTINATION_IN`, `BLEND_DESTINATION_OUT`, `BLEND_DESTINATION_ATOP`, `BLEND_XOR`, `BLEND_PLUS_DARKER`, `BLEND_PLUS_LIGHTER`, `RENDERING_MODE_AUTOMATIC`, `RENDERING_MODE_ORIGINAL`, `RENDERING_MODE_TEMPLATE`, `LINE_CAP_BUTT`, `LINE_CAP_ROUND`, `LINE_CAP_SQUARE`, `LINE_JOIN_MITER`, `LINE_JOIN_ROUND`, `LINE_JOIN_BEVEL`, `CONTENT_SCALE_ASPECT_FIT`, `CONTENT_SCALE_ASPECT_FILL`, `CONTENT_SCALE_TO_FILL`, `CONTENT_REDRAW`, `CONTENT_CENTER`, `CONTENT_TOP`, `CONTENT_BOTTOM`, `CONTENT_LEFT`, `CONTENT_RIGHT`, `CONTENT_TOP_LEFT`, `CONTENT_TOP_RIGHT`, `CONTENT_BOTTOM_LEFT`, `CONTENT_BOTTOM_RIGHT`, `DATE_PICKER_MODE_TIME`, `DATE_PICKER_MODE_DATE`, `DATE_PICKER_MODE_DATE_AND_TIME`, `DATE_PICKER_MODE_COUNTDOWN`, `ACTIVITY_INDICATOR_STYLE_GRAY`, `ACTIVITY_INDICATOR_STYLE_WHITE`, `ACTIVITY_INDICATOR_STYLE_WHITE_LARGE`
+
+## scene Module Public Surface
+
+- Classes: `Scene`, `Node`, `SpriteNode`, `LabelNode`, `ShapeNode`, `EffectNode`, `EmitterNode`, `Action`, `Texture`, `Shader`, `SceneView`, `Touch`, `Vector2`, `Vector3`, `Size`, `Rect`, `Point`, `EdgeInsets`, `PhysicsBody`, `PhysicsWorld`, `Contact`, `PinJoint`, `SpringJoint`, `RopeJoint`
+- Functions: `run`, `get_screen_size`, `get_screen_scale`, `gravity`, `play_effect`, `get_image_path`, `get_controllers`, `get_safe_area_insets`, `background`, `fill`, `no_fill`, `stroke`, `no_stroke`, `stroke_weight`, `tint`, `no_tint`, `rect`, `ellipse`, `line`, `image`, `text`, `translate`, `rotate`, `scale`, `push_matrix`, `pop_matrix`, `blend_mode`, `use_shader`, `load_image`, `load_image_file`, `load_pil_image`, `render_text`, `unload_image`, `image_quad`, `triangle_strip`
+- Constants: `BLEND_NORMAL`, `BLEND_ADD`, `BLEND_MULTIPLY`, `DEFAULT_ORIENTATION`, `PORTRAIT`, `LANDSCAPE`, `TIMING_LINEAR`, `TIMING_EASE_IN`, `TIMING_EASE_IN_2`, `TIMING_EASE_OUT`, `TIMING_EASE_OUT_2`, `TIMING_EASE_IN_OUT`, `TIMING_SINODIAL`, `TIMING_EASE_BACK_IN`, `TIMING_EASE_BACK_OUT`, `TIMING_EASE_BACK_IN_OUT`, `TIMING_ELASTIC_IN`, `TIMING_ELASTIC_OUT`, `TIMING_ELASTIC_IN_OUT`, `TIMING_BOUNCE_IN`, `TIMING_BOUNCE_OUT`, `TIMING_BOUNCE_IN_OUT`, `FILTERING_LINEAR`, `FILTERING_NEAREST`
+
+## Curated Source Doc Excerpts
+
+--- source: pythonide/Docs/appui.md ---
+
+# appui
+
+`appui` 是 PythonIDE 用来编写原生 MiniApp 界面的模块。你用 Python 描述页面结构、状态和交互，PythonIDE 负责把它显示成 iOS 风格的表单、列表、导航、弹层、媒体和图表界面。
+
+## 最小脚本
+
+```python runnable previewAppUI
+import appui
+
+state = appui.State(count=0)
+
+
+def add_one():
+    state.count += 1
+
+
+def body():
+    return appui.NavigationStack(
+        appui.Form([
+            appui.Section("计数器", [
+                appui.LabeledContent("当前值", value=str(state.count)),
+                appui.Button("加 1", action=add_one)
+                .button_style("bordered_prominent"),
+            ])
+        ]).navigation_title("AppUI")
+    )
+
+
+appui.run(body, state=state)
+```
+
+预期效果：预览打开一个原生表单页面，点击按钮后当前值立即更新。
+
+## 先选写法
+
+| 目标 | 推荐看 |
+| --- | --- |
+| 第一次写 MiniApp | [快速上手](appui-quickstart.md) |
+| 判断该用 AppUI、widget、ui 还是 scene | [运行时选择](miniapp-choose-runtime.md) |
+| 选择页面结构 | [AppUI UI 模式](miniapp-appui-ui-patterns.md) |
+| 按任务查 API | [AppUI API 地图](miniapp-appui-api-index.md) |
+| 排查空白、按钮、输入、列表和权限问题 | [MiniApp 开发排错](miniapp-dev-troubleshooting.md) |
+| 查完整函数和组件 | [函数参考](appui-ref-functions.md) |
+
+## 写 AppUI 的心智模型
+
+1. 入口：脚本末尾调用一次 `appui.run(body, state=state)`。
+2. 页面：`body()` 或 `body(view_state)` 返回一个 AppUI View。
+3. 状态：`State` 保存普通界面数据，`ReactiveState` 只用于高频变化。
+4. 绑定：`bind()` / `State.bind()` 适合输入控件和状态双向连接。
+5. 结构：设置页用 `Form + Section`，列表页用 `List + ForEach`，多页面用 `NavigationStack` 或 `TabView`。
+6. 交互：按钮、输入、搜索、刷新和弹层使用命名回调修改状态。
+7. 副作用：联网、文件、权限、通知和耗时任务不要写在 `body()` 里。
+
+## 适用场景
+
+| 需求 | 首选 |
+| --- | --- |
+| 表单、设置、列表、详情、工具页 | `appui` |
+| 多页面 MiniApp、Tab、弹层、搜索、刷新 | `appui` |
+| 图表、媒体、地图、WebView 和系统能力入口 | `appui` + 对应模块 |
+| 主屏、锁屏、StandBy 小组件 | `widget` |
+| Sprite、碰撞、逐帧绘制、小游戏 | `scene` |
+| Pythonista 兼容的命令式界面脚本 | `ui` |
+| 纯输出、批处理、日志转换 | 普通 Python / `console` |
+
+## 行为契约
+
+| API | 保证 | 注意 |
+| --- | --- | --- |
+| `appui.run(...)` | 启动一个 MiniApp 预览或页面。 | 放在脚本末尾，一个脚本只保留一个入口。 |
+| `appui.run(..., presentation=...)` | 控制界面呈现方式。 | 可选 `'sheet'`（默认）、`'fullscreen'`、`'fullscreen_with_close'`。 |
+| `State` | 字段变化后触发页面重建。 | 多字段同时更新优先用 `batch_update(...)`。 |
+| `ReactiveState` | 适合高频数据更新。 | 普通表单和列表不要默认使用。 |
+| `body()` | 描述当前界面。 | 不要在里面发请求、申请权限、写文件或修改状态。 |
+| `Button(action=...)` | 点击后执行命名回调。 | 传函数本身，不要写 `action=save()`。 |
+| `ForEach(..., key=...)` | 用稳定 key 维护动态行身份。 | 不要把可变化的 index 当 key。 |
+
+## API 参考
+
+| 分类 | 文档 |
+| --- | --- |
+| 函数与入口 | [函数参考](appui-ref-functions.md) |
+| 状态与绑定 | [状态 API](appui-ref-state.md) |
+| 布局容器 | [布局 API](appui-ref-layout.md) |
+| 控件 | [控件参考](appui-ref-controls.md) |
+| 导航 | [导航参考](appui-ref-navigation.md) |
+| 呈现和数据展示 | [呈现参考](appui-ref-presentation.md)、[数据展示](appui-ref-data.md) |
+| 修饰符 | [修饰符参考](appui-ref-modifiers.md) |
+| 图表、媒体、地图、形状 | [图表](appui-ref-charts.md)、[媒体](appui-ref-media.md)、[形状](appui-ref-shapes.md) |
+
+<!-- excerpt trimmed; see the in-app docs for the full tutorial text -->
+
+--- source: pythonide/Docs/appui-quickstart.md ---
+
+# 快速上手
+
+这篇教程用四个可预览示例串起 AppUI 的最小闭环：显示页面、修改状态、编辑表单、列表进详情。每段都可以直接运行。
+
+## 1. Hello World
+
+先让原生页面出现。`body()` 返回一个 View，脚本末尾调用 `appui.run(body)`。
+
+```python runnable previewAppUI
+import appui
+
+
+def body():
+    return appui.NavigationStack(
+        appui.VStack([
+            appui.Text("Hello AppUI").font("title2").bold(),
+            appui.Text("用 Python 编写原生 MiniApp 界面")
+            .foreground_color("secondaryLabel"),
+        ], spacing=8)
+        .padding()
+        .navigation_title("Hello")
+    )
+
+
+appui.run(body)
+```
+
+预期效果：预览显示一个带导航标题的原生页面，页面中有标题和说明文字。
+
+## 2. State 和按钮
+
+用 `State` 保存页面数据。按钮回调修改状态后，页面会用新状态重建。
+
+```python runnable previewAppUI
+import appui
+
+state = appui.State(count=0, message="Ready")
+
+
+def decrease():
+    state.batch_update(count=state.count - 1, message="Decreased")
+
+
+def increase():
+    state.batch_update(count=state.count + 1, message="Increased")
+
+
+def body(view_state):
+    return appui.NavigationStack(
+        appui.VStack([
+            appui.Text(f"当前计数：{view_state.count}").font("title3"),
+            appui.HStack([
+                appui.Button("-1", action=decrease).button_style("bordered"),
+                appui.Button("+1", action=increase)
+                .button_style("bordered_prominent"),
+            ], spacing=12),
+            appui.Text(view_state.message)
+            .font("caption")
+            .foreground_color("secondaryLabel"),
+        ], spacing=16)
+        .padding()
+        .navigation_title("状态")
+    )
+
+
+appui.run(body, state=state)
+```
+
+预期效果：点击 `+1` 或 `-1` 后计数和状态文案同步变化。
+
+## 3. 表单控件
+
+设置页和编辑页优先使用 `Form + Section`。输入控件通过 `on_change` 写回 `State`。
+
+```python runnable previewAppUI
+import appui
+
+state = appui.State(name="Ada", enabled=False, volume=40.0, saved=False)
+
+
+def set_name(value):
+    state.batch_update(name=value, saved=False)
+
+
+def set_enabled(value):
+    state.batch_update(enabled=value, saved=False)
+
+
+def set_volume(value):
+    state.batch_update(volume=value, saved=False)
+
+<!-- excerpt trimmed; see the in-app docs for the full tutorial text -->
+
+--- source: pythonide/Docs/miniapp-choose-runtime.md ---
+
+# 运行时选择
+
+MiniApp 先选运行时，再写代码。运行时选错会让布局难维护、交互不可用、系统能力接不上。
+
+## 默认判断
+
+大多数“像 App 一样能点、能输入、能保存状态”的需求，默认选 `appui`。只有当需求明确是小组件、游戏绘制、Pythonista 兼容 UI 或纯输出脚本时，才换运行时。
+
+## 决策表
+
+| 需求 | 首选运行时 | 不建议 |
+| --- | --- | --- |
+| 原生表单、列表、导航、设置页、工具页 | `appui` | 用 HTML 模拟 iOS 设置页 |
+| 主屏、锁屏、StandBy 小组件 | `widget` | 用 AppUI 写桌面 Widget |
+| 命令输出、批处理、日志 | `console` | 为纯输出脚本硬做 UI |
+| 绘制、小游戏、精灵、连续触摸 | `scene` | 用 AppUI 手写游戏循环 |
+| Pythonista 兼容的命令式界面脚本 | `ui` | 和 `appui` 混用通配导入 |
+| 已有 Web 页面或必须使用 DOM/CSS/JS | HTML / `WebView` | 为普通工具页引入 Web 结构 |
+| 相机、定位、通知、存储等系统能力 | `appui` + 对应模块 | 在 Web 页面里绕过原生能力 |
+
+## AppUI 骨架
+
+```python runnable previewAppUI
+import appui
+
+state = appui.State(status="Ready")
+
+
+def run_action():
+    state.status = "Action completed"
+
+
+def body():
+    return appui.NavigationStack(
+        appui.Form([
+            appui.Section("MiniApp", [
+                appui.LabeledContent("Runtime", value="appui"),
+                appui.LabeledContent("Status", value=state.status),
+                appui.Button("Run", action=run_action)
+                .button_style("bordered_prominent"),
+            ])
+        ]).navigation_title("运行时")
+    )
+
+
+appui.run(body, state=state)
+```
+
+预期效果：预览显示一个原生表单页面，点击 Run 后状态变为 `Action completed`。
+
+## 不同运行时的边界
+
+### widget
+
+用于主屏、锁屏和 StandBy 小组件。它没有普通页面输入和长列表交互，适合信息展示、参数配置、时间线刷新和受控桌面按钮。
+
+### console
+
+用于一次性脚本、批处理、日志输出和转换任务。用户只需要看输出时，不要硬做 AppUI。
+
+### scene
+
+用于持续绘制、游戏、精灵、物理和触摸循环。它不是设置页、列表页或表单页的替代品。
+
+### ui
+
+用于 Pythonista 兼容的命令式界面脚本。新 MiniApp 默认不要从 `ui` 开始；需要原生 App 风格页面时用 `appui`。
+
+### HTML / WebView
+
+用于已有 Web 页面、必须复用 DOM/CSS/JS 的内容，或需要展示外部网页。普通 iOS 风格工具页不建议用 Web 结构模拟。
+
+## 选择规则
+
+- 不确定时先选 `appui`，因为它覆盖表单、列表、导航、设置和大多数工具页。
+- 用户要求“桌面小组件、主屏卡片、锁屏信息”，选 `widget`。
+- 用户要求“小游戏、画布、碰撞、持续动画”，选 `scene`。
+- 只有输出、批处理或转换任务时，选 `console`。
+- 需要设备能力时，先查 [原生能力入口](miniapp-native-capabilities.md)。
+
+## 失败路径
+
+- 页面像网页而不是原生 App：回到 `appui`，使用 `NavigationStack`、`Form`、`List`。
+- 小组件脚本无法输入文字：这是 `widget` 的边界；需要输入时做 AppUI 页面。
+- 动画不连续：AppUI 适合界面状态动画；游戏循环和持续绘制交给 `scene`。
+- 命令脚本维护成本变高：如果只是输出文本，保持 console，不要额外做页面。
+
+## 相关文档
+
+| 文档 | 用途 |
+
+<!-- excerpt trimmed; see the in-app docs for the full tutorial text -->
+
+--- source: pythonide/Docs/miniapp-appui-ui-patterns.md ---
+
+# AppUI UI 模式
+
+这篇文档帮你先选对页面结构，再进入具体 API。已经知道 API 名时，直接查 [AppUI API 地图](miniapp-appui-api-index.md)。
+
+## 先记住 4 条规则
+
+1. 先定页面结构，再定控件。
+2. 设置和编辑优先 `Form + Section`，动态数据优先 `List + ForEach`。
+3. 多页面优先 `NavigationStack + NavigationLink`，主分区优先 `TabView + Tab`。
+4. 默认使用原生结构；只有视频、地图、WebView、相机、Chart、Canvas、游戏化首屏这类场景才使用自定义承载。
+
+## 最小模式示例
+
+```python runnable previewAppUI
+import appui
+
+items = [
+    {"id": "inbox", "title": "收件箱", "count": 12},
+    {"id": "today", "title": "今日任务", "count": 5},
+    {"id": "done", "title": "已完成", "count": 32},
+]
+
+
+def item_key(item):
+    return item["id"]
+
+
+def detail_view(item):
+    return appui.Form([
+        appui.Section(item["title"], [
+            appui.LabeledContent("Count", value=str(item["count"])),
+        ])
+    ]).navigation_title(item["title"])
+
+
+def row_view(item):
+    return appui.NavigationLink(
+        destination=detail_view(item),
+        label=appui.HStack([
+            appui.Text(item["title"])
+            .frame(max_width=appui.infinity, alignment="leading"),
+            appui.Text(str(item["count"])).foreground_color("secondaryLabel"),
+        ]),
+    )
+
+
+def body():
+    return appui.NavigationStack(
+        appui.List([
+            appui.Section("分区", [
+                appui.ForEach(items, row_builder=row_view, key=item_key),
+            ]),
+        ]).navigation_title("UI 模式")
+    )
+
+
+appui.run(body)
+```
+
+预期效果：列表显示三个分区，点击任一行进入对应详情页。
+
+## 按页面选择结构
+
+| 页面类型 | 推荐结构 | 适合 |
+| --- | --- | --- |
+| 单页工具 | `NavigationStack + VStack` | 计算器、转换器、小查询页 |
+| 设置页 | `NavigationStack + Form + Section` | 开关、输入、选择器、账号配置 |
+| 列表页 | `NavigationStack + List + ForEach` | 任务、笔记、记录、搜索结果 |
+| 列表详情 | `NavigationStack + NavigationLink` | 课程、商品、文档、条目详情 |
+| 多主分区 | `TabView + Tab` | 首页、记录、设置、统计 |
+| 仪表盘 | `ScrollView + LazyVGrid + Chart` | KPI、日报、趋势图、监控 |
+| 媒体页 | `VideoPlayer` / `MapView` / `WebView` | 视频、地图、网页和富内容 |
+| 自定义绘制 | `Canvas + DrawingContext + Path` | 轻量绘图、签名板、图形面板 |
+
+## 高频能力入口
+
+| 能力 | 常见场景 | 继续阅读 |
+| --- | --- | --- |
+| `NavigationStack` | 页面 push、详情页、设置页 | [导航与页面结构](appui-guide-navigation.md) |
+| `NavigationLink` | 列表进详情、设置项进入子页 | [导航与页面结构](appui-guide-navigation.md) |
+| `NavigationPath` | 程序化跳转、返回、带参数详情 | [导航与页面结构](appui-guide-navigation.md) |
+| `TabView` / `Tab` | 首页、记录、设置等主分区 | [导航与页面结构](appui-guide-navigation.md) |
+| `Form` / `Section` | 设置、资料编辑、筛选条件 | [布局系统](appui-guide-layout.md) |
+| `TextField` / `SecureField` | 单行输入、密码、API Key | [控件 API](appui-ref-controls.md) |
+| `Toggle` / `Picker` / `Slider` | 开关、模式、连续数值 | [控件 API](appui-ref-controls.md) |
+| `List` / `ForEach` | 动态行、分组数据、原生列表 | [布局系统](appui-guide-layout.md) |
+| `ContentUnavailableView` | 空状态、无结果、无权限提示 | [数据展示](appui-ref-data.md) |
+| `.searchable` / `.refreshable` | 搜索过滤、下拉刷新 | [交互与回调](appui-guide-interaction.md) |
+| `PhotoPicker` / `FileImporter` | 选图、导入 PDF/CSV/文本 | [媒体与系统集成](appui-guide-media.md) |
+| `CameraPicker` / `MapView` / `WebView` | 拍照、地图、网页 | [媒体与系统集成](appui-guide-media.md) |
+
+<!-- excerpt trimmed; see the in-app docs for the full tutorial text -->
+
+--- source: pythonide/Docs/miniapp-appui-api-index.md ---
+
+# AppUI API 地图
+
+这页按任务组织 AppUI API。还没确定页面结构时，先看 [AppUI UI 模式](miniapp-appui-ui-patterns.md)。
+
+## 最小正确组合
+
+```python runnable previewAppUI
+import appui
+
+state = appui.State(name="MiniApp", enabled=True, saved=False)
+
+
+def set_name(value):
+    state.batch_update(name=value, saved=False)
+
+
+def set_enabled(value):
+    state.batch_update(enabled=value, saved=False)
+
+
+def save():
+    state.saved = bool(state.name.strip())
+
+
+def body():
+    footer = "Saved" if state.saved else "Edit values and tap Save"
+    form = appui.Form([
+        appui.Section("Controls", [
+            appui.TextField("Name", text=state.name, on_change=set_name),
+            appui.Toggle("Enabled", is_on=state.enabled, on_change=set_enabled),
+        ]),
+        appui.Section("Output", [
+            appui.LabeledContent("Name", value=state.name or "Missing"),
+            appui.LabeledContent("Enabled", value=str(state.enabled)),
+        ], footer=footer),
+    ]).navigation_title("API 地图")
+
+    return appui.NavigationStack(
+        form.toolbar([
+            appui.ToolbarItem(
+                placement="navigation_bar_trailing",
+                content=appui.Button("Save", action=save)
+                .button_style("bordered_prominent"),
+            )
+        ])
+    )
+
+
+appui.run(body, state=state)
+```
+
+预期效果：页面显示输入、开关、输出和导航栏保存按钮；修改后点击 Save 会更新保存状态。
+
+## 按任务查 API
+
+| 任务 | 首选 API | 继续阅读 |
+| --- | --- | --- |
+| 启动 MiniApp | `appui.run` | [函数参考](appui-ref-functions.md) |
+| 控制呈现方式 | `appui.run(..., presentation=...)` | [函数参考](appui-ref-functions.md) |
+| 程序化弹层 | `presentation_present` / `presentation_dismiss` | [呈现 API](appui-ref-presentation.md) |
+| 保存普通界面状态 | `State` | [状态管理](appui-guide-state.md) |
+| 多字段一起更新 | `state.batch_update(...)` | [状态管理](appui-guide-state.md) |
+| 高频局部刷新 | `ReactiveState` | [性能与实时界面](appui-guide-performance.md) |
+| 派生数据 | `computed` | [状态管理](appui-guide-state.md) |
+| 状态变化后的副作用 | `effect` | [状态管理](appui-guide-state.md) |
+| 双向绑定 | `bind` | [函数参考](appui-ref-functions.md) |
+| 输入设置项 | `Form + Section` | [布局系统](appui-guide-layout.md) |
+| 动态列表 | `List + ForEach` | [布局系统](appui-guide-layout.md) |
+| 列表进详情 | `NavigationStack + NavigationLink` | [导航与页面结构](appui-guide-navigation.md) |
+| 程序化跳转 | `NavigationPath + destinations` | [导航与页面结构](appui-guide-navigation.md) |
+| 多主分区 | `TabView + Tab` | [导航与页面结构](appui-guide-navigation.md) |
+| 导航栏按钮 | `ToolbarItem` | [导航参考](appui-ref-navigation.md) |
+| 临时弹层 | `.sheet` / `.popover` | [呈现 API](appui-ref-presentation.md) |
+| 确认和错误提示 | `.alert` / `.confirmation_dialog` | [呈现 API](appui-ref-presentation.md) |
+| 搜索和刷新 | `.searchable` / `.refreshable` | [交互与回调](appui-guide-interaction.md) |
+| 空状态 | `ContentUnavailableView` | [数据展示](appui-ref-data.md) |
+| 加载状态 | `ProgressView` | [数据展示](appui-ref-data.md) |
+| 输入控件 | `TextField`、`SecureField`、`TextEditor` | [控件 API](appui-ref-controls.md) |
+| 选择控件 | `Toggle`、`Picker`、`Slider`、`Stepper` | [控件 API](appui-ref-controls.md) |
+| 媒体和文件 | `PhotoPicker`、`CameraPicker`、`FileImporter` | [媒体 API](appui-ref-media.md) |
+| 地图、网页、视频 | `MapView`、`WebView`、`VideoPlayer` | [媒体 API](appui-ref-media.md) |
+| 图表和绘制 | `Chart`、`Canvas`、`DrawingContext`、`Path` | [图表 API](appui-ref-charts.md) |
+
+## 行为契约
+
+| API | 保证 | 注意 |
+| --- | --- | --- |
+| `appui.run(...)` | 启动当前 MiniApp 页面。 | 一个脚本只保留一个最终入口。 |
+| `State` | 字段变化后页面重建。 | 多字段同时更新用 `batch_update(...)`。 |
+| `Button(action=...)` | 点击后执行命名回调。 | 不要写 `action=save()`。 |
+
+<!-- excerpt trimmed; see the in-app docs for the full tutorial text -->
+
+--- source: pythonide/Docs/miniapp-dev-troubleshooting.md ---
+
+# MiniApp 开发排错
+
+排错先看运行时是否选对，再看入口是否完整，最后查状态、交互、布局和系统能力。不要只确认“预览能打开”，还要确认按钮、输入、搜索、刷新和弹层都能产生可见变化。
+
+## 最小健康样例
+
+```python runnable previewAppUI
+import appui
+
+state = appui.State(saved=False)
+
+
+def save():
+    state.saved = True
+
+
+def body():
+    label = "Saved" if state.saved else "Not saved"
+    return appui.NavigationStack(
+        appui.Form([
+            appui.Section("Action", [
+                appui.LabeledContent("Status", value=label),
+                appui.Button("Save", action=save)
+                .button_style("bordered_prominent"),
+            ])
+        ]).navigation_title("排错")
+    )
+
+
+appui.run(body, state=state)
+```
+
+预期效果：页面显示保存状态，点击 Save 后状态从 `Not saved` 变成 `Saved`。
+
+## 快速定位
+
+| 现象 | 先查 | 继续看 |
+| --- | --- | --- |
+| 预览打不开 | `import appui`、`body()`、`appui.run(...)` | [快速上手](appui-quickstart.md) |
+| 点按钮没反应 | `action` 是否传函数本身 | [AppUI API 地图](miniapp-appui-api-index.md) |
+| 输入不更新 | `on_change` 是否写回 `State` | [状态管理](appui-guide-state.md) |
+| 列表刷新错乱 | `ForEach` 是否有稳定 `key` | [布局系统](appui-guide-layout.md) |
+| 页面不像原生 App | 是否使用 `List`、`Form`、`NavigationStack` | [AppUI UI 模式](miniapp-appui-ui-patterns.md) |
+| 高频刷新卡顿 | `Timer` 是否在 `body()` 外创建 | [性能与实时界面](appui-guide-performance.md) |
+| 权限或系统能力失败 | 是否处理拒绝、取消和不可用 | [原生能力入口](miniapp-native-capabilities.md) |
+
+## 正确的按钮写法
+
+```python
+def save():
+    state.saved = True
+
+
+appui.Button("Save", action=save)
+```
+
+不要这样写：
+
+```python
+appui.Button("Save", action=save())
+```
+
+`save()` 会在构建页面时立刻执行，按钮拿不到正确回调。
+
+## 正确的列表写法
+
+```python
+def row_key(row):
+    return row["id"]
+
+
+def row_view(row):
+    return appui.Text(row["title"])
+
+
+appui.ForEach(rows, row_builder=row_view, key=row_key)
+```
+
+不要把筛选后的 index 当 key。删除、重排、搜索后 index 会变化，行状态可能错位。
+
+## 运行前检查
+
+- 完整示例应该能独立复制运行，入口只保留一次 `appui.run(...)`。
+- 按钮、输入、搜索、刷新和弹层都应该有可见状态变化。
+- 动态列表必须有稳定 `key`，删除、搜索、重排后不能错行。
+- 涉及相册、相机、定位、通知、健康数据等能力时，要处理权限拒绝、用户取消和设备不可用。
+- 网络、文件、权限请求不要直接写在 `body()` 里，放到按钮、刷新或明确的加载动作中。
+- 失败时保留旧数据或显示空状态，不要让页面静默空白。
+
+## 失败路径
+
+<!-- excerpt trimmed; see the in-app docs for the full tutorial text -->
+
+--- source: pythonide/Docs/widget-module.md ---
+
+# widget
+
+用 Python 描述主屏、锁屏与 StandBy 小组件；由 PythonIDE + WidgetKit 负责渲染、刷新与桌面交互。
+
+> **边界**：`widget` 是 **WidgetKit 时间线模型**，不是普通 App 页面。不要用 [appui](appui) 做小组件，不要用 [scene](scene-module) 做 60fps 游戏画布。脚本只描述布局、参数、状态与时间线，结尾必须 `w.render()`。
+
+## 模块概览
+
+| 项 | 说明 |
+| --- | --- |
+| 导入 | `import widget` |
+| 适合做什么 | 计数器、进度、图表卡片、锁屏 accessory、可点按钮/开关 |
+| 入口 | `w = widget.Widget(...)` → 组合节点 → **`w.render()`**（只创建一个 `Widget`） |
+| 可调参数 | `widget.param.text/color/number/slider/bool/choice/file` — 预览面板可编辑 |
+| 桌面交互 | `widget.state.int/bool/...` → `count.increment()`、`done.toggle()` 等 action |
+| 尺寸适配 | `widget.context`、`widget.family_value(...)` 按 small/medium/large 分支 |
+| 发布 | **Widget Studio** 运行后发布；文档 `previewWidget` 仅预览 → [从脚本到桌面](widget-quickstart-publish) |
+
+---
+
+## 快速开始
+
+运行下面脚本会打开**小组件预览**（非 AppUI 全屏）。用环形图展示饮水进度，`+` / `−` 在桌面改写杯数。
+
+```python runnable previewWidget
+import widget
+
+goal = widget.param.number("每日杯数", 8, min=1, max=12)
+glasses = widget.state.int("glasses", 0)
+accent = widget.param.color("主色", "#38BDF8")
+
+w = widget.Widget(background=("#F0F9FF", "#0C4A6E"), padding=14)
+w.text("饮水打卡", size=16, weight="semibold").line_limit(1).min_scale(0.72)
+w.ring_chart(
+    min(int(glasses), int(goal)),
+    total=int(goal),
+    label=f"{int(glasses)}/{int(goal)} 杯",
+    color=accent,
+)
+with w.row(spacing=10):
+    (
+        w.button("−", action=glasses.decrement(), style="plain")
+        .line_limit(1)
+        .min_scale(0.72)
+    )
+    (
+        w.button("+", action=glasses.increment(), background=accent, color="#FFFFFF")
+        .line_limit(1)
+        .min_scale(0.72)
+    )
+w.render()
+```
+
+要点：
+
+- `widget.param.number(...)`：预览里可调每日目标杯数。
+- `widget.state.int(...)` + `ring_chart(...)`：桌面点击后环与标签同步刷新。
+- `with w.row(...)`：横排多个按钮，比纵向堆叠更省高度。
+- `.line_limit(1).min_scale(...)`：防止 small/medium 文字被裁切。
+
+---
+
+## Widget 预览示例
+
+### 每日一言（参数 + 尺寸分支）
+
+纯展示卡片：无 `widget.state`，演示 `param.text`、`symbol` 与 `family_value`；small 隐藏出处行。
+
+```python runnable previewWidget
+import widget
+
+quote = widget.param.text("名言", "专注一件事，做到极致。")
+author = widget.param.text("出处", "— 佚名")
+ink = widget.param.color("文字色", "#E2E8F0")
+title_size = widget.family_value(17, small=15, large=20)
+body_size = widget.family_value(15, small=13, large=17)
+
+w = widget.Widget(background=("#0F172A", "#020617"), padding=16)
+with w.row(spacing=8):
+    w.symbol("quote.bubble.fill").color("#60A5FA").font_size(18)
+    w.text("每日一言", size=14, weight="semibold", color="secondary").line_limit(1)
+w.text(quote, size=body_size, color=ink).line_limit(3).min_scale(0.7)
+if not widget.context.is_family("small"):
+    w.text(author, size=12, color="secondary").line_limit(1).min_scale(0.72)
+w.render()
+```
+
+### 本周专注（折线图）
+
+静态数据折线 + 可调曲线色；适合仪表盘类小组件，不涉及桌面点击。
+
+<!-- excerpt trimmed; see the in-app docs for the full tutorial text -->
+
+--- source: pythonide/Docs/widget-layout.md ---
+
+# widget 布局与尺寸
+
+小组件布局以 **WidgetKit family** 为边界：先定目标尺寸与信息密度，再选容器；不要把 large 的内容硬塞进 small。
+
+> **边界**：本篇讲 **row/column/grid/table/canvas**、`widget.context` 与防裁切。桌面点击与 `widget.state` 见 [状态和交互](widget-interaction)；参数面板见 [参数面板](widget-parameters)。
+
+## 本篇目标
+
+| 项 | 说明 |
+| --- | --- |
+| 核心原则 | **按 family 设计**，不是把同一套 UI 整体缩小 |
+| 容器 | `row()` / `column()` / `grid()` / `table()` / `canvas()` / `layer()` |
+| 尺寸 API | `widget.context`、`widget.family_value()`、`w.when()` / `w.unless()` |
+| 主屏 | `small` / `medium` / `large`（158²、338×158、338×354 内容区） |
+| 锁屏 | `circular` / `rectangular` / `inline` — 极简，节点数严格受限 |
+| 收尾 | 可变文案加 `.line_limit(1).min_scale(0.65+)` |
+
+---
+
+## 快速开始
+
+`row()` 横排三列指标，`column()` 在每列里纵向叠标题与数值——适合仪表盘，比单列更省高度。
+
+```python runnable previewWidget
+import widget
+
+steps = widget.param.number("步数", 8420, min=0, max=50000)
+calories = widget.param.number("千卡", 420, min=0, max=5000)
+sleep_h = widget.param.number("睡眠(h)", 7, min=0, max=12)
+accent = widget.param.color("主色", "#10B981")
+
+w = widget.Widget(background=("#ECFDF5", "#064E3B"), padding=14)
+w.text("今日健康", size=16, weight="semibold").line_limit(1)
+with w.row(spacing=12):
+    with w.column(spacing=2):
+        w.text("步数", size=11, color="secondary").line_limit(1)
+        w.value(steps).monospaced_digit().line_limit(1).min_scale(0.72)
+    with w.column(spacing=2):
+        w.text("千卡", size=11, color="secondary").line_limit(1)
+        w.value(calories).monospaced_digit().line_limit(1).min_scale(0.72)
+    with w.column(spacing=2):
+        w.text("睡眠", size=11, color="secondary").line_limit(1)
+        (
+            w.value(sleep_h, unit="h")
+            .monospaced_digit()
+            .line_limit(1)
+            .min_scale(0.72)
+        )
+w.rect(color=accent, height=3, corner_radius=2)
+w.render()
+```
+
+要点：
+
+- 容器必须用 **`with w.row():` / `with w.column():`** 上下文管理器，不要把子节点当位置参数传入。
+- `spacing=` 控制子项间距；`align=` 可选 `leading` / `center` / `trailing`。
+- 预览右上角切换 family，确认三列在 **small** 仍可读。
+
+---
+
+## 心智模型
+
+```
+选定 family（small / medium / large / 锁屏 accessory）
+        ↓
+读 widget.context → content_width × content_height（扣掉 padding 后的可画区域）
+        ↓
+决定信息层级：标题 → 主值 → 次要说明 → 图表/表格
+        ↓
+选容器：语义流式用 row/column/grid；精确格子用 table；点位绘制用 canvas
+        ↓
+防裁切：line_limit + min_scale；small 隐藏次要行
+```
+
+### 内容区预算（点）
+
+以下为默认 padding 下的**内容区**宽高，脚本里用 `widget.context` 或 `w.context` 读取（**属性，不可调用**；不要写 `widget.context()`）：
+
+| Family | 约 content 宽 × 高 | 设计建议 |
+| --- | --- | --- |
+| `small` | 158 × 158 | 标题 + 1 主值 + 1 视觉元素 |
+| `medium` | 338 × 158 | 默认主力版；可横排 2–3 列 |
+| `large` | 338 × 354 | 可加第二段：图表、表格、说明行 |
+| `circular` | 64 × 64 | SF Symbol + 极短数字/缩写 |
+| `rectangular` | 160 × 56 | 一行或图标+一行字 |
+| `inline` | 220 × 22 | 单行文字，无图表/表格 |
+
+常量：`widget.SMALL`、`widget.MEDIUM`、`widget.LARGE`、`widget.CIRCULAR`、`widget.RECTANGULAR`、`widget.INLINE`。
+
+### 容器怎么选
+
+<!-- excerpt trimmed; see the in-app docs for the full tutorial text -->
+
+--- source: pythonide/Docs/widget-parameters.md ---
+
+# widget 参数面板
+
+用 `widget.param` 声明**用户可在预览面板调节**的配置项；返回值直接用于 `Widget()`、`text()`、`progress()`、`button()` 等。
+
+> **边界**：`widget.param` 是**小组件配置**（预览/发布时的参数），不是桌面点击改写的数据。计数、开关持久化用 [widget.state](widget-interaction)，见 [状态和交互](widget-interaction)。
+
+## 本篇目标
+
+| 项 | 说明 |
+| --- | --- |
+| 何时用 | 颜色、标题文案、字号、阈值、是否紧凑、主题选项、背景图文件 |
+| 何时不用 | 用户点按钮 +1、桌面开关记忆 → 用 `widget.state` |
+| 声明时机 | 构建 UI **之前**；在 `w.render()` **之前** |
+| 改名/改类型后 | 重新运行并发布；桌面小组件可能需重新添加 |
+
+---
+
+## 快速开始
+
+预览侧栏会出现多类参数；`choice` 切换主题时，背景、图标与强调色一并变化（无 `widget.state`）。
+
+```python runnable previewWidget
+import widget
+
+theme = widget.param.choice("主题", ["海洋", "日落", "森林"], default="海洋")
+themes = {
+    "海洋": (("#E0F2FE", "#082F49"), "#0EA5E9", "drop.fill"),
+    "日落": (("#FFF7ED", "#431407"), "#F97316", "sun.max.fill"),
+    "森林": (("#ECFDF5", "#052E16"), "#10B981", "leaf.fill"),
+}
+bg, accent, icon = themes[str(theme)]
+title = widget.param.text("标题", "今日天气")
+city = widget.param.text("城市", "上海")
+temp = widget.param.number("温度", 24, min=-20, max=45)
+
+w = widget.Widget(background=bg, padding=14)
+with w.row(spacing=10):
+    w.symbol(icon).color(accent).font_size(24)
+    w.text(title, size=16, weight="semibold", color=accent).line_limit(1).min_scale(0.72)
+(
+    w.value(temp, unit="°")
+    .content_transition("numericText")
+    .monospaced_digit()
+    .line_limit(1)
+    .min_scale(0.72)
+)
+w.text(city, size=12, color="secondary").line_limit(1).min_scale(0.72)
+w.render()
+```
+
+---
+
+## 参数 vs 状态
+
+| | `widget.param` | `widget.state` |
+| --- | --- | --- |
+| 谁改 | 用户在 **预览面板 / Studio** 调 | 用户在 **桌面小组件** 点按 |
+| 持久化 | 写入 Widget 项目配置 | 写入小组件状态存储 |
+| 典型用途 | 主题色、默认标题、目标值 | 计数器、完成开关、列表勾选 |
+| 传给 UI | 直接作 `color=`、`size=`、`background=` | 作 `value` / `state=` + `action` |
+
+```python
+# ✅ 配置：强调色可调
+accent = widget.param.color("强调色", "#2563EB")
+
+# ✅ 交互：桌面点击累加
+count = widget.state.int("count", 0)
+w.button("加 1", action=count.increment(), background=accent)
+```
+
+---
+
+## API 参考
+
+### 速查
+
+| API | 返回值 | 预览控件 |
+| --- | --- | --- |
+| `param.text(name, default)` | `str`（可绑定） | 文本框 |
+| `param.color(name, default)` | 颜色字符串 | 取色器 |
+| `param.slider(name, default, min=, max=, step=)` | `float`/`int` | 滑块 |
+| `param.number(name, default, min=, max=)` | 数字 | 数字步进 |
+| `param.bool(name, default)` | `bool` | 开关 |
+| `param.choice(name, options, default=)` | `str`（选项之一） | 下拉/分段 |
+| `param.file(name, default, extensions=)` | 文件路径 `str` | 文件选择 |
+
+`name` 是参数 ID，同时作为预览面板默认标题；建议用用户能看懂的中文，如 `"背景色"`、`"标题字号"`。
+
+### `text`
+
+
+<!-- excerpt trimmed; see the in-app docs for the full tutorial text -->
+
+--- source: pythonide/Docs/widget-interaction.md ---
+
+# widget 状态和交互
+
+桌面小组件**不执行任意 Python 回调**。按钮、开关、列表勾选只能触发受控 **AppIntent**：改写 `widget.state`、刷新时间线，或打开链接。
+
+> **边界**：本篇讲**桌面点击**与 `widget.state`。预览面板里的配色、标题默认值用 [widget.param](widget-parameters)，不要混用。
+
+## 本篇目标
+
+| 项 | 说明 |
+| --- | --- |
+| 何时用 | 计数器、完成开关、习惯勾选、打开网页/深链 |
+| 核心 API | `widget.state.*` → `.increment()` / `.toggle()` / `.toggle_item()` |
+| 节点 | `w.button(..., action=)`、`w.toggle(..., state=)`、`w.link(...)` |
+| 限制 | `action=` 必须来自 state 工厂；不能传 Python 函数 |
+| 发布后 | 改 state key 需重新发布；桌面可能需删组件重装 |
+
+---
+
+## 快速开始
+
+单按钮累加 + 数字过渡：比 [概览 · 饮水打卡](widget-module#快速开始) 的 ± 环图更简单，专讲 `action` 与 `numericText`。
+
+```python runnable previewWidget
+import widget
+
+streak = widget.state.int("streak", 0)
+accent = widget.param.color("主色", "#2563EB")
+
+w = widget.Widget(background=("#FFFFFF", "#0F172A"), padding=14)
+w.text("连续签到", size=16, weight="semibold").line_limit(1)
+(
+    w.value(streak, unit="天")
+    .id("streak")
+    .content_transition("numericText")
+    .monospaced_digit()
+    .line_limit(1)
+    .min_scale(0.72)
+)
+(
+    w.button("签到", action=streak.increment(), background=accent, color="#FFFFFF")
+    .line_limit(1)
+    .min_scale(0.72)
+    .pressed(scale=0.94)
+)
+w.render()
+```
+
+要点：
+
+- `streak.increment()` 返回 AppIntent，赋给 `action=`；**不能**写字符串或 Python 函数。
+- `.content_transition("numericText")` + `.id(...)`：数字变化时系统过渡动画。
+- `.pressed(scale=0.94)` 等价于 `button(..., press={"scale": 0.94})`。
+- `widget.param.color` 只调配色，不改桌面计数值。
+
+---
+
+## 交互示例
+
+### 习惯清单（`state.list` + `toggle_item`）
+
+多项勾选用 `widget.state.list`；每项 `done.toggle_item(i)` 切换是否在列表里。
+
+```python runnable previewWidget
+import widget
+
+habits = ["晨跑", "喝水 8 杯", "阅读 30 分", "整理桌面"]
+done = widget.state.list("habits_done", [])
+accent = widget.param.color("完成色", "#22C55E")
+
+w = widget.Widget(background=("#FAFAFA", "#1C1C1E"), padding=14)
+w.text("今日习惯", size=16, weight="semibold").line_limit(1)
+for i, label in enumerate(habits):
+    checked = done.contains(i)
+    mark = "✓ " if checked else "○ "
+    (
+        w.button(
+            mark + label,
+            action=done.toggle_item(i),
+            style="plain",
+            color=accent if checked else "secondary",
+            size=13,
+        )
+        .line_limit(1)
+        .min_scale(0.72)
+    )
+w.render()
+```
+
+- `done.contains(i)`：预览/桌面判断第 `i` 项是否已勾选；`toggle_item(i)` 的 `i` 类型须与 `contains` 一致。
+- 多项也可用多个 `w.toggle(..., state=)`；长清单用 `state.list` 更省节点。
+
+<!-- excerpt trimmed; see the in-app docs for the full tutorial text -->
+
+--- source: pythonide/Docs/widget-timeline.md ---
+
+# widget 时间线和动画
+
+Widget 动画由 **WidgetKit 在数据更新时**触发：timeline entry 切换、AppIntent 改写 `widget.state`，或系统按计划刷新。不是 App 里的 60fps 循环动画。
+
+> **边界**：本篇讲 `w.timeline`、`widget.entry`、数字过渡与 `flip`。布局防裁切见 [布局与尺寸](widget-layout)；按钮触发 state 见 [状态和交互](widget-interaction)。
+
+## 本篇目标
+
+| 项 | 说明 |
+| --- | --- |
+| 两类数据源 | **`widget.state`**（桌面点击）与 **`widget.entry`**（时间线条目字段） |
+| 数字动画 | `.content_transition("numericText")` + `.monospaced_digit()` + `.id(...)` |
+| 时间线 | `w.timeline(entries=[...], update=, after=)` 声明未来快照 |
+| 翻页块 | `w.flip(current, previous=...)` 配合 entry 前后值 |
+| 系统计时 | `w.countdown` / `w.timer_text` — WidgetKit 原生倒计时 |
+| 限制 | 无持续循环；刷新时机由系统调度 |
+
+---
+
+## 快速开始
+
+桌面点「消费」后余额数字滚动过渡——这是 **state + numericText**，不依赖 timeline。
+
+```python runnable previewWidget
+import widget
+
+balance = widget.state.int("balance", 1280)
+accent = widget.param.color("主色", "#10B981")
+num_size = widget.family_value(42, small=34, large=52)
+
+w = widget.Widget(background=("#ECFDF5", "#064E3B"), padding=14)
+w.text("零钱罐", size=14, color="secondary").line_limit(1)
+(
+    w.value(balance.text("¥{}"))
+    .id("balance")
+    .font_size(num_size)
+    .monospaced_digit()
+    .content_transition("numericText")
+    .line_limit(1)
+    .min_scale(0.65)
+)
+(
+    w.button("消费 ¥10", action=balance.decrement(by=10), background=accent, color="#FFFFFF")
+    .line_limit(1)
+    .min_scale(0.72)
+)
+w.render()
+```
+
+要点：
+
+- `balance.text("¥{}")`：把 state 格式化成带货币符号的展示串，同时保留 state 绑定。
+- `.content_transition("numericText")`：数值变化时系统数字滚动动画。
+- `.id("balance")`：给变化节点稳定身份，动画更可靠。
+- 预览里点按钮即可看动画；桌面需发布后在小组件上点击。
+
+---
+
+## 心智模型
+
+```
+                    ┌─────────────────────────────────────┐
+                    │         WidgetKit 刷新时机           │
+                    └─────────────────────────────────────┘
+         系统调度 / timeline 到期 / AppIntent 改 state
+                              ↓
+              当前 entry 字段 或  state 新值 写入快照
+                              ↓
+        节点带 content_transition / flip / animation / transition
+                              ↓
+                    系统播放一次过渡动画
+```
+
+### `widget.state` vs `widget.entry`
+
+| | `widget.state` | `widget.entry` |
+| --- | --- | --- |
+| 谁写入 | 桌面 **AppIntent**（按钮、开关） | **`w.timeline` entries** 每条快照 |
+| 典型用途 | 计数器、余额、开关 | 按计划变化的展示数、翻页前后值 |
+| 绑定写法 | `widget.state.int("key", 0)` | `widget.entry.int("price", 0.58)` |
+| 格式化 | `count.text("{} 次")` | `price.text("{:.2f}")` |
+| 动画触发 | 点击后 state 变 | 预览/桌面切到下一 entry |
+
+同一张卡片可以**同时**有 state（交互）和 entry（定时），但动画字段要各绑各的 key，不要混用。
+
+### 动画 API 怎么选
+
+| API | 适合 |
+| --- | --- |
+| `.content_transition("numericText")` | `value()` / 数字 state / entry 变化 |
+
+<!-- excerpt trimmed; see the in-app docs for the full tutorial text -->
+
+--- source: pythonide/Docs/widget-appearance-assets.md ---
+
+# widget 资源与外观
+
+WidgetKit 负责浅色/深色、透明、系统染色（Tinted）等外观策略。脚本只**声明意图**——颜色、背景、图标、图片路径——不要用手写遮罩去模拟系统行为。
+
+> **边界**：本篇讲背景、图标、图片、SVG 与 `.accentable()` 等外观 API。可调默认配色用 [widget.param](widget-parameters)；布局防裁切见 [布局与尺寸](widget-layout)。
+
+## 本篇目标
+
+| 项 | 说明 |
+| --- | --- |
+| 背景 | 纯色、`(浅色, 深色)`、渐变 `dict`、`background_image` |
+| 系统表面 | `container_background`、`transparent_background`、`content_margins` |
+| 图标 | `w.symbol`（SF Symbol）、`w.svg`（矢量文件） |
+| 位图 | `w.image`、`widget.param.file`、`widget.save_image` |
+| 染色 | `.accentable(True/False)` 控制是否参与系统 Tinted |
+| 隐私 | `.privacy_sensitive()`、`.redacted()` 锁屏占位 |
+
+---
+
+## 快速开始
+
+渐变根背景 + 浅色文字，无需外部图片即可预览。
+
+```python runnable previewWidget
+import widget
+
+w = widget.Widget(
+    background={
+        "gradient": ["#4F46E5", "#7C3AED", "#DB2777"],
+        "direction": "vertical",
+    },
+    padding=16,
+)
+with w.row(spacing=10):
+    w.symbol("sparkles", scale="medium").color("#FFFFFF")
+    w.text("今日灵感", size=16, weight="semibold", color="#FFFFFF").line_limit(1)
+w.text("写一段只给自己的话", size=13, color="#E0E7FF").line_limit(2).min_scale(0.72)
+w.render()
+```
+
+要点：
+
+- `Widget(background=...)` 支持单色、`("#F8FAFC", "#0F172A")` 双色、或 `{"gradient": [...], "direction": "vertical"}`。
+- 文字颜色可写十六进制或语义名 `"secondary"`（随系统外观变化）。
+- 渐变方向常用 `"vertical"` / `"horizontal"`。
+
+---
+
+## 心智模型
+
+```
+脚本声明外观意图（颜色 / 背景 / 资源路径 / accentable）
+              ↓
+    PythonIDE 生成 Widget IR + 资源清单
+              ↓
+    WidgetKit 按系统外观（浅色 / 深色 / Tinted / 透明）渲染
+```
+
+### 背景 API 怎么选
+
+| API | 作用 |
+| --- | --- |
+| `Widget(background=...)` | 卡片内容区底色（纯色 / 双色 / 渐变） |
+| `w.container_background(..., removable=)` | 系统 Widget **容器**背景（可请求移除） |
+| `w.background_image(...)` | 铺满容器的背景图 + 遮罩 |
+| `w.transparent_background(True)` | 请求透明（宿主是否允许由系统决定） |
+| `w.content_margins(False)` | 边到边布局，去掉系统内容边距 |
+
+普通卡片用 `Widget(background=...)`；需要**照片墙**时用 `background_image`；需要**融入主屏壁纸**时组合 `transparent_background` + `container_background(..., removable=True)`。
+
+### 资源路径约定
+
+| 来源 | 写法 |
+| --- | --- |
+| 脚本同目录 | `"cover.jpg"` |
+| `assets/` 子目录 | `"assets/icon.svg"` |
+| 用户文件参数 | `widget.param.file("封面", "assets/cover.jpg", extensions=[...])` |
+| 运行时注册 | `widget.save_image(url_or_bytes, "avatar")` → `w.image("avatar")` |
+| 远程 URL | `w.image("https://example.com/pic.png")`（需网络，注意缓存） |
+
+深色模式应为图片提供 **dark 变体**，不要只靠压暗浅色图。
+
+---
+
+## 外观示例
+
+### 系统染色（`accentable`）
+
+Tinted / 强调色模式下，只有 `.accentable(True)` 的节点会跟随系统染色；标题等需保持自定义色时显式 `.accentable(False)`。
+
+
+<!-- excerpt trimmed; see the in-app docs for the full tutorial text -->
+
+--- source: pythonide/Docs/ios-native.md ---
+
+# iOS 原生能力
+
+iOS 原生 Python 模块总入口：按任务选模块、组合调用、权限与真机要求速查。
+
+> **边界**：这是 **能力索引页**，不是 `import` 名。具体 API 见各模块文档；系统面板、硬件扫描、权限申请必须由按钮或菜单触发，不要在 AppUI `body()` 或模块导入时自动执行。
+
+## 模块概览
+
+| 项 | 说明 |
+| --- | --- |
+| 导入 | 按任务 `import` 对应模块（如 `import photos`） |
+| 适合做什么 | 相册、定位、通知、蓝牙、健康、网络等系统能力 |
+| 调用时机 | 按钮/刷新/选择器触发；`body()` 只展示 `State` |
+| 敏感数据 | token/密钥 → `keychain`；普通设置 → `storage` |
+| 文档导航 | schema `navigation.iosNative` 投影；见下方 **文档导航** 表 |
+| 下一步 | 按场景配方选模块 → 打开模块页 → 复制 AppUI 示例 |
+
+---
+
+## 快速开始
+
+相册、剪贴板、HUD 与钥匙串组合（函数式，适合脚本调试）：
+
+```python
+import clipboard
+import console
+import keychain
+import photos
+
+
+def pick_photo_and_copy_size():
+    image = photos.pick_image(raw_data=True)
+    if not image:
+        return "已取消选择"
+    clipboard.set(f"picked {len(image)} bytes")
+    console.hud_alert("已复制图片大小", "success")
+    return f"已复制 {len(image)} bytes"
+
+
+def save_demo_token():
+    ok = keychain.set_password("demo", "token", "demo-token")
+    return "已保存" if ok else "保存失败"
+```
+
+---
+
+## AppUI 示例
+
+设备信息、本地快照与通知提醒组合；原生调用均在按钮回调里。
+
+```python runnable previewAppUI
+import appui
+import device
+import haptics
+import notification
+import storage
+
+SNAPSHOT_KEY = "native.snapshot"
+REMINDER_ID = "native.snapshot.reminder"
+
+state = appui.State(
+    message="就绪",
+    rows=[
+        {"id": "model", "title": "型号", "value": "点击刷新"},
+        {"id": "battery", "title": "电量", "value": "—"},
+    ],
+)
+
+
+def row_key(row):
+    return row["id"]
+
+
+def row_view(row):
+    return appui.LabeledContent(row["title"], value=row["value"])
+
+
+def refresh_device_info():
+    state.rows = [
+        {"id": "model", "title": "型号", "value": device.model()},
+        {"id": "battery", "title": "电量", "value": f"{device.battery_level():.0%}"},
+    ]
+    state.message = "设备信息已刷新"
+
+
+def save_snapshot():
+    storage.set_json(SNAPSHOT_KEY, state.rows)
+    if haptics.is_supported():
+        haptics.notification("success")
+    state.message = "快照已保存"
+
+<!-- excerpt trimmed; see the in-app docs for the full tutorial text -->
+
+--- source: pythonide/Docs/miniapp-native-capabilities.md ---
+
+# 原生能力入口
+
+> **主文档已合并**：入口模型、Python 模块表、AppUI 桥接表与侧边栏导航均由 schema 生成，请优先阅读 **[iOS 原生能力](ios-native)**。本文仅保留历史深链，不再维护独立能力表。
+
+MiniApp 场景下的原生能力配方：按任务选模块、组合调用、状态写回界面。
+
+> **边界**：这是 **MiniApp 配方索引**，不是可 `import` 的模块。完整 API 以各模块文档为准；系统调用放在按钮回调，不要写在 `body()` 里。
+
+## 模块概览
+
+| 项 | 说明 |
+| --- | --- |
+| 导入 | 按场景 `import` 对应模块（如 `photos`、`storage`） |
+| 适合做什么 | 选图、定位、通知、持久化、网络列表等 MiniApp 常见流 |
+| 调用时机 | 按钮、刷新、选择器触发；`body()` 只读 `State` |
+| 数据分工 | 设置 `storage`、记录 `database`、密钥 `keychain` |
+| 反馈 | 成功/取消/失败都写回 `State` 或 HUD |
+
+---
+
+## 快速开始
+
+保存主题并触发触觉反馈：
+
+```python
+import haptics
+import storage
+
+storage.set("demo.theme", "Dark")
+if haptics.is_supported():
+    haptics.notification("success")
+print("已保存:", storage.get("demo.theme"))
+```
+
+---
+
+## AppUI 示例
+
+设备信息、快照、通知组合；所有原生调用在按钮回调里。
+
+```python runnable previewAppUI
+import appui
+import device
+import haptics
+import notification
+import storage
+
+SNAPSHOT_KEY = "native.snapshot"
+REMINDER_ID = "native.snapshot.reminder"
+
+state = appui.State(
+    message="就绪",
+    rows=[
+        {"id": "model", "title": "型号", "value": "点击刷新"},
+        {"id": "battery", "title": "电量", "value": "—"},
+    ],
+)
+
+
+def row_key(row):
+    return row["id"]
+
+
+def row_view(row):
+    return appui.LabeledContent(row["title"], value=row["value"])
+
+
+def refresh_device_info():
+    state.rows = [
+        {"id": "model", "title": "型号", "value": device.model()},
+        {"id": "battery", "title": "电量", "value": f"{device.battery_level():.0%}"},
+    ]
+    state.message = "设备信息已刷新"
+
+
+def save_snapshot():
+    storage.set_json(SNAPSHOT_KEY, state.rows)
+    if haptics.is_supported():
+        haptics.notification("success")
+    state.message = "快照已保存"
+
+
+def remind_later():
+    perm = notification.request_permission()
+    if not perm.get("granted"):
+        state.message = "未获得通知权限"
+        return
+
+    result = notification.schedule(
+        REMINDER_ID,
+
+<!-- excerpt trimmed; see the in-app docs for the full tutorial text -->
+
+--- source: pythonide/Docs/ui-module.md ---
+
+# ui 概览
+
+Pythonista 风格原生 UI 组件与交互。
+
+
+## 预期效果
+
+运行示例后会出现一个手动 frame 布局的原生 sheet，点击按钮会直接修改按钮标题。
+
+## 适用场景
+
+Pythonista 风格命令式 UI，使用 frame/flex 手动布局；新 MiniApp 默认优先用 appui。
+
+## 先选写法
+
+| 需求 | 首选 | 原因 |
+| --- | --- | --- |
+| 迁移 Pythonista 风格的 `ui` 脚本 | `ui` | 代码通常已经按 `View`、`frame`、`action(sender)` 组织。 |
+| 新建设置页、表单、列表或多页面工具 | `appui` | 状态、导航、输入和动态列表更容易维护。 |
+| 需要 Sprite、触摸循环、物理或逐帧绘制 | `scene` | 场景生命周期和渲染循环更适合动画与小游戏。 |
+| 只需要桌面小组件 | `widget` | 小组件有独立的 WidgetKit 约束和刷新模型。 |
+| 只想生成一张图片或画布 | `ui.ImageContext` / `CanvasView` | 不需要完整页面时，离屏绘图更轻。 |
+
+## 标准示例
+
+```python
+import ui
+
+def tapped(sender):
+    sender.title = "Tapped"
+
+view = ui.View(frame=(0, 0, 320, 220))
+view.name = "ui demo"
+button = ui.Button(frame=(40, 80, 240, 44), title="Tap")
+button.action = tapped
+view.add_subview(button)
+view.present("sheet")
+```
+
+## 写 ui 的心智模型
+
+1. 根视图：创建一个有明确尺寸的 `ui.View(frame=...)`。
+2. 子视图：按钮、标签、输入框和图片用 `add_subview(...)` 挂到父视图。
+3. 布局：用 `frame` 设定初始位置，用 `flex` 处理简单的横竖屏变化。
+4. 交互：控件回调接收 `sender`，在回调里修改标题、文本、颜色或子视图。
+5. 呈现：脚本末尾调用一次 `present(...)`，不要在导入模块时弹出多个页面。
+6. 迁移：当状态、列表和导航开始变复杂，就把新页面迁到 `appui`。
+
+## API 参考
+
+| 类型 | API | 签名 | 说明 |
+| --- | --- | --- | --- |
+| class | `Color` | `Color(r: float, g: float, b: float, a: float=1.0) -> None` | 颜色类，兼容Pythonista的ui.Color |
+| class | `Point` | `Point(x: Union[float, Sequence[float]]=0.0, y: float=0.0) -> None` | 二维点，兼容 Pythonista 的 ui.Point |
+| class | `Size` | `Size(w: Union[float, Sequence[float]]=0.0, h: float=0.0) -> None` | 尺寸，兼容 Pythonista 的 ui.Size |
+| class | `Rect` | `Rect(x: Union[float, Sequence[float]]=0.0, y: float=0.0, w: float=0.0, h: float=0.0) -> None` | 矩形，兼容 Pythonista 的 ui.Rect |
+| class | `Transform` | `Transform(a: float=1.0, b: float=0.0, c: float=0.0, d: float=1.0, tx: float=0.0, ty: float=0.0) -> None` | 2D 仿射变换，兼容 Pythonista 的 ui.Transform |
+| class | `Touch` | `Touch(location: Sequence[float]=..., prev_location: Optional[Sequence[float]]=..., phase: str=..., touch_id: int=..., timestamp: Union[int, float]=...) -> None` | 触摸事件，兼容 Pythonista 的 ui.Touch（简化实现） |
+| class | `GestureSender` | `GestureSender(view: Optional[View]=..., state: int=..., location: Sequence[float]=..., translation: Sequence[float]=..., scale: float=..., direction: int=...) -> None` | 手势识别器回调的 sender 对象，兼容 Pythonista（state, location, translation, scale, direction） |
+| class | `GestureRecognizer` | `GestureRecognizer(gesture_id: str) -> None` | 手势识别器基类，兼容 Pythonista（action(sender)） |
+| class | `TapGestureRecognizer` | `TapGestureRecognizer() -> None` | 点击手势（Pythonista 兼容） |
+| class | `PanGestureRecognizer` | `PanGestureRecognizer() -> None` | 拖动手势（Pythonista 兼容） |
+| class | `PinchGestureRecognizer` | `PinchGestureRecognizer() -> None` | 捏合手势（Pythonista 兼容） |
+| class | `SwipeGestureRecognizer` | `SwipeGestureRecognizer() -> None` | 滑动手势（Pythonista 兼容），direction: LEFT=1, RIGHT=2, UP=3, DOWN=4 |
+| class | `LongPressGestureRecognizer` | `LongPressGestureRecognizer() -> None` | 长按手势（Pythonista 兼容） |
+| function | `parse_color` | `parse_color(color: Any) -> Tuple[float, float, float, float]` | 解析颜色参数为RGBA元组，支持语义色（systemBackground 等）自适应深色/浅色模式 |
+| class | `Font` | `Font(name: str=..., size: float=...) -> None` | 字体类，兼容Pythonista的ui.Font |
+| function | `parse_font` | `parse_font(font: Any) -> Tuple[str, float]` | 解析字体参数为(name, size)元组 |
+| class | `View` | `View(frame: Optional[_Frame]=..., **kwargs: Any) -> None` | 视图基类，所有UI组件的父类 |
+| class | `ButtonItem` | `ButtonItem(title: str=..., image: Any=..., action: Optional[Callable[..., Any]]=..., **kwargs: Any) -> None` | 导航栏按钮项，用于 left_button_items / right_button_items |
+| class | `Button` | `Button(frame: Optional[_Frame]=..., title: str=..., **kwargs: Any) -> None` | 按钮组件 |
+| class | `Label` | `Label(frame: Optional[_Frame]=..., text: str=..., **kwargs: Any) -> None` | 文本标签组件 |
+| class | `TextField` | `TextField(frame: Optional[_Frame]=..., text: str=..., placeholder: str=..., **kwargs: Any) -> None` | 单行文本输入组件 |
+| class | `TextView` | `TextView(frame: Optional[_Frame]=..., text: str=..., **kwargs: Any) -> None` | 多行文本输入组件 |
+| class | `ImageView` | `ImageView(frame: Optional[_Frame]=..., **kwargs: Any) -> None` | 图片显示组件 |
+| class | `WebView` | `WebView(frame: Optional[_Frame]=..., **kwargs: Any) -> None` | 网页视图 |
+| class | `ActivityIndicator` | `ActivityIndicator(frame: Optional[_Frame]=..., **kwargs: Any) -> None` | 加载指示器 |
+| class | `TableView` | `TableView(frame: Optional[_Frame]=..., **kwargs: Any) -> None` | 表格视图 |
+| class | `ListDataSource` | `ListDataSource() -> None` | TableView 数据源协议 子类实现 tableview_number_of_sections, tableview_number_of_rows, tableview_cell_for_row 等 |
+| class | `TableViewCell` | `TableViewCell(style: str=..., **kwargs: Any) -> None` | 表格行单元，兼容 Pythonista |
+| class | `Switch` | `Switch(frame: Optional[_Frame]=..., value: bool=..., **kwargs: Any) -> None` | 开关组件 |
+| class | `Slider` | `Slider(frame: Optional[_Frame]=..., **kwargs: Any) -> None` | 滑块组件 |
+| class | `SegmentedControl` | `SegmentedControl(frame: Optional[_Frame]=..., **kwargs: Any) -> None` | 分段控制器 |
+| class | `DatePicker` | `DatePicker(frame: Optional[_Frame]=..., **kwargs: Any) -> None` | 日期时间选择器 |
+| class | `ProgressView` | `ProgressView(frame: Optional[_Frame]=..., **kwargs: Any) -> None` | 进度条组件，兼容 Pythonista 的 ui.ProgressView |
+| class | `Stepper` | `Stepper(frame: Optional[_Frame]=..., **kwargs: Any) -> None` | 步进器组件，兼容 Pythonista 的 ui.Stepper |
+| class | `NavigationView` | `NavigationView(view: Optional[View]=..., **kwargs: Any) -> None` | 导航视图，支持 push_view / pop_view 兼容 Pythonista 的 ui.NavigationView |
+| class | `ScrollView` | `ScrollView(frame: Optional[_Frame]=..., **kwargs: Any) -> None` | 滚动视图，兼容 Pythonista 的 ui.ScrollView 可容纳超出可见区域的子视图并支持滚动 |
+| class | `Path` | `Path() -> None` | 路径类，兼容 Pythonista 的 ui.Path 在 ImageContext 内使用 |
+| class | `GState` | `GState()` | with ui.GState(): 保存和恢复绘图状态 |
+
+<!-- excerpt trimmed; see the in-app docs for the full tutorial text -->
+
+--- source: pythonide/Docs/scene-module.md ---
+
+# scene
+
+Pythonista 风格的 2D 场景运行时：精灵节点、触摸、逐帧 `update()`、Classic 绘图、动作动画与 SpriteKit 物理。
+
+> **边界**：`scene` 适合小游戏、画布动画和物理交互。普通表单、设置页、列表导航请用 [appui](appui)；教材式海龟绘图用 [turtle](turtle-module)；主屏小组件用 [widget](widget-module)。坐标原点在**左下角**（与 Pythonista 一致）。
+
+## 模块概览
+
+| 项 | 说明 |
+| --- | --- |
+| 导入 | `import scene` |
+| 适合做什么 | 触摸游戏、精灵动画、粒子、碰撞、Classic 画布、手柄输入 |
+| 入口 | 定义 `Scene` 子类，脚本末尾**只调用一次** `scene.run(MyScene())` |
+| 生命周期 | `setup()` 建节点；`update()` 每帧逻辑；`draw()` Classic 绘图；触摸走 `touch_*` |
+| 关闭方式 | `scene.run()` 会阻塞直到场景关闭（界面上的关闭按钮或系统下滑 dismiss） |
+| MiniApp | Scene 类型 MiniApp 入口同样是 `scene.run(...)`，不是 `appui.run()` |
+| 文档示例 | 代码块标记 `previewScene`，点「预览」直接打开全屏场景，不弹控制台 sheet |
+
+---
+
+## 快速开始
+
+点击运行后会打开全屏 2D 场景；触摸屏幕可看到坐标更新。
+
+```python runnable previewScene
+import scene
+
+
+class TapDemo(scene.Scene):
+    def setup(self):
+        self.background_color = (0.08, 0.09, 0.12)
+        self.label = scene.LabelNode(
+            "Tap anywhere",
+            font=("Helvetica", 22),
+            position=(self.size.w / 2, self.size.h / 2),
+            parent=self,
+        )
+
+    def touch_began(self, touch):
+        self.label.text = f"{touch.location.x:.0f}, {touch.location.y:.0f}"
+
+
+scene.run(TapDemo(), show_fps=True)
+```
+
+---
+
+## 可运行示例
+
+### 精灵与 Action 动画
+
+`SpriteNode` 的第一个位置参数是**纹理名**；纯色块请用关键字 `color=`。动画用 `node.run_action(...)` 启动。
+
+```python runnable previewScene
+import scene
+
+
+class SpriteDemo(scene.Scene):
+    def setup(self):
+        self.background_color = "black"
+        self.box = scene.SpriteNode(
+            color="cyan",
+            size=(80, 80),
+            position=(self.size.w / 2, self.size.h / 2),
+            parent=self,
+        )
+        pulse = scene.Action.sequence([
+            scene.Action.scale_to(1.2, 0.5),
+            scene.Action.scale_to(0.8, 0.5),
+        ])
+        self.box.run_action(scene.Action.repeat_forever(pulse))
+
+
+scene.run(SpriteDemo(), show_fps=True)
+```
+
+### Classic 绘制（`draw()`）
+
+`fill`、`rect`、`line`、`text` 等**只能在** `draw()` 里调用。
+
+```python runnable previewScene
+import scene
+
+
+class DrawDemo(scene.Scene):
+    def draw(self):
+        scene.background(0.05, 0.06, 0.08)
+        scene.fill(0.2, 0.6, 1.0)
+        scene.rect(40, 80, 120, 80, corner_radius=12)
+        scene.stroke(1.0, 1.0, 1.0, 0.8)
+
+<!-- excerpt trimmed; see the in-app docs for the full tutorial text -->

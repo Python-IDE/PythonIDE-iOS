@@ -3,8 +3,8 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>API 地图 - PythonIDE Docs</title>
-  <meta name="description" content="按任务选择 Widget()、布局、参数、状态、时间线和外观 API。">
+  <title>widget API 地图 - PythonIDE Docs</title>
+  <meta name="description" content="按任务/场景索引 Widget API；含 symbol 链式 color 等易错点。">
   <link rel="icon" href="../../assets/brand-mark.svg" type="image/svg+xml">
   <link rel="stylesheet" href="../../assets/docs-v2.css">
   <script>window.PYTHONIDE_DOCS_PREFIX = "../../";</script>
@@ -146,7 +146,7 @@
 <summary><a href="../../collections/scene/">scene</a></summary>
 <div class="nav-group">
 <div class="nav-group-title">快速上手</div>
-<a class="nav-link" href="../../pages/scene-module/">scene 概览</a>
+<a class="nav-link" href="../../pages/scene-module/">scene</a>
 <a class="nav-link" href="../../pages/turtle-module/">turtle</a>
 </div>
 <div class="nav-group">
@@ -160,8 +160,16 @@
 <div class="nav-group">
 <div class="nav-group-title">快速上手</div>
 <a class="nav-link" href="../../pages/ios-native/">iOS 原生能力</a>
-<a class="nav-link" href="../../pages/modules-index/">全部模块总览</a>
-<a class="nav-link" href="../../pages/miniapp-native-capabilities/">原生能力入口</a>
+</div>
+<div class="nav-group">
+<div class="nav-group-title">基础与权限</div>
+<a class="nav-link" href="../../pages/permission-module/">permission</a>
+<a class="nav-link" href="../../pages/storage-module/">storage</a>
+<a class="nav-link" href="../../pages/database-module/">database</a>
+<a class="nav-link" href="../../pages/keychain-module/">keychain</a>
+<a class="nav-link" href="../../pages/clipboard-module/">clipboard</a>
+<a class="nav-link" href="../../pages/console-module/">console</a>
+<a class="nav-link" href="../../pages/dialogs-module/">dialogs</a>
 </div>
 <div class="nav-group">
 <div class="nav-group-title">设备与传感器</div>
@@ -173,35 +181,69 @@
 <a class="nav-link" href="../../pages/health-module/">health</a>
 </div>
 <div class="nav-group">
-<div class="nav-group-title">媒体与视觉</div>
-<a class="nav-link" href="../../pages/photos-module/">photos</a>
-<a class="nav-link" href="../../pages/avplayer-module/">avplayer</a>
-<a class="nav-link" href="../../pages/sound-module/">sound</a>
-<a class="nav-link" href="../../pages/speech-module/">speech</a>
-<a class="nav-link" href="../../pages/vision-helper-module/">vision_helper</a>
-<a class="nav-link" href="../../pages/vision-module/">vision</a>
-<a class="nav-link" href="../../pages/coreml-module/">coreml</a>
-</div>
-<div class="nav-group">
-<div class="nav-group-title">网络与数据</div>
-<a class="nav-link" href="../../pages/network-module/">network</a>
-<a class="nav-link" href="../../pages/websocket-module/">websocket</a>
-<a class="nav-link" href="../../pages/bluetooth-module/">bluetooth</a>
-<a class="nav-link" href="../../pages/background-module/">background</a>
-</div>
-<div class="nav-group">
-<div class="nav-group-title">系统服务</div>
-<a class="nav-link" href="../../pages/permission-module/">permission</a>
-<a class="nav-link" href="../../pages/storage-module/">storage</a>
-<a class="nav-link" href="../../pages/database-module/">database</a>
-<a class="nav-link" href="../../pages/keychain-module/">keychain</a>
-<a class="nav-link" href="../../pages/clipboard-module/">clipboard</a>
-<a class="nav-link" href="../../pages/dialogs-module/">dialogs</a>
-<a class="nav-link" href="../../pages/console-module/">console</a>
+<div class="nav-group-title">界面与系统</div>
+<a class="nav-link" href="../../pages/file-picker-module/">file_picker</a>
+<a class="nav-link" href="../../pages/share-module/">share</a>
+<a class="nav-link" href="../../pages/font-picker-module/">font_picker</a>
 <a class="nav-link" href="../../pages/notification-module/">notification</a>
+<a class="nav-link" href="../../pages/live-activity-module/">live_activity</a>
 <a class="nav-link" href="../../pages/contacts-module/">contacts</a>
 <a class="nav-link" href="../../pages/calendar-events-module/">calendar_events</a>
+</div>
+<div class="nav-group">
+<div class="nav-group-title">媒体</div>
+<div class="nav-subgroup-title">采集</div>
+<a class="nav-link" href="../../pages/photos-module/">photos</a>
+<a class="nav-link" href="../../pages/camera-module/">camera</a>
+<a class="nav-link" href="../../pages/video-recorder-module/">video_recorder</a>
+<a class="nav-link" href="../../pages/audio-recorder-module/">audio_recorder</a>
+<div class="nav-subgroup-title">播放</div>
+<a class="nav-link" href="../../pages/sound-module/">sound</a>
+<a class="nav-link" href="../../pages/avplayer-module/">avplayer</a>
+<a class="nav-link" href="../../pages/music-module/">music</a>
+<a class="nav-link" href="../../pages/now-playing-module/">now_playing</a>
+<a class="nav-link" href="../../pages/audio-session-module/">audio_session</a>
+<div class="nav-subgroup-title">语音</div>
+<a class="nav-link" href="../../pages/speech-module/">speech</a>
+<a class="nav-link" href="../../pages/speech-recognition-module/">speech_recognition</a>
+<a class="nav-link" href="../../pages/shazam-module/">shazam</a>
+<div class="nav-subgroup-title">合成</div>
+<a class="nav-link" href="../../pages/media-composer-module/">media_composer</a>
+</div>
+<div class="nav-group">
+<div class="nav-group-title">视觉与文档</div>
+<a class="nav-link" href="../../pages/vision-module/">vision</a>
+<a class="nav-link" href="../../pages/vision-helper-module/">vision_helper</a>
+<a class="nav-link" href="../../pages/coreml-module/">coreml</a>
+<a class="nav-link" href="../../pages/qrcode-module/">qrcode</a>
+<a class="nav-link" href="../../pages/pdf-module/">pdf</a>
+</div>
+<div class="nav-group">
+<div class="nav-group-title">连接与后台</div>
+<div class="nav-subgroup-title">联网</div>
+<a class="nav-link" href="../../pages/network-module/">network</a>
+<a class="nav-link" href="../../pages/websocket-module/">websocket</a>
+<a class="nav-link" href="../../pages/weather-module/">weather</a>
+<div class="nav-subgroup-title">近场</div>
+<a class="nav-link" href="../../pages/bluetooth-module/">bluetooth</a>
+<a class="nav-link" href="../../pages/ble-peripheral-module/">ble_peripheral</a>
+<div class="nav-subgroup-title">后台</div>
+<a class="nav-link" href="../../pages/background-module/">background</a>
+<a class="nav-link" href="../../pages/background-download-module/">background_download</a>
+<div class="nav-subgroup-title">本地服务</div>
+<a class="nav-link" href="../../pages/http-server-module/">http_server</a>
+<a class="nav-link" href="../../pages/ssh-module/">ssh</a>
+</div>
+<div class="nav-group">
+<div class="nav-group-title">通信与智能</div>
+<a class="nav-link" href="../../pages/mail-module/">mail</a>
+<a class="nav-link" href="../../pages/message-module/">message</a>
+<a class="nav-link" href="../../pages/translation-module/">translation</a>
 <a class="nav-link" href="../../pages/nfc-module/">nfc</a>
+<a class="nav-link" href="../../pages/alarm-module/">alarm</a>
+<a class="nav-link" href="../../pages/storekit-module/">storekit</a>
+<a class="nav-link" href="../../pages/foundation-models-module/">foundation_models</a>
+<a class="nav-link" href="../../pages/assistant-module/">assistant</a>
 </div>
 </details>
 <details class="nav-collection">
@@ -214,10 +256,14 @@
 <div class="nav-group">
 <div class="nav-group-title">模块</div>
 <a class="nav-link" href="../../pages/shortcuts-module/">shortcuts</a>
-<a class="nav-link" href="../../pages/live-activity-module/">live_activity</a>
 <a class="nav-link" href="../../pages/keyboard-module/">keyboard</a>
 <a class="nav-link" href="../../pages/objc-util-module/">objc_util</a>
 <a class="nav-link" href="../../pages/c-extensions-module/">c_extensions</a>
+</div>
+<div class="nav-group">
+<div class="nav-group-title">参考</div>
+<a class="nav-link" href="../../pages/modules-index/">全部模块总览</a>
+<a class="nav-link" href="../../pages/miniapp-native-capabilities/">原生能力入口</a>
 </div>
 </details>
 </nav>
@@ -227,38 +273,71 @@
 <article class="article" style="--page-accent:#7c3aed">
   <header class="article-intro">
     <div class="breadcrumb">widget / 小组件</div>
-    <h1>API 地图</h1>
-    <p>按任务选择 Widget()、布局、参数、状态、时间线和外观 API。</p>
+    <h1>widget API 地图</h1>
+    <p>按任务/场景索引 Widget API；含 symbol 链式 color 等易错点。</p>
   </header>
   <div class="markdown-body">
-    <p>这页按任务组织 <code>widget</code> API。需要确认参数名和返回值时，再进入 <a href="../../pages/widget-api-reference/">API 参考</a>。</p>
-<h2 id="最小结构"><a class="heading-anchor" href="#最小结构">#</a>最小结构</h2>
-<figure class="code-block" data-code-id="9d3bcc1d2385">
+    <p>按<strong>任务</strong>和<strong>场景</strong>组织 <code>widget</code> 公开 API。需要确认参数名、返回值或修饰符链时，再查 <a href="../../pages/widget-api-reference/">API 参考</a>。</p>
+<blockquote class="callout note"><strong>边界</strong>：本页是索引，不展开教程。入门见 <a href="../../pages/widget-module/">widget 概览</a>；故障见 <a href="../../pages/widget-troubleshooting/">排错</a>。</blockquote>
+<h2 id="本篇目标"><a class="heading-anchor" href="#本篇目标">#</a>本篇目标</h2>
+<div class="table-scroll"><table><thead><tr><th>项</th><th>说明</th></tr></thead><tbody><tr><td>用途</td><td>快速定位「该用哪个 API」</td></tr><tr><td>精确签名</td><td><a href="../../pages/widget-api-reference/">API 参考</a></td></tr><tr><td>写法示例</td><td>各专题文档（布局、参数、交互…）</td></tr><tr><td>默认 family</td><td>主屏 <strong>medium</strong>；其它尺寸见 <a href="../../pages/widget-layout/">布局与尺寸</a></td></tr></tbody></table></div>
+<hr>
+<h2 id="最小入口"><a class="heading-anchor" href="#最小入口">#</a>最小入口</h2>
+<p>可运行基线脚本见 <a href="../../pages/widget-troubleshooting/#最小健康基线">排错 · 最小健康基线</a>（全系列唯一基线，避免各篇重复）。本页只做 API 路由，不另附 runnable 示例。</p>
+<hr>
+<h2 id="先看哪一类"><a class="heading-anchor" href="#先看哪一类">#</a>先看哪一类</h2>
+<div class="table-scroll"><table><thead><tr><th>你要做什么</th><th>先看</th><th>专题</th></tr></thead><tbody><tr><td>从零写第一个小组件</td><td><code>Widget()</code>、<code>text()</code>、<code>render()</code></td><td><a href="../../pages/widget-module/">概览</a></td></tr><tr><td>发布到主屏</td><td>Studio 发布流程</td><td><a href="../../pages/widget-quickstart-publish/">从脚本到桌面</a></td></tr><tr><td>预览里调配色/标题</td><td><code>widget.param.*</code></td><td><a href="../../pages/widget-parameters/">参数面板</a></td></tr><tr><td>桌面按钮/开关</td><td><code>widget.state</code>、<code>button()</code>、<code>toggle()</code></td><td><a href="../../pages/widget-interaction/">状态和交互</a></td></tr><tr><td>small/medium/large 适配</td><td><code>widget.context</code>、<code>family_value()</code>、<code>when()</code></td><td><a href="../../pages/widget-layout/">布局与尺寸</a></td></tr><tr><td>数字动画 / 定时刷新</td><td><code>timeline()</code>、<code>widget.entry</code>、<code>flip()</code></td><td><a href="../../pages/widget-timeline/">时间线和动画</a></td></tr><tr><td>深色/透明/图片/Symbol</td><td><code>container_background</code>、<code>symbol()</code>、<code>image()</code></td><td><a href="../../pages/widget-appearance-assets/">资源与外观</a></td></tr><tr><td>预览空白 / 桌面不对</td><td>基线排查、<code>validate()</code></td><td><a href="../../pages/widget-troubleshooting/">排错</a></td></tr></tbody></table></div>
+<hr>
+<h2 id="按任务选-api"><a class="heading-anchor" href="#按任务选-api">#</a>按任务选 API</h2>
+<div class="table-scroll"><table><thead><tr><th>任务</th><th>首选 API</th><th>注意</th></tr></thead><tbody><tr><td>创建根容器</td><td><code>Widget(background=, padding=, style=)</code></td><td>脚本里<strong>只有一个</strong> <code>Widget()</code></td></tr><tr><td>提交渲染</td><td><code>w.render()</code></td><td>必须在脚本末尾</td></tr><tr><td>布局诊断</td><td><code>w.validate(family=)</code></td><td>Studio「Widget 诊断」对应此报告</td></tr><tr><td>流式横/纵排</td><td><code>row()</code>、<code>column()</code>、<code>layer()</code></td><td>必须用 <code>with w.row():</code> 上下文</td></tr><tr><td>等列网格</td><td><code>grid(columns=)</code></td><td>子节点按顺序填格</td></tr><tr><td>表格线 / Bingo</td><td><code>table(rows, columns)</code> + <code>table.cell()</code></td><td>勿用 <code>rect</code> 拼线</td></tr><tr><td>点坐标绘制</td><td><code>canvas()</code>、<code>.place()</code></td><td>读 <code>content_width</code> / <code>content_height</code></td></tr><tr><td>标题与数值</td><td><code>text()</code>、<code>value()</code>、<code>title()</code>、<code>caption()</code></td><td>可变文案加 <code>line_limit</code> + <code>min_scale</code></td></tr><tr><td>SF Symbol</td><td><code>symbol(name)</code> → <code>.color()</code> <code>.font_size()</code></td><td><strong><code>symbol</code> 无 <code>color=</code>/<code>size=</code> 参数</strong></td></tr><tr><td>图片 / SVG</td><td><code>image()</code>、<code>svg()</code></td><td>支持 <code>light</code>/<code>dark</code> 双资源</td></tr><tr><td>进度与图表</td><td><code>progress()</code>、<code>ring_chart()</code>、<code>line_chart()</code>、<code>bar_chart()</code></td><td>small 注意高度预算</td></tr><tr><td>可调配置</td><td><code>widget.param.text/color/number/slider/bool/choice/file</code></td><td>不是桌面 state</td></tr><tr><td>桌面状态</td><td><code>widget.state.int/bool/list/...</code></td><td><code>.increment()</code>、<code>.toggle()</code>、<code>.toggle_item()</code></td></tr><tr><td>按钮/开关/链接</td><td><code>button()</code>、<code>toggle()</code>、<code>link()</code></td><td><code>action</code> 必须来自 state 工厂；<code>link(..., icon=)</code> 不可链 <code>.line_limit()</code></td></tr><tr><td>时间线</td><td><code>w.timeline(entries=, update=)</code></td><td>entry 字段用 <code>widget.entry.*</code></td></tr><tr><td>数据动画</td><td><code>.content_transition(&quot;numericText&quot;)</code>、<code>.id()</code>、<code>flip()</code></td><td>非 60fps 循环</td></tr><tr><td>系统倒计时</td><td><code>countdown()</code>、<code>timer_text()</code></td><td>原生走时</td></tr><tr><td>外观/透明</td><td><code>container_background()</code>、<code>transparent_background()</code>、<code>background_image()</code></td><td>染色用 <code>.accentable()</code></td></tr><tr><td>缓存数据</td><td><code>cache_json()</code>、<code>history()</code>、<code>save_image()</code></td><td>见 API 参考</td></tr></tbody></table></div>
+<hr>
+<h2 id="索引"><a class="heading-anchor" href="#索引">#</a>索引</h2>
+<h3 id="family-常量"><a class="heading-anchor" href="#family-常量">#</a>Family 常量</h3>
+<div class="table-scroll"><table><thead><tr><th>名称</th><th>说明</th></tr></thead><tbody><tr><td><code>widget.SMALL</code></td><td>主屏小（约 158×158 内容区）</td></tr><tr><td><code>widget.MEDIUM</code></td><td>主屏中（约 338×158）</td></tr><tr><td><code>widget.LARGE</code></td><td>主屏大（约 338×354）</td></tr><tr><td><code>widget.CIRCULAR</code></td><td>锁屏圆形 accessory</td></tr><tr><td><code>widget.RECTANGULAR</code></td><td>锁屏矩形 accessory</td></tr><tr><td><code>widget.INLINE</code></td><td>锁屏行内 accessory</td></tr></tbody></table></div>
+<h3 id="模块入口"><a class="heading-anchor" href="#模块入口">#</a>模块入口</h3>
+<div class="table-scroll"><table><thead><tr><th>名称</th><th>说明</th></tr></thead><tbody><tr><td><code>widget.context</code></td><td>当前 family、<code>width</code>/<code>height</code>、<code>content_*</code>、<code>is_family()</code></td></tr><tr><td><code>widget.param</code></td><td>预览面板参数声明</td></tr><tr><td><code>widget.state</code></td><td>桌面持久状态 + AppIntent 工厂</td></tr><tr><td><code>widget.entry</code></td><td>当前 timeline entry 字段</td></tr><tr><td><code>widget.family_value()</code></td><td>按 family 返回值</td></tr><tr><td><code>widget.action</code></td><td>受控动作助手（高级）</td></tr><tr><td><code>widget.color</code></td><td>颜色助手</td></tr><tr><td><code>widget.storage</code></td><td>轻量存储</td></tr></tbody></table></div>
+<h3 id="生命周期-widget-实例"><a class="heading-anchor" href="#生命周期-widget-实例">#</a>生命周期（<code>Widget</code> 实例）</h3>
+<div class="table-scroll"><table><thead><tr><th>方法</th><th>说明</th></tr></thead><tbody><tr><td><code>Widget(...)</code></td><td>创建根容器</td></tr><tr><td><code>w.render()</code></td><td>输出 IR，结束构建</td></tr><tr><td><code>w.validate(family=)</code></td><td>布局/动画诊断报告</td></tr><tr><td><code>w.timeline(...)</code></td><td>声明时间线条目与刷新策略</td></tr><tr><td><code>w.background()</code></td><td>运行时改根背景</td></tr><tr><td><code>w.container_background()</code></td><td>系统容器背景</td></tr><tr><td><code>w.transparent_background()</code></td><td>请求透明</td></tr><tr><td><code>w.content_margins()</code></td><td>内容边距开关</td></tr><tr><td><code>w.background_image()</code></td><td>背景图 + scrim</td></tr></tbody></table></div>
+<h3 id="布局容器"><a class="heading-anchor" href="#布局容器">#</a>布局容器</h3>
+<div class="table-scroll"><table><thead><tr><th>方法</th><th>说明</th></tr></thead><tbody><tr><td><code>row()</code> / <code>column()</code></td><td>横/纵栈（<code>with</code> 块）</td></tr><tr><td><code>layer()</code></td><td>叠放</td></tr><tr><td><code>grid()</code></td><td>等列网格</td></tr><tr><td><code>table()</code></td><td>单路径表格线</td></tr><tr><td><code>canvas()</code></td><td>点位坐标画布</td></tr><tr><td><code>when()</code> / <code>unless()</code></td><td>按 family 显示/隐藏块</td></tr><tr><td><code>spacer()</code> / <code>divider()</code></td><td>间距与分割线</td></tr></tbody></table></div>
+<h3 id="内容与媒体"><a class="heading-anchor" href="#内容与媒体">#</a>内容与媒体</h3>
+<div class="table-scroll"><table><thead><tr><th>方法</th><th>说明</th></tr></thead><tbody><tr><td><code>text()</code> / <code>rich_text()</code></td><td>文本</td></tr><tr><td><code>value()</code></td><td>数字/状态展示</td></tr><tr><td><code>symbol()</code></td><td>SF Symbol（语义图标）</td></tr><tr><td><code>icon()</code></td><td>低级图标（一般优先 <code>symbol</code>）</td></tr><tr><td><code>image()</code> / <code>svg()</code></td><td>位图 / 矢量</td></tr><tr><td><code>badge()</code> / <code>label()</code> / <code>status()</code></td><td>组合标签</td></tr><tr><td><code>progress()</code> / <code>ring_chart()</code> / <code>line_chart()</code> / <code>bar_chart()</code></td><td>图表</td></tr><tr><td><code>flip()</code></td><td>翻页数字块</td></tr><tr><td><code>countdown()</code> / <code>timer_text()</code> / <code>dynamic_date()</code></td><td>时间相关</td></tr></tbody></table></div>
+<h3 id="交互"><a class="heading-anchor" href="#交互">#</a>交互</h3>
+<div class="table-scroll"><table><thead><tr><th>方法</th><th>说明</th></tr></thead><tbody><tr><td><code>button(action=)</code></td><td>AppIntent 按钮</td></tr><tr><td><code>toggle(state=)</code></td><td>开关（<code>color=</code>，无 <code>tint=</code>）</td></tr><tr><td><code>link(title, url)</code></td><td>打开链接</td></tr></tbody></table></div>
+<h3 id="常用修饰符-链式"><a class="heading-anchor" href="#常用修饰符-链式">#</a>常用修饰符（链式）</h3>
+<div class="table-scroll"><table><thead><tr><th>修饰符</th><th>说明</th></tr></thead><tbody><tr><td><code>.line_limit(n)</code> / <code>.min_scale(f)</code></td><td>防裁切</td></tr><tr><td><code>.color()</code> / <code>.font_size()</code> / <code>.font_weight()</code></td><td>外观（<strong>symbol 用链式上色</strong>）</td></tr><tr><td><code>.id()</code></td><td>稳定视图身份</td></tr><tr><td><code>.content_transition()</code> / <code>.animation()</code> / <code>.transition()</code></td><td>数据更新动画</td></tr><tr><td><code>.accentable()</code></td><td>系统染色参与与否</td></tr><tr><td><code>.privacy_sensitive()</code> / <code>.redacted()</code></td><td>锁屏隐私</td></tr><tr><td><code>.monospaced_digit()</code></td><td>等宽数字</td></tr></tbody></table></div>
+<h3 id="工具函数"><a class="heading-anchor" href="#工具函数">#</a>工具函数</h3>
+<div class="table-scroll"><table><thead><tr><th>函数</th><th>说明</th></tr></thead><tbody><tr><td><code>widget.save_image()</code></td><td>注册图片供 <code>image</code>/<code>background_image</code> 引用</td></tr><tr><td><code>widget.cache_json()</code></td><td>带 TTL 的 JSON 缓存</td></tr><tr><td><code>widget.history()</code></td><td>按 bucket 保留历史序列</td></tr><tr><td><code>widget.validate_layout()</code></td><td>对 IR 文档做诊断</td></tr></tbody></table></div>
+<hr>
+<h2 id="选择规则"><a class="heading-anchor" href="#选择规则">#</a>选择规则</h2>
+<ol><li><strong>信息卡默认</strong> <code>row</code> / <code>column</code>；精确定位再用 <code>table</code> / <code>canvas</code>。</li><li><strong>用户调配置</strong> → <code>widget.param</code>；<strong>用户点桌面</strong> → <code>widget.state</code>。</li><li><strong>按钮 <code>action</code></strong> 只用 state 工厂，不传 Python 函数或字符串。</li><li><strong>多 family</strong> 用 <code>family_value</code> / <code>is_family</code> / <code>when</code>，勿整体缩小 large 布局。</li><li><strong>可变文案</strong> 默认 <code>.line_limit(1).min_scale(0.65+)</code>。</li><li><strong><code>w.symbol(&quot;name&quot;)</code></strong> 后链 <code>.color(accent).font_size(18)</code>；多色用 <code>rendering=&quot;palette&quot;, palette=[...]</code>。</li></ol>
+<figure class="code-block" data-code-id="48b75c3343ab">
   <figcaption>
     <span>python</span>
-    <button class="copy-code" type="button" data-copy-code="9d3bcc1d2385">复制</button>
+    <button class="copy-code" type="button" data-copy-code="48b75c3343ab">复制</button>
   </figcaption>
-  <pre><code id="code-9d3bcc1d2385" class="language-python">import widget
+  <pre><code id="code-48b75c3343ab" class="language-python"># ❌ symbol 不接受 color=/size=
+w.symbol(&quot;star.fill&quot;, color=&quot;#F59E0B&quot;, size=18)
 
-w = widget.Widget(background=&quot;#FFFFFF&quot;, padding=14)
-w.text(&quot;标题&quot;, size=16, weight=&quot;semibold&quot;).line_limit(1).min_scale(0.72)
-w.render()</code></pre>
+# ✅
+w.symbol(&quot;star.fill&quot;).color(&quot;#F59E0B&quot;).font_size(18)
+w.symbol(&quot;paintpalette.fill&quot;, rendering=&quot;palette&quot;, palette=[&quot;#EF4444&quot;, &quot;#3B82F6&quot;])</code></pre>
 </figure>
-<p>预期效果：生成一个最小可渲染小组件，只有标题和默认背景。</p>
-<h2 id="按任务查-api"><a class="heading-anchor" href="#按任务查-api">#</a>按任务查 API</h2>
-<div class="table-scroll"><table><thead><tr><th>任务</th><th>首选 API</th><th>继续阅读</th></tr></thead><tbody><tr><td>创建和发布</td><td><code>Widget()</code>、<code>w.render()</code>、<code>w.validate()</code></td><td><a href="../../pages/widget-quickstart-publish/">从脚本到桌面</a></td></tr><tr><td>基础布局</td><td><code>row()</code>、<code>column()</code>、<code>grid()</code>、<code>spacer()</code>、<code>divider()</code></td><td><a href="../../pages/widget-layout/">布局与尺寸</a></td></tr><tr><td>精确布局</td><td><code>table()</code>、<code>canvas()</code>、<code>path()</code>、<code>.frame()</code>、<code>.place()</code></td><td><a href="../../pages/widget-layout/">布局与尺寸</a></td></tr><tr><td>文本和值</td><td><code>text()</code>、<code>rich_text()</code>、<code>value()</code>、<code>badge()</code>、<code>symbol()</code></td><td><a href="../../pages/widget-api-reference/">API 参考</a></td></tr><tr><td>参数配置</td><td><code>widget.param.text/color/slider/number/bool/choice/file</code></td><td><a href="../../pages/widget-parameters/">参数面板</a></td></tr><tr><td>桌面交互</td><td><code>widget.state</code>、<code>button()</code>、<code>toggle()</code>、<code>link()</code></td><td><a href="../../pages/widget-interaction/">状态和交互</a></td></tr><tr><td>时间线和动画</td><td><code>timeline()</code>、<code>widget.entry</code>、<code>flip()</code>、<code>.content_transition()</code>、<code>.id()</code></td><td><a href="../../pages/widget-timeline/">时间线和动画</a></td></tr><tr><td>外观和资源</td><td><code>container_background()</code>、<code>transparent_background()</code>、<code>background_image()</code>、<code>image()</code>、<code>svg()</code></td><td><a href="../../pages/widget-appearance-assets/">资源与外观</a></td></tr><tr><td>缓存和历史</td><td><code>cache_json()</code>、<code>history()</code>、<code>save_image()</code></td><td><a href="../../pages/widget-api-reference/">API 参考</a></td></tr></tbody></table></div>
-<h2 id="选择规则"><a class="heading-anchor" href="#选择规则">#</a>选择规则</h2>
-<ul><li>信息卡、进度卡和列表优先用 <code>row()</code>、<code>column()</code>、<code>grid()</code>。</li><li>表格、键盘、九宫格和海报式排版再用 <code>table()</code>、<code>canvas()</code> 和 <code>.place()</code>。</li><li>可调标题、颜色、字号、文件和开关使用 <code>widget.param</code>。</li><li>桌面点击必须通过 <code>widget.state</code> 或链接完成，不要写普通 Python 回调。</li><li>会变化的文本、按钮和值默认加 <code>.line_limit(1).min_scale(...)</code>。</li></ul>
+<hr>
+<h2 id="专题文档地图"><a class="heading-anchor" href="#专题文档地图">#</a>专题文档地图</h2>
+<div class="table-scroll"><table><thead><tr><th>文档</th><th>覆盖 API</th></tr></thead><tbody><tr><td><a href="../../pages/widget-module/">widget 概览</a></td><td>总览、快速开始、心智模型</td></tr><tr><td><a href="../../pages/widget-quickstart-publish/">从脚本到桌面</a></td><td><code>render</code>、发布、桌面验证</td></tr><tr><td><a href="../../pages/widget-layout/">布局与尺寸</a></td><td><code>row</code>/<code>grid</code>/<code>table</code>/<code>canvas</code>、<code>context</code></td></tr><tr><td><a href="../../pages/widget-parameters/">参数面板</a></td><td><code>widget.param</code></td></tr><tr><td><a href="../../pages/widget-interaction/">状态和交互</a></td><td><code>widget.state</code>、<code>button</code>、<code>toggle</code>、<code>link</code></td></tr><tr><td><a href="../../pages/widget-timeline/">时间线和动画</a></td><td><code>timeline</code>、<code>entry</code>、<code>flip</code>、动画修饰符</td></tr><tr><td><a href="../../pages/widget-appearance-assets/">资源与外观</a></td><td>背景、图片、SVG、accentable</td></tr><tr><td><a href="../../pages/widget-troubleshooting/">排错</a></td><td><code>validate</code>、常见 TypeError</td></tr><tr><td><a href="../../pages/widget-api-reference/">API 参考</a></td><td>全部公开签名</td></tr></tbody></table></div>
+<h2 id="示例场景地图"><a class="heading-anchor" href="#示例场景地图">#</a>示例场景地图</h2>
+<p>每篇主打不同场景，避免复制粘贴同一套计数器示例：</p>
+<div class="table-scroll"><table><thead><tr><th>文档</th><th>主打示例</th></tr></thead><tbody><tr><td><a href="../../pages/widget-module/">概览</a></td><td>饮水环形图 ±、每日一言、折线图</td></tr><tr><td><a href="../../pages/widget-quickstart-publish/">从脚本到桌面</a></td><td>习惯开关发布验证</td></tr><tr><td><a href="../../pages/widget-parameters/">参数面板</a></td><td>主题天气 <code>choice</code> 换肤</td></tr><tr><td><a href="../../pages/widget-interaction/">状态和交互</a></td><td>连续签到、习惯清单、闹钟开关、链接</td></tr><tr><td><a href="../../pages/widget-layout/">布局与尺寸</a></td><td>健康仪表盘、快递追踪、播客 <code>when</code>、周历 grid、Bingo table、canvas、锁屏</td></tr><tr><td><a href="../../pages/widget-timeline/">时间线和动画</a></td><td>零钱罐、分时电价、flip 翻页、阶段文案、会议倒计时</td></tr><tr><td><a href="../../pages/widget-appearance-assets/">资源与外观</a></td><td>渐变、accentable、layer、背景图、头像、SVG、步数隐私</td></tr><tr><td><a href="../../pages/widget-troubleshooting/">排错</a></td><td>最小健康基线（唯一 runnable 基线）</td></tr></tbody></table></div>
+<hr>
 <h2 id="失败路径"><a class="heading-anchor" href="#失败路径">#</a>失败路径</h2>
-<ul><li>找不到 API：先在本页按任务定位，再去 <a href="../../pages/widget-api-reference/">API 参考</a> 查完整签名。</li><li>示例能预览但桌面异常：看 <a href="../../pages/widget-troubleshooting/">排错</a>，优先检查 <code>w.render()</code>、状态 action 和 WidgetKit 缓存。</li><li>多尺寸表现不一致：回到 <a href="../../pages/widget-layout/">布局与尺寸</a>，用 <code>widget.family_value(...)</code> 或 <code>widget.context.is_family(...)</code> 分支。</li></ul>
-<h2 id="api-参考"><a class="heading-anchor" href="#api-参考">#</a>API 参考</h2>
-<p>完整公开签名见 <a href="../../pages/widget-api-reference/">API 参考</a>。本页用于按任务选择能力，参考页用于核对参数名和返回句柄。</p>
+<div class="table-scroll"><table><thead><tr><th>现象</th><th>处理</th></tr></thead><tbody><tr><td>不知道用哪个 API</td><td>本文「先看哪一类」→ 专题文档</td></tr><tr><td>签名记不清</td><td><a href="../../pages/widget-api-reference/">API 参考</a></td></tr><tr><td><code>TypeError: unexpected keyword</code></td><td><a href="../../pages/widget-troubleshooting/">排错</a> 对照表（<code>tint</code>、<code>symbol color</code> 等）</td></tr><tr><td>示例能预览、桌面异常</td><td>发布流程 + 缓存重装</td></tr></tbody></table></div>
   </div>
-  <section class="related-section"><h2>相关文档</h2><div class="related-list"><a class="related-link" href="../widget-module/"><strong>widget</strong><span>用 Python 编写主屏、锁屏和 StandBy 小组件。</span></a><a class="related-link" href="../widget-api-reference/"><strong>widget API 参考</strong><span>公开 Widget() API 速查。</span></a><a class="related-link" href="../widget-troubleshooting/"><strong>widget 排错</strong><span>空白、溢出、桌面缓存、点击和动画问题。</span></a></div></section>
+  <section class="related-section"><h2>相关文档</h2><div class="related-list"><a class="related-link" href="../widget-module/"><strong>widget</strong><span>Python 编写 WidgetKit 小组件：参数、状态、布局与发布到桌面。</span></a><a class="related-link" href="../widget-quickstart-publish/"><strong>widget 从脚本到桌面</strong><span>Widget Studio 预览、发布、系统添加主屏小组件与桌面验证。</span></a><a class="related-link" href="../widget-layout/"><strong>widget 布局与尺寸</strong><span>row/column/grid/table/canvas、family 预算、when/unless 与锁屏 accessory。</span></a><a class="related-link" href="../widget-parameters/"><strong>widget 参数面板</strong><span>widget.param 声明预览可调配置，与 widget.state 桌面交互区分。</span></a><a class="related-link" href="../widget-interaction/"><strong>widget 状态和交互</strong><span>widget.state、按钮 ±、习惯清单、开关与链接；AppIntent 桌面交互。</span></a><a class="related-link" href="../widget-timeline/"><strong>widget 时间线和动画</strong><span>timeline/entry、state 数字动画、flip 翻页与 countdown 倒计时。</span></a></div></section>
 </article>
 
     </main>
-    <aside class="toc"><div class="toc-title">本页目录</div><a class="toc-link" href="#最小结构">最小结构</a><a class="toc-link" href="#按任务查-api">按任务查 API</a><a class="toc-link" href="#选择规则">选择规则</a><a class="toc-link" href="#失败路径">失败路径</a><a class="toc-link" href="#api-参考">API 参考</a></aside>
+    <aside class="toc"><div class="toc-title">本页目录</div><a class="toc-link" href="#本篇目标">本篇目标</a><a class="toc-link" href="#最小入口">最小入口</a><a class="toc-link" href="#先看哪一类">先看哪一类</a><a class="toc-link" href="#按任务选-api">按任务选 API</a><a class="toc-link" href="#索引">索引</a><a class="toc-link child" href="#family-常量">Family 常量</a><a class="toc-link child" href="#模块入口">模块入口</a><a class="toc-link child" href="#生命周期-widget-实例">生命周期（Widget 实例）</a><a class="toc-link child" href="#布局容器">布局容器</a><a class="toc-link child" href="#内容与媒体">内容与媒体</a><a class="toc-link child" href="#交互">交互</a><a class="toc-link child" href="#常用修饰符-链式">常用修饰符（链式）</a><a class="toc-link child" href="#工具函数">工具函数</a><a class="toc-link" href="#选择规则">选择规则</a><a class="toc-link" href="#专题文档地图">专题文档地图</a><a class="toc-link" href="#示例场景地图">示例场景地图</a><a class="toc-link" href="#失败路径">失败路径</a></aside>
   </div>
   <div class="mobile-backdrop"></div>
   <div class="search-panel" role="dialog" aria-modal="true" aria-label="搜索">

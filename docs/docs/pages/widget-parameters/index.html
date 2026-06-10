@@ -3,8 +3,8 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>参数面板 - PythonIDE Docs</title>
-  <meta name="description" content="让用户在预览面板调颜色、字号、开关、选项和文件。">
+  <title>widget 参数面板 - PythonIDE Docs</title>
+  <meta name="description" content="widget.param 声明预览可调配置，与 widget.state 桌面交互区分。">
   <link rel="icon" href="../../assets/brand-mark.svg" type="image/svg+xml">
   <link rel="stylesheet" href="../../assets/docs-v2.css">
   <script>window.PYTHONIDE_DOCS_PREFIX = "../../";</script>
@@ -146,7 +146,7 @@
 <summary><a href="../../collections/scene/">scene</a></summary>
 <div class="nav-group">
 <div class="nav-group-title">快速上手</div>
-<a class="nav-link" href="../../pages/scene-module/">scene 概览</a>
+<a class="nav-link" href="../../pages/scene-module/">scene</a>
 <a class="nav-link" href="../../pages/turtle-module/">turtle</a>
 </div>
 <div class="nav-group">
@@ -160,8 +160,16 @@
 <div class="nav-group">
 <div class="nav-group-title">快速上手</div>
 <a class="nav-link" href="../../pages/ios-native/">iOS 原生能力</a>
-<a class="nav-link" href="../../pages/modules-index/">全部模块总览</a>
-<a class="nav-link" href="../../pages/miniapp-native-capabilities/">原生能力入口</a>
+</div>
+<div class="nav-group">
+<div class="nav-group-title">基础与权限</div>
+<a class="nav-link" href="../../pages/permission-module/">permission</a>
+<a class="nav-link" href="../../pages/storage-module/">storage</a>
+<a class="nav-link" href="../../pages/database-module/">database</a>
+<a class="nav-link" href="../../pages/keychain-module/">keychain</a>
+<a class="nav-link" href="../../pages/clipboard-module/">clipboard</a>
+<a class="nav-link" href="../../pages/console-module/">console</a>
+<a class="nav-link" href="../../pages/dialogs-module/">dialogs</a>
 </div>
 <div class="nav-group">
 <div class="nav-group-title">设备与传感器</div>
@@ -173,35 +181,69 @@
 <a class="nav-link" href="../../pages/health-module/">health</a>
 </div>
 <div class="nav-group">
-<div class="nav-group-title">媒体与视觉</div>
-<a class="nav-link" href="../../pages/photos-module/">photos</a>
-<a class="nav-link" href="../../pages/avplayer-module/">avplayer</a>
-<a class="nav-link" href="../../pages/sound-module/">sound</a>
-<a class="nav-link" href="../../pages/speech-module/">speech</a>
-<a class="nav-link" href="../../pages/vision-helper-module/">vision_helper</a>
-<a class="nav-link" href="../../pages/vision-module/">vision</a>
-<a class="nav-link" href="../../pages/coreml-module/">coreml</a>
-</div>
-<div class="nav-group">
-<div class="nav-group-title">网络与数据</div>
-<a class="nav-link" href="../../pages/network-module/">network</a>
-<a class="nav-link" href="../../pages/websocket-module/">websocket</a>
-<a class="nav-link" href="../../pages/bluetooth-module/">bluetooth</a>
-<a class="nav-link" href="../../pages/background-module/">background</a>
-</div>
-<div class="nav-group">
-<div class="nav-group-title">系统服务</div>
-<a class="nav-link" href="../../pages/permission-module/">permission</a>
-<a class="nav-link" href="../../pages/storage-module/">storage</a>
-<a class="nav-link" href="../../pages/database-module/">database</a>
-<a class="nav-link" href="../../pages/keychain-module/">keychain</a>
-<a class="nav-link" href="../../pages/clipboard-module/">clipboard</a>
-<a class="nav-link" href="../../pages/dialogs-module/">dialogs</a>
-<a class="nav-link" href="../../pages/console-module/">console</a>
+<div class="nav-group-title">界面与系统</div>
+<a class="nav-link" href="../../pages/file-picker-module/">file_picker</a>
+<a class="nav-link" href="../../pages/share-module/">share</a>
+<a class="nav-link" href="../../pages/font-picker-module/">font_picker</a>
 <a class="nav-link" href="../../pages/notification-module/">notification</a>
+<a class="nav-link" href="../../pages/live-activity-module/">live_activity</a>
 <a class="nav-link" href="../../pages/contacts-module/">contacts</a>
 <a class="nav-link" href="../../pages/calendar-events-module/">calendar_events</a>
+</div>
+<div class="nav-group">
+<div class="nav-group-title">媒体</div>
+<div class="nav-subgroup-title">采集</div>
+<a class="nav-link" href="../../pages/photos-module/">photos</a>
+<a class="nav-link" href="../../pages/camera-module/">camera</a>
+<a class="nav-link" href="../../pages/video-recorder-module/">video_recorder</a>
+<a class="nav-link" href="../../pages/audio-recorder-module/">audio_recorder</a>
+<div class="nav-subgroup-title">播放</div>
+<a class="nav-link" href="../../pages/sound-module/">sound</a>
+<a class="nav-link" href="../../pages/avplayer-module/">avplayer</a>
+<a class="nav-link" href="../../pages/music-module/">music</a>
+<a class="nav-link" href="../../pages/now-playing-module/">now_playing</a>
+<a class="nav-link" href="../../pages/audio-session-module/">audio_session</a>
+<div class="nav-subgroup-title">语音</div>
+<a class="nav-link" href="../../pages/speech-module/">speech</a>
+<a class="nav-link" href="../../pages/speech-recognition-module/">speech_recognition</a>
+<a class="nav-link" href="../../pages/shazam-module/">shazam</a>
+<div class="nav-subgroup-title">合成</div>
+<a class="nav-link" href="../../pages/media-composer-module/">media_composer</a>
+</div>
+<div class="nav-group">
+<div class="nav-group-title">视觉与文档</div>
+<a class="nav-link" href="../../pages/vision-module/">vision</a>
+<a class="nav-link" href="../../pages/vision-helper-module/">vision_helper</a>
+<a class="nav-link" href="../../pages/coreml-module/">coreml</a>
+<a class="nav-link" href="../../pages/qrcode-module/">qrcode</a>
+<a class="nav-link" href="../../pages/pdf-module/">pdf</a>
+</div>
+<div class="nav-group">
+<div class="nav-group-title">连接与后台</div>
+<div class="nav-subgroup-title">联网</div>
+<a class="nav-link" href="../../pages/network-module/">network</a>
+<a class="nav-link" href="../../pages/websocket-module/">websocket</a>
+<a class="nav-link" href="../../pages/weather-module/">weather</a>
+<div class="nav-subgroup-title">近场</div>
+<a class="nav-link" href="../../pages/bluetooth-module/">bluetooth</a>
+<a class="nav-link" href="../../pages/ble-peripheral-module/">ble_peripheral</a>
+<div class="nav-subgroup-title">后台</div>
+<a class="nav-link" href="../../pages/background-module/">background</a>
+<a class="nav-link" href="../../pages/background-download-module/">background_download</a>
+<div class="nav-subgroup-title">本地服务</div>
+<a class="nav-link" href="../../pages/http-server-module/">http_server</a>
+<a class="nav-link" href="../../pages/ssh-module/">ssh</a>
+</div>
+<div class="nav-group">
+<div class="nav-group-title">通信与智能</div>
+<a class="nav-link" href="../../pages/mail-module/">mail</a>
+<a class="nav-link" href="../../pages/message-module/">message</a>
+<a class="nav-link" href="../../pages/translation-module/">translation</a>
 <a class="nav-link" href="../../pages/nfc-module/">nfc</a>
+<a class="nav-link" href="../../pages/alarm-module/">alarm</a>
+<a class="nav-link" href="../../pages/storekit-module/">storekit</a>
+<a class="nav-link" href="../../pages/foundation-models-module/">foundation_models</a>
+<a class="nav-link" href="../../pages/assistant-module/">assistant</a>
 </div>
 </details>
 <details class="nav-collection">
@@ -214,10 +256,14 @@
 <div class="nav-group">
 <div class="nav-group-title">模块</div>
 <a class="nav-link" href="../../pages/shortcuts-module/">shortcuts</a>
-<a class="nav-link" href="../../pages/live-activity-module/">live_activity</a>
 <a class="nav-link" href="../../pages/keyboard-module/">keyboard</a>
 <a class="nav-link" href="../../pages/objc-util-module/">objc_util</a>
 <a class="nav-link" href="../../pages/c-extensions-module/">c_extensions</a>
+</div>
+<div class="nav-group">
+<div class="nav-group-title">参考</div>
+<a class="nav-link" href="../../pages/modules-index/">全部模块总览</a>
+<a class="nav-link" href="../../pages/miniapp-native-capabilities/">原生能力入口</a>
 </div>
 </details>
 </nav>
@@ -227,48 +273,181 @@
 <article class="article" style="--page-accent:#7c3aed">
   <header class="article-intro">
     <div class="breadcrumb">widget / 小组件</div>
-    <h1>参数面板</h1>
-    <p>让用户在预览面板调颜色、字号、开关、选项和文件。</p>
+    <h1>widget 参数面板</h1>
+    <p>widget.param 声明预览可调配置，与 widget.state 桌面交互区分。</p>
   </header>
   <div class="markdown-body">
-    <p>凡是希望用户在预览面板里调节的值，都用 <code>widget.param</code> 声明。参数是构建时输入，返回值可以直接传给 <code>Widget()</code>、<code>text()</code>、<code>progress()</code>、<code>shape()</code> 等 API。</p>
-<h2 id="常用参数"><a class="heading-anchor" href="#常用参数">#</a>常用参数</h2>
-<figure class="code-block" data-code-id="4ddefc9ff975">
+    <p>用 <code>widget.param</code> 声明<strong>用户可在预览面板调节</strong>的配置项；返回值直接用于 <code>Widget()</code>、<code>text()</code>、<code>progress()</code>、<code>button()</code> 等。</p>
+<blockquote class="callout note"><strong>边界</strong>：<code>widget.param</code> 是<strong>小组件配置</strong>（预览/发布时的参数），不是桌面点击改写的数据。计数、开关持久化用 <a href="../../pages/widget-interaction/">widget.state</a>，见 <a href="../../pages/widget-interaction/">状态和交互</a>。</blockquote>
+<h2 id="本篇目标"><a class="heading-anchor" href="#本篇目标">#</a>本篇目标</h2>
+<div class="table-scroll"><table><thead><tr><th>项</th><th>说明</th></tr></thead><tbody><tr><td>何时用</td><td>颜色、标题文案、字号、阈值、是否紧凑、主题选项、背景图文件</td></tr><tr><td>何时不用</td><td>用户点按钮 +1、桌面开关记忆 → 用 <code>widget.state</code></td></tr><tr><td>声明时机</td><td>构建 UI <strong>之前</strong>；在 <code>w.render()</code> <strong>之前</strong></td></tr><tr><td>改名/改类型后</td><td>重新运行并发布；桌面小组件可能需重新添加</td></tr></tbody></table></div>
+<hr>
+<h2 id="快速开始"><a class="heading-anchor" href="#快速开始">#</a>快速开始</h2>
+<p>预览侧栏会出现多类参数；<code>choice</code> 切换主题时，背景、图标与强调色一并变化（无 <code>widget.state</code>）。</p>
+<figure class="code-block" data-code-id="cc3709cc0a4a">
   <figcaption>
     <span>python</span>
-    <button class="copy-code" type="button" data-copy-code="4ddefc9ff975">复制</button>
+    <button class="copy-code" type="button" data-copy-code="cc3709cc0a4a">复制</button>
   </figcaption>
-  <pre><code id="code-4ddefc9ff975" class="language-python">import widget
+  <pre><code id="code-cc3709cc0a4a" class="language-python">import widget
 
-title = widget.param.text(&quot;标题&quot;, &quot;每周计划&quot;)
-paper = widget.param.color(&quot;背景色&quot;, &quot;#FBFAF5&quot;)
-ink = widget.param.color(&quot;文字色&quot;, &quot;#242326&quot;)
-size = widget.param.slider(&quot;标题字号&quot;, 18, min=12, max=24, step=1)
-compact = widget.param.bool(&quot;紧凑模式&quot;, False)
-mode = widget.param.choice(&quot;风格&quot;, [&quot;健康&quot;, &quot;专注&quot;, &quot;代码&quot;], default=&quot;专注&quot;)
-title_size = min(size, 16) if widget.context.is_family(&quot;small&quot;) else size
+theme = widget.param.choice(&quot;主题&quot;, [&quot;海洋&quot;, &quot;日落&quot;, &quot;森林&quot;], default=&quot;海洋&quot;)
+themes = {
+    &quot;海洋&quot;: ((&quot;#E0F2FE&quot;, &quot;#082F49&quot;), &quot;#0EA5E9&quot;, &quot;drop.fill&quot;),
+    &quot;日落&quot;: ((&quot;#FFF7ED&quot;, &quot;#431407&quot;), &quot;#F97316&quot;, &quot;sun.max.fill&quot;),
+    &quot;森林&quot;: ((&quot;#ECFDF5&quot;, &quot;#052E16&quot;), &quot;#10B981&quot;, &quot;leaf.fill&quot;),
+}
+bg, accent, icon = themes[str(theme)]
+title = widget.param.text(&quot;标题&quot;, &quot;今日天气&quot;)
+city = widget.param.text(&quot;城市&quot;, &quot;上海&quot;)
+temp = widget.param.number(&quot;温度&quot;, 24, min=-20, max=45)
 
-w = widget.Widget(background=paper, padding=12 if compact else 16)
-w.text(title, size=title_size, weight=&quot;semibold&quot;, color=ink).line_limit(1).min_scale(0.72)
-w.text(&quot;风格：&quot; + mode, size=12, color=&quot;secondary&quot;).line_limit(1).min_scale(0.72)
+w = widget.Widget(background=bg, padding=14)
+with w.row(spacing=10):
+    w.symbol(icon).color(accent).font_size(24)
+    w.text(title, size=16, weight=&quot;semibold&quot;, color=accent).line_limit(1).min_scale(0.72)
+(
+    w.value(temp, unit=&quot;°&quot;)
+    .content_transition(&quot;numericText&quot;)
+    .monospaced_digit()
+    .line_limit(1)
+    .min_scale(0.72)
+)
+w.text(city, size=12, color=&quot;secondary&quot;).line_limit(1).min_scale(0.72)
 w.render()</code></pre>
 </figure>
-<p>预期效果：预览面板显示标题、背景色、文字色、标题字号、紧凑模式和风格参数；标题和说明都不会超出卡片。</p>
-<div class="table-scroll"><table><thead><tr><th>API</th><th>用途</th></tr></thead><tbody><tr><td><code>widget.param.text(name, default)</code></td><td>标题、备注、文件名</td></tr><tr><td><code>widget.param.color(name, default)</code></td><td>背景色、文字色、线条色</td></tr><tr><td><code>widget.param.slider(name, default, min=..., max=..., step=...)</code></td><td>字号、线宽、透明度、圆角</td></tr><tr><td><code>widget.param.number(name, default, min=..., max=...)</code></td><td>阈值、目标值、数量</td></tr><tr><td><code>widget.param.bool(name, default)</code></td><td>是否显示、是否紧凑</td></tr><tr><td><code>widget.param.choice(name, options, default=...)</code></td><td>主题、模式、数据范围</td></tr><tr><td><code>widget.param.file(name, default, extensions=[...])</code></td><td>SVG、背景图、文本数据</td></tr></tbody></table></div>
-<h2 id="参数和桌面显示"><a class="heading-anchor" href="#参数和桌面显示">#</a>参数和桌面显示</h2>
-<p>参数属于小组件配置，不是桌面点击状态。预览面板修改参数后会重新构建当前预览；发布到桌面后，桌面小组件使用发布时的参数配置。改过参数名、默认值或脚本结构后，需要重新运行并发布。</p>
-<h2 id="参数命名"><a class="heading-anchor" href="#参数命名">#</a>参数命名</h2>
-<p>参数名应该是用户能看懂的中文，例如 <code>&quot;背景色&quot;</code>、<code>&quot;标题字号&quot;</code>、<code>&quot;数据文件&quot;</code>。不要把代码里的临时变量名直接暴露给用户，除非它本来就是文件路径或排查字段。</p>
-<h2 id="失败路径"><a class="heading-anchor" href="#失败路径">#</a>失败路径</h2>
-<ul><li>参数不出现在预览面板：确认用的是 <code>widget.param.*(...)</code>，并且声明发生在 <code>w.render()</code> 之前。</li><li>默认值类型不匹配：<code>slider</code> 和 <code>number</code> 用数字，<code>bool</code> 用布尔值，<code>choice</code> 的 <code>default</code> 必须在 <code>options</code> 里。</li><li>文件参数找不到资源：把默认文件放在脚本同目录或 <code>assets/</code> 目录；需要用户选择时用 <code>widget.param.file(...)</code>。</li><li>桌面没有同步新参数：重新运行脚本并发布；改过参数名时，旧桌面实例可能需要重新添加。</li></ul>
+<hr>
+<h2 id="参数-vs-状态"><a class="heading-anchor" href="#参数-vs-状态">#</a>参数 vs 状态</h2>
+<div class="table-scroll"><table><thead><tr><th></th><th><code>widget.param</code></th><th><code>widget.state</code></th></tr></thead><tbody><tr><td>谁改</td><td>用户在 <strong>预览面板 / Studio</strong> 调</td><td>用户在 <strong>桌面小组件</strong> 点按</td></tr><tr><td>持久化</td><td>写入 Widget 项目配置</td><td>写入小组件状态存储</td></tr><tr><td>典型用途</td><td>主题色、默认标题、目标值</td><td>计数器、完成开关、列表勾选</td></tr><tr><td>传给 UI</td><td>直接作 <code>color=</code>、<code>size=</code>、<code>background=</code></td><td>作 <code>value</code> / <code>state=</code> + <code>action</code></td></tr></tbody></table></div>
+<figure class="code-block" data-code-id="c118d1a803ba">
+  <figcaption>
+    <span>python</span>
+    <button class="copy-code" type="button" data-copy-code="c118d1a803ba">复制</button>
+  </figcaption>
+  <pre><code id="code-c118d1a803ba" class="language-python"># ✅ 配置：强调色可调
+accent = widget.param.color(&quot;强调色&quot;, &quot;#2563EB&quot;)
+
+# ✅ 交互：桌面点击累加
+count = widget.state.int(&quot;count&quot;, 0)
+w.button(&quot;加 1&quot;, action=count.increment(), background=accent)</code></pre>
+</figure>
+<hr>
 <h2 id="api-参考"><a class="heading-anchor" href="#api-参考">#</a>API 参考</h2>
-<p>参数完整签名见 <a href="../../pages/widget-api-reference/">API 参考</a>：重点查 <code>widget.param.text</code>、<code>color</code>、<code>slider</code>、<code>number</code>、<code>bool</code>、<code>choice</code> 和 <code>file</code>。</p>
+<h3 id="速查"><a class="heading-anchor" href="#速查">#</a>速查</h3>
+<div class="table-scroll"><table><thead><tr><th>API</th><th>返回值</th><th>预览控件</th></tr></thead><tbody><tr><td><code>param.text(name, default)</code></td><td><code>str</code>（可绑定）</td><td>文本框</td></tr><tr><td><code>param.color(name, default)</code></td><td>颜色字符串</td><td>取色器</td></tr><tr><td><code>param.slider(name, default, min=, max=, step=)</code></td><td><code>float</code>/<code>int</code></td><td>滑块</td></tr><tr><td><code>param.number(name, default, min=, max=)</code></td><td>数字</td><td>数字步进</td></tr><tr><td><code>param.bool(name, default)</code></td><td><code>bool</code></td><td>开关</td></tr><tr><td><code>param.choice(name, options, default=)</code></td><td><code>str</code>（选项之一）</td><td>下拉/分段</td></tr><tr><td><code>param.file(name, default, extensions=)</code></td><td>文件路径 <code>str</code></td><td>文件选择</td></tr></tbody></table></div>
+<p><code>name</code> 是参数 ID，同时作为预览面板默认标题；建议用用户能看懂的中文，如 <code>&quot;背景色&quot;</code>、<code>&quot;标题字号&quot;</code>。</p>
+<h3 id="text"><a class="heading-anchor" href="#text">#</a><code>text</code></h3>
+<figure class="code-block" data-code-id="e8d278d5d866">
+  <figcaption>
+    <span>python</span>
+    <button class="copy-code" type="button" data-copy-code="e8d278d5d866">复制</button>
+  </figcaption>
+  <pre><code id="code-e8d278d5d866" class="language-python">title = widget.param.text(&quot;标题&quot;, &quot;每日记录&quot;)
+subtitle = widget.param.text(&quot;副标题&quot;, &quot;&quot;, placeholder=&quot;可选&quot;)
+hint = widget.param.text(
+    &quot;备注&quot;,
+    &quot;&quot;,
+    title=&quot;页脚说明&quot;,
+    description=&quot;显示在卡片底部，可为空&quot;,
+    group=&quot;高级&quot;,
+    hidden=False,
+)</code></pre>
+</figure>
+<p>用于标题、备注、显示用文案默认值。绑定后的字符串传给 <code>w.text(title, ...)</code> 时，用户改参数会反映到预览。</p>
+<p>可选关键字（均在 <code>name</code>、<code>default</code> 之后）：</p>
+<div class="table-scroll"><table><thead><tr><th>参数</th><th>作用</th></tr></thead><tbody><tr><td><code>placeholder</code></td><td>预览侧栏输入框占位提示</td></tr><tr><td><code>title</code></td><td>覆盖侧栏显示标题（默认用 <code>name</code>）</td></tr><tr><td><code>description</code></td><td>侧栏帮助说明</td></tr><tr><td><code>group</code></td><td>参数分组标题</td></tr><tr><td><code>order</code></td><td>组内排序（数字越小越靠前）</td></tr><tr><td><code>hidden</code></td><td><code>True</code> 时侧栏隐藏（脚本仍可读取）</td></tr><tr><td><code>role</code> / <code>live</code></td><td>高级用途；一般示例可省略</td></tr></tbody></table></div>
+<h3 id="color"><a class="heading-anchor" href="#color">#</a><code>color</code></h3>
+<figure class="code-block" data-code-id="67ceab42480d">
+  <figcaption>
+    <span>python</span>
+    <button class="copy-code" type="button" data-copy-code="67ceab42480d">复制</button>
+  </figcaption>
+  <pre><code id="code-67ceab42480d" class="language-python">paper = widget.param.color(&quot;背景色&quot;, &quot;#FBFAF5&quot;)
+ink = widget.param.color(&quot;文字色&quot;, &quot;#242326&quot;)
+accent = widget.param.color(&quot;强调色&quot;, &quot;#2563EB&quot;)</code></pre>
+</figure>
+<ul><li>默认值为 <code>#RRGGBB</code> 或语义色名字符串。</li><li>可传给 <code>Widget(background=paper)</code>、<code>w.text(..., color=ink)</code>、<code>w.progress(..., color=accent)</code>、<code>w.button(..., background=accent)</code>。</li><li><strong><code>toggle</code> 用 <code>color=</code>，没有 <code>tint=</code> 参数。</strong></li></ul>
+<h3 id="slider-number"><a class="heading-anchor" href="#slider-number">#</a><code>slider</code> / <code>number</code></h3>
+<figure class="code-block" data-code-id="4d4532b54e38">
+  <figcaption>
+    <span>python</span>
+    <button class="copy-code" type="button" data-copy-code="4d4532b54e38">复制</button>
+  </figcaption>
+  <pre><code id="code-4d4532b54e38" class="language-python">title_size = widget.param.slider(&quot;标题字号&quot;, 18, min=12, max=28, step=1)
+target = widget.param.number(&quot;目标次数&quot;, 8, min=1, max=20)</code></pre>
+</figure>
+<ul><li><code>slider</code>：连续调节（字号、透明度、圆角等）。</li><li><code>number</code>：离散数值（目标、阈值、上限）。</li><li>传给 <code>size=</code>、<code>height=</code> 等时建议 <code>int(...)</code>，尤其在 <code>family_value</code> 分支里。</li></ul>
+<h3 id="bool"><a class="heading-anchor" href="#bool">#</a><code>bool</code></h3>
+<figure class="code-block" data-code-id="28abd120c177">
+  <figcaption>
+    <span>python</span>
+    <button class="copy-code" type="button" data-copy-code="28abd120c177">复制</button>
+  </figcaption>
+  <pre><code id="code-28abd120c177" class="language-python">compact = widget.param.bool(&quot;紧凑模式&quot;, False)
+show_footer = widget.param.bool(&quot;显示页脚&quot;, True)</code></pre>
+</figure>
+<p>返回普通 <code>bool</code>，用于 Python 分支，例如：</p>
+<figure class="code-block" data-code-id="6b360ee69e46">
+  <figcaption>
+    <span>python</span>
+    <button class="copy-code" type="button" data-copy-code="6b360ee69e46">复制</button>
+  </figcaption>
+  <pre><code id="code-6b360ee69e46" class="language-python">padding = 10 if compact else 16
+if show_footer:
+    w.text(&quot;页脚&quot;, size=11, color=&quot;secondary&quot;)</code></pre>
+</figure>
+<p>不要与 <code>widget.state.bool</code>（桌面交互）混淆。</p>
+<h3 id="choice"><a class="heading-anchor" href="#choice">#</a><code>choice</code></h3>
+<figure class="code-block" data-code-id="709b00a41ab8">
+  <figcaption>
+    <span>python</span>
+    <button class="copy-code" type="button" data-copy-code="709b00a41ab8">复制</button>
+  </figcaption>
+  <pre><code id="code-709b00a41ab8" class="language-python">mode = widget.param.choice(&quot;风格&quot;, [&quot;健康&quot;, &quot;专注&quot;, &quot;代码&quot;], default=&quot;专注&quot;)</code></pre>
+</figure>
+<ul><li><code>options</code> 至少一项。</li><li><code>default</code> 必须是 <code>options</code> 中的某一项（或省略则用第一项）。</li><li>返回值是选项字符串，可拼进 <code>w.text(&quot;风格：&quot; + mode)</code>。</li></ul>
+<h3 id="file"><a class="heading-anchor" href="#file">#</a><code>file</code></h3>
+<figure class="code-block" data-code-id="cb8572f0ac24">
+  <figcaption>
+    <span>python</span>
+    <button class="copy-code" type="button" data-copy-code="cb8572f0ac24">复制</button>
+  </figcaption>
+  <pre><code id="code-cb8572f0ac24" class="language-python">logo = widget.param.file(&quot;角标图&quot;, &quot;&quot;, extensions=[&quot;png&quot;, &quot;jpg&quot;, &quot;svg&quot;])
+bg = widget.param.file(&quot;背景图&quot;, &quot;assets/bg.png&quot;, extensions=[&quot;png&quot;, &quot;jpg&quot;])</code></pre>
+</figure>
+<ul><li>默认路径相对于 widget 脚本目录或项目 <code>assets/</code>。</li><li>选中文件后路径注入参数；配合 <code>w.image(logo, ...)</code> 或背景资源 API（见 <a href="../../pages/widget-appearance-assets/">资源与外观</a>）。</li><li>文档预览里文件选择仅演示，不能当生产路径依赖。</li></ul>
+<hr>
+<h2 id="与布局-尺寸配合"><a class="heading-anchor" href="#与布局-尺寸配合">#</a>与布局、尺寸配合</h2>
+<p>参数常和 <code>widget.context</code>、<code>widget.family_value</code> 一起用，避免 small 字号过大：</p>
+<figure class="code-block" data-code-id="31f3e745c2d8">
+  <figcaption>
+    <span>python</span>
+    <button class="copy-code" type="button" data-copy-code="31f3e745c2d8">复制</button>
+  </figcaption>
+  <pre><code id="code-31f3e745c2d8" class="language-python">size = widget.param.slider(&quot;标题字号&quot;, 20, min=14, max=28, step=1)
+display_size = widget.family_value(int(size), small=14, medium=int(size), large=min(28, int(size) + 2))
+w.text(title, size=display_size).line_limit(1).min_scale(0.65)</code></pre>
+</figure>
+<p>详见 <a href="../../pages/widget-layout/">布局与尺寸</a>。</p>
+<hr>
+<h2 id="预览与发布行为"><a class="heading-anchor" href="#预览与发布行为">#</a>预览与发布行为</h2>
+<div class="table-scroll"><table><thead><tr><th>阶段</th><th>行为</th></tr></thead><tbody><tr><td>文档 / Studio 预览</td><td>侧栏改参数 → 重新构建当前 family 预览</td></tr><tr><td>发布到桌面</td><td>使用<strong>发布时刻</strong>的项目参数快照</td></tr><tr><td>改参数名</td><td>旧桌面实例可能仍绑定旧 key → 重新发布，必要时删组件重装</td></tr><tr><td>改默认值</td><td>新发布生效；已添加的桌面组件不自动改配置</td></tr></tbody></table></div>
+<p>Studio 中 <code>color</code> / <code>slider</code> / <code>number</code> / <code>bool</code> 等常带 <strong>live</strong> 预览：拖动滑块即可看效果，无需改代码。</p>
+<hr>
+<h2 id="常见错误"><a class="heading-anchor" href="#常见错误">#</a>常见错误</h2>
+<div class="table-scroll"><table><thead><tr><th>错误写法</th><th>后果</th><th>修正</th></tr></thead><tbody><tr><td>用 <code>widget.state</code> 当配色</td><td>桌面乱改主题色</td><td>配色用 <code>widget.param.color</code></td></tr><tr><td><code>param</code> 写在 <code>render()</code> 之后</td><td>面板无参数</td><td>全部提前到 UI 构建前</td></tr><tr><td><code>choice</code> 的 default 不在 options</td><td>构建报错</td><td>default 必须是 options 之一</td></tr><tr><td><code>slider</code> 传入字符串默认值</td><td>类型异常</td><td>用数字 <code>18</code>，不是 <code>&quot;18&quot;</code></td></tr><tr><td>参数名随代码重构乱改</td><td>桌面配置丢失</td><td>对用户可见名保持稳定，或接受重装</td></tr><tr><td><code>toggle(..., tint=)</code></td><td><code>TypeError</code></td><td>用 <code>color=</code></td></tr></tbody></table></div>
+<hr>
+<h2 id="失败路径"><a class="heading-anchor" href="#失败路径">#</a>失败路径</h2>
+<div class="table-scroll"><table><thead><tr><th>现象</th><th>处理</th></tr></thead><tbody><tr><td>预览侧栏没有参数</td><td>确认 <code>widget.param.*</code> 且在 <code>w.render()</code> 前</td></tr><tr><td>改参数预览不变</td><td>看控制台构建日志；color/slider 类应自动 live</td></tr><tr><td>桌面仍是旧配色</td><td>重新运行发布；不是 param 没生效而是未重发</td></tr><tr><td>文件参数路径无效</td><td>文件放进脚本同目录或 <code>assets/</code>；检查 <code>extensions</code></td></tr><tr><td>参数与状态搞混</td><td>对照上文表格；交互见 <a href="../../pages/widget-interaction/">状态和交互</a></td></tr></tbody></table></div>
+<hr>
+<h2 id="相关文档"><a class="heading-anchor" href="#相关文档">#</a>相关文档</h2>
+<div class="table-scroll"><table><thead><tr><th>文档</th><th>用途</th></tr></thead><tbody><tr><td><a href="../../pages/widget-module/">widget 概览</a></td><td>总览与示例</td></tr><tr><td><a href="../../pages/widget-quickstart-publish/">从脚本到桌面</a></td><td>发布流程</td></tr><tr><td><a href="../../pages/widget-interaction/">状态和交互</a></td><td><code>widget.state</code>、按钮、开关</td></tr><tr><td><a href="../../pages/widget-appearance-assets/">资源与外观</a></td><td>图片、渐变、文件资源</td></tr><tr><td><a href="../../pages/widget-layout/">布局与尺寸</a></td><td><code>family_value</code>、防裁切</td></tr><tr><td><a href="../../pages/widget-api-reference/">API 参考</a></td><td><code>widget.param</code> 完整签名</td></tr></tbody></table></div>
   </div>
-  <section class="related-section"><h2>相关文档</h2><div class="related-list"><a class="related-link" href="../widget-module/"><strong>widget</strong><span>用 Python 编写主屏、锁屏和 StandBy 小组件。</span></a><a class="related-link" href="../widget-layout/"><strong>widget 布局与尺寸</strong><span>row、column、grid、table、canvas 和三尺寸适配。</span></a><a class="related-link" href="../widget-appearance-assets/"><strong>widget 资源与外观</strong><span>深色、透明、染色、背景图、SVG 和 SF Symbol。</span></a></div></section>
+  <section class="related-section"><h2>相关文档</h2><div class="related-list"><a class="related-link" href="../widget-module/"><strong>widget</strong><span>Python 编写 WidgetKit 小组件：参数、状态、布局与发布到桌面。</span></a><a class="related-link" href="../widget-interaction/"><strong>widget 状态和交互</strong><span>widget.state、按钮 ±、习惯清单、开关与链接；AppIntent 桌面交互。</span></a><a class="related-link" href="../widget-layout/"><strong>widget 布局与尺寸</strong><span>row/column/grid/table/canvas、family 预算、when/unless 与锁屏 accessory。</span></a><a class="related-link" href="../widget-appearance-assets/"><strong>widget 资源与外观</strong><span>渐变/双色背景、accentable 染色、图片/SVG/Symbol、透明与隐私占位。</span></a></div></section>
 </article>
 
     </main>
-    <aside class="toc"><div class="toc-title">本页目录</div><a class="toc-link" href="#常用参数">常用参数</a><a class="toc-link" href="#参数和桌面显示">参数和桌面显示</a><a class="toc-link" href="#参数命名">参数命名</a><a class="toc-link" href="#失败路径">失败路径</a><a class="toc-link" href="#api-参考">API 参考</a></aside>
+    <aside class="toc"><div class="toc-title">本页目录</div><a class="toc-link" href="#本篇目标">本篇目标</a><a class="toc-link" href="#快速开始">快速开始</a><a class="toc-link" href="#参数-vs-状态">参数 vs 状态</a><a class="toc-link" href="#api-参考">API 参考</a><a class="toc-link child" href="#速查">速查</a><a class="toc-link child" href="#text">text</a><a class="toc-link child" href="#color">color</a><a class="toc-link child" href="#slider-number">slider / number</a><a class="toc-link child" href="#bool">bool</a><a class="toc-link child" href="#choice">choice</a><a class="toc-link child" href="#file">file</a><a class="toc-link" href="#与布局-尺寸配合">与布局、尺寸配合</a><a class="toc-link" href="#预览与发布行为">预览与发布行为</a><a class="toc-link" href="#常见错误">常见错误</a><a class="toc-link" href="#失败路径">失败路径</a><a class="toc-link" href="#相关文档">相关文档</a></aside>
   </div>
   <div class="mobile-backdrop"></div>
   <div class="search-panel" role="dialog" aria-modal="true" aria-label="搜索">

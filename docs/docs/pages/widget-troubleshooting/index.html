@@ -3,8 +3,8 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>排错 - PythonIDE Docs</title>
-  <meta name="description" content="空白、溢出、桌面缓存、点击和动画问题。">
+  <title>widget 排错 - PythonIDE Docs</title>
+  <meta name="description" content="基线排查、预览≠桌面、裁切/点击/动画、w.validate 诊断。">
   <link rel="icon" href="../../assets/brand-mark.svg" type="image/svg+xml">
   <link rel="stylesheet" href="../../assets/docs-v2.css">
   <script>window.PYTHONIDE_DOCS_PREFIX = "../../";</script>
@@ -146,7 +146,7 @@
 <summary><a href="../../collections/scene/">scene</a></summary>
 <div class="nav-group">
 <div class="nav-group-title">快速上手</div>
-<a class="nav-link" href="../../pages/scene-module/">scene 概览</a>
+<a class="nav-link" href="../../pages/scene-module/">scene</a>
 <a class="nav-link" href="../../pages/turtle-module/">turtle</a>
 </div>
 <div class="nav-group">
@@ -160,8 +160,16 @@
 <div class="nav-group">
 <div class="nav-group-title">快速上手</div>
 <a class="nav-link" href="../../pages/ios-native/">iOS 原生能力</a>
-<a class="nav-link" href="../../pages/modules-index/">全部模块总览</a>
-<a class="nav-link" href="../../pages/miniapp-native-capabilities/">原生能力入口</a>
+</div>
+<div class="nav-group">
+<div class="nav-group-title">基础与权限</div>
+<a class="nav-link" href="../../pages/permission-module/">permission</a>
+<a class="nav-link" href="../../pages/storage-module/">storage</a>
+<a class="nav-link" href="../../pages/database-module/">database</a>
+<a class="nav-link" href="../../pages/keychain-module/">keychain</a>
+<a class="nav-link" href="../../pages/clipboard-module/">clipboard</a>
+<a class="nav-link" href="../../pages/console-module/">console</a>
+<a class="nav-link" href="../../pages/dialogs-module/">dialogs</a>
 </div>
 <div class="nav-group">
 <div class="nav-group-title">设备与传感器</div>
@@ -173,35 +181,69 @@
 <a class="nav-link" href="../../pages/health-module/">health</a>
 </div>
 <div class="nav-group">
-<div class="nav-group-title">媒体与视觉</div>
-<a class="nav-link" href="../../pages/photos-module/">photos</a>
-<a class="nav-link" href="../../pages/avplayer-module/">avplayer</a>
-<a class="nav-link" href="../../pages/sound-module/">sound</a>
-<a class="nav-link" href="../../pages/speech-module/">speech</a>
-<a class="nav-link" href="../../pages/vision-helper-module/">vision_helper</a>
-<a class="nav-link" href="../../pages/vision-module/">vision</a>
-<a class="nav-link" href="../../pages/coreml-module/">coreml</a>
-</div>
-<div class="nav-group">
-<div class="nav-group-title">网络与数据</div>
-<a class="nav-link" href="../../pages/network-module/">network</a>
-<a class="nav-link" href="../../pages/websocket-module/">websocket</a>
-<a class="nav-link" href="../../pages/bluetooth-module/">bluetooth</a>
-<a class="nav-link" href="../../pages/background-module/">background</a>
-</div>
-<div class="nav-group">
-<div class="nav-group-title">系统服务</div>
-<a class="nav-link" href="../../pages/permission-module/">permission</a>
-<a class="nav-link" href="../../pages/storage-module/">storage</a>
-<a class="nav-link" href="../../pages/database-module/">database</a>
-<a class="nav-link" href="../../pages/keychain-module/">keychain</a>
-<a class="nav-link" href="../../pages/clipboard-module/">clipboard</a>
-<a class="nav-link" href="../../pages/dialogs-module/">dialogs</a>
-<a class="nav-link" href="../../pages/console-module/">console</a>
+<div class="nav-group-title">界面与系统</div>
+<a class="nav-link" href="../../pages/file-picker-module/">file_picker</a>
+<a class="nav-link" href="../../pages/share-module/">share</a>
+<a class="nav-link" href="../../pages/font-picker-module/">font_picker</a>
 <a class="nav-link" href="../../pages/notification-module/">notification</a>
+<a class="nav-link" href="../../pages/live-activity-module/">live_activity</a>
 <a class="nav-link" href="../../pages/contacts-module/">contacts</a>
 <a class="nav-link" href="../../pages/calendar-events-module/">calendar_events</a>
+</div>
+<div class="nav-group">
+<div class="nav-group-title">媒体</div>
+<div class="nav-subgroup-title">采集</div>
+<a class="nav-link" href="../../pages/photos-module/">photos</a>
+<a class="nav-link" href="../../pages/camera-module/">camera</a>
+<a class="nav-link" href="../../pages/video-recorder-module/">video_recorder</a>
+<a class="nav-link" href="../../pages/audio-recorder-module/">audio_recorder</a>
+<div class="nav-subgroup-title">播放</div>
+<a class="nav-link" href="../../pages/sound-module/">sound</a>
+<a class="nav-link" href="../../pages/avplayer-module/">avplayer</a>
+<a class="nav-link" href="../../pages/music-module/">music</a>
+<a class="nav-link" href="../../pages/now-playing-module/">now_playing</a>
+<a class="nav-link" href="../../pages/audio-session-module/">audio_session</a>
+<div class="nav-subgroup-title">语音</div>
+<a class="nav-link" href="../../pages/speech-module/">speech</a>
+<a class="nav-link" href="../../pages/speech-recognition-module/">speech_recognition</a>
+<a class="nav-link" href="../../pages/shazam-module/">shazam</a>
+<div class="nav-subgroup-title">合成</div>
+<a class="nav-link" href="../../pages/media-composer-module/">media_composer</a>
+</div>
+<div class="nav-group">
+<div class="nav-group-title">视觉与文档</div>
+<a class="nav-link" href="../../pages/vision-module/">vision</a>
+<a class="nav-link" href="../../pages/vision-helper-module/">vision_helper</a>
+<a class="nav-link" href="../../pages/coreml-module/">coreml</a>
+<a class="nav-link" href="../../pages/qrcode-module/">qrcode</a>
+<a class="nav-link" href="../../pages/pdf-module/">pdf</a>
+</div>
+<div class="nav-group">
+<div class="nav-group-title">连接与后台</div>
+<div class="nav-subgroup-title">联网</div>
+<a class="nav-link" href="../../pages/network-module/">network</a>
+<a class="nav-link" href="../../pages/websocket-module/">websocket</a>
+<a class="nav-link" href="../../pages/weather-module/">weather</a>
+<div class="nav-subgroup-title">近场</div>
+<a class="nav-link" href="../../pages/bluetooth-module/">bluetooth</a>
+<a class="nav-link" href="../../pages/ble-peripheral-module/">ble_peripheral</a>
+<div class="nav-subgroup-title">后台</div>
+<a class="nav-link" href="../../pages/background-module/">background</a>
+<a class="nav-link" href="../../pages/background-download-module/">background_download</a>
+<div class="nav-subgroup-title">本地服务</div>
+<a class="nav-link" href="../../pages/http-server-module/">http_server</a>
+<a class="nav-link" href="../../pages/ssh-module/">ssh</a>
+</div>
+<div class="nav-group">
+<div class="nav-group-title">通信与智能</div>
+<a class="nav-link" href="../../pages/mail-module/">mail</a>
+<a class="nav-link" href="../../pages/message-module/">message</a>
+<a class="nav-link" href="../../pages/translation-module/">translation</a>
 <a class="nav-link" href="../../pages/nfc-module/">nfc</a>
+<a class="nav-link" href="../../pages/alarm-module/">alarm</a>
+<a class="nav-link" href="../../pages/storekit-module/">storekit</a>
+<a class="nav-link" href="../../pages/foundation-models-module/">foundation_models</a>
+<a class="nav-link" href="../../pages/assistant-module/">assistant</a>
 </div>
 </details>
 <details class="nav-collection">
@@ -214,10 +256,14 @@
 <div class="nav-group">
 <div class="nav-group-title">模块</div>
 <a class="nav-link" href="../../pages/shortcuts-module/">shortcuts</a>
-<a class="nav-link" href="../../pages/live-activity-module/">live_activity</a>
 <a class="nav-link" href="../../pages/keyboard-module/">keyboard</a>
 <a class="nav-link" href="../../pages/objc-util-module/">objc_util</a>
 <a class="nav-link" href="../../pages/c-extensions-module/">c_extensions</a>
+</div>
+<div class="nav-group">
+<div class="nav-group-title">参考</div>
+<a class="nav-link" href="../../pages/modules-index/">全部模块总览</a>
+<a class="nav-link" href="../../pages/miniapp-native-capabilities/">原生能力入口</a>
 </div>
 </details>
 </nav>
@@ -227,58 +273,140 @@
 <article class="article" style="--page-accent:#7c3aed">
   <header class="article-intro">
     <div class="breadcrumb">widget / 小组件</div>
-    <h1>排错</h1>
-    <p>空白、溢出、桌面缓存、点击和动画问题。</p>
+    <h1>widget 排错</h1>
+    <p>基线排查、预览≠桌面、裁切/点击/动画、w.validate 诊断。</p>
   </header>
   <div class="markdown-body">
-    <h2 id="空白"><a class="heading-anchor" href="#空白">#</a>空白</h2>
-<p>空白通常来自脚本没有产出可显示的小组件内容。先确认脚本最后调用了 <code>w.render()</code>，并且没有在 Widget 脚本里混用 AppUI 或网页框架。</p>
-<figure class="code-block" data-code-id="e47aca99f49b">
+    <p>预览正常但桌面异常、点击无反应、文字被裁切、动画不动——按<strong>现象 → 原因 → 修复</strong>逐项排查。先跑最小基线，再二分加回功能。</p>
+<blockquote class="callout note"><strong>边界</strong>：本篇是<strong>故障手册</strong>，不教 API 写法。入门见 <a href="../../pages/widget-module/">widget 概览</a>；发布流程见 <a href="../../pages/widget-quickstart-publish/">从脚本到桌面</a>。</blockquote>
+<h2 id="本篇目标"><a class="heading-anchor" href="#本篇目标">#</a>本篇目标</h2>
+<div class="table-scroll"><table><thead><tr><th>项</th><th>说明</th></tr></thead><tbody><tr><td>第一步</td><td>用<strong>最小健康基线</strong>确认环境与 <code>w.render()</code></td></tr><tr><td>定位法</td><td>现象对照表 → 专题文档 → <code>w.validate()</code> 诊断</td></tr><tr><td>高发问题</td><td>空白、裁切、参数缺失、点击无效、预览≠桌面、缓存</td></tr><tr><td>工具</td><td>Studio 构建日志、<code>w.validate(family=)</code>、逐 family 预览</td></tr><tr><td>原则</td><td>先减功能再定位，不要同时在脚本里改五处</td></tr></tbody></table></div>
+<hr>
+<h2 id="最小健康基线"><a class="heading-anchor" href="#最小健康基线">#</a>最小健康基线</h2>
+<p>全系列<strong>唯一</strong>可运行基线示例（<a href="../../pages/widget-api-index/">API 地图</a> 等页请链到此处，勿各写一份）。下面只有根容器 + 一行字 + <code>render()</code>。若它也预览空白，问题在环境或运行方式，不在业务逻辑。</p>
+<figure class="code-block" data-code-id="d93473102943">
   <figcaption>
     <span>python</span>
-    <button class="copy-code" type="button" data-copy-code="e47aca99f49b">复制</button>
+    <button class="copy-code" type="button" data-copy-code="d93473102943">复制</button>
   </figcaption>
-  <pre><code id="code-e47aca99f49b" class="language-python">import widget
+  <pre><code id="code-d93473102943" class="language-python">import widget
 
-count = widget.state.int(&quot;count&quot;, 0)
-
-w = widget.Widget(background=(&quot;#F8FAFC&quot;, &quot;#111827&quot;), padding=14)
-w.text(&quot;排错样例&quot;, size=16, weight=&quot;semibold&quot;).line_limit(1).min_scale(0.7)
-w.value(count, unit=&quot;次&quot;).monospaced_digit().line_limit(1).min_scale(0.72)
-(
-    w.button(&quot;加 1&quot;, action=count.increment(), background=&quot;#34D399&quot;, color=&quot;#FFFFFF&quot;)
-    .line_limit(1)
-    .min_scale(0.72)
-)
+w = widget.Widget(background=(&quot;#FFFFFF&quot;, &quot;#111827&quot;), padding=14)
+w.text(&quot;Widget 基线 OK&quot;, size=16, weight=&quot;semibold&quot;).line_limit(1)
 w.render()</code></pre>
 </figure>
-<p>预期效果：这是排错用的最小健康样例；如果它能预览，问题通常在后续参数、资源、布局或时间线代码中。</p>
-<h2 id="快速定位"><a class="heading-anchor" href="#快速定位">#</a>快速定位</h2>
-<div class="table-scroll"><table><thead><tr><th>现象</th><th>先查</th><th>继续看</th></tr></thead><tbody><tr><td>空白</td><td><code>w.render()</code>、只用 <code>widget</code> 模块</td><td><a href="../../pages/widget-module/">widget</a></td></tr><tr><td>挤压或裁切</td><td>family 分支、<code>.line_limit(1).min_scale(...)</code></td><td><a href="../../pages/widget-layout/">布局与尺寸</a></td></tr><tr><td>参数不见</td><td><code>widget.param.*</code> 声明位置和默认值类型</td><td><a href="../../pages/widget-parameters/">参数面板</a></td></tr><tr><td>点击没反应</td><td><code>widget.state</code> action、按钮/链接层级</td><td><a href="../../pages/widget-interaction/">状态和交互</a></td></tr><tr><td>动画不动</td><td>timeline 或状态变化是否真的发生</td><td><a href="../../pages/widget-timeline/">时间线和动画</a></td></tr><tr><td>外观不对</td><td>深色、透明、染色、资源路径</td><td><a href="../../pages/widget-appearance-assets/">资源与外观</a></td></tr></tbody></table></div>
-<h2 id="小尺寸太挤"><a class="heading-anchor" href="#小尺寸太挤">#</a>小尺寸太挤</h2>
-<p>为 <code>small</code> 写单独布局，只保留标题、主值和一个视觉元素。不要把 large 的布局整体缩小。</p>
-<h2 id="表格线太粗"><a class="heading-anchor" href="#表格线太粗">#</a>表格线太粗</h2>
-<p>使用 <code>line_width=&quot;hairline&quot;</code>，不要用大矩形叠出来假线。</p>
-<h2 id="字体溢出"><a class="heading-anchor" href="#字体溢出">#</a>字体溢出</h2>
-<p>默认给用户可改文本、按钮标题和主值加 <code>.line_limit(1).min_scale(0.6)</code>。仍然拥挤时，按 family 缩短文案或隐藏次要节点。</p>
-<h2 id="预览和桌面不一致"><a class="heading-anchor" href="#预览和桌面不一致">#</a>预览和桌面不一致</h2>
-<p>先重新运行并发布脚本。WidgetKit 会缓存桌面显示结果；如果桌面仍旧，删除桌面小组件后重新添加。</p>
-<h2 id="点击没反应"><a class="heading-anchor" href="#点击没反应">#</a>点击没反应</h2>
-<p>按钮必须使用 <code>widget.state</code> 生成的 action，例如 <code>count.increment()</code>、<code>done.toggle()</code> 或 <code>items.toggle_item(i)</code>。</p>
-<h2 id="链接打开-app"><a class="heading-anchor" href="#链接打开-app">#</a>链接打开 App</h2>
-<p>桌面 Widget 的链接行为受系统和 URL scheme 限制。HTTP 链接用 <code>w.link()</code>；App 内页面用深链。</p>
-<h2 id="动画不连续播放"><a class="heading-anchor" href="#动画不连续播放">#</a>动画不连续播放</h2>
-<p>WidgetKit 只支持 timeline 或 AppIntent 状态变化时的数据更新动画。持续 60fps 动画不属于普通桌面 Widget 能力。</p>
-<h2 id="失败路径"><a class="heading-anchor" href="#失败路径">#</a>失败路径</h2>
-<ul><li>先做最小复现：保留 <code>Widget()</code>、两三个节点和 <code>w.render()</code>，确认预览能显示后再加参数、状态、图片和时间线。</li><li>再查目标 family：small、medium、large、rectangular、circular、inline 的内容预算不同，不要用同一个密集布局硬套。</li><li>最后查系统缓存：桌面小组件可能缓存旧时间线，重新运行并发布；仍旧时删除桌面小组件后重新添加。</li></ul>
-<h2 id="api-参考"><a class="heading-anchor" href="#api-参考">#</a>API 参考</h2>
-<p>排错时查 <a href="../../pages/widget-api-reference/">API 参考</a> 的完整签名，优先确认 <code>Widget()</code>、<code>w.render</code>、<code>w.validate</code>、<code>w.timeline</code>、<code>widget.param</code>、<code>widget.state</code> 和布局修饰符是否写对。</p>
+<p>基线通过后，每次只<strong>加回一类功能</strong>（参数 → 状态按钮 → 图片 → timeline），看哪一步开始坏。</p>
+<hr>
+<h2 id="五步排查流程"><a class="heading-anchor" href="#五步排查流程">#</a>五步排查流程</h2>
+<figure class="code-block" data-code-id="d41a50c719ce">
+  <figcaption>
+    <span>text</span>
+    <button class="copy-code" type="button" data-copy-code="d41a50c719ce">复制</button>
+  </figcaption>
+  <pre><code id="code-d41a50c719ce" class="language-text">1. 基线能预览吗？ ─否→ 检查 w.render()、是否混用 appui/scene、构建报错
+        ↓ 是
+2. 文档预览还是 Studio？ ─仅文档→ 要上桌面必须 Studio 发布
+        ↓
+3. 三个 family 都看过吗？ ─裁切→ 布局分支 / line_limit / min_scale
+        ↓
+4. 交互/动画在预览能复现吗？ ─否→ state action / content_transition
+        ↓
+5. 预览正常、桌面仍旧？ ─→ 重新发布 → 删主屏小组件 → 重新添加</code></pre>
+</figure>
+<hr>
+<h2 id="现象速查"><a class="heading-anchor" href="#现象速查">#</a>现象速查</h2>
+<div class="table-scroll"><table><thead><tr><th>现象</th><th>优先检查</th><th>深入阅读</th></tr></thead><tbody><tr><td>预览空白</td><td><code>w.render()</code>、只 <code>import widget</code></td><td>下文 §空白</td></tr><tr><td>文档能预览、桌面没有</td><td>是否 Studio 发布 + 系统添加</td><td><a href="../../pages/widget-quickstart-publish/">从脚本到桌面</a></td></tr><tr><td>文字裁切 / 挤在一起</td><td><code>is_family</code>、<code>family_value</code>、<code>line_limit</code></td><td><a href="../../pages/widget-layout/">布局与尺寸</a></td></tr><tr><td>参数侧栏为空</td><td><code>widget.param</code> 在 <code>render()</code> 前</td><td><a href="../../pages/widget-parameters/">参数面板</a></td></tr><tr><td>按钮 / 开关无效</td><td><code>widget.state</code> 的 <code>.increment()</code> 等</td><td><a href="../../pages/widget-interaction/">状态和交互</a></td></tr><tr><td>数字无动画</td><td><code>content_transition(&quot;numericText&quot;)</code>、<code>.id()</code></td><td><a href="../../pages/widget-timeline/">时间线和动画</a></td></tr><tr><td>颜色 / 图片不对</td><td>双色资源、<code>accentable</code></td><td><a href="../../pages/widget-appearance-assets/">资源与外观</a></td></tr><tr><td>Studio 报「Widget 诊断」</td><td><code>w.validate()</code>、逐 family 修</td><td>下文 §布局诊断</td></tr></tbody></table></div>
+<hr>
+<h2 id="空白-构建失败"><a class="heading-anchor" href="#空白-构建失败">#</a>空白 / 构建失败</h2>
+<div class="table-scroll"><table><thead><tr><th>原因</th><th>识别</th><th>修复</th></tr></thead><tbody><tr><td>忘记 <code>w.render()</code></td><td>预览全白、无 IR 输出</td><td>脚本末尾调用一次</td></tr><tr><td>多个 <code>Widget()</code></td><td>行为未定义</td><td>只保留一个根 <code>w = widget.Widget(...)</code></td></tr><tr><td>混入 <code>appui</code> / <code>scene</code></td><td>构建异常或空白</td><td>Widget 脚本只用 <code>widget</code> API</td></tr><tr><td>语法 / 运行时错误</td><td>Studio 控制台有 Traceback</td><td>修报错行；先用基线脚本验证</td></tr><tr><td><code>svg()</code> / <code>image()</code> 无路径</td><td><code>TypeError: requires name</code></td><td>提供路径、<code>param.file</code> 或 <code>save_image</code></td></tr><tr><td><code>toggle(..., tint=)</code></td><td><code>TypeError: unexpected keyword</code></td><td>改用 <code>color=</code></td></tr><tr><td><code>symbol(..., color=, size=)</code></td><td><code>TypeError: unexpected keyword</code></td><td><code>w.symbol(&quot;name&quot;).color(c).font_size(n)</code>；<code>symbol</code> 仅支持 <code>rendering</code>/<code>palette</code>/<code>variant</code>/<code>scale</code></td></tr><tr><td><code>link(..., icon=).line_limit()</code></td><td><code>AttributeError: no line_limit</code></td><td>带 <code>icon</code> 的 <code>link</code> 不能链修饰符；改无 icon 或去掉链式调用</td></tr><tr><td><code>widget.context()</code> / <code>w.context()</code></td><td><code>TypeError: not callable</code></td><td>用 <code>ctx = widget.context</code> 或 <code>w.context</code>（属性）</td></tr></tbody></table></div>
+<figure class="code-block" data-code-id="4b1f683e2405">
+  <figcaption>
+    <span>python</span>
+    <button class="copy-code" type="button" data-copy-code="4b1f683e2405">复制</button>
+  </figcaption>
+  <pre><code id="code-4b1f683e2405" class="language-python"># ❌ 构建期就会失败
+w.toggle(&quot;完成&quot;, state=done, tint=&quot;#22C55E&quot;)
+
+# ✅
+w.toggle(&quot;完成&quot;, state=done, color=&quot;#22C55E&quot;)</code></pre>
+</figure>
+<hr>
+<h2 id="预览正常-桌面不对"><a class="heading-anchor" href="#预览正常-桌面不对">#</a>预览正常，桌面不对</h2>
+<div class="table-scroll"><table><thead><tr><th>原因</th><th>识别</th><th>修复</th></tr></thead><tbody><tr><td>只在文档里 <code>previewWidget</code></td><td>主屏从未添加组件</td><td>代码复制到 <strong>Widget Studio</strong> 发布</td></tr><tr><td>未在系统里添加小组件</td><td>App 已发布但主屏无入口</td><td>长按主屏 → <strong>+</strong> → 选 Python IDE</td></tr><tr><td>选错 Studio 项目 / 槽位</td><td>显示别的 widget 内容</td><td>添加时核对项目名称</td></tr><tr><td>WidgetKit 缓存旧快照</td><td>改代码后桌面仍旧</td><td>Studio <strong>重新运行</strong>发布</td></tr><tr><td>仍不更新</td><td>缓存顽固</td><td><strong>删除</strong>主屏小组件 → 重新添加</td></tr><tr><td>改了 <code>widget.state</code> 的 key</td><td>点击计数错乱或归零</td><td>重新发布；建议删组件重装</td></tr><tr><td>文档预览 ≠ Studio 预览</td><td>参数/资源路径不同</td><td>以 Studio 项目目录为准</td></tr></tbody></table></div>
+<p>发布检查清单见 <a href="../../pages/widget-quickstart-publish/#发布前检查">从脚本到桌面</a>。</p>
+<hr>
+<h2 id="裁切与布局过挤"><a class="heading-anchor" href="#裁切与布局过挤">#</a>裁切与布局过挤</h2>
+<div class="table-scroll"><table><thead><tr><th>原因</th><th>识别</th><th>修复</th></tr></thead><tbody><tr><td>large 布局塞进 small</td><td>仅 small 裁切</td><td><code>ctx.is_family(&quot;small&quot;)</code> 减行或藏次要内容</td></tr><tr><td>字号 / 边距不分 family</td><td>medium 正常、small 爆版</td><td><code>widget.family_value(16, small=14, large=18)</code></td></tr><tr><td>可变文案无保护</td><td>长标题被 «…» 截断</td><td><code>.line_limit(1).min_scale(0.65)</code>（格内可降到 <code>0.55</code>）</td></tr><tr><td><code>row</code> 塞太多列</td><td>small 数字叠在一起</td><td>改 <code>column</code> 或减少列数</td></tr><tr><td>表格线发粗</td><td>格子边框像厚框</td><td>用 <code>w.table(..., line_width=&quot;hairline&quot;)</code>，勿 <code>rect</code> 拼线</td></tr><tr><td>锁屏 accessory 套 medium UI</td><td>circular 几乎看不见</td><td>为 circular/rectangular/inline <strong>单独写</strong>布局</td></tr></tbody></table></div>
+<p>防裁切清单见 <a href="../../pages/widget-layout/#防裁切清单">布局与尺寸</a>。</p>
+<hr>
+<h2 id="参数与配置"><a class="heading-anchor" href="#参数与配置">#</a>参数与配置</h2>
+<div class="table-scroll"><table><thead><tr><th>原因</th><th>识别</th><th>修复</th></tr></thead><tbody><tr><td><code>param</code> 写在 <code>render()</code> 后</td><td>侧栏无参数</td><td>全部移到 UI 构建之前</td></tr><tr><td><code>choice</code> 的 default 非法</td><td>构建报错</td><td><code>default</code> 必须是 <code>options</code> 之一</td></tr><tr><td><code>slider</code> 默认值为字符串</td><td>类型异常</td><td>用数字 <code>18</code>，不是 <code>&quot;18&quot;</code></td></tr><tr><td>混淆 param 与 state</td><td>预览能改、桌面不变（或反之）</td><td>配色用 <code>param</code>，点击用 <code>state</code></td></tr><tr><td>改参数名后桌面仍旧</td><td>旧实例绑旧 key</td><td>重新发布，必要时删组件重装</td></tr></tbody></table></div>
+<hr>
+<h2 id="点击-链接无效"><a class="heading-anchor" href="#点击-链接无效">#</a>点击 / 链接无效</h2>
+<div class="table-scroll"><table><thead><tr><th>原因</th><th>识别</th><th>修复</th></tr></thead><tbody><tr><td><code>action</code> 写死字符串</td><td>点击完全无反应</td><td><code>action=count.increment()</code></td></tr><tr><td>传入 Python 函数</td><td>需拉起 App，Widget 内不执行</td><td>用 <code>widget.state</code> 工厂方法</td></tr><tr><td>Toggle 不记忆</td><td>显示开关但状态不回写</td><td><code>w.toggle(..., state=done)</code></td></tr><tr><td><code>toggle_item</code> 类型不一致</td><td>勾选状态错乱</td><td><code>contains(i)</code> 与 <code>toggle_item(i)</code> 同类型</td></tr><tr><td>链接与按钮同区域</td><td>点哪都不对</td><td>链接、按钮分块；见 <a href="../../pages/widget-interaction/">交互</a></td></tr><tr><td>预览能点、桌面不能</td><td>未发布或 state key 已变</td><td>重新发布 + 桌面验证</td></tr></tbody></table></div>
+<figure class="code-block" data-code-id="b822f12b5090">
+  <figcaption>
+    <span>python</span>
+    <button class="copy-code" type="button" data-copy-code="b822f12b5090">复制</button>
+  </figcaption>
+  <pre><code id="code-b822f12b5090" class="language-python">count = widget.state.int(&quot;count&quot;, 0)
+
+# ❌
+w.button(&quot;+&quot;, action=&quot;increment&quot;)
+
+# ✅
+w.button(&quot;+&quot;, action=count.increment())</code></pre>
+</figure>
+<hr>
+<h2 id="动画与时间线"><a class="heading-anchor" href="#动画与时间线">#</a>动画与时间线</h2>
+<div class="table-scroll"><table><thead><tr><th>原因</th><th>识别</th><th>修复</th></tr></thead><tbody><tr><td>无 <code>content_transition</code></td><td>数字直接跳变</td><td><code>.content_transition(&quot;numericText&quot;)</code></td></tr><tr><td>无稳定身份</td><td>动画时有时无</td><td><code>.id(&quot;唯一名&quot;)</code> 或绑 state/entry key</td></tr><tr><td>用 <code>entry</code> 绑交互数字</td><td>点击不变</td><td>交互用 <code>widget.state</code>，计划变化用 <code>widget.entry</code></td></tr><tr><td>timeline 无 <code>date</code></td><td>entry 顺序乱</td><td>每条 entry 写 ISO <code>date</code></td></tr><tr><td>期望 60fps 循环</td><td>Widget 能力不支持</td><td>改用 timeline 分段或 <code>countdown</code></td></tr><tr><td>桌面动画少于预览</td><td>系统合并刷新</td><td>正常；重新发布后仍无则查 entry/state</td></tr></tbody></table></div>
+<p>详见 <a href="../../pages/widget-timeline/">时间线和动画</a>。</p>
+<hr>
+<h2 id="外观与资源"><a class="heading-anchor" href="#外观与资源">#</a>外观与资源</h2>
+<div class="table-scroll"><table><thead><tr><th>原因</th><th>识别</th><th>修复</th></tr></thead><tbody><tr><td>深色模式发灰</td><td>只有浅色图</td><td><code>background_image((light, dark))</code> 或 <code>image(light=, dark=)</code></td></tr><tr><td>Tinted 模式颜色乱</td><td>节点默认参与染色</td><td>设计色 <code>.accentable(False)</code>，要跟系统 <code>.accentable(True)</code></td></tr><tr><td>透明背景无效</td><td>仍有不透明底</td><td><code>transparent_background</code> + <code>container_background(removable=True)</code></td></tr><tr><td>背景图字看不清</td><td>照片太亮</td><td><code>scrim=&quot;bottom&quot;</code> + <code>scrim_opacity</code></td></tr><tr><td>SVG / 图片不显示</td><td>预览路径空</td><td>文件放进 <code>assets/</code> 或侧栏 <code>param.file</code> 重选</td></tr></tbody></table></div>
+<p>详见 <a href="../../pages/widget-appearance-assets/">资源与外观</a>。</p>
+<hr>
+<h2 id="布局诊断-w.validate"><a class="heading-anchor" href="#布局诊断-w.validate">#</a>布局诊断（<code>w.validate</code>）</h2>
+<p>构建后可用 <code>w.validate()</code> 检查当前 family 的布局风险。Studio 预览若出现 <strong>「Widget 诊断」</strong>，需按提示修<strong>阻断项</strong>后再发布。</p>
+<figure class="code-block" data-code-id="e99ea8575166">
+  <figcaption>
+    <span>python</span>
+    <button class="copy-code" type="button" data-copy-code="e99ea8575166">复制</button>
+  </figcaption>
+  <pre><code id="code-e99ea8575166" class="language-python">import widget
+
+w = widget.Widget(background=&quot;#FFFFFF&quot;, padding=14)
+w.text(&quot;标题&quot;, size=16).line_limit(1)
+# ... 构建 UI ...
+
+report = w.validate(family=widget.SMALL)  # 在 w.render() 之前调用
+print(report[&quot;status&quot;])   # clean | warning | error
+for issue in report.get(&quot;issues&quot;, []):
+    print(issue[&quot;code&quot;], issue[&quot;message&quot;])
+w.render()</code></pre>
+</figure>
+<p><code>validate()</code> 读取当前已构建的 UI 树；须在 <code>w.render()</code> <strong>之前</strong>调用。Studio 构建时也会按 family 自动跑诊断。</p>
+<p>常见诊断码（非完整列表）：</p>
+<div class="table-scroll"><table><thead><tr><th>代码</th><th>含义</th><th>建议</th></tr></thead><tbody><tr><td><code>text_size_too_large</code></td><td>字号相对 family 过大</td><td>减小 <code>size</code> 或 <code>family_value</code> 分支</td></tr><tr><td><code>offset_clip_risk</code></td><td>偏移过大可能裁切</td><td>减小 <code>offset</code>；用布局容器代替硬偏移</td></tr><tr><td><code>chart_height_risk</code></td><td>图表过高挤占版面</td><td>降低 <code>height</code>；small 隐藏图表</td></tr><tr><td><code>frame_width_overflow</code></td><td>固定宽超出内容区</td><td>减小 <code>frame</code> 或改用流式布局</td></tr><tr><td><code>frame_height_overflow</code></td><td>固定高超出内容区</td><td>同上</td></tr></tbody></table></div>
+<p>对 <strong>small、medium、large</strong> 各跑一次验证（脚本在 Studio 会按 family 多次构建）。<code>Widget 建议</code> 为可优化提示；<strong>阻断项</strong>必须修掉。</p>
+<hr>
+<h2 id="二分定位模板"><a class="heading-anchor" href="#二分定位模板">#</a>二分定位模板</h2>
+<p>复杂脚本卡住时，按顺序恢复功能：</p>
+<div class="table-scroll"><table><thead><tr><th>步骤</th><th>加回什么</th><th>验证什么</th></tr></thead><tbody><tr><td>1</td><td>仅 <code>Widget</code> + <code>text</code> + <code>render</code></td><td>基线预览</td></tr><tr><td>2</td><td><code>widget.param</code> 一两个</td><td>侧栏参数出现</td></tr><tr><td>3</td><td><code>widget.state</code> + 一个按钮</td><td>点击有反应</td></tr><tr><td>4</td><td><code>row</code> / <code>column</code> / 图表</td><td>各 family 无裁切</td></tr><tr><td>5</td><td>图片 / SVG / <code>background_image</code></td><td>资源路径正确</td></tr><tr><td>6</td><td><code>w.timeline</code> + <code>entry</code> / <code>flip</code></td><td>预览 entry 轮播</td></tr><tr><td>7</td><td>Studio 发布 → 桌面添加</td><td>端到端一致</td></tr></tbody></table></div>
+<p>某步开始失败时，问题就在<strong>刚加回的那一类 API</strong>。</p>
+<hr>
+<h2 id="仍解决不了"><a class="heading-anchor" href="#仍解决不了">#</a>仍解决不了？</h2>
+<p>收集这些信息便于反馈或自查：</p>
+<ol><li><strong>入口</strong>：文档预览 / Widget Studio / MiniApp 工程</li><li><strong>family</strong>：small / medium / large / 锁屏 accessory</li><li><strong>现象截图</strong> + Studio <strong>构建日志</strong>最后 30 行</li><li><strong><code>w.validate()</code></strong> 对应该 family 的 <code>issues</code></li><li>是否已 <strong>重新发布</strong> 并 <strong>删除重装</strong> 桌面小组件</li></ol>
+<hr>
+<h2 id="相关文档"><a class="heading-anchor" href="#相关文档">#</a>相关文档</h2>
+<div class="table-scroll"><table><thead><tr><th>文档</th><th>用途</th></tr></thead><tbody><tr><td><a href="../../pages/widget-module/">widget 概览</a></td><td>API 与心智模型</td></tr><tr><td><a href="../../pages/widget-quickstart-publish/">从脚本到桌面</a></td><td>发布与桌面验证</td></tr><tr><td><a href="../../pages/widget-layout/">布局与尺寸</a></td><td>裁切、family 预算</td></tr><tr><td><a href="../../pages/widget-parameters/">参数面板</a></td><td><code>widget.param</code></td></tr><tr><td><a href="../../pages/widget-interaction/">状态和交互</a></td><td>按钮、开关、链接</td></tr><tr><td><a href="../../pages/widget-timeline/">时间线和动画</a></td><td>numericText、timeline</td></tr><tr><td><a href="../../pages/widget-appearance-assets/">资源与外观</a></td><td>双色图、accentable</td></tr><tr><td><a href="../../pages/widget-api-reference/">API 参考</a></td><td>签名核对</td></tr></tbody></table></div>
   </div>
-  <section class="related-section"><h2>相关文档</h2><div class="related-list"><a class="related-link" href="../widget-module/"><strong>widget</strong><span>用 Python 编写主屏、锁屏和 StandBy 小组件。</span></a><a class="related-link" href="../widget-layout/"><strong>widget 布局与尺寸</strong><span>row、column、grid、table、canvas 和三尺寸适配。</span></a><a class="related-link" href="../widget-interaction/"><strong>widget 状态和交互</strong><span>AppIntent 按钮、Toggle、链接和 widget.state。</span></a></div></section>
+  <section class="related-section"><h2>相关文档</h2><div class="related-list"><a class="related-link" href="../widget-module/"><strong>widget</strong><span>Python 编写 WidgetKit 小组件：参数、状态、布局与发布到桌面。</span></a><a class="related-link" href="../widget-quickstart-publish/"><strong>widget 从脚本到桌面</strong><span>Widget Studio 预览、发布、系统添加主屏小组件与桌面验证。</span></a><a class="related-link" href="../widget-layout/"><strong>widget 布局与尺寸</strong><span>row/column/grid/table/canvas、family 预算、when/unless 与锁屏 accessory。</span></a><a class="related-link" href="../widget-parameters/"><strong>widget 参数面板</strong><span>widget.param 声明预览可调配置，与 widget.state 桌面交互区分。</span></a><a class="related-link" href="../widget-interaction/"><strong>widget 状态和交互</strong><span>widget.state、按钮 ±、习惯清单、开关与链接；AppIntent 桌面交互。</span></a><a class="related-link" href="../widget-timeline/"><strong>widget 时间线和动画</strong><span>timeline/entry、state 数字动画、flip 翻页与 countdown 倒计时。</span></a></div></section>
 </article>
 
     </main>
-    <aside class="toc"><div class="toc-title">本页目录</div><a class="toc-link" href="#空白">空白</a><a class="toc-link" href="#快速定位">快速定位</a><a class="toc-link" href="#小尺寸太挤">小尺寸太挤</a><a class="toc-link" href="#表格线太粗">表格线太粗</a><a class="toc-link" href="#字体溢出">字体溢出</a><a class="toc-link" href="#预览和桌面不一致">预览和桌面不一致</a><a class="toc-link" href="#点击没反应">点击没反应</a><a class="toc-link" href="#链接打开-app">链接打开 App</a><a class="toc-link" href="#动画不连续播放">动画不连续播放</a><a class="toc-link" href="#失败路径">失败路径</a><a class="toc-link" href="#api-参考">API 参考</a></aside>
+    <aside class="toc"><div class="toc-title">本页目录</div><a class="toc-link" href="#本篇目标">本篇目标</a><a class="toc-link" href="#最小健康基线">最小健康基线</a><a class="toc-link" href="#五步排查流程">五步排查流程</a><a class="toc-link" href="#现象速查">现象速查</a><a class="toc-link" href="#空白-构建失败">空白 / 构建失败</a><a class="toc-link" href="#预览正常-桌面不对">预览正常，桌面不对</a><a class="toc-link" href="#裁切与布局过挤">裁切与布局过挤</a><a class="toc-link" href="#参数与配置">参数与配置</a><a class="toc-link" href="#点击-链接无效">点击 / 链接无效</a><a class="toc-link" href="#动画与时间线">动画与时间线</a><a class="toc-link" href="#外观与资源">外观与资源</a><a class="toc-link" href="#布局诊断-w.validate">布局诊断（w.validate）</a><a class="toc-link" href="#二分定位模板">二分定位模板</a><a class="toc-link" href="#仍解决不了">仍解决不了？</a><a class="toc-link" href="#相关文档">相关文档</a></aside>
   </div>
   <div class="mobile-backdrop"></div>
   <div class="search-panel" role="dialog" aria-modal="true" aria-label="搜索">

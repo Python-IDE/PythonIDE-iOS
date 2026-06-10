@@ -295,6 +295,20 @@ kbd {
   font-size: 12px;
   font-weight: 760;
 }
+.nav-subgroup-title {
+  padding: 6px 8px 2px 14px;
+  color: color-mix(in srgb, var(--muted) 82%, transparent);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+}
+.collection-subgroup-title {
+  margin: 18px 0 8px;
+  color: var(--muted);
+  font-size: 14px;
+  font-weight: 700;
+}
+.collection-subgroup-title:first-child { margin-top: 0; }
 .nav-link {
   display: block;
   color: var(--muted);

@@ -3,8 +3,8 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>资源与外观 - PythonIDE Docs</title>
-  <meta name="description" content="深色、透明、染色、背景图、SVG 和 SF Symbol。">
+  <title>widget 资源与外观 - PythonIDE Docs</title>
+  <meta name="description" content="渐变/双色背景、accentable 染色、图片/SVG/Symbol、透明与隐私占位。">
   <link rel="icon" href="../../assets/brand-mark.svg" type="image/svg+xml">
   <link rel="stylesheet" href="../../assets/docs-v2.css">
   <script>window.PYTHONIDE_DOCS_PREFIX = "../../";</script>
@@ -146,7 +146,7 @@
 <summary><a href="../../collections/scene/">scene</a></summary>
 <div class="nav-group">
 <div class="nav-group-title">快速上手</div>
-<a class="nav-link" href="../../pages/scene-module/">scene 概览</a>
+<a class="nav-link" href="../../pages/scene-module/">scene</a>
 <a class="nav-link" href="../../pages/turtle-module/">turtle</a>
 </div>
 <div class="nav-group">
@@ -160,8 +160,16 @@
 <div class="nav-group">
 <div class="nav-group-title">快速上手</div>
 <a class="nav-link" href="../../pages/ios-native/">iOS 原生能力</a>
-<a class="nav-link" href="../../pages/modules-index/">全部模块总览</a>
-<a class="nav-link" href="../../pages/miniapp-native-capabilities/">原生能力入口</a>
+</div>
+<div class="nav-group">
+<div class="nav-group-title">基础与权限</div>
+<a class="nav-link" href="../../pages/permission-module/">permission</a>
+<a class="nav-link" href="../../pages/storage-module/">storage</a>
+<a class="nav-link" href="../../pages/database-module/">database</a>
+<a class="nav-link" href="../../pages/keychain-module/">keychain</a>
+<a class="nav-link" href="../../pages/clipboard-module/">clipboard</a>
+<a class="nav-link" href="../../pages/console-module/">console</a>
+<a class="nav-link" href="../../pages/dialogs-module/">dialogs</a>
 </div>
 <div class="nav-group">
 <div class="nav-group-title">设备与传感器</div>
@@ -173,35 +181,69 @@
 <a class="nav-link" href="../../pages/health-module/">health</a>
 </div>
 <div class="nav-group">
-<div class="nav-group-title">媒体与视觉</div>
-<a class="nav-link" href="../../pages/photos-module/">photos</a>
-<a class="nav-link" href="../../pages/avplayer-module/">avplayer</a>
-<a class="nav-link" href="../../pages/sound-module/">sound</a>
-<a class="nav-link" href="../../pages/speech-module/">speech</a>
-<a class="nav-link" href="../../pages/vision-helper-module/">vision_helper</a>
-<a class="nav-link" href="../../pages/vision-module/">vision</a>
-<a class="nav-link" href="../../pages/coreml-module/">coreml</a>
-</div>
-<div class="nav-group">
-<div class="nav-group-title">网络与数据</div>
-<a class="nav-link" href="../../pages/network-module/">network</a>
-<a class="nav-link" href="../../pages/websocket-module/">websocket</a>
-<a class="nav-link" href="../../pages/bluetooth-module/">bluetooth</a>
-<a class="nav-link" href="../../pages/background-module/">background</a>
-</div>
-<div class="nav-group">
-<div class="nav-group-title">系统服务</div>
-<a class="nav-link" href="../../pages/permission-module/">permission</a>
-<a class="nav-link" href="../../pages/storage-module/">storage</a>
-<a class="nav-link" href="../../pages/database-module/">database</a>
-<a class="nav-link" href="../../pages/keychain-module/">keychain</a>
-<a class="nav-link" href="../../pages/clipboard-module/">clipboard</a>
-<a class="nav-link" href="../../pages/dialogs-module/">dialogs</a>
-<a class="nav-link" href="../../pages/console-module/">console</a>
+<div class="nav-group-title">界面与系统</div>
+<a class="nav-link" href="../../pages/file-picker-module/">file_picker</a>
+<a class="nav-link" href="../../pages/share-module/">share</a>
+<a class="nav-link" href="../../pages/font-picker-module/">font_picker</a>
 <a class="nav-link" href="../../pages/notification-module/">notification</a>
+<a class="nav-link" href="../../pages/live-activity-module/">live_activity</a>
 <a class="nav-link" href="../../pages/contacts-module/">contacts</a>
 <a class="nav-link" href="../../pages/calendar-events-module/">calendar_events</a>
+</div>
+<div class="nav-group">
+<div class="nav-group-title">媒体</div>
+<div class="nav-subgroup-title">采集</div>
+<a class="nav-link" href="../../pages/photos-module/">photos</a>
+<a class="nav-link" href="../../pages/camera-module/">camera</a>
+<a class="nav-link" href="../../pages/video-recorder-module/">video_recorder</a>
+<a class="nav-link" href="../../pages/audio-recorder-module/">audio_recorder</a>
+<div class="nav-subgroup-title">播放</div>
+<a class="nav-link" href="../../pages/sound-module/">sound</a>
+<a class="nav-link" href="../../pages/avplayer-module/">avplayer</a>
+<a class="nav-link" href="../../pages/music-module/">music</a>
+<a class="nav-link" href="../../pages/now-playing-module/">now_playing</a>
+<a class="nav-link" href="../../pages/audio-session-module/">audio_session</a>
+<div class="nav-subgroup-title">语音</div>
+<a class="nav-link" href="../../pages/speech-module/">speech</a>
+<a class="nav-link" href="../../pages/speech-recognition-module/">speech_recognition</a>
+<a class="nav-link" href="../../pages/shazam-module/">shazam</a>
+<div class="nav-subgroup-title">合成</div>
+<a class="nav-link" href="../../pages/media-composer-module/">media_composer</a>
+</div>
+<div class="nav-group">
+<div class="nav-group-title">视觉与文档</div>
+<a class="nav-link" href="../../pages/vision-module/">vision</a>
+<a class="nav-link" href="../../pages/vision-helper-module/">vision_helper</a>
+<a class="nav-link" href="../../pages/coreml-module/">coreml</a>
+<a class="nav-link" href="../../pages/qrcode-module/">qrcode</a>
+<a class="nav-link" href="../../pages/pdf-module/">pdf</a>
+</div>
+<div class="nav-group">
+<div class="nav-group-title">连接与后台</div>
+<div class="nav-subgroup-title">联网</div>
+<a class="nav-link" href="../../pages/network-module/">network</a>
+<a class="nav-link" href="../../pages/websocket-module/">websocket</a>
+<a class="nav-link" href="../../pages/weather-module/">weather</a>
+<div class="nav-subgroup-title">近场</div>
+<a class="nav-link" href="../../pages/bluetooth-module/">bluetooth</a>
+<a class="nav-link" href="../../pages/ble-peripheral-module/">ble_peripheral</a>
+<div class="nav-subgroup-title">后台</div>
+<a class="nav-link" href="../../pages/background-module/">background</a>
+<a class="nav-link" href="../../pages/background-download-module/">background_download</a>
+<div class="nav-subgroup-title">本地服务</div>
+<a class="nav-link" href="../../pages/http-server-module/">http_server</a>
+<a class="nav-link" href="../../pages/ssh-module/">ssh</a>
+</div>
+<div class="nav-group">
+<div class="nav-group-title">通信与智能</div>
+<a class="nav-link" href="../../pages/mail-module/">mail</a>
+<a class="nav-link" href="../../pages/message-module/">message</a>
+<a class="nav-link" href="../../pages/translation-module/">translation</a>
 <a class="nav-link" href="../../pages/nfc-module/">nfc</a>
+<a class="nav-link" href="../../pages/alarm-module/">alarm</a>
+<a class="nav-link" href="../../pages/storekit-module/">storekit</a>
+<a class="nav-link" href="../../pages/foundation-models-module/">foundation_models</a>
+<a class="nav-link" href="../../pages/assistant-module/">assistant</a>
 </div>
 </details>
 <details class="nav-collection">
@@ -214,10 +256,14 @@
 <div class="nav-group">
 <div class="nav-group-title">模块</div>
 <a class="nav-link" href="../../pages/shortcuts-module/">shortcuts</a>
-<a class="nav-link" href="../../pages/live-activity-module/">live_activity</a>
 <a class="nav-link" href="../../pages/keyboard-module/">keyboard</a>
 <a class="nav-link" href="../../pages/objc-util-module/">objc_util</a>
 <a class="nav-link" href="../../pages/c-extensions-module/">c_extensions</a>
+</div>
+<div class="nav-group">
+<div class="nav-group-title">参考</div>
+<a class="nav-link" href="../../pages/modules-index/">全部模块总览</a>
+<a class="nav-link" href="../../pages/miniapp-native-capabilities/">原生能力入口</a>
 </div>
 </details>
 </nav>
@@ -227,103 +273,310 @@
 <article class="article" style="--page-accent:#7c3aed">
   <header class="article-intro">
     <div class="breadcrumb">widget / 小组件</div>
-    <h1>资源与外观</h1>
-    <p>深色、透明、染色、背景图、SVG 和 SF Symbol。</p>
+    <h1>widget 资源与外观</h1>
+    <p>渐变/双色背景、accentable 染色、图片/SVG/Symbol、透明与隐私占位。</p>
   </header>
   <div class="markdown-body">
-    <p>WidgetKit 负责浅色、深色、透明、染色等系统外观。脚本只声明外观意图；不要用手写遮罩去模拟系统背景策略。</p>
-<h2 id="背景"><a class="heading-anchor" href="#背景">#</a>背景</h2>
-<figure class="code-block" data-code-id="c2993ddb95c1">
+    <p>WidgetKit 负责浅色/深色、透明、系统染色（Tinted）等外观策略。脚本只<strong>声明意图</strong>——颜色、背景、图标、图片路径——不要用手写遮罩去模拟系统行为。</p>
+<blockquote class="callout note"><strong>边界</strong>：本篇讲背景、图标、图片、SVG 与 <code>.accentable()</code> 等外观 API。可调默认配色用 <a href="../../pages/widget-parameters/">widget.param</a>；布局防裁切见 <a href="../../pages/widget-layout/">布局与尺寸</a>。</blockquote>
+<h2 id="本篇目标"><a class="heading-anchor" href="#本篇目标">#</a>本篇目标</h2>
+<div class="table-scroll"><table><thead><tr><th>项</th><th>说明</th></tr></thead><tbody><tr><td>背景</td><td>纯色、<code>(浅色, 深色)</code>、渐变 <code>dict</code>、<code>background_image</code></td></tr><tr><td>系统表面</td><td><code>container_background</code>、<code>transparent_background</code>、<code>content_margins</code></td></tr><tr><td>图标</td><td><code>w.symbol</code>（SF Symbol）、<code>w.svg</code>（矢量文件）</td></tr><tr><td>位图</td><td><code>w.image</code>、<code>widget.param.file</code>、<code>widget.save_image</code></td></tr><tr><td>染色</td><td><code>.accentable(True/False)</code> 控制是否参与系统 Tinted</td></tr><tr><td>隐私</td><td><code>.privacy_sensitive()</code>、<code>.redacted()</code> 锁屏占位</td></tr></tbody></table></div>
+<hr>
+<h2 id="快速开始"><a class="heading-anchor" href="#快速开始">#</a>快速开始</h2>
+<p>渐变根背景 + 浅色文字，无需外部图片即可预览。</p>
+<figure class="code-block" data-code-id="b82cebe9b510">
   <figcaption>
     <span>python</span>
-    <button class="copy-code" type="button" data-copy-code="c2993ddb95c1">复制</button>
+    <button class="copy-code" type="button" data-copy-code="b82cebe9b510">复制</button>
   </figcaption>
-  <pre><code id="code-c2993ddb95c1" class="language-python">import widget
+  <pre><code id="code-b82cebe9b510" class="language-python">import widget
 
-w = widget.Widget(background=(&quot;white&quot;, &quot;#111827&quot;), padding=16)
-w.container_background((&quot;white&quot;, &quot;#111827&quot;), removable=True)
+w = widget.Widget(
+    background={
+        &quot;gradient&quot;: [&quot;#4F46E5&quot;, &quot;#7C3AED&quot;, &quot;#DB2777&quot;],
+        &quot;direction&quot;: &quot;vertical&quot;,
+    },
+    padding=16,
+)
+with w.row(spacing=10):
+    w.symbol(&quot;sparkles&quot;, scale=&quot;medium&quot;).color(&quot;#FFFFFF&quot;)
+    w.text(&quot;今日灵感&quot;, size=16, weight=&quot;semibold&quot;, color=&quot;#FFFFFF&quot;).line_limit(1)
+w.text(&quot;写一段只给自己的话&quot;, size=13, color=&quot;#E0E7FF&quot;).line_limit(2).min_scale(0.72)
+w.render()</code></pre>
+</figure>
+<p>要点：</p>
+<ul><li><code>Widget(background=...)</code> 支持单色、<code>(&quot;#F8FAFC&quot;, &quot;#0F172A&quot;)</code> 双色、或 <code>{&quot;gradient&quot;: [...], &quot;direction&quot;: &quot;vertical&quot;}</code>。</li><li>文字颜色可写十六进制或语义名 <code>&quot;secondary&quot;</code>（随系统外观变化）。</li><li>渐变方向常用 <code>&quot;vertical&quot;</code> / <code>&quot;horizontal&quot;</code>。</li></ul>
+<hr>
+<h2 id="心智模型"><a class="heading-anchor" href="#心智模型">#</a>心智模型</h2>
+<figure class="code-block" data-code-id="1b975ab40943">
+  <figcaption>
+    <span>text</span>
+    <button class="copy-code" type="button" data-copy-code="1b975ab40943">复制</button>
+  </figcaption>
+  <pre><code id="code-1b975ab40943" class="language-text">脚本声明外观意图（颜色 / 背景 / 资源路径 / accentable）
+              ↓
+    PythonIDE 生成 Widget IR + 资源清单
+              ↓
+    WidgetKit 按系统外观（浅色 / 深色 / Tinted / 透明）渲染</code></pre>
+</figure>
+<h3 id="背景-api-怎么选"><a class="heading-anchor" href="#背景-api-怎么选">#</a>背景 API 怎么选</h3>
+<div class="table-scroll"><table><thead><tr><th>API</th><th>作用</th></tr></thead><tbody><tr><td><code>Widget(background=...)</code></td><td>卡片内容区底色（纯色 / 双色 / 渐变）</td></tr><tr><td><code>w.container_background(..., removable=)</code></td><td>系统 Widget <strong>容器</strong>背景（可请求移除）</td></tr><tr><td><code>w.background_image(...)</code></td><td>铺满容器的背景图 + 遮罩</td></tr><tr><td><code>w.transparent_background(True)</code></td><td>请求透明（宿主是否允许由系统决定）</td></tr><tr><td><code>w.content_margins(False)</code></td><td>边到边布局，去掉系统内容边距</td></tr></tbody></table></div>
+<p>普通卡片用 <code>Widget(background=...)</code>；需要<strong>照片墙</strong>时用 <code>background_image</code>；需要<strong>融入主屏壁纸</strong>时组合 <code>transparent_background</code> + <code>container_background(..., removable=True)</code>。</p>
+<h3 id="资源路径约定"><a class="heading-anchor" href="#资源路径约定">#</a>资源路径约定</h3>
+<div class="table-scroll"><table><thead><tr><th>来源</th><th>写法</th></tr></thead><tbody><tr><td>脚本同目录</td><td><code>&quot;cover.jpg&quot;</code></td></tr><tr><td><code>assets/</code> 子目录</td><td><code>&quot;assets/icon.svg&quot;</code></td></tr><tr><td>用户文件参数</td><td><code>widget.param.file(&quot;封面&quot;, &quot;assets/cover.jpg&quot;, extensions=[...])</code></td></tr><tr><td>运行时注册</td><td><code>widget.save_image(url_or_bytes, &quot;avatar&quot;)</code> → <code>w.image(&quot;avatar&quot;)</code></td></tr><tr><td>远程 URL</td><td><code>w.image(&quot;https://example.com/pic.png&quot;)</code>（需网络，注意缓存）</td></tr></tbody></table></div>
+<p>深色模式应为图片提供 <strong>dark 变体</strong>，不要只靠压暗浅色图。</p>
+<hr>
+<h2 id="外观示例"><a class="heading-anchor" href="#外观示例">#</a>外观示例</h2>
+<h3 id="系统染色-accentable"><a class="heading-anchor" href="#系统染色-accentable">#</a>系统染色（<code>accentable</code>）</h3>
+<p>Tinted / 强调色模式下，只有 <code>.accentable(True)</code> 的节点会跟随系统染色；标题等需保持自定义色时显式 <code>.accentable(False)</code>。</p>
+<figure class="code-block" data-code-id="94389c41c433">
+  <figcaption>
+    <span>python</span>
+    <button class="copy-code" type="button" data-copy-code="94389c41c433">复制</button>
+  </figcaption>
+  <pre><code id="code-94389c41c433" class="language-python">import widget
+
+show = widget.param.text(&quot;标题&quot;, &quot;专注电台&quot;)
+subtitle = widget.param.text(&quot;副标题&quot;, &quot;深度工作 · 25 分钟&quot;)
+
+w = widget.Widget(background=(&quot;#F8FAFC&quot;, &quot;#0F172A&quot;), padding=14)
+w.container_background((&quot;#F8FAFC&quot;, &quot;#0F172A&quot;), removable=True)
 w.content_margins(False)
 (
-    w.text(&quot;外观适配&quot;, size=17, weight=&quot;semibold&quot;)
+    w.text(show, size=16, weight=&quot;semibold&quot;)
     .line_limit(1)
     .min_scale(0.72)
     .accentable(False)
 )
-w.symbol(&quot;target&quot;).accentable(True)
-w.render()</code></pre>
-</figure>
-<p>预期效果：文本保持原色，图标参与系统染色；背景可交给 WidgetKit 在支持的场景中移除。</p>
-<p>建议：</p>
-<ul><li>普通背景用 <code>Widget(background=...)</code>。</li><li>系统 Widget 背景用 <code>w.container_background(...)</code>。</li><li>透明模式用 <code>w.transparent_background(True)</code> 或 <code>removable=True</code>。</li><li>染色模式中，参与系统染色的节点用 <code>.accentable(True)</code>；保持原色用 <code>.accentable(False)</code>。</li></ul>
-<h2 id="sf-symbol"><a class="heading-anchor" href="#sf-symbol">#</a>SF Symbol</h2>
-<figure class="code-block" data-code-id="5a39359c9942">
-  <figcaption>
-    <span>python</span>
-    <button class="copy-code" type="button" data-copy-code="5a39359c9942">复制</button>
-  </figcaption>
-  <pre><code id="code-5a39359c9942" class="language-python">import widget
-
-w = widget.Widget(background=&quot;#FFFFFF&quot;, padding=16)
-w.symbol(
-    &quot;sparkles&quot;,
-    rendering=&quot;palette&quot;,
-    palette=[&quot;#F59E0B&quot;, &quot;#2563EB&quot;],
-    scale=&quot;large&quot;,
+(
+    w.text(subtitle, size=12, color=&quot;secondary&quot;)
+    .line_limit(1)
+    .min_scale(0.72)
+    .accentable(False)
 )
-w.text(&quot;调色图标&quot;, size=15, weight=&quot;semibold&quot;).line_limit(1).min_scale(0.72)
+(
+    w.symbol(
+        &quot;waveform.circle.fill&quot;,
+        rendering=&quot;palette&quot;,
+        palette=[&quot;#F59E0B&quot;, &quot;#2563EB&quot;],
+        variant=&quot;fill&quot;,
+        scale=&quot;large&quot;,
+    )
+    .accentable(True)
+)
 w.render()</code></pre>
 </figure>
-<p>预期效果：SF Symbol 使用 palette 渲染，标题在图标下方保持单行。</p>
-<h2 id="svg"><a class="heading-anchor" href="#svg">#</a>SVG</h2>
-<figure class="code-block" data-code-id="ba639c4c6859">
+<ul><li><code>w.container_background(..., removable=True)</code>：允许系统在支持场景移除容器底。</li><li><code>w.symbol(..., rendering=&quot;palette&quot;, palette=[...])</code>：SF Symbol 多色渲染。</li><li>图标参与染色 → <code>.accentable(True)</code>；文案保持设计色 → <code>.accentable(False)</code>。</li></ul>
+<h3 id="分层卡片-layer-背景"><a class="heading-anchor" href="#分层卡片-layer-背景">#</a>分层卡片（<code>layer</code> 背景）</h3>
+<p>用 <code>layer</code> 叠一块圆角面板，不必整张 Widget 都上色。</p>
+<figure class="code-block" data-code-id="c0d22b045e06">
   <figcaption>
     <span>python</span>
-    <button class="copy-code" type="button" data-copy-code="ba639c4c6859">复制</button>
+    <button class="copy-code" type="button" data-copy-code="c0d22b045e06">复制</button>
   </figcaption>
-  <pre><code id="code-ba639c4c6859" class="language-python">import widget
+  <pre><code id="code-c0d22b045e06" class="language-python">import widget
 
-icon = widget.param.file(&quot;图标&quot;, &quot;assets/check.svg&quot;, extensions=[&quot;svg&quot;])
+accent = widget.param.color(&quot;面板强调&quot;, &quot;#10B981&quot;)
+task = widget.param.text(&quot;待办&quot;, &quot;整理发票拍照&quot;)
 
-w = widget.Widget(background=&quot;#FFFFFF&quot;, padding=16)
-w.svg(icon, width=28, height=28, color=&quot;#22C55E&quot;)
-w.text(&quot;SVG 图标&quot;, size=15, weight=&quot;semibold&quot;).line_limit(1).min_scale(0.72)
+w = widget.Widget(background=(&quot;#F1F5F9&quot;, &quot;#020617&quot;), padding=14)
+w.text(&quot;桌面便签&quot;, size=14, color=&quot;secondary&quot;).line_limit(1)
+with w.layer(background=(&quot;#FFFFFF&quot;, &quot;#1E293B&quot;), corner_radius=12, padding=12):
+    with w.row(spacing=8):
+        w.symbol(&quot;checkmark.circle&quot;).color(accent).font_size(18)
+        w.text(task, size=15, weight=&quot;semibold&quot;).line_limit(1).min_scale(0.72)
+    w.text(&quot;下班前完成&quot;, size=12, color=&quot;secondary&quot;).line_limit(1)
 w.render()</code></pre>
 </figure>
-<p>预期效果：SVG 图标按指定尺寸和颜色显示，标题在不同尺寸下保持可读。</p>
-<p>SVG 可以放在脚本同目录的 <code>assets/</code> 文件夹里，也可以用文件参数让用户选择。</p>
-<h2 id="图片背景"><a class="heading-anchor" href="#图片背景">#</a>图片背景</h2>
-<figure class="code-block" data-code-id="0f68e25c0213">
+<h3 id="图片背景-background_image-文件参数"><a class="heading-anchor" href="#图片背景-background_image-文件参数">#</a>图片背景（<code>background_image</code> + 文件参数）</h3>
+<p>浅色/深色各选一张图；<code>scrim=&quot;bottom&quot;</code> 在底部加渐变遮罩，保证白字可读。</p>
+<figure class="code-block" data-code-id="a296021bdb84">
   <figcaption>
     <span>python</span>
-    <button class="copy-code" type="button" data-copy-code="0f68e25c0213">复制</button>
+    <button class="copy-code" type="button" data-copy-code="a296021bdb84">复制</button>
   </figcaption>
-  <pre><code id="code-0f68e25c0213" class="language-python">import widget
+  <pre><code id="code-a296021bdb84" class="language-python">import widget
 
-light = widget.param.file(&quot;浅色背景&quot;, &quot;day.jpg&quot;, extensions=[&quot;jpg&quot;, &quot;png&quot;])
-dark = widget.param.file(&quot;深色背景&quot;, &quot;night.jpg&quot;, extensions=[&quot;jpg&quot;, &quot;png&quot;])
+light_bg = widget.param.file(&quot;浅色背景&quot;, &quot;&quot;, extensions=[&quot;jpg&quot;, &quot;jpeg&quot;, &quot;png&quot;])
+dark_bg = widget.param.file(&quot;深色背景&quot;, &quot;&quot;, extensions=[&quot;jpg&quot;, &quot;jpeg&quot;, &quot;png&quot;])
+title = widget.param.text(&quot;标题&quot;, &quot;周末登山&quot;)
 
-w = widget.Widget(padding=16)
+w = widget.Widget(padding=14)
 w.background_image(
-    (light, dark),
+    (light_bg, dark_bg),
+    content_mode=&quot;fill&quot;,
+    focal=&quot;center&quot;,
+    scrim=&quot;bottom&quot;,
+    scrim_opacity=0.48,
+)
+w.text(title, size=18, weight=&quot;bold&quot;, color=&quot;#FFFFFF&quot;).line_limit(1).min_scale(0.72)
+w.text(&quot;海拔 1280m&quot;, size=12, color=&quot;#E2E8F0&quot;).line_limit(1)
+w.render()</code></pre>
+</figure>
+<ul><li>预览侧栏用文件参数选图；路径相对于 widget 脚本或项目 <code>assets/</code>。</li><li><code>focal=&quot;topTrailing&quot;</code> 等控制 <code>fill</code> 裁剪焦点；<code>content_mode=&quot;fit&quot;</code> 可整张展示不裁剪。</li></ul>
+<h3 id="头像位图-w.image"><a class="heading-anchor" href="#头像位图-w.image">#</a>头像位图（<code>w.image</code>）</h3>
+<p>角标/封面用 <code>w.image</code>；支持圆角与浅色/深色双资源。</p>
+<figure class="code-block" data-code-id="c111059b3122">
+  <figcaption>
+    <span>python</span>
+    <button class="copy-code" type="button" data-copy-code="c111059b3122">复制</button>
+  </figcaption>
+  <pre><code id="code-c111059b3122" class="language-python">import widget
+
+avatar = widget.param.file(&quot;头像&quot;, &quot;&quot;, extensions=[&quot;png&quot;, &quot;jpg&quot;, &quot;jpeg&quot;])
+frame = widget.family_value(44, small=36, large=52)
+
+w = widget.Widget(background=(&quot;#FFFFFF&quot;, &quot;#111827&quot;), padding=14)
+with w.row(spacing=12):
+    w.image(avatar, width=frame, height=frame, corner_radius=frame / 2, content_mode=&quot;fill&quot;)
+    with w.column(spacing=4):
+        w.text(&quot;Py 开发者&quot;, size=15, weight=&quot;semibold&quot;).line_limit(1)
+        w.text(&quot;本周 commit +12&quot;, size=12, color=&quot;secondary&quot;).line_limit(1)
+w.render()</code></pre>
+</figure>
+<p>若有两张图，可写 <code>w.image(light=&quot;avatar-light.png&quot;, dark=&quot;avatar-dark.png&quot;, ...)</code> 或元组 <code>w.image((&quot;light.png&quot;, &quot;dark.png&quot;), ...)</code>。</p>
+<h3 id="svg-图标-w.svg"><a class="heading-anchor" href="#svg-图标-w.svg">#</a>SVG 图标（<code>w.svg</code>）</h3>
+<p>适合单色可着色的矢量角标；文件放 <code>assets/</code> 或通过 <code>param.file</code> 选择。</p>
+<figure class="code-block" data-code-id="776b59a22d3f">
+  <figcaption>
+    <span>python</span>
+    <button class="copy-code" type="button" data-copy-code="776b59a22d3f">复制</button>
+  </figcaption>
+  <pre><code id="code-776b59a22d3f" class="language-python">import widget
+
+icon = widget.param.file(&quot;图标&quot;, &quot;&quot;, extensions=[&quot;svg&quot;])
+accent = widget.param.color(&quot;图标色&quot;, &quot;#22C55E&quot;)
+size = widget.family_value(28, small=24, large=32)
+
+w = widget.Widget(background=(&quot;#FAFAFA&quot;, &quot;#1C1C1E&quot;), padding=14)
+with w.row(spacing=10):
+    w.svg(icon, width=size, height=size, color=accent, content_mode=&quot;fit&quot;)
+    with w.column(spacing=2):
+        w.text(&quot;自定义 SVG&quot;, size=15, weight=&quot;semibold&quot;).line_limit(1)
+        w.text(&quot;path + viewBox 图标&quot;, size=12, color=&quot;secondary&quot;).line_limit(1)
+w.render()</code></pre>
+</figure>
+<p>预览侧栏选本地 <code>.svg</code> 文件；简单场景优先 <code>w.symbol(...)</code>，免维护文件。</p>
+<h3 id="隐私占位-锁屏敏感信息"><a class="heading-anchor" href="#隐私占位-锁屏敏感信息">#</a>隐私占位（锁屏敏感信息）</h3>
+<p>步数等敏感数字在锁屏可模糊；与 <a href="../../pages/widget-timeline/">时间线和动画</a> 的 <code>numericText</code> 可叠加。</p>
+<figure class="code-block" data-code-id="154040f1c1bf">
+  <figcaption>
+    <span>python</span>
+    <button class="copy-code" type="button" data-copy-code="154040f1c1bf">复制</button>
+  </figcaption>
+  <pre><code id="code-154040f1c1bf" class="language-python">import widget
+
+steps = widget.state.int(&quot;steps&quot;, 8420)
+
+w = widget.Widget(background=(&quot;#F0FDF4&quot;, &quot;#14532D&quot;), padding=14)
+(
+    w.text(&quot;今日步数&quot;, size=14, color=&quot;secondary&quot;)
+    .line_limit(1)
+    .privacy_sensitive()
+)
+(
+    w.value(steps, unit=&quot;步&quot;)
+    .monospaced_digit()
+    .line_limit(1)
+    .min_scale(0.72)
+    .privacy_sensitive()
+    .redacted(&quot;placeholder&quot;)
+)
+w.text(&quot;锁屏显示占位，解锁后见完整数字&quot;, size=11, color=&quot;secondary&quot;).line_limit(1)
+w.render()</code></pre>
+</figure>
+<ul><li><code>.privacy_sensitive()</code>：标记敏感内容。</li><li><code>.redacted(&quot;placeholder&quot;)</code>：锁屏显示系统占位样式。</li></ul>
+<hr>
+<h2 id="透明背景"><a class="heading-anchor" href="#透明背景">#</a>透明背景</h2>
+<p>请求透明需<strong>同时</strong>声明容器可移除与透明开关；桌面是否真透明取决于宿主与系统。</p>
+<figure class="code-block" data-code-id="ea9438bb571c">
+  <figcaption>
+    <span>python</span>
+    <button class="copy-code" type="button" data-copy-code="ea9438bb571c">复制</button>
+  </figcaption>
+  <pre><code id="code-ea9438bb571c" class="language-python">w = widget.Widget(padding=12)
+w.transparent_background(True)
+w.container_background(&quot;clear&quot;, removable=True)
+w.content_margins(False)
+w.text(&quot;透明卡片&quot;, size=15, weight=&quot;semibold&quot;).accentable(True)
+w.render()</code></pre>
+</figure>
+<p>不要在透明卡片上再叠不透明全屏 <code>Widget(background=...)</code>，否则透明意图会被盖住。</p>
+<hr>
+<h2 id="api-参考"><a class="heading-anchor" href="#api-参考">#</a>API 参考</h2>
+<h3 id="背景与容器"><a class="heading-anchor" href="#背景与容器">#</a>背景与容器</h3>
+<figure class="code-block" data-code-id="990f636d97c1">
+  <figcaption>
+    <span>python</span>
+    <button class="copy-code" type="button" data-copy-code="990f636d97c1">复制</button>
+  </figcaption>
+  <pre><code id="code-990f636d97c1" class="language-python"># 纯色 / 双色 / 渐变
+w = widget.Widget(background=&quot;#FFFFFF&quot;)
+w = widget.Widget(background=(&quot;#F8FAFC&quot;, &quot;#0F172A&quot;))
+w = widget.Widget(background={&quot;gradient&quot;: [&quot;#3B82F6&quot;, &quot;#8B5CF6&quot;], &quot;direction&quot;: &quot;horizontal&quot;})
+
+w.background((&quot;#FAFAFA&quot;, &quot;#18181B&quot;))          # 运行时改根背景
+w.container_background(bg, removable=True)   # 系统容器底
+w.transparent_background(True)               # 请求透明
+w.content_margins(False)                       # 边到边
+
+w.background_image(
+    (&quot;day.jpg&quot;, &quot;night.jpg&quot;),
     content_mode=&quot;fill&quot;,
     scrim=&quot;bottom&quot;,
     scrim_opacity=0.45,
-)
-w.text(&quot;图片背景&quot;, size=18, weight=&quot;bold&quot;, color=&quot;#FFFFFF&quot;).line_limit(1).min_scale(0.72)
-w.render()</code></pre>
+    focal=&quot;center&quot;,
+)</code></pre>
 </figure>
-<p>预期效果：浅色和深色模式使用不同背景图，底部遮罩保证白色标题可读。</p>
-<p>深色图片应该单独提供，不要只把浅色图加黑色遮罩。</p>
+<h3 id="图标与图片"><a class="heading-anchor" href="#图标与图片">#</a>图标与图片</h3>
+<figure class="code-block" data-code-id="f421102f3ac8">
+  <figcaption>
+    <span>python</span>
+    <button class="copy-code" type="button" data-copy-code="f421102f3ac8">复制</button>
+  </figcaption>
+  <pre><code id="code-f421102f3ac8" class="language-python">w.symbol(&quot;star.fill&quot;, scale=&quot;large&quot;).color(&quot;#F59E0B&quot;)
+w.symbol(&quot;paintpalette.fill&quot;, rendering=&quot;palette&quot;, palette=[&quot;#EF4444&quot;, &quot;#3B82F6&quot;])
+
+w.svg(&quot;assets/logo.svg&quot;, width=24, height=24, color=&quot;#111827&quot;)
+w.image(&quot;cover.jpg&quot;, width=60, height=60, corner_radius=8)
+w.image(light=&quot;avatar-light.png&quot;, dark=&quot;avatar-dark.png&quot;, rendering_mode=&quot;accented&quot;)</code></pre>
+</figure>
+<h3 id="外观修饰符"><a class="heading-anchor" href="#外观修饰符">#</a>外观修饰符</h3>
+<figure class="code-block" data-code-id="dd7145ea034d">
+  <figcaption>
+    <span>python</span>
+    <button class="copy-code" type="button" data-copy-code="dd7145ea034d">复制</button>
+  </figcaption>
+  <pre><code id="code-dd7145ea034d" class="language-python">w.text(&quot;标题&quot;).accentable(False)
+w.symbol(&quot;bell.fill&quot;).accentable(True)
+w.text(&quot;余额&quot;).privacy_sensitive().redacted(&quot;placeholder&quot;)</code></pre>
+</figure>
+<h3 id="运行时保存图片"><a class="heading-anchor" href="#运行时保存图片">#</a>运行时保存图片</h3>
+<figure class="code-block" data-code-id="04e457ebfe3e">
+  <figcaption>
+    <span>python</span>
+    <button class="copy-code" type="button" data-copy-code="04e457ebfe3e">复制</button>
+  </figcaption>
+  <pre><code id="code-04e457ebfe3e" class="language-python"># 脚本中下载或生成后注册，供 w.image / background_image 按名称引用
+path = widget.save_image(&quot;https://example.com/pic.png&quot;, &quot;cover&quot;)
+w.image(&quot;cover&quot;, width=80, height=80)</code></pre>
+</figure>
+<p>完整签名见 <a href="../../pages/widget-api-reference/">API 参考</a>：<code>container_background</code>、<code>background_image</code>、<code>transparent_background</code>、<code>symbol</code>、<code>svg</code>、<code>image</code>、<code>.accentable</code>、<code>.privacy_sensitive</code>、<code>.redacted</code>。</p>
+<hr>
+<h2 id="常见错误"><a class="heading-anchor" href="#常见错误">#</a>常见错误</h2>
+<div class="table-scroll"><table><thead><tr><th>错误写法</th><th>后果</th><th>修正</th></tr></thead><tbody><tr><td>染色模式下标题变色</td><td>未关闭 accentable</td><td>设计色文案 <code>.accentable(False)</code></td></tr><tr><td>图标不跟系统色</td><td>写了 <code>.accentable(False)</code></td><td>应用染色的图标 <code>.accentable(True)</code></td></tr><tr><td>深色模式图片发灰</td><td>只有浅色图</td><td><code>background_image((light, dark))</code> 或 <code>image(light=, dark=)</code></td></tr><tr><td>透明不生效</td><td>只设了 Widget 底色</td><td><code>transparent_background</code> + <code>container_background(removable=True)</code></td></tr><tr><td>SVG 空白</td><td>路径错或预览无文件</td><td>放 <code>assets/</code> 或用 <code>param.file</code> 重选</td></tr><tr><td>背景图字看不清</td><td>无遮罩</td><td><code>scrim=&quot;bottom&quot;</code> + <code>scrim_opacity</code></td></tr><tr><td>用手写 rect 模拟系统底</td><td>与 WidgetKit 策略冲突</td><td>用 <code>container_background</code> / <code>transparent_background</code></td></tr><tr><td><code>w.symbol(..., color=, size=)</code></td><td><code>TypeError</code></td><td><code>w.symbol(&quot;name&quot;).color(c).font_size(n)</code></td></tr></tbody></table></div>
+<hr>
 <h2 id="失败路径"><a class="heading-anchor" href="#失败路径">#</a>失败路径</h2>
-<ul><li>染色模式下颜色不对：系统只会处理 <code>.accentable(True)</code> 的节点；必须保留原色的节点显式写 <code>.accentable(False)</code>。</li><li>透明背景不生效：同时检查 <code>w.container_background(..., removable=True)</code> 和 <code>w.transparent_background(True)</code>，桌面宿主是否允许透明由系统决定。</li><li>图片在深色模式发灰：为 <code>background_image((light, dark), ...)</code> 分别提供浅色和深色图，不要只靠遮罩模拟。</li><li>SVG 不显示：确认文件路径在脚本目录或 <code>assets/</code> 目录，或者改用 <code>widget.param.file(...)</code> 让用户选择。</li></ul>
-<h2 id="api-参考"><a class="heading-anchor" href="#api-参考">#</a>API 参考</h2>
-<p>外观和资源完整签名见 <a href="../../pages/widget-api-reference/">API 参考</a>：重点查 <code>container_background</code>、<code>content_margins</code>、<code>transparent_background</code>、<code>background_image</code>、<code>w.image</code>、<code>w.svg</code>、<code>w.symbol</code>、<code>.accentable()</code>、<code>.privacy_sensitive()</code> 和 <code>.redacted()</code>。</p>
+<div class="table-scroll"><table><thead><tr><th>现象</th><th>处理</th></tr></thead><tbody><tr><td>预览浅色正常、深色异常</td><td>检查 <code>(light, dark)</code> 是否成对提供</td></tr><tr><td>Tinted 模式颜色全乱</td><td>梳理每个节点的 <code>accentable</code> 默认值与显式设置</td></tr><tr><td>图片不显示</td><td>路径、<code>extensions</code>、是否已 <code>save_image</code> 注册</td></tr><tr><td>SVG 构建报错</td><td>确认是图标级 SVG（viewBox + path）；复杂 SVG 可能需简化</td></tr><tr><td>锁屏数字太清晰</td><td>加 <code>.privacy_sensitive()</code> + <code>.redacted(&quot;placeholder&quot;)</code></td></tr><tr><td>透明在桌面无效</td><td>系统/宿主限制；回退半透明双色背景</td></tr><tr><td>预览与桌面不一致</td><td>重新发布；查 <a href="../../pages/widget-troubleshooting/">排错</a></td></tr></tbody></table></div>
+<hr>
+<h2 id="相关文档"><a class="heading-anchor" href="#相关文档">#</a>相关文档</h2>
+<div class="table-scroll"><table><thead><tr><th>文档</th><th>用途</th></tr></thead><tbody><tr><td><a href="../../pages/widget-module/">widget 概览</a></td><td>总览</td></tr><tr><td><a href="../../pages/widget-parameters/">参数面板</a></td><td><code>param.color</code> / <code>param.file</code></td></tr><tr><td><a href="../../pages/widget-layout/">布局与尺寸</a></td><td>图标尺寸、<code>family_value</code></td></tr><tr><td><a href="../../pages/widget-timeline/">时间线和动画</a></td><td><code>numericText</code> 与隐私数字叠加</td></tr><tr><td><a href="../../pages/widget-troubleshooting/">排错</a></td><td>预览/桌面外观不一致</td></tr><tr><td><a href="../../pages/widget-api-reference/">API 参考</a></td><td>完整签名</td></tr></tbody></table></div>
   </div>
-  <section class="related-section"><h2>相关文档</h2><div class="related-list"><a class="related-link" href="../widget-module/"><strong>widget</strong><span>用 Python 编写主屏、锁屏和 StandBy 小组件。</span></a><a class="related-link" href="../widget-parameters/"><strong>widget 参数面板</strong><span>让用户在预览面板调颜色、字号、开关、选项和文件。</span></a><a class="related-link" href="../widget-troubleshooting/"><strong>widget 排错</strong><span>空白、溢出、桌面缓存、点击和动画问题。</span></a></div></section>
+  <section class="related-section"><h2>相关文档</h2><div class="related-list"><a class="related-link" href="../widget-module/"><strong>widget</strong><span>Python 编写 WidgetKit 小组件：参数、状态、布局与发布到桌面。</span></a><a class="related-link" href="../widget-parameters/"><strong>widget 参数面板</strong><span>widget.param 声明预览可调配置，与 widget.state 桌面交互区分。</span></a><a class="related-link" href="../widget-layout/"><strong>widget 布局与尺寸</strong><span>row/column/grid/table/canvas、family 预算、when/unless 与锁屏 accessory。</span></a><a class="related-link" href="../widget-timeline/"><strong>widget 时间线和动画</strong><span>timeline/entry、state 数字动画、flip 翻页与 countdown 倒计时。</span></a><a class="related-link" href="../widget-troubleshooting/"><strong>widget 排错</strong><span>基线排查、预览≠桌面、裁切/点击/动画、w.validate 诊断。</span></a><a class="related-link" href="../widget-api-reference/"><strong>widget API 参考</strong><span>公开 Widget() API 速查。</span></a></div></section>
 </article>
 
     </main>
-    <aside class="toc"><div class="toc-title">本页目录</div><a class="toc-link" href="#背景">背景</a><a class="toc-link" href="#sf-symbol">SF Symbol</a><a class="toc-link" href="#svg">SVG</a><a class="toc-link" href="#图片背景">图片背景</a><a class="toc-link" href="#失败路径">失败路径</a><a class="toc-link" href="#api-参考">API 参考</a></aside>
+    <aside class="toc"><div class="toc-title">本页目录</div><a class="toc-link" href="#本篇目标">本篇目标</a><a class="toc-link" href="#快速开始">快速开始</a><a class="toc-link" href="#心智模型">心智模型</a><a class="toc-link child" href="#背景-api-怎么选">背景 API 怎么选</a><a class="toc-link child" href="#资源路径约定">资源路径约定</a><a class="toc-link" href="#外观示例">外观示例</a><a class="toc-link child" href="#系统染色-accentable">系统染色（accentable）</a><a class="toc-link child" href="#分层卡片-layer-背景">分层卡片（layer 背景）</a><a class="toc-link child" href="#图片背景-background_image-文件参数">图片背景（background_image + 文件参数）</a><a class="toc-link child" href="#头像位图-w.image">头像位图（w.image）</a><a class="toc-link child" href="#svg-图标-w.svg">SVG 图标（w.svg）</a><a class="toc-link child" href="#隐私占位-锁屏敏感信息">隐私占位（锁屏敏感信息）</a><a class="toc-link" href="#透明背景">透明背景</a><a class="toc-link" href="#api-参考">API 参考</a><a class="toc-link child" href="#背景与容器">背景与容器</a><a class="toc-link child" href="#图标与图片">图标与图片</a><a class="toc-link child" href="#外观修饰符">外观修饰符</a><a class="toc-link child" href="#运行时保存图片">运行时保存图片</a><a class="toc-link" href="#常见错误">常见错误</a><a class="toc-link" href="#失败路径">失败路径</a><a class="toc-link" href="#相关文档">相关文档</a></aside>
   </div>
   <div class="mobile-backdrop"></div>
   <div class="search-panel" role="dialog" aria-modal="true" aria-label="搜索">

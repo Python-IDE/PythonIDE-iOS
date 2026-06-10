@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>iOS 原生模块 - PythonIDE Docs</title>
-  <meta name="description" content="权限、存储、设备、传感器、媒体、网络和系统服务模块。">
+  <meta name="description" content="权限、存储、设备、媒体、连接、通信与端侧智能。">
   <link rel="icon" href="../../assets/brand-mark.svg" type="image/svg+xml">
   <link rel="stylesheet" href="../../assets/docs-v2.css">
   <script>window.PYTHONIDE_DOCS_PREFIX = "../../";</script>
@@ -146,7 +146,7 @@
 <summary><a href="../../collections/scene/">scene</a></summary>
 <div class="nav-group">
 <div class="nav-group-title">快速上手</div>
-<a class="nav-link" href="../../pages/scene-module/">scene 概览</a>
+<a class="nav-link" href="../../pages/scene-module/">scene</a>
 <a class="nav-link" href="../../pages/turtle-module/">turtle</a>
 </div>
 <div class="nav-group">
@@ -160,8 +160,16 @@
 <div class="nav-group">
 <div class="nav-group-title">快速上手</div>
 <a class="nav-link active" href="../../pages/ios-native/">iOS 原生能力</a>
-<a class="nav-link" href="../../pages/modules-index/">全部模块总览</a>
-<a class="nav-link" href="../../pages/miniapp-native-capabilities/">原生能力入口</a>
+</div>
+<div class="nav-group">
+<div class="nav-group-title">基础与权限</div>
+<a class="nav-link" href="../../pages/permission-module/">permission</a>
+<a class="nav-link" href="../../pages/storage-module/">storage</a>
+<a class="nav-link" href="../../pages/database-module/">database</a>
+<a class="nav-link" href="../../pages/keychain-module/">keychain</a>
+<a class="nav-link" href="../../pages/clipboard-module/">clipboard</a>
+<a class="nav-link" href="../../pages/console-module/">console</a>
+<a class="nav-link" href="../../pages/dialogs-module/">dialogs</a>
 </div>
 <div class="nav-group">
 <div class="nav-group-title">设备与传感器</div>
@@ -173,35 +181,69 @@
 <a class="nav-link" href="../../pages/health-module/">health</a>
 </div>
 <div class="nav-group">
-<div class="nav-group-title">媒体与视觉</div>
-<a class="nav-link" href="../../pages/photos-module/">photos</a>
-<a class="nav-link" href="../../pages/avplayer-module/">avplayer</a>
-<a class="nav-link" href="../../pages/sound-module/">sound</a>
-<a class="nav-link" href="../../pages/speech-module/">speech</a>
-<a class="nav-link" href="../../pages/vision-helper-module/">vision_helper</a>
-<a class="nav-link" href="../../pages/vision-module/">vision</a>
-<a class="nav-link" href="../../pages/coreml-module/">coreml</a>
-</div>
-<div class="nav-group">
-<div class="nav-group-title">网络与数据</div>
-<a class="nav-link" href="../../pages/network-module/">network</a>
-<a class="nav-link" href="../../pages/websocket-module/">websocket</a>
-<a class="nav-link" href="../../pages/bluetooth-module/">bluetooth</a>
-<a class="nav-link" href="../../pages/background-module/">background</a>
-</div>
-<div class="nav-group">
-<div class="nav-group-title">系统服务</div>
-<a class="nav-link" href="../../pages/permission-module/">permission</a>
-<a class="nav-link" href="../../pages/storage-module/">storage</a>
-<a class="nav-link" href="../../pages/database-module/">database</a>
-<a class="nav-link" href="../../pages/keychain-module/">keychain</a>
-<a class="nav-link" href="../../pages/clipboard-module/">clipboard</a>
-<a class="nav-link" href="../../pages/dialogs-module/">dialogs</a>
-<a class="nav-link" href="../../pages/console-module/">console</a>
+<div class="nav-group-title">界面与系统</div>
+<a class="nav-link" href="../../pages/file-picker-module/">file_picker</a>
+<a class="nav-link" href="../../pages/share-module/">share</a>
+<a class="nav-link" href="../../pages/font-picker-module/">font_picker</a>
 <a class="nav-link" href="../../pages/notification-module/">notification</a>
+<a class="nav-link" href="../../pages/live-activity-module/">live_activity</a>
 <a class="nav-link" href="../../pages/contacts-module/">contacts</a>
 <a class="nav-link" href="../../pages/calendar-events-module/">calendar_events</a>
+</div>
+<div class="nav-group">
+<div class="nav-group-title">媒体</div>
+<div class="nav-subgroup-title">采集</div>
+<a class="nav-link" href="../../pages/photos-module/">photos</a>
+<a class="nav-link" href="../../pages/camera-module/">camera</a>
+<a class="nav-link" href="../../pages/video-recorder-module/">video_recorder</a>
+<a class="nav-link" href="../../pages/audio-recorder-module/">audio_recorder</a>
+<div class="nav-subgroup-title">播放</div>
+<a class="nav-link" href="../../pages/sound-module/">sound</a>
+<a class="nav-link" href="../../pages/avplayer-module/">avplayer</a>
+<a class="nav-link" href="../../pages/music-module/">music</a>
+<a class="nav-link" href="../../pages/now-playing-module/">now_playing</a>
+<a class="nav-link" href="../../pages/audio-session-module/">audio_session</a>
+<div class="nav-subgroup-title">语音</div>
+<a class="nav-link" href="../../pages/speech-module/">speech</a>
+<a class="nav-link" href="../../pages/speech-recognition-module/">speech_recognition</a>
+<a class="nav-link" href="../../pages/shazam-module/">shazam</a>
+<div class="nav-subgroup-title">合成</div>
+<a class="nav-link" href="../../pages/media-composer-module/">media_composer</a>
+</div>
+<div class="nav-group">
+<div class="nav-group-title">视觉与文档</div>
+<a class="nav-link" href="../../pages/vision-module/">vision</a>
+<a class="nav-link" href="../../pages/vision-helper-module/">vision_helper</a>
+<a class="nav-link" href="../../pages/coreml-module/">coreml</a>
+<a class="nav-link" href="../../pages/qrcode-module/">qrcode</a>
+<a class="nav-link" href="../../pages/pdf-module/">pdf</a>
+</div>
+<div class="nav-group">
+<div class="nav-group-title">连接与后台</div>
+<div class="nav-subgroup-title">联网</div>
+<a class="nav-link" href="../../pages/network-module/">network</a>
+<a class="nav-link" href="../../pages/websocket-module/">websocket</a>
+<a class="nav-link" href="../../pages/weather-module/">weather</a>
+<div class="nav-subgroup-title">近场</div>
+<a class="nav-link" href="../../pages/bluetooth-module/">bluetooth</a>
+<a class="nav-link" href="../../pages/ble-peripheral-module/">ble_peripheral</a>
+<div class="nav-subgroup-title">后台</div>
+<a class="nav-link" href="../../pages/background-module/">background</a>
+<a class="nav-link" href="../../pages/background-download-module/">background_download</a>
+<div class="nav-subgroup-title">本地服务</div>
+<a class="nav-link" href="../../pages/http-server-module/">http_server</a>
+<a class="nav-link" href="../../pages/ssh-module/">ssh</a>
+</div>
+<div class="nav-group">
+<div class="nav-group-title">通信与智能</div>
+<a class="nav-link" href="../../pages/mail-module/">mail</a>
+<a class="nav-link" href="../../pages/message-module/">message</a>
+<a class="nav-link" href="../../pages/translation-module/">translation</a>
 <a class="nav-link" href="../../pages/nfc-module/">nfc</a>
+<a class="nav-link" href="../../pages/alarm-module/">alarm</a>
+<a class="nav-link" href="../../pages/storekit-module/">storekit</a>
+<a class="nav-link" href="../../pages/foundation-models-module/">foundation_models</a>
+<a class="nav-link" href="../../pages/assistant-module/">assistant</a>
 </div>
 </details>
 <details class="nav-collection">
@@ -214,10 +256,14 @@
 <div class="nav-group">
 <div class="nav-group-title">模块</div>
 <a class="nav-link" href="../../pages/shortcuts-module/">shortcuts</a>
-<a class="nav-link" href="../../pages/live-activity-module/">live_activity</a>
 <a class="nav-link" href="../../pages/keyboard-module/">keyboard</a>
 <a class="nav-link" href="../../pages/objc-util-module/">objc_util</a>
 <a class="nav-link" href="../../pages/c-extensions-module/">c_extensions</a>
+</div>
+<div class="nav-group">
+<div class="nav-group-title">参考</div>
+<a class="nav-link" href="../../pages/modules-index/">全部模块总览</a>
+<a class="nav-link" href="../../pages/miniapp-native-capabilities/">原生能力入口</a>
 </div>
 </details>
 </nav>
@@ -228,13 +274,13 @@
   <header class="article-intro">
     <div class="breadcrumb">PythonIDE Docs</div>
     <h1>iOS 原生模块</h1>
-    <p>权限、存储、设备、传感器、媒体、网络和系统服务模块。</p>
+    <p>权限、存储、设备、媒体、连接、通信与端侧智能。</p>
   </header>
-  <section id="快速上手" class="collection-group"><h2>快速上手</h2><p>先了解原生模块的范围、权限和总览。</p><div class="doc-link-list"><a class="doc-link" href="../../pages/ios-native/"><strong>iOS 原生能力</strong><span>相册、联系人、权限、相机、控制台和安全存储。</span></a><a class="doc-link" href="../../pages/modules-index/"><strong>全部模块总览</strong><span>按分类查看全部 30+ 内置 Python 模块。</span></a><a class="doc-link" href="../../pages/miniapp-native-capabilities/"><strong>原生能力入口</strong><span>MiniApp 常用原生能力入口，不是完整模块总表。</span></a></div></section><section id="设备与传感器" class="collection-group"><h2>设备与传感器</h2><p>设备信息、定位、运动、触觉、生物认证和健康数据。</p><div class="doc-link-list"><a class="doc-link" href="../../pages/device-module/"><strong>device</strong><span>设备、屏幕、电池和系统状态。</span></a><a class="doc-link" href="../../pages/location-module/"><strong>location</strong><span>定位、指南针和地理编码。</span></a><a class="doc-link" href="../../pages/motion-module/"><strong>motion</strong><span>设备运动、陀螺仪、磁力计和气压计。</span></a><a class="doc-link" href="../../pages/haptics-module/"><strong>haptics</strong><span>触觉反馈和 Core Haptics 模式。</span></a><a class="doc-link" href="../../pages/biometric-module/"><strong>biometric</strong><span>Face ID / Touch ID 验证。</span></a><a class="doc-link" href="../../pages/health-module/"><strong>health</strong><span>HealthKit 授权、查询和体重写入。</span></a></div></section><section id="媒体与视觉" class="collection-group"><h2>媒体与视觉</h2><p>照片、音视频、语音、OCR 和 Vision 运行时。</p><div class="doc-link-list"><a class="doc-link" href="../../pages/photos-module/"><strong>photos</strong><span>相册选择、拍照、保存和资源查询。</span></a><a class="doc-link" href="../../pages/avplayer-module/"><strong>avplayer</strong><span>音视频加载、播放控制和原生播放器。</span></a><a class="doc-link" href="../../pages/sound-module/"><strong>sound</strong><span>音效播放、长音频播放器和静音开关行为。</span></a><a class="doc-link" href="../../pages/speech-module/"><strong>speech</strong><span>文字转语音和语音列表。</span></a><a class="doc-link" href="../../pages/vision-helper-module/"><strong>vision_helper</strong><span>人脸、条码、矩形与图像分类。</span></a><a class="doc-link" href="../../pages/vision-module/"><strong>vision</strong><span>使用 Vision 从图片字节中识别文字。</span></a><a class="doc-link" href="../../pages/coreml-module/"><strong>coreml</strong><span>Core ML 模型加载、图片推理和模型信息读取。</span></a></div></section><section id="网络与数据" class="collection-group"><h2>网络与数据</h2><p>HTTP、WebSocket、BLE 和后台任务。</p><div class="doc-link-list"><a class="doc-link" href="../../pages/network-module/"><strong>network</strong><span>原生 HTTP 请求、连接状态和下载。</span></a><a class="doc-link" href="../../pages/websocket-module/"><strong>websocket</strong><span>原生 WebSocket 连接、收发和回调。</span></a><a class="doc-link" href="../../pages/bluetooth-module/"><strong>bluetooth</strong><span>BLE 扫描、连接、服务发现和特征读写。</span></a><a class="doc-link" href="../../pages/background-module/"><strong>background</strong><span>后台任务、保活与 BGTask 调度。</span></a></div></section><section id="系统服务" class="collection-group"><h2>系统服务</h2><p>权限、持久化、钥匙串、剪贴板、弹窗、通知、联系人和日历。</p><div class="doc-link-list"><a class="doc-link" href="../../pages/permission-module/"><strong>permission</strong><span>统一查询权限状态，并请求位置或通知权限。</span></a><a class="doc-link" href="../../pages/storage-module/"><strong>storage</strong><span>UserDefaults 持久键值存储。</span></a><a class="doc-link" href="../../pages/database-module/"><strong>database</strong><span>MiniApp 作用域内 SQLite 数据库和 JSON collection。</span></a><a class="doc-link" href="../../pages/keychain-module/"><strong>keychain</strong><span>iOS 钥匙串安全存储。</span></a><a class="doc-link" href="../../pages/clipboard-module/"><strong>clipboard</strong><span>读取、写入和清空系统剪贴板。</span></a><a class="doc-link" href="../../pages/dialogs-module/"><strong>dialogs</strong><span>原生对话框、表单和日期选择。</span></a><a class="doc-link" href="../../pages/console-module/"><strong>console</strong><span>原生弹窗、HUD 和控制台样式。</span></a><a class="doc-link" href="../../pages/notification-module/"><strong>notification</strong><span>本地通知权限、定时通知和角标管理。</span></a><a class="doc-link" href="../../pages/contacts-module/"><strong>contacts</strong><span>联系人读取、编辑、选择器和 vCard 导入导出。</span></a><a class="doc-link" href="../../pages/calendar-events-module/"><strong>calendar_events</strong><span>日历事件、提醒事项和 EventKit 权限。</span></a><a class="doc-link" href="../../pages/nfc-module/"><strong>nfc</strong><span>NFC 标签读取和 NDEF 写入。</span></a></div></section>
+  <section id="快速上手" class="collection-group"><h2>快速上手</h2><p>原生模块总入口：入口模型、Python 模块表、AppUI 桥接、专题页与权限矩阵。</p><div class="doc-link-list"><a class="doc-link" href="../../pages/ios-native/"><strong>iOS 原生能力</strong><span>相册、联系人、权限、相机、控制台和安全存储。</span></a></div></section><section id="基础与权限" class="collection-group"><h2>基础与权限</h2><p>权限、持久化、钥匙串、剪贴板与弹窗反馈。</p><div class="doc-link-list"><a class="doc-link" href="../../pages/permission-module/"><strong>permission</strong><span>统一查询权限状态，并请求位置或通知权限。</span></a><a class="doc-link" href="../../pages/storage-module/"><strong>storage</strong><span>UserDefaults 持久键值存储。</span></a><a class="doc-link" href="../../pages/database-module/"><strong>database</strong><span>MiniApp 作用域内 SQLite 数据库和 JSON collection。</span></a><a class="doc-link" href="../../pages/keychain-module/"><strong>keychain</strong><span>iOS 钥匙串安全存储。</span></a><a class="doc-link" href="../../pages/clipboard-module/"><strong>clipboard</strong><span>读取、写入和清空系统剪贴板。</span></a><a class="doc-link" href="../../pages/console-module/"><strong>console</strong><span>原生弹窗、HUD 和控制台样式。</span></a><a class="doc-link" href="../../pages/dialogs-module/"><strong>dialogs</strong><span>原生对话框、表单和日期选择。</span></a></div></section><section id="设备与传感器" class="collection-group"><h2>设备与传感器</h2><p>设备信息、定位、运动、触觉、生物认证与健康数据。</p><div class="doc-link-list"><a class="doc-link" href="../../pages/device-module/"><strong>device</strong><span>设备、屏幕、电池和系统状态。</span></a><a class="doc-link" href="../../pages/location-module/"><strong>location</strong><span>定位、指南针和地理编码。</span></a><a class="doc-link" href="../../pages/motion-module/"><strong>motion</strong><span>设备运动、陀螺仪、磁力计和气压计。</span></a><a class="doc-link" href="../../pages/haptics-module/"><strong>haptics</strong><span>触觉反馈和 Core Haptics 模式。</span></a><a class="doc-link" href="../../pages/biometric-module/"><strong>biometric</strong><span>Face ID / Touch ID 验证。</span></a><a class="doc-link" href="../../pages/health-module/"><strong>health</strong><span>HealthKit 授权、查询和体重写入。</span></a></div></section><section id="界面与系统" class="collection-group"><h2>界面与系统</h2><p>文件选择、分享、通知、通讯录、日历与 Live Activity。</p><div class="doc-link-list"><a class="doc-link" href="../../pages/file-picker-module/"><strong>file_picker</strong><span>系统文件选择器与 AppUI FileImporter。</span></a><a class="doc-link" href="../../pages/share-module/"><strong>share</strong><span>系统分享面板与 AppUI ShareLink。</span></a><a class="doc-link" href="../../pages/font-picker-module/"><strong>font_picker</strong><span>系统字体选择器。</span></a><a class="doc-link" href="../../pages/notification-module/"><strong>notification</strong><span>本地通知权限、定时通知和角标管理。</span></a><a class="doc-link" href="../../pages/live-activity-module/"><strong>live_activity</strong><span>锁屏和 Dynamic Island 的 Live Activity 控制。</span></a><a class="doc-link" href="../../pages/contacts-module/"><strong>contacts</strong><span>联系人读取、编辑、选择器和 vCard 导入导出。</span></a><a class="doc-link" href="../../pages/calendar-events-module/"><strong>calendar_events</strong><span>日历事件、提醒事项和 EventKit 权限。</span></a></div></section><section id="媒体" class="collection-group"><h2>媒体</h2><p>相册、录制、播放、语音与音视频合成。</p><div class="doc-link-list"><h3 class="collection-subgroup-title">采集</h3><a class="doc-link" href="../../pages/photos-module/"><strong>photos</strong><span>相册选择、拍照、保存和资源查询。</span></a><a class="doc-link" href="../../pages/camera-module/"><strong>camera</strong><span>系统相机拍照与 AppUI CameraPicker。</span></a><a class="doc-link" href="../../pages/video-recorder-module/"><strong>video_recorder</strong><span>摄像头录像保存为文件。</span></a><a class="doc-link" href="../../pages/audio-recorder-module/"><strong>audio_recorder</strong><span>麦克风录音、暂停继续和电平监测。</span></a><h3 class="collection-subgroup-title">播放</h3><a class="doc-link" href="../../pages/sound-module/"><strong>sound</strong><span>音效播放、长音频播放器和静音开关行为。</span></a><a class="doc-link" href="../../pages/avplayer-module/"><strong>avplayer</strong><span>音视频加载、播放控制和原生播放器。</span></a><a class="doc-link" href="../../pages/music-module/"><strong>music</strong><span>Apple Music 播放控制与曲库搜索。</span></a><a class="doc-link" href="../../pages/now-playing-module/"><strong>now_playing</strong><span>锁屏与控制中心的正在播放信息。</span></a><a class="doc-link" href="../../pages/audio-session-module/"><strong>audio_session</strong><span>配置共享 AVAudioSession。</span></a><h3 class="collection-subgroup-title">语音</h3><a class="doc-link" href="../../pages/speech-module/"><strong>speech</strong><span>文字转语音和语音列表。</span></a><a class="doc-link" href="../../pages/speech-recognition-module/"><strong>speech_recognition</strong><span>语音转文字：实时听写和音频文件转写。</span></a><a class="doc-link" href="../../pages/shazam-module/"><strong>shazam</strong><span>听歌识曲：麦克风或音频文件匹配 Shazam 曲库。</span></a><h3 class="collection-subgroup-title">合成</h3><a class="doc-link" href="../../pages/media-composer-module/"><strong>media_composer</strong><span>视频合并、配音与导出。</span></a></div></section><section id="视觉与文档" class="collection-group"><h2>视觉与文档</h2><p>OCR、Vision 检测、Core ML、PDF 与二维码。</p><div class="doc-link-list"><a class="doc-link" href="../../pages/vision-module/"><strong>vision</strong><span>使用 Vision 从图片字节中识别文字。</span></a><a class="doc-link" href="../../pages/vision-helper-module/"><strong>vision_helper</strong><span>人脸、条码、矩形与图像分类。</span></a><a class="doc-link" href="../../pages/coreml-module/"><strong>coreml</strong><span>Core ML 模型加载、图片推理和模型信息读取。</span></a><a class="doc-link" href="../../pages/qrcode-module/"><strong>qrcode</strong><span>生成二维码图片（读取用 vision_helper）。</span></a><a class="doc-link" href="../../pages/pdf-module/"><strong>pdf</strong><span>创建、读取、渲染和预览 PDF 文档。</span></a></div></section><section id="连接与后台" class="collection-group"><h2>连接与后台</h2><p>HTTP、WebSocket、天气、蓝牙、后台任务与本地服务。</p><div class="doc-link-list"><h3 class="collection-subgroup-title">联网</h3><a class="doc-link" href="../../pages/network-module/"><strong>network</strong><span>原生 HTTP 请求、连接状态和下载。</span></a><a class="doc-link" href="../../pages/websocket-module/"><strong>websocket</strong><span>原生 WebSocket 连接、收发和回调。</span></a><a class="doc-link" href="../../pages/weather-module/"><strong>weather</strong><span>当前天气与每日/每小时预报（WeatherKit）。</span></a><h3 class="collection-subgroup-title">近场</h3><a class="doc-link" href="../../pages/bluetooth-module/"><strong>bluetooth</strong><span>BLE 扫描、连接、服务发现和特征读写。</span></a><a class="doc-link" href="../../pages/ble-peripheral-module/"><strong>ble_peripheral</strong><span>BLE 外设广播模式。</span></a><h3 class="collection-subgroup-title">后台</h3><a class="doc-link" href="../../pages/background-module/"><strong>background</strong><span>后台任务、保活与 BGTask 调度。</span></a><a class="doc-link" href="../../pages/background-download-module/"><strong>background_download</strong><span>后台 URLSession 大文件下载。</span></a><h3 class="collection-subgroup-title">本地服务</h3><a class="doc-link" href="../../pages/http-server-module/"><strong>http_server</strong><span>本地 HTTP 文件服务器。</span></a><a class="doc-link" href="../../pages/ssh-module/"><strong>ssh</strong><span>SSH 远程命令与 SFTP 文件传输。</span></a></div></section><section id="通信与智能" class="collection-group"><h2>通信与智能</h2><p>邮件、短信、翻译、NFC、闹钟、内购与端侧 AI。</p><div class="doc-link-list"><a class="doc-link" href="../../pages/mail-module/"><strong>mail</strong><span>系统邮件编写器发送邮件。</span></a><a class="doc-link" href="../../pages/message-module/"><strong>message</strong><span>系统信息编写器发送短信或 iMessage。</span></a><a class="doc-link" href="../../pages/translation-module/"><strong>translation</strong><span>设备端文本翻译。</span></a><a class="doc-link" href="../../pages/nfc-module/"><strong>nfc</strong><span>NFC 标签读取和 NDEF 写入。</span></a><a class="doc-link" href="../../pages/alarm-module/"><strong>alarm</strong><span>系统闹钟调度（AlarmKit，iOS 18+）。</span></a><a class="doc-link" href="../../pages/storekit-module/"><strong>storekit</strong><span>应用内购买与订阅（StoreKit 2）。</span></a><a class="doc-link" href="../../pages/foundation-models-module/"><strong>foundation_models</strong><span>设备端大模型文本生成（Foundation Models，iOS 26+）。</span></a><a class="doc-link" href="../../pages/assistant-module/"><strong>assistant</strong><span>设备端助手与内置设备工具（iOS 26+）。</span></a></div></section>
 </article>
 
     </main>
-    <aside class="toc"><div class="toc-title">本页目录</div><a class="toc-link" href="#快速上手">快速上手</a><a class="toc-link" href="#设备与传感器">设备与传感器</a><a class="toc-link" href="#媒体与视觉">媒体与视觉</a><a class="toc-link" href="#网络与数据">网络与数据</a><a class="toc-link" href="#系统服务">系统服务</a></aside>
+    <aside class="toc"><div class="toc-title">本页目录</div><a class="toc-link" href="#快速上手">快速上手</a><a class="toc-link" href="#基础与权限">基础与权限</a><a class="toc-link" href="#设备与传感器">设备与传感器</a><a class="toc-link" href="#界面与系统">界面与系统</a><a class="toc-link" href="#媒体">媒体</a><a class="toc-link" href="#视觉与文档">视觉与文档</a><a class="toc-link" href="#连接与后台">连接与后台</a><a class="toc-link" href="#通信与智能">通信与智能</a></aside>
   </div>
   <div class="mobile-backdrop"></div>
   <div class="search-panel" role="dialog" aria-modal="true" aria-label="搜索">
