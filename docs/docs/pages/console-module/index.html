@@ -16,6 +16,7 @@
     <a class="brand" href="../../"><img class="brand-mark" src="../../assets/brand-mark.svg" alt="" width="30" height="30"><span class="brand-text">PythonIDE Docs</span></a>
     <nav class="top-nav" aria-label="主导航">
       <a class="active" href="../../">文档</a>
+      <a class="" href="../../pages/agent-development-index/">Agent</a>
       <a class="" href="../../pages/widget-api-reference/">API 参考</a>
       <a class="" href="../../pages/appui-cookbook-index/">示例</a>
     </nav>
@@ -266,6 +267,13 @@
 <a class="nav-link" href="../../pages/miniapp-native-capabilities/">原生能力入口</a>
 </div>
 </details>
+<details class="nav-collection">
+<summary><a href="../../collections/agent-development/">Agent 开发</a></summary>
+<div class="nav-group">
+<div class="nav-group-title">开始</div>
+<a class="nav-link" href="../../pages/agent-development-index/">Agent Skills 安装与说明</a>
+</div>
+</details>
 </nav>
     </aside>
     <main class="content">
@@ -276,6 +284,7 @@
     <h1>console</h1>
     <p>原生弹窗、HUD 和控制台样式。</p>
   </header>
+  
   <div class="markdown-body">
     <p>控制台与原生弹窗：阻塞式 <code>alert</code> / <code>input_alert</code>、HUD 提示、控制台颜色与链接（Pythonista 兼容 API）。</p>
 <blockquote class="callout note"><strong>边界</strong>：弹窗 API <strong>阻塞调用线程</strong>直到用户操作；在 AppUI 中应放在按钮回调。<code>set_color</code> / <code>clear</code> 作用于脚本控制台输出，不是 SwiftUI 界面样式。</blockquote>
@@ -286,7 +295,7 @@
 <figure class="code-block" data-code-id="c9cb5bc4831a">
   <figcaption>
     <span>python</span>
-    <button class="copy-code" type="button" data-copy-code="c9cb5bc4831a">复制</button>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="c9cb5bc4831a" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
   <pre><code id="code-c9cb5bc4831a" class="language-python">import console
 
@@ -301,7 +310,7 @@ console.hud_alert(&quot;已保存&quot;, icon=&quot;checkmark&quot;, duration=1.
 <figure class="code-block" data-code-id="82598e5d7058">
   <figcaption>
     <span>python</span>
-    <button class="copy-code" type="button" data-copy-code="82598e5d7058">复制</button>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="82598e5d7058" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
   <pre><code id="code-82598e5d7058" class="language-python">import console
 
@@ -316,7 +325,7 @@ console.write_link(&quot;Python 官网&quot;, &quot;https://www.python.org&quot;
 <figure class="code-block" data-code-id="e9a898ffb749">
   <figcaption>
     <span>python</span>
-    <button class="copy-code" type="button" data-copy-code="e9a898ffb749">复制</button>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="e9a898ffb749" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
   <pre><code id="code-e9a898ffb749" class="language-python">import appui
 import console
@@ -379,7 +388,7 @@ appui.run(body, state=state)</code></pre>
 <figure class="code-block" data-code-id="69594a9912ff">
   <figcaption>
     <span>python</span>
-    <button class="copy-code" type="button" data-copy-code="69594a9912ff">复制</button>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="69594a9912ff" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
   <pre><code id="code-69594a9912ff" class="language-python">idx = console.alert(&quot;标题&quot;, &quot;正文&quot;, button1=&quot;确定&quot;, button2=&quot;取消&quot;)
 # 1 | 2 | 3；取消抛 KeyboardInterrupt</code></pre>
@@ -388,7 +397,7 @@ appui.run(body, state=state)</code></pre>
 <figure class="code-block" data-code-id="e49423f70d0c">
   <figcaption>
     <span>python</span>
-    <button class="copy-code" type="button" data-copy-code="e49423f70d0c">复制</button>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="e49423f70d0c" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
   <pre><code id="code-e49423f70d0c" class="language-python">text = console.input_alert(&quot;输入&quot;, ok_button_title=&quot;完成&quot;)
 user, pw = console.login_alert(&quot;登录&quot;)

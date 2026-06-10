@@ -16,6 +16,7 @@
     <a class="brand" href="../../"><img class="brand-mark" src="../../assets/brand-mark.svg" alt="" width="30" height="30"><span class="brand-text">PythonIDE Docs</span></a>
     <nav class="top-nav" aria-label="主导航">
       <a class="active" href="../../">文档</a>
+      <a class="" href="../../pages/agent-development-index/">Agent</a>
       <a class="" href="../../pages/widget-api-reference/">API 参考</a>
       <a class="" href="../../pages/appui-cookbook-index/">示例</a>
     </nav>
@@ -266,6 +267,13 @@
 <a class="nav-link" href="../../pages/miniapp-native-capabilities/">原生能力入口</a>
 </div>
 </details>
+<details class="nav-collection">
+<summary><a href="../../collections/agent-development/">Agent 开发</a></summary>
+<div class="nav-group">
+<div class="nav-group-title">开始</div>
+<a class="nav-link" href="../../pages/agent-development-index/">Agent Skills 安装与说明</a>
+</div>
+</details>
 </nav>
     </aside>
     <main class="content">
@@ -276,6 +284,7 @@
     <h1>clipboard</h1>
     <p>读取、写入和清空系统剪贴板。</p>
   </header>
+  
   <div class="markdown-body">
     <p>读写系统剪贴板：复制、粘贴、清空文本。</p>
 <blockquote class="callout note"><strong>边界</strong>：适合用户明确的复制/粘贴动作，不是持久化存储。token / 密码请用 <a href="../../pages/keychain-module/">keychain</a>；长期保存文本用 <a href="../../pages/storage-module/">storage</a>。剪贴板是系统共享状态，其他 App 可能改写内容。</blockquote>
@@ -287,7 +296,7 @@
 <figure class="code-block" data-code-id="d47a2b2e0926">
   <figcaption>
     <span>python</span>
-    <button class="copy-code" type="button" data-copy-code="d47a2b2e0926">复制</button>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="d47a2b2e0926" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
   <pre><code id="code-d47a2b2e0926" class="language-python">import clipboard
 
@@ -303,7 +312,7 @@ print(&quot;清空后:&quot;, repr(clipboard.get()))</code></pre>
 <figure class="code-block" data-code-id="605487c6935e">
   <figcaption>
     <span>python</span>
-    <button class="copy-code" type="button" data-copy-code="605487c6935e">复制</button>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="605487c6935e" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
   <pre><code id="code-605487c6935e" class="language-python">import appui
 import clipboard
@@ -377,7 +386,7 @@ appui.run(body, state=state)</code></pre>
 <figure class="code-block" data-code-id="e2cbd2c1f77a">
   <figcaption>
     <span>python</span>
-    <button class="copy-code" type="button" data-copy-code="e2cbd2c1f77a">复制</button>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="e2cbd2c1f77a" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
   <pre><code id="code-e2cbd2c1f77a" class="language-python">import clipboard
 
@@ -388,7 +397,7 @@ value = clipboard.get()</code></pre>
 <figure class="code-block" data-code-id="b625e56743ec">
   <figcaption>
     <span>python</span>
-    <button class="copy-code" type="button" data-copy-code="b625e56743ec">复制</button>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="b625e56743ec" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
   <pre><code id="code-b625e56743ec" class="language-python">clipboard.clear()</code></pre>
 </figure>

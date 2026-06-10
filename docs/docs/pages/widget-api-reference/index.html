@@ -16,6 +16,7 @@
     <a class="brand" href="../../"><img class="brand-mark" src="../../assets/brand-mark.svg" alt="" width="30" height="30"><span class="brand-text">PythonIDE Docs</span></a>
     <nav class="top-nav" aria-label="主导航">
       <a class="" href="../../">文档</a>
+      <a class="" href="../../pages/agent-development-index/">Agent</a>
       <a class="active" href="../../pages/widget-api-reference/">API 参考</a>
       <a class="" href="../../pages/appui-cookbook-index/">示例</a>
     </nav>
@@ -266,6 +267,13 @@
 <a class="nav-link" href="../../pages/miniapp-native-capabilities/">原生能力入口</a>
 </div>
 </details>
+<details class="nav-collection">
+<summary><a href="../../collections/agent-development/">Agent 开发</a></summary>
+<div class="nav-group">
+<div class="nav-group-title">开始</div>
+<a class="nav-link" href="../../pages/agent-development-index/">Agent Skills 安装与说明</a>
+</div>
+</details>
 </nav>
     </aside>
     <main class="content">
@@ -276,6 +284,7 @@
     <h1>API 参考</h1>
     <p>公开 Widget() API 速查。</p>
   </header>
+  
   <div class="markdown-body">
     <p>这页是公开 <code>Widget()</code> API 的签名索引。先用 <a href="../../pages/widget-api-index/">API 地图</a> 按任务选择能力，再回到这里核对函数名、参数名和返回句柄。</p>
 <h2 id="怎么查"><a class="heading-anchor" href="#怎么查">#</a>怎么查</h2>
@@ -296,7 +305,7 @@
 <figure class="code-block" data-code-id="bcd465fdf4aa">
   <figcaption>
     <span>text</span>
-    <button class="copy-code" type="button" data-copy-code="bcd465fdf4aa">复制</button>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="bcd465fdf4aa" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
   <pre><code id="code-bcd465fdf4aa" class="language-text">widget.cache_json(
     url: str,
@@ -313,7 +322,7 @@
 <figure class="code-block" data-code-id="1ddadc5b5abc">
   <figcaption>
     <span>text</span>
-    <button class="copy-code" type="button" data-copy-code="1ddadc5b5abc">复制</button>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="1ddadc5b5abc" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
   <pre><code id="code-1ddadc5b5abc" class="language-text">widget.family_value(default: Any = None, **values: Any) -&gt; Any</code></pre>
 </figure>
@@ -321,7 +330,7 @@
 <figure class="code-block" data-code-id="6831ddd686a0">
   <figcaption>
     <span>text</span>
-    <button class="copy-code" type="button" data-copy-code="6831ddd686a0">复制</button>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="6831ddd686a0" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
   <pre><code id="code-6831ddd686a0" class="language-text">widget.history(
     key: str,
@@ -336,7 +345,7 @@
 <figure class="code-block" data-code-id="a83faef5a3ff">
   <figcaption>
     <span>text</span>
-    <button class="copy-code" type="button" data-copy-code="a83faef5a3ff">复制</button>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="a83faef5a3ff" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
   <pre><code id="code-a83faef5a3ff" class="language-text">widget.save_image(source: Union[str, bytes], name: str, *, variant: Optional[str] = None) -&gt; str</code></pre>
 </figure>
@@ -345,7 +354,7 @@
 <figure class="code-block" data-code-id="4dae247dd505">
   <figcaption>
     <span>text</span>
-    <button class="copy-code" type="button" data-copy-code="4dae247dd505">复制</button>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="4dae247dd505" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
   <pre><code id="code-4dae247dd505" class="language-text">w.background(value: WidgetBackground) -&gt; &quot;Widget&quot;</code></pre>
 </figure>
@@ -353,7 +362,7 @@
 <figure class="code-block" data-code-id="795150b324c6">
   <figcaption>
     <span>text</span>
-    <button class="copy-code" type="button" data-copy-code="795150b324c6">复制</button>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="795150b324c6" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
   <pre><code id="code-795150b324c6" class="language-text">w.background_image(
     asset: Optional[ImageLike] = None,
@@ -372,7 +381,7 @@
 <figure class="code-block" data-code-id="d6ce209d1eed">
   <figcaption>
     <span>text</span>
-    <button class="copy-code" type="button" data-copy-code="d6ce209d1eed">复制</button>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="d6ce209d1eed" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
   <pre><code id="code-d6ce209d1eed" class="language-text">w.badge(
     text: Union[str, int, float],
@@ -385,7 +394,7 @@
 <figure class="code-block" data-code-id="33692bcee8ba">
   <figcaption>
     <span>text</span>
-    <button class="copy-code" type="button" data-copy-code="33692bcee8ba">复制</button>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="33692bcee8ba" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
   <pre><code id="code-33692bcee8ba" class="language-text">w.bar_chart(
     values: List[Union[int, float]],
@@ -410,7 +419,7 @@
 <figure class="code-block" data-code-id="22cb5659e7f5">
   <figcaption>
     <span>text</span>
-    <button class="copy-code" type="button" data-copy-code="22cb5659e7f5">复制</button>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="22cb5659e7f5" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
   <pre><code id="code-22cb5659e7f5" class="language-text">w.body(content: Union[str, int, float]) -&gt; WidgetNode</code></pre>
 </figure>
@@ -418,7 +427,7 @@
 <figure class="code-block" data-code-id="2212b10da677">
   <figcaption>
     <span>text</span>
-    <button class="copy-code" type="button" data-copy-code="2212b10da677">复制</button>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="2212b10da677" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
   <pre><code id="code-2212b10da677" class="language-text">w.button(
     title: Optional[str] = None,
@@ -439,7 +448,7 @@
 <figure class="code-block" data-code-id="ee21cff1f37e">
   <figcaption>
     <span>text</span>
-    <button class="copy-code" type="button" data-copy-code="ee21cff1f37e">复制</button>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="ee21cff1f37e" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
   <pre><code id="code-ee21cff1f37e" class="language-text">w.canvas(
     height: Optional[float] = None,
@@ -459,7 +468,7 @@
 <figure class="code-block" data-code-id="ec476e2cf342">
   <figcaption>
     <span>text</span>
-    <button class="copy-code" type="button" data-copy-code="ec476e2cf342">复制</button>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="ec476e2cf342" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
   <pre><code id="code-ec476e2cf342" class="language-text">w.caption(content: Union[str, int, float]) -&gt; WidgetNode</code></pre>
 </figure>
@@ -467,7 +476,7 @@
 <figure class="code-block" data-code-id="a5b53f43c2b9">
   <figcaption>
     <span>text</span>
-    <button class="copy-code" type="button" data-copy-code="a5b53f43c2b9">复制</button>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="a5b53f43c2b9" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
   <pre><code id="code-a5b53f43c2b9" class="language-text">w.change(
     primary: Union[str, int, float],
@@ -479,7 +488,7 @@
 <figure class="code-block" data-code-id="c50bb4d0c4a4">
   <figcaption>
     <span>text</span>
-    <button class="copy-code" type="button" data-copy-code="c50bb4d0c4a4">复制</button>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="c50bb4d0c4a4" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
   <pre><code id="code-c50bb4d0c4a4" class="language-text">w.circle(
     color: Optional[ColorLike] = None,
@@ -495,7 +504,7 @@
 <figure class="code-block" data-code-id="b371a0ff394c">
   <figcaption>
     <span>text</span>
-    <button class="copy-code" type="button" data-copy-code="b371a0ff394c">复制</button>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="b371a0ff394c" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
   <pre><code id="code-b371a0ff394c" class="language-text">w.column(
     spacing: Optional[Union[int, float]] = None,
@@ -506,7 +515,7 @@
 <figure class="code-block" data-code-id="0c9f68e37548">
   <figcaption>
     <span>text</span>
-    <button class="copy-code" type="button" data-copy-code="0c9f68e37548">复制</button>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="0c9f68e37548" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
   <pre><code id="code-0c9f68e37548" class="language-text">w.container_background(
     value: Optional[WidgetBackground] = None,
@@ -518,7 +527,7 @@
 <figure class="code-block" data-code-id="01f9743a94b4">
   <figcaption>
     <span>text</span>
-    <button class="copy-code" type="button" data-copy-code="01f9743a94b4">复制</button>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="01f9743a94b4" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
   <pre><code id="code-01f9743a94b4" class="language-text">w.content_margins(
     enabled: bool = True,
@@ -529,7 +538,7 @@
 <figure class="code-block" data-code-id="da16c4f19361">
   <figcaption>
     <span>text</span>
-    <button class="copy-code" type="button" data-copy-code="da16c4f19361">复制</button>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="da16c4f19361" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
   <pre><code id="code-da16c4f19361" class="language-text">w.context -&gt; WidgetContext</code></pre>
 </figure>
@@ -537,7 +546,7 @@
 <figure class="code-block" data-code-id="0e7162548159">
   <figcaption>
     <span>text</span>
-    <button class="copy-code" type="button" data-copy-code="0e7162548159">复制</button>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="0e7162548159" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
   <pre><code id="code-0e7162548159" class="language-text">w.countdown(
     title: Optional[Union[str, int, float]] = &quot;Countdown&quot;,
@@ -552,7 +561,7 @@
 <figure class="code-block" data-code-id="b63e8336ed46">
   <figcaption>
     <span>text</span>
-    <button class="copy-code" type="button" data-copy-code="b63e8336ed46">复制</button>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="b63e8336ed46" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
   <pre><code id="code-b63e8336ed46" class="language-text">w.date(target: Optional[Union[datetime, str]] = None, style: str = &quot;date&quot;) -&gt; WidgetNode</code></pre>
 </figure>
@@ -560,7 +569,7 @@
 <figure class="code-block" data-code-id="6619f22f4075">
   <figcaption>
     <span>text</span>
-    <button class="copy-code" type="button" data-copy-code="6619f22f4075">复制</button>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="6619f22f4075" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
   <pre><code id="code-6619f22f4075" class="language-text">w.divider(color: Optional[ColorLike] = None, opacity: Optional[float] = None, ) -&gt; WidgetNode</code></pre>
 </figure>
@@ -568,7 +577,7 @@
 <figure class="code-block" data-code-id="46c038397882">
   <figcaption>
     <span>text</span>
-    <button class="copy-code" type="button" data-copy-code="46c038397882">复制</button>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="46c038397882" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
   <pre><code id="code-46c038397882" class="language-text">w.dynamic_date(target: Optional[Union[datetime, str]] = None, style: str = &quot;date&quot;) -&gt; WidgetNode</code></pre>
 </figure>
@@ -576,7 +585,7 @@
 <figure class="code-block" data-code-id="df3d1d303ca2">
   <figcaption>
     <span>text</span>
-    <button class="copy-code" type="button" data-copy-code="df3d1d303ca2">复制</button>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="df3d1d303ca2" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
   <pre><code id="code-df3d1d303ca2" class="language-text">w.flip(
     value: Any,
@@ -603,7 +612,7 @@
 <figure class="code-block" data-code-id="6330a0f10285">
   <figcaption>
     <span>text</span>
-    <button class="copy-code" type="button" data-copy-code="6330a0f10285">复制</button>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="6330a0f10285" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
   <pre><code id="code-6330a0f10285" class="language-text">w.grid(
     columns: int = 2,
@@ -631,7 +640,7 @@
 <figure class="code-block" data-code-id="d068b4ba8b48">
   <figcaption>
     <span>text</span>
-    <button class="copy-code" type="button" data-copy-code="d068b4ba8b48">复制</button>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="d068b4ba8b48" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
   <pre><code id="code-d068b4ba8b48" class="language-text">w.image(
     name: Optional[ImageLike] = None,
@@ -651,7 +660,7 @@
 <figure class="code-block" data-code-id="8384eb093dd7">
   <figcaption>
     <span>text</span>
-    <button class="copy-code" type="button" data-copy-code="8384eb093dd7">复制</button>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="8384eb093dd7" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
   <pre><code id="code-8384eb093dd7" class="language-text">w.layer(
     align: str = &quot;center&quot;,
@@ -664,7 +673,7 @@
 <figure class="code-block" data-code-id="ba4c652b3a23">
   <figcaption>
     <span>text</span>
-    <button class="copy-code" type="button" data-copy-code="ba4c652b3a23">复制</button>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="ba4c652b3a23" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
   <pre><code id="code-ba4c652b3a23" class="language-text">w.line_chart(
     values: List[Union[int, float]],
@@ -690,7 +699,7 @@
 <figure class="code-block" data-code-id="a7330b4d6a5a">
   <figcaption>
     <span>text</span>
-    <button class="copy-code" type="button" data-copy-code="a7330b4d6a5a">复制</button>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="a7330b4d6a5a" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
   <pre><code id="code-a7330b4d6a5a" class="language-text">w.link(
     title: str,
@@ -703,7 +712,7 @@
 <figure class="code-block" data-code-id="40f1e7571261">
   <figcaption>
     <span>text</span>
-    <button class="copy-code" type="button" data-copy-code="40f1e7571261">复制</button>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="40f1e7571261" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
   <pre><code id="code-40f1e7571261" class="language-text">w.list(
     items: List[Any],
@@ -717,7 +726,7 @@
 <figure class="code-block" data-code-id="4fa2eb4b084f">
   <figcaption>
     <span>text</span>
-    <button class="copy-code" type="button" data-copy-code="4fa2eb4b084f">复制</button>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="4fa2eb4b084f" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
   <pre><code id="code-4fa2eb4b084f" class="language-text">w.path(
     points: List[PathPoint],
@@ -740,7 +749,7 @@
 <figure class="code-block" data-code-id="cf264f56d342">
   <figcaption>
     <span>text</span>
-    <button class="copy-code" type="button" data-copy-code="cf264f56d342">复制</button>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="cf264f56d342" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
   <pre><code id="code-cf264f56d342" class="language-text">w.progress(
     value: Union[int, float],
@@ -762,7 +771,7 @@
 <figure class="code-block" data-code-id="344df879f557">
   <figcaption>
     <span>text</span>
-    <button class="copy-code" type="button" data-copy-code="344df879f557">复制</button>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="344df879f557" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
   <pre><code id="code-344df879f557" class="language-text">w.rect(
     color: Optional[ColorLike] = None,
@@ -780,7 +789,7 @@
 <figure class="code-block" data-code-id="120a7c0f7a72">
   <figcaption>
     <span>text</span>
-    <button class="copy-code" type="button" data-copy-code="120a7c0f7a72">复制</button>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="120a7c0f7a72" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
   <pre><code id="code-120a7c0f7a72" class="language-text">w.region(
     slot: str = &quot;center&quot;,
@@ -792,7 +801,7 @@
 <figure class="code-block" data-code-id="4eff2a1c76d3">
   <figcaption>
     <span>text</span>
-    <button class="copy-code" type="button" data-copy-code="4eff2a1c76d3">复制</button>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="4eff2a1c76d3" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
   <pre><code id="code-4eff2a1c76d3" class="language-text">w.relative_time(target: Optional[Union[datetime, str]] = None) -&gt; WidgetNode</code></pre>
 </figure>
@@ -800,7 +809,7 @@
 <figure class="code-block" data-code-id="2ee672660da8">
   <figcaption>
     <span>text</span>
-    <button class="copy-code" type="button" data-copy-code="2ee672660da8">复制</button>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="2ee672660da8" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
   <pre><code id="code-2ee672660da8" class="language-text">w.render(url: Optional[str] = None) -&gt; None</code></pre>
 </figure>
@@ -808,7 +817,7 @@
 <figure class="code-block" data-code-id="4628418037d4">
   <figcaption>
     <span>text</span>
-    <button class="copy-code" type="button" data-copy-code="4628418037d4">复制</button>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="4628418037d4" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
   <pre><code id="code-4628418037d4" class="language-text">w.rich_text(
     parts: List[RichTextPart],
@@ -829,7 +838,7 @@
 <figure class="code-block" data-code-id="edec8ceec48a">
   <figcaption>
     <span>text</span>
-    <button class="copy-code" type="button" data-copy-code="edec8ceec48a">复制</button>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="edec8ceec48a" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
   <pre><code id="code-edec8ceec48a" class="language-text">w.ring_chart(
     value: Union[int, float],
@@ -848,7 +857,7 @@
 <figure class="code-block" data-code-id="0cbc335a1dd8">
   <figcaption>
     <span>text</span>
-    <button class="copy-code" type="button" data-copy-code="0cbc335a1dd8">复制</button>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="0cbc335a1dd8" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
   <pre><code id="code-0cbc335a1dd8" class="language-text">w.row(
     spacing: Optional[Union[int, float]] = None,
@@ -859,7 +868,7 @@
 <figure class="code-block" data-code-id="eb9521d79344">
   <figcaption>
     <span>text</span>
-    <button class="copy-code" type="button" data-copy-code="eb9521d79344">复制</button>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="eb9521d79344" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
   <pre><code id="code-eb9521d79344" class="language-text">w.section(
     title: Optional[Union[str, int, float]] = None,
@@ -872,7 +881,7 @@
 <figure class="code-block" data-code-id="eed02204274d">
   <figcaption>
     <span>text</span>
-    <button class="copy-code" type="button" data-copy-code="eed02204274d">复制</button>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="eed02204274d" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
   <pre><code id="code-eed02204274d" class="language-text">w.shape(
     kind: str = &quot;rectangle&quot;,
@@ -906,7 +915,7 @@
 <figure class="code-block" data-code-id="77d7d17c15e1">
   <figcaption>
     <span>text</span>
-    <button class="copy-code" type="button" data-copy-code="77d7d17c15e1">复制</button>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="77d7d17c15e1" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
   <pre><code id="code-77d7d17c15e1" class="language-text">w.spacer(length: Optional[Union[int, float]] = None) -&gt; WidgetNode</code></pre>
 </figure>
@@ -914,7 +923,7 @@
 <figure class="code-block" data-code-id="64daf0bcd296">
   <figcaption>
     <span>text</span>
-    <button class="copy-code" type="button" data-copy-code="64daf0bcd296">复制</button>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="64daf0bcd296" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
   <pre><code id="code-64daf0bcd296" class="language-text">w.surface(
     role: str = &quot;panel&quot;,
@@ -933,7 +942,7 @@
 <figure class="code-block" data-code-id="20d500c0cd7d">
   <figcaption>
     <span>text</span>
-    <button class="copy-code" type="button" data-copy-code="20d500c0cd7d">复制</button>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="20d500c0cd7d" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
   <pre><code id="code-20d500c0cd7d" class="language-text">w.svg(
     name: Optional[ImageLike] = None,
@@ -952,7 +961,7 @@
 <figure class="code-block" data-code-id="be46553a1e74">
   <figcaption>
     <span>text</span>
-    <button class="copy-code" type="button" data-copy-code="be46553a1e74">复制</button>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="be46553a1e74" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
   <pre><code id="code-be46553a1e74" class="language-text">w.symbol(
     name: str,
@@ -966,7 +975,7 @@
 <figure class="code-block" data-code-id="4aef1cc63a26">
   <figcaption>
     <span>text</span>
-    <button class="copy-code" type="button" data-copy-code="4aef1cc63a26">复制</button>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="4aef1cc63a26" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
   <pre><code id="code-4aef1cc63a26" class="language-text">w.table(
     rows: int,
@@ -994,7 +1003,7 @@
 <figure class="code-block" data-code-id="930491647c99">
   <figcaption>
     <span>text</span>
-    <button class="copy-code" type="button" data-copy-code="930491647c99">复制</button>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="930491647c99" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
   <pre><code id="code-930491647c99" class="language-text">w.text(
     content: Union[str, int, float],
@@ -1015,7 +1024,7 @@
 <figure class="code-block" data-code-id="642274312465">
   <figcaption>
     <span>text</span>
-    <button class="copy-code" type="button" data-copy-code="642274312465">复制</button>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="642274312465" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
   <pre><code id="code-642274312465" class="language-text">w.time(target: Optional[Union[datetime, str]] = None) -&gt; WidgetNode</code></pre>
 </figure>
@@ -1023,7 +1032,7 @@
 <figure class="code-block" data-code-id="589a4452372f">
   <figcaption>
     <span>text</span>
-    <button class="copy-code" type="button" data-copy-code="589a4452372f">复制</button>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="589a4452372f" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
   <pre><code id="code-589a4452372f" class="language-text">w.timeline(
     entries: Optional[List[Dict[str, Any]]] = None,
@@ -1037,7 +1046,7 @@
 <figure class="code-block" data-code-id="281c52121862">
   <figcaption>
     <span>text</span>
-    <button class="copy-code" type="button" data-copy-code="281c52121862">复制</button>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="281c52121862" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
   <pre><code id="code-281c52121862" class="language-text">w.timer_text(target: Optional[Union[datetime, str]] = None) -&gt; WidgetNode</code></pre>
 </figure>
@@ -1045,7 +1054,7 @@
 <figure class="code-block" data-code-id="269114561bdb">
   <figcaption>
     <span>text</span>
-    <button class="copy-code" type="button" data-copy-code="269114561bdb">复制</button>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="269114561bdb" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
   <pre><code id="code-269114561bdb" class="language-text">w.title(content: Union[str, int, float]) -&gt; WidgetNode</code></pre>
 </figure>
@@ -1053,7 +1062,7 @@
 <figure class="code-block" data-code-id="2627b4ffd59d">
   <figcaption>
     <span>text</span>
-    <button class="copy-code" type="button" data-copy-code="2627b4ffd59d">复制</button>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="2627b4ffd59d" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
   <pre><code id="code-2627b4ffd59d" class="language-text">w.toggle(
     title: Optional[str] = None,
@@ -1077,7 +1086,7 @@
 <figure class="code-block" data-code-id="1f25e74564bf">
   <figcaption>
     <span>text</span>
-    <button class="copy-code" type="button" data-copy-code="1f25e74564bf">复制</button>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="1f25e74564bf" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
   <pre><code id="code-1f25e74564bf" class="language-text">w.transparent_background(enabled: bool = True) -&gt; &quot;Widget&quot;</code></pre>
 </figure>
@@ -1085,7 +1094,7 @@
 <figure class="code-block" data-code-id="e76a491ce517">
   <figcaption>
     <span>text</span>
-    <button class="copy-code" type="button" data-copy-code="e76a491ce517">复制</button>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="e76a491ce517" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
   <pre><code id="code-e76a491ce517" class="language-text">w.unless(*families: str, layout: str = &quot;layer&quot;) -&gt; WidgetContainer</code></pre>
 </figure>
@@ -1093,7 +1102,7 @@
 <figure class="code-block" data-code-id="de9f3f5bd389">
   <figcaption>
     <span>text</span>
-    <button class="copy-code" type="button" data-copy-code="de9f3f5bd389">复制</button>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="de9f3f5bd389" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
   <pre><code id="code-de9f3f5bd389" class="language-text">w.validate(family: Optional[str] = None) -&gt; Dict[str, Any]</code></pre>
 </figure>
@@ -1101,7 +1110,7 @@
 <figure class="code-block" data-code-id="b3301092ae35">
   <figcaption>
     <span>text</span>
-    <button class="copy-code" type="button" data-copy-code="b3301092ae35">复制</button>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="b3301092ae35" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
   <pre><code id="code-b3301092ae35" class="language-text">w.value(
     value: Union[str, int, float, State[int], State[float], State[str], State[str]],
@@ -1114,7 +1123,7 @@
 <figure class="code-block" data-code-id="a13f169245a9">
   <figcaption>
     <span>text</span>
-    <button class="copy-code" type="button" data-copy-code="a13f169245a9">复制</button>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="a13f169245a9" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
   <pre><code id="code-a13f169245a9" class="language-text">w.when(*families: str, layout: str = &quot;layer&quot;) -&gt; WidgetContainer</code></pre>
 </figure>
@@ -1123,7 +1132,7 @@
 <figure class="code-block" data-code-id="921bc0365a69">
   <figcaption>
     <span>text</span>
-    <button class="copy-code" type="button" data-copy-code="921bc0365a69">复制</button>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="921bc0365a69" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
   <pre><code id="code-921bc0365a69" class="language-text">.accentable(enabled: bool = True) -&gt; Self</code></pre>
 </figure>
@@ -1131,7 +1140,7 @@
 <figure class="code-block" data-code-id="dbb142c06caf">
   <figcaption>
     <span>text</span>
-    <button class="copy-code" type="button" data-copy-code="dbb142c06caf">复制</button>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="dbb142c06caf" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
   <pre><code id="code-dbb142c06caf" class="language-text">.accessibility(
     label: Optional[str] = None,
@@ -1144,7 +1153,7 @@
 <figure class="code-block" data-code-id="d975253e6198">
   <figcaption>
     <span>text</span>
-    <button class="copy-code" type="button" data-copy-code="d975253e6198">复制</button>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="d975253e6198" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
   <pre><code id="code-d975253e6198" class="language-text">.align(value: str) -&gt; Self</code></pre>
 </figure>
@@ -1152,7 +1161,7 @@
 <figure class="code-block" data-code-id="b7660cbbf178">
   <figcaption>
     <span>text</span>
-    <button class="copy-code" type="button" data-copy-code="b7660cbbf178">复制</button>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="b7660cbbf178" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
   <pre><code id="code-b7660cbbf178" class="language-text">.animation(
     value: str = &quot;default&quot;,
@@ -1165,7 +1174,7 @@
 <figure class="code-block" data-code-id="5dc4ec32f8c1">
   <figcaption>
     <span>text</span>
-    <button class="copy-code" type="button" data-copy-code="5dc4ec32f8c1">复制</button>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="5dc4ec32f8c1" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
   <pre><code id="code-5dc4ec32f8c1" class="language-text">.background(value: WidgetBackground) -&gt; Self</code></pre>
 </figure>
@@ -1173,7 +1182,7 @@
 <figure class="code-block" data-code-id="78e9af0f9f20">
   <figcaption>
     <span>text</span>
-    <button class="copy-code" type="button" data-copy-code="78e9af0f9f20">复制</button>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="78e9af0f9f20" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
   <pre><code id="code-78e9af0f9f20" class="language-text">.bar_spacing(value: float) -&gt; Self</code></pre>
 </figure>
@@ -1181,7 +1190,7 @@
 <figure class="code-block" data-code-id="d5f250bb864b">
   <figcaption>
     <span>text</span>
-    <button class="copy-code" type="button" data-copy-code="d5f250bb864b">复制</button>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="d5f250bb864b" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
   <pre><code id="code-d5f250bb864b" class="language-text">.baseline(value: float = 0, color: Optional[ColorLike] = None) -&gt; Self</code></pre>
 </figure>
@@ -1189,7 +1198,7 @@
 <figure class="code-block" data-code-id="34e7c59f1efa">
   <figcaption>
     <span>text</span>
-    <button class="copy-code" type="button" data-copy-code="34e7c59f1efa">复制</button>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="34e7c59f1efa" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
   <pre><code id="code-34e7c59f1efa" class="language-text">.button_style(value: str = &quot;plain&quot;) -&gt; Self</code></pre>
 </figure>
@@ -1197,7 +1206,7 @@
 <figure class="code-block" data-code-id="7cdb685741f6">
   <figcaption>
     <span>text</span>
-    <button class="copy-code" type="button" data-copy-code="7cdb685741f6">复制</button>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="7cdb685741f6" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
   <pre><code id="code-7cdb685741f6" class="language-text">.capsule(tone: Optional[str] = None, padding: Optional[Union[int, float]] = None, ) -&gt; Self</code></pre>
 </figure>
@@ -1205,7 +1214,7 @@
 <figure class="code-block" data-code-id="60ba9270c414">
   <figcaption>
     <span>text</span>
-    <button class="copy-code" type="button" data-copy-code="60ba9270c414">复制</button>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="60ba9270c414" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
   <pre><code id="code-60ba9270c414" class="language-text">.clip(kind: str = &quot;roundedRectangle&quot;, corner_radius: Optional[float] = None) -&gt; Self</code></pre>
 </figure>
@@ -1213,7 +1222,7 @@
 <figure class="code-block" data-code-id="c46503e7588a">
   <figcaption>
     <span>text</span>
-    <button class="copy-code" type="button" data-copy-code="c46503e7588a">复制</button>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="c46503e7588a" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
   <pre><code id="code-c46503e7588a" class="language-text">.clip_shape(kind: str = &quot;roundedRectangle&quot;, corner_radius: Optional[float] = None) -&gt; Self</code></pre>
 </figure>
@@ -1221,7 +1230,7 @@
 <figure class="code-block" data-code-id="7f674522a5e3">
   <figcaption>
     <span>text</span>
-    <button class="copy-code" type="button" data-copy-code="7f674522a5e3">复制</button>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="7f674522a5e3" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
   <pre><code id="code-7f674522a5e3" class="language-text">.color(value: ColorLike) -&gt; Self</code></pre>
 </figure>
@@ -1229,7 +1238,7 @@
 <figure class="code-block" data-code-id="f3dfc577cd70">
   <figcaption>
     <span>text</span>
-    <button class="copy-code" type="button" data-copy-code="f3dfc577cd70">复制</button>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="f3dfc577cd70" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
   <pre><code id="code-f3dfc577cd70" class="language-text">.compressed(enabled: bool = True) -&gt; Self</code></pre>
 </figure>
@@ -1237,7 +1246,7 @@
 <figure class="code-block" data-code-id="49d497fe79a8">
   <figcaption>
     <span>text</span>
-    <button class="copy-code" type="button" data-copy-code="49d497fe79a8">复制</button>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="49d497fe79a8" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
   <pre><code id="code-49d497fe79a8" class="language-text">.content_transition(value: str = &quot;opacity&quot;) -&gt; Self</code></pre>
 </figure>
@@ -1245,7 +1254,7 @@
 <figure class="code-block" data-code-id="1c655ebbf254">
   <figcaption>
     <span>text</span>
-    <button class="copy-code" type="button" data-copy-code="1c655ebbf254">复制</button>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="1c655ebbf254" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
   <pre><code id="code-1c655ebbf254" class="language-text">.control_layout(value: str = &quot;overlay&quot;) -&gt; Self</code></pre>
 </figure>
@@ -1253,7 +1262,7 @@
 <figure class="code-block" data-code-id="dc2bb6505e94">
   <figcaption>
     <span>text</span>
-    <button class="copy-code" type="button" data-copy-code="dc2bb6505e94">复制</button>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="dc2bb6505e94" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
   <pre><code id="code-dc2bb6505e94" class="language-text">.control_style(value: str = &quot;plain&quot;) -&gt; Self</code></pre>
 </figure>
@@ -1261,7 +1270,7 @@
 <figure class="code-block" data-code-id="f4f747af5144">
   <figcaption>
     <span>text</span>
-    <button class="copy-code" type="button" data-copy-code="f4f747af5144">复制</button>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="f4f747af5144" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
   <pre><code id="code-f4f747af5144" class="language-text">.corner_radius(value: float) -&gt; Self</code></pre>
 </figure>
@@ -1269,7 +1278,7 @@
 <figure class="code-block" data-code-id="2b8be4019768">
   <figcaption>
     <span>text</span>
-    <button class="copy-code" type="button" data-copy-code="2b8be4019768">复制</button>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="2b8be4019768" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
   <pre><code id="code-2b8be4019768" class="language-text">.fill(enabled: bool = True) -&gt; Self</code></pre>
 </figure>
@@ -1277,7 +1286,7 @@
 <figure class="code-block" data-code-id="9b638c3dbcab">
   <figcaption>
     <span>text</span>
-    <button class="copy-code" type="button" data-copy-code="9b638c3dbcab">复制</button>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="9b638c3dbcab" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
   <pre><code id="code-9b638c3dbcab" class="language-text">.fixed_size(horizontal: bool = True, vertical: bool = True) -&gt; Self</code></pre>
 </figure>
@@ -1285,7 +1294,7 @@
 <figure class="code-block" data-code-id="1f01619b1aad">
   <figcaption>
     <span>text</span>
-    <button class="copy-code" type="button" data-copy-code="1f01619b1aad">复制</button>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="1f01619b1aad" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
   <pre><code id="code-1f01619b1aad" class="language-text">.font(
     value: Optional[Union[str, int, float, Dict[str, Any]]] = None,
@@ -1299,7 +1308,7 @@
 <figure class="code-block" data-code-id="b326f4b8f699">
   <figcaption>
     <span>text</span>
-    <button class="copy-code" type="button" data-copy-code="b326f4b8f699">复制</button>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="b326f4b8f699" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
   <pre><code id="code-b326f4b8f699" class="language-text">.font_size(size: float) -&gt; Self</code></pre>
 </figure>
@@ -1307,7 +1316,7 @@
 <figure class="code-block" data-code-id="e1c1f4fea0e7">
   <figcaption>
     <span>text</span>
-    <button class="copy-code" type="button" data-copy-code="e1c1f4fea0e7">复制</button>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="e1c1f4fea0e7" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
   <pre><code id="code-e1c1f4fea0e7" class="language-text">.font_style(style: str) -&gt; Self</code></pre>
 </figure>
@@ -1315,7 +1324,7 @@
 <figure class="code-block" data-code-id="edbf3374d582">
   <figcaption>
     <span>text</span>
-    <button class="copy-code" type="button" data-copy-code="edbf3374d582">复制</button>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="edbf3374d582" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
   <pre><code id="code-edbf3374d582" class="language-text">.font_weight(weight: str) -&gt; Self</code></pre>
 </figure>
@@ -1323,7 +1332,7 @@
 <figure class="code-block" data-code-id="2c10adc4da99">
   <figcaption>
     <span>text</span>
-    <button class="copy-code" type="button" data-copy-code="2c10adc4da99">复制</button>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="2c10adc4da99" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
   <pre><code id="code-2c10adc4da99" class="language-text">.font_width(width: str) -&gt; Self</code></pre>
 </figure>
@@ -1331,7 +1340,7 @@
 <figure class="code-block" data-code-id="b24d8d8d41cc">
   <figcaption>
     <span>text</span>
-    <button class="copy-code" type="button" data-copy-code="b24d8d8d41cc">复制</button>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="b24d8d8d41cc" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
   <pre><code id="code-b24d8d8d41cc" class="language-text">.frame(
     x: float = 0,
@@ -1346,7 +1355,7 @@
 <figure class="code-block" data-code-id="5eb9c36d3a9b">
   <figcaption>
     <span>text</span>
-    <button class="copy-code" type="button" data-copy-code="5eb9c36d3a9b">复制</button>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="5eb9c36d3a9b" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
   <pre><code id="code-5eb9c36d3a9b" class="language-text">.grid(
     rows: int,
@@ -1368,7 +1377,7 @@
 <figure class="code-block" data-code-id="d302f3b315cd">
   <figcaption>
     <span>text</span>
-    <button class="copy-code" type="button" data-copy-code="d302f3b315cd">复制</button>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="d302f3b315cd" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
   <pre><code id="code-d302f3b315cd" class="language-text">.guide_lines(count: Union[bool, int] = True, color: Optional[ColorLike] = None) -&gt; Self</code></pre>
 </figure>
@@ -1376,7 +1385,7 @@
 <figure class="code-block" data-code-id="9ff8e48ba268">
   <figcaption>
     <span>text</span>
-    <button class="copy-code" type="button" data-copy-code="9ff8e48ba268">复制</button>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="9ff8e48ba268" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
   <pre><code id="code-9ff8e48ba268" class="language-text">.height(value: Optional[Union[float, Dict[str, Any]]] = None, **values: Any) -&gt; Self</code></pre>
 </figure>
@@ -1384,7 +1393,7 @@
 <figure class="code-block" data-code-id="bf95d536a6ba">
   <figcaption>
     <span>text</span>
-    <button class="copy-code" type="button" data-copy-code="bf95d536a6ba">复制</button>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="bf95d536a6ba" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
   <pre><code id="code-bf95d536a6ba" class="language-text">.hide(*families: str) -&gt; Self</code></pre>
 </figure>
@@ -1392,7 +1401,7 @@
 <figure class="code-block" data-code-id="3d4effc15052">
   <figcaption>
     <span>text</span>
-    <button class="copy-code" type="button" data-copy-code="3d4effc15052">复制</button>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="3d4effc15052" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
   <pre><code id="code-3d4effc15052" class="language-text">.id(value: Any) -&gt; Self</code></pre>
 </figure>
@@ -1400,7 +1409,7 @@
 <figure class="code-block" data-code-id="ca21ea5f0af5">
   <figcaption>
     <span>text</span>
-    <button class="copy-code" type="button" data-copy-code="ca21ea5f0af5">复制</button>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="ca21ea5f0af5" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
   <pre><code id="code-ca21ea5f0af5" class="language-text">.importance(value: str = &quot;primary&quot;) -&gt; Self</code></pre>
 </figure>
@@ -1408,7 +1417,7 @@
 <figure class="code-block" data-code-id="a10165c951a4">
   <figcaption>
     <span>text</span>
-    <button class="copy-code" type="button" data-copy-code="a10165c951a4">复制</button>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="a10165c951a4" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
   <pre><code id="code-a10165c951a4" class="language-text">.intent(action: Union[str, WidgetAction]) -&gt; Self</code></pre>
 </figure>
@@ -1416,7 +1425,7 @@
 <figure class="code-block" data-code-id="219a33a6cfb0">
   <figcaption>
     <span>text</span>
-    <button class="copy-code" type="button" data-copy-code="219a33a6cfb0">复制</button>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="219a33a6cfb0" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
   <pre><code id="code-219a33a6cfb0" class="language-text">.labels(
     start: Optional[Union[str, int, float]] = None,
@@ -1428,7 +1437,7 @@
 <figure class="code-block" data-code-id="be7b1e3946aa">
   <figcaption>
     <span>text</span>
-    <button class="copy-code" type="button" data-copy-code="be7b1e3946aa">复制</button>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="be7b1e3946aa" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
   <pre><code id="code-be7b1e3946aa" class="language-text">.layout_priority(value: float = 1) -&gt; Self</code></pre>
 </figure>
@@ -1436,7 +1445,7 @@
 <figure class="code-block" data-code-id="7225f107b33d">
   <figcaption>
     <span>text</span>
-    <button class="copy-code" type="button" data-copy-code="7225f107b33d">复制</button>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="7225f107b33d" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
   <pre><code id="code-7225f107b33d" class="language-text">.line_limit(value: int) -&gt; Self</code></pre>
 </figure>
@@ -1444,7 +1453,7 @@
 <figure class="code-block" data-code-id="8d5207015945">
   <figcaption>
     <span>text</span>
-    <button class="copy-code" type="button" data-copy-code="8d5207015945">复制</button>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="8d5207015945" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
   <pre><code id="code-8d5207015945" class="language-text">.line_width(value: Union[float, str]) -&gt; Self</code></pre>
 </figure>
@@ -1452,7 +1461,7 @@
 <figure class="code-block" data-code-id="a6fdc4b06ad7">
   <figcaption>
     <span>text</span>
-    <button class="copy-code" type="button" data-copy-code="a6fdc4b06ad7">复制</button>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="a6fdc4b06ad7" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
   <pre><code id="code-a6fdc4b06ad7" class="language-text">.link(url: str) -&gt; Self</code></pre>
 </figure>
@@ -1460,7 +1469,7 @@
 <figure class="code-block" data-code-id="bb0be99a52ce">
   <figcaption>
     <span>text</span>
-    <button class="copy-code" type="button" data-copy-code="bb0be99a52ce">复制</button>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="bb0be99a52ce" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
   <pre><code id="code-bb0be99a52ce" class="language-text">.mask(kind: str = &quot;roundedRectangle&quot;, corner_radius: Optional[float] = None) -&gt; Self</code></pre>
 </figure>
@@ -1468,7 +1477,7 @@
 <figure class="code-block" data-code-id="29362aab227a">
   <figcaption>
     <span>text</span>
-    <button class="copy-code" type="button" data-copy-code="29362aab227a">复制</button>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="29362aab227a" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
   <pre><code id="code-29362aab227a" class="language-text">.mask_view(align: str = &quot;center&quot;) -&gt; WidgetContainer</code></pre>
 </figure>
@@ -1476,7 +1485,7 @@
 <figure class="code-block" data-code-id="03fa3968a8ae">
   <figcaption>
     <span>text</span>
-    <button class="copy-code" type="button" data-copy-code="03fa3968a8ae">复制</button>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="03fa3968a8ae" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
   <pre><code id="code-03fa3968a8ae" class="language-text">.min_scale(value: float) -&gt; Self</code></pre>
 </figure>
@@ -1484,7 +1493,7 @@
 <figure class="code-block" data-code-id="530c63e19cd2">
   <figcaption>
     <span>text</span>
-    <button class="copy-code" type="button" data-copy-code="530c63e19cd2">复制</button>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="530c63e19cd2" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
   <pre><code id="code-530c63e19cd2" class="language-text">.monospaced(enabled: bool = True) -&gt; Self</code></pre>
 </figure>
@@ -1492,7 +1501,7 @@
 <figure class="code-block" data-code-id="955bec1eebfe">
   <figcaption>
     <span>text</span>
-    <button class="copy-code" type="button" data-copy-code="955bec1eebfe">复制</button>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="955bec1eebfe" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
   <pre><code id="code-955bec1eebfe" class="language-text">.monospaced_digit(enabled: bool = True) -&gt; Self</code></pre>
 </figure>
@@ -1500,7 +1509,7 @@
 <figure class="code-block" data-code-id="b2602348b835">
   <figcaption>
     <span>text</span>
-    <button class="copy-code" type="button" data-copy-code="b2602348b835">复制</button>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="b2602348b835" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
   <pre><code id="code-b2602348b835" class="language-text">.normal(**style: Any) -&gt; Self</code></pre>
 </figure>
@@ -1508,7 +1517,7 @@
 <figure class="code-block" data-code-id="f52329a2a9f4">
   <figcaption>
     <span>text</span>
-    <button class="copy-code" type="button" data-copy-code="f52329a2a9f4">复制</button>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="f52329a2a9f4" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
   <pre><code id="code-f52329a2a9f4" class="language-text">.offset(x: float = 0, y: float = 0) -&gt; Self</code></pre>
 </figure>
@@ -1516,7 +1525,7 @@
 <figure class="code-block" data-code-id="e9595a04297a">
   <figcaption>
     <span>text</span>
-    <button class="copy-code" type="button" data-copy-code="e9595a04297a">复制</button>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="e9595a04297a" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
   <pre><code id="code-e9595a04297a" class="language-text">.opacity(value: float) -&gt; Self</code></pre>
 </figure>
@@ -1524,7 +1533,7 @@
 <figure class="code-block" data-code-id="dc801137e612">
   <figcaption>
     <span>text</span>
-    <button class="copy-code" type="button" data-copy-code="dc801137e612">复制</button>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="dc801137e612" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
   <pre><code id="code-dc801137e612" class="language-text">.overflow(
     action: Optional[str] = None,
@@ -1537,7 +1546,7 @@
 <figure class="code-block" data-code-id="417a4e369e8d">
   <figcaption>
     <span>text</span>
-    <button class="copy-code" type="button" data-copy-code="417a4e369e8d">复制</button>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="417a4e369e8d" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
   <pre><code id="code-417a4e369e8d" class="language-text">.overlay(color: ColorLike = &quot;#000000&quot;, opacity: float = 0.18) -&gt; Self</code></pre>
 </figure>
@@ -1545,7 +1554,7 @@
 <figure class="code-block" data-code-id="e8e1e11e86af">
   <figcaption>
     <span>text</span>
-    <button class="copy-code" type="button" data-copy-code="e8e1e11e86af">复制</button>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="e8e1e11e86af" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
   <pre><code id="code-e8e1e11e86af" class="language-text">.overlay_view(align: str = &quot;center&quot;) -&gt; WidgetContainer</code></pre>
 </figure>
@@ -1553,7 +1562,7 @@
 <figure class="code-block" data-code-id="4a2359028d88">
   <figcaption>
     <span>text</span>
-    <button class="copy-code" type="button" data-copy-code="4a2359028d88">复制</button>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="4a2359028d88" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
   <pre><code id="code-4a2359028d88" class="language-text">.padding(
     value: Optional[Union[int, float]] = None,
@@ -1570,7 +1579,7 @@
 <figure class="code-block" data-code-id="86e05f6aca47">
   <figcaption>
     <span>text</span>
-    <button class="copy-code" type="button" data-copy-code="86e05f6aca47">复制</button>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="86e05f6aca47" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
   <pre><code id="code-86e05f6aca47" class="language-text">.palette(colors: Sequence[ColorLike]) -&gt; Self</code></pre>
 </figure>
@@ -1578,7 +1587,7 @@
 <figure class="code-block" data-code-id="276f4aa90a58">
   <figcaption>
     <span>text</span>
-    <button class="copy-code" type="button" data-copy-code="276f4aa90a58">复制</button>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="276f4aa90a58" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
   <pre><code id="code-276f4aa90a58" class="language-text">.pixel_perfect_center(enabled: bool = True) -&gt; Self</code></pre>
 </figure>
@@ -1586,7 +1595,7 @@
 <figure class="code-block" data-code-id="1bfc87124bde">
   <figcaption>
     <span>text</span>
-    <button class="copy-code" type="button" data-copy-code="1bfc87124bde">复制</button>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="1bfc87124bde" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
   <pre><code id="code-1bfc87124bde" class="language-text">.place(x: Optional[float] = None, y: Optional[float] = None, unit: str = &quot;relative&quot;) -&gt; Self</code></pre>
 </figure>
@@ -1594,7 +1603,7 @@
 <figure class="code-block" data-code-id="96321ccc1650">
   <figcaption>
     <span>text</span>
-    <button class="copy-code" type="button" data-copy-code="96321ccc1650">复制</button>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="96321ccc1650" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
   <pre><code id="code-96321ccc1650" class="language-text">.plain(enabled: bool = True) -&gt; Self</code></pre>
 </figure>
@@ -1602,7 +1611,7 @@
 <figure class="code-block" data-code-id="08c15249c55e">
   <figcaption>
     <span>text</span>
-    <button class="copy-code" type="button" data-copy-code="08c15249c55e">复制</button>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="08c15249c55e" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
   <pre><code id="code-08c15249c55e" class="language-text">.points(enabled: bool = True) -&gt; Self</code></pre>
 </figure>
@@ -1610,7 +1619,7 @@
 <figure class="code-block" data-code-id="ae7795cd187c">
   <figcaption>
     <span>text</span>
-    <button class="copy-code" type="button" data-copy-code="ae7795cd187c">复制</button>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="ae7795cd187c" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
   <pre><code id="code-ae7795cd187c" class="language-text">.position(x: Optional[float] = None, y: Optional[float] = None, unit: str = &quot;points&quot;) -&gt; Self</code></pre>
 </figure>
@@ -1618,7 +1627,7 @@
 <figure class="code-block" data-code-id="23160d536769">
   <figcaption>
     <span>text</span>
-    <button class="copy-code" type="button" data-copy-code="23160d536769">复制</button>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="23160d536769" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
   <pre><code id="code-23160d536769" class="language-text">.preserve(enabled: bool = True) -&gt; Self</code></pre>
 </figure>
@@ -1626,7 +1635,7 @@
 <figure class="code-block" data-code-id="dfea8f24e756">
   <figcaption>
     <span>text</span>
-    <button class="copy-code" type="button" data-copy-code="dfea8f24e756">复制</button>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="dfea8f24e756" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
   <pre><code id="code-dfea8f24e756" class="language-text">.pressed(**style: Any) -&gt; Self</code></pre>
 </figure>
@@ -1634,7 +1643,7 @@
 <figure class="code-block" data-code-id="a6e0e3d436f7">
   <figcaption>
     <span>text</span>
-    <button class="copy-code" type="button" data-copy-code="a6e0e3d436f7">复制</button>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="a6e0e3d436f7" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
   <pre><code id="code-a6e0e3d436f7" class="language-text">.privacy_sensitive(enabled: bool = True) -&gt; Self</code></pre>
 </figure>
@@ -1642,7 +1651,7 @@
 <figure class="code-block" data-code-id="61ed9c1dc408">
   <figcaption>
     <span>text</span>
-    <button class="copy-code" type="button" data-copy-code="61ed9c1dc408">复制</button>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="61ed9c1dc408" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
   <pre><code id="code-61ed9c1dc408" class="language-text">.redacted(reason: str = &quot;placeholder&quot;) -&gt; Self</code></pre>
 </figure>
@@ -1650,7 +1659,7 @@
 <figure class="code-block" data-code-id="36dd0c127829">
   <figcaption>
     <span>text</span>
-    <button class="copy-code" type="button" data-copy-code="36dd0c127829">复制</button>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="36dd0c127829" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
   <pre><code id="code-36dd0c127829" class="language-text">.rendering(mode: str, colors: Optional[Sequence[ColorLike]] = None) -&gt; Self</code></pre>
 </figure>
@@ -1658,7 +1667,7 @@
 <figure class="code-block" data-code-id="5cdbc9277bc3">
   <figcaption>
     <span>text</span>
-    <button class="copy-code" type="button" data-copy-code="5cdbc9277bc3">复制</button>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="5cdbc9277bc3" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
   <pre><code id="code-5cdbc9277bc3" class="language-text">.reverse_mask(kind: str = &quot;roundedRectangle&quot;, corner_radius: Optional[float] = None) -&gt; Self</code></pre>
 </figure>
@@ -1666,7 +1675,7 @@
 <figure class="code-block" data-code-id="f772949bf0ab">
   <figcaption>
     <span>text</span>
-    <button class="copy-code" type="button" data-copy-code="f772949bf0ab">复制</button>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="f772949bf0ab" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
   <pre><code id="code-f772949bf0ab" class="language-text">.rotate(degrees: float) -&gt; Self</code></pre>
 </figure>
@@ -1674,7 +1683,7 @@
 <figure class="code-block" data-code-id="c710a942b625">
   <figcaption>
     <span>text</span>
-    <button class="copy-code" type="button" data-copy-code="c710a942b625">复制</button>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="c710a942b625" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
   <pre><code id="code-c710a942b625" class="language-text">.rotation(degrees: float) -&gt; Self</code></pre>
 </figure>
@@ -1682,7 +1691,7 @@
 <figure class="code-block" data-code-id="c6986918dfef">
   <figcaption>
     <span>text</span>
-    <button class="copy-code" type="button" data-copy-code="c6986918dfef">复制</button>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="c6986918dfef" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
   <pre><code id="code-c6986918dfef" class="language-text">.scale(value: Union[float, str]) -&gt; Self</code></pre>
 </figure>
@@ -1690,7 +1699,7 @@
 <figure class="code-block" data-code-id="32f4c10ca945">
   <figcaption>
     <span>text</span>
-    <button class="copy-code" type="button" data-copy-code="32f4c10ca945">复制</button>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="32f4c10ca945" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
   <pre><code id="code-32f4c10ca945" class="language-text">.segment_colors(colors: List[ColorLike]) -&gt; Self</code></pre>
 </figure>
@@ -1698,7 +1707,7 @@
 <figure class="code-block" data-code-id="79cc8cc31cab">
   <figcaption>
     <span>text</span>
-    <button class="copy-code" type="button" data-copy-code="79cc8cc31cab">复制</button>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="79cc8cc31cab" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
   <pre><code id="code-79cc8cc31cab" class="language-text">.shadow(color: ColorLike = &quot;#000000&quot;, radius: float = 4, x: float = 0, y: float = 2, ) -&gt; Self</code></pre>
 </figure>
@@ -1706,7 +1715,7 @@
 <figure class="code-block" data-code-id="ec823a7ae742">
   <figcaption>
     <span>text</span>
-    <button class="copy-code" type="button" data-copy-code="ec823a7ae742">复制</button>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="ec823a7ae742" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
   <pre><code id="code-ec823a7ae742" class="language-text">.slot(value: str) -&gt; Self</code></pre>
 </figure>
@@ -1714,7 +1723,7 @@
 <figure class="code-block" data-code-id="e596ade0e0db">
   <figcaption>
     <span>text</span>
-    <button class="copy-code" type="button" data-copy-code="e596ade0e0db">复制</button>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="e596ade0e0db" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
   <pre><code id="code-e596ade0e0db" class="language-text">.soft_background(
     tone: Optional[str] = None,
@@ -1726,7 +1735,7 @@
 <figure class="code-block" data-code-id="f7fbfbc69338">
   <figcaption>
     <span>text</span>
-    <button class="copy-code" type="button" data-copy-code="f7fbfbc69338">复制</button>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="f7fbfbc69338" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
   <pre><code id="code-f7fbfbc69338" class="language-text">.stroke(
     color: Optional[ColorLike] = None,
@@ -1742,7 +1751,7 @@
 <figure class="code-block" data-code-id="20e30255bb31">
   <figcaption>
     <span>text</span>
-    <button class="copy-code" type="button" data-copy-code="20e30255bb31">复制</button>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="20e30255bb31" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
   <pre><code id="code-20e30255bb31" class="language-text">.threshold(value: float, color: Optional[ColorLike] = None) -&gt; Self</code></pre>
 </figure>
@@ -1750,7 +1759,7 @@
 <figure class="code-block" data-code-id="30d77ccd6e66">
   <figcaption>
     <span>text</span>
-    <button class="copy-code" type="button" data-copy-code="30d77ccd6e66">复制</button>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="30d77ccd6e66" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
   <pre><code id="code-30d77ccd6e66" class="language-text">.toggle_style(value: str = &quot;checkbox&quot;) -&gt; Self</code></pre>
 </figure>
@@ -1758,7 +1767,7 @@
 <figure class="code-block" data-code-id="9b29fde95bcd">
   <figcaption>
     <span>text</span>
-    <button class="copy-code" type="button" data-copy-code="9b29fde95bcd">复制</button>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="9b29fde95bcd" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
   <pre><code id="code-9b29fde95bcd" class="language-text">.tone(value: str) -&gt; Self</code></pre>
 </figure>
@@ -1766,7 +1775,7 @@
 <figure class="code-block" data-code-id="90fe92c5ba7a">
   <figcaption>
     <span>text</span>
-    <button class="copy-code" type="button" data-copy-code="90fe92c5ba7a">复制</button>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="90fe92c5ba7a" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
   <pre><code id="code-90fe92c5ba7a" class="language-text">.track_color(value: ColorLike) -&gt; Self</code></pre>
 </figure>
@@ -1774,7 +1783,7 @@
 <figure class="code-block" data-code-id="02803a953dc1">
   <figcaption>
     <span>text</span>
-    <button class="copy-code" type="button" data-copy-code="02803a953dc1">复制</button>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="02803a953dc1" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
   <pre><code id="code-02803a953dc1" class="language-text">.transition(value: str = &quot;opacity&quot;, edge: Optional[str] = None) -&gt; Self</code></pre>
 </figure>
@@ -1782,7 +1791,7 @@
 <figure class="code-block" data-code-id="0a386d648a7f">
   <figcaption>
     <span>text</span>
-    <button class="copy-code" type="button" data-copy-code="0a386d648a7f">复制</button>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="0a386d648a7f" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
   <pre><code id="code-0a386d648a7f" class="language-text">.variant(value: str) -&gt; Self</code></pre>
 </figure>
@@ -1790,7 +1799,7 @@
 <figure class="code-block" data-code-id="472e95917ca2">
   <figcaption>
     <span>text</span>
-    <button class="copy-code" type="button" data-copy-code="472e95917ca2">复制</button>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="472e95917ca2" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
   <pre><code id="code-472e95917ca2" class="language-text">.width(value: Optional[Union[float, Dict[str, Any]]] = None, **values: Any) -&gt; Self</code></pre>
 </figure>
@@ -1799,7 +1808,7 @@
 <figure class="code-block" data-code-id="fdd06694aa57">
   <figcaption>
     <span>python</span>
-    <button class="copy-code" type="button" data-copy-code="fdd06694aa57">复制</button>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="fdd06694aa57" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
   <pre><code id="code-fdd06694aa57" class="language-python">w.text(&quot;ADHD Bingo&quot;, size=28, weight=&quot;bold&quot;, color=&quot;#242326&quot;) \
     .line_limit(1) \
@@ -1809,7 +1818,7 @@
 <figure class="code-block" data-code-id="7da7a48631b9">
   <figcaption>
     <span>python</span>
-    <button class="copy-code" type="button" data-copy-code="7da7a48631b9">复制</button>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="7da7a48631b9" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
   <pre><code id="code-7da7a48631b9" class="language-python">w.value(count, format=&quot;{} 次&quot;) \
     .id(&quot;count&quot;) \
@@ -1823,7 +1832,7 @@
 <figure class="code-block" data-code-id="972674e5ef4c">
   <figcaption>
     <span>python</span>
-    <button class="copy-code" type="button" data-copy-code="972674e5ef4c">复制</button>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="972674e5ef4c" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
   <pre><code id="code-972674e5ef4c" class="language-python">w.text(&quot;喝水&quot;) \
     .font_size(16) \

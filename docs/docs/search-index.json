@@ -1,5 +1,13 @@
 [
   {
+    "id": "agent-development-index",
+    "title": "Agent Skills 安装与说明",
+    "subtitle": "一行命令安装 Skills，配合 AppUI、Widget 与 iOS 原生文档使用。",
+    "section": "Agent 开发 / 开始",
+    "url": "pages/agent-development-index/",
+    "text": "Agent Skills 安装与说明 一行命令安装 Skills，配合 AppUI、Widget 与 iOS 原生文档使用。 Agent 开发 开始 Agent Skills Codex Claude agent skills npx codex claude 安装 编码 agent Agent Skills 安装与说明 在 编码 Agent （如 Codex、Claude Code、Gemini CLI 等）中编写 PythonIDE 代码时，先安装本站的 Agent Skills。Skills 提供执行规则；完整 API 仍以左侧文档与公开 schema 为准。 边界 ：这是给 电脑上的编码 Agent 用的安装包，不是 PythonIDE App 内的 AI 助手，也不是替代在线文档的第二套手册。 你会得到什么 一次安装会带上 6 个互补 Skill： Skill 何时生效 `pythonide` 先判断该用 AppUI、Widget、scene 还是原生模块 `pythonide-appui` 编写或修改 AppUI MiniApp `pythonide-native` 选型并调用 iOS 原生模块、权限与存储 `pythonide-widget` 编写 iOS 主屏幕小组件 `pythonide-scene` 2D 游戏、场景与 turtle `pythonide-automation` 快捷指令、legacy `ui`、纯 Python 自动化 带相机、定位、通知的 AppUI 应用会同时用到 pythonide appui 与 pythonide native（Skills 内已互链）。 与六大开发路径的对应 文档路径 相关 Skill [appui](../../collections/appui/) `pythonide-appui` [widget](../../collections/widget/) `pythonide-widget` [scene](../../collections/scene/) `pythonide-scene` [iOS 原生模块](../../collections/ios-native/) `pythonide-native` [自动化与扩展](../../collections/automation-extension/) `pythonide-automation` 不确定 runtime `pythonide` 文档分工 层级 作用 **Agent Skills** 怎么写、禁止什么、何时配对哪个 skill **本站中文文档** 模块说明、示例、场景配方 **schema / stubs** API 签名与原生能力路由（机器可读） 编写时： 先遵守 Skill 规则，再查模块文档，再用 schema 校验 API 名称。 机器可读资源 llms full.txt — 生成硬规则与公开 API 表面 Native capabilities schema AppUI schema Widget schema GitHub：pythonide skills 常见误区 不要在 AppUI body() 里 直接申请权限、定位、拍照或发网络请求；放在命名回调里。 内联控件优先 ：PhotoPicker、CameraPicker、MapView、FileImporter、ShareLink、VideoPlayer。 App 内 AI 助手 与 编码 Agent Skills 是两套体系；前者在 iPhone/iPad App 里，后者在电脑终端安装。 不要编造 API ；以 schema 与各模块文档为准。 相关文档 iOS 原生能力 — 入口模型、AppUI 桥接、模块导航 运行时选择 — 选择 appui / widget / scene / ui appui 快速上手"
+  },
+  {
     "id": "appui-ref-modifiers",
     "title": "修饰符 API",
     "subtitle": "外观、布局、导航、交互和可访问性修饰符。",

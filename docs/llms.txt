@@ -4,8 +4,9 @@
 
 ## Start Here
 
-- [One-page docs](https://pythonide.xin/docs/ai/): human-readable and AI-readable PythonIDE guide.
+- [Agent development](https://pythonide.xin/docs/pages/agent-development-index/): install Agent Skills and read coding rules for external agents.
 - [Developer docs portal](https://pythonide.xin/docs/): browsable AppUI, Widget, and native module documentation.
+- [Agent Skills install](npx skills add jinwandalaohu66/pythonide-skills -g): recommended global install for coding agents (Codex, Claude Code, Gemini CLI, etc.).
 - [Full AI context](https://pythonide.xin/llms-full.txt): combined generation rules, quick starts, and complete public API surfaces.
 
 ## Machine-Readable API Contracts

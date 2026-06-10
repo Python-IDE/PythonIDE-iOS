@@ -16,6 +16,7 @@
     <a class="brand" href="../../"><img class="brand-mark" src="../../assets/brand-mark.svg" alt="" width="30" height="30"><span class="brand-text">PythonIDE Docs</span></a>
     <nav class="top-nav" aria-label="主导航">
       <a class="active" href="../../">文档</a>
+      <a class="" href="../../pages/agent-development-index/">Agent</a>
       <a class="" href="../../pages/widget-api-reference/">API 参考</a>
       <a class="" href="../../pages/appui-cookbook-index/">示例</a>
     </nav>
@@ -266,16 +267,24 @@
 <a class="nav-link" href="../../pages/miniapp-native-capabilities/">原生能力入口</a>
 </div>
 </details>
+<details class="nav-collection">
+<summary><a href="../../collections/agent-development/">Agent 开发</a></summary>
+<div class="nav-group">
+<div class="nav-group-title">开始</div>
+<a class="nav-link" href="../../pages/agent-development-index/">Agent Skills 安装与说明</a>
+</div>
+</details>
 </nav>
     </aside>
     <main class="content">
       
-<article class="article" style="--page-accent:#ea580c">
+<article class="article" style="--page-accent:#e54b22">
   <header class="article-intro">
     <div class="breadcrumb">iOS 原生模块 / 基础与权限</div>
     <h1>keychain</h1>
     <p>iOS 钥匙串安全存储。</p>
   </header>
+  
   <div class="markdown-body">
     <p>iOS 钥匙串：安全保存 token、密码、API Key 等敏感小字符串。</p>
 <blockquote class="callout note"><strong>边界</strong>：只存敏感凭据，不存主题、筛选条件或大型 JSON（用 <a href="../../pages/storage-module/">storage</a>）。不要把 <code>get_password()</code> 的明文打印到日志或界面；需要展示时用「已配置 / 未配置」或掩码。</blockquote>
@@ -287,7 +296,7 @@
 <figure class="code-block" data-code-id="82c79e15a682">
   <figcaption>
     <span>python</span>
-    <button class="copy-code" type="button" data-copy-code="82c79e15a682">复制</button>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="82c79e15a682" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
   <pre><code id="code-82c79e15a682" class="language-python">import keychain
 
@@ -312,7 +321,7 @@ for service, account in keychain.get_services():
 <figure class="code-block" data-code-id="5218c50e45a1">
   <figcaption>
     <span>python</span>
-    <button class="copy-code" type="button" data-copy-code="5218c50e45a1">复制</button>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="5218c50e45a1" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
   <pre><code id="code-5218c50e45a1" class="language-python">import appui
 import keychain
@@ -390,7 +399,7 @@ appui.run(body, state=state)</code></pre>
 <figure class="code-block" data-code-id="1617b735901d">
   <figcaption>
     <span>python</span>
-    <button class="copy-code" type="button" data-copy-code="1617b735901d">复制</button>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="1617b735901d" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
   <pre><code id="code-1617b735901d" class="language-python">import keychain
 
@@ -408,7 +417,7 @@ if token:
 <figure class="code-block" data-code-id="d91502cedfa3">
   <figcaption>
     <span>python</span>
-    <button class="copy-code" type="button" data-copy-code="d91502cedfa3">复制</button>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="d91502cedfa3" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
   <pre><code id="code-d91502cedfa3" class="language-python">for service, account in keychain.get_services():
     print(service, account)</code></pre>

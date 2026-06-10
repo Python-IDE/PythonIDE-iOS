@@ -16,6 +16,7 @@
     <a class="brand" href="../../"><img class="brand-mark" src="../../assets/brand-mark.svg" alt="" width="30" height="30"><span class="brand-text">PythonIDE Docs</span></a>
     <nav class="top-nav" aria-label="主导航">
       <a class="active" href="../../">文档</a>
+      <a class="" href="../../pages/agent-development-index/">Agent</a>
       <a class="" href="../../pages/widget-api-reference/">API 参考</a>
       <a class="" href="../../pages/appui-cookbook-index/">示例</a>
     </nav>
@@ -266,6 +267,13 @@
 <a class="nav-link" href="../../pages/miniapp-native-capabilities/">原生能力入口</a>
 </div>
 </details>
+<details class="nav-collection">
+<summary><a href="../../collections/agent-development/">Agent 开发</a></summary>
+<div class="nav-group">
+<div class="nav-group-title">开始</div>
+<a class="nav-link" href="../../pages/agent-development-index/">Agent Skills 安装与说明</a>
+</div>
+</details>
 </nav>
     </aside>
     <main class="content">
@@ -276,6 +284,7 @@
     <h1>图表与画布</h1>
     <p>Chart、Canvas、DrawingContext 和 Path 的使用模式。</p>
   </header>
+  
   <div class="markdown-body">
     <p><code>Chart</code> 提供系统图表视图，用字典列表作为数据源，指定 <code>x</code> / <code>y</code> 键与 <code>type</code>。<code>Canvas</code> 用绘制命令渲染自定义图形，可用 <strong><code>DrawingContext</code></strong> 链式生成命令，或直接传入 <strong><code>commands</code></strong> 字典列表。<code>Path</code> 则用于矢量路径（<code>move</code> / <code>line</code> / <code>close</code> 等）。</p>
 <hr>
@@ -293,7 +302,7 @@
 <figure class="code-block" data-code-id="7bfa99dde242">
   <figcaption>
     <span>python</span>
-    <button class="copy-code" type="button" data-copy-code="7bfa99dde242">复制</button>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="7bfa99dde242" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
   <pre><code id="code-7bfa99dde242" class="language-python">import appui
 
@@ -344,7 +353,7 @@ appui.run(body, state=state)</code></pre>
 <figure class="code-block" data-code-id="c9f4eaa00859">
   <figcaption>
     <span>python</span>
-    <button class="copy-code" type="button" data-copy-code="c9f4eaa00859">复制</button>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="c9f4eaa00859" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
   <pre><code id="code-c9f4eaa00859" class="language-python">import appui
 
@@ -450,7 +459,7 @@ appui.run(body, state=state)</code></pre>
 <figure class="code-block" data-code-id="f9f796365843">
   <figcaption>
     <span>python</span>
-    <button class="copy-code" type="button" data-copy-code="f9f796365843">复制</button>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="f9f796365843" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
   <pre><code id="code-f9f796365843" class="language-python">import appui
 

@@ -5,11 +5,43 @@
 
   const prefix = window.PYTHONIDE_DOCS_PREFIX || "";
   const themeToggle = document.querySelector(".theme-toggle");
-  themeToggle?.addEventListener("click", () => {
-    const next = root.dataset.theme === "dark" ? "light" : "dark";
+  const applyTheme = (next) => {
     root.dataset.theme = next;
     localStorage.setItem("docs-v2-theme", next);
+  };
+  themeToggle?.addEventListener("click", () => {
+    const next = root.dataset.theme === "dark" ? "light" : "dark";
+    if (typeof document.startViewTransition === "function") {
+      document.startViewTransition(() => applyTheme(next));
+      return;
+    }
+    applyTheme(next);
   });
+
+  const COPY_FEEDBACK_ID = "docs-v2-copy-feedback";
+  let copyFeedbackTimer = 0;
+  const showCopyFeedback = (button, message) => {
+    let toast = document.getElementById(COPY_FEEDBACK_ID);
+    if (!toast) {
+      toast = document.createElement("div");
+      toast.id = COPY_FEEDBACK_ID;
+      toast.className = "docs-copy-feedback";
+      toast.setAttribute("role", "status");
+      toast.setAttribute("aria-live", "polite");
+      toast.hidden = true;
+      document.body.appendChild(toast);
+    }
+    toast.textContent = message;
+    toast.hidden = false;
+    const rect = button.getBoundingClientRect();
+    toast.style.top = `${Math.round(rect.bottom + 8)}px`;
+    toast.style.right = `${Math.round(window.innerWidth - rect.right)}px`;
+    toast.style.left = "auto";
+    window.clearTimeout(copyFeedbackTimer);
+    copyFeedbackTimer = window.setTimeout(() => {
+      toast.hidden = true;
+    }, 1400);
+  };
 
   const menuToggle = document.querySelector(".menu-toggle");
   const backdrop = document.querySelector(".mobile-backdrop");
@@ -24,14 +56,22 @@
     }
   });
 
-  document.querySelectorAll(".copy-code").forEach((button) => {
+  document.querySelectorAll(".copy-code, .install-cmd-copy").forEach((button) => {
     button.addEventListener("click", async () => {
       const id = button.getAttribute("data-copy-code");
       const code = document.getElementById(`code-${id}`)?.textContent || "";
-      await navigator.clipboard.writeText(code);
-      const old = button.textContent;
-      button.textContent = "已复制";
-      setTimeout(() => { button.textContent = old; }, 1200);
+      try {
+        await navigator.clipboard.writeText(code);
+        const actions = button.parentElement;
+        const inlineToast = actions?.querySelector(".install-cmd-toast, .copy-code-toast");
+        const oldLabel = button.getAttribute("aria-label") || "复制";
+        const copiedLabel = inlineToast?.textContent?.trim() || "已复制";
+        showCopyFeedback(button, copiedLabel);
+        button.setAttribute("aria-label", copiedLabel);
+        setTimeout(() => button.setAttribute("aria-label", oldLabel), 1400);
+      } catch (_) {
+        window.prompt("请手动复制：", code);
+      }
     });
   });
 

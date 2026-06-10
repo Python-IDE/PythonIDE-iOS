@@ -16,6 +16,7 @@
     <a class="brand" href="../../"><img class="brand-mark" src="../../assets/brand-mark.svg" alt="" width="30" height="30"><span class="brand-text">PythonIDE Docs</span></a>
     <nav class="top-nav" aria-label="主导航">
       <a class="active" href="../../">文档</a>
+      <a class="" href="../../pages/agent-development-index/">Agent</a>
       <a class="" href="../../pages/widget-api-reference/">API 参考</a>
       <a class="" href="../../pages/appui-cookbook-index/">示例</a>
     </nav>
@@ -266,6 +267,13 @@
 <a class="nav-link" href="../../pages/miniapp-native-capabilities/">原生能力入口</a>
 </div>
 </details>
+<details class="nav-collection">
+<summary><a href="../../collections/agent-development/">Agent 开发</a></summary>
+<div class="nav-group">
+<div class="nav-group-title">开始</div>
+<a class="nav-link" href="../../pages/agent-development-index/">Agent Skills 安装与说明</a>
+</div>
+</details>
 </nav>
     </aside>
     <main class="content">
@@ -276,6 +284,7 @@
     <h1>device</h1>
     <p>设备、屏幕、电池和系统状态。</p>
   </header>
+  
   <div class="markdown-body">
     <p>读取当前 iPhone/iPad 的设备、系统、屏幕、电池、内存、温度、区域和语言信息。</p>
 <blockquote class="callout note"><strong>边界</strong>：用于界面适配、环境诊断和状态展示。<code>identifier_for_vendor()</code> 不是登录或支付凭据；改亮度要有明确用户动作。</blockquote>
@@ -287,7 +296,7 @@
 <figure class="code-block" data-code-id="ae75067846ff">
   <figcaption>
     <span>python</span>
-    <button class="copy-code" type="button" data-copy-code="ae75067846ff">复制</button>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="ae75067846ff" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
   <pre><code id="code-ae75067846ff" class="language-python">import device
 
@@ -312,7 +321,7 @@ print(&quot;区域:&quot;, device.locale(), device.timezone())</code></pre>
 <figure class="code-block" data-code-id="28c6c3a49f4b">
   <figcaption>
     <span>python</span>
-    <button class="copy-code" type="button" data-copy-code="28c6c3a49f4b">复制</button>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="28c6c3a49f4b" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
   <pre><code id="code-28c6c3a49f4b" class="language-python">import appui
 import device
@@ -390,7 +399,7 @@ appui.run(body, state=state)</code></pre>
 <figure class="code-block" data-code-id="28e3b7fa1d2a">
   <figcaption>
     <span>python</span>
-    <button class="copy-code" type="button" data-copy-code="28e3b7fa1d2a">复制</button>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="28e3b7fa1d2a" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
   <pre><code id="code-28e3b7fa1d2a" class="language-python">print(device.model(), device.system_version())
 print(device.identifier_for_vendor())</code></pre>
@@ -400,7 +409,7 @@ print(device.identifier_for_vendor())</code></pre>
 <figure class="code-block" data-code-id="a5f3ba3fbd1d">
   <figcaption>
     <span>python</span>
-    <button class="copy-code" type="button" data-copy-code="a5f3ba3fbd1d">复制</button>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="a5f3ba3fbd1d" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
   <pre><code id="code-a5f3ba3fbd1d" class="language-python">width, height = device.screen_size()
 device.set_screen_brightness(0.6)  # 仅在按钮回调里调用</code></pre>
@@ -410,7 +419,7 @@ device.set_screen_brightness(0.6)  # 仅在按钮回调里调用</code></pre>
 <figure class="code-block" data-code-id="3c645ccc7127">
   <figcaption>
     <span>python</span>
-    <button class="copy-code" type="button" data-copy-code="3c645ccc7127">复制</button>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="3c645ccc7127" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
   <pre><code id="code-3c645ccc7127" class="language-python">level = device.battery_level()
 if level &gt;= 0:
@@ -423,7 +432,7 @@ if device.is_low_power_mode():
 <figure class="code-block" data-code-id="8a3890a61ec4">
   <figcaption>
     <span>python</span>
-    <button class="copy-code" type="button" data-copy-code="8a3890a61ec4">复制</button>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="8a3890a61ec4" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
   <pre><code id="code-8a3890a61ec4" class="language-python">print(device.locale(), device.timezone())
 print(device.preferred_languages())</code></pre>

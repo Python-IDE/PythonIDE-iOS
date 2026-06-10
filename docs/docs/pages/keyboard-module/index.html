@@ -16,6 +16,7 @@
     <a class="brand" href="../../"><img class="brand-mark" src="../../assets/brand-mark.svg" alt="" width="30" height="30"><span class="brand-text">PythonIDE Docs</span></a>
     <nav class="top-nav" aria-label="主导航">
       <a class="active" href="../../">文档</a>
+      <a class="" href="../../pages/agent-development-index/">Agent</a>
       <a class="" href="../../pages/widget-api-reference/">API 参考</a>
       <a class="" href="../../pages/appui-cookbook-index/">示例</a>
     </nav>
@@ -266,6 +267,13 @@
 <a class="nav-link" href="../../pages/miniapp-native-capabilities/">原生能力入口</a>
 </div>
 </details>
+<details class="nav-collection">
+<summary><a href="../../collections/agent-development/">Agent 开发</a></summary>
+<div class="nav-group">
+<div class="nav-group-title">开始</div>
+<a class="nav-link" href="../../pages/agent-development-index/">Agent Skills 安装与说明</a>
+</div>
+</details>
 </nav>
     </aside>
     <main class="content">
@@ -276,6 +284,7 @@
     <h1>keyboard</h1>
     <p>编辑器自定义键盘工具栏与插入动作。</p>
   </header>
+  
   <div class="markdown-body">
     <p>脚本编辑器键盘工具栏：自定义快捷键按钮、插入文本与代码片段。</p>
 <blockquote class="callout note"><strong>边界</strong>：作用于 <strong>PythonIDE 脚本编辑器</strong>键盘上方工具栏，不是 AppUI 小应用内键盘。配置代码应在编辑器中运行的脚本里执行；AppUI 示例仅演示配置写法。</blockquote>
@@ -287,7 +296,7 @@
 <figure class="code-block" data-code-id="1c34f875d9fb">
   <figcaption>
     <span>python</span>
-    <button class="copy-code" type="button" data-copy-code="1c34f875d9fb">复制</button>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="1c34f875d9fb" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
   <pre><code id="code-1c34f875d9fb" class="language-python">import keyboard
 
@@ -303,7 +312,7 @@ keyboard.add_button(
 <figure class="code-block" data-code-id="d8f6ec464fb9">
   <figcaption>
     <span>python</span>
-    <button class="copy-code" type="button" data-copy-code="d8f6ec464fb9">复制</button>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="d8f6ec464fb9" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
   <pre><code id="code-d8f6ec464fb9" class="language-python">import keyboard
 
@@ -318,7 +327,7 @@ keyboard.add_group(&quot;常用&quot;, buttons=[
 <figure class="code-block" data-code-id="1d357e070b50">
   <figcaption>
     <span>python</span>
-    <button class="copy-code" type="button" data-copy-code="1d357e070b50">复制</button>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="1d357e070b50" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
   <pre><code id="code-1d357e070b50" class="language-python">import appui
 
@@ -370,7 +379,7 @@ appui.run(body, state=state)</code></pre>
 <figure class="code-block" data-code-id="1023c451ac6d">
   <figcaption>
     <span>python</span>
-    <button class="copy-code" type="button" data-copy-code="1023c451ac6d">复制</button>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="1023c451ac6d" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
   <pre><code id="code-1023c451ac6d" class="language-python">keyboard.insert_text(&quot;    &quot;)  # Tab
 keyboard.insert_text(&quot;if :\n    &quot;, offset=-6)  # 光标回到条件处

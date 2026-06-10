@@ -16,6 +16,7 @@
     <a class="brand" href="../../"><img class="brand-mark" src="../../assets/brand-mark.svg" alt="" width="30" height="30"><span class="brand-text">PythonIDE Docs</span></a>
     <nav class="top-nav" aria-label="主导航">
       <a class="active" href="../../">文档</a>
+      <a class="" href="../../pages/agent-development-index/">Agent</a>
       <a class="" href="../../pages/widget-api-reference/">API 参考</a>
       <a class="" href="../../pages/appui-cookbook-index/">示例</a>
     </nav>
@@ -266,6 +267,13 @@
 <a class="nav-link" href="../../pages/miniapp-native-capabilities/">原生能力入口</a>
 </div>
 </details>
+<details class="nav-collection">
+<summary><a href="../../collections/agent-development/">Agent 开发</a></summary>
+<div class="nav-group">
+<div class="nav-group-title">开始</div>
+<a class="nav-link" href="../../pages/agent-development-index/">Agent Skills 安装与说明</a>
+</div>
+</details>
 </nav>
     </aside>
     <main class="content">
@@ -276,6 +284,7 @@
     <h1>widget 状态和交互</h1>
     <p>widget.state、按钮 ±、习惯清单、开关与链接；AppIntent 桌面交互。</p>
   </header>
+  
   <div class="markdown-body">
     <p>桌面小组件<strong>不执行任意 Python 回调</strong>。按钮、开关、列表勾选只能触发受控 <strong>AppIntent</strong>：改写 <code>widget.state</code>、刷新时间线，或打开链接。</p>
 <blockquote class="callout note"><strong>边界</strong>：本篇讲<strong>桌面点击</strong>与 <code>widget.state</code>。预览面板里的配色、标题默认值用 <a href="../../pages/widget-parameters/">widget.param</a>，不要混用。</blockquote>
@@ -287,7 +296,7 @@
 <figure class="code-block" data-code-id="79c9c8a6422d">
   <figcaption>
     <span>python</span>
-    <button class="copy-code" type="button" data-copy-code="79c9c8a6422d">复制</button>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="79c9c8a6422d" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
   <pre><code id="code-79c9c8a6422d" class="language-python">import widget
 
@@ -321,7 +330,7 @@ w.render()</code></pre>
 <figure class="code-block" data-code-id="ee80fd41e017">
   <figcaption>
     <span>python</span>
-    <button class="copy-code" type="button" data-copy-code="ee80fd41e017">复制</button>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="ee80fd41e017" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
   <pre><code id="code-ee80fd41e017" class="language-python">import widget
 
@@ -353,7 +362,7 @@ w.render()</code></pre>
 <figure class="code-block" data-code-id="25e06c31414b">
   <figcaption>
     <span>python</span>
-    <button class="copy-code" type="button" data-copy-code="25e06c31414b">复制</button>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="25e06c31414b" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
   <pre><code id="code-25e06c31414b" class="language-python">import widget
 
@@ -374,7 +383,7 @@ w.render()</code></pre>
 <figure class="code-block" data-code-id="18eee6b7efd6">
   <figcaption>
     <span>python</span>
-    <button class="copy-code" type="button" data-copy-code="18eee6b7efd6">复制</button>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="18eee6b7efd6" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
   <pre><code id="code-18eee6b7efd6" class="language-python">import widget
 
@@ -393,7 +402,7 @@ w.render()</code></pre>
 <figure class="code-block" data-code-id="468753da2d4e">
   <figcaption>
     <span>text</span>
-    <button class="copy-code" type="button" data-copy-code="468753da2d4e">复制</button>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="468753da2d4e" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
   <pre><code id="code-468753da2d4e" class="language-text">widget.state.int/bool/list/...   ← 桌面持久化
         ↓
@@ -415,7 +424,7 @@ w.button(..., action=...)  或  w.toggle(..., state=...)
 <figure class="code-block" data-code-id="20ac380f5dc1">
   <figcaption>
     <span>python</span>
-    <button class="copy-code" type="button" data-copy-code="20ac380f5dc1">复制</button>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="20ac380f5dc1" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
   <pre><code id="code-20ac380f5dc1" class="language-python">count = widget.state.int(&quot;count&quot;, 0)
 done = widget.state.bool(&quot;done&quot;, False)
@@ -432,7 +441,7 @@ w.link(&quot;文档&quot;, &quot;https://example.com&quot;, icon=&quot;book.fill
 <figure class="code-block" data-code-id="4b60be2affca">
   <figcaption>
     <span>python</span>
-    <button class="copy-code" type="button" data-copy-code="4b60be2affca">复制</button>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="4b60be2affca" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
   <pre><code id="code-4b60be2affca" class="language-python">w.button(&quot;+&quot;, action=count.increment()).pressed(scale=0.94)
 w.value(count).content_transition(&quot;numericText&quot;).monospaced_digit()</code></pre>

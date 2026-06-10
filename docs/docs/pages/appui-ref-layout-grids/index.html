@@ -16,6 +16,7 @@
     <a class="brand" href="../../"><img class="brand-mark" src="../../assets/brand-mark.svg" alt="" width="30" height="30"><span class="brand-text">PythonIDE Docs</span></a>
     <nav class="top-nav" aria-label="主导航">
       <a class="" href="../../">文档</a>
+      <a class="" href="../../pages/agent-development-index/">Agent</a>
       <a class="active" href="../../pages/widget-api-reference/">API 参考</a>
       <a class="" href="../../pages/appui-cookbook-index/">示例</a>
     </nav>
@@ -266,6 +267,13 @@
 <a class="nav-link" href="../../pages/miniapp-native-capabilities/">原生能力入口</a>
 </div>
 </details>
+<details class="nav-collection">
+<summary><a href="../../collections/agent-development/">Agent 开发</a></summary>
+<div class="nav-group">
+<div class="nav-group-title">开始</div>
+<a class="nav-link" href="../../pages/agent-development-index/">Agent Skills 安装与说明</a>
+</div>
+</details>
 </nav>
     </aside>
     <main class="content">
@@ -276,6 +284,7 @@
     <h1>网格 API</h1>
     <p>LazyVGrid、LazyHGrid、Grid、GridRow 和轨道辅助函数。</p>
   </header>
+  
   <div class="markdown-body">
     <p>LazyVGrid / LazyHGrid / Grid / GridRow 与轨道辅助函数 flexible / fixed / adaptive / grid_item。</p>
 <hr>
@@ -284,7 +293,7 @@
 <figure class="code-block" data-code-id="5b254dfd333f">
   <figcaption>
     <span>text</span>
-    <button class="copy-code" type="button" data-copy-code="5b254dfd333f">复制</button>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="5b254dfd333f" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
   <pre><code id="code-5b254dfd333f" class="language-text">LazyVGrid(columns=None, content=None, spacing=None, children=None)</code></pre>
 </figure>
@@ -294,7 +303,7 @@
 <figure class="code-block" data-code-id="cccbab3b0adb">
   <figcaption>
     <span>python</span>
-    <button class="copy-code" type="button" data-copy-code="cccbab3b0adb">复制</button>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="cccbab3b0adb" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
   <pre><code id="code-cccbab3b0adb" class="language-python">import appui
 
@@ -320,7 +329,7 @@ appui.run(body, presentation=&quot;sheet&quot;)</code></pre>
 <figure class="code-block" data-code-id="b8afddd18295">
   <figcaption>
     <span>text</span>
-    <button class="copy-code" type="button" data-copy-code="b8afddd18295">复制</button>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="b8afddd18295" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
   <pre><code id="code-b8afddd18295" class="language-text">LazyHGrid(rows=None, content=None, spacing=None, children=None)</code></pre>
 </figure>
@@ -330,7 +339,7 @@ appui.run(body, presentation=&quot;sheet&quot;)</code></pre>
 <figure class="code-block" data-code-id="08b51068ddd7">
   <figcaption>
     <span>python</span>
-    <button class="copy-code" type="button" data-copy-code="08b51068ddd7">复制</button>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="08b51068ddd7" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
   <pre><code id="code-08b51068ddd7" class="language-python">import appui
 
@@ -352,7 +361,7 @@ appui.run(body, presentation=&quot;sheet&quot;)</code></pre>
 <figure class="code-block" data-code-id="c1d4b9c11a09">
   <figcaption>
     <span>text</span>
-    <button class="copy-code" type="button" data-copy-code="c1d4b9c11a09">复制</button>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="c1d4b9c11a09" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
   <pre><code id="code-c1d4b9c11a09" class="language-text">Grid(content=None, alignment=&#x27;center&#x27;, horizontal_spacing=None, vertical_spacing=None,
      horizontalSpacing=None, verticalSpacing=None)</code></pre>
@@ -363,7 +372,7 @@ appui.run(body, presentation=&quot;sheet&quot;)</code></pre>
 <figure class="code-block" data-code-id="a13b9df96e13">
   <figcaption>
     <span>python</span>
-    <button class="copy-code" type="button" data-copy-code="a13b9df96e13">复制</button>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="a13b9df96e13" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
   <pre><code id="code-a13b9df96e13" class="language-python">import appui
 
@@ -386,7 +395,7 @@ appui.run(body, presentation=&quot;sheet&quot;)</code></pre>
 <figure class="code-block" data-code-id="70f9c5e6d3fd">
   <figcaption>
     <span>text</span>
-    <button class="copy-code" type="button" data-copy-code="70f9c5e6d3fd">复制</button>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="70f9c5e6d3fd" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
   <pre><code id="code-70f9c5e6d3fd" class="language-text">GridRow(content=None, alignment=None)</code></pre>
 </figure>
@@ -401,7 +410,7 @@ appui.run(body, presentation=&quot;sheet&quot;)</code></pre>
 <figure class="code-block" data-code-id="190647a0c5f6">
   <figcaption>
     <span>text</span>
-    <button class="copy-code" type="button" data-copy-code="190647a0c5f6">复制</button>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="190647a0c5f6" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
   <pre><code id="code-190647a0c5f6" class="language-text">flexible(minimum=10, maximum=None)</code></pre>
 </figure>
@@ -411,7 +420,7 @@ appui.run(body, presentation=&quot;sheet&quot;)</code></pre>
 <figure class="code-block" data-code-id="218b689f99a9">
   <figcaption>
     <span>python</span>
-    <button class="copy-code" type="button" data-copy-code="218b689f99a9">复制</button>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="218b689f99a9" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
   <pre><code id="code-218b689f99a9" class="language-python">import appui
 
@@ -425,7 +434,7 @@ print(row[0][&quot;type&quot;], row[1][&quot;type&quot;])</code></pre>
 <figure class="code-block" data-code-id="03d3d3e21e9f">
   <figcaption>
     <span>text</span>
-    <button class="copy-code" type="button" data-copy-code="03d3d3e21e9f">复制</button>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="03d3d3e21e9f" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
   <pre><code id="code-03d3d3e21e9f" class="language-text">fixed(size)</code></pre>
 </figure>
@@ -435,7 +444,7 @@ print(row[0][&quot;type&quot;], row[1][&quot;type&quot;])</code></pre>
 <figure class="code-block" data-code-id="c1aace9d5a03">
   <figcaption>
     <span>python</span>
-    <button class="copy-code" type="button" data-copy-code="c1aace9d5a03">复制</button>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="c1aace9d5a03" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
   <pre><code id="code-c1aace9d5a03" class="language-python">import appui
 
@@ -449,7 +458,7 @@ assert c[&quot;type&quot;] == &quot;fixed&quot;</code></pre>
 <figure class="code-block" data-code-id="a843d5807105">
   <figcaption>
     <span>text</span>
-    <button class="copy-code" type="button" data-copy-code="a843d5807105">复制</button>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="a843d5807105" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
   <pre><code id="code-a843d5807105" class="language-text">adaptive(minimum=50, maximum=None)</code></pre>
 </figure>
@@ -459,7 +468,7 @@ assert c[&quot;type&quot;] == &quot;fixed&quot;</code></pre>
 <figure class="code-block" data-code-id="11ac79ac9208">
   <figcaption>
     <span>python</span>
-    <button class="copy-code" type="button" data-copy-code="11ac79ac9208">复制</button>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="11ac79ac9208" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
   <pre><code id="code-11ac79ac9208" class="language-python">import appui
 
@@ -473,7 +482,7 @@ print(len(cols), cols[0][&quot;type&quot;])</code></pre>
 <figure class="code-block" data-code-id="fbd4079f9f53">
   <figcaption>
     <span>text</span>
-    <button class="copy-code" type="button" data-copy-code="fbd4079f9f53">复制</button>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="fbd4079f9f53" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
   <pre><code id="code-fbd4079f9f53" class="language-text">grid_item(type=&#x27;flexible&#x27;, minimum=None, maximum=None, count=None)</code></pre>
 </figure>
@@ -484,7 +493,7 @@ print(len(cols), cols[0][&quot;type&quot;])</code></pre>
 <figure class="code-block" data-code-id="6f5d2e14cc49">
   <figcaption>
     <span>python</span>
-    <button class="copy-code" type="button" data-copy-code="6f5d2e14cc49">复制</button>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="6f5d2e14cc49" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
   <pre><code id="code-6f5d2e14cc49" class="language-python">import appui
 

@@ -16,6 +16,7 @@
     <a class="brand" href="../../"><img class="brand-mark" src="../../assets/brand-mark.svg" alt="" width="30" height="30"><span class="brand-text">PythonIDE Docs</span></a>
     <nav class="top-nav" aria-label="主导航">
       <a class="active" href="../../">文档</a>
+      <a class="" href="../../pages/agent-development-index/">Agent</a>
       <a class="" href="../../pages/widget-api-reference/">API 参考</a>
       <a class="" href="../../pages/appui-cookbook-index/">示例</a>
     </nav>
@@ -266,6 +267,13 @@
 <a class="nav-link" href="../../pages/miniapp-native-capabilities/">原生能力入口</a>
 </div>
 </details>
+<details class="nav-collection">
+<summary><a href="../../collections/agent-development/">Agent 开发</a></summary>
+<div class="nav-group">
+<div class="nav-group-title">开始</div>
+<a class="nav-link" href="../../pages/agent-development-index/">Agent Skills 安装与说明</a>
+</div>
+</details>
 </nav>
     </aside>
     <main class="content">
@@ -276,6 +284,7 @@
     <h1>导航与页面结构</h1>
     <p>TabView、NavigationStack、NavigationLink 和 toolbar 的组合方式。</p>
   </header>
+  
   <div class="markdown-body">
     <p>导航的目标是让页面关系清楚：栈式跳转用 <code>NavigationStack</code>，多 tab 用 <code>TabView</code>，iPad 双栏用 <code>NavigationSplitView</code>，临时任务用 sheet / alert / popover。</p>
 <h2 id="预期效果"><a class="heading-anchor" href="#预期效果">#</a>预期效果</h2>
@@ -287,7 +296,7 @@
 <figure class="code-block" data-code-id="39ae0d58cd16">
   <figcaption>
     <span>python</span>
-    <button class="copy-code" type="button" data-copy-code="39ae0d58cd16">复制</button>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="39ae0d58cd16" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
   <pre><code id="code-39ae0d58cd16" class="language-python">import appui
 
@@ -334,7 +343,7 @@ appui.run(body, state=state)</code></pre>
 <figure class="code-block" data-code-id="a509fc96bf1c">
   <figcaption>
     <span>python</span>
-    <button class="copy-code" type="button" data-copy-code="a509fc96bf1c">复制</button>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="a509fc96bf1c" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
   <pre><code id="code-a509fc96bf1c" class="language-python">import appui
 
@@ -395,7 +404,7 @@ appui.run(body, state=state)</code></pre>
 <figure class="code-block" data-code-id="969d8f88349d">
   <figcaption>
     <span>python</span>
-    <button class="copy-code" type="button" data-copy-code="969d8f88349d">复制</button>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="969d8f88349d" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
   <pre><code id="code-969d8f88349d" class="language-python">import appui
 
@@ -444,7 +453,7 @@ appui.run(body, state=state)</code></pre>
 <figure class="code-block" data-code-id="8379d87ad298">
   <figcaption>
     <span>python</span>
-    <button class="copy-code" type="button" data-copy-code="8379d87ad298">复制</button>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="8379d87ad298" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
   <pre><code id="code-8379d87ad298" class="language-python">import appui
 
@@ -513,7 +522,7 @@ appui.run(body, state=state)</code></pre>
 <figure class="code-block" data-code-id="10d05f9105f6">
   <figcaption>
     <span>python</span>
-    <button class="copy-code" type="button" data-copy-code="10d05f9105f6">复制</button>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="10d05f9105f6" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
   <pre><code id="code-10d05f9105f6" class="language-python">appui.NavigationSplitView(
     sidebar=appui.List([...]).navigation_title(&quot;项目&quot;),

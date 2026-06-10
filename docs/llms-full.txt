@@ -1,7 +1,7 @@
 # PythonIDE Public AI Generation Context
 
 Canonical docs URL: https://pythonide.xin/docs/
-AI one-page URL: https://pythonide.xin/docs/ai/
+AI one-page URL: https://pythonide.xin/docs/pages/agent-development-index/
 
 ## Hard Rules
 

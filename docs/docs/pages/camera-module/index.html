@@ -16,6 +16,7 @@
     <a class="brand" href="../../"><img class="brand-mark" src="../../assets/brand-mark.svg" alt="" width="30" height="30"><span class="brand-text">PythonIDE Docs</span></a>
     <nav class="top-nav" aria-label="主导航">
       <a class="active" href="../../">文档</a>
+      <a class="" href="../../pages/agent-development-index/">Agent</a>
       <a class="" href="../../pages/widget-api-reference/">API 参考</a>
       <a class="" href="../../pages/appui-cookbook-index/">示例</a>
     </nav>
@@ -266,6 +267,13 @@
 <a class="nav-link" href="../../pages/miniapp-native-capabilities/">原生能力入口</a>
 </div>
 </details>
+<details class="nav-collection">
+<summary><a href="../../collections/agent-development/">Agent 开发</a></summary>
+<div class="nav-group">
+<div class="nav-group-title">开始</div>
+<a class="nav-link" href="../../pages/agent-development-index/">Agent Skills 安装与说明</a>
+</div>
+</details>
 </nav>
     </aside>
     <main class="content">
@@ -276,6 +284,7 @@
     <h1>camera</h1>
     <p>系统相机拍照与 AppUI CameraPicker。</p>
   </header>
+  
   <div class="markdown-body">
     <p>系统相机拍照：弹出相机界面，返回 <code>PIL.Image</code> 或 Base64 字符串。</p>
 <blockquote class="callout note"><strong>边界</strong>：无独立 <code>import camera</code> 模块，拍照 API 在 <a href="../../pages/photos-module/">photos</a> 的 <code>capture_image()</code> / <code>capture_image_base64()</code>。录像请用 <a href="../../pages/video-recorder-module/">video_recorder</a>。统一 <a href="../../pages/permission-module/">permission</a> 的 <code>request(&quot;camera&quot;)</code> <strong>暂不支持弹窗</strong>；首次拍照时系统可能提示，或在设置中开启相机权限。</blockquote>
@@ -287,7 +296,7 @@
 <figure class="code-block" data-code-id="216e498edbb8">
   <figcaption>
     <span>python</span>
-    <button class="copy-code" type="button" data-copy-code="216e498edbb8">复制</button>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="216e498edbb8" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
   <pre><code id="code-216e498edbb8" class="language-python">import photos
 
@@ -304,7 +313,7 @@ else:
 <figure class="code-block" data-code-id="991ad8ca2968">
   <figcaption>
     <span>python</span>
-    <button class="copy-code" type="button" data-copy-code="991ad8ca2968">复制</button>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="991ad8ca2968" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
   <pre><code id="code-991ad8ca2968" class="language-python">import photos
 
@@ -318,7 +327,7 @@ if payload:
 <figure class="code-block" data-code-id="4c569936a0f6">
   <figcaption>
     <span>python</span>
-    <button class="copy-code" type="button" data-copy-code="4c569936a0f6">复制</button>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="4c569936a0f6" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
   <pre><code id="code-4c569936a0f6" class="language-python">import appui
 import photos
@@ -396,7 +405,7 @@ appui.run(body, state=state)</code></pre>
 <figure class="code-block" data-code-id="4e8a6ac1bf86">
   <figcaption>
     <span>python</span>
-    <button class="copy-code" type="button" data-copy-code="4e8a6ac1bf86">复制</button>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="4e8a6ac1bf86" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
   <pre><code id="code-4e8a6ac1bf86" class="language-python">image = photos.capture_image()
 if image is None:
@@ -409,7 +418,7 @@ if image is None:
 <figure class="code-block" data-code-id="b5340cfded6d">
   <figcaption>
     <span>python</span>
-    <button class="copy-code" type="button" data-copy-code="b5340cfded6d">复制</button>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="b5340cfded6d" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
   <pre><code id="code-b5340cfded6d" class="language-python">appui.CameraPicker(
     source=&quot;front&quot;,
@@ -423,7 +432,7 @@ if image is None:
 <figure class="code-block" data-code-id="c079db81d54c">
   <figcaption>
     <span>python</span>
-    <button class="copy-code" type="button" data-copy-code="c079db81d54c">复制</button>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="c079db81d54c" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
   <pre><code id="code-c079db81d54c" class="language-python">import permission
 

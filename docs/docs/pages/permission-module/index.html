@@ -16,6 +16,7 @@
     <a class="brand" href="../../"><img class="brand-mark" src="../../assets/brand-mark.svg" alt="" width="30" height="30"><span class="brand-text">PythonIDE Docs</span></a>
     <nav class="top-nav" aria-label="主导航">
       <a class="active" href="../../">文档</a>
+      <a class="" href="../../pages/agent-development-index/">Agent</a>
       <a class="" href="../../pages/widget-api-reference/">API 参考</a>
       <a class="" href="../../pages/appui-cookbook-index/">示例</a>
     </nav>
@@ -266,16 +267,24 @@
 <a class="nav-link" href="../../pages/miniapp-native-capabilities/">原生能力入口</a>
 </div>
 </details>
+<details class="nav-collection">
+<summary><a href="../../collections/agent-development/">Agent 开发</a></summary>
+<div class="nav-group">
+<div class="nav-group-title">开始</div>
+<a class="nav-link" href="../../pages/agent-development-index/">Agent Skills 安装与说明</a>
+</div>
+</details>
 </nav>
     </aside>
     <main class="content">
       
-<article class="article" style="--page-accent:#ea580c">
+<article class="article" style="--page-accent:#e54b22">
   <header class="article-intro">
     <div class="breadcrumb">iOS 原生模块 / 基础与权限</div>
     <h1>permission</h1>
     <p>统一查询权限状态，并请求位置或通知权限。</p>
   </header>
+  
   <div class="markdown-body">
     <p>统一权限入口：查询授权状态，并在支持的模块上触发系统授权弹窗。</p>
 <blockquote class="callout note"><strong>边界</strong>：<code>permission</code> 只管「查状态 / 弹授权」，不替代业务模块。拍照、选图、读通讯录等具体操作仍调用 <code>photos</code>、<code>contacts</code> 等模块。当前运行时 <strong><code>request()</code> 仅支持 <code>location</code> 和 <code>notifications</code></strong>；<code>status()</code> 可查 <code>location</code>、<code>notifications</code>、<code>health</code>、<code>motion</code>、<code>speech</code>。<code>MODULES</code> 列出规划中的统一键名，其余键请先用各业务模块自带 API。</blockquote>
@@ -287,7 +296,7 @@
 <figure class="code-block" data-code-id="4a7a141d5220">
   <figcaption>
     <span>python</span>
-    <button class="copy-code" type="button" data-copy-code="4a7a141d5220">复制</button>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="4a7a141d5220" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
   <pre><code id="code-4a7a141d5220" class="language-python">import permission
 
@@ -308,7 +317,7 @@ for key in (&quot;location&quot;, &quot;notifications&quot;):
 <figure class="code-block" data-code-id="021f07f51fb9">
   <figcaption>
     <span>python</span>
-    <button class="copy-code" type="button" data-copy-code="021f07f51fb9">复制</button>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="021f07f51fb9" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
   <pre><code id="code-021f07f51fb9" class="language-python">import appui
 import permission
@@ -400,7 +409,7 @@ appui.run(body, state=state)</code></pre>
 <figure class="code-block" data-code-id="a5f51e1cefff">
   <figcaption>
     <span>python</span>
-    <button class="copy-code" type="button" data-copy-code="a5f51e1cefff">复制</button>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="a5f51e1cefff" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
   <pre><code id="code-a5f51e1cefff" class="language-python">entry = permission.status(&quot;location&quot;)
 if entry.get(&quot;authorized&quot;):
@@ -413,7 +422,7 @@ if entry.get(&quot;authorized&quot;):
 <figure class="code-block" data-code-id="65a15355ba35">
   <figcaption>
     <span>python</span>
-    <button class="copy-code" type="button" data-copy-code="65a15355ba35">复制</button>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="65a15355ba35" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
   <pre><code id="code-65a15355ba35" class="language-python">result = permission.status_all()
 for item in result.get(&quot;modules&quot;, []):
@@ -426,7 +435,7 @@ for item in result.get(&quot;modules&quot;, []):
 <figure class="code-block" data-code-id="95a76d966213">
   <figcaption>
     <span>python</span>
-    <button class="copy-code" type="button" data-copy-code="95a76d966213">复制</button>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="95a76d966213" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
   <pre><code id="code-95a76d966213" class="language-python"># 定位：申请后需再查询
 permission.request(&quot;location&quot;)
@@ -443,7 +452,7 @@ if result.get(&quot;granted&quot;):
 <figure class="code-block" data-code-id="0d64eb8eb939">
   <figcaption>
     <span>python</span>
-    <button class="copy-code" type="button" data-copy-code="0d64eb8eb939">复制</button>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="0d64eb8eb939" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
   <pre><code id="code-0d64eb8eb939" class="language-python">import permission
 print(permission.MODULES)</code></pre>

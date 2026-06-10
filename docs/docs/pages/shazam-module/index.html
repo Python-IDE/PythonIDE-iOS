@@ -16,6 +16,7 @@
     <a class="brand" href="../../"><img class="brand-mark" src="../../assets/brand-mark.svg" alt="" width="30" height="30"><span class="brand-text">PythonIDE Docs</span></a>
     <nav class="top-nav" aria-label="主导航">
       <a class="active" href="../../">文档</a>
+      <a class="" href="../../pages/agent-development-index/">Agent</a>
       <a class="" href="../../pages/widget-api-reference/">API 参考</a>
       <a class="" href="../../pages/appui-cookbook-index/">示例</a>
     </nav>
@@ -266,6 +267,13 @@
 <a class="nav-link" href="../../pages/miniapp-native-capabilities/">原生能力入口</a>
 </div>
 </details>
+<details class="nav-collection">
+<summary><a href="../../collections/agent-development/">Agent 开发</a></summary>
+<div class="nav-group">
+<div class="nav-group-title">开始</div>
+<a class="nav-link" href="../../pages/agent-development-index/">Agent Skills 安装与说明</a>
+</div>
+</details>
 </nav>
     </aside>
     <main class="content">
@@ -276,6 +284,7 @@
     <h1>shazam</h1>
     <p>听歌识曲：麦克风或音频文件匹配 Shazam 曲库。</p>
   </header>
+  
   <div class="markdown-body">
     <p>听歌识曲（ShazamKit）：通过麦克风识别正在播放的歌曲，或从本地音频片段匹配曲库。</p>
 <blockquote class="callout note"><strong>边界</strong>：需要 <strong>iOS 17+</strong>，并在 Apple Developer 为 <code>app.pythonide</code> 的 <strong>App Services</strong> 中开启 <strong>ShazamKit</strong>（与 Capabilities 是两项配置）。实时识曲需要<strong>麦克风</strong>权限；<code>recognize_file()</code> 只需可读音频文件。与 <a href="../../pages/speech-recognition-module/">speech_recognition</a>（语音转文字）和 <a href="../../pages/music-module/">music</a>（Apple Music 播放控制）用途不同。</blockquote>
@@ -287,7 +296,7 @@
 <figure class="code-block" data-code-id="8c819d148d73">
   <figcaption>
     <span>python</span>
-    <button class="copy-code" type="button" data-copy-code="8c819d148d73">复制</button>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="8c819d148d73" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
   <pre><code id="code-8c819d148d73" class="language-python">import shazam
 
@@ -305,7 +314,7 @@ except shazam.ShazamError as exc:
 <figure class="code-block" data-code-id="ebb717c0447e">
   <figcaption>
     <span>python</span>
-    <button class="copy-code" type="button" data-copy-code="ebb717c0447e">复制</button>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="ebb717c0447e" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
   <pre><code id="code-ebb717c0447e" class="language-python">import shazam
 
@@ -321,7 +330,7 @@ except shazam.ShazamError as exc:
 <figure class="code-block" data-code-id="b411578988db">
   <figcaption>
     <span>python</span>
-    <button class="copy-code" type="button" data-copy-code="b411578988db">复制</button>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="b411578988db" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
   <pre><code id="code-b411578988db" class="language-python">import appui
 import shazam
@@ -397,7 +406,7 @@ appui.run(body, state=state)</code></pre>
 <figure class="code-block" data-code-id="6ba7d94bf657">
   <figcaption>
     <span>python</span>
-    <button class="copy-code" type="button" data-copy-code="6ba7d94bf657">复制</button>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="6ba7d94bf657" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
   <pre><code id="code-6ba7d94bf657" class="language-python">import shazam
 
@@ -410,7 +419,7 @@ print(song[&quot;title&quot;], song[&quot;artist&quot;])</code></pre>
 <figure class="code-block" data-code-id="e05d7693f1c8">
   <figcaption>
     <span>python</span>
-    <button class="copy-code" type="button" data-copy-code="e05d7693f1c8">复制</button>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="e05d7693f1c8" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
   <pre><code id="code-e05d7693f1c8" class="language-python">song = shazam.recognize_file(&quot;recording.m4a&quot;)</code></pre>
 </figure>
@@ -421,7 +430,7 @@ print(song[&quot;title&quot;], song[&quot;artist&quot;])</code></pre>
 <figure class="code-block" data-code-id="403dfcf0d398">
   <figcaption>
     <span>python</span>
-    <button class="copy-code" type="button" data-copy-code="403dfcf0d398">复制</button>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="403dfcf0d398" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
   <pre><code id="code-403dfcf0d398" class="language-python">try:
     shazam.recognize()

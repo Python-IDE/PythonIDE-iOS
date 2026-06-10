@@ -16,6 +16,7 @@
     <a class="brand" href="../../"><img class="brand-mark" src="../../assets/brand-mark.svg" alt="" width="30" height="30"><span class="brand-text">PythonIDE Docs</span></a>
     <nav class="top-nav" aria-label="主导航">
       <a class="active" href="../../">文档</a>
+      <a class="" href="../../pages/agent-development-index/">Agent</a>
       <a class="" href="../../pages/widget-api-reference/">API 参考</a>
       <a class="" href="../../pages/appui-cookbook-index/">示例</a>
     </nav>
@@ -266,16 +267,24 @@
 <a class="nav-link" href="../../pages/miniapp-native-capabilities/">原生能力入口</a>
 </div>
 </details>
+<details class="nav-collection">
+<summary><a href="../../collections/agent-development/">Agent 开发</a></summary>
+<div class="nav-group">
+<div class="nav-group-title">开始</div>
+<a class="nav-link" href="../../pages/agent-development-index/">Agent Skills 安装与说明</a>
+</div>
+</details>
 </nav>
     </aside>
     <main class="content">
       
-<article class="article" style="--page-accent:#ea580c">
+<article class="article" style="--page-accent:#e54b22">
   <header class="article-intro">
     <div class="breadcrumb">iOS 原生模块 / 界面与系统</div>
     <h1>share</h1>
     <p>系统分享面板与 AppUI ShareLink。</p>
   </header>
+  
   <div class="markdown-body">
     <p>系统分享面板：把文本、链接或文件路径交给 iOS 分享表单（AirDrop、备忘录、邮件等）。</p>
 <blockquote class="callout note"><strong>边界</strong>：无独立 <code>import share</code> Python 模块；通过 AppUI 的 <code>ShareLink</code> 唤起系统 <code>ShareLink</code> / 分享表单。<code>item</code> 需是有意义的字符串（URL、文件路径或分享正文）。复杂导出流水线可结合 <a href="../../pages/file-picker-module/">file_picker</a> 先拿到路径再分享。</blockquote>
@@ -287,7 +296,7 @@
 <figure class="code-block" data-code-id="40316ee9b28d">
   <figcaption>
     <span>python</span>
-    <button class="copy-code" type="button" data-copy-code="40316ee9b28d">复制</button>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="40316ee9b28d" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
   <pre><code id="code-40316ee9b28d" class="language-python">import appui
 
@@ -313,7 +322,7 @@ appui.run(body, state=state)</code></pre>
 <figure class="code-block" data-code-id="6e0ab138d3f0">
   <figcaption>
     <span>python</span>
-    <button class="copy-code" type="button" data-copy-code="6e0ab138d3f0">复制</button>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="6e0ab138d3f0" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
   <pre><code id="code-6e0ab138d3f0" class="language-python">import appui
 
@@ -356,7 +365,7 @@ appui.run(body, state=state)</code></pre>
 <figure class="code-block" data-code-id="1bf19c33cf8f">
   <figcaption>
     <span>python</span>
-    <button class="copy-code" type="button" data-copy-code="1bf19c33cf8f">复制</button>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="1bf19c33cf8f" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
   <pre><code id="code-1bf19c33cf8f" class="language-python">appui.ShareLink(
     item=&quot;https://www.python.org&quot;,
@@ -368,7 +377,7 @@ appui.run(body, state=state)</code></pre>
 <figure class="code-block" data-code-id="88030fbc4e1c">
   <figcaption>
     <span>python</span>
-    <button class="copy-code" type="button" data-copy-code="88030fbc4e1c">复制</button>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="88030fbc4e1c" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
   <pre><code id="code-88030fbc4e1c" class="language-python">appui.ShareLink(item=&quot;/var/mobile/Containers/Data/.../export.csv&quot;)</code></pre>
 </figure>

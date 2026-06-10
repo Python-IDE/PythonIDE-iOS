@@ -16,6 +16,7 @@
     <a class="brand" href="../../"><img class="brand-mark" src="../../assets/brand-mark.svg" alt="" width="30" height="30"><span class="brand-text">PythonIDE Docs</span></a>
     <nav class="top-nav" aria-label="主导航">
       <a class="active" href="../../">文档</a>
+      <a class="" href="../../pages/agent-development-index/">Agent</a>
       <a class="" href="../../pages/widget-api-reference/">API 参考</a>
       <a class="" href="../../pages/appui-cookbook-index/">示例</a>
     </nav>
@@ -266,6 +267,13 @@
 <a class="nav-link" href="../../pages/miniapp-native-capabilities/">原生能力入口</a>
 </div>
 </details>
+<details class="nav-collection">
+<summary><a href="../../collections/agent-development/">Agent 开发</a></summary>
+<div class="nav-group">
+<div class="nav-group-title">开始</div>
+<a class="nav-link" href="../../pages/agent-development-index/">Agent Skills 安装与说明</a>
+</div>
+</details>
 </nav>
     </aside>
     <main class="content">
@@ -276,6 +284,7 @@
     <h1>video_recorder</h1>
     <p>摄像头录像保存为文件。</p>
   </header>
+  
   <div class="markdown-body">
     <p>摄像头录像：把视频保存为 <code>.mov</code> 文件到 App Documents 目录。</p>
 <blockquote class="callout note"><strong>边界</strong>：需要相机权限；统一 <a href="../../pages/permission-module/">permission</a> 的 <code>request(&quot;camera&quot;)</code> <strong>暂不支持弹窗</strong>，在 <code>start()</code> 上用 <code>try/except VideoRecorderError</code> 处理失败。拍照见 <a href="../../pages/camera-module/">camera</a> / <a href="../../pages/photos-module/">photos</a>。录像只能放在用户操作回调里，不要在 <code>body()</code> 中调用。</blockquote>
@@ -287,7 +296,7 @@
 <figure class="code-block" data-code-id="413e71884e54">
   <figcaption>
     <span>python</span>
-    <button class="copy-code" type="button" data-copy-code="413e71884e54">复制</button>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="413e71884e54" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
   <pre><code id="code-413e71884e54" class="language-python">import time
 import video_recorder
@@ -310,7 +319,7 @@ except video_recorder.VideoRecorderError as exc:
 <figure class="code-block" data-code-id="e132f0c2a9bd">
   <figcaption>
     <span>python</span>
-    <button class="copy-code" type="button" data-copy-code="e132f0c2a9bd">复制</button>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="e132f0c2a9bd" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
   <pre><code id="code-e132f0c2a9bd" class="language-python">import appui
 import video_recorder
@@ -398,7 +407,7 @@ appui.run(body, state=state)</code></pre>
 <figure class="code-block" data-code-id="0b30b9e113af">
   <figcaption>
     <span>python</span>
-    <button class="copy-code" type="button" data-copy-code="0b30b9e113af">复制</button>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="0b30b9e113af" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
   <pre><code id="code-0b30b9e113af" class="language-python">path = video_recorder.start()
 path = video_recorder.start(camera=&quot;front&quot;)</code></pre>

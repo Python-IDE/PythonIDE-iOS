@@ -16,6 +16,7 @@
     <a class="brand" href="../../"><img class="brand-mark" src="../../assets/brand-mark.svg" alt="" width="30" height="30"><span class="brand-text">PythonIDE Docs</span></a>
     <nav class="top-nav" aria-label="主导航">
       <a class="active" href="../../">文档</a>
+      <a class="" href="../../pages/agent-development-index/">Agent</a>
       <a class="" href="../../pages/widget-api-reference/">API 参考</a>
       <a class="" href="../../pages/appui-cookbook-index/">示例</a>
     </nav>
@@ -266,6 +267,13 @@
 <a class="nav-link" href="../../pages/miniapp-native-capabilities/">原生能力入口</a>
 </div>
 </details>
+<details class="nav-collection">
+<summary><a href="../../collections/agent-development/">Agent 开发</a></summary>
+<div class="nav-group">
+<div class="nav-group-title">开始</div>
+<a class="nav-link" href="../../pages/agent-development-index/">Agent Skills 安装与说明</a>
+</div>
+</details>
 </nav>
     </aside>
     <main class="content">
@@ -276,6 +284,7 @@
     <h1>foundation_models</h1>
     <p>设备端大模型文本生成（Foundation Models，iOS 26+）。</p>
   </header>
+  
   <div class="markdown-body">
     <p>端侧文本生成（Apple Foundation Models，iOS 26+）：对话、摘要、错误解释。</p>
 <blockquote class="callout note"><strong>边界</strong>：需 iOS 26+ 且设备支持 Apple Intelligence 端侧模型。与云端 Agent 不同；带工具调度的助手请用 <a href="../../pages/assistant-module/">assistant</a>。</blockquote>
@@ -286,7 +295,7 @@
 <figure class="code-block" data-code-id="b7ec46559b00">
   <figcaption>
     <span>python</span>
-    <button class="copy-code" type="button" data-copy-code="b7ec46559b00">复制</button>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="b7ec46559b00" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
   <pre><code id="code-b7ec46559b00" class="language-python">import foundation_models
 
@@ -303,7 +312,7 @@ else:
 <figure class="code-block" data-code-id="c333eb31b69c">
   <figcaption>
     <span>python</span>
-    <button class="copy-code" type="button" data-copy-code="c333eb31b69c">复制</button>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="c333eb31b69c" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
   <pre><code id="code-c333eb31b69c" class="language-python">import foundation_models
 
@@ -318,7 +327,7 @@ print(hint)</code></pre>
 <figure class="code-block" data-code-id="4c1784b0aee9">
   <figcaption>
     <span>python</span>
-    <button class="copy-code" type="button" data-copy-code="4c1784b0aee9">复制</button>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="4c1784b0aee9" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
   <pre><code id="code-4c1784b0aee9" class="language-python">import appui
 import foundation_models
@@ -372,7 +381,7 @@ appui.run(body, state=state)</code></pre>
 <figure class="code-block" data-code-id="4e84fef7443f">
   <figcaption>
     <span>python</span>
-    <button class="copy-code" type="button" data-copy-code="4e84fef7443f">复制</button>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="4e84fef7443f" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
   <pre><code id="code-4e84fef7443f" class="language-python">text = foundation_models.respond(
     &quot;总结这段日志的关键问题&quot;,
@@ -383,7 +392,7 @@ appui.run(body, state=state)</code></pre>
 <figure class="code-block" data-code-id="01e519050902">
   <figcaption>
     <span>python</span>
-    <button class="copy-code" type="button" data-copy-code="01e519050902">复制</button>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="01e519050902" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
   <pre><code id="code-01e519050902" class="language-python">foundation_models.summarize(long_text, max_sentences=5)
 foundation_models.explain_error(&quot;SyntaxError: invalid syntax&quot;, code_snippet=&quot;if True\nprint()&quot;)</code></pre>

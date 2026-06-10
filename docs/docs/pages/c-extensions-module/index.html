@@ -16,6 +16,7 @@
     <a class="brand" href="../../"><img class="brand-mark" src="../../assets/brand-mark.svg" alt="" width="30" height="30"><span class="brand-text">PythonIDE Docs</span></a>
     <nav class="top-nav" aria-label="主导航">
       <a class="active" href="../../">文档</a>
+      <a class="" href="../../pages/agent-development-index/">Agent</a>
       <a class="" href="../../pages/widget-api-reference/">API 参考</a>
       <a class="" href="../../pages/appui-cookbook-index/">示例</a>
     </nav>
@@ -266,6 +267,13 @@
 <a class="nav-link" href="../../pages/miniapp-native-capabilities/">原生能力入口</a>
 </div>
 </details>
+<details class="nav-collection">
+<summary><a href="../../collections/agent-development/">Agent 开发</a></summary>
+<div class="nav-group">
+<div class="nav-group-title">开始</div>
+<a class="nav-link" href="../../pages/agent-development-index/">Agent Skills 安装与说明</a>
+</div>
+</details>
 </nav>
     </aside>
     <main class="content">
@@ -276,6 +284,7 @@
     <h1>c_extensions</h1>
     <p>内置扩展库清单、可用范围和替代建议。</p>
   </header>
+  
   <div class="markdown-body">
     <p>内置 C 扩展库清单、可用范围与替代建议。<strong>文档页，不是可导入模块。</strong></p>
 <blockquote class="callout note"><strong>边界</strong>：不要写 <code>import c_extensions</code>。第三方含 C/Rust/native 扩展的包，仅<strong>已内置</strong>或当前环境能安装的可用；<code>opencv</code>、<code>torch</code>、<code>scipy</code> 等桌面常见包通常无法直接 pip 到 iOS。优先用内置包、纯 Python 或 PythonIDE 原生模块。</blockquote>
@@ -287,7 +296,7 @@
 <figure class="code-block" data-code-id="6ba60091bd89">
   <figcaption>
     <span>python</span>
-    <button class="copy-code" type="button" data-copy-code="6ba60091bd89">复制</button>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="6ba60091bd89" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
   <pre><code id="code-6ba60091bd89" class="language-python">try:
     import numpy as np
@@ -307,7 +316,7 @@ print(mean)</code></pre>
 <figure class="code-block" data-code-id="f06fe322ef33">
   <figcaption>
     <span>python</span>
-    <button class="copy-code" type="button" data-copy-code="f06fe322ef33">复制</button>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="f06fe322ef33" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
   <pre><code id="code-f06fe322ef33" class="language-python">import appui
 
@@ -370,7 +379,7 @@ appui.run(body, state=state)</code></pre>
 <figure class="code-block" data-code-id="c2148dbbb549">
   <figcaption>
     <span>python</span>
-    <button class="copy-code" type="button" data-copy-code="c2148dbbb549">复制</button>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="c2148dbbb549" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
   <pre><code id="code-c2148dbbb549" class="language-python">try:
     import numpy as np

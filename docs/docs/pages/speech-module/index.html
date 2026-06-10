@@ -16,6 +16,7 @@
     <a class="brand" href="../../"><img class="brand-mark" src="../../assets/brand-mark.svg" alt="" width="30" height="30"><span class="brand-text">PythonIDE Docs</span></a>
     <nav class="top-nav" aria-label="主导航">
       <a class="active" href="../../">文档</a>
+      <a class="" href="../../pages/agent-development-index/">Agent</a>
       <a class="" href="../../pages/widget-api-reference/">API 参考</a>
       <a class="" href="../../pages/appui-cookbook-index/">示例</a>
     </nav>
@@ -266,6 +267,13 @@
 <a class="nav-link" href="../../pages/miniapp-native-capabilities/">原生能力入口</a>
 </div>
 </details>
+<details class="nav-collection">
+<summary><a href="../../collections/agent-development/">Agent 开发</a></summary>
+<div class="nav-group">
+<div class="nav-group-title">开始</div>
+<a class="nav-link" href="../../pages/agent-development-index/">Agent Skills 安装与说明</a>
+</div>
+</details>
 </nav>
     </aside>
     <main class="content">
@@ -276,6 +284,7 @@
     <h1>speech</h1>
     <p>文字转语音和语音列表。</p>
   </header>
+  
   <div class="markdown-body">
     <p>文字转语音（TTS）：朗读文本、暂停/恢复、查询可用语音。</p>
 <blockquote class="callout note"><strong>边界</strong>：适合朗读结果、无障碍提示、学习卡片。短音效用 <a href="../../pages/sound-module/">sound</a>；语音识别用 <a href="../../pages/speech-recognition-module/">speech_recognition</a>。AppUI 回调里保持 <code>wait=False</code>，否则界面会被阻塞。</blockquote>
@@ -287,7 +296,7 @@
 <figure class="code-block" data-code-id="fec433f9b857">
   <figcaption>
     <span>python</span>
-    <button class="copy-code" type="button" data-copy-code="fec433f9b857">复制</button>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="fec433f9b857" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
   <pre><code id="code-fec433f9b857" class="language-python">import speech
 
@@ -304,7 +313,7 @@ if voices:
 <figure class="code-block" data-code-id="7fd03f675241">
   <figcaption>
     <span>python</span>
-    <button class="copy-code" type="button" data-copy-code="7fd03f675241">复制</button>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="7fd03f675241" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
   <pre><code id="code-7fd03f675241" class="language-python">import appui
 import speech
@@ -399,7 +408,7 @@ appui.run(body, state=state)</code></pre>
 <figure class="code-block" data-code-id="ad2a74c8f046">
   <figcaption>
     <span>python</span>
-    <button class="copy-code" type="button" data-copy-code="ad2a74c8f046">复制</button>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="ad2a74c8f046" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
   <pre><code id="code-ad2a74c8f046" class="language-python">import speech
 
@@ -412,7 +421,7 @@ speech.say(&quot;你好&quot;, language=&quot;zh-CN&quot;, rate=0.5, volume=1.0)
 <figure class="code-block" data-code-id="c6a24d65b76c">
   <figcaption>
     <span>python</span>
-    <button class="copy-code" type="button" data-copy-code="c6a24d65b76c">复制</button>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="c6a24d65b76c" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
   <pre><code id="code-c6a24d65b76c" class="language-python">speech.pause()
 speech.resume()
@@ -426,7 +435,7 @@ if speech.is_speaking():
 <figure class="code-block" data-code-id="e91796a143de">
   <figcaption>
     <span>python</span>
-    <button class="copy-code" type="button" data-copy-code="e91796a143de">复制</button>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="e91796a143de" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
   <pre><code id="code-e91796a143de" class="language-python">voices = speech.available_voices()
 print(len(voices), voices[:5])</code></pre>

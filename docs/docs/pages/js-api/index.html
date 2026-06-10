@@ -16,6 +16,7 @@
     <a class="brand" href="../../"><img class="brand-mark" src="../../assets/brand-mark.svg" alt="" width="30" height="30"><span class="brand-text">PythonIDE Docs</span></a>
     <nav class="top-nav" aria-label="主导航">
       <a class="active" href="../../">文档</a>
+      <a class="" href="../../pages/agent-development-index/">Agent</a>
       <a class="" href="../../pages/widget-api-reference/">API 参考</a>
       <a class="" href="../../pages/appui-cookbook-index/">示例</a>
     </nav>
@@ -266,16 +267,24 @@
 <a class="nav-link" href="../../pages/miniapp-native-capabilities/">原生能力入口</a>
 </div>
 </details>
+<details class="nav-collection">
+<summary><a href="../../collections/agent-development/">Agent 开发</a></summary>
+<div class="nav-group">
+<div class="nav-group-title">开始</div>
+<a class="nav-link" href="../../pages/agent-development-index/">Agent Skills 安装与说明</a>
+</div>
+</details>
 </nav>
     </aside>
     <main class="content">
       
-<article class="article" style="--page-accent:#ca8a04">
+<article class="article" style="--page-accent:#e54b22">
   <header class="article-intro">
     <div class="breadcrumb">自动化与扩展 / 快速上手</div>
     <h1>JS API 说明</h1>
     <p>.js 文件可调用的接口与示例。</p>
   </header>
+  
   <div class="markdown-body">
     <p><code>.js</code> 文件可以调用一组由应用提供的 JS 接口，用来输出日志、弹窗、读写文件、访问剪贴板、发送网络请求、触发通知和读取设备信息。</p>
 <h2 id="预期效果"><a class="heading-anchor" href="#预期效果">#</a>预期效果</h2>
@@ -289,7 +298,7 @@
 <figure class="code-block" data-code-id="59fb74f3fff3">
   <figcaption>
     <span>python</span>
-    <button class="copy-code" type="button" data-copy-code="59fb74f3fff3">复制</button>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="59fb74f3fff3" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
   <pre><code id="code-59fb74f3fff3" class="language-python">import appui
 
@@ -321,7 +330,7 @@ appui.run(body)</code></pre>
 <figure class="code-block" data-code-id="bcbcf514c85f">
   <figcaption>
     <span>javascript</span>
-    <button class="copy-code" type="button" data-copy-code="bcbcf514c85f">复制</button>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="bcbcf514c85f" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
   <pre><code id="code-bcbcf514c85f" class="language-javascript">console.log(&quot;Hello&quot;)
 console.warn(&quot;警告&quot;)
@@ -331,7 +340,7 @@ console.error(&quot;错误信息&quot;)</code></pre>
 <figure class="code-block" data-code-id="9f785cc6cafe">
   <figcaption>
     <span>javascript</span>
-    <button class="copy-code" type="button" data-copy-code="9f785cc6cafe">复制</button>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="9f785cc6cafe" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
   <pre><code id="code-9f785cc6cafe" class="language-javascript">alert(&quot;提示&quot;)
 
@@ -347,7 +356,7 @@ prompt(&quot;请输入&quot;, &quot;默认&quot;, function(text) {
 <figure class="code-block" data-code-id="6d3950833083">
   <figcaption>
     <span>javascript</span>
-    <button class="copy-code" type="button" data-copy-code="6d3950833083">复制</button>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="6d3950833083" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
   <pre><code id="code-6d3950833083" class="language-javascript">getClipboard(function(text) {
   console.log(text)
@@ -359,7 +368,7 @@ setClipboard(&quot;复制的内容&quot;)</code></pre>
 <figure class="code-block" data-code-id="47390f9425fc">
   <figcaption>
     <span>javascript</span>
-    <button class="copy-code" type="button" data-copy-code="47390f9425fc">复制</button>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="47390f9425fc" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
   <pre><code id="code-47390f9425fc" class="language-javascript">localStorage.setItem(&quot;key&quot;, &quot;value&quot;)
 var value = localStorage.getItem(&quot;key&quot;)
@@ -369,7 +378,7 @@ localStorage.removeItem(&quot;key&quot;)</code></pre>
 <figure class="code-block" data-code-id="5d603bc09686">
   <figcaption>
     <span>javascript</span>
-    <button class="copy-code" type="button" data-copy-code="5d603bc09686">复制</button>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="5d603bc09686" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
   <pre><code id="code-5d603bc09686" class="language-javascript">readFile(&quot;a.txt&quot;, function(err, content) {
   console.log(err || content)
@@ -387,7 +396,7 @@ listDir(&quot;.&quot;, function(err, jsonText) {
 <figure class="code-block" data-code-id="92ace22c7fc3">
   <figcaption>
     <span>javascript</span>
-    <button class="copy-code" type="button" data-copy-code="92ace22c7fc3">复制</button>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="92ace22c7fc3" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
   <pre><code id="code-92ace22c7fc3" class="language-javascript">fetch(&quot;https://httpbin.org/get&quot;)
   .then(function(body) {
@@ -401,7 +410,7 @@ listDir(&quot;.&quot;, function(err, jsonText) {
 <figure class="code-block" data-code-id="08b75bf02cf6">
   <figcaption>
     <span>javascript</span>
-    <button class="copy-code" type="button" data-copy-code="08b75bf02cf6">复制</button>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="08b75bf02cf6" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
   <pre><code id="code-08b75bf02cf6" class="language-javascript">requestNotificationPermission(function(granted) {
   if (granted) {
@@ -413,7 +422,7 @@ listDir(&quot;.&quot;, function(err, jsonText) {
 <figure class="code-block" data-code-id="1af57b4545da">
   <figcaption>
     <span>javascript</span>
-    <button class="copy-code" type="button" data-copy-code="1af57b4545da">复制</button>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="1af57b4545da" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
   <pre><code id="code-1af57b4545da" class="language-javascript">console.log(getBatteryLevel(), isCharging())
 console.log(getDeviceInfo())
@@ -424,7 +433,7 @@ openSettings()</code></pre>
 <figure class="code-block" data-code-id="0ecf6de86e53">
   <figcaption>
     <span>javascript</span>
-    <button class="copy-code" type="button" data-copy-code="0ecf6de86e53">复制</button>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="0ecf6de86e53" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
   <pre><code id="code-0ecf6de86e53" class="language-javascript">vibrate(&quot;light&quot;)
 
@@ -441,7 +450,7 @@ qrcode(&quot;https://www.python.org&quot;, function(err, base64) {
 <figure class="code-block" data-code-id="844d7cd7827e">
   <figcaption>
     <span>javascript</span>
-    <button class="copy-code" type="button" data-copy-code="844d7cd7827e">复制</button>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="844d7cd7827e" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
   <pre><code id="code-844d7cd7827e" class="language-javascript">var timer = setTimeout(function() {
   console.log(&quot;1 秒后&quot;)
@@ -458,7 +467,7 @@ clearInterval(interval)</code></pre>
 <figure class="code-block" data-code-id="f7d5dbf14205">
   <figcaption>
     <span>javascript</span>
-    <button class="copy-code" type="button" data-copy-code="f7d5dbf14205">复制</button>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="f7d5dbf14205" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
   <pre><code id="code-f7d5dbf14205" class="language-javascript">showLoading(&quot;处理中...&quot;)
 

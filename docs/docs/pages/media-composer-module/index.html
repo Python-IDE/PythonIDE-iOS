@@ -16,6 +16,7 @@
     <a class="brand" href="../../"><img class="brand-mark" src="../../assets/brand-mark.svg" alt="" width="30" height="30"><span class="brand-text">PythonIDE Docs</span></a>
     <nav class="top-nav" aria-label="主导航">
       <a class="active" href="../../">文档</a>
+      <a class="" href="../../pages/agent-development-index/">Agent</a>
       <a class="" href="../../pages/widget-api-reference/">API 参考</a>
       <a class="" href="../../pages/appui-cookbook-index/">示例</a>
     </nav>
@@ -266,6 +267,13 @@
 <a class="nav-link" href="../../pages/miniapp-native-capabilities/">原生能力入口</a>
 </div>
 </details>
+<details class="nav-collection">
+<summary><a href="../../collections/agent-development/">Agent 开发</a></summary>
+<div class="nav-group">
+<div class="nav-group-title">开始</div>
+<a class="nav-link" href="../../pages/agent-development-index/">Agent Skills 安装与说明</a>
+</div>
+</details>
 </nav>
     </aside>
     <main class="content">
@@ -276,6 +284,7 @@
     <h1>media_composer</h1>
     <p>视频合并、配音与导出。</p>
   </header>
+  
   <div class="markdown-body">
     <p>视频合成与导出：按顺序拼接视频、为视频替换/添加音轨、转码导出 MP4。</p>
 <blockquote class="callout note"><strong>边界</strong>：基于 AVFoundation，操作可能耗时较长（阻塞脚本数秒到两分钟）。输入/输出路径须为 App 可访问的本地文件；合成放在按钮回调，不要在 <code>body()</code> 中自动执行。素材可先由 <a href="../../pages/video-recorder-module/">video_recorder</a> 或 <a href="../../pages/photos-module/">photos</a> 获得。</blockquote>
@@ -287,7 +296,7 @@
 <figure class="code-block" data-code-id="17890aea02b4">
   <figcaption>
     <span>python</span>
-    <button class="copy-code" type="button" data-copy-code="17890aea02b4">复制</button>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="17890aea02b4" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
   <pre><code id="code-17890aea02b4" class="language-python">import os
 import media_composer
@@ -308,7 +317,7 @@ else:
 <figure class="code-block" data-code-id="1ddbdb5beabf">
   <figcaption>
     <span>python</span>
-    <button class="copy-code" type="button" data-copy-code="1ddbdb5beabf">复制</button>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="1ddbdb5beabf" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
   <pre><code id="code-1ddbdb5beabf" class="language-python">import media_composer
 
@@ -320,7 +329,7 @@ media_composer.merge_audio(&quot;video.mov&quot;, &quot;audio.m4a&quot;, &quot;o
 <figure class="code-block" data-code-id="47ac24b5aa80">
   <figcaption>
     <span>python</span>
-    <button class="copy-code" type="button" data-copy-code="47ac24b5aa80">复制</button>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="47ac24b5aa80" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
   <pre><code id="code-47ac24b5aa80" class="language-python">import appui
 import os
@@ -389,7 +398,7 @@ appui.run(body, state=state)</code></pre>
 <figure class="code-block" data-code-id="9f2ded832e0a">
   <figcaption>
     <span>python</span>
-    <button class="copy-code" type="button" data-copy-code="9f2ded832e0a">复制</button>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="9f2ded832e0a" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
   <pre><code id="code-9f2ded832e0a" class="language-python">path = media_composer.merge_videos(
     [&quot;part1.mov&quot;, &quot;part2.mov&quot;],
@@ -402,7 +411,7 @@ appui.run(body, state=state)</code></pre>
 <figure class="code-block" data-code-id="d6fa78da40f2">
   <figcaption>
     <span>python</span>
-    <button class="copy-code" type="button" data-copy-code="d6fa78da40f2">复制</button>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="d6fa78da40f2" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
   <pre><code id="code-d6fa78da40f2" class="language-python">path = media_composer.merge_audio(
     &quot;silent.mov&quot;,
@@ -416,7 +425,7 @@ appui.run(body, state=state)</code></pre>
 <figure class="code-block" data-code-id="ce6d9bc9a2ce">
   <figcaption>
     <span>python</span>
-    <button class="copy-code" type="button" data-copy-code="ce6d9bc9a2ce">复制</button>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="ce6d9bc9a2ce" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
   <pre><code id="code-ce6d9bc9a2ce" class="language-python">path = media_composer.export(&quot;input.mov&quot;, &quot;output.mp4&quot;)</code></pre>
 </figure>

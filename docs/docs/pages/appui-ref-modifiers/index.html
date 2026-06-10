@@ -16,6 +16,7 @@
     <a class="brand" href="../../"><img class="brand-mark" src="../../assets/brand-mark.svg" alt="" width="30" height="30"><span class="brand-text">PythonIDE Docs</span></a>
     <nav class="top-nav" aria-label="主导航">
       <a class="" href="../../">文档</a>
+      <a class="" href="../../pages/agent-development-index/">Agent</a>
       <a class="active" href="../../pages/widget-api-reference/">API 参考</a>
       <a class="" href="../../pages/appui-cookbook-index/">示例</a>
     </nav>
@@ -266,6 +267,13 @@
 <a class="nav-link" href="../../pages/miniapp-native-capabilities/">原生能力入口</a>
 </div>
 </details>
+<details class="nav-collection">
+<summary><a href="../../collections/agent-development/">Agent 开发</a></summary>
+<div class="nav-group">
+<div class="nav-group-title">开始</div>
+<a class="nav-link" href="../../pages/agent-development-index/">Agent Skills 安装与说明</a>
+</div>
+</details>
 </nav>
     </aside>
     <main class="content">
@@ -276,6 +284,7 @@
     <h1>修饰符 API</h1>
     <p>外观、布局、导航、交互和可访问性修饰符。</p>
   </header>
+  
   <div class="markdown-body">
     <p>修饰符是所有 <code>View</code> 都能链式调用的行为。推荐顺序是：内容语义、文字样式、尺寸约束、交互、呈现、外观背景。顺序会影响布局和命中区域，例如先 <code>.padding()</code> 再 <code>.background(...)</code> 会让背景包住内边距。</p>
 <h2 id="什么时候用"><a class="heading-anchor" href="#什么时候用">#</a>什么时候用</h2>
@@ -284,7 +293,7 @@
 <figure class="code-block" data-code-id="755b250d9e9c">
   <figcaption>
     <span>python</span>
-    <button class="copy-code" type="button" data-copy-code="755b250d9e9c">复制</button>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="755b250d9e9c" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
   <pre><code id="code-755b250d9e9c" class="language-python">import appui
 

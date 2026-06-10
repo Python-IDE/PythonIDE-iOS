@@ -16,6 +16,7 @@
     <a class="brand" href="../../"><img class="brand-mark" src="../../assets/brand-mark.svg" alt="" width="30" height="30"><span class="brand-text">PythonIDE Docs</span></a>
     <nav class="top-nav" aria-label="主导航">
       <a class="" href="../../">文档</a>
+      <a class="" href="../../pages/agent-development-index/">Agent</a>
       <a class="active" href="../../pages/widget-api-reference/">API 参考</a>
       <a class="" href="../../pages/appui-cookbook-index/">示例</a>
     </nav>
@@ -266,6 +267,13 @@
 <a class="nav-link" href="../../pages/miniapp-native-capabilities/">原生能力入口</a>
 </div>
 </details>
+<details class="nav-collection">
+<summary><a href="../../collections/agent-development/">Agent 开发</a></summary>
+<div class="nav-group">
+<div class="nav-group-title">开始</div>
+<a class="nav-link" href="../../pages/agent-development-index/">Agent Skills 安装与说明</a>
+</div>
+</details>
 </nav>
     </aside>
     <main class="content">
@@ -276,6 +284,7 @@
     <h1>scene API 参考</h1>
     <p>集中列出 scene 生命周期、节点、Action、Physics 与 Classic 绘图签名。</p>
   </header>
+  
   <div class="markdown-body">
     <p><code>scene</code> 提供 Pythonista 兼容的 2D 场景 API（Swift SpriteKit 桥接）。适合游戏与动画；表单/列表请用 <a href="../../pages/appui-module/">appui</a>。</p>
 <hr>
@@ -283,7 +292,7 @@
 <figure class="code-block" data-code-id="a391bb62a887">
   <figcaption>
     <span>python</span>
-    <button class="copy-code" type="button" data-copy-code="a391bb62a887">复制</button>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="a391bb62a887" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
   <pre><code id="code-a391bb62a887" class="language-python">scene.run(
     scene_instance: Scene,
@@ -308,7 +317,7 @@
 <figure class="code-block" data-code-id="231d3e694816">
   <figcaption>
     <span>python</span>
-    <button class="copy-code" type="button" data-copy-code="231d3e694816">复制</button>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="231d3e694816" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
   <pre><code id="code-231d3e694816" class="language-python">Node(position=(0, 0), *, z_position=0, scale=1, alpha=1, parent=None)</code></pre>
 </figure>
@@ -318,7 +327,7 @@
 <figure class="code-block" data-code-id="51317ec2badb">
   <figcaption>
     <span>python</span>
-    <button class="copy-code" type="button" data-copy-code="51317ec2badb">复制</button>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="51317ec2badb" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
   <pre><code id="code-51317ec2badb" class="language-python">SpriteNode(
     texture=None,
@@ -336,7 +345,7 @@
 <figure class="code-block" data-code-id="ba6abc1e498c">
   <figcaption>
     <span>python</span>
-    <button class="copy-code" type="button" data-copy-code="ba6abc1e498c">复制</button>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="ba6abc1e498c" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
   <pre><code id="code-ba6abc1e498c" class="language-python">LabelNode(
     text=&quot;&quot;,
@@ -351,7 +360,7 @@
 <figure class="code-block" data-code-id="9689527bda8c">
   <figcaption>
     <span>python</span>
-    <button class="copy-code" type="button" data-copy-code="9689527bda8c">复制</button>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="9689527bda8c" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
   <pre><code id="code-9689527bda8c" class="language-python">ShapeNode(
     path=None,
@@ -366,7 +375,7 @@
 <figure class="code-block" data-code-id="61608247ce9a">
   <figcaption>
     <span>python</span>
-    <button class="copy-code" type="button" data-copy-code="61608247ce9a">复制</button>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="61608247ce9a" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
   <pre><code id="code-61608247ce9a" class="language-python">Texture(name_or_image)</code></pre>
 </figure>
@@ -381,7 +390,7 @@
 <figure class="code-block" data-code-id="d8a9a58cd936">
   <figcaption>
     <span>python</span>
-    <button class="copy-code" type="button" data-copy-code="d8a9a58cd936">复制</button>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="d8a9a58cd936" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
   <pre><code id="code-d8a9a58cd936" class="language-python">PhysicsBody.rectangle(width=0, height=0, w=0, h=0)
 PhysicsBody.circle(radius=0, r=0)</code></pre>
@@ -394,7 +403,7 @@ PhysicsBody.circle(radius=0, r=0)</code></pre>
 <figure class="code-block" data-code-id="e63a6b975c1c">
   <figcaption>
     <span>python</span>
-    <button class="copy-code" type="button" data-copy-code="e63a6b975c1c">复制</button>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="e63a6b975c1c" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
   <pre><code id="code-e63a6b975c1c" class="language-python">PinJoint(node_a, node_b, anchor)
 SpringJoint(node_a, node_b, anchor_a, anchor_b, *, damping=0.5, frequency=1.0)

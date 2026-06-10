@@ -16,6 +16,7 @@
     <a class="brand" href="../../"><img class="brand-mark" src="../../assets/brand-mark.svg" alt="" width="30" height="30"><span class="brand-text">PythonIDE Docs</span></a>
     <nav class="top-nav" aria-label="主导航">
       <a class="active" href="../../">文档</a>
+      <a class="" href="../../pages/agent-development-index/">Agent</a>
       <a class="" href="../../pages/widget-api-reference/">API 参考</a>
       <a class="" href="../../pages/appui-cookbook-index/">示例</a>
     </nav>
@@ -266,6 +267,13 @@
 <a class="nav-link" href="../../pages/miniapp-native-capabilities/">原生能力入口</a>
 </div>
 </details>
+<details class="nav-collection">
+<summary><a href="../../collections/agent-development/">Agent 开发</a></summary>
+<div class="nav-group">
+<div class="nav-group-title">开始</div>
+<a class="nav-link" href="../../pages/agent-development-index/">Agent Skills 安装与说明</a>
+</div>
+</details>
 </nav>
     </aside>
     <main class="content">
@@ -276,6 +284,7 @@
     <h1>websocket</h1>
     <p>原生 WebSocket 连接、收发和回调。</p>
   </header>
+  
   <div class="markdown-body">
     <p>原生 WebSocket 客户端（URLSessionWebSocketTask）：连接、收发消息、事件回调。</p>
 <blockquote class="callout note"><strong>边界</strong>：客户端连接 <code>ws://</code> / <code>wss://</code> 服务器；不含 WebSocket 服务端。阻塞式 <code>receive()</code> 会等待消息；AppUI 场景推荐 <code>on_message</code> 回调。</blockquote>
@@ -287,7 +296,7 @@
 <figure class="code-block" data-code-id="7519b9dcb24e">
   <figcaption>
     <span>python</span>
-    <button class="copy-code" type="button" data-copy-code="7519b9dcb24e">复制</button>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="7519b9dcb24e" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
   <pre><code id="code-7519b9dcb24e" class="language-python">import websocket
 
@@ -301,7 +310,7 @@ ws.close()</code></pre>
 <figure class="code-block" data-code-id="a4ec0dfa6516">
   <figcaption>
     <span>python</span>
-    <button class="copy-code" type="button" data-copy-code="a4ec0dfa6516">复制</button>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="a4ec0dfa6516" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
   <pre><code id="code-a4ec0dfa6516" class="language-python">import websocket
 
@@ -316,7 +325,7 @@ ws.send(&quot;Hello&quot;)</code></pre>
 <figure class="code-block" data-code-id="3453294255f1">
   <figcaption>
     <span>python</span>
-    <button class="copy-code" type="button" data-copy-code="3453294255f1">复制</button>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="3453294255f1" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
   <pre><code id="code-3453294255f1" class="language-python">import appui
 import websocket
@@ -403,7 +412,7 @@ appui.run(body, state=state)</code></pre>
 <figure class="code-block" data-code-id="8df919ecfc3b">
   <figcaption>
     <span>python</span>
-    <button class="copy-code" type="button" data-copy-code="8df919ecfc3b">复制</button>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="8df919ecfc3b" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
   <pre><code id="code-8df919ecfc3b" class="language-python">ws = websocket.connect(&quot;wss://example.com/socket&quot;, protocols=[&quot;chat&quot;])</code></pre>
 </figure>

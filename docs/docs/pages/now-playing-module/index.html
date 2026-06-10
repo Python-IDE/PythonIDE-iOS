@@ -16,6 +16,7 @@
     <a class="brand" href="../../"><img class="brand-mark" src="../../assets/brand-mark.svg" alt="" width="30" height="30"><span class="brand-text">PythonIDE Docs</span></a>
     <nav class="top-nav" aria-label="主导航">
       <a class="active" href="../../">文档</a>
+      <a class="" href="../../pages/agent-development-index/">Agent</a>
       <a class="" href="../../pages/widget-api-reference/">API 参考</a>
       <a class="" href="../../pages/appui-cookbook-index/">示例</a>
     </nav>
@@ -266,6 +267,13 @@
 <a class="nav-link" href="../../pages/miniapp-native-capabilities/">原生能力入口</a>
 </div>
 </details>
+<details class="nav-collection">
+<summary><a href="../../collections/agent-development/">Agent 开发</a></summary>
+<div class="nav-group">
+<div class="nav-group-title">开始</div>
+<a class="nav-link" href="../../pages/agent-development-index/">Agent Skills 安装与说明</a>
+</div>
+</details>
 </nav>
     </aside>
     <main class="content">
@@ -276,6 +284,7 @@
     <h1>now_playing</h1>
     <p>锁屏与控制中心的正在播放信息。</p>
   </header>
+  
   <div class="markdown-body">
     <p>锁屏与控制中心「正在播放」元数据：标题、艺术家、封面、进度。配合 <a href="../../pages/sound-module/">sound</a> 或 <a href="../../pages/avplayer-module/">avplayer</a> 播放自有音频时使用。</p>
 <blockquote class="callout note"><strong>边界</strong>：只发布<strong>元数据</strong>到系统 Now Playing 卡片，不替代音频播放本身。未实际播放时卡片可能不出现；远程流媒体优先用 <code>avplayer</code> 自带控制。</blockquote>
@@ -287,7 +296,7 @@
 <figure class="code-block" data-code-id="483b9a11b0f4">
   <figcaption>
     <span>python</span>
-    <button class="copy-code" type="button" data-copy-code="483b9a11b0f4">复制</button>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="483b9a11b0f4" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
   <pre><code id="code-483b9a11b0f4" class="language-python">import now_playing
 
@@ -310,7 +319,7 @@ finally:
 <figure class="code-block" data-code-id="b6c1bc647d43">
   <figcaption>
     <span>python</span>
-    <button class="copy-code" type="button" data-copy-code="b6c1bc647d43">复制</button>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="b6c1bc647d43" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
   <pre><code id="code-b6c1bc647d43" class="language-python">import appui
 import now_playing
@@ -379,7 +388,7 @@ appui.run(body, state=state)</code></pre>
 <figure class="code-block" data-code-id="96906bdb6055">
   <figcaption>
     <span>python</span>
-    <button class="copy-code" type="button" data-copy-code="96906bdb6055">复制</button>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="96906bdb6055" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
   <pre><code id="code-96906bdb6055" class="language-python">now_playing.set_info(
     title=&quot;曲目名&quot;,
@@ -396,7 +405,7 @@ appui.run(body, state=state)</code></pre>
 <figure class="code-block" data-code-id="0a0a921f34d3">
   <figcaption>
     <span>python</span>
-    <button class="copy-code" type="button" data-copy-code="0a0a921f34d3">复制</button>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="0a0a921f34d3" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
   <pre><code id="code-0a0a921f34d3" class="language-python">now_playing.update_elapsed(95.5)
 now_playing.clear()</code></pre>

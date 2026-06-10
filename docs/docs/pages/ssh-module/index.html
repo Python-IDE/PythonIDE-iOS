@@ -16,6 +16,7 @@
     <a class="brand" href="../../"><img class="brand-mark" src="../../assets/brand-mark.svg" alt="" width="30" height="30"><span class="brand-text">PythonIDE Docs</span></a>
     <nav class="top-nav" aria-label="主导航">
       <a class="active" href="../../">文档</a>
+      <a class="" href="../../pages/agent-development-index/">Agent</a>
       <a class="" href="../../pages/widget-api-reference/">API 参考</a>
       <a class="" href="../../pages/appui-cookbook-index/">示例</a>
     </nav>
@@ -266,6 +267,13 @@
 <a class="nav-link" href="../../pages/miniapp-native-capabilities/">原生能力入口</a>
 </div>
 </details>
+<details class="nav-collection">
+<summary><a href="../../collections/agent-development/">Agent 开发</a></summary>
+<div class="nav-group">
+<div class="nav-group-title">开始</div>
+<a class="nav-link" href="../../pages/agent-development-index/">Agent Skills 安装与说明</a>
+</div>
+</details>
 </nav>
     </aside>
     <main class="content">
@@ -276,6 +284,7 @@
     <h1>ssh</h1>
     <p>SSH 远程命令与 SFTP 文件传输。</p>
   </header>
+  
   <div class="markdown-body">
     <p>SSH 远程命令与 SFTP 文件传输：连接 Linux/树莓派等设备，执行命令、上传下载文件。</p>
 <blockquote class="callout note"><strong>边界</strong>：需要可达的网络与有效凭据（密码或私钥）。<strong>不要把密码写进公开脚本</strong>；生产环境用 <a href="../../pages/keychain-module/">keychain</a> 存凭据。连接和执行放在按钮回调；<code>session_id</code> 用完后务必 <code>disconnect()</code>。</blockquote>
@@ -287,7 +296,7 @@
 <figure class="code-block" data-code-id="a17a6deff153">
   <figcaption>
     <span>python</span>
-    <button class="copy-code" type="button" data-copy-code="a17a6deff153">复制</button>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="a17a6deff153" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
   <pre><code id="code-a17a6deff153" class="language-python">import ssh
 
@@ -311,7 +320,7 @@ finally:
 <figure class="code-block" data-code-id="fca4108e22e1">
   <figcaption>
     <span>python</span>
-    <button class="copy-code" type="button" data-copy-code="fca4108e22e1">复制</button>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="fca4108e22e1" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
   <pre><code id="code-fca4108e22e1" class="language-python">import ssh
 
@@ -328,7 +337,7 @@ sid = ssh.connect(
 <figure class="code-block" data-code-id="ea1a05765f9a">
   <figcaption>
     <span>python</span>
-    <button class="copy-code" type="button" data-copy-code="ea1a05765f9a">复制</button>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="ea1a05765f9a" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
   <pre><code id="code-ea1a05765f9a" class="language-python">import appui
 import ssh
@@ -436,7 +445,7 @@ appui.run(body, state=state)</code></pre>
 <figure class="code-block" data-code-id="42b6efbbf2e9">
   <figcaption>
     <span>python</span>
-    <button class="copy-code" type="button" data-copy-code="42b6efbbf2e9">复制</button>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="42b6efbbf2e9" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
   <pre><code id="code-42b6efbbf2e9" class="language-python">sid = ssh.connect(&quot;10.0.0.5&quot;, &quot;admin&quot;, password=&quot;secret&quot;)
 sid = ssh.connect(&quot;server&quot;, &quot;deploy&quot;, port=2222, private_key=key_text)</code></pre>
@@ -447,7 +456,7 @@ sid = ssh.connect(&quot;server&quot;, &quot;deploy&quot;, port=2222, private_key
 <figure class="code-block" data-code-id="044152d8aea2">
   <figcaption>
     <span>python</span>
-    <button class="copy-code" type="button" data-copy-code="044152d8aea2">复制</button>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="044152d8aea2" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
   <pre><code id="code-044152d8aea2" class="language-python">result = ssh.execute(sid, &quot;ls -la /tmp&quot;)
 print(result[&quot;stdout&quot;])
@@ -458,7 +467,7 @@ print(result[&quot;exit_code&quot;])</code></pre>
 <figure class="code-block" data-code-id="2f74f7c55ca6">
   <figcaption>
     <span>python</span>
-    <button class="copy-code" type="button" data-copy-code="2f74f7c55ca6">复制</button>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="2f74f7c55ca6" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
   <pre><code id="code-2f74f7c55ca6" class="language-python">ssh.upload(sid, &quot;/local/file.txt&quot;, &quot;/remote/dir/file.txt&quot;)
 ssh.download(sid, &quot;/remote/log.txt&quot;, &quot;/local/log.txt&quot;)</code></pre>

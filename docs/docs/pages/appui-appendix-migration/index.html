@@ -16,6 +16,7 @@
     <a class="brand" href="../../"><img class="brand-mark" src="../../assets/brand-mark.svg" alt="" width="30" height="30"><span class="brand-text">PythonIDE Docs</span></a>
     <nav class="top-nav" aria-label="主导航">
       <a class="active" href="../../">文档</a>
+      <a class="" href="../../pages/agent-development-index/">Agent</a>
       <a class="" href="../../pages/widget-api-reference/">API 参考</a>
       <a class="" href="../../pages/appui-cookbook-index/">示例</a>
     </nav>
@@ -266,6 +267,13 @@
 <a class="nav-link" href="../../pages/miniapp-native-capabilities/">原生能力入口</a>
 </div>
 </details>
+<details class="nav-collection">
+<summary><a href="../../collections/agent-development/">Agent 开发</a></summary>
+<div class="nav-group">
+<div class="nav-group-title">开始</div>
+<a class="nav-link" href="../../pages/agent-development-index/">Agent Skills 安装与说明</a>
+</div>
+</details>
 </nav>
     </aside>
     <main class="content">
@@ -276,6 +284,7 @@
     <h1>从 ui 迁移到 appui</h1>
     <p>命令式 旧版手动布局 API 写法迁移到声明式 AppUI。</p>
   </header>
+  
   <div class="markdown-body">
     <p><code>ui</code> 是命令式控件树，<code>appui</code> 是声明式 View 树。迁移时不要逐行翻译控件操作；先把界面状态整理出来，再用 <code>body()</code> 描述当前状态下的界面。</p>
 <h2 id="对照表"><a class="heading-anchor" href="#对照表">#</a>对照表</h2>
@@ -285,7 +294,7 @@
 <figure class="code-block" data-code-id="336134cfc3f9">
   <figcaption>
     <span>python</span>
-    <button class="copy-code" type="button" data-copy-code="336134cfc3f9">复制</button>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="336134cfc3f9" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
   <pre><code id="code-336134cfc3f9" class="language-python">import ui
 
@@ -304,7 +313,7 @@ button.action = add</code></pre>
 <figure class="code-block" data-code-id="bb66935901f5">
   <figcaption>
     <span>python</span>
-    <button class="copy-code" type="button" data-copy-code="bb66935901f5">复制</button>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="bb66935901f5" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
   <pre><code id="code-bb66935901f5" class="language-python">import appui
 
@@ -330,7 +339,7 @@ appui.run(body, state=state)</code></pre>
 <figure class="code-block" data-code-id="0453029b9b0d">
   <figcaption>
     <span>python</span>
-    <button class="copy-code" type="button" data-copy-code="0453029b9b0d">复制</button>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="0453029b9b0d" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
   <pre><code id="code-0453029b9b0d" class="language-python">import appui
 
@@ -374,7 +383,7 @@ appui.run(body, state=state)</code></pre>
 <figure class="code-block" data-code-id="a68b559afaf6">
   <figcaption>
     <span>python</span>
-    <button class="copy-code" type="button" data-copy-code="a68b559afaf6">复制</button>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="a68b559afaf6" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
   <pre><code id="code-a68b559afaf6" class="language-python">import appui
 
@@ -409,7 +418,7 @@ appui.run(body, state=state)</code></pre>
 <figure class="code-block" data-code-id="b0f37ffcbfd8">
   <figcaption>
     <span>python</span>
-    <button class="copy-code" type="button" data-copy-code="b0f37ffcbfd8">复制</button>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="b0f37ffcbfd8" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
   <pre><code id="code-b0f37ffcbfd8" class="language-python">import appui
 

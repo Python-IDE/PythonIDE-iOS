@@ -16,6 +16,7 @@
     <a class="brand" href="../../"><img class="brand-mark" src="../../assets/brand-mark.svg" alt="" width="30" height="30"><span class="brand-text">PythonIDE Docs</span></a>
     <nav class="top-nav" aria-label="主导航">
       <a class="active" href="../../">文档</a>
+      <a class="" href="../../pages/agent-development-index/">Agent</a>
       <a class="" href="../../pages/widget-api-reference/">API 参考</a>
       <a class="" href="../../pages/appui-cookbook-index/">示例</a>
     </nav>
@@ -266,6 +267,13 @@
 <a class="nav-link" href="../../pages/miniapp-native-capabilities/">原生能力入口</a>
 </div>
 </details>
+<details class="nav-collection">
+<summary><a href="../../collections/agent-development/">Agent 开发</a></summary>
+<div class="nav-group">
+<div class="nav-group-title">开始</div>
+<a class="nav-link" href="../../pages/agent-development-index/">Agent Skills 安装与说明</a>
+</div>
+</details>
 </nav>
     </aside>
     <main class="content">
@@ -276,6 +284,7 @@
     <h1>widget 时间线和动画</h1>
     <p>timeline/entry、state 数字动画、flip 翻页与 countdown 倒计时。</p>
   </header>
+  
   <div class="markdown-body">
     <p>Widget 动画由 <strong>WidgetKit 在数据更新时</strong>触发：timeline entry 切换、AppIntent 改写 <code>widget.state</code>，或系统按计划刷新。不是 App 里的 60fps 循环动画。</p>
 <blockquote class="callout note"><strong>边界</strong>：本篇讲 <code>w.timeline</code>、<code>widget.entry</code>、数字过渡与 <code>flip</code>。布局防裁切见 <a href="../../pages/widget-layout/">布局与尺寸</a>；按钮触发 state 见 <a href="../../pages/widget-interaction/">状态和交互</a>。</blockquote>
@@ -287,7 +296,7 @@
 <figure class="code-block" data-code-id="0afbe1d7b3e7">
   <figcaption>
     <span>python</span>
-    <button class="copy-code" type="button" data-copy-code="0afbe1d7b3e7">复制</button>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="0afbe1d7b3e7" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
   <pre><code id="code-0afbe1d7b3e7" class="language-python">import widget
 
@@ -320,7 +329,7 @@ w.render()</code></pre>
 <figure class="code-block" data-code-id="923830da4bed">
   <figcaption>
     <span>text</span>
-    <button class="copy-code" type="button" data-copy-code="923830da4bed">复制</button>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="923830da4bed" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
   <pre><code id="code-923830da4bed" class="language-text">                    ┌─────────────────────────────────────┐
                     │         WidgetKit 刷新时机           │
@@ -345,7 +354,7 @@ w.render()</code></pre>
 <figure class="code-block" data-code-id="f11abc801122">
   <figcaption>
     <span>python</span>
-    <button class="copy-code" type="button" data-copy-code="f11abc801122">复制</button>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="f11abc801122" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
   <pre><code id="code-f11abc801122" class="language-python">import widget
 from datetime import datetime, timedelta, timezone
@@ -387,7 +396,7 @@ w.render()</code></pre>
 <figure class="code-block" data-code-id="13bb9e50de4a">
   <figcaption>
     <span>python</span>
-    <button class="copy-code" type="button" data-copy-code="13bb9e50de4a">复制</button>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="13bb9e50de4a" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
   <pre><code id="code-13bb9e50de4a" class="language-python">import widget
 from datetime import datetime, timedelta, timezone
@@ -433,7 +442,7 @@ w.render()</code></pre>
 <figure class="code-block" data-code-id="d7ff9376a81a">
   <figcaption>
     <span>python</span>
-    <button class="copy-code" type="button" data-copy-code="d7ff9376a81a">复制</button>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="d7ff9376a81a" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
   <pre><code id="code-d7ff9376a81a" class="language-python">import widget
 from datetime import datetime, timedelta, timezone
@@ -468,7 +477,7 @@ w.render()</code></pre>
 <figure class="code-block" data-code-id="41bbff169fe0">
   <figcaption>
     <span>python</span>
-    <button class="copy-code" type="button" data-copy-code="41bbff169fe0">复制</button>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="41bbff169fe0" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
   <pre><code id="code-41bbff169fe0" class="language-python">import widget
 from datetime import datetime, timedelta, timezone
@@ -494,7 +503,7 @@ w.render()</code></pre>
 <figure class="code-block" data-code-id="989d3f972994">
   <figcaption>
     <span>python</span>
-    <button class="copy-code" type="button" data-copy-code="989d3f972994">复制</button>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="989d3f972994" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
   <pre><code id="code-989d3f972994" class="language-python">from datetime import datetime, timedelta, timezone
 
@@ -516,7 +525,7 @@ w.timeline(entries=[...], update=&quot;after&quot;, interval=900)</code></pre>
 <figure class="code-block" data-code-id="605b5ad2d42e">
   <figcaption>
     <span>python</span>
-    <button class="copy-code" type="button" data-copy-code="605b5ad2d42e">复制</button>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="605b5ad2d42e" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
   <pre><code id="code-605b5ad2d42e" class="language-python">score = widget.state.int(&quot;score&quot;, 0)
 (
@@ -531,7 +540,7 @@ w.button(&quot;+&quot;, action=score.increment())</code></pre>
 <figure class="code-block" data-code-id="45a6226bb57f">
   <figcaption>
     <span>python</span>
-    <button class="copy-code" type="button" data-copy-code="45a6226bb57f">复制</button>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="45a6226bb57f" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
   <pre><code id="code-45a6226bb57f" class="language-python">amount = widget.entry.int(&quot;amount&quot;, 100)
 w.timeline(entries=[

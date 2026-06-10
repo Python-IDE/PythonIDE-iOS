@@ -16,6 +16,7 @@
     <a class="brand" href="../../"><img class="brand-mark" src="../../assets/brand-mark.svg" alt="" width="30" height="30"><span class="brand-text">PythonIDE Docs</span></a>
     <nav class="top-nav" aria-label="主导航">
       <a class="active" href="../../">文档</a>
+      <a class="" href="../../pages/agent-development-index/">Agent</a>
       <a class="" href="../../pages/widget-api-reference/">API 参考</a>
       <a class="" href="../../pages/appui-cookbook-index/">示例</a>
     </nav>
@@ -266,6 +267,13 @@
 <a class="nav-link" href="../../pages/miniapp-native-capabilities/">原生能力入口</a>
 </div>
 </details>
+<details class="nav-collection">
+<summary><a href="../../collections/agent-development/">Agent 开发</a></summary>
+<div class="nav-group">
+<div class="nav-group-title">开始</div>
+<a class="nav-link" href="../../pages/agent-development-index/">Agent Skills 安装与说明</a>
+</div>
+</details>
 </nav>
     </aside>
     <main class="content">
@@ -276,6 +284,7 @@
     <h1>bluetooth</h1>
     <p>BLE 扫描、连接、服务发现和特征读写。</p>
   </header>
+  
   <div class="markdown-body">
     <p>BLE 中心模式：扫描外设、连接、发现服务、读写特征值。</p>
 <blockquote class="callout note"><strong>边界</strong>：面向低功耗蓝牙<strong>中心端</strong>（扫描/连接其他设备），不是普通 HTTP/WebSocket 网络。若要让本机被扫描，请用 <a href="../../pages/ble-peripheral-module/">ble_peripheral</a>。需要蓝牙硬件与系统授权；扫描、连接放在按钮回调，不要在 <code>body()</code> 里自动执行。</blockquote>
@@ -287,7 +296,7 @@
 <figure class="code-block" data-code-id="ec64a304d4dc">
   <figcaption>
     <span>python</span>
-    <button class="copy-code" type="button" data-copy-code="ec64a304d4dc">复制</button>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="ec64a304d4dc" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
   <pre><code id="code-ec64a304d4dc" class="language-python">import bluetooth
 
@@ -303,7 +312,7 @@ else:
 <figure class="code-block" data-code-id="0968ec6da6da">
   <figcaption>
     <span>python</span>
-    <button class="copy-code" type="button" data-copy-code="0968ec6da6da">复制</button>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="0968ec6da6da" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
   <pre><code id="code-0968ec6da6da" class="language-python">import bluetooth
 
@@ -327,7 +336,7 @@ if bluetooth.state() == &quot;powered_on&quot;:
 <figure class="code-block" data-code-id="bdb9a24959b6">
   <figcaption>
     <span>python</span>
-    <button class="copy-code" type="button" data-copy-code="bdb9a24959b6">复制</button>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="bdb9a24959b6" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
   <pre><code id="code-bdb9a24959b6" class="language-python">import appui
 import bluetooth
@@ -433,7 +442,7 @@ appui.run(body, state=state)</code></pre>
 <figure class="code-block" data-code-id="658761d1f8d0">
   <figcaption>
     <span>python</span>
-    <button class="copy-code" type="button" data-copy-code="658761d1f8d0">复制</button>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="658761d1f8d0" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
   <pre><code id="code-658761d1f8d0" class="language-python">devices = bluetooth.scan(duration=3.0)
 bluetooth.stop_scan()  # 提前结束</code></pre>
@@ -445,7 +454,7 @@ bluetooth.stop_scan()  # 提前结束</code></pre>
 <figure class="code-block" data-code-id="44bcf6d0683e">
   <figcaption>
     <span>python</span>
-    <button class="copy-code" type="button" data-copy-code="44bcf6d0683e">复制</button>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="44bcf6d0683e" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
   <pre><code id="code-44bcf6d0683e" class="language-python">import base64
 

@@ -16,6 +16,7 @@
     <a class="brand" href="../../"><img class="brand-mark" src="../../assets/brand-mark.svg" alt="" width="30" height="30"><span class="brand-text">PythonIDE Docs</span></a>
     <nav class="top-nav" aria-label="主导航">
       <a class="active" href="../../">文档</a>
+      <a class="" href="../../pages/agent-development-index/">Agent</a>
       <a class="" href="../../pages/widget-api-reference/">API 参考</a>
       <a class="" href="../../pages/appui-cookbook-index/">示例</a>
     </nav>
@@ -266,6 +267,13 @@
 <a class="nav-link" href="../../pages/miniapp-native-capabilities/">原生能力入口</a>
 </div>
 </details>
+<details class="nav-collection">
+<summary><a href="../../collections/agent-development/">Agent 开发</a></summary>
+<div class="nav-group">
+<div class="nav-group-title">开始</div>
+<a class="nav-link" href="../../pages/agent-development-index/">Agent Skills 安装与说明</a>
+</div>
+</details>
 </nav>
     </aside>
     <main class="content">
@@ -276,6 +284,7 @@
     <h1>live_activity</h1>
     <p>锁屏和 Dynamic Island 的 Live Activity 控制。</p>
   </header>
+  
   <div class="markdown-body">
     <p>Live Activity：在锁屏和 Dynamic Island 展示进行中的任务（上传、导出、计时等）。</p>
 <blockquote class="callout note"><strong>边界</strong>：不是普通通知，也不是长期后台任务；适合有<strong>明确开始、更新、结束</strong>的短流程。<code>progress</code> 范围 <code>0.0</code>–<code>1.0</code>；任务结束（成功/失败/取消）都要 <code>end()</code>，避免锁屏残留。需要 iOS 16.2+ 且系统允许 Live Activity；控制放在按钮或真实任务回调，不要在 <code>body()</code> 里自动 <code>start()</code>。</blockquote>
@@ -287,7 +296,7 @@
 <figure class="code-block" data-code-id="a9b0ced6543b">
   <figcaption>
     <span>python</span>
-    <button class="copy-code" type="button" data-copy-code="a9b0ced6543b">复制</button>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="a9b0ced6543b" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
   <pre><code id="code-a9b0ced6543b" class="language-python">import live_activity
 
@@ -309,7 +318,7 @@ else:
 <figure class="code-block" data-code-id="d0eb423acf25">
   <figcaption>
     <span>python</span>
-    <button class="copy-code" type="button" data-copy-code="d0eb423acf25">复制</button>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="d0eb423acf25" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
   <pre><code id="code-d0eb423acf25" class="language-python">import appui
 import live_activity
@@ -387,7 +396,7 @@ appui.run(body, state=state)</code></pre>
 <figure class="code-block" data-code-id="3cd1d956ec1b">
   <figcaption>
     <span>python</span>
-    <button class="copy-code" type="button" data-copy-code="3cd1d956ec1b">复制</button>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="3cd1d956ec1b" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
   <pre><code id="code-3cd1d956ec1b" class="language-python">live_activity.start(
     title=&quot;下载中&quot;,
@@ -405,7 +414,7 @@ appui.run(body, state=state)</code></pre>
 <figure class="code-block" data-code-id="df2ea42cff56">
   <figcaption>
     <span>python</span>
-    <button class="copy-code" type="button" data-copy-code="df2ea42cff56">复制</button>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="df2ea42cff56" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
   <pre><code id="code-df2ea42cff56" class="language-python">live_activity.end(message=&quot;失败&quot;, dismiss_delay=3)</code></pre>
 </figure>

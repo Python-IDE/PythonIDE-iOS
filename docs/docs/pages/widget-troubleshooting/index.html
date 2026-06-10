@@ -16,6 +16,7 @@
     <a class="brand" href="../../"><img class="brand-mark" src="../../assets/brand-mark.svg" alt="" width="30" height="30"><span class="brand-text">PythonIDE Docs</span></a>
     <nav class="top-nav" aria-label="主导航">
       <a class="active" href="../../">文档</a>
+      <a class="" href="../../pages/agent-development-index/">Agent</a>
       <a class="" href="../../pages/widget-api-reference/">API 参考</a>
       <a class="" href="../../pages/appui-cookbook-index/">示例</a>
     </nav>
@@ -266,6 +267,13 @@
 <a class="nav-link" href="../../pages/miniapp-native-capabilities/">原生能力入口</a>
 </div>
 </details>
+<details class="nav-collection">
+<summary><a href="../../collections/agent-development/">Agent 开发</a></summary>
+<div class="nav-group">
+<div class="nav-group-title">开始</div>
+<a class="nav-link" href="../../pages/agent-development-index/">Agent Skills 安装与说明</a>
+</div>
+</details>
 </nav>
     </aside>
     <main class="content">
@@ -276,6 +284,7 @@
     <h1>widget 排错</h1>
     <p>基线排查、预览≠桌面、裁切/点击/动画、w.validate 诊断。</p>
   </header>
+  
   <div class="markdown-body">
     <p>预览正常但桌面异常、点击无反应、文字被裁切、动画不动——按<strong>现象 → 原因 → 修复</strong>逐项排查。先跑最小基线，再二分加回功能。</p>
 <blockquote class="callout note"><strong>边界</strong>：本篇是<strong>故障手册</strong>，不教 API 写法。入门见 <a href="../../pages/widget-module/">widget 概览</a>；发布流程见 <a href="../../pages/widget-quickstart-publish/">从脚本到桌面</a>。</blockquote>
@@ -287,7 +296,7 @@
 <figure class="code-block" data-code-id="d93473102943">
   <figcaption>
     <span>python</span>
-    <button class="copy-code" type="button" data-copy-code="d93473102943">复制</button>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="d93473102943" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
   <pre><code id="code-d93473102943" class="language-python">import widget
 
@@ -301,7 +310,7 @@ w.render()</code></pre>
 <figure class="code-block" data-code-id="d41a50c719ce">
   <figcaption>
     <span>text</span>
-    <button class="copy-code" type="button" data-copy-code="d41a50c719ce">复制</button>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="d41a50c719ce" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
   <pre><code id="code-d41a50c719ce" class="language-text">1. 基线能预览吗？ ─否→ 检查 w.render()、是否混用 appui/scene、构建报错
         ↓ 是
@@ -322,7 +331,7 @@ w.render()</code></pre>
 <figure class="code-block" data-code-id="4b1f683e2405">
   <figcaption>
     <span>python</span>
-    <button class="copy-code" type="button" data-copy-code="4b1f683e2405">复制</button>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="4b1f683e2405" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
   <pre><code id="code-4b1f683e2405" class="language-python"># ❌ 构建期就会失败
 w.toggle(&quot;完成&quot;, state=done, tint=&quot;#22C55E&quot;)
@@ -347,7 +356,7 @@ w.toggle(&quot;完成&quot;, state=done, color=&quot;#22C55E&quot;)</code></pre>
 <figure class="code-block" data-code-id="b822f12b5090">
   <figcaption>
     <span>python</span>
-    <button class="copy-code" type="button" data-copy-code="b822f12b5090">复制</button>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="b822f12b5090" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
   <pre><code id="code-b822f12b5090" class="language-python">count = widget.state.int(&quot;count&quot;, 0)
 
@@ -371,7 +380,7 @@ w.button(&quot;+&quot;, action=count.increment())</code></pre>
 <figure class="code-block" data-code-id="e99ea8575166">
   <figcaption>
     <span>python</span>
-    <button class="copy-code" type="button" data-copy-code="e99ea8575166">复制</button>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="e99ea8575166" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
   <pre><code id="code-e99ea8575166" class="language-python">import widget
 

@@ -16,6 +16,7 @@
     <a class="brand" href="../../"><img class="brand-mark" src="../../assets/brand-mark.svg" alt="" width="30" height="30"><span class="brand-text">PythonIDE Docs</span></a>
     <nav class="top-nav" aria-label="主导航">
       <a class="active" href="../../">文档</a>
+      <a class="" href="../../pages/agent-development-index/">Agent</a>
       <a class="" href="../../pages/widget-api-reference/">API 参考</a>
       <a class="" href="../../pages/appui-cookbook-index/">示例</a>
     </nav>
@@ -266,6 +267,13 @@
 <a class="nav-link" href="../../pages/miniapp-native-capabilities/">原生能力入口</a>
 </div>
 </details>
+<details class="nav-collection">
+<summary><a href="../../collections/agent-development/">Agent 开发</a></summary>
+<div class="nav-group">
+<div class="nav-group-title">开始</div>
+<a class="nav-link" href="../../pages/agent-development-index/">Agent Skills 安装与说明</a>
+</div>
+</details>
 </nav>
     </aside>
     <main class="content">
@@ -276,6 +284,7 @@
     <h1>sound</h1>
     <p>音效播放、长音频播放器和静音开关行为。</p>
   </header>
+  
   <div class="markdown-body">
     <p>音效与本地音频播放：短音效、长音频 Player、音量与静音开关控制。</p>
 <blockquote class="callout note"><strong>边界</strong>：短反馈用 <code>play_effect</code>；本地长音频用 <code>Player</code>。远程视频/流媒体请看 <a href="../../pages/avplayer-module/">avplayer</a>；文字朗读用 <a href="../../pages/speech-module/">speech</a>。<code>MIDIPlayer</code> 为兼容占位，不提供完整 MIDI 播放。</blockquote>
@@ -287,7 +296,7 @@
 <figure class="code-block" data-code-id="31f965925d48">
   <figcaption>
     <span>python</span>
-    <button class="copy-code" type="button" data-copy-code="31f965925d48">复制</button>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="31f965925d48" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
   <pre><code id="code-31f965925d48" class="language-python">import sound
 
@@ -306,7 +315,7 @@ if handle:
 <figure class="code-block" data-code-id="b78a0e8b4d95">
   <figcaption>
     <span>python</span>
-    <button class="copy-code" type="button" data-copy-code="b78a0e8b4d95">复制</button>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="b78a0e8b4d95" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
   <pre><code id="code-b78a0e8b4d95" class="language-python">import appui
 import sound
@@ -386,7 +395,7 @@ appui.run(body, state=state)</code></pre>
 <figure class="code-block" data-code-id="3de7728599a1">
   <figcaption>
     <span>python</span>
-    <button class="copy-code" type="button" data-copy-code="3de7728599a1">复制</button>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="3de7728599a1" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
   <pre><code id="code-3de7728599a1" class="language-python">handle = sound.play_effect(&quot;arcade:Coin_1&quot;, volume=0.8)
 handle = sound.play_effect(&quot;ui:click1&quot;, looping=True)
@@ -400,7 +409,7 @@ sound.stop_all_effects()</code></pre>
 <figure class="code-block" data-code-id="ef31503512af">
   <figcaption>
     <span>python</span>
-    <button class="copy-code" type="button" data-copy-code="ef31503512af">复制</button>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="ef31503512af" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
   <pre><code id="code-ef31503512af" class="language-python">player = sound.Player(&quot;audio.m4a&quot;)
 player.volume = 0.8
@@ -416,7 +425,7 @@ player.stop()</code></pre>
 <figure class="code-block" data-code-id="cbd34068ad8f">
   <figcaption>
     <span>python</span>
-    <button class="copy-code" type="button" data-copy-code="cbd34068ad8f">复制</button>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="cbd34068ad8f" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
   <pre><code id="code-cbd34068ad8f" class="language-python">sound.set_volume(0.7)
 sound.set_honors_silent_switch(True)  # 遵守静音开关</code></pre>

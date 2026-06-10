@@ -16,6 +16,7 @@
     <a class="brand" href="../../"><img class="brand-mark" src="../../assets/brand-mark.svg" alt="" width="30" height="30"><span class="brand-text">PythonIDE Docs</span></a>
     <nav class="top-nav" aria-label="主导航">
       <a class="active" href="../../">文档</a>
+      <a class="" href="../../pages/agent-development-index/">Agent</a>
       <a class="" href="../../pages/widget-api-reference/">API 参考</a>
       <a class="" href="../../pages/appui-cookbook-index/">示例</a>
     </nav>
@@ -266,6 +267,13 @@
 <a class="nav-link" href="../../pages/miniapp-native-capabilities/">原生能力入口</a>
 </div>
 </details>
+<details class="nav-collection">
+<summary><a href="../../collections/agent-development/">Agent 开发</a></summary>
+<div class="nav-group">
+<div class="nav-group-title">开始</div>
+<a class="nav-link" href="../../pages/agent-development-index/">Agent Skills 安装与说明</a>
+</div>
+</details>
 </nav>
     </aside>
     <main class="content">
@@ -276,6 +284,7 @@
     <h1>列表与表单</h1>
     <p>List、ForEach、Form、Section、搜索、刷新和滑动操作。</p>
   </header>
+  
   <div class="markdown-body">
     <p><code>List</code> 与 <code>Form</code> 是展示结构化数据的首选：<code>List</code> 适合可选中、滑动操作的行；<code>Form</code> 适合设置页分组。<code>ForEach</code> 把 Python 序列映射为多行视图；<code>Section</code> 提供分组标题与脚注。修饰符 <code>.list_style</code>、<code>.swipe_actions</code>、<code>.refreshable</code>、<code>.searchable</code> 直接链在列表（或承载搜索的外层容器）上；若要显式包裹整行，也可使用 <code>SwipeActions(content=..., leading=..., trailing=...)</code>。当前框架<strong>不提供</strong> <code>List</code> / <code>ForEach</code> 原生 <code>on_delete</code> 契约，删除动作请放在行级滑动按钮中。</p>
 <hr>
@@ -293,7 +302,7 @@
 <figure class="code-block" data-code-id="854904bd3801">
   <figcaption>
     <span>python</span>
-    <button class="copy-code" type="button" data-copy-code="854904bd3801">复制</button>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="854904bd3801" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
   <pre><code id="code-854904bd3801" class="language-python">import appui
 
@@ -348,7 +357,7 @@ appui.run(body, state=state)</code></pre>
 <figure class="code-block" data-code-id="5c7a1d074436">
   <figcaption>
     <span>python</span>
-    <button class="copy-code" type="button" data-copy-code="5c7a1d074436">复制</button>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="5c7a1d074436" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
   <pre><code id="code-5c7a1d074436" class="language-python">import appui
 
@@ -449,7 +458,7 @@ appui.run(body, state=state)</code></pre>
 <figure class="code-block" data-code-id="7bf2cc98ba7e">
   <figcaption>
     <span>python</span>
-    <button class="copy-code" type="button" data-copy-code="7bf2cc98ba7e">复制</button>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="7bf2cc98ba7e" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
   <pre><code id="code-7bf2cc98ba7e" class="language-python">import appui
 
@@ -484,7 +493,7 @@ print(tree)</code></pre>
 <figure class="code-block" data-code-id="dccf577fe3bc">
   <figcaption>
     <span>python</span>
-    <button class="copy-code" type="button" data-copy-code="dccf577fe3bc">复制</button>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="dccf577fe3bc" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
   <pre><code id="code-dccf577fe3bc" class="language-python">import appui
 

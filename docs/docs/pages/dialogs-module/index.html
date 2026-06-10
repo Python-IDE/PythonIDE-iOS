@@ -16,6 +16,7 @@
     <a class="brand" href="../../"><img class="brand-mark" src="../../assets/brand-mark.svg" alt="" width="30" height="30"><span class="brand-text">PythonIDE Docs</span></a>
     <nav class="top-nav" aria-label="主导航">
       <a class="active" href="../../">文档</a>
+      <a class="" href="../../pages/agent-development-index/">Agent</a>
       <a class="" href="../../pages/widget-api-reference/">API 参考</a>
       <a class="" href="../../pages/appui-cookbook-index/">示例</a>
     </nav>
@@ -266,6 +267,13 @@
 <a class="nav-link" href="../../pages/miniapp-native-capabilities/">原生能力入口</a>
 </div>
 </details>
+<details class="nav-collection">
+<summary><a href="../../collections/agent-development/">Agent 开发</a></summary>
+<div class="nav-group">
+<div class="nav-group-title">开始</div>
+<a class="nav-link" href="../../pages/agent-development-index/">Agent Skills 安装与说明</a>
+</div>
+</details>
 </nav>
     </aside>
     <main class="content">
@@ -276,6 +284,7 @@
     <h1>dialogs</h1>
     <p>原生对话框、表单和日期选择。</p>
   </header>
+  
   <div class="markdown-body">
     <p>阻塞式原生对话框：确认、输入、列表选择、简单表单和日期选择。</p>
 <blockquote class="callout note"><strong>边界</strong>：调用会<strong>阻塞脚本</strong>直到用户响应；取消时抛出 <code>KeyboardInterrupt</code>。适合短脚本临时交互；复杂页面、多步骤流程请用 AppUI <code>Form</code> / <code>.sheet</code> / <code>.alert</code>，不要在 AppUI 回调里连续弹多个阻塞对话框。</blockquote>
@@ -287,7 +296,7 @@
 <figure class="code-block" data-code-id="3a74b76d427d">
   <figcaption>
     <span>python</span>
-    <button class="copy-code" type="button" data-copy-code="3a74b76d427d">复制</button>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="3a74b76d427d" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
   <pre><code id="code-3a74b76d427d" class="language-python">import dialogs
 
@@ -304,7 +313,7 @@ except KeyboardInterrupt:
 <figure class="code-block" data-code-id="af547fc1c23d">
   <figcaption>
     <span>python</span>
-    <button class="copy-code" type="button" data-copy-code="af547fc1c23d">复制</button>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="af547fc1c23d" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
   <pre><code id="code-af547fc1c23d" class="language-python">import appui
 import dialogs
@@ -387,7 +396,7 @@ appui.run(body, state=state)</code></pre>
 <figure class="code-block" data-code-id="cce18120b66d">
   <figcaption>
     <span>python</span>
-    <button class="copy-code" type="button" data-copy-code="cce18120b66d">复制</button>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="cce18120b66d" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
   <pre><code id="code-cce18120b66d" class="language-python">if dialogs.alert(&quot;删除？&quot;, &quot;不可撤销&quot;, &quot;删除&quot;, &quot;取消&quot;) == 1:
     do_delete()</code></pre>
@@ -397,7 +406,7 @@ appui.run(body, state=state)</code></pre>
 <figure class="code-block" data-code-id="5b85901ef64c">
   <figcaption>
     <span>python</span>
-    <button class="copy-code" type="button" data-copy-code="5b85901ef64c">复制</button>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="5b85901ef64c" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
   <pre><code id="code-5b85901ef64c" class="language-python">name = dialogs.input_alert(&quot;API Key&quot;, secure=True, placeholder=&quot;sk-...&quot;)</code></pre>
 </figure>
@@ -406,7 +415,7 @@ appui.run(body, state=state)</code></pre>
 <figure class="code-block" data-code-id="70b0293457df">
   <figcaption>
     <span>python</span>
-    <button class="copy-code" type="button" data-copy-code="70b0293457df">复制</button>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="70b0293457df" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
   <pre><code id="code-70b0293457df" class="language-python">color = dialogs.list_dialog(&quot;颜色&quot;, [&quot;红&quot;, &quot;绿&quot;, &quot;蓝&quot;])
 tags = dialogs.list_dialog(&quot;标签&quot;, [&quot;A&quot;, &quot;B&quot;, &quot;C&quot;], multiple=True)</code></pre>
@@ -415,7 +424,7 @@ tags = dialogs.list_dialog(&quot;标签&quot;, [&quot;A&quot;, &quot;B&quot;, &q
 <figure class="code-block" data-code-id="d03434632b39">
   <figcaption>
     <span>python</span>
-    <button class="copy-code" type="button" data-copy-code="d03434632b39">复制</button>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="d03434632b39" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
   <pre><code id="code-d03434632b39" class="language-python">result = dialogs.form_dialog(&quot;新建笔记&quot;, [
     {&quot;type&quot;: &quot;text&quot;, &quot;key&quot;: &quot;title&quot;, &quot;title&quot;: &quot;标题&quot;, &quot;value&quot;: &quot;每日笔记&quot;},
@@ -429,7 +438,7 @@ print(result[&quot;title&quot;], result[&quot;pinned&quot;])</code></pre>
 <figure class="code-block" data-code-id="43a569469069">
   <figcaption>
     <span>python</span>
-    <button class="copy-code" type="button" data-copy-code="43a569469069">复制</button>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="43a569469069" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
   <pre><code id="code-43a569469069" class="language-python">when = dialogs.date_dialog(&quot;选择日期&quot;, mode=&quot;date&quot;)</code></pre>
 </figure>
@@ -437,7 +446,7 @@ print(result[&quot;title&quot;], result[&quot;pinned&quot;])</code></pre>
 <figure class="code-block" data-code-id="b1ecf51f3af2">
   <figcaption>
     <span>python</span>
-    <button class="copy-code" type="button" data-copy-code="b1ecf51f3af2">复制</button>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="b1ecf51f3af2" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
   <pre><code id="code-b1ecf51f3af2" class="language-python">dialogs.hud_alert(&quot;已保存！&quot;, duration=1.5)</code></pre>
 </figure>

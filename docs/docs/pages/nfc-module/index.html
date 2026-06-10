@@ -16,6 +16,7 @@
     <a class="brand" href="../../"><img class="brand-mark" src="../../assets/brand-mark.svg" alt="" width="30" height="30"><span class="brand-text">PythonIDE Docs</span></a>
     <nav class="top-nav" aria-label="主导航">
       <a class="active" href="../../">文档</a>
+      <a class="" href="../../pages/agent-development-index/">Agent</a>
       <a class="" href="../../pages/widget-api-reference/">API 参考</a>
       <a class="" href="../../pages/appui-cookbook-index/">示例</a>
     </nav>
@@ -266,6 +267,13 @@
 <a class="nav-link" href="../../pages/miniapp-native-capabilities/">原生能力入口</a>
 </div>
 </details>
+<details class="nav-collection">
+<summary><a href="../../collections/agent-development/">Agent 开发</a></summary>
+<div class="nav-group">
+<div class="nav-group-title">开始</div>
+<a class="nav-link" href="../../pages/agent-development-index/">Agent Skills 安装与说明</a>
+</div>
+</details>
 </nav>
     </aside>
     <main class="content">
@@ -276,6 +284,7 @@
     <h1>nfc</h1>
     <p>NFC 标签读取和 NDEF 写入。</p>
   </header>
+  
   <div class="markdown-body">
     <p>NFC 标签读写：扫描 NDEF 记录、写入文本或 URI。需要支持 NFC 的 iPhone 硬件。</p>
 <blockquote class="callout note"><strong>边界</strong>：仅读写 NDEF 格式标签；不含银行卡支付、门禁卡模拟。扫描/写入会弹出系统 NFC 会话，必须放在按钮回调里，不要在 <code>body()</code> 中自动触发。</blockquote>
@@ -287,7 +296,7 @@
 <figure class="code-block" data-code-id="3b861d83d6c2">
   <figcaption>
     <span>python</span>
-    <button class="copy-code" type="button" data-copy-code="3b861d83d6c2">复制</button>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="3b861d83d6c2" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
   <pre><code id="code-3b861d83d6c2" class="language-python">import nfc
 
@@ -305,7 +314,7 @@ else:
 <figure class="code-block" data-code-id="6f528ce699a8">
   <figcaption>
     <span>python</span>
-    <button class="copy-code" type="button" data-copy-code="6f528ce699a8">复制</button>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="6f528ce699a8" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
   <pre><code id="code-6f528ce699a8" class="language-python">import nfc
 
@@ -319,7 +328,7 @@ print(&quot;写入成功&quot; if ok else &quot;写入失败&quot;)</code></pre>
 <figure class="code-block" data-code-id="cb0ec02c0a7a">
   <figcaption>
     <span>python</span>
-    <button class="copy-code" type="button" data-copy-code="cb0ec02c0a7a">复制</button>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="cb0ec02c0a7a" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
   <pre><code id="code-cb0ec02c0a7a" class="language-python">import appui
 import nfc
@@ -396,7 +405,7 @@ appui.run(body, state=state)</code></pre>
 <figure class="code-block" data-code-id="3e52f532b9eb">
   <figcaption>
     <span>python</span>
-    <button class="copy-code" type="button" data-copy-code="3e52f532b9eb">复制</button>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="3e52f532b9eb" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
   <pre><code id="code-3e52f532b9eb" class="language-python">if nfc.is_available():
     ...</code></pre>
@@ -407,7 +416,7 @@ appui.run(body, state=state)</code></pre>
 <figure class="code-block" data-code-id="2a2b0a9cd301">
   <figcaption>
     <span>python</span>
-    <button class="copy-code" type="button" data-copy-code="2a2b0a9cd301">复制</button>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="2a2b0a9cd301" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
   <pre><code id="code-2a2b0a9cd301" class="language-python">tag = nfc.scan(message=&quot;请将 iPhone 靠近标签&quot;, timeout=30)</code></pre>
 </figure>
@@ -417,7 +426,7 @@ appui.run(body, state=state)</code></pre>
 <figure class="code-block" data-code-id="ddce003ec772">
   <figcaption>
     <span>python</span>
-    <button class="copy-code" type="button" data-copy-code="ddce003ec772">复制</button>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="ddce003ec772" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
   <pre><code id="code-ddce003ec772" class="language-python">nfc.write([
     {&quot;type&quot;: &quot;text&quot;, &quot;payload&quot;: &quot;会议室 A&quot;},

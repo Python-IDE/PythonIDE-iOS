@@ -16,6 +16,7 @@
     <a class="brand" href="../../"><img class="brand-mark" src="../../assets/brand-mark.svg" alt="" width="30" height="30"><span class="brand-text">PythonIDE Docs</span></a>
     <nav class="top-nav" aria-label="主导航">
       <a class="active" href="../../">文档</a>
+      <a class="" href="../../pages/agent-development-index/">Agent</a>
       <a class="" href="../../pages/widget-api-reference/">API 参考</a>
       <a class="" href="../../pages/appui-cookbook-index/">示例</a>
     </nav>
@@ -266,6 +267,13 @@
 <a class="nav-link" href="../../pages/miniapp-native-capabilities/">原生能力入口</a>
 </div>
 </details>
+<details class="nav-collection">
+<summary><a href="../../collections/agent-development/">Agent 开发</a></summary>
+<div class="nav-group">
+<div class="nav-group-title">开始</div>
+<a class="nav-link" href="../../pages/agent-development-index/">Agent Skills 安装与说明</a>
+</div>
+</details>
 </nav>
     </aside>
     <main class="content">
@@ -276,6 +284,7 @@
     <h1>motion</h1>
     <p>设备运动、陀螺仪、磁力计和气压计。</p>
   </header>
+  
   <div class="markdown-body">
     <p>设备运动传感器：加速度、重力、陀螺仪、磁力计、姿态与气压高度。</p>
 <blockquote class="callout note"><strong>边界</strong>：传感器耗电；<code>start_*</code> 后必须 <code>stop_*</code>。读取放在按钮回调或 <code>Timer</code> 轮询，不要在 <code>body()</code> 里启动采集。模拟器数据有限，真机测试更可靠；读取可能返回 <code>None</code>，需判空。</blockquote>
@@ -287,7 +296,7 @@
 <figure class="code-block" data-code-id="c7dfefe3f08b">
   <figcaption>
     <span>python</span>
-    <button class="copy-code" type="button" data-copy-code="c7dfefe3f08b">复制</button>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="c7dfefe3f08b" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
   <pre><code id="code-c7dfefe3f08b" class="language-python">import time
 import motion
@@ -309,7 +318,7 @@ else:
 <figure class="code-block" data-code-id="e39c317654da">
   <figcaption>
     <span>python</span>
-    <button class="copy-code" type="button" data-copy-code="e39c317654da">复制</button>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="e39c317654da" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
   <pre><code id="code-e39c317654da" class="language-python">import motion
 
@@ -325,7 +334,7 @@ finally:
 <figure class="code-block" data-code-id="91d9f7ef7c62">
   <figcaption>
     <span>python</span>
-    <button class="copy-code" type="button" data-copy-code="91d9f7ef7c62">复制</button>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="91d9f7ef7c62" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
   <pre><code id="code-91d9f7ef7c62" class="language-python">import appui
 import motion
@@ -392,7 +401,7 @@ appui.run(body, state=state)</code></pre>
 <figure class="code-block" data-code-id="9bf73c37bfff">
   <figcaption>
     <span>python</span>
-    <button class="copy-code" type="button" data-copy-code="9bf73c37bfff">复制</button>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="9bf73c37bfff" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
   <pre><code id="code-9bf73c37bfff" class="language-python">motion.start_updates(interval=1 / 10)
 # … 读取 …

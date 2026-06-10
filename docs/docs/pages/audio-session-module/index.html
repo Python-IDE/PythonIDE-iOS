@@ -16,6 +16,7 @@
     <a class="brand" href="../../"><img class="brand-mark" src="../../assets/brand-mark.svg" alt="" width="30" height="30"><span class="brand-text">PythonIDE Docs</span></a>
     <nav class="top-nav" aria-label="主导航">
       <a class="active" href="../../">文档</a>
+      <a class="" href="../../pages/agent-development-index/">Agent</a>
       <a class="" href="../../pages/widget-api-reference/">API 参考</a>
       <a class="" href="../../pages/appui-cookbook-index/">示例</a>
     </nav>
@@ -266,6 +267,13 @@
 <a class="nav-link" href="../../pages/miniapp-native-capabilities/">原生能力入口</a>
 </div>
 </details>
+<details class="nav-collection">
+<summary><a href="../../collections/agent-development/">Agent 开发</a></summary>
+<div class="nav-group">
+<div class="nav-group-title">开始</div>
+<a class="nav-link" href="../../pages/agent-development-index/">Agent Skills 安装与说明</a>
+</div>
+</details>
 </nav>
     </aside>
     <main class="content">
@@ -276,6 +284,7 @@
     <h1>audio_session</h1>
     <p>配置共享 AVAudioSession。</p>
   </header>
+  
   <div class="markdown-body">
     <p>配置共享 <code>AVAudioSession</code>：设置音频类别、激活会话、查询当前输入/输出路由。</p>
 <blockquote class="callout note"><strong>边界</strong>：影响全 App 的音频行为，通常在播放/录音<strong>之前</strong>配置。与 <a href="../../pages/sound-module/">sound</a>、<a href="../../pages/avplayer-module/">avplayer</a>、<a href="../../pages/audio-recorder-module/">audio_recorder</a> 配合使用。不需要单独权限，但会改变其他模块的音频路由；配置放在按钮回调或启动流程，不要在 <code>body()</code> 里反复切换。</blockquote>
@@ -287,7 +296,7 @@
 <figure class="code-block" data-code-id="f91d6bdfe6ee">
   <figcaption>
     <span>python</span>
-    <button class="copy-code" type="button" data-copy-code="f91d6bdfe6ee">复制</button>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="f91d6bdfe6ee" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
   <pre><code id="code-f91d6bdfe6ee" class="language-python">import audio_session
 
@@ -304,7 +313,7 @@ except audio_session.AudioSessionError as exc:
 <figure class="code-block" data-code-id="55143e3fe208">
   <figcaption>
     <span>python</span>
-    <button class="copy-code" type="button" data-copy-code="55143e3fe208">复制</button>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="55143e3fe208" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
   <pre><code id="code-55143e3fe208" class="language-python">import audio_session
 
@@ -321,7 +330,7 @@ audio_session.set_active(True)</code></pre>
 <figure class="code-block" data-code-id="396583c48537">
   <figcaption>
     <span>python</span>
-    <button class="copy-code" type="button" data-copy-code="396583c48537">复制</button>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="396583c48537" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
   <pre><code id="code-396583c48537" class="language-python">import appui
 import audio_session
@@ -414,7 +423,7 @@ appui.run(body, state=state)</code></pre>
 <figure class="code-block" data-code-id="d3b201cc18f0">
   <figcaption>
     <span>python</span>
-    <button class="copy-code" type="button" data-copy-code="d3b201cc18f0">复制</button>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="d3b201cc18f0" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
   <pre><code id="code-d3b201cc18f0" class="language-python">{
     &quot;inputs&quot;: [{&quot;name&quot;: &quot;...&quot;, &quot;type&quot;: &quot;...&quot;}],

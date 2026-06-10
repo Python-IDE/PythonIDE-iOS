@@ -16,6 +16,7 @@
     <a class="brand" href="../../"><img class="brand-mark" src="../../assets/brand-mark.svg" alt="" width="30" height="30"><span class="brand-text">PythonIDE Docs</span></a>
     <nav class="top-nav" aria-label="主导航">
       <a class="active" href="../../">文档</a>
+      <a class="" href="../../pages/agent-development-index/">Agent</a>
       <a class="" href="../../pages/widget-api-reference/">API 参考</a>
       <a class="" href="../../pages/appui-cookbook-index/">示例</a>
     </nav>
@@ -266,6 +267,13 @@
 <a class="nav-link" href="../../pages/miniapp-native-capabilities/">原生能力入口</a>
 </div>
 </details>
+<details class="nav-collection">
+<summary><a href="../../collections/agent-development/">Agent 开发</a></summary>
+<div class="nav-group">
+<div class="nav-group-title">开始</div>
+<a class="nav-link" href="../../pages/agent-development-index/">Agent Skills 安装与说明</a>
+</div>
+</details>
 </nav>
     </aside>
     <main class="content">
@@ -276,6 +284,7 @@
     <h1>background_download</h1>
     <p>后台 URLSession 大文件下载。</p>
   </header>
+  
   <div class="markdown-body">
     <p>后台 URLSession 大文件下载：App 进入后台后仍可继续，适合较大文件。</p>
 <blockquote class="callout note"><strong>边界</strong>：使用系统后台 <code>URLSession</code>，通过 <code>task_id</code> 轮询 <code>status()</code> 获取结果。前台小文件下载请用 <a href="../../pages/network-module/">network</a> 的 <code>download()</code>。<code>destination_path</code> 需为 App 可写路径；下载启动放在按钮回调，不要在 <code>body()</code> 里自动发起。</blockquote>
@@ -287,7 +296,7 @@
 <figure class="code-block" data-code-id="b0ae60e57f47">
   <figcaption>
     <span>python</span>
-    <button class="copy-code" type="button" data-copy-code="b0ae60e57f47">复制</button>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="b0ae60e57f47" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
   <pre><code id="code-b0ae60e57f47" class="language-python">import os
 import time
@@ -322,7 +331,7 @@ except background_download.BackgroundDownloadError as exc:
 <figure class="code-block" data-code-id="f78b6a6ff9f2">
   <figcaption>
     <span>python</span>
-    <button class="copy-code" type="button" data-copy-code="f78b6a6ff9f2">复制</button>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="f78b6a6ff9f2" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
   <pre><code id="code-f78b6a6ff9f2" class="language-python">import appui
 import os
@@ -423,7 +432,7 @@ appui.run(body, state=state)</code></pre>
 <figure class="code-block" data-code-id="739c8c26410f">
   <figcaption>
     <span>python</span>
-    <button class="copy-code" type="button" data-copy-code="739c8c26410f">复制</button>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="739c8c26410f" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
   <pre><code id="code-739c8c26410f" class="language-python">task_id = background_download.download(
     &quot;https://example.com/file.zip&quot;,

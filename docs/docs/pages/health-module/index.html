@@ -16,6 +16,7 @@
     <a class="brand" href="../../"><img class="brand-mark" src="../../assets/brand-mark.svg" alt="" width="30" height="30"><span class="brand-text">PythonIDE Docs</span></a>
     <nav class="top-nav" aria-label="主导航">
       <a class="active" href="../../">文档</a>
+      <a class="" href="../../pages/agent-development-index/">Agent</a>
       <a class="" href="../../pages/widget-api-reference/">API 参考</a>
       <a class="" href="../../pages/appui-cookbook-index/">示例</a>
     </nav>
@@ -266,6 +267,13 @@
 <a class="nav-link" href="../../pages/miniapp-native-capabilities/">原生能力入口</a>
 </div>
 </details>
+<details class="nav-collection">
+<summary><a href="../../collections/agent-development/">Agent 开发</a></summary>
+<div class="nav-group">
+<div class="nav-group-title">开始</div>
+<a class="nav-link" href="../../pages/agent-development-index/">Agent Skills 安装与说明</a>
+</div>
+</details>
 </nav>
     </aside>
     <main class="content">
@@ -276,6 +284,7 @@
     <h1>health</h1>
     <p>HealthKit 授权、查询和体重写入。</p>
   </header>
+  
   <div class="markdown-body">
     <p>HealthKit 健康数据：申请授权、读取步数/心率/睡眠等，写入体重样本。</p>
 <blockquote class="callout note"><strong>边界</strong>：健康数据非常敏感。只请求当前功能需要的类型（如 <code>steps</code>、<code>heart_rate</code>），不要一次申请全部。查询结果只做展示，<strong>不做医疗诊断</strong>；不要把明细写入 <a href="../../pages/storage-module/">storage</a>。</blockquote>
@@ -287,7 +296,7 @@
 <figure class="code-block" data-code-id="619b276c2cfd">
   <figcaption>
     <span>python</span>
-    <button class="copy-code" type="button" data-copy-code="619b276c2cfd">复制</button>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="619b276c2cfd" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
   <pre><code id="code-619b276c2cfd" class="language-python">import time
 import health
@@ -310,7 +319,7 @@ else:
 <figure class="code-block" data-code-id="c56ec7a69d33">
   <figcaption>
     <span>python</span>
-    <button class="copy-code" type="button" data-copy-code="c56ec7a69d33">复制</button>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="c56ec7a69d33" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
   <pre><code id="code-c56ec7a69d33" class="language-python">import appui
 import health
@@ -382,7 +391,7 @@ appui.run(body, state=state)</code></pre>
 <figure class="code-block" data-code-id="6a498c3747bd">
   <figcaption>
     <span>python</span>
-    <button class="copy-code" type="button" data-copy-code="6a498c3747bd">复制</button>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="6a498c3747bd" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
   <pre><code id="code-6a498c3747bd" class="language-python">import health
 
@@ -405,7 +414,7 @@ if health.is_available():
 <figure class="code-block" data-code-id="fac0326435d4">
   <figcaption>
     <span>python</span>
-    <button class="copy-code" type="button" data-copy-code="fac0326435d4">复制</button>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="fac0326435d4" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
   <pre><code id="code-fac0326435d4" class="language-python">import time
 
@@ -418,7 +427,7 @@ steps = health.query_steps(start=start, end=end)</code></pre>
 <figure class="code-block" data-code-id="6717ed73c42c">
   <figcaption>
     <span>python</span>
-    <button class="copy-code" type="button" data-copy-code="6717ed73c42c">复制</button>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="6717ed73c42c" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
   <pre><code id="code-6717ed73c42c" class="language-python">health.save_weight(70.5)</code></pre>
 </figure>
@@ -427,7 +436,7 @@ steps = health.query_steps(start=start, end=end)</code></pre>
 <figure class="code-block" data-code-id="45b0c894ac19">
   <figcaption>
     <span>python</span>
-    <button class="copy-code" type="button" data-copy-code="45b0c894ac19">复制</button>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="45b0c894ac19" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
   <pre><code id="code-45b0c894ac19" class="language-python">records = health.query_blood_pressure()
 summary = health.summarize_blood_pressure(records)

@@ -16,6 +16,7 @@
     <a class="brand" href="../../"><img class="brand-mark" src="../../assets/brand-mark.svg" alt="" width="30" height="30"><span class="brand-text">PythonIDE Docs</span></a>
     <nav class="top-nav" aria-label="主导航">
       <a class="" href="../../">文档</a>
+      <a class="" href="../../pages/agent-development-index/">Agent</a>
       <a class="active" href="../../pages/widget-api-reference/">API 参考</a>
       <a class="" href="../../pages/appui-cookbook-index/">示例</a>
     </nav>
@@ -266,16 +267,24 @@
 <a class="nav-link" href="../../pages/miniapp-native-capabilities/">原生能力入口</a>
 </div>
 </details>
+<details class="nav-collection">
+<summary><a href="../../collections/agent-development/">Agent 开发</a></summary>
+<div class="nav-group">
+<div class="nav-group-title">开始</div>
+<a class="nav-link" href="../../pages/agent-development-index/">Agent Skills 安装与说明</a>
+</div>
+</details>
 </nav>
     </aside>
     <main class="content">
       
-<article class="article" style="--page-accent:#ea580c">
+<article class="article" style="--page-accent:#e54b22">
   <header class="article-intro">
     <div class="breadcrumb">ui / API 参考</div>
     <h1>ui API 参考</h1>
     <p>集中列出 ui 构造签名、回调入口、工具函数和常量提示。</p>
   </header>
+  
   <div class="markdown-body">
     <p><code>ui</code> 是 Pythonista 风格的命令式原生 UI。它适合迁移 Pythonista 风格脚本、手动 frame 布局和需要直接控制 UIKit 风格视图的场景。新 MiniApp 的表单、列表、导航和设置页优先用 <code>appui</code>。</p>
 <h2 id="预期效果"><a class="heading-anchor" href="#预期效果">#</a>预期效果</h2>
@@ -284,7 +293,7 @@
 <figure class="code-block" data-code-id="668b2849c0f0">
   <figcaption>
     <span>python</span>
-    <button class="copy-code" type="button" data-copy-code="668b2849c0f0">复制</button>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="668b2849c0f0" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
   <pre><code id="code-668b2849c0f0" class="language-python">import ui
 
@@ -311,7 +320,7 @@ view.present(&quot;sheet&quot;)</code></pre>
 <figure class="code-block" data-code-id="f23c8cd6ec09">
   <figcaption>
     <span>python</span>
-    <button class="copy-code" type="button" data-copy-code="f23c8cd6ec09">复制</button>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="f23c8cd6ec09" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
   <pre><code id="code-f23c8cd6ec09" class="language-python">import ui
 
@@ -335,7 +344,7 @@ view.present(&quot;sheet&quot;)</code></pre>
 <figure class="code-block" data-code-id="46f8c5d27276">
   <figcaption>
     <span>python</span>
-    <button class="copy-code" type="button" data-copy-code="46f8c5d27276">复制</button>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="46f8c5d27276" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
   <pre><code id="code-46f8c5d27276" class="language-python">import ui
 

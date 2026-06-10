@@ -16,6 +16,7 @@
     <a class="brand" href="../../"><img class="brand-mark" src="../../assets/brand-mark.svg" alt="" width="30" height="30"><span class="brand-text">PythonIDE Docs</span></a>
     <nav class="top-nav" aria-label="主导航">
       <a class="active" href="../../">文档</a>
+      <a class="" href="../../pages/agent-development-index/">Agent</a>
       <a class="" href="../../pages/widget-api-reference/">API 参考</a>
       <a class="" href="../../pages/appui-cookbook-index/">示例</a>
     </nav>
@@ -266,6 +267,13 @@
 <a class="nav-link" href="../../pages/miniapp-native-capabilities/">原生能力入口</a>
 </div>
 </details>
+<details class="nav-collection">
+<summary><a href="../../collections/agent-development/">Agent 开发</a></summary>
+<div class="nav-group">
+<div class="nav-group-title">开始</div>
+<a class="nav-link" href="../../pages/agent-development-index/">Agent Skills 安装与说明</a>
+</div>
+</details>
 </nav>
     </aside>
     <main class="content">
@@ -276,6 +284,7 @@
     <h1>mail</h1>
     <p>系统邮件编写器发送邮件。</p>
   </header>
+  
   <div class="markdown-body">
     <p>系统邮件撰写：弹出 MessageUI 邮件编辑器，填写收件人、主题、正文与附件。</p>
 <blockquote class="callout note"><strong>边界</strong>：仅唤起系统邮件界面，用户确认后才发送；不能静默发信。需设备已配置邮件账户（<code>can_send()</code> 为 <code>True</code>）。</blockquote>
@@ -287,7 +296,7 @@
 <figure class="code-block" data-code-id="386f09f21009">
   <figcaption>
     <span>python</span>
-    <button class="copy-code" type="button" data-copy-code="386f09f21009">复制</button>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="386f09f21009" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
   <pre><code id="code-386f09f21009" class="language-python">import mail
 
@@ -305,7 +314,7 @@ else:
 <figure class="code-block" data-code-id="813cb9a535b1">
   <figcaption>
     <span>python</span>
-    <button class="copy-code" type="button" data-copy-code="813cb9a535b1">复制</button>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="813cb9a535b1" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
   <pre><code id="code-813cb9a535b1" class="language-python">import mail
 
@@ -322,7 +331,7 @@ result = mail.compose(
 <figure class="code-block" data-code-id="efac2efab389">
   <figcaption>
     <span>python</span>
-    <button class="copy-code" type="button" data-copy-code="efac2efab389">复制</button>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="efac2efab389" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
   <pre><code id="code-efac2efab389" class="language-python">import appui
 import mail
@@ -384,7 +393,7 @@ appui.run(body, state=state)</code></pre>
 <figure class="code-block" data-code-id="a7a60bed8421">
   <figcaption>
     <span>python</span>
-    <button class="copy-code" type="button" data-copy-code="a7a60bed8421">复制</button>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="a7a60bed8421" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
   <pre><code id="code-a7a60bed8421" class="language-python">result = mail.compose(to=[&quot;a@b.com&quot;], subject=&quot;Hi&quot;, body=&quot;...&quot;)
 # sent | saved | cancelled | failed</code></pre>

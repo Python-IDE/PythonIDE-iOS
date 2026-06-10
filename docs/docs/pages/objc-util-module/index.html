@@ -16,6 +16,7 @@
     <a class="brand" href="../../"><img class="brand-mark" src="../../assets/brand-mark.svg" alt="" width="30" height="30"><span class="brand-text">PythonIDE Docs</span></a>
     <nav class="top-nav" aria-label="主导航">
       <a class="active" href="../../">文档</a>
+      <a class="" href="../../pages/agent-development-index/">Agent</a>
       <a class="" href="../../pages/widget-api-reference/">API 参考</a>
       <a class="" href="../../pages/appui-cookbook-index/">示例</a>
     </nav>
@@ -266,16 +267,24 @@
 <a class="nav-link" href="../../pages/miniapp-native-capabilities/">原生能力入口</a>
 </div>
 </details>
+<details class="nav-collection">
+<summary><a href="../../collections/agent-development/">Agent 开发</a></summary>
+<div class="nav-group">
+<div class="nav-group-title">开始</div>
+<a class="nav-link" href="../../pages/agent-development-index/">Agent Skills 安装与说明</a>
+</div>
+</details>
 </nav>
     </aside>
     <main class="content">
       
-<article class="article" style="--page-accent:#ea580c">
+<article class="article" style="--page-accent:#e54b22">
   <header class="article-intro">
     <div class="breadcrumb">自动化与扩展 / 模块</div>
     <h1>objc_util</h1>
     <p>Objective-C Runtime 调用与系统框架访问。</p>
   </header>
+  
   <div class="markdown-body">
     <p>Objective-C Runtime 访问层：调用系统类、selector、Foundation/UIKit 对象与 block。</p>
 <blockquote class="callout note"><strong>边界</strong>：<strong>高级能力入口</strong>；拍照、网络、定位等优先用已封装模块。UIKit 调用须 <code>@on_main_thread</code>；block 回调用 <code>retain_global</code> 保活。</blockquote>
@@ -287,7 +296,7 @@
 <figure class="code-block" data-code-id="894bdc591a95">
   <figcaption>
     <span>python</span>
-    <button class="copy-code" type="button" data-copy-code="894bdc591a95">复制</button>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="894bdc591a95" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
   <pre><code id="code-894bdc591a95" class="language-python">from objc_util import ObjCClass
 
@@ -300,7 +309,7 @@ print(device.systemVersion())</code></pre>
 <figure class="code-block" data-code-id="105d213e65f3">
   <figcaption>
     <span>python</span>
-    <button class="copy-code" type="button" data-copy-code="105d213e65f3">复制</button>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="105d213e65f3" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
   <pre><code id="code-105d213e65f3" class="language-python">from objc_util import ObjCClass, ns, nsurl
 
@@ -314,7 +323,7 @@ print(url.absoluteString())</code></pre>
 <figure class="code-block" data-code-id="fda9d04d5f16">
   <figcaption>
     <span>python</span>
-    <button class="copy-code" type="button" data-copy-code="fda9d04d5f16">复制</button>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="fda9d04d5f16" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
   <pre><code id="code-fda9d04d5f16" class="language-python">import appui
 from objc_util import ObjCClass, on_main_thread
@@ -361,7 +370,7 @@ appui.run(body, state=state)</code></pre>
 <figure class="code-block" data-code-id="48cb3d42669b">
   <figcaption>
     <span>python</span>
-    <button class="copy-code" type="button" data-copy-code="48cb3d42669b">复制</button>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="48cb3d42669b" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
   <pre><code id="code-48cb3d42669b" class="language-python">NSDictionary = ObjCClass(&quot;NSDictionary&quot;)
 obj = NSDictionary.dictionaryWithObject_forKey_(&quot;value&quot;, &quot;key&quot;)
@@ -371,7 +380,7 @@ obj = NSDictionary.dictionaryWithObject_forKey_(&quot;value&quot;, &quot;key&quo
 <figure class="code-block" data-code-id="ad2a633a1f65">
   <figcaption>
     <span>python</span>
-    <button class="copy-code" type="button" data-copy-code="ad2a633a1f65">复制</button>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="ad2a633a1f65" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
   <pre><code id="code-ad2a633a1f65" class="language-python">from objc_util import ObjCClass, on_main_thread
 

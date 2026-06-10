@@ -16,6 +16,7 @@
     <a class="brand" href="../../"><img class="brand-mark" src="../../assets/brand-mark.svg" alt="" width="30" height="30"><span class="brand-text">PythonIDE Docs</span></a>
     <nav class="top-nav" aria-label="主导航">
       <a class="active" href="../../">文档</a>
+      <a class="" href="../../pages/agent-development-index/">Agent</a>
       <a class="" href="../../pages/widget-api-reference/">API 参考</a>
       <a class="" href="../../pages/appui-cookbook-index/">示例</a>
     </nav>
@@ -266,6 +267,13 @@
 <a class="nav-link" href="../../pages/miniapp-native-capabilities/">原生能力入口</a>
 </div>
 </details>
+<details class="nav-collection">
+<summary><a href="../../collections/agent-development/">Agent 开发</a></summary>
+<div class="nav-group">
+<div class="nav-group-title">开始</div>
+<a class="nav-link" href="../../pages/agent-development-index/">Agent Skills 安装与说明</a>
+</div>
+</details>
 </nav>
     </aside>
     <main class="content">
@@ -276,6 +284,7 @@
     <h1>weather</h1>
     <p>当前天气与每日/每小时预报（WeatherKit）。</p>
   </header>
+  
   <div class="markdown-body">
     <p>当前天气与预报（基于 Apple WeatherKit）。支持按坐标查询、按设备位置查询，以及多日/多小时预报。</p>
 <blockquote class="callout note"><strong>边界</strong>：需要 App 开启 WeatherKit 能力（Apple Developer 配置 + 带 entitlement 的签名构建）。<code>current_location()</code> 还需要定位权限；不包含地图或定位 UI，定位请看 <a href="../../pages/location-module/">location</a>。</blockquote>
@@ -287,7 +296,7 @@
 <figure class="code-block" data-code-id="b12667cc3604">
   <figcaption>
     <span>python</span>
-    <button class="copy-code" type="button" data-copy-code="b12667cc3604">复制</button>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="b12667cc3604" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
   <pre><code id="code-b12667cc3604" class="language-python">import weather
 
@@ -310,7 +319,7 @@ except weather.WeatherError as exc:
 <figure class="code-block" data-code-id="73f34135e703">
   <figcaption>
     <span>python</span>
-    <button class="copy-code" type="button" data-copy-code="73f34135e703">复制</button>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="73f34135e703" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
   <pre><code id="code-73f34135e703" class="language-python">import appui
 import permission
@@ -403,7 +412,7 @@ appui.run(body, state=state)</code></pre>
 <figure class="code-block" data-code-id="e349b8091a7d">
   <figcaption>
     <span>python</span>
-    <button class="copy-code" type="button" data-copy-code="e349b8091a7d">复制</button>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="e349b8091a7d" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
   <pre><code id="code-e349b8091a7d" class="language-python">now = weather.current(37.33, -122.03)
 print(now[&quot;temperature&quot;], now[&quot;symbol&quot;])</code></pre>
@@ -412,7 +421,7 @@ print(now[&quot;temperature&quot;], now[&quot;symbol&quot;])</code></pre>
 <figure class="code-block" data-code-id="5b44f622f982">
   <figcaption>
     <span>python</span>
-    <button class="copy-code" type="button" data-copy-code="5b44f622f982">复制</button>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="5b44f622f982" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
   <pre><code id="code-5b44f622f982" class="language-python">import permission
 
@@ -427,7 +436,7 @@ now = weather.current_location()</code></pre>
 <figure class="code-block" data-code-id="e4f4a8567833">
   <figcaption>
     <span>python</span>
-    <button class="copy-code" type="button" data-copy-code="e4f4a8567833">复制</button>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="e4f4a8567833" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
   <pre><code id="code-e4f4a8567833" class="language-python">days = weather.daily(31.23, 121.47, days=5)
 for day in days:
@@ -438,7 +447,7 @@ for day in days:
 <figure class="code-block" data-code-id="2b24b506e929">
   <figcaption>
     <span>python</span>
-    <button class="copy-code" type="button" data-copy-code="2b24b506e929">复制</button>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="2b24b506e929" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
   <pre><code id="code-2b24b506e929" class="language-python">hours = weather.hourly(31.23, 121.47, hours=12)
 for hour in hours:
@@ -451,7 +460,7 @@ for hour in hours:
 <figure class="code-block" data-code-id="f5b78be008c9">
   <figcaption>
     <span>python</span>
-    <button class="copy-code" type="button" data-copy-code="f5b78be008c9">复制</button>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="f5b78be008c9" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
   <pre><code id="code-f5b78be008c9" class="language-python">try:
     weather.current(0, 0)

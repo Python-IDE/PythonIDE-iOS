@@ -16,6 +16,7 @@
     <a class="brand" href="../../"><img class="brand-mark" src="../../assets/brand-mark.svg" alt="" width="30" height="30"><span class="brand-text">PythonIDE Docs</span></a>
     <nav class="top-nav" aria-label="主导航">
       <a class="active" href="../../">文档</a>
+      <a class="" href="../../pages/agent-development-index/">Agent</a>
       <a class="" href="../../pages/widget-api-reference/">API 参考</a>
       <a class="" href="../../pages/appui-cookbook-index/">示例</a>
     </nav>
@@ -266,6 +267,13 @@
 <a class="nav-link" href="../../pages/miniapp-native-capabilities/">原生能力入口</a>
 </div>
 </details>
+<details class="nav-collection">
+<summary><a href="../../collections/agent-development/">Agent 开发</a></summary>
+<div class="nav-group">
+<div class="nav-group-title">开始</div>
+<a class="nav-link" href="../../pages/agent-development-index/">Agent Skills 安装与说明</a>
+</div>
+</details>
 </nav>
     </aside>
     <main class="content">
@@ -276,6 +284,7 @@
     <h1>widget 从脚本到桌面</h1>
     <p>Widget Studio 预览、发布、系统添加主屏小组件与桌面验证。</p>
   </header>
+  
   <div class="markdown-body">
     <p>从第一行 Python 脚本到主屏/锁屏真正显示：写脚本 → 预览 → 调参 → 发布 → 系统添加小组件。</p>
 <blockquote class="callout note"><strong>边界</strong>：本篇讲<strong>发布流程</strong>。API 与节点写法见 <a href="../../pages/widget-module/">widget 概览</a>；文档里的 <code>previewWidget</code> <strong>只能预览</strong>，不能直接发布到桌面。</blockquote>
@@ -287,7 +296,7 @@
 <figure class="code-block" data-code-id="efc095904d6f">
   <figcaption>
     <span>python</span>
-    <button class="copy-code" type="button" data-copy-code="efc095904d6f">复制</button>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="efc095904d6f" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
   <pre><code id="code-efc095904d6f" class="language-python">import widget
 

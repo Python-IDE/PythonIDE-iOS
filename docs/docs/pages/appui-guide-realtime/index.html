@@ -16,6 +16,7 @@
     <a class="brand" href="../../"><img class="brand-mark" src="../../assets/brand-mark.svg" alt="" width="30" height="30"><span class="brand-text">PythonIDE Docs</span></a>
     <nav class="top-nav" aria-label="主导航">
       <a class="active" href="../../">文档</a>
+      <a class="" href="../../pages/agent-development-index/">Agent</a>
       <a class="" href="../../pages/widget-api-reference/">API 参考</a>
       <a class="" href="../../pages/appui-cookbook-index/">示例</a>
     </nav>
@@ -266,6 +267,13 @@
 <a class="nav-link" href="../../pages/miniapp-native-capabilities/">原生能力入口</a>
 </div>
 </details>
+<details class="nav-collection">
+<summary><a href="../../collections/agent-development/">Agent 开发</a></summary>
+<div class="nav-group">
+<div class="nav-group-title">开始</div>
+<a class="nav-link" href="../../pages/agent-development-index/">Agent Skills 安装与说明</a>
+</div>
+</details>
 </nav>
     </aside>
     <main class="content">
@@ -276,6 +284,7 @@
     <h1>实时快路径</h1>
     <p>高频状态更新、二进制属性通道和实时 UI 的边界。</p>
   </header>
+  
   <div class="markdown-body">
     <p>实时快路径是 <code>appui</code> 的高频界面更新通道。它的目标不是让你手动操作更新机制，而是在状态变化很频繁时，让已经显示出来的原生控件尽量只更新必要属性。</p>
 <p>你可以把它理解为：首屏仍然由 <code>appui</code> 正常构建，运行时如果只是文本、滑块、开关、进度、图片等属性变化，系统会优先走更轻的更新路径。</p>
@@ -294,7 +303,7 @@
 <figure class="code-block" data-code-id="fcc4555fde97">
   <figcaption>
     <span>python</span>
-    <button class="copy-code" type="button" data-copy-code="fcc4555fde97">复制</button>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="fcc4555fde97" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
   <pre><code id="code-fcc4555fde97" class="language-python">import appui
 
@@ -318,7 +327,7 @@ appui.run(body, state=state, presentation=&quot;sheet&quot;)</code></pre>
 <figure class="code-block" data-code-id="57b39c4644fc">
   <figcaption>
     <span>python</span>
-    <button class="copy-code" type="button" data-copy-code="57b39c4644fc">复制</button>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="57b39c4644fc" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
   <pre><code id="code-57b39c4644fc" class="language-python">import appui
 

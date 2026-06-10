@@ -16,6 +16,7 @@
     <a class="brand" href="../../"><img class="brand-mark" src="../../assets/brand-mark.svg" alt="" width="30" height="30"><span class="brand-text">PythonIDE Docs</span></a>
     <nav class="top-nav" aria-label="主导航">
       <a class="" href="../../">文档</a>
+      <a class="" href="../../pages/agent-development-index/">Agent</a>
       <a class="active" href="../../pages/widget-api-reference/">API 参考</a>
       <a class="" href="../../pages/appui-cookbook-index/">示例</a>
     </nav>
@@ -266,6 +267,13 @@
 <a class="nav-link" href="../../pages/miniapp-native-capabilities/">原生能力入口</a>
 </div>
 </details>
+<details class="nav-collection">
+<summary><a href="../../collections/agent-development/">Agent 开发</a></summary>
+<div class="nav-group">
+<div class="nav-group-title">开始</div>
+<a class="nav-link" href="../../pages/agent-development-index/">Agent Skills 安装与说明</a>
+</div>
+</details>
 </nav>
     </aside>
     <main class="content">
@@ -276,6 +284,7 @@
     <h1>widget API 地图</h1>
     <p>按任务/场景索引 Widget API；含 symbol 链式 color 等易错点。</p>
   </header>
+  
   <div class="markdown-body">
     <p>按<strong>任务</strong>和<strong>场景</strong>组织 <code>widget</code> 公开 API。需要确认参数名、返回值或修饰符链时，再查 <a href="../../pages/widget-api-reference/">API 参考</a>。</p>
 <blockquote class="callout note"><strong>边界</strong>：本页是索引，不展开教程。入门见 <a href="../../pages/widget-module/">widget 概览</a>；故障见 <a href="../../pages/widget-troubleshooting/">排错</a>。</blockquote>
@@ -314,7 +323,7 @@
 <figure class="code-block" data-code-id="48b75c3343ab">
   <figcaption>
     <span>python</span>
-    <button class="copy-code" type="button" data-copy-code="48b75c3343ab">复制</button>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="48b75c3343ab" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
   <pre><code id="code-48b75c3343ab" class="language-python"># ❌ symbol 不接受 color=/size=
 w.symbol(&quot;star.fill&quot;, color=&quot;#F59E0B&quot;, size=18)
