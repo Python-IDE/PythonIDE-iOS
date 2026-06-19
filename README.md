@@ -6,7 +6,7 @@
 
 <p align="center">
   <strong>iPhone / iPad 上的 Python 工作台</strong><br/>
-  本地运行 Python 3.13，用 AI Agent 处理项目任务，并把脚本接入小组件、MiniApp、SSH、Git 和社区脚本库。
+  本地运行 Python 3.13，用 AI Agent 处理项目任务，编辑 Notebook，并把脚本接入小组件、MiniApp、桌面开发、SSH、Git 和社区脚本库。
 </p>
 
 <p align="center">
@@ -29,6 +29,8 @@
   <img src="https://img.shields.io/badge/Swift-5.9-FA7343?style=flat-square&logo=swift" alt="Swift" />
   <img src="https://img.shields.io/badge/AI-Agent-6D5DFB?style=flat-square" alt="AI Agent" />
   <img src="https://img.shields.io/badge/Widget-MiniApp-F2C94C?style=flat-square" alt="Widget and MiniApp" />
+  <img src="https://img.shields.io/badge/Notebook-ipynb-F37626?style=flat-square" alt="Notebook" />
+  <img src="https://img.shields.io/badge/Desktop-npx-2EA44F?style=flat-square" alt="Desktop npx" />
   <img src="https://img.shields.io/badge/SSH-Git-22C55E?style=flat-square" alt="SSH and Git" />
 </p>
 
@@ -36,7 +38,7 @@
 
 ## 项目定位
 
-PythonIDE 不是只把桌面 IDE 缩小到手机屏幕里。它更像是一套 iOS 上的 Python 工作流：你可以在 iPhone / iPad 上管理文件、编辑代码、运行脚本、安装库、让 AI Agent 处理项目任务，也可以继续把脚本做成小组件、MiniApp、快捷指令自动化、服务器脚本或社区作品。
+PythonIDE 不是只把桌面 IDE 缩小到手机屏幕里。它更像是一套 iOS 上的 Python 工作流：你可以在 iPhone / iPad 上管理文件、编辑代码、运行脚本、编辑 Notebook、安装库、让 AI Agent 处理项目任务，也可以继续把脚本做成小组件、MiniApp、快捷指令自动化、服务器脚本或社区作品，并通过桌面开发桥接到电脑编辑器。
 
 核心目标是让 Python 脚本不只停在编辑器和控制台里：
 
@@ -44,7 +46,7 @@ PythonIDE 不是只把桌面 IDE 缩小到手机屏幕里。它更像是一套 i
 写脚本
   -> 本地运行和调试
   -> 让 AI Agent 修改、验证和修复
-  -> 接入 Widget / MiniApp / Shortcuts / SSH / Git / 社区脚本库
+  -> 接入 Notebook / Widget / MiniApp / Desktop / Shortcuts / SSH / Git / 社区脚本库
 ```
 
 ---
@@ -54,8 +56,10 @@ PythonIDE 不是只把桌面 IDE 缩小到手机屏幕里。它更像是一套 i
 | 能力 | 说明 |
 |---|---|
 | **AI Agent** | AI 聊天、行内编辑、Agent 执行项目任务、跨文件读写、运行 Python、工具调用、BYOK 与平台额度 |
+| **Notebook** | 打开和编辑 `.ipynb` 文件，支持 Markdown / Code 单元格、运行状态、输出展示、空 Notebook 初始化和 Notebook JSON 兼容处理 |
 | **小组件 / Widget** | Python 脚本小组件、Widget Studio、预览、桌面/锁屏组件、Control Center 控件、Live Activity / 灵动岛 |
 | **MiniApp** | MiniApp 启动器、创建、编辑、打包、导入导出、AppUI / HTML / WebBridge 运行、隐藏库、日志中心 |
+| **桌面开发 / npx CLI** | 通过 `npx pythonide-cli start` 连接电脑工作区，在 VS Code / Cursor / Zed 等桌面编辑器中修改 MiniApp，并同步回 iPhone / iPad 的真实 PythonIDE 运行环境 |
 | **SSH / 服务器** | SSH 连接、终端、SFTP 文件管理、服务器监控、部署、密钥管理、命令片段 |
 | **Git / WebDAV** | 仓库状态、diff、暂存、提交、同步、历史、分支、远端、stash、tags、冲突处理；WebDAV 远程文件 |
 | **社区 / 脚本库** | 脚本浏览、分类、详情、导入、运行、投稿、审核、点赞、用户资料 |
@@ -91,6 +95,16 @@ PythonIDE 不是只把桌面 IDE 缩小到手机屏幕里。它更像是一套 i
 | **Share Extension** | 从其他 App 分享内容进入 PythonIDE 处理 |
 | **MiniApp** | 带界面的小工具、表单、列表、日志、状态反馈 |
 
+### 在桌面继续开发 MiniApp
+
+PythonIDE 支持通过 `pythonide-cli` 把 iPhone / iPad 上的 MiniApp 项目连接到电脑工作区：
+
+```bash
+npx pythonide-cli start
+```
+
+电脑端负责打开编辑器、同步项目和监听文件保存；iPhone / iPad 端负责运行真实 PythonIDE runtime。这样可以在 VS Code / Cursor / Zed 等桌面编辑器中写 MiniApp，同时保留 AppUI、Widget、iOS 原生模块等运行能力。
+
 ### 接入真实项目和服务器
 
 PythonIDE 也可以处理更接近开发者工作流的任务：
@@ -111,10 +125,12 @@ PythonIDE 也可以处理更接近开发者工作流的任务：
 |---|---|
 | **首页 / 文件管理** | 本地文件、文件夹、导入、外部文件夹、搜索、排序、置顶、颜色标记、批量操作、回收站、文件预览 |
 | **代码编辑器** | Python / JS / HTML / CSS / JSON / Markdown，语法高亮、快捷输入栏、查找替换、Jedi 补全、Python lint、AI 行内编辑 |
+| **Notebook** | `.ipynb` 文件解析、空 Notebook 初始化、Markdown / Code 单元格、输出展示、运行状态、raw JSON 查看、兼容性测试样例 |
 | **运行与控制台** | Python 3.13 本地运行、JavaScriptCore 运行、HTML 预览、交互式 input、Rich/ANSI 输出、图片/图表/HTML 内联输出、错误跳转和修复入口 |
 | **AI Agent** | AI 聊天、Agent 执行项目任务、跨文件读写、运行 Python、Git / SSH / MiniApp / 网页 / 原生能力工具调用、BYOK 和平台额度 |
 | **社区 / 脚本库** | 脚本浏览、分类、详情、导入、运行、投稿、审核、点赞、用户资料 |
 | **MiniApp** | 启动器、创建、编辑、打包、导入导出、AppUI / HTML / WebBridge 运行、隐藏库、日志中心 |
+| **桌面开发** | `npx pythonide-cli start`、二维码/Bonjour 连接、可信服务器、项目同步、桌面文件监听、MiniApp/AppUI 预览、stdout/stderr/traceback 回传、VS Code companion |
 | **小组件 / Widget** | Python 脚本小组件、Widget Studio、预览、桌面/锁屏组件、Control Center 控件、Live Activity / 灵动岛 |
 | **SSH / 服务器** | SSH 连接、终端、SFTP 文件管理、服务器监控、部署、密钥管理、命令片段 |
 | **Git** | 仓库状态、diff、暂存、提交、同步、历史、分支、远端、stash、tags、冲突处理 |
@@ -151,6 +167,8 @@ PythonIDE 也可以处理更接近开发者工作流的任务：
 | 类型 | 仓库路径 |
 |---|---|
 | Python 模块源文档 | [pythonide/Docs](pythonide/Docs/) |
+| 桌面开发 CLI | [pythonide-cli/README.md](pythonide-cli/README.md) |
+| VS Code Companion | [pythonide-cli/vscode-extension/README.md](pythonide-cli/vscode-extension/README.md) |
 | AgentSkillsV2 技能系统 | [AgentSkillsV2](AgentSkillsV2/) |
 | 社区 API | [community-function/API.md](community-function/API.md) |
 
