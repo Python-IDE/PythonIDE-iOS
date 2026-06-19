@@ -361,10 +361,6 @@
       "domain": "environment",
       "name": "environment"
     },
-    "expandable_bottom_accessory": {
-      "domain": "navigation",
-      "name": "expandable_bottom_accessory"
-    },
     "fill": {
       "domain": "appearance",
       "name": "fill"
@@ -830,107 +826,107 @@
   "module": "appui",
   "module_functions": {
     "adaptive": {
-      "line": 2142,
+      "line": 2122,
       "return_type": "Dict[str, Any]",
       "signature": "def adaptive(minimum: float = 50, maximum: Optional[float] = None) -> Dict[str, Any]: \"\"\"Adaptive grid column that fits as many items as possible above ``minimum``.\"\"\" ..."
     },
     "animate": {
-      "line": 2075,
+      "line": 2055,
       "return_type": "None",
       "signature": "def animate(action: Callable[[], None], type: str = 'default') -> None: \"\"\"Wrap state changes in an animation.  Example::  def show_view(): state.batch_update(show=True)  appui.animate(show_view, type=\"spring\")  Types: ``'default'``, ``'linear'``, ``'easeIn'``, ``'easeOut'``, ``'easeInOut'``, ``'spring'``. \"\"\" ..."
     },
     "auto_refresh": {
-      "line": 2089,
+      "line": 2069,
       "return_type": "None",
       "signature": "def auto_refresh(interval: float = 1.0) -> None: \"\"\"Force periodic UI rebuilds for live-updating content (clocks, dashboards).\"\"\" ..."
     },
     "bind": {
-      "line": 252,
+      "line": 251,
       "return_type": "Dict[str, Any]",
       "signature": "def bind(state: Union[State, ReactiveState], field_name: str, *, parse: Optional[Callable[[Any], Any]] = None, format: Optional[Callable[[Any], Any]] = None, validate: Optional[Callable[[Any], bool]] = None) -> Dict[str, Any]: \"\"\"Create a two-way binding dict for interactive components.  Returns ``{'value': ..., 'on_change': ...}`` suitable for unpacking::  appui.Slider(**appui.bind(state, 'volume'))  Optional, backward-compatible hooks: - ``parse``: ``incoming -> stored`` transform before write-back (rejects the write if it raises). - ``format``: ``stored -> display`` transform when reading. - ``validate``: ``incoming -> bool`` guard; falsy rejects the write. \"\"\" ..."
     },
     "call_native": {
-      "line": 2103,
+      "line": 2083,
       "return_type": "None",
       "signature": "def call_native(function_name: str, **kwargs: Any) -> None: \"\"\"Invoke a native iOS function via the Aurora command buffer.  Example::  appui.call_native(\"haptic\", style=\"impact\") \"\"\" ..."
     },
     "computed": {
-      "line": 225,
+      "line": 224,
       "return_type": "Callable",
-      "signature": "def computed(state: Union[State, ReactiveState], depends_on: List[str]) -> Callable: \"\"\"Decorator: cached derived value, recomputed only when deps change.  Example::  @appui.computed(state, depends_on=['items', 'filter_text']) def filtered(): return [i for i in state.items if state.filter_text in str(i)]  # In body():  filtered()  -> returns cached list \"\"\" ..."
+      "signature": "def computed(state: Union[State, ReactiveState], depends_on: Sequence[str]) -> Callable: \"\"\"Decorator: cached derived value, recomputed only when deps change.  Example::  @appui.computed(state, depends_on=['items', 'filter_text']) def filtered(): return [i for i in state.items if state.filter_text in str(i)]  # In body():  filtered()  -> returns cached list \"\"\" ..."
     },
     "custom_font": {
-      "line": 2146,
+      "line": 2126,
       "return_type": "str",
       "signature": "def custom_font(name: str, size: float = 17) -> str: \"\"\"Reference a custom font by PostScript name.  Example::  appui.Text(\"Hello\").font(appui.custom_font(\"Avenir-Heavy\", 24)) \"\"\" ..."
     },
     "dismiss": {
-      "line": 2055,
+      "line": 2035,
       "return_type": "None",
       "signature": "def dismiss() -> None: \"\"\"Dismiss the current appui presentation.\"\"\" ..."
     },
     "dismiss_all": {
-      "line": 2071,
+      "line": 2051,
       "return_type": "bool",
       "signature": "def dismiss_all(*, state: Optional[Union[State, ReactiveState]] = None) -> bool: \"\"\"Dismiss every currently presented registered slot.\"\"\" ..."
     },
     "dynamic": {
-      "line": 270,
+      "line": 269,
       "return_type": "Any",
       "signature": "def dynamic(func: Callable[[], Any], value_type: str = 'auto') -> Any: \"\"\"Create a dependency-tracked dynamic AppUI slot value.  Use for values that should be eligible for Aurora/C slot updates without rebuilding the full tree, for example ``Text(lambda: state.status)`` or ``.opacity(appui.dynamic(lambda: state.opacity, 'double'))``. \"\"\" ..."
     },
     "effect": {
-      "line": 238,
+      "line": 237,
       "return_type": "Callable",
-      "signature": "def effect(state: Union[State, ReactiveState], depends_on: List[str]) -> Callable: \"\"\"Decorator: run a side-effect when deps change (after each rebuild).  The decorated function may return a cleanup callable::  @appui.effect(state, depends_on=['tab']) def on_tab_change(): print(f'Switched to tab {state.tab}') def cleanup(): print('cleanup') return cleanup \"\"\" ..."
+      "signature": "def effect(state: Union[State, ReactiveState], depends_on: Sequence[str]) -> Callable: \"\"\"Decorator: run a side-effect when deps change (after each rebuild).  The decorated function may return a cleanup callable::  @appui.effect(state, depends_on=['tab']) def on_tab_change(): print(f'Switched to tab {state.tab}') def cleanup(): print('cleanup') return cleanup \"\"\" ..."
     },
     "fixed": {
-      "line": 2138,
+      "line": 2118,
       "return_type": "Dict[str, Any]",
       "signature": "def fixed(size: float) -> Dict[str, Any]: \"\"\"Fixed-width grid column.\"\"\" ..."
     },
     "flexible": {
-      "line": 2129,
+      "line": 2109,
       "return_type": "Dict[str, Any]",
       "signature": "def flexible(minimum: float = 10, maximum: Optional[float] = None) -> Dict[str, Any]: \"\"\"Flexible grid column that grows to fill space.  Example::  appui.LazyVGrid(columns=[appui.flexible(), appui.flexible()]) \"\"\" ..."
     },
     "get_native_lib": {
-      "line": 2112,
+      "line": 2092,
       "return_type": "Optional[ctypes.CDLL]",
       "signature": "def get_native_lib() -> Optional[ctypes.CDLL]: \"\"\"Return the ctypes handle to the Aurora native library, or ``None``.  Useful for advanced users who need direct access to the C bridge. \"\"\" ..."
     },
     "grid_item": {
-      "line": 2124,
+      "line": 2104,
       "return_type": "Dict[str, Any]",
       "signature": "def grid_item(type: str = 'flexible', minimum: Optional[float] = None, maximum: Optional[float] = None, count: Optional[int] = None) -> Dict[str, Any]: \"\"\"Create a grid column/row specification.\"\"\" ..."
     },
     "preload": {
-      "line": 2093,
+      "line": 2073,
       "return_type": "None",
       "signature": "def preload() -> None: \"\"\"Pre-initialize the native bridge to reduce first-run latency.\"\"\" ..."
     },
     "presentation_dismiss": {
-      "line": 2063,
+      "line": 2043,
       "return_type": "bool",
       "signature": "def presentation_dismiss(field_name: str, *, state: Optional[Union[State, ReactiveState]] = None) -> bool: \"\"\"Dismiss a registered presentation by its ``show_*`` state field.\"\"\" ..."
     },
     "presentation_dismiss_all": {
-      "line": 2067,
+      "line": 2047,
       "return_type": "bool",
       "signature": "def presentation_dismiss_all(*, state: Optional[Union[State, ReactiveState]] = None) -> bool: \"\"\"Dismiss every currently presented registered slot (alias: ``dismiss_all``).\"\"\" ..."
     },
     "presentation_present": {
-      "line": 2059,
+      "line": 2039,
       "return_type": "bool",
       "signature": "def presentation_present(field_name: str, *, state: Optional[Union[State, ReactiveState]] = None, value: bool = True) -> bool: \"\"\"Present a registered sheet/alert by its ``show_*`` state field.\"\"\" ..."
     },
     "run": {
-      "line": 2040,
+      "line": 2020,
       "return_type": "None",
       "signature": "def run(body_func: Optional[Union[Callable[[], View], Callable[[Union[State, ReactiveState, None]], View]]] = None, state: Optional[Union[State, ReactiveState]] = None, hot_reload: bool = False, presentation: str = 'sheet', body: Optional[Union[Callable[[], View], Callable[[Union[State, ReactiveState, None]], View]]] = None) -> None: \"\"\"Start the UI event loop.  Args: body_func: A function that returns the root ``View`` tree. It may be declared as ``body()`` or ``body(state)``. state: Optional ``State`` or ``ReactiveState`` for automatic rebuild on change. hot_reload: Watch the source file and auto-reload on save. presentation: ``'sheet'``, ``'fullscreen'``, ``'fullscreen_with_close'``. \"\"\" ..."
     },
     "set_custom_prop": {
-      "line": 2097,
+      "line": 2077,
       "return_type": "None",
       "signature": "def set_custom_prop(view_or_handle: Any, prop_name: str, value: Any) -> None: \"\"\"Push an arbitrary property via Aurora binary UPDATE_PROPS.  Falls back to full JSON rebuild if Aurora is inactive.\"\"\" ..."
     }
@@ -948,16 +944,16 @@
       "aurora_slots": [],
       "auto_register": false,
       "bridge_type": "alert",
-      "call_signature": "Alert(title: str = '', message: Optional[str] = None, is_presented: bool = False, actions: Optional[List[View]] = None, isPresented: Optional[bool] = None)",
+      "call_signature": "Alert(title: str = '', message: Optional[str] = None, is_presented: bool = False, actions: Optional[Sequence[View]] = None, isPresented: Optional[bool] = None)",
       "class_signature": "class Alert(View):",
       "domain": "presentation",
-      "initializer_signature": "def __init__(self, title: str = '', message: Optional[str] = None, is_presented: bool = False, actions: Optional[List[View]] = None, isPresented: Optional[bool] = None) -> None: ...",
-      "line": 1747,
+      "initializer_signature": "def __init__(self, title: str = '', message: Optional[str] = None, is_presented: bool = False, actions: Optional[Sequence[View]] = None, isPresented: Optional[bool] = None) -> None: ...",
+      "line": 1727,
       "methods": {
         "__init__": {
-          "line": 1749,
+          "line": 1729,
           "return_type": "None",
-          "signature": "def __init__(self, title: str = '', message: Optional[str] = None, is_presented: bool = False, actions: Optional[List[View]] = None, isPresented: Optional[bool] = None) -> None: ..."
+          "signature": "def __init__(self, title: str = '', message: Optional[str] = None, is_presented: bool = False, actions: Optional[Sequence[View]] = None, isPresented: Optional[bool] = None) -> None: ..."
         }
       },
       "public_name": "Alert",
@@ -973,10 +969,10 @@
       "class_signature": "class AsyncImage(View):",
       "domain": "media",
       "initializer_signature": "def __init__(self, url: str = '', placeholder: Optional[View] = None, error_view: Optional[View] = None, content_mode: str = 'fit', on_success: Optional[Callable] = None, on_failure: Optional[Callable] = None) -> None: ...",
-      "line": 1154,
+      "line": 1134,
       "methods": {
         "__init__": {
-          "line": 1162,
+          "line": 1142,
           "return_type": "None",
           "signature": "def __init__(self, url: str = '', placeholder: Optional[View] = None, error_view: Optional[View] = None, content_mode: str = 'fit', on_success: Optional[Callable] = None, on_failure: Optional[Callable] = None) -> None: ..."
         }
@@ -990,16 +986,16 @@
       "aurora_slots": [],
       "auto_register": false,
       "bridge_type": "attributed_text",
-      "call_signature": "AttributedText(spans: Optional[List[Dict[str, Any]]] = None)",
+      "call_signature": "AttributedText(spans: Optional[Sequence[Dict[str, Any]]] = None)",
       "class_signature": "class AttributedText(View):",
       "domain": "text",
-      "initializer_signature": "def __init__(self, spans: Optional[List[Dict[str, Any]]] = None) -> None: ...",
-      "line": 1107,
+      "initializer_signature": "def __init__(self, spans: Optional[Sequence[Dict[str, Any]]] = None) -> None: ...",
+      "line": 1087,
       "methods": {
         "__init__": {
-          "line": 1117,
+          "line": 1097,
           "return_type": "None",
-          "signature": "def __init__(self, spans: Optional[List[Dict[str, Any]]] = None) -> None: ..."
+          "signature": "def __init__(self, spans: Optional[Sequence[Dict[str, Any]]] = None) -> None: ..."
         }
       },
       "public_name": "AttributedText",
@@ -1015,10 +1011,10 @@
       "class_signature": "class Badge(View):",
       "domain": "presentation",
       "initializer_signature": "def __init__(self, count: Optional[int] = None, text: Optional[str] = None) -> None: ...",
-      "line": 1734,
+      "line": 1714,
       "methods": {
         "__init__": {
-          "line": 1736,
+          "line": 1716,
           "return_type": "None",
           "signature": "def __init__(self, count: Optional[int] = None, text: Optional[str] = None) -> None: ..."
         }
@@ -1036,10 +1032,10 @@
       "class_signature": "class Button(View):",
       "domain": "control",
       "initializer_signature": "def __init__(self, title: Optional[Union[str, View]] = None, action: Optional[Callable] = None, role: Optional[str] = None, content: Optional[ViewChild] = None, system_image: Optional[str] = None, image: Optional[str] = None, systemImage: Optional[str] = None) -> None: ...",
-      "line": 1172,
+      "line": 1152,
       "methods": {
         "__init__": {
-          "line": 1187,
+          "line": 1167,
           "return_type": "None",
           "signature": "def __init__(self, title: Optional[Union[str, View]] = None, action: Optional[Callable] = None, role: Optional[str] = None, content: Optional[ViewChild] = None, system_image: Optional[str] = None, image: Optional[str] = None, systemImage: Optional[str] = None) -> None: ..."
         }
@@ -1057,10 +1053,10 @@
       "class_signature": "class CameraPicker(View):",
       "domain": "media",
       "initializer_signature": "def __init__(self, source: str = 'camera', media_type: str = 'photo', on_captured: Optional[Callable] = None, label: Optional[View] = None, mediaType: Optional[str] = None, onCaptured: Optional[Callable] = None, **kwargs: Any) -> None: ...",
-      "line": 1411,
+      "line": 1391,
       "methods": {
         "__init__": {
-          "line": 1417,
+          "line": 1397,
           "return_type": "None",
           "signature": "def __init__(self, source: str = 'camera', media_type: str = 'photo', on_captured: Optional[Callable] = None, label: Optional[View] = None, mediaType: Optional[str] = None, onCaptured: Optional[Callable] = None, **kwargs: Any) -> None: ..."
         }
@@ -1082,21 +1078,21 @@
       ],
       "auto_register": true,
       "bridge_type": "canvas",
-      "call_signature": "Canvas(width: float = 300, height: float = 300, commands: Optional[List[Dict[str, Any]]] = None, context: Optional[DrawingContext] = None)",
+      "call_signature": "Canvas(width: float = 300, height: float = 300, commands: Optional[Sequence[Dict[str, Any]]] = None, context: Optional[DrawingContext] = None)",
       "class_signature": "class Canvas(View):",
       "domain": "drawing",
-      "initializer_signature": "def __init__(self, width: float = 300, height: float = 300, commands: Optional[List[Dict[str, Any]]] = None, context: Optional[DrawingContext] = None) -> None: ...",
-      "line": 1947,
+      "initializer_signature": "def __init__(self, width: float = 300, height: float = 300, commands: Optional[Sequence[Dict[str, Any]]] = None, context: Optional[DrawingContext] = None) -> None: ...",
+      "line": 1927,
       "methods": {
         "__init__": {
-          "line": 1949,
+          "line": 1929,
           "return_type": "None",
-          "signature": "def __init__(self, width: float = 300, height: float = 300, commands: Optional[List[Dict[str, Any]]] = None, context: Optional[DrawingContext] = None) -> None: ..."
+          "signature": "def __init__(self, width: float = 300, height: float = 300, commands: Optional[Sequence[Dict[str, Any]]] = None, context: Optional[DrawingContext] = None) -> None: ..."
         },
         "aurora_set_commands": {
-          "line": 1952,
+          "line": 1932,
           "return_type": "None",
-          "signature": "def aurora_set_commands(self, commands: Optional[List[Dict[str, Any]]] = None, context: Optional[DrawingContext] = None) -> None: \"\"\"Update canvas draw commands via Aurora binary fast-path.\"\"\" ..."
+          "signature": "def aurora_set_commands(self, commands: Optional[Sequence[Dict[str, Any]]] = None, context: Optional[DrawingContext] = None) -> None: \"\"\"Update canvas draw commands via Aurora binary fast-path.\"\"\" ..."
         }
       },
       "public_name": "Canvas",
@@ -1112,10 +1108,10 @@
       "class_signature": "class Capsule(_Shape):",
       "domain": "shape",
       "initializer_signature": "def __init__(self) -> None: ...",
-      "line": 1997,
+      "line": 1977,
       "methods": {
         "__init__": {
-          "line": 1999,
+          "line": 1979,
           "return_type": "None",
           "signature": "def __init__(self) -> None: ..."
         }
@@ -1137,21 +1133,21 @@
       ],
       "auto_register": true,
       "bridge_type": "chart",
-      "call_signature": "Chart(data: Optional[List[Dict[str, Any]]] = None, x: str = 'x', y: str = 'y', type: str = 'bar', color: Optional[ColorLike] = None, series: Optional[str] = None)",
+      "call_signature": "Chart(data: Optional[Sequence[Dict[str, Any]]] = None, x: str = 'x', y: str = 'y', type: str = 'bar', color: Optional[ColorLike] = None, series: Optional[str] = None)",
       "class_signature": "class Chart(View):",
       "domain": "media",
-      "initializer_signature": "def __init__(self, data: Optional[List[Dict[str, Any]]] = None, x: str = 'x', y: str = 'y', type: str = 'bar', color: Optional[ColorLike] = None, series: Optional[str] = None) -> None: ...",
-      "line": 1878,
+      "initializer_signature": "def __init__(self, data: Optional[Sequence[Dict[str, Any]]] = None, x: str = 'x', y: str = 'y', type: str = 'bar', color: Optional[ColorLike] = None, series: Optional[str] = None) -> None: ...",
+      "line": 1858,
       "methods": {
         "__init__": {
-          "line": 1886,
+          "line": 1866,
           "return_type": "None",
-          "signature": "def __init__(self, data: Optional[List[Dict[str, Any]]] = None, x: str = 'x', y: str = 'y', type: str = 'bar', color: Optional[ColorLike] = None, series: Optional[str] = None) -> None: ..."
+          "signature": "def __init__(self, data: Optional[Sequence[Dict[str, Any]]] = None, x: str = 'x', y: str = 'y', type: str = 'bar', color: Optional[ColorLike] = None, series: Optional[str] = None) -> None: ..."
         },
         "aurora_set_data": {
-          "line": 1889,
+          "line": 1869,
           "return_type": "None",
-          "signature": "def aurora_set_data(self, data: List[Dict[str, Any]]) -> None: \"\"\"Update chart data via Aurora binary fast-path (avoids full rebuild).\"\"\" ..."
+          "signature": "def aurora_set_data(self, data: Sequence[Dict[str, Any]]) -> None: \"\"\"Update chart data via Aurora binary fast-path (avoids full rebuild).\"\"\" ..."
         }
       },
       "public_name": "Chart",
@@ -1167,10 +1163,10 @@
       "class_signature": "class Circle(_Shape):",
       "domain": "shape",
       "initializer_signature": "def __init__(self) -> None: ...",
-      "line": 1993,
+      "line": 1973,
       "methods": {
         "__init__": {
-          "line": 1995,
+          "line": 1975,
           "return_type": "None",
           "signature": "def __init__(self) -> None: ..."
         }
@@ -1188,10 +1184,10 @@
       "class_signature": "class CloseButton(View):",
       "domain": "control",
       "initializer_signature": "def __init__(self, title: str = '', system_image: str = 'xmark', systemImage: Optional[str] = None) -> None: ...",
-      "line": 1192,
+      "line": 1172,
       "methods": {
         "__init__": {
-          "line": 1199,
+          "line": 1179,
           "return_type": "None",
           "signature": "def __init__(self, title: str = '', system_image: str = 'xmark', systemImage: Optional[str] = None) -> None: ..."
         }
@@ -1209,10 +1205,10 @@
       "class_signature": "class Color(View):",
       "domain": "shape",
       "initializer_signature": "def __init__(self, value: Optional[ColorLike] = None, red: Optional[float] = None, green: Optional[float] = None, blue: Optional[float] = None, opacity: float = 1.0) -> None: ...",
-      "line": 2005,
+      "line": 1985,
       "methods": {
         "__init__": {
-          "line": 2013,
+          "line": 1993,
           "return_type": "None",
           "signature": "def __init__(self, value: Optional[ColorLike] = None, red: Optional[float] = None, green: Optional[float] = None, blue: Optional[float] = None, opacity: float = 1.0) -> None: ..."
         }
@@ -1238,10 +1234,10 @@
       "class_signature": "class ColorPicker(View):",
       "domain": "control",
       "initializer_signature": "def __init__(self, label: str = '', selection: Optional[str] = None, on_change: Optional[Callable] = None, onChange: Optional[Callable] = None) -> None: ...",
-      "line": 1345,
+      "line": 1325,
       "methods": {
         "__init__": {
-          "line": 1347,
+          "line": 1327,
           "return_type": "None",
           "signature": "def __init__(self, label: str = '', selection: Optional[str] = None, on_change: Optional[Callable] = None, onChange: Optional[Callable] = None) -> None: ..."
         }
@@ -1255,16 +1251,16 @@
       "aurora_slots": [],
       "auto_register": false,
       "bridge_type": "confirmation_dialog",
-      "call_signature": "ConfirmationDialog(title: str = '', message: Optional[str] = None, is_presented: bool = False, actions: Optional[List[View]] = None, isPresented: Optional[bool] = None)",
+      "call_signature": "ConfirmationDialog(title: str = '', message: Optional[str] = None, is_presented: bool = False, actions: Optional[Sequence[View]] = None, isPresented: Optional[bool] = None)",
       "class_signature": "class ConfirmationDialog(View):",
       "domain": "presentation",
-      "initializer_signature": "def __init__(self, title: str = '', message: Optional[str] = None, is_presented: bool = False, actions: Optional[List[View]] = None, isPresented: Optional[bool] = None) -> None: ...",
-      "line": 1753,
+      "initializer_signature": "def __init__(self, title: str = '', message: Optional[str] = None, is_presented: bool = False, actions: Optional[Sequence[View]] = None, isPresented: Optional[bool] = None) -> None: ...",
+      "line": 1733,
       "methods": {
         "__init__": {
-          "line": 1755,
+          "line": 1735,
           "return_type": "None",
-          "signature": "def __init__(self, title: str = '', message: Optional[str] = None, is_presented: bool = False, actions: Optional[List[View]] = None, isPresented: Optional[bool] = None) -> None: ..."
+          "signature": "def __init__(self, title: str = '', message: Optional[str] = None, is_presented: bool = False, actions: Optional[Sequence[View]] = None, isPresented: Optional[bool] = None) -> None: ..."
         }
       },
       "public_name": "ConfirmationDialog",
@@ -1280,10 +1276,10 @@
       "class_signature": "class ContentUnavailableView(View):",
       "domain": "presentation",
       "initializer_signature": "def __init__(self, title: str = '', system_image: Optional[str] = None, description: Optional[str] = None, systemImage: Optional[str] = None) -> None: ...",
-      "line": 1702,
+      "line": 1682,
       "methods": {
         "__init__": {
-          "line": 1704,
+          "line": 1684,
           "return_type": "None",
           "signature": "def __init__(self, title: str = '', system_image: Optional[str] = None, description: Optional[str] = None, systemImage: Optional[str] = None) -> None: ..."
         }
@@ -1297,16 +1293,16 @@
       "aurora_slots": [],
       "auto_register": false,
       "bridge_type": "control_group",
-      "call_signature": "ControlGroup(label: str = '', content: Optional[List[View]] = None, children: Optional[List[View]] = None)",
+      "call_signature": "ControlGroup(label: str = '', content: Optional[Sequence[View]] = None, children: Optional[Sequence[View]] = None)",
       "class_signature": "class ControlGroup(View):",
       "domain": "control",
-      "initializer_signature": "def __init__(self, label: str = '', content: Optional[List[View]] = None, children: Optional[List[View]] = None) -> None: ...",
-      "line": 1697,
+      "initializer_signature": "def __init__(self, label: str = '', content: Optional[Sequence[View]] = None, children: Optional[Sequence[View]] = None) -> None: ...",
+      "line": 1677,
       "methods": {
         "__init__": {
-          "line": 1699,
+          "line": 1679,
           "return_type": "None",
-          "signature": "def __init__(self, label: str = '', content: Optional[List[View]] = None, children: Optional[List[View]] = None) -> None: ..."
+          "signature": "def __init__(self, label: str = '', content: Optional[Sequence[View]] = None, children: Optional[Sequence[View]] = None) -> None: ..."
         }
       },
       "public_name": "ControlGroup",
@@ -1330,10 +1326,10 @@
       "class_signature": "class DatePicker(View):",
       "domain": "control",
       "initializer_signature": "def __init__(self, label: str = '', selection: Optional[str] = None, components: str = 'date', on_change: Optional[Callable] = None, onChange: Optional[Callable] = None) -> None: ...",
-      "line": 1331,
+      "line": 1311,
       "methods": {
         "__init__": {
-          "line": 1336,
+          "line": 1316,
           "return_type": "None",
           "signature": "def __init__(self, label: str = '', selection: Optional[str] = None, components: str = 'date', on_change: Optional[Callable] = None, onChange: Optional[Callable] = None) -> None: ..."
         }
@@ -1351,10 +1347,10 @@
       "class_signature": "class DisclosureGroup(View):",
       "domain": "collection",
       "initializer_signature": "def __init__(self, label: str = '', is_expanded: Optional[bool] = None, content: Optional[ViewChild] = None, isExpanded: Optional[bool] = None, children: Optional[ViewChild] = None) -> None: ...",
-      "line": 1678,
+      "line": 1658,
       "methods": {
         "__init__": {
-          "line": 1680,
+          "line": 1660,
           "return_type": "None",
           "signature": "def __init__(self, label: str = '', is_expanded: Optional[bool] = None, content: Optional[ViewChild] = None, isExpanded: Optional[bool] = None, children: Optional[ViewChild] = None) -> None: ..."
         }
@@ -1372,7 +1368,7 @@
       "class_signature": "class Divider(View):",
       "domain": "layout",
       "initializer_signature": null,
-      "line": 1509,
+      "line": 1489,
       "methods": {},
       "public_name": "Divider",
       "semantic_domain": "generic",
@@ -1387,7 +1383,7 @@
       "class_signature": "class EditButton(View):",
       "domain": "control",
       "initializer_signature": null,
-      "line": 1388,
+      "line": 1368,
       "methods": {},
       "public_name": "EditButton",
       "semantic_domain": "generic",
@@ -1402,10 +1398,10 @@
       "class_signature": "class Ellipse(_Shape):",
       "domain": "shape",
       "initializer_signature": "def __init__(self) -> None: ...",
-      "line": 2001,
+      "line": 1981,
       "methods": {
         "__init__": {
-          "line": 2003,
+          "line": 1983,
           "return_type": "None",
           "signature": "def __init__(self) -> None: ..."
         }
@@ -1423,10 +1419,10 @@
       "class_signature": "class FileImporter(View):",
       "domain": "media",
       "initializer_signature": "def __init__(self, allowed_types: Optional[Union[str, Sequence[str]]] = None, allows_multiple: bool = False, copy: bool = True, on_picked: Optional[Callable] = None, label: Optional[View] = None, allowedTypes: Optional[Union[str, Sequence[str]]] = None, allowsMultiple: Optional[bool] = None, onPicked: Optional[Callable] = None, **kwargs: Any) -> None: ...",
-      "line": 1424,
+      "line": 1404,
       "methods": {
         "__init__": {
-          "line": 1432,
+          "line": 1412,
           "return_type": "None",
           "signature": "def __init__(self, allowed_types: Optional[Union[str, Sequence[str]]] = None, allows_multiple: bool = False, copy: bool = True, on_picked: Optional[Callable] = None, label: Optional[View] = None, allowedTypes: Optional[Union[str, Sequence[str]]] = None, allowsMultiple: Optional[bool] = None, onPicked: Optional[Callable] = None, **kwargs: Any) -> None: ..."
         }
@@ -1444,10 +1440,10 @@
       "class_signature": "class ForEach(View):",
       "domain": "collection",
       "initializer_signature": "def __init__(self, data: Any, row_builder: Optional[Callable] = None, key: Optional[Callable] = None, rowBuilder: Optional[Callable] = None, content: Optional[Callable] = None) -> None: ...",
-      "line": 1640,
+      "line": 1620,
       "methods": {
         "__init__": {
-          "line": 1653,
+          "line": 1633,
           "return_type": "None",
           "signature": "def __init__(self, data: Any, row_builder: Optional[Callable] = None, key: Optional[Callable] = None, rowBuilder: Optional[Callable] = None, content: Optional[Callable] = None) -> None: ..."
         }
@@ -1461,16 +1457,16 @@
       "aurora_slots": [],
       "auto_register": false,
       "bridge_type": "form",
-      "call_signature": "Form(content: Optional[List[View]] = None)",
+      "call_signature": "Form(content: Optional[Sequence[View]] = None)",
       "class_signature": "class Form(_ContainerView):",
       "domain": "collection",
-      "initializer_signature": "def __init__(self, content: Optional[List[View]] = None) -> None: ...",
-      "line": 1658,
+      "initializer_signature": "def __init__(self, content: Optional[Sequence[View]] = None) -> None: ...",
+      "line": 1638,
       "methods": {
         "__init__": {
-          "line": 1660,
+          "line": 1640,
           "return_type": "None",
-          "signature": "def __init__(self, content: Optional[List[View]] = None) -> None: ..."
+          "signature": "def __init__(self, content: Optional[Sequence[View]] = None) -> None: ..."
         }
       },
       "public_name": "Form",
@@ -1486,10 +1482,10 @@
       "class_signature": "class Gauge(View):",
       "domain": "feedback",
       "initializer_signature": "def __init__(self, value: float = 0.0, min_value: float = 0.0, max_value: float = 1.0, label: str = '', minValue: Optional[float] = None, maxValue: Optional[float] = None) -> None: ...",
-      "line": 1723,
+      "line": 1703,
       "methods": {
         "__init__": {
-          "line": 1725,
+          "line": 1705,
           "return_type": "None",
           "signature": "def __init__(self, value: float = 0.0, min_value: float = 0.0, max_value: float = 1.0, label: str = '', minValue: Optional[float] = None, maxValue: Optional[float] = None) -> None: ..."
         }
@@ -1507,10 +1503,10 @@
       "class_signature": "class GeometryReader(View):",
       "domain": "layout",
       "initializer_signature": "def __init__(self, content: Optional[ViewChild] = None, on_change: Optional[Callable] = None, onChange: Optional[Callable] = None, children: Optional[ViewChild] = None, on_geometry: Optional[Callable] = None, onGeometry: Optional[Callable] = None) -> None: ...",
-      "line": 1541,
+      "line": 1521,
       "methods": {
         "__init__": {
-          "line": 1545,
+          "line": 1525,
           "return_type": "None",
           "signature": "def __init__(self, content: Optional[ViewChild] = None, on_change: Optional[Callable] = None, onChange: Optional[Callable] = None, children: Optional[ViewChild] = None, on_geometry: Optional[Callable] = None, onGeometry: Optional[Callable] = None) -> None: ..."
         }
@@ -1524,16 +1520,16 @@
       "aurora_slots": [],
       "auto_register": false,
       "bridge_type": "grid",
-      "call_signature": "Grid(content: Optional[List[View]] = None, alignment: str = 'center', horizontal_spacing: Optional[float] = None, vertical_spacing: Optional[float] = None, horizontalSpacing: Optional[float] = None, verticalSpacing: Optional[float] = None)",
+      "call_signature": "Grid(content: Optional[Sequence[View]] = None, alignment: str = 'center', horizontal_spacing: Optional[float] = None, vertical_spacing: Optional[float] = None, horizontalSpacing: Optional[float] = None, verticalSpacing: Optional[float] = None)",
       "class_signature": "class Grid(View):",
       "domain": "layout",
-      "initializer_signature": "def __init__(self, content: Optional[List[View]] = None, alignment: str = 'center', horizontal_spacing: Optional[float] = None, vertical_spacing: Optional[float] = None, horizontalSpacing: Optional[float] = None, verticalSpacing: Optional[float] = None) -> None: ...",
-      "line": 1528,
+      "initializer_signature": "def __init__(self, content: Optional[Sequence[View]] = None, alignment: str = 'center', horizontal_spacing: Optional[float] = None, vertical_spacing: Optional[float] = None, horizontalSpacing: Optional[float] = None, verticalSpacing: Optional[float] = None) -> None: ...",
+      "line": 1508,
       "methods": {
         "__init__": {
-          "line": 1530,
+          "line": 1510,
           "return_type": "None",
-          "signature": "def __init__(self, content: Optional[List[View]] = None, alignment: str = 'center', horizontal_spacing: Optional[float] = None, vertical_spacing: Optional[float] = None, horizontalSpacing: Optional[float] = None, verticalSpacing: Optional[float] = None) -> None: ..."
+          "signature": "def __init__(self, content: Optional[Sequence[View]] = None, alignment: str = 'center', horizontal_spacing: Optional[float] = None, vertical_spacing: Optional[float] = None, horizontalSpacing: Optional[float] = None, verticalSpacing: Optional[float] = None) -> None: ..."
         }
       },
       "public_name": "Grid",
@@ -1545,16 +1541,16 @@
       "aurora_slots": [],
       "auto_register": false,
       "bridge_type": "grid_row",
-      "call_signature": "GridRow(content: Optional[List[View]] = None, alignment: Optional[str] = None)",
+      "call_signature": "GridRow(content: Optional[Sequence[View]] = None, alignment: Optional[str] = None)",
       "class_signature": "class GridRow(View):",
       "domain": "layout",
-      "initializer_signature": "def __init__(self, content: Optional[List[View]] = None, alignment: Optional[str] = None) -> None: ...",
-      "line": 1536,
+      "initializer_signature": "def __init__(self, content: Optional[Sequence[View]] = None, alignment: Optional[str] = None) -> None: ...",
+      "line": 1516,
       "methods": {
         "__init__": {
-          "line": 1538,
+          "line": 1518,
           "return_type": "None",
-          "signature": "def __init__(self, content: Optional[List[View]] = None, alignment: Optional[str] = None) -> None: ..."
+          "signature": "def __init__(self, content: Optional[Sequence[View]] = None, alignment: Optional[str] = None) -> None: ..."
         }
       },
       "public_name": "GridRow",
@@ -1566,16 +1562,16 @@
       "aurora_slots": [],
       "auto_register": false,
       "bridge_type": "group",
-      "call_signature": "Group(content: Optional[List[View]] = None)",
+      "call_signature": "Group(content: Optional[Sequence[View]] = None)",
       "class_signature": "class Group(View):",
       "domain": "layout",
-      "initializer_signature": "def __init__(self, content: Optional[List[View]] = None) -> None: ...",
-      "line": 1555,
+      "initializer_signature": "def __init__(self, content: Optional[Sequence[View]] = None) -> None: ...",
+      "line": 1535,
       "methods": {
         "__init__": {
-          "line": 1557,
+          "line": 1537,
           "return_type": "None",
-          "signature": "def __init__(self, content: Optional[List[View]] = None) -> None: ..."
+          "signature": "def __init__(self, content: Optional[Sequence[View]] = None) -> None: ..."
         }
       },
       "public_name": "Group",
@@ -1587,16 +1583,16 @@
       "aurora_slots": [],
       "auto_register": false,
       "bridge_type": "group_box",
-      "call_signature": "GroupBox(label: Optional[str] = None, content: Optional[ViewChild] = None, children: Optional[List[View]] = None)",
+      "call_signature": "GroupBox(label: Optional[str] = None, content: Optional[ViewChild] = None, children: Optional[Sequence[View]] = None)",
       "class_signature": "class GroupBox(View):",
       "domain": "collection",
-      "initializer_signature": "def __init__(self, label: Optional[str] = None, content: Optional[ViewChild] = None, children: Optional[List[View]] = None) -> None: ...",
-      "line": 1673,
+      "initializer_signature": "def __init__(self, label: Optional[str] = None, content: Optional[ViewChild] = None, children: Optional[Sequence[View]] = None) -> None: ...",
+      "line": 1653,
       "methods": {
         "__init__": {
-          "line": 1675,
+          "line": 1655,
           "return_type": "None",
-          "signature": "def __init__(self, label: Optional[str] = None, content: Optional[ViewChild] = None, children: Optional[List[View]] = None) -> None: ..."
+          "signature": "def __init__(self, label: Optional[str] = None, content: Optional[ViewChild] = None, children: Optional[Sequence[View]] = None) -> None: ..."
         }
       },
       "public_name": "GroupBox",
@@ -1608,16 +1604,16 @@
       "aurora_slots": [],
       "auto_register": false,
       "bridge_type": "hstack",
-      "call_signature": "HStack(content: Optional[List[View]] = None, alignment: str = 'center', spacing: Optional[float] = None)",
+      "call_signature": "HStack(content: Optional[Sequence[View]] = None, alignment: str = 'center', spacing: Optional[float] = None)",
       "class_signature": "class HStack(_ContainerView):",
       "domain": "layout",
-      "initializer_signature": "def __init__(self, content: Optional[List[View]] = None, alignment: str = 'center', spacing: Optional[float] = None) -> None: ...",
-      "line": 1463,
+      "initializer_signature": "def __init__(self, content: Optional[Sequence[View]] = None, alignment: str = 'center', spacing: Optional[float] = None) -> None: ...",
+      "line": 1443,
       "methods": {
         "__init__": {
-          "line": 1465,
+          "line": 1445,
           "return_type": "None",
-          "signature": "def __init__(self, content: Optional[List[View]] = None, alignment: str = 'center', spacing: Optional[float] = None) -> None: ..."
+          "signature": "def __init__(self, content: Optional[Sequence[View]] = None, alignment: str = 'center', spacing: Optional[float] = None) -> None: ..."
         }
       },
       "public_name": "HStack",
@@ -1641,15 +1637,15 @@
       "class_signature": "class Image(View):",
       "domain": "media",
       "initializer_signature": "def __init__(self, name: Optional[str] = None, system_name: Optional[str] = None, systemName: Optional[str] = None) -> None: ...",
-      "line": 1124,
+      "line": 1104,
       "methods": {
         "__init__": {
-          "line": 1131,
+          "line": 1111,
           "return_type": "None",
           "signature": "def __init__(self, name: Optional[str] = None, system_name: Optional[str] = None, systemName: Optional[str] = None) -> None: ..."
         },
         "aurora_set_system_name": {
-          "line": 1133,
+          "line": 1113,
           "return_type": "None",
           "signature": "def aurora_set_system_name(self, system_name: Optional[str]) -> None: \"\"\"Update a system-symbol image via Aurora binary fast-path.\"\"\" ..."
         }
@@ -1671,16 +1667,16 @@
       ],
       "auto_register": true,
       "bridge_type": "inline_picker",
-      "call_signature": "InlinePickerStyle(options: Optional[List[str]] = None, selection: Optional[str] = None, on_change: Optional[Callable] = None, onChange: Optional[Callable] = None)",
+      "call_signature": "InlinePickerStyle(options: Optional[Sequence[str]] = None, selection: Optional[str] = None, on_change: Optional[Callable] = None, onChange: Optional[Callable] = None)",
       "class_signature": "class InlinePickerStyle(View):",
       "domain": "control",
-      "initializer_signature": "def __init__(self, options: Optional[List[str]] = None, selection: Optional[str] = None, on_change: Optional[Callable] = None, onChange: Optional[Callable] = None) -> None: ...",
-      "line": 1319,
+      "initializer_signature": "def __init__(self, options: Optional[Sequence[str]] = None, selection: Optional[str] = None, on_change: Optional[Callable] = None, onChange: Optional[Callable] = None) -> None: ...",
+      "line": 1299,
       "methods": {
         "__init__": {
-          "line": 1321,
+          "line": 1301,
           "return_type": "None",
-          "signature": "def __init__(self, options: Optional[List[str]] = None, selection: Optional[str] = None, on_change: Optional[Callable] = None, onChange: Optional[Callable] = None) -> None: ..."
+          "signature": "def __init__(self, options: Optional[Sequence[str]] = None, selection: Optional[str] = None, on_change: Optional[Callable] = None, onChange: Optional[Callable] = None) -> None: ..."
         }
       },
       "public_name": "InlinePickerStyle",
@@ -1704,15 +1700,15 @@
       "class_signature": "class Label(View):",
       "domain": "text",
       "initializer_signature": "def __init__(self, title: str = '', system_image: Optional[str] = None, image: Optional[str] = None, systemImage: Optional[str] = None) -> None: ...",
-      "line": 1093,
+      "line": 1073,
       "methods": {
         "__init__": {
-          "line": 1101,
+          "line": 1081,
           "return_type": "None",
           "signature": "def __init__(self, title: str = '', system_image: Optional[str] = None, image: Optional[str] = None, systemImage: Optional[str] = None) -> None: ..."
         },
         "aurora_set_title": {
-          "line": 1103,
+          "line": 1083,
           "return_type": "None",
           "signature": "def aurora_set_title(self, title: str) -> None: \"\"\"Update label title text via Aurora binary fast-path.\"\"\" ..."
         }
@@ -1730,10 +1726,10 @@
       "class_signature": "class LabeledContent(View):",
       "domain": "collection",
       "initializer_signature": "def __init__(self, label: str = '', value: Optional[str] = None, content: Optional[View] = None) -> None: ...",
-      "line": 1685,
+      "line": 1665,
       "methods": {
         "__init__": {
-          "line": 1687,
+          "line": 1667,
           "return_type": "None",
           "signature": "def __init__(self, label: str = '', value: Optional[str] = None, content: Optional[View] = None) -> None: ..."
         }
@@ -1747,16 +1743,16 @@
       "aurora_slots": [],
       "auto_register": false,
       "bridge_type": "lazy_hgrid",
-      "call_signature": "LazyHGrid(rows: Optional[List[dict]] = None, content: Optional[List[View]] = None, spacing: Optional[float] = None, children: Optional[List[View]] = None)",
+      "call_signature": "LazyHGrid(rows: Optional[Sequence[dict]] = None, content: Optional[Sequence[View]] = None, spacing: Optional[float] = None, children: Optional[Sequence[View]] = None)",
       "class_signature": "class LazyHGrid(View):",
       "domain": "layout",
-      "initializer_signature": "def __init__(self, rows: Optional[List[dict]] = None, content: Optional[List[View]] = None, spacing: Optional[float] = None, children: Optional[List[View]] = None) -> None: ...",
-      "line": 1523,
+      "initializer_signature": "def __init__(self, rows: Optional[Sequence[dict]] = None, content: Optional[Sequence[View]] = None, spacing: Optional[float] = None, children: Optional[Sequence[View]] = None) -> None: ...",
+      "line": 1503,
       "methods": {
         "__init__": {
-          "line": 1525,
+          "line": 1505,
           "return_type": "None",
-          "signature": "def __init__(self, rows: Optional[List[dict]] = None, content: Optional[List[View]] = None, spacing: Optional[float] = None, children: Optional[List[View]] = None) -> None: ..."
+          "signature": "def __init__(self, rows: Optional[Sequence[dict]] = None, content: Optional[Sequence[View]] = None, spacing: Optional[float] = None, children: Optional[Sequence[View]] = None) -> None: ..."
         }
       },
       "public_name": "LazyHGrid",
@@ -1768,16 +1764,16 @@
       "aurora_slots": [],
       "auto_register": false,
       "bridge_type": "lazy_hstack",
-      "call_signature": "LazyHStack(content: Optional[List[View]] = None, alignment: str = 'center', spacing: Optional[float] = None)",
+      "call_signature": "LazyHStack(content: Optional[Sequence[View]] = None, alignment: str = 'center', spacing: Optional[float] = None)",
       "class_signature": "class LazyHStack(View):",
       "domain": "layout",
-      "initializer_signature": "def __init__(self, content: Optional[List[View]] = None, alignment: str = 'center', spacing: Optional[float] = None) -> None: ...",
-      "line": 1477,
+      "initializer_signature": "def __init__(self, content: Optional[Sequence[View]] = None, alignment: str = 'center', spacing: Optional[float] = None) -> None: ...",
+      "line": 1457,
       "methods": {
         "__init__": {
-          "line": 1479,
+          "line": 1459,
           "return_type": "None",
-          "signature": "def __init__(self, content: Optional[List[View]] = None, alignment: str = 'center', spacing: Optional[float] = None) -> None: ..."
+          "signature": "def __init__(self, content: Optional[Sequence[View]] = None, alignment: str = 'center', spacing: Optional[float] = None) -> None: ..."
         }
       },
       "public_name": "LazyHStack",
@@ -1789,16 +1785,16 @@
       "aurora_slots": [],
       "auto_register": false,
       "bridge_type": "lazy_vgrid",
-      "call_signature": "LazyVGrid(columns: Optional[List[dict]] = None, content: Optional[List[View]] = None, spacing: Optional[float] = None, children: Optional[List[View]] = None)",
+      "call_signature": "LazyVGrid(columns: Optional[Sequence[dict]] = None, content: Optional[Sequence[View]] = None, spacing: Optional[float] = None, children: Optional[Sequence[View]] = None)",
       "class_signature": "class LazyVGrid(View):",
       "domain": "layout",
-      "initializer_signature": "def __init__(self, columns: Optional[List[dict]] = None, content: Optional[List[View]] = None, spacing: Optional[float] = None, children: Optional[List[View]] = None) -> None: ...",
-      "line": 1513,
+      "initializer_signature": "def __init__(self, columns: Optional[Sequence[dict]] = None, content: Optional[Sequence[View]] = None, spacing: Optional[float] = None, children: Optional[Sequence[View]] = None) -> None: ...",
+      "line": 1493,
       "methods": {
         "__init__": {
-          "line": 1520,
+          "line": 1500,
           "return_type": "None",
-          "signature": "def __init__(self, columns: Optional[List[dict]] = None, content: Optional[List[View]] = None, spacing: Optional[float] = None, children: Optional[List[View]] = None) -> None: ..."
+          "signature": "def __init__(self, columns: Optional[Sequence[dict]] = None, content: Optional[Sequence[View]] = None, spacing: Optional[float] = None, children: Optional[Sequence[View]] = None) -> None: ..."
         }
       },
       "public_name": "LazyVGrid",
@@ -1810,16 +1806,16 @@
       "aurora_slots": [],
       "auto_register": false,
       "bridge_type": "lazy_vstack",
-      "call_signature": "LazyVStack(content: Optional[List[View]] = None, alignment: str = 'center', spacing: Optional[float] = None)",
+      "call_signature": "LazyVStack(content: Optional[Sequence[View]] = None, alignment: str = 'center', spacing: Optional[float] = None)",
       "class_signature": "class LazyVStack(View):",
       "domain": "layout",
-      "initializer_signature": "def __init__(self, content: Optional[List[View]] = None, alignment: str = 'center', spacing: Optional[float] = None) -> None: ...",
-      "line": 1472,
+      "initializer_signature": "def __init__(self, content: Optional[Sequence[View]] = None, alignment: str = 'center', spacing: Optional[float] = None) -> None: ...",
+      "line": 1452,
       "methods": {
         "__init__": {
-          "line": 1474,
+          "line": 1454,
           "return_type": "None",
-          "signature": "def __init__(self, content: Optional[List[View]] = None, alignment: str = 'center', spacing: Optional[float] = None) -> None: ..."
+          "signature": "def __init__(self, content: Optional[Sequence[View]] = None, alignment: str = 'center', spacing: Optional[float] = None) -> None: ..."
         }
       },
       "public_name": "LazyVStack",
@@ -1835,10 +1831,10 @@
       "class_signature": "class Link(View):",
       "domain": "control",
       "initializer_signature": "def __init__(self, title: str = '', url: str = '') -> None: ...",
-      "line": 1719,
+      "line": 1699,
       "methods": {
         "__init__": {
-          "line": 1721,
+          "line": 1701,
           "return_type": "None",
           "signature": "def __init__(self, title: str = '', url: str = '') -> None: ..."
         }
@@ -1852,16 +1848,16 @@
       "aurora_slots": [],
       "auto_register": false,
       "bridge_type": "list",
-      "call_signature": "List(content: Optional[List[View]] = None)",
+      "call_signature": "List(content: Optional[Sequence[View]] = None)",
       "class_signature": "class List(_ContainerView):",
       "domain": "collection",
-      "initializer_signature": "def __init__(self, content: Optional[List[View]] = None) -> None: ...",
-      "line": 1636,
+      "initializer_signature": "def __init__(self, content: Optional[Sequence[View]] = None) -> None: ...",
+      "line": 1616,
       "methods": {
         "__init__": {
-          "line": 1638,
+          "line": 1618,
           "return_type": "None",
-          "signature": "def __init__(self, content: Optional[List[View]] = None) -> None: ..."
+          "signature": "def __init__(self, content: Optional[Sequence[View]] = None) -> None: ..."
         }
       },
       "public_name": "List",
@@ -1888,24 +1884,24 @@
       ],
       "auto_register": true,
       "bridge_type": "map_view",
-      "call_signature": "MapView(latitude: float = 37.7749, longitude: float = -122.4194, span: float = 0.05, markers: Optional[List[Dict[str, Any]]] = None, map_style: str = 'automatic', mapStyle: Optional[str] = None)",
+      "call_signature": "MapView(latitude: float = 37.7749, longitude: float = -122.4194, span: float = 0.05, markers: Optional[Sequence[Dict[str, Any]]] = None, map_style: str = 'automatic', mapStyle: Optional[str] = None)",
       "class_signature": "class MapView(View):",
       "domain": "media",
-      "initializer_signature": "def __init__(self, latitude: float = 37.7749, longitude: float = -122.4194, span: float = 0.05, markers: Optional[List[Dict[str, Any]]] = None, map_style: str = 'automatic', mapStyle: Optional[str] = None) -> None: ...",
-      "line": 1781,
+      "initializer_signature": "def __init__(self, latitude: float = 37.7749, longitude: float = -122.4194, span: float = 0.05, markers: Optional[Sequence[Dict[str, Any]]] = None, map_style: str = 'automatic', mapStyle: Optional[str] = None) -> None: ...",
+      "line": 1761,
       "methods": {
         "__init__": {
-          "line": 1790,
+          "line": 1770,
           "return_type": "None",
-          "signature": "def __init__(self, latitude: float = 37.7749, longitude: float = -122.4194, span: float = 0.05, markers: Optional[List[Dict[str, Any]]] = None, map_style: str = 'automatic', mapStyle: Optional[str] = None) -> None: ..."
+          "signature": "def __init__(self, latitude: float = 37.7749, longitude: float = -122.4194, span: float = 0.05, markers: Optional[Sequence[Dict[str, Any]]] = None, map_style: str = 'automatic', mapStyle: Optional[str] = None) -> None: ..."
         },
         "aurora_set_center": {
-          "line": 1794,
+          "line": 1774,
           "return_type": "None",
           "signature": "def aurora_set_center(self, latitude: float, longitude: float) -> None: \"\"\"Update map center via Aurora binary fast-path.\"\"\" ..."
         },
         "aurora_set_span": {
-          "line": 1797,
+          "line": 1777,
           "return_type": "None",
           "signature": "def aurora_set_span(self, span: float) -> None: \"\"\"Update map span via Aurora binary fast-path.\"\"\" ..."
         }
@@ -1919,16 +1915,16 @@
       "aurora_slots": [],
       "auto_register": false,
       "bridge_type": "menu",
-      "call_signature": "Menu(title: str = '', content: Optional[List[View]] = None, children: Optional[List[View]] = None, system_image: Optional[str] = None, image: Optional[str] = None, systemImage: Optional[str] = None)",
+      "call_signature": "Menu(title: str = '', content: Optional[Sequence[View]] = None, children: Optional[Sequence[View]] = None, system_image: Optional[str] = None, image: Optional[str] = None, systemImage: Optional[str] = None)",
       "class_signature": "class Menu(View):",
       "domain": "control",
-      "initializer_signature": "def __init__(self, title: str = '', content: Optional[List[View]] = None, children: Optional[List[View]] = None, system_image: Optional[str] = None, image: Optional[str] = None, systemImage: Optional[str] = None) -> None: ...",
-      "line": 1351,
+      "initializer_signature": "def __init__(self, title: str = '', content: Optional[Sequence[View]] = None, children: Optional[Sequence[View]] = None, system_image: Optional[str] = None, image: Optional[str] = None, systemImage: Optional[str] = None) -> None: ...",
+      "line": 1331,
       "methods": {
         "__init__": {
-          "line": 1373,
+          "line": 1353,
           "return_type": "None",
-          "signature": "def __init__(self, title: str = '', content: Optional[List[View]] = None, children: Optional[List[View]] = None, system_image: Optional[str] = None, image: Optional[str] = None, systemImage: Optional[str] = None) -> None: ..."
+          "signature": "def __init__(self, title: str = '', content: Optional[Sequence[View]] = None, children: Optional[Sequence[View]] = None, system_image: Optional[str] = None, image: Optional[str] = None, systemImage: Optional[str] = None) -> None: ..."
         }
       },
       "public_name": "Menu",
@@ -1944,10 +1940,10 @@
       "class_signature": "class MultiDatePicker(View):",
       "domain": "control",
       "initializer_signature": "def __init__(self, title: str = '', on_change: Optional[Callable] = None, onChange: Optional[Callable] = None) -> None: ...",
-      "line": 1340,
+      "line": 1320,
       "methods": {
         "__init__": {
-          "line": 1342,
+          "line": 1322,
           "return_type": "None",
           "signature": "def __init__(self, title: str = '', on_change: Optional[Callable] = None, onChange: Optional[Callable] = None) -> None: ..."
         }
@@ -1965,10 +1961,10 @@
       "class_signature": "class NavigationLink(View):",
       "domain": "navigation",
       "initializer_signature": "def __init__(self, title: Optional[str] = None, destination: Optional[View] = None, label: Optional[View] = None) -> None: ...",
-      "line": 1590,
+      "line": 1570,
       "methods": {
         "__init__": {
-          "line": 1592,
+          "line": 1572,
           "return_type": "None",
           "signature": "def __init__(self, title: Optional[str] = None, destination: Optional[View] = None, label: Optional[View] = None) -> None: ..."
         }
@@ -1986,10 +1982,10 @@
       "class_signature": "class NavigationSplitView(View):",
       "domain": "navigation",
       "initializer_signature": "def __init__(self, sidebar: Optional[View] = None, detail: Optional[View] = None, supplementary: Optional[View] = None, column_visibility: str = 'all') -> None: ...",
-      "line": 1595,
+      "line": 1575,
       "methods": {
         "__init__": {
-          "line": 1600,
+          "line": 1580,
           "return_type": "None",
           "signature": "def __init__(self, sidebar: Optional[View] = None, detail: Optional[View] = None, supplementary: Optional[View] = None, column_visibility: str = 'all') -> None: ..."
         }
@@ -2007,10 +2003,10 @@
       "class_signature": "class NavigationStack(View):",
       "domain": "navigation",
       "initializer_signature": "def __init__(self, content: Optional[View] = None, path: Optional[NavigationPath] = None, destinations: Optional[Dict[str, Callable]] = None) -> None: ...",
-      "line": 1573,
+      "line": 1553,
       "methods": {
         "__init__": {
-          "line": 1584,
+          "line": 1564,
           "return_type": "None",
           "signature": "def __init__(self, content: Optional[View] = None, path: Optional[NavigationPath] = None, destinations: Optional[Dict[str, Callable]] = None) -> None: ..."
         }
@@ -2028,10 +2024,10 @@
       "class_signature": "class Overlay(View):",
       "domain": "layout",
       "initializer_signature": "def __init__(self, content: Optional[View] = None, overlay: Optional[View] = None, alignment: str = 'center') -> None: ...",
-      "line": 1559,
+      "line": 1539,
       "methods": {
         "__init__": {
-          "line": 1561,
+          "line": 1541,
           "return_type": "None",
           "signature": "def __init__(self, content: Optional[View] = None, overlay: Optional[View] = None, alignment: str = 'center') -> None: ..."
         }
@@ -2049,10 +2045,10 @@
       "class_signature": "class PasteButton(View):",
       "domain": "control",
       "initializer_signature": "def __init__(self, on_paste: Optional[Callable] = None, onPaste: Optional[Callable] = None) -> None: ...",
-      "line": 1379,
+      "line": 1359,
       "methods": {
         "__init__": {
-          "line": 1381,
+          "line": 1361,
           "return_type": "None",
           "signature": "def __init__(self, on_paste: Optional[Callable] = None, onPaste: Optional[Callable] = None) -> None: ..."
         }
@@ -2074,21 +2070,21 @@
       ],
       "auto_register": true,
       "bridge_type": "path",
-      "call_signature": "Path(commands: Optional[List[Dict[str, Any]]] = None, fill: Optional[ColorLike] = None, stroke: Optional[ColorLike] = None, line_width: Optional[float] = None)",
+      "call_signature": "Path(commands: Optional[Sequence[Dict[str, Any]]] = None, fill: Optional[ColorLike] = None, stroke: Optional[ColorLike] = None, line_width: Optional[float] = None)",
       "class_signature": "class Path(View):",
       "domain": "drawing",
-      "initializer_signature": "def __init__(self, commands: Optional[List[Dict[str, Any]]] = None, fill: Optional[ColorLike] = None, stroke: Optional[ColorLike] = None, line_width: Optional[float] = None) -> None: ...",
-      "line": 1957,
+      "initializer_signature": "def __init__(self, commands: Optional[Sequence[Dict[str, Any]]] = None, fill: Optional[ColorLike] = None, stroke: Optional[ColorLike] = None, line_width: Optional[float] = None) -> None: ...",
+      "line": 1937,
       "methods": {
         "__init__": {
-          "line": 1963,
+          "line": 1943,
           "return_type": "None",
-          "signature": "def __init__(self, commands: Optional[List[Dict[str, Any]]] = None, fill: Optional[ColorLike] = None, stroke: Optional[ColorLike] = None, line_width: Optional[float] = None) -> None: ..."
+          "signature": "def __init__(self, commands: Optional[Sequence[Dict[str, Any]]] = None, fill: Optional[ColorLike] = None, stroke: Optional[ColorLike] = None, line_width: Optional[float] = None) -> None: ..."
         },
         "aurora_set_commands": {
-          "line": 1966,
+          "line": 1946,
           "return_type": "None",
-          "signature": "def aurora_set_commands(self, commands: List[Dict[str, Any]]) -> None: \"\"\"Update path commands via Aurora binary fast-path.\"\"\" ..."
+          "signature": "def aurora_set_commands(self, commands: Sequence[Dict[str, Any]]) -> None: \"\"\"Update path commands via Aurora binary fast-path.\"\"\" ..."
         }
       },
       "public_name": "Path",
@@ -2104,10 +2100,10 @@
       "class_signature": "class PhotoPicker(View):",
       "domain": "media",
       "initializer_signature": "def __init__(self, selection_limit: int = 1, filter: str = 'images', on_picked: Optional[Callable] = None, label: Optional[View] = None, selectionLimit: Optional[int] = None, onPicked: Optional[Callable] = None, **kwargs: Any) -> None: ...",
-      "line": 1400,
+      "line": 1380,
       "methods": {
         "__init__": {
-          "line": 1405,
+          "line": 1385,
           "return_type": "None",
           "signature": "def __init__(self, selection_limit: int = 1, filter: str = 'images', on_picked: Optional[Callable] = None, label: Optional[View] = None, selectionLimit: Optional[int] = None, onPicked: Optional[Callable] = None, **kwargs: Any) -> None: ..."
         }
@@ -2129,16 +2125,16 @@
       ],
       "auto_register": true,
       "bridge_type": "picker",
-      "call_signature": "Picker(label: str = '', selection: Optional[str] = None, options: Optional[List[str]] = None, on_change: Optional[Callable] = None, onChange: Optional[Callable] = None)",
+      "call_signature": "Picker(label: str = '', selection: Optional[str] = None, options: Optional[Sequence[str]] = None, on_change: Optional[Callable] = None, onChange: Optional[Callable] = None)",
       "class_signature": "class Picker(View):",
       "domain": "control",
-      "initializer_signature": "def __init__(self, label: str = '', selection: Optional[str] = None, options: Optional[List[str]] = None, on_change: Optional[Callable] = None, onChange: Optional[Callable] = None) -> None: ...",
-      "line": 1305,
+      "initializer_signature": "def __init__(self, label: str = '', selection: Optional[str] = None, options: Optional[Sequence[str]] = None, on_change: Optional[Callable] = None, onChange: Optional[Callable] = None) -> None: ...",
+      "line": 1285,
       "methods": {
         "__init__": {
-          "line": 1309,
+          "line": 1289,
           "return_type": "None",
-          "signature": "def __init__(self, label: str = '', selection: Optional[str] = None, options: Optional[List[str]] = None, on_change: Optional[Callable] = None, onChange: Optional[Callable] = None) -> None: ..."
+          "signature": "def __init__(self, label: str = '', selection: Optional[str] = None, options: Optional[Sequence[str]] = None, on_change: Optional[Callable] = None, onChange: Optional[Callable] = None) -> None: ..."
         }
       },
       "public_name": "Picker",
@@ -2154,10 +2150,10 @@
       "class_signature": "class Popover(View):",
       "domain": "presentation",
       "initializer_signature": "def __init__(self, is_presented: bool = False, content: Optional[View] = None, trigger: Optional[View] = None, isPresented: Optional[bool] = None) -> None: ...",
-      "line": 1759,
+      "line": 1739,
       "methods": {
         "__init__": {
-          "line": 1761,
+          "line": 1741,
           "return_type": "None",
           "signature": "def __init__(self, is_presented: bool = False, content: Optional[View] = None, trigger: Optional[View] = None, isPresented: Optional[bool] = None) -> None: ..."
         }
@@ -2183,15 +2179,15 @@
       "class_signature": "class ProgressView(View):",
       "domain": "feedback",
       "initializer_signature": "def __init__(self, label: Optional[str] = None, value: Optional[float] = None, total: float = 1.0) -> None: ...",
-      "line": 1708,
+      "line": 1688,
       "methods": {
         "__init__": {
-          "line": 1713,
+          "line": 1693,
           "return_type": "None",
           "signature": "def __init__(self, label: Optional[str] = None, value: Optional[float] = None, total: float = 1.0) -> None: ..."
         },
         "aurora_set_value": {
-          "line": 1715,
+          "line": 1695,
           "return_type": "None",
           "signature": "def aurora_set_value(self, value: Optional[float]) -> None: \"\"\"Update progress value via Aurora binary fast-path.\"\"\" ..."
         }
@@ -2209,10 +2205,10 @@
       "class_signature": "class Rectangle(_Shape):",
       "domain": "shape",
       "initializer_signature": "def __init__(self) -> None: ...",
-      "line": 1984,
+      "line": 1964,
       "methods": {
         "__init__": {
-          "line": 1986,
+          "line": 1966,
           "return_type": "None",
           "signature": "def __init__(self) -> None: ..."
         }
@@ -2230,10 +2226,10 @@
       "class_signature": "class Refreshable(View):",
       "domain": "collection",
       "initializer_signature": "def __init__(self, on_refresh: Optional[Callable] = None, onRefresh: Optional[Callable] = None, content: Optional[ViewChild] = None) -> None: ...",
-      "line": 1765,
+      "line": 1745,
       "methods": {
         "__init__": {
-          "line": 1767,
+          "line": 1747,
           "return_type": "None",
           "signature": "def __init__(self, on_refresh: Optional[Callable] = None, onRefresh: Optional[Callable] = None, content: Optional[ViewChild] = None) -> None: ..."
         }
@@ -2251,10 +2247,10 @@
       "class_signature": "class RenameButton(View):",
       "domain": "control",
       "initializer_signature": "def __init__(self, action: Optional[Callable] = None) -> None: ...",
-      "line": 1384,
+      "line": 1364,
       "methods": {
         "__init__": {
-          "line": 1386,
+          "line": 1366,
           "return_type": "None",
           "signature": "def __init__(self, action: Optional[Callable] = None) -> None: ..."
         }
@@ -2272,10 +2268,10 @@
       "class_signature": "class RoundedRectangle(_Shape):",
       "domain": "shape",
       "initializer_signature": "def __init__(self, corner_radius: float = 10, cornerRadius: Optional[float] = None) -> None: ...",
-      "line": 1988,
+      "line": 1968,
       "methods": {
         "__init__": {
-          "line": 1990,
+          "line": 1970,
           "return_type": "None",
           "signature": "def __init__(self, corner_radius: float = 10, cornerRadius: Optional[float] = None) -> None: ..."
         }
@@ -2293,10 +2289,10 @@
       "class_signature": "class SafeAreaInset(View):",
       "domain": "layout",
       "initializer_signature": "def __init__(self, edge: str = 'bottom', content: Optional[View] = None) -> None: ...",
-      "line": 1564,
+      "line": 1544,
       "methods": {
         "__init__": {
-          "line": 1566,
+          "line": 1546,
           "return_type": "None",
           "signature": "def __init__(self, edge: str = 'bottom', content: Optional[View] = None) -> None: ..."
         }
@@ -2314,10 +2310,10 @@
       "class_signature": "class ScrollView(_ContainerView):",
       "domain": "layout",
       "initializer_signature": "def __init__(self, content: Optional[ViewChild] = None, axes: str = 'vertical', shows_indicators: bool = True, showsIndicators: Optional[bool] = None) -> None: ...",
-      "line": 1482,
+      "line": 1462,
       "methods": {
         "__init__": {
-          "line": 1487,
+          "line": 1467,
           "return_type": "None",
           "signature": "def __init__(self, content: Optional[ViewChild] = None, axes: str = 'vertical', shows_indicators: bool = True, showsIndicators: Optional[bool] = None) -> None: ..."
         }
@@ -2335,10 +2331,10 @@
       "class_signature": "class ScrollViewReader(View):",
       "domain": "layout",
       "initializer_signature": "def __init__(self, content: Optional[ViewChild] = None, axes: str = 'vertical', shows_indicators: bool = True, scroll_to: Optional[str] = None, anchor: str = 'top', showsIndicators: Optional[bool] = None, scrollTo: Optional[str] = None, children: Optional[ViewChild] = None) -> None: ...",
-      "line": 1491,
+      "line": 1471,
       "methods": {
         "__init__": {
-          "line": 1498,
+          "line": 1478,
           "return_type": "None",
           "signature": "def __init__(self, content: Optional[ViewChild] = None, axes: str = 'vertical', shows_indicators: bool = True, scroll_to: Optional[str] = None, anchor: str = 'top', showsIndicators: Optional[bool] = None, scrollTo: Optional[str] = None, children: Optional[ViewChild] = None) -> None: ..."
         }
@@ -2364,10 +2360,10 @@
       "class_signature": "class SearchField(View):",
       "domain": "control",
       "initializer_signature": "def __init__(self, text: str = '', placeholder: str = 'Search', on_change: Optional[Callable] = None, onChange: Optional[Callable] = None, on_submit: Optional[Callable] = None, onSubmit: Optional[Callable] = None) -> None: ...",
-      "line": 1246,
+      "line": 1226,
       "methods": {
         "__init__": {
-          "line": 1248,
+          "line": 1228,
           "return_type": "None",
           "signature": "def __init__(self, text: str = '', placeholder: str = 'Search', on_change: Optional[Callable] = None, onChange: Optional[Callable] = None, on_submit: Optional[Callable] = None, onSubmit: Optional[Callable] = None) -> None: ..."
         }
@@ -2385,10 +2381,10 @@
       "class_signature": "class Section(_ContainerView):",
       "domain": "collection",
       "initializer_signature": "def __init__(self, content: Optional[ViewChild] = None, *, header: Optional[Union[str, View]] = None, footer: Optional[Union[str, View]] = None, children: Optional[ViewChild] = None, key: Optional[str] = None) -> None: ...",
-      "line": 1662,
+      "line": 1642,
       "methods": {
         "__init__": {
-          "line": 1669,
+          "line": 1649,
           "return_type": "None",
           "signature": "def __init__(self, content: Optional[ViewChild] = None, *, header: Optional[Union[str, View]] = None, footer: Optional[Union[str, View]] = None, children: Optional[ViewChild] = None, key: Optional[str] = None) -> None: ..."
         }
@@ -2414,10 +2410,10 @@
       "class_signature": "class SecureField(View):",
       "domain": "control",
       "initializer_signature": "def __init__(self, placeholder: str = '', text: str = '', on_change: Optional[Callable] = None, on_submit: Optional[Callable] = None, onChange: Optional[Callable] = None, onSubmit: Optional[Callable] = None) -> None: ...",
-      "line": 1229,
+      "line": 1209,
       "methods": {
         "__init__": {
-          "line": 1231,
+          "line": 1211,
           "return_type": "None",
           "signature": "def __init__(self, placeholder: str = '', text: str = '', on_change: Optional[Callable] = None, on_submit: Optional[Callable] = None, onChange: Optional[Callable] = None, onSubmit: Optional[Callable] = None) -> None: ..."
         }
@@ -2439,16 +2435,16 @@
       ],
       "auto_register": true,
       "bridge_type": "segmented_control",
-      "call_signature": "SegmentedControl(options: Optional[List[str]] = None, selection: Optional[str] = None, on_change: Optional[Callable] = None, onChange: Optional[Callable] = None)",
+      "call_signature": "SegmentedControl(options: Optional[Sequence[str]] = None, selection: Optional[str] = None, on_change: Optional[Callable] = None, onChange: Optional[Callable] = None)",
       "class_signature": "class SegmentedControl(View):",
       "domain": "control",
-      "initializer_signature": "def __init__(self, options: Optional[List[str]] = None, selection: Optional[str] = None, on_change: Optional[Callable] = None, onChange: Optional[Callable] = None) -> None: ...",
-      "line": 1313,
+      "initializer_signature": "def __init__(self, options: Optional[Sequence[str]] = None, selection: Optional[str] = None, on_change: Optional[Callable] = None, onChange: Optional[Callable] = None) -> None: ...",
+      "line": 1293,
       "methods": {
         "__init__": {
-          "line": 1315,
+          "line": 1295,
           "return_type": "None",
-          "signature": "def __init__(self, options: Optional[List[str]] = None, selection: Optional[str] = None, on_change: Optional[Callable] = None, onChange: Optional[Callable] = None) -> None: ..."
+          "signature": "def __init__(self, options: Optional[Sequence[str]] = None, selection: Optional[str] = None, on_change: Optional[Callable] = None, onChange: Optional[Callable] = None) -> None: ..."
         }
       },
       "public_name": "SegmentedControl",
@@ -2464,10 +2460,10 @@
       "class_signature": "class ShareLink(View):",
       "domain": "control",
       "initializer_signature": "def __init__(self, item: str = '', subject: Optional[str] = None, message: Optional[str] = None) -> None: ...",
-      "line": 1729,
+      "line": 1709,
       "methods": {
         "__init__": {
-          "line": 1731,
+          "line": 1711,
           "return_type": "None",
           "signature": "def __init__(self, item: str = '', subject: Optional[str] = None, message: Optional[str] = None) -> None: ..."
         }
@@ -2485,10 +2481,10 @@
       "class_signature": "class SignInWithAppleButton(View):",
       "domain": "control",
       "initializer_signature": "def __init__(self, type: str = 'signIn', on_complete: Optional[Callable] = None, onComplete: Optional[Callable] = None) -> None: ...",
-      "line": 1392,
+      "line": 1372,
       "methods": {
         "__init__": {
-          "line": 1397,
+          "line": 1377,
           "return_type": "None",
           "signature": "def __init__(self, type: str = 'signIn', on_complete: Optional[Callable] = None, onComplete: Optional[Callable] = None) -> None: ..."
         }
@@ -2514,15 +2510,15 @@
       "class_signature": "class Slider(View):",
       "domain": "control",
       "initializer_signature": "def __init__(self, value: float = 0.0, minimum: float = 0.0, maximum: float = 1.0, step: Optional[float] = None, label: str = '', on_change: Optional[Callable] = None, onChange: Optional[Callable] = None, min_value: Optional[float] = None, max_value: Optional[float] = None, minValue: Optional[float] = None, maxValue: Optional[float] = None) -> None: ...",
-      "line": 1272,
+      "line": 1252,
       "methods": {
         "__init__": {
-          "line": 1283,
+          "line": 1263,
           "return_type": "None",
           "signature": "def __init__(self, value: float = 0.0, minimum: float = 0.0, maximum: float = 1.0, step: Optional[float] = None, label: str = '', on_change: Optional[Callable] = None, onChange: Optional[Callable] = None, min_value: Optional[float] = None, max_value: Optional[float] = None, minValue: Optional[float] = None, maxValue: Optional[float] = None) -> None: ..."
         },
         "aurora_set_value": {
-          "line": 1291,
+          "line": 1271,
           "return_type": "None",
           "signature": "def aurora_set_value(self, value: float) -> None: \"\"\"Update slider value via Aurora binary fast-path.\"\"\" ..."
         }
@@ -2540,10 +2536,10 @@
       "class_signature": "class Spacer(View):",
       "domain": "layout",
       "initializer_signature": "def __init__(self, min_length: Optional[float] = None, minLength: Optional[float] = None) -> None: ...",
-      "line": 1504,
+      "line": 1484,
       "methods": {
         "__init__": {
-          "line": 1506,
+          "line": 1486,
           "return_type": "None",
           "signature": "def __init__(self, min_length: Optional[float] = None, minLength: Optional[float] = None) -> None: ..."
         }
@@ -2569,15 +2565,15 @@
       "class_signature": "class Stepper(View):",
       "domain": "control",
       "initializer_signature": "def __init__(self, label: str = '', value: int = 0, minimum: int = 0, maximum: int = 100, step: int = 1, on_change: Optional[Callable] = None, onChange: Optional[Callable] = None) -> None: ...",
-      "line": 1295,
+      "line": 1275,
       "methods": {
         "__init__": {
-          "line": 1298,
+          "line": 1278,
           "return_type": "None",
           "signature": "def __init__(self, label: str = '', value: int = 0, minimum: int = 0, maximum: int = 100, step: int = 1, on_change: Optional[Callable] = None, onChange: Optional[Callable] = None) -> None: ..."
         },
         "aurora_set_value": {
-          "line": 1301,
+          "line": 1281,
           "return_type": "None",
           "signature": "def aurora_set_value(self, value: int) -> None: \"\"\"Update stepper value via Aurora binary fast-path.\"\"\" ..."
         }
@@ -2591,16 +2587,16 @@
       "aurora_slots": [],
       "auto_register": false,
       "bridge_type": "swipe_actions",
-      "call_signature": "SwipeActions(content: Optional[View] = None, leading: Optional[List[View]] = None, trailing: Optional[List[View]] = None)",
+      "call_signature": "SwipeActions(content: Optional[View] = None, leading: Optional[Sequence[View]] = None, trailing: Optional[Sequence[View]] = None)",
       "class_signature": "class SwipeActions(View):",
       "domain": "collection",
-      "initializer_signature": "def __init__(self, content: Optional[View] = None, leading: Optional[List[View]] = None, trailing: Optional[List[View]] = None) -> None: ...",
-      "line": 1771,
+      "initializer_signature": "def __init__(self, content: Optional[View] = None, leading: Optional[Sequence[View]] = None, trailing: Optional[Sequence[View]] = None) -> None: ...",
+      "line": 1751,
       "methods": {
         "__init__": {
-          "line": 1773,
+          "line": 1753,
           "return_type": "None",
-          "signature": "def __init__(self, content: Optional[View] = None, leading: Optional[List[View]] = None, trailing: Optional[List[View]] = None) -> None: ..."
+          "signature": "def __init__(self, content: Optional[View] = None, leading: Optional[Sequence[View]] = None, trailing: Optional[Sequence[View]] = None) -> None: ..."
         }
       },
       "public_name": "SwipeActions",
@@ -2616,10 +2612,10 @@
       "class_signature": "class Tab(View):",
       "domain": "navigation",
       "initializer_signature": "def __init__(self, title: str = '', system_image: Optional[str] = None, image: Optional[str] = None, content: Optional[View] = None, badge: Optional[int] = None, tag: Optional[int] = None, systemImage: Optional[str] = None, role: Optional[str] = None, key: Optional[str] = None) -> None: ...",
-      "line": 1617,
+      "line": 1597,
       "methods": {
         "__init__": {
-          "line": 1622,
+          "line": 1602,
           "return_type": "None",
           "signature": "def __init__(self, title: str = '', system_image: Optional[str] = None, image: Optional[str] = None, content: Optional[View] = None, badge: Optional[int] = None, tag: Optional[int] = None, systemImage: Optional[str] = None, role: Optional[str] = None, key: Optional[str] = None) -> None: ..."
         }
@@ -2633,16 +2629,16 @@
       "aurora_slots": [],
       "auto_register": false,
       "bridge_type": "tab_view",
-      "call_signature": "TabView(tabs: Optional[List[\"Tab\"]] = None, selection: Optional[int] = None, on_change: Optional[Callable] = None, onChange: Optional[Callable] = None)",
+      "call_signature": "TabView(tabs: Optional[Sequence[\"Tab\"]] = None, selection: Optional[int] = None, on_change: Optional[Callable] = None, onChange: Optional[Callable] = None)",
       "class_signature": "class TabView(View):",
       "domain": "navigation",
-      "initializer_signature": "def __init__(self, tabs: Optional[List[\"Tab\"]] = None, selection: Optional[int] = None, on_change: Optional[Callable] = None, onChange: Optional[Callable] = None) -> None: ...",
-      "line": 1603,
+      "initializer_signature": "def __init__(self, tabs: Optional[Sequence[\"Tab\"]] = None, selection: Optional[int] = None, on_change: Optional[Callable] = None, onChange: Optional[Callable] = None) -> None: ...",
+      "line": 1583,
       "methods": {
         "__init__": {
-          "line": 1613,
+          "line": 1593,
           "return_type": "None",
-          "signature": "def __init__(self, tabs: Optional[List[\"Tab\"]] = None, selection: Optional[int] = None, on_change: Optional[Callable] = None, onChange: Optional[Callable] = None) -> None: ..."
+          "signature": "def __init__(self, tabs: Optional[Sequence[\"Tab\"]] = None, selection: Optional[int] = None, on_change: Optional[Callable] = None, onChange: Optional[Callable] = None) -> None: ..."
         }
       },
       "public_name": "TabView",
@@ -2654,16 +2650,16 @@
       "aurora_slots": [],
       "auto_register": false,
       "bridge_type": "table",
-      "call_signature": "Table(data: Optional[List[Dict[str, Any]]] = None, columns: Optional[List[Dict[str, str]]] = None, on_select: Optional[Callable] = None, onSelect: Optional[Callable] = None)",
+      "call_signature": "Table(data: Optional[Sequence[Dict[str, Any]]] = None, columns: Optional[Sequence[Dict[str, str]]] = None, on_select: Optional[Callable] = None, onSelect: Optional[Callable] = None)",
       "class_signature": "class Table(View):",
       "domain": "collection",
-      "initializer_signature": "def __init__(self, data: Optional[List[Dict[str, Any]]] = None, columns: Optional[List[Dict[str, str]]] = None, on_select: Optional[Callable] = None, onSelect: Optional[Callable] = None) -> None: ...",
-      "line": 1690,
+      "initializer_signature": "def __init__(self, data: Optional[Sequence[Dict[str, Any]]] = None, columns: Optional[Sequence[Dict[str, str]]] = None, on_select: Optional[Callable] = None, onSelect: Optional[Callable] = None) -> None: ...",
+      "line": 1670,
       "methods": {
         "__init__": {
-          "line": 1692,
+          "line": 1672,
           "return_type": "None",
-          "signature": "def __init__(self, data: Optional[List[Dict[str, Any]]] = None, columns: Optional[List[Dict[str, str]]] = None, on_select: Optional[Callable] = None, onSelect: Optional[Callable] = None) -> None: ..."
+          "signature": "def __init__(self, data: Optional[Sequence[Dict[str, Any]]] = None, columns: Optional[Sequence[Dict[str, str]]] = None, on_select: Optional[Callable] = None, onSelect: Optional[Callable] = None) -> None: ..."
         }
       },
       "public_name": "Table",
@@ -2687,15 +2683,15 @@
       "class_signature": "class Text(View):",
       "domain": "text",
       "initializer_signature": "def __init__(self, content: str = '') -> None: ...",
-      "line": 1080,
+      "line": 1060,
       "methods": {
         "__init__": {
-          "line": 1088,
+          "line": 1068,
           "return_type": "None",
           "signature": "def __init__(self, content: str = '') -> None: ..."
         },
         "aurora_set_content": {
-          "line": 1089,
+          "line": 1069,
           "return_type": "None",
           "signature": "def aurora_set_content(self, content: str) -> None: \"\"\"Update text content via Aurora binary fast-path.\"\"\" ..."
         }
@@ -2721,10 +2717,10 @@
       "class_signature": "class TextEditor(View):",
       "domain": "control",
       "initializer_signature": "def __init__(self, text: str = '', on_change: Optional[Callable] = None, onChange: Optional[Callable] = None) -> None: ...",
-      "line": 1236,
+      "line": 1216,
       "methods": {
         "__init__": {
-          "line": 1238,
+          "line": 1218,
           "return_type": "None",
           "signature": "def __init__(self, text: str = '', on_change: Optional[Callable] = None, onChange: Optional[Callable] = None) -> None: ..."
         }
@@ -2750,15 +2746,15 @@
       "class_signature": "class TextField(View):",
       "domain": "control",
       "initializer_signature": "def __init__(self, placeholder: str = '', text: str = '', on_change: Optional[Callable] = None, on_submit: Optional[Callable] = None, keyboard_type: Optional[str] = None, autocapitalization: Optional[str] = None, autocorrection_disabled: bool = False, submit_label: Optional[str] = None, onChange: Optional[Callable] = None, onSubmit: Optional[Callable] = None, keyboardType: Optional[str] = None, autoCapitalization: Optional[str] = None, autocorrectionDisabled: Optional[bool] = None, submitLabel: Optional[str] = None, value: Optional[str] = None, **kwargs: Any) -> None: ...",
-      "line": 1202,
+      "line": 1182,
       "methods": {
         "__init__": {
-          "line": 1213,
+          "line": 1193,
           "return_type": "None",
           "signature": "def __init__(self, placeholder: str = '', text: str = '', on_change: Optional[Callable] = None, on_submit: Optional[Callable] = None, keyboard_type: Optional[str] = None, autocapitalization: Optional[str] = None, autocorrection_disabled: bool = False, submit_label: Optional[str] = None, onChange: Optional[Callable] = None, onSubmit: Optional[Callable] = None, keyboardType: Optional[str] = None, autoCapitalization: Optional[str] = None, autocorrectionDisabled: Optional[bool] = None, submitLabel: Optional[str] = None, value: Optional[str] = None, **kwargs: Any) -> None: ..."
         },
         "aurora_set_text": {
-          "line": 1225,
+          "line": 1205,
           "return_type": "None",
           "signature": "def aurora_set_text(self, text: str) -> None: \"\"\"Update text field content via Aurora binary fast-path.\"\"\" ..."
         }
@@ -2776,10 +2772,10 @@
       "class_signature": "class TextFieldLink(View):",
       "domain": "control",
       "initializer_signature": "def __init__(self, title: str = '', prompt: str = '', on_submit: Optional[Callable] = None, onSubmit: Optional[Callable] = None) -> None: ...",
-      "line": 1241,
+      "line": 1221,
       "methods": {
         "__init__": {
-          "line": 1243,
+          "line": 1223,
           "return_type": "None",
           "signature": "def __init__(self, title: str = '', prompt: str = '', on_submit: Optional[Callable] = None, onSubmit: Optional[Callable] = None) -> None: ..."
         }
@@ -2797,10 +2793,10 @@
       "class_signature": "class TimelineView(View):",
       "domain": "feedback",
       "initializer_signature": "def __init__(self, interval: float = 1.0, content: Optional[View] = None) -> None: ...",
-      "line": 1738,
+      "line": 1718,
       "methods": {
         "__init__": {
-          "line": 1740,
+          "line": 1720,
           "return_type": "None",
           "signature": "def __init__(self, interval: float = 1.0, content: Optional[View] = None) -> None: ..."
         }
@@ -2826,15 +2822,15 @@
       "class_signature": "class Toggle(View):",
       "domain": "control",
       "initializer_signature": "def __init__(self, label: str = '', is_on: bool = False, on_change: Optional[Callable] = None, isOn: Optional[bool] = None, onChange: Optional[Callable] = None, value: Optional[bool] = None) -> None: ...",
-      "line": 1254,
+      "line": 1234,
       "methods": {
         "__init__": {
-          "line": 1265,
+          "line": 1245,
           "return_type": "None",
           "signature": "def __init__(self, label: str = '', is_on: bool = False, on_change: Optional[Callable] = None, isOn: Optional[bool] = None, onChange: Optional[Callable] = None, value: Optional[bool] = None) -> None: ..."
         },
         "aurora_set_is_on": {
-          "line": 1268,
+          "line": 1248,
           "return_type": "None",
           "signature": "def aurora_set_is_on(self, value: bool) -> None: \"\"\"Update toggle state via Aurora binary fast-path.\"\"\" ..."
         }
@@ -2852,10 +2848,10 @@
       "class_signature": "class ToolbarItem(View):",
       "domain": "presentation",
       "initializer_signature": "def __init__(self, placement: str = 'automatic', content: Optional[View] = None, role: Optional[str] = None) -> None: ...",
-      "line": 2017,
+      "line": 1997,
       "methods": {
         "__init__": {
-          "line": 2027,
+          "line": 2007,
           "return_type": "None",
           "signature": "def __init__(self, placement: str = 'automatic', content: Optional[View] = None, role: Optional[str] = None) -> None: ..."
         }
@@ -2873,10 +2869,10 @@
       "class_signature": "class ToolbarSpacer(View):",
       "domain": "presentation",
       "initializer_signature": "def __init__(self, sizing: str = 'fixed', placement: str = 'automatic') -> None: ...",
-      "line": 2031,
+      "line": 2011,
       "methods": {
         "__init__": {
-          "line": 2033,
+          "line": 2013,
           "return_type": "None",
           "signature": "def __init__(self, sizing: str = 'fixed', placement: str = 'automatic') -> None: ..."
         }
@@ -2890,16 +2886,16 @@
       "aurora_slots": [],
       "auto_register": false,
       "bridge_type": "vstack",
-      "call_signature": "VStack(content: Optional[List[View]] = None, alignment: str = 'center', spacing: Optional[float] = None)",
+      "call_signature": "VStack(content: Optional[Sequence[View]] = None, alignment: str = 'center', spacing: Optional[float] = None)",
       "class_signature": "class VStack(_ContainerView):",
       "domain": "layout",
-      "initializer_signature": "def __init__(self, content: Optional[List[View]] = None, alignment: str = 'center', spacing: Optional[float] = None) -> None: ...",
-      "line": 1453,
+      "initializer_signature": "def __init__(self, content: Optional[Sequence[View]] = None, alignment: str = 'center', spacing: Optional[float] = None) -> None: ...",
+      "line": 1433,
       "methods": {
         "__init__": {
-          "line": 1460,
+          "line": 1440,
           "return_type": "None",
-          "signature": "def __init__(self, content: Optional[List[View]] = None, alignment: str = 'center', spacing: Optional[float] = None) -> None: ..."
+          "signature": "def __init__(self, content: Optional[Sequence[View]] = None, alignment: str = 'center', spacing: Optional[float] = None) -> None: ..."
         }
       },
       "public_name": "VStack",
@@ -2915,10 +2911,10 @@
       "class_signature": "class VideoPlayer(View):",
       "domain": "media",
       "initializer_signature": "def __init__(self, url: str = '', autoplay: bool = False, loop: bool = False, show_controls: bool = True, presentation: str = 'inline', allows_fullscreen: bool = True, allows_pip: bool = True, allows_airplay: bool = True, video_gravity: str = 'resizeAspect', enters_fullscreen_when_playback_begins: bool = False, exits_fullscreen_when_playback_ends: bool = True, showControls: Optional[bool] = None, allowsFullscreen: Optional[bool] = None, allowsPiP: Optional[bool] = None, allowsPictureInPicture: Optional[bool] = None, allowsAirPlay: Optional[bool] = None, videoGravity: Optional[str] = None, entersFullscreenWhenPlaybackBegins: Optional[bool] = None, exitsFullscreenWhenPlaybackEnds: Optional[bool] = None, allows_picture_in_picture: Optional[bool] = None, player: Optional[PlayerController] = None, player_id: Optional[str] = None, pause_on_disappear: Optional[bool] = None) -> None: ...",
-      "line": 1845,
+      "line": 1825,
       "methods": {
         "__init__": {
-          "line": 1854,
+          "line": 1834,
           "return_type": "None",
           "signature": "def __init__(self, url: str = '', autoplay: bool = False, loop: bool = False, show_controls: bool = True, presentation: str = 'inline', allows_fullscreen: bool = True, allows_pip: bool = True, allows_airplay: bool = True, video_gravity: str = 'resizeAspect', enters_fullscreen_when_playback_begins: bool = False, exits_fullscreen_when_playback_ends: bool = True, showControls: Optional[bool] = None, allowsFullscreen: Optional[bool] = None, allowsPiP: Optional[bool] = None, allowsPictureInPicture: Optional[bool] = None, allowsAirPlay: Optional[bool] = None, videoGravity: Optional[str] = None, entersFullscreenWhenPlaybackBegins: Optional[bool] = None, exitsFullscreenWhenPlaybackEnds: Optional[bool] = None, allows_picture_in_picture: Optional[bool] = None, player: Optional[PlayerController] = None, player_id: Optional[str] = None, pause_on_disappear: Optional[bool] = None) -> None: ..."
         }
@@ -2932,16 +2928,16 @@
       "aurora_slots": [],
       "auto_register": false,
       "bridge_type": "view_that_fits",
-      "call_signature": "ViewThatFits(content: Optional[List[View]] = None)",
+      "call_signature": "ViewThatFits(content: Optional[Sequence[View]] = None)",
       "class_signature": "class ViewThatFits(View):",
       "domain": "layout",
-      "initializer_signature": "def __init__(self, content: Optional[List[View]] = None) -> None: ...",
-      "line": 1551,
+      "initializer_signature": "def __init__(self, content: Optional[Sequence[View]] = None) -> None: ...",
+      "line": 1531,
       "methods": {
         "__init__": {
-          "line": 1553,
+          "line": 1533,
           "return_type": "None",
-          "signature": "def __init__(self, content: Optional[List[View]] = None) -> None: ..."
+          "signature": "def __init__(self, content: Optional[Sequence[View]] = None) -> None: ..."
         }
       },
       "public_name": "ViewThatFits",
@@ -2957,10 +2953,10 @@
       "class_signature": "class WebView(View):",
       "domain": "media",
       "initializer_signature": "def __init__(self, url: Optional[str] = None, html: Optional[str] = None) -> None: ...",
-      "line": 1801,
+      "line": 1781,
       "methods": {
         "__init__": {
-          "line": 1803,
+          "line": 1783,
           "return_type": "None",
           "signature": "def __init__(self, url: Optional[str] = None, html: Optional[str] = None) -> None: ..."
         }
@@ -2982,16 +2978,16 @@
       ],
       "auto_register": true,
       "bridge_type": "wheel_picker",
-      "call_signature": "WheelPicker(options: Optional[List[str]] = None, selection: Optional[str] = None, on_change: Optional[Callable] = None, onChange: Optional[Callable] = None)",
+      "call_signature": "WheelPicker(options: Optional[Sequence[str]] = None, selection: Optional[str] = None, on_change: Optional[Callable] = None, onChange: Optional[Callable] = None)",
       "class_signature": "class WheelPicker(View):",
       "domain": "control",
-      "initializer_signature": "def __init__(self, options: Optional[List[str]] = None, selection: Optional[str] = None, on_change: Optional[Callable] = None, onChange: Optional[Callable] = None) -> None: ...",
-      "line": 1325,
+      "initializer_signature": "def __init__(self, options: Optional[Sequence[str]] = None, selection: Optional[str] = None, on_change: Optional[Callable] = None, onChange: Optional[Callable] = None) -> None: ...",
+      "line": 1305,
       "methods": {
         "__init__": {
-          "line": 1327,
+          "line": 1307,
           "return_type": "None",
-          "signature": "def __init__(self, options: Optional[List[str]] = None, selection: Optional[str] = None, on_change: Optional[Callable] = None, onChange: Optional[Callable] = None) -> None: ..."
+          "signature": "def __init__(self, options: Optional[Sequence[str]] = None, selection: Optional[str] = None, on_change: Optional[Callable] = None, onChange: Optional[Callable] = None) -> None: ..."
         }
       },
       "public_name": "WheelPicker",
@@ -3003,16 +2999,16 @@
       "aurora_slots": [],
       "auto_register": false,
       "bridge_type": "zstack",
-      "call_signature": "ZStack(content: Optional[List[View]] = None, alignment: str = 'center')",
+      "call_signature": "ZStack(content: Optional[Sequence[View]] = None, alignment: str = 'center')",
       "class_signature": "class ZStack(_ContainerView):",
       "domain": "layout",
-      "initializer_signature": "def __init__(self, content: Optional[List[View]] = None, alignment: str = 'center') -> None: ...",
-      "line": 1468,
+      "initializer_signature": "def __init__(self, content: Optional[Sequence[View]] = None, alignment: str = 'center') -> None: ...",
+      "line": 1448,
       "methods": {
         "__init__": {
-          "line": 1470,
+          "line": 1450,
           "return_type": "None",
-          "signature": "def __init__(self, content: Optional[List[View]] = None, alignment: str = 'center') -> None: ..."
+          "signature": "def __init__(self, content: Optional[Sequence[View]] = None, alignment: str = 'center') -> None: ..."
         }
       },
       "public_name": "ZStack",

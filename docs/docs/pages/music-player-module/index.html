@@ -313,6 +313,16 @@ music_player.set_queue(songs, start_index=0)
 music_player.play()
 print(music_player.state())</code></pre>
 </figure>
+<p>如果队列里的歌曲已经带有真实音频 URL，可以让宿主提前准备后面的几首，降低下一曲等待：</p>
+<figure class="code-block" data-code-id="94a1205953de">
+  <figcaption>
+    <span>python</span>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="94a1205953de" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
+  </figcaption>
+  <pre><code id="code-94a1205953de" class="language-python">music_player.set_queue(songs, start_index=0, autoplay=True, preload_count=3)
+music_player.prefetch_next(count=3)</code></pre>
+</figure>
+<blockquote class="callout note"><code>preload_count</code> / <code>prefetch_next()</code> 只预加载已经有 <code>url</code> 的音频。搜索平台 ID、聚合源 ID 或需要签名换链的歌曲，应先在你的 MiniApp 后台解析成真实 URL，再交给 <code>music_player</code>。</blockquote>
 <p>如果不想显示锁屏卡片或接管控制中心按钮，在播放前关闭：</p>
 <figure class="code-block" data-code-id="dcc5027f8481">
   <figcaption>
@@ -419,7 +429,7 @@ appui.run(body, state=state)</code></pre>
 <p><strong><code>configure(now_playing=None, remote_commands=None, background=None, persist=None, auto_advance=None, progress_interval=None, can_next=None, can_previous=None)</code></strong></p>
 <div class="table-scroll"><table><thead><tr><th>参数</th><th>说明</th></tr></thead><tbody><tr><td><code>now_playing</code></td><td>是否同步锁屏 / 控制中心元数据</td></tr><tr><td><code>remote_commands</code></td><td>是否响应系统播放、暂停、上一首、下一首、seek</td></tr><tr><td><code>background</code></td><td>是否配置后台播放音频会话</td></tr><tr><td><code>persist</code></td><td>是否保存队列、进度和播放模式</td></tr><tr><td><code>auto_advance</code></td><td>播放结束后是否按模式自动切歌</td></tr><tr><td><code>progress_interval</code></td><td>进度事件间隔，最小 0.25 秒</td></tr><tr><td><code>can_next</code> / <code>can_previous</code></td><td>覆盖系统按钮可用状态</td></tr></tbody></table></div>
 <h3 id="队列"><a class="heading-anchor" href="#队列">#</a>队列</h3>
-<div class="table-scroll"><table><thead><tr><th>API</th><th>说明</th></tr></thead><tbody><tr><td><code>set_queue(songs, start_index=0, play_mode=None, autoplay=False)</code></td><td>替换队列并加载当前歌曲</td></tr><tr><td><code>queue()</code></td><td>返回 <code>{queue, current_index, count}</code></td></tr><tr><td><code>current()</code></td><td>返回当前歌曲</td></tr><tr><td><code>add(song, play_next=False, autoplay=False)</code></td><td>追加或插到下一首</td></tr><tr><td><code>remove(index)</code></td><td>删除歌曲</td></tr><tr><td><code>move(from_index, to_index)</code></td><td>移动歌曲</td></tr><tr><td><code>clear()</code></td><td>停止并清空队列</td></tr></tbody></table></div>
+<div class="table-scroll"><table><thead><tr><th>API</th><th>说明</th></tr></thead><tbody><tr><td><code>set_queue(songs, start_index=0, play_mode=None, autoplay=False, preload_count=0)</code></td><td>替换队列并加载当前歌曲；<code>preload_count</code> 会预备后面 N 首已解析 URL</td></tr><tr><td><code>queue()</code></td><td>返回 <code>{queue, current_index, count}</code></td></tr><tr><td><code>current()</code></td><td>返回当前歌曲</td></tr><tr><td><code>add(song, play_next=False, autoplay=False)</code></td><td>追加或插到下一首</td></tr><tr><td><code>remove(index)</code></td><td>删除歌曲</td></tr><tr><td><code>move(from_index, to_index)</code></td><td>移动歌曲</td></tr><tr><td><code>clear()</code></td><td>停止并清空队列</td></tr><tr><td><code>prepare(song, index=None)</code></td><td>预备一首已有真实 <code>url</code> 的歌曲，降低之后切到它时的加载时间</td></tr><tr><td><code>prefetch_next(count=3)</code></td><td>按当前队列和播放模式预备后面几首</td></tr><tr><td><code>preload_state()</code></td><td>返回预加载池状态：<code>count</code>、<code>preload_count</code>、<code>items</code></td></tr></tbody></table></div>
 <h3 id="播放"><a class="heading-anchor" href="#播放">#</a>播放</h3>
 <div class="table-scroll"><table><thead><tr><th>API</th><th>说明</th></tr></thead><tbody><tr><td><code>play()</code></td><td>播放当前歌曲</td></tr><tr><td><code>pause()</code></td><td>暂停</td></tr><tr><td><code>toggle()</code></td><td>播放 / 暂停切换</td></tr><tr><td><code>stop()</code></td><td>停止并回到 0 秒</td></tr><tr><td><code>next()</code></td><td>下一首</td></tr><tr><td><code>previous()</code></td><td>上一首；当前进度超过 3 秒时先回到开头</td></tr><tr><td><code>seek(seconds)</code></td><td>跳转</td></tr><tr><td><code>set_play_mode(mode)</code></td><td><code>sequence</code> / <code>repeat_all</code> / <code>repeat_one</code> / <code>shuffle</code></td></tr><tr><td><code>set_volume(volume)</code></td><td>0.0–1.0</td></tr><tr><td><code>set_rate(rate)</code></td><td>0.25–3.0</td></tr></tbody></table></div>
 <h3 id="状态与恢复"><a class="heading-anchor" href="#状态与恢复">#</a>状态与恢复</h3>
@@ -427,7 +437,7 @@ appui.run(body, state=state)</code></pre>
 <h3 id="事件"><a class="heading-anchor" href="#事件">#</a>事件</h3>
 <p><strong><code>on_event(callback, events=None)</code></strong> 订阅事件。<code>callback</code> 可以是 Python 函数或 callback id；函数收到 JSON 字符串。</p>
 <p>常用事件：</p>
-<div class="table-scroll"><table><thead><tr><th>事件</th><th>说明</th></tr></thead><tbody><tr><td><code>ready</code></td><td>当前歌曲可播放</td></tr><tr><td><code>play</code> / <code>pause</code> / <code>stop</code></td><td>播放状态变化</td></tr><tr><td><code>current</code> / <code>queue</code></td><td>当前歌曲或队列变化</td></tr><tr><td><code>ended</code></td><td>当前歌曲结束</td></tr><tr><td><code>progress</code></td><td>进度更新</td></tr><tr><td><code>seek</code></td><td>跳转</td></tr><tr><td><code>error</code></td><td>播放错误</td></tr><tr><td><code>restore</code></td><td>恢复完成</td></tr><tr><td><code>remote_command</code></td><td>锁屏 / 控制中心按钮触发</td></tr></tbody></table></div>
+<div class="table-scroll"><table><thead><tr><th>事件</th><th>说明</th></tr></thead><tbody><tr><td><code>ready</code></td><td>当前歌曲可播放</td></tr><tr><td><code>play</code> / <code>pause</code> / <code>stop</code></td><td>播放状态变化</td></tr><tr><td><code>current</code> / <code>queue</code></td><td>当前歌曲或队列变化</td></tr><tr><td><code>ended</code></td><td>当前歌曲结束</td></tr><tr><td><code>progress</code></td><td>进度更新</td></tr><tr><td><code>preload</code></td><td>发起预加载</td></tr><tr><td><code>prepared</code></td><td>某首预加载歌曲已准备好</td></tr><tr><td><code>item_failed</code></td><td>某首预加载歌曲准备失败</td></tr><tr><td><code>seek</code></td><td>跳转</td></tr><tr><td><code>error</code></td><td>播放错误</td></tr><tr><td><code>restore</code></td><td>恢复完成</td></tr><tr><td><code>remote_command</code></td><td>锁屏 / 控制中心按钮触发</td></tr></tbody></table></div>
 <figure class="code-block" data-code-id="8128529c50f8">
   <figcaption>
     <span>python</span>

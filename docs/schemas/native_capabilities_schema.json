@@ -555,6 +555,7 @@
       "agentDocFile": "database-module-agent.md",
       "capabilities": [
         "sqlite",
+        "native_sqlite_bridge",
         "collections",
         "transactions"
       ],
@@ -837,7 +838,9 @@
         "now_playing_metadata",
         "remote_commands",
         "playback_restore",
-        "progress_events"
+        "progress_events",
+        "queue_preload",
+        "preload_events"
       ],
       "permissions": [],
       "risk": "media_playback",

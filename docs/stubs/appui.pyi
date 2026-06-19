@@ -29,7 +29,6 @@ from typing import (
     Callable,
     Dict,
     Iterable,
-    List,
     Mapping,
     Optional,
     Sequence,
@@ -49,7 +48,7 @@ ColorLike = Union[str, Tuple[float, ...], int, float]
 """Color specification: named string (``'systemBlue'``), hex (``'#FF0000'``),
 RGB tuple (``(1.0, 0.0, 0.0)``), RGBA tuple, or gray float (``0.5``)."""
 
-ViewChild = Union["View", List["View"]]
+ViewChild = Union["View", Sequence["View"]]
 """A single View or a list of Views accepted as children."""
 
 infinity: float
@@ -91,9 +90,9 @@ class ObservableDict(dict):
     def update(self, *args: Any, **kwargs: Any) -> None: ...
     def clear(self) -> None: ...
     def setdefault(self, key: Any, default: Any = None) -> Any: ...
-    def items(self) -> List[Tuple[Any, Any]]: ...
-    def keys(self) -> List[Any]: ...
-    def values(self) -> List[Any]: ...
+    def items(self) -> Sequence[Tuple[Any, Any]]: ...
+    def keys(self) -> Sequence[Any]: ...
+    def values(self) -> Sequence[Any]: ...
     def copy(self) -> Dict[Any, Any]: ...
 
 
@@ -222,7 +221,7 @@ class Ref:
     def __init__(self, initial: Any = None) -> None: ...
 
 
-def computed(state: Union[State, ReactiveState], depends_on: List[str]) -> Callable:
+def computed(state: Union[State, ReactiveState], depends_on: Sequence[str]) -> Callable:
     """Decorator: cached derived value, recomputed only when deps change.
 
     Example::
@@ -235,7 +234,7 @@ def computed(state: Union[State, ReactiveState], depends_on: List[str]) -> Calla
     """
     ...
 
-def effect(state: Union[State, ReactiveState], depends_on: List[str]) -> Callable:
+def effect(state: Union[State, ReactiveState], depends_on: Sequence[str]) -> Callable:
     """Decorator: run a side-effect when deps change (after each rebuild).
 
     The decorated function may return a cleanup callable::
@@ -305,7 +304,7 @@ class NavigationPath:
     def pop_to_root(self) -> None:
         """Pop all items, returning to the root view."""
         ...
-    def replace(self, items: List[Any]) -> None:
+    def replace(self, items: Sequence[Any]) -> None:
         """Replace the entire navigation stack."""
         ...
 
@@ -461,7 +460,7 @@ class View:
         ...
 
     def background(self, color: Optional[ColorLike] = None, corner_radius: float = 0,
-                   gradient: Optional[List[ColorLike]] = None,
+                   gradient: Optional[Sequence[ColorLike]] = None,
                    gradient_type: str = 'linear',
                    material: Optional[str] = None,
                    cornerRadius: Optional[float] = None,
@@ -576,24 +575,6 @@ class View:
                                   isEnabled: Optional[bool] = None) -> Self:
         """Attach iOS 26 TabView bottom accessory content."""
         ...
-    def expandable_bottom_accessory(self, compact: Optional[Union["View", Callable[[], "View"]]] = None,
-                                    expanded: Optional[Union["View", Callable[[], "View"]]] = None,
-                                    is_presented: bool = False,
-                                    on_dismiss: Optional[Callable] = None,
-                                    enabled: bool = True,
-                                    detents: Optional[str] = 'large',
-                                    drag_indicator: Optional[str] = 'visible',
-                                    interactive_dismiss_disabled: bool = False,
-                                    isPresented: Optional[bool] = None,
-                                    onDismiss: Optional[Callable] = None,
-                                    is_enabled: Optional[bool] = None,
-                                    isEnabled: Optional[bool] = None,
-                                    dragIndicator: Optional[str] = None,
-                                    interactiveDismissDisabled: Optional[bool] = None,
-                                    on_expand: Optional[Callable] = None,
-                                    onExpand: Optional[Callable] = None) -> Self:
-        """Attach a tappable bottom accessory that presents expanded content."""
-        ...
     def tab_bar_minimize_behavior(self, behavior: str = 'automatic') -> Self:
         """Set iOS 26 tab bar minimize behavior: ``'automatic'``, ``'never'``, ``'on_scroll_down'``, ``'on_scroll_up'``."""
         ...
@@ -697,7 +678,7 @@ class View:
     # ── Presentation ──
 
     def alert(self, title: str, message: str = '', is_presented: bool = False,
-              on_dismiss: Optional[Callable] = None, actions: Optional[List["View"]] = None,
+              on_dismiss: Optional[Callable] = None, actions: Optional[Sequence["View"]] = None,
               isPresented: Optional[bool] = None,
               onDismiss: Optional[Callable] = None) -> Self:
         """Present an alert dialog."""
@@ -730,13 +711,13 @@ class View:
         """Present a full-screen modal."""
         ...
     def confirmation_dialog(self, title: str, is_presented: bool = False,
-                            actions: Optional[List["View"]] = None, message: str = '',
+                            actions: Optional[Sequence["View"]] = None, message: str = '',
                             on_dismiss: Optional[Callable] = None,
                             isPresented: Optional[bool] = None,
                             onDismiss: Optional[Callable] = None) -> Self:
         """Present a confirmation dialog with action buttons."""
         ...
-    def context_menu(self, content: Optional[List["View"]] = None) -> Self:
+    def context_menu(self, content: Optional[Sequence["View"]] = None) -> Self:
         """Attach a context menu (long-press/right-click)."""
         ...
     def searchable(self, text: str = '', on_change: Optional[Callable] = None,
@@ -750,8 +731,8 @@ class View:
     def search_toolbar_behavior(self, behavior: str = 'minimize') -> Self:
         """Configure iOS 26 search toolbar behavior: ``'automatic'`` or ``'minimize'``."""
         ...
-    def swipe_actions(self, edge: str = 'trailing', content: Optional[List["View"]] = None,
-                      actions: Optional[List["View"]] = None) -> Self:
+    def swipe_actions(self, edge: str = 'trailing', content: Optional[Sequence["View"]] = None,
+                      actions: Optional[Sequence["View"]] = None) -> Self:
         """Attach swipe actions to a list row. Edge: ``'leading'`` or ``'trailing'``."""
         ...
     def refreshable(self, action: Optional[Callable] = None) -> Self:
@@ -808,7 +789,7 @@ class View:
     def content_transition(self, type: str = 'opacity') -> Self:
         """Animate content changes. Types: ``'opacity'``, ``'interpolate'``, ``'numeric_text'``, ``'identity'``."""
         ...
-    def phase_animator(self, phases: Optional[List[float]] = None,
+    def phase_animator(self, phases: Optional[Sequence[float]] = None,
                        effect: str = 'scale_opacity', scale_range: float = 0.1,
                        opacity_range: float = 0.2, duration: float = 0.6,
                        animation: str = 'easeInOut') -> Self:
@@ -1058,7 +1039,6 @@ class View:
     navigationDestination = navigation_destination
     safeAreaBar = safe_area_bar
     tabViewBottomAccessory = tab_view_bottom_accessory
-    expandableBottomAccessory = expandable_bottom_accessory
     tabBarMinimizeBehavior = tab_bar_minimize_behavior
     tabViewSearchActivation = tab_view_search_activation
     searchToolbarBehavior = search_toolbar_behavior
@@ -1114,7 +1094,7 @@ class AttributedText(View):
             {"text": "Red", "color": "systemRed"},
         ])
     """
-    def __init__(self, spans: Optional[List[Dict[str, Any]]] = None) -> None: ...
+    def __init__(self, spans: Optional[Sequence[Dict[str, Any]]] = None) -> None: ...
 
 
 # ═══════════════════════════════════════════════════════════
@@ -1307,24 +1287,24 @@ class Picker(View):
 
     Style controlled by ``.picker_style()``."""
     def __init__(self, label: str = '', selection: Optional[str] = None,
-                 options: Optional[List[str]] = None, on_change: Optional[Callable] = None,
+                 options: Optional[Sequence[str]] = None, on_change: Optional[Callable] = None,
                  onChange: Optional[Callable] = None) -> None: ...
 
 class SegmentedControl(View):
     """Horizontal segmented picker."""
-    def __init__(self, options: Optional[List[str]] = None, selection: Optional[str] = None,
+    def __init__(self, options: Optional[Sequence[str]] = None, selection: Optional[str] = None,
                  on_change: Optional[Callable] = None,
                  onChange: Optional[Callable] = None) -> None: ...
 
 class InlinePickerStyle(View):
     """Inline picker displayed directly in the layout."""
-    def __init__(self, options: Optional[List[str]] = None, selection: Optional[str] = None,
+    def __init__(self, options: Optional[Sequence[str]] = None, selection: Optional[str] = None,
                  on_change: Optional[Callable] = None,
                  onChange: Optional[Callable] = None) -> None: ...
 
 class WheelPicker(View):
     """Scrolling wheel picker."""
-    def __init__(self, options: Optional[List[str]] = None, selection: Optional[str] = None,
+    def __init__(self, options: Optional[Sequence[str]] = None, selection: Optional[str] = None,
                  on_change: Optional[Callable] = None,
                  onChange: Optional[Callable] = None) -> None: ...
 
@@ -1370,8 +1350,8 @@ class Menu(View):
             appui.Button("收藏", action=show_bookmarks),
         ])
     """
-    def __init__(self, title: str = '', content: Optional[List[View]] = None,
-                 children: Optional[List[View]] = None,
+    def __init__(self, title: str = '', content: Optional[Sequence[View]] = None,
+                 children: Optional[Sequence[View]] = None,
                  system_image: Optional[str] = None,
                  image: Optional[str] = None,
                  systemImage: Optional[str] = None) -> None: ...
@@ -1457,26 +1437,26 @@ class VStack(_ContainerView):
 
         appui.VStack([appui.Text("A"), appui.Text("B")], spacing=8, alignment="leading")
     """
-    def __init__(self, content: Optional[List[View]] = None, alignment: str = 'center',
+    def __init__(self, content: Optional[Sequence[View]] = None, alignment: str = 'center',
                  spacing: Optional[float] = None) -> None: ...
 
 class HStack(_ContainerView):
     """Horizontal stack layout."""
-    def __init__(self, content: Optional[List[View]] = None, alignment: str = 'center',
+    def __init__(self, content: Optional[Sequence[View]] = None, alignment: str = 'center',
                  spacing: Optional[float] = None) -> None: ...
 
 class ZStack(_ContainerView):
     """Overlay stack — children layered on top of each other."""
-    def __init__(self, content: Optional[List[View]] = None, alignment: str = 'center') -> None: ...
+    def __init__(self, content: Optional[Sequence[View]] = None, alignment: str = 'center') -> None: ...
 
 class LazyVStack(View):
     """Lazy vertical stack — renders children on demand."""
-    def __init__(self, content: Optional[List[View]] = None, alignment: str = 'center',
+    def __init__(self, content: Optional[Sequence[View]] = None, alignment: str = 'center',
                  spacing: Optional[float] = None) -> None: ...
 
 class LazyHStack(View):
     """Lazy horizontal stack."""
-    def __init__(self, content: Optional[List[View]] = None, alignment: str = 'center',
+    def __init__(self, content: Optional[Sequence[View]] = None, alignment: str = 'center',
                  spacing: Optional[float] = None) -> None: ...
 
 class ScrollView(_ContainerView):
@@ -1517,17 +1497,17 @@ class LazyVGrid(View):
 
         appui.LazyVGrid(columns=[appui.flexible(), appui.flexible()], content=[...])
     """
-    def __init__(self, columns: Optional[List[dict]] = None, content: Optional[List[View]] = None,
-                 spacing: Optional[float] = None, children: Optional[List[View]] = None) -> None: ...
+    def __init__(self, columns: Optional[Sequence[dict]] = None, content: Optional[Sequence[View]] = None,
+                 spacing: Optional[float] = None, children: Optional[Sequence[View]] = None) -> None: ...
 
 class LazyHGrid(View):
     """Lazy horizontal grid."""
-    def __init__(self, rows: Optional[List[dict]] = None, content: Optional[List[View]] = None,
-                 spacing: Optional[float] = None, children: Optional[List[View]] = None) -> None: ...
+    def __init__(self, rows: Optional[Sequence[dict]] = None, content: Optional[Sequence[View]] = None,
+                 spacing: Optional[float] = None, children: Optional[Sequence[View]] = None) -> None: ...
 
 class Grid(View):
     """Precise grid layout (like HTML ``<table>``). Use with ``GridRow``."""
-    def __init__(self, content: Optional[List[View]] = None, alignment: str = 'center',
+    def __init__(self, content: Optional[Sequence[View]] = None, alignment: str = 'center',
                  horizontal_spacing: Optional[float] = None,
                  vertical_spacing: Optional[float] = None,
                  horizontalSpacing: Optional[float] = None,
@@ -1535,7 +1515,7 @@ class Grid(View):
 
 class GridRow(View):
     """A single row inside a ``Grid``."""
-    def __init__(self, content: Optional[List[View]] = None,
+    def __init__(self, content: Optional[Sequence[View]] = None,
                  alignment: Optional[str] = None) -> None: ...
 
 class GeometryReader(View):
@@ -1550,11 +1530,11 @@ class GeometryReader(View):
 
 class ViewThatFits(View):
     """Picks the first child that fits the available space."""
-    def __init__(self, content: Optional[List[View]] = None) -> None: ...
+    def __init__(self, content: Optional[Sequence[View]] = None) -> None: ...
 
 class Group(View):
     """Logical grouping — does not add any visual element or layout."""
-    def __init__(self, content: Optional[List[View]] = None) -> None: ...
+    def __init__(self, content: Optional[Sequence[View]] = None) -> None: ...
 
 class Overlay(View):
     """Layer an overlay view on top of content."""
@@ -1610,7 +1590,7 @@ class TabView(View):
             appui.Tab("Settings", system_image="gear", content=settings_view()),
         ])
     """
-    def __init__(self, tabs: Optional[List["Tab"]] = None, selection: Optional[int] = None,
+    def __init__(self, tabs: Optional[Sequence["Tab"]] = None, selection: Optional[int] = None,
                  on_change: Optional[Callable] = None,
                  onChange: Optional[Callable] = None) -> None: ...
 
@@ -1635,7 +1615,7 @@ class Tab(View):
 
 class List(_ContainerView):
     """Scrollable list of rows. Style with ``.list_style()``."""
-    def __init__(self, content: Optional[List[View]] = None) -> None: ...
+    def __init__(self, content: Optional[Sequence[View]] = None) -> None: ...
 
 class ForEach(View):
     """Dynamic list of views from data.
@@ -1657,7 +1637,7 @@ class ForEach(View):
 
 class Form(_ContainerView):
     """Grouped settings form. Use with ``Section``."""
-    def __init__(self, content: Optional[List[View]] = None) -> None: ...
+    def __init__(self, content: Optional[Sequence[View]] = None) -> None: ...
 
 class Section(_ContainerView):
     """Section inside a ``List`` or ``Form`` with optional header/footer."""
@@ -1673,7 +1653,7 @@ class Section(_ContainerView):
 class GroupBox(View):
     """Titled content group box."""
     def __init__(self, label: Optional[str] = None, content: Optional[ViewChild] = None,
-                 children: Optional[List[View]] = None) -> None: ...
+                 children: Optional[Sequence[View]] = None) -> None: ...
 
 class DisclosureGroup(View):
     """Expandable/collapsible content group."""
@@ -1689,15 +1669,15 @@ class LabeledContent(View):
 
 class Table(View):
     """Multi-column table (iPad, iOS 17.4+). Falls back to ``List`` on iPhone."""
-    def __init__(self, data: Optional[List[Dict[str, Any]]] = None,
-                 columns: Optional[List[Dict[str, str]]] = None,
+    def __init__(self, data: Optional[Sequence[Dict[str, Any]]] = None,
+                 columns: Optional[Sequence[Dict[str, str]]] = None,
                  on_select: Optional[Callable] = None,
                  onSelect: Optional[Callable] = None) -> None: ...
 
 class ControlGroup(View):
     """Group related controls together."""
-    def __init__(self, label: str = '', content: Optional[List[View]] = None,
-                 children: Optional[List[View]] = None) -> None: ...
+    def __init__(self, label: str = '', content: Optional[Sequence[View]] = None,
+                 children: Optional[Sequence[View]] = None) -> None: ...
 
 class ContentUnavailableView(View):
     """Empty state placeholder view."""
@@ -1747,13 +1727,13 @@ class TimelineView(View):
 class Alert(View):
     """Alert dialog as a standalone view."""
     def __init__(self, title: str = '', message: Optional[str] = None,
-                 is_presented: bool = False, actions: Optional[List[View]] = None,
+                 is_presented: bool = False, actions: Optional[Sequence[View]] = None,
                  isPresented: Optional[bool] = None) -> None: ...
 
 class ConfirmationDialog(View):
     """Confirmation action sheet as a standalone view."""
     def __init__(self, title: str = '', message: Optional[str] = None,
-                 is_presented: bool = False, actions: Optional[List[View]] = None,
+                 is_presented: bool = False, actions: Optional[Sequence[View]] = None,
                  isPresented: Optional[bool] = None) -> None: ...
 
 class Popover(View):
@@ -1770,8 +1750,8 @@ class Refreshable(View):
 
 class SwipeActions(View):
     """Swipe-action container for list rows."""
-    def __init__(self, content: Optional[View] = None, leading: Optional[List[View]] = None,
-                 trailing: Optional[List[View]] = None) -> None: ...
+    def __init__(self, content: Optional[View] = None, leading: Optional[Sequence[View]] = None,
+                 trailing: Optional[Sequence[View]] = None) -> None: ...
 
 
 # ═══════════════════════════════════════════════════════════
@@ -1788,7 +1768,7 @@ class MapView(View):
         ])
     """
     def __init__(self, latitude: float = 37.7749, longitude: float = -122.4194,
-                 span: float = 0.05, markers: Optional[List[Dict[str, Any]]] = None,
+                 span: float = 0.05, markers: Optional[Sequence[Dict[str, Any]]] = None,
                  map_style: str = 'automatic',
                  mapStyle: Optional[str] = None) -> None: ...
     def aurora_set_center(self, latitude: float, longitude: float) -> None:
@@ -1883,10 +1863,10 @@ class Chart(View):
         appui.Chart(data=[{"x": "Jan", "y": 100}, {"x": "Feb", "y": 200}],
                     x="x", y="y", type="bar", color="systemBlue")
     """
-    def __init__(self, data: Optional[List[Dict[str, Any]]] = None, x: str = 'x', y: str = 'y',
+    def __init__(self, data: Optional[Sequence[Dict[str, Any]]] = None, x: str = 'x', y: str = 'y',
                  type: str = 'bar', color: Optional[ColorLike] = None,
                  series: Optional[str] = None) -> None: ...
-    def aurora_set_data(self, data: List[Dict[str, Any]]) -> None:
+    def aurora_set_data(self, data: Sequence[Dict[str, Any]]) -> None:
         """Update chart data via Aurora binary fast-path (avoids full rebuild)."""
         ...
 
@@ -1906,7 +1886,7 @@ class DrawingContext:
         ctx.fill_text("Hello", 10, 120, font_size=20)
         appui.Canvas(width=200, height=200, context=ctx)
     """
-    commands: List[Dict[str, Any]]
+    commands: Sequence[Dict[str, Any]]
     def __init__(self) -> None: ...
     def fill_rect(self, x: float, y: float, width: float, height: float,
                   color: ColorLike = 'black') -> Self: ...
@@ -1928,9 +1908,9 @@ class DrawingContext:
              **kwargs: Any) -> Self: ...
     def fill_text(self, text: str, x: float, y: float, color: ColorLike = 'black',
                   font_size: float = 16, **kwargs: Any) -> Self: ...
-    def fill_path(self, points: List[Tuple[float, float]], color: ColorLike = 'black',
+    def fill_path(self, points: Sequence[Tuple[float, float]], color: ColorLike = 'black',
                   close: bool = True) -> Self: ...
-    def stroke_path(self, points: List[Tuple[float, float]], color: ColorLike = 'black',
+    def stroke_path(self, points: Sequence[Tuple[float, float]], color: ColorLike = 'black',
                     line_width: float = 1, close: bool = False,
                     **kwargs: Any) -> Self: ...
     def arc(self, cx: float, cy: float, radius: float, start_angle: float = 0,
@@ -1941,15 +1921,15 @@ class DrawingContext:
                      line_width: float = 1, fill: bool = True,
                      **kwargs: Any) -> Self: ...
     def gradient_rect(self, x: float, y: float, width: float, height: float,
-                      colors: Optional[List[ColorLike]] = None,
+                      colors: Optional[Sequence[ColorLike]] = None,
                       vertical: bool = True) -> Self: ...
 
 class Canvas(View):
     """2D drawing canvas. Fill with ``DrawingContext`` commands."""
     def __init__(self, width: float = 300, height: float = 300,
-                 commands: Optional[List[Dict[str, Any]]] = None,
+                 commands: Optional[Sequence[Dict[str, Any]]] = None,
                  context: Optional[DrawingContext] = None) -> None: ...
-    def aurora_set_commands(self, commands: Optional[List[Dict[str, Any]]] = None,
+    def aurora_set_commands(self, commands: Optional[Sequence[Dict[str, Any]]] = None,
                             context: Optional[DrawingContext] = None) -> None:
         """Update canvas draw commands via Aurora binary fast-path."""
         ...
@@ -1960,10 +1940,10 @@ class Path(View):
     Commands: ``{'move': [x, y]}``, ``{'line': [x, y]}``,
     ``{'curve': [cx1, cy1, cx2, cy2, x, y]}``,
     ``{'arc': [cx, cy, r, startDeg, endDeg]}``, ``{'close': True}``."""
-    def __init__(self, commands: Optional[List[Dict[str, Any]]] = None,
+    def __init__(self, commands: Optional[Sequence[Dict[str, Any]]] = None,
                  fill: Optional[ColorLike] = None, stroke: Optional[ColorLike] = None,
                  line_width: Optional[float] = None) -> None: ...
-    def aurora_set_commands(self, commands: List[Dict[str, Any]]) -> None:
+    def aurora_set_commands(self, commands: Sequence[Dict[str, Any]]) -> None:
         """Update path commands via Aurora binary fast-path."""
         ...
 

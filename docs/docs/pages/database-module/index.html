@@ -287,8 +287,8 @@
   </header>
   
   <div class="markdown-body">
-    <p>MiniApp 作用域内的 SQLite 持久化：可查询的历史、收藏、缓存与业务表。</p>
-<blockquote class="callout note"><strong>边界</strong>：数据库文件自动放在当前 MiniApp 数据目录。小型开关/主题用 <a href="../../pages/storage-module/">storage</a>；token/密码用 <a href="../../pages/keychain-module/">keychain</a>。只传文件名（如 <code>&quot;media&quot;</code>），不要传绝对路径或 <code>../</code>。</blockquote>
+    <p>MiniApp 作用域内的原生 SQLite 持久化：可查询的历史、收藏、缓存与业务表。</p>
+<blockquote class="callout note"><strong>边界</strong>：数据库文件自动放在当前 MiniApp 数据目录，并由宿主原生 SQLite 桥管理连接、statement 生命周期和事务。小型开关/主题用 <a href="../../pages/storage-module/">storage</a>；token/密码用 <a href="../../pages/keychain-module/">keychain</a>。只传文件名（如 <code>&quot;media&quot;</code>），不要传绝对路径或 <code>../</code>；MiniApp 不要直接 <code>import sqlite3</code>。</blockquote>
 <h2 id="模块概览"><a class="heading-anchor" href="#模块概览">#</a>模块概览</h2>
 <div class="table-scroll"><table><thead><tr><th>项</th><th>说明</th></tr></thead><tbody><tr><td>导入</td><td><code>import database</code></td></tr><tr><td>适合做什么</td><td>播放历史、收藏、离线缓存、可排序列表、业务表</td></tr><tr><td>两条路径</td><td>大多数场景用 <code>collection()</code>；需要索引/JOIN 用 <code>open()</code> + SQL</td></tr><tr><td>调用时机</td><td>启动时读取、按钮回调写入；长任务结束可 <code>close()</code></td></tr><tr><td>安全写入</td><td>SQL 用 <code>?</code> 参数绑定，不要拼接用户输入</td></tr></tbody></table></div>
 <hr>
@@ -392,7 +392,7 @@ appui.run(body, state=state)</code></pre>
 <hr>
 <h2 id="api-参考"><a class="heading-anchor" href="#api-参考">#</a>API 参考</h2>
 <h3 id="速查"><a class="heading-anchor" href="#速查">#</a>速查</h3>
-<div class="table-scroll"><table><thead><tr><th>API</th><th>作用</th></tr></thead><tbody><tr><td><code>collection(name)</code></td><td>默认库中的 JSON 文档集合（推荐）</td></tr><tr><td><code>open(name)</code> / <code>connect(name)</code></td><td>打开 MiniApp 作用域 SQLite</td></tr><tr><td><code>database_path(name)</code></td><td>调试用的数据库绝对路径</td></tr><tr><td><code>Collection.upsert/get/delete</code></td><td>增删改查 JSON 记录</td></tr><tr><td><code>Collection.items/list</code></td><td>排序分页列表</td></tr><tr><td><code>Database.execute/query/transaction</code></td><td>原生 SQL 操作</td></tr></tbody></table></div>
+<div class="table-scroll"><table><thead><tr><th>API</th><th>作用</th></tr></thead><tbody><tr><td><code>collection(name)</code></td><td>默认库中的 JSON 文档集合（推荐）</td></tr><tr><td><code>open(name)</code> / <code>connect(name)</code></td><td>打开 MiniApp 作用域 SQLite</td></tr><tr><td><code>database_path(name)</code></td><td>调试用的数据库绝对路径</td></tr><tr><td><code>close_default_database()</code> / <code>close_all()</code></td><td>关闭默认库或当前进程打开的库</td></tr><tr><td><code>Collection.upsert/get/delete</code></td><td>增删改查 JSON 记录</td></tr><tr><td><code>Collection.items/list</code></td><td>排序分页列表</td></tr><tr><td><code>Database.execute/query/transaction</code></td><td>原生 SQL 操作</td></tr></tbody></table></div>
 <h3 id="选型"><a class="heading-anchor" href="#选型">#</a>选型</h3>
 <div class="table-scroll"><table><thead><tr><th>目标</th><th>首选 API</th></tr></thead><tbody><tr><td>收藏、历史、缓存、源列表</td><td><code>database.collection(name)</code></td></tr><tr><td>索引、JOIN、迁移、事务</td><td><code>database.open(name)</code> + SQL</td></tr><tr><td>少量开关、主题</td><td><a href="../../pages/storage-module/">storage</a></td></tr><tr><td>token、密码</td><td><a href="../../pages/keychain-module/">keychain</a></td></tr></tbody></table></div>
 <h3 id="collection-api"><a class="heading-anchor" href="#collection-api">#</a>Collection API</h3>
@@ -441,7 +441,7 @@ with db.transaction():
 row = db.query_one(&quot;SELECT * FROM episodes WHERE id = ?&quot;, [&quot;ep-42&quot;])
 db.close()</code></pre>
 </figure>
-<div class="table-scroll"><table><thead><tr><th>API</th><th>说明</th></tr></thead><tbody><tr><td><code>execute(sql, params)</code></td><td>执行 SQL，返回影响行数</td></tr><tr><td><code>query(sql, params)</code></td><td>返回 <code>list[dict]</code></td></tr><tr><td><code>query_one(sql, params, default)</code></td><td>单行或默认值</td></tr><tr><td><code>scalar(sql, params, default)</code></td><td>第一列标量</td></tr><tr><td><code>transaction()</code></td><td>原子事务，异常回滚</td></tr><tr><td><code>user_version</code></td><td>schema 版本号（<code>PRAGMA user_version</code>）</td></tr></tbody></table></div>
+<div class="table-scroll"><table><thead><tr><th>API</th><th>说明</th></tr></thead><tbody><tr><td><code>execute(sql, params)</code></td><td>执行 SQL，返回影响行数</td></tr><tr><td><code>query(sql, params)</code></td><td>返回 <code>list[dict]</code></td></tr><tr><td><code>query_one(sql, params, default)</code></td><td>单行或默认值</td></tr><tr><td><code>scalar(sql, params, default)</code></td><td>第一列标量</td></tr><tr><td><code>transaction()</code></td><td>原子事务，异常回滚</td></tr><tr><td><code>user_version</code></td><td>schema 版本号（<code>PRAGMA user_version</code>）</td></tr><tr><td><code>close()</code></td><td>关闭当前连接</td></tr></tbody></table></div>
 <p><code>database.open(&quot;media&quot;)</code> 自动变为 <code>media.db</code>，拒绝 <code>../</code> 和绝对路径。</p>
 <h3 id="从-storage-迁移"><a class="heading-anchor" href="#从-storage-迁移">#</a>从 storage 迁移</h3>
 <figure class="code-block" data-code-id="ce692e00dced">
@@ -455,7 +455,7 @@ print(&quot;已迁移&quot;, count, &quot;条&quot;)</code></pre>
 </figure>
 <hr>
 <h2 id="常见错误"><a class="heading-anchor" href="#常见错误">#</a>常见错误</h2>
-<div class="table-scroll"><table><thead><tr><th>错误写法</th><th>后果</th><th>修正</th></tr></thead><tbody><tr><td>大列表塞进 <code>storage</code></td><td>慢、难查询</td><td>用 <code>collection()</code></td></tr><tr><td>token 写进 SQLite</td><td>不安全</td><td>用 <a href="../../pages/keychain-module/">keychain</a></td></tr><tr><td><code>open(&quot;../data.db&quot;)</code></td><td>路径被拒绝</td><td>只传 <code>&quot;media&quot;</code> 等文件名</td></tr><tr><td>SQL 拼接用户输入</td><td>注入风险</td><td>用 <code>?</code> 参数绑定</td></tr><tr><td>长时间不 <code>close()</code></td><td>连接泄漏</td><td>任务结束时关闭</td></tr></tbody></table></div>
+<div class="table-scroll"><table><thead><tr><th>错误写法</th><th>后果</th><th>修正</th></tr></thead><tbody><tr><td>大列表塞进 <code>storage</code></td><td>慢、难查询</td><td>用 <code>collection()</code></td></tr><tr><td>token 写进 SQLite</td><td>不安全</td><td>用 <a href="../../pages/keychain-module/">keychain</a></td></tr><tr><td><code>open(&quot;../data.db&quot;)</code></td><td>路径被拒绝</td><td>只传 <code>&quot;media&quot;</code> 等文件名</td></tr><tr><td>直接 <code>import sqlite3</code></td><td>真机可能崩溃或绕过宿主隔离</td><td>用 <code>import database</code></td></tr><tr><td>SQL 拼接用户输入</td><td>注入风险</td><td>用 <code>?</code> 参数绑定</td></tr><tr><td>长时间不 <code>close()</code></td><td>连接泄漏</td><td>任务结束时关闭</td></tr></tbody></table></div>
 <hr>
 <h2 id="相关文档"><a class="heading-anchor" href="#相关文档">#</a>相关文档</h2>
 <div class="table-scroll"><table><thead><tr><th>文档</th><th>用途</th></tr></thead><tbody><tr><td><a href="../../pages/storage-module/">storage</a></td><td>小型键值偏好</td></tr><tr><td><a href="../../pages/keychain-module/">keychain</a></td><td>敏感凭据</td></tr><tr><td><a href="../../pages/miniapp-native-capabilities/">原生能力入口</a></td><td>MiniApp 场景配方</td></tr></tbody></table></div>
