@@ -201,6 +201,7 @@
 <div class="nav-subgroup-title">播放</div>
 <a class="nav-link" href="../../pages/sound-module/">sound</a>
 <a class="nav-link" href="../../pages/avplayer-module/">avplayer</a>
+<a class="nav-link" href="../../pages/music-player-module/">music_player</a>
 <a class="nav-link" href="../../pages/music-module/">music</a>
 <a class="nav-link" href="../../pages/now-playing-module/">now_playing</a>
 <a class="nav-link" href="../../pages/audio-session-module/">audio_session</a>
@@ -415,15 +416,19 @@ if image is None:
 <p><strong><code>capture_image_base64(format=&quot;JPEG&quot;, quality=0.85)</code></strong> — 直接返回 Base64，适合传给 <code>vision_helper</code>。</p>
 <h3 id="appui-camerapicker"><a class="heading-anchor" href="#appui-camerapicker">#</a>AppUI CameraPicker</h3>
 <div class="table-scroll"><table><thead><tr><th>参数</th><th>说明</th></tr></thead><tbody><tr><td><code>source</code></td><td><code>camera</code>（后置）/ <code>front</code>（前置）</td></tr><tr><td><code>media_type</code></td><td><code>photo</code> / <code>video</code></td></tr><tr><td><code>on_captured</code></td><td>回调 <code>(path: str)</code>，取消时可能为空</td></tr><tr><td><code>label</code></td><td>自定义按钮内容</td></tr></tbody></table></div>
-<figure class="code-block" data-code-id="b5340cfded6d">
+<figure class="code-block" data-code-id="a75f60df1c7b">
   <figcaption>
     <span>python</span>
-    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="b5340cfded6d" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="a75f60df1c7b" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
-  <pre><code id="code-b5340cfded6d" class="language-python">appui.CameraPicker(
+  <pre><code id="code-a75f60df1c7b" class="language-python">def on_selfie_captured(path):
+    print(path)
+
+
+appui.CameraPicker(
     source=&quot;front&quot;,
     media_type=&quot;photo&quot;,
-    on_captured=lambda p: print(p),
+    on_captured=on_selfie_captured,
     label=appui.Label(&quot;自拍&quot;, system_image=&quot;camera&quot;),
 )</code></pre>
 </figure>
@@ -445,12 +450,14 @@ entry = permission.status(&quot;camera&quot;)  # 仅查询，不弹窗</code></p
 <hr>
 <h2 id="相关文档"><a class="heading-anchor" href="#相关文档">#</a>相关文档</h2>
 <div class="table-scroll"><table><thead><tr><th>文档</th><th>用途</th></tr></thead><tbody><tr><td><a href="../../pages/photos-module/">photos</a></td><td>选图、相册读写、保存</td></tr><tr><td><a href="../../pages/video-recorder-module/">video_recorder</a></td><td>摄像头录像</td></tr><tr><td><a href="../../pages/vision-helper-module/">vision_helper</a></td><td>Base64 检测</td></tr><tr><td><a href="../../pages/permission-module/">permission</a></td><td>相机权限状态查询</td></tr><tr><td><a href="../../pages/appui-ref-media/">AppUI 媒体参考</a></td><td>CameraPicker 完整签名</td></tr></tbody></table></div>
+<h2 id="预期效果"><a class="heading-anchor" href="#预期效果">#</a>预期效果</h2>
+<p>运行示例后，界面应出现文档描述的目标结果；若与预期不符，先看「失败路径」并按返回值或日志排查。</p>
   </div>
   <section class="related-section"><h2>相关文档</h2><div class="related-list"><a class="related-link" href="../photos-module/"><strong>photos</strong><span>相册选择、拍照、保存和资源查询。</span></a><a class="related-link" href="../video-recorder-module/"><strong>video_recorder</strong><span>摄像头录像保存为文件。</span></a><a class="related-link" href="../appui-ref-media/"><strong>媒体 API</strong><span>Image、AsyncImage、PhotoPicker、CameraPicker、VideoPlayer、WebView 和 MapView。</span></a></div></section>
 </article>
 
     </main>
-    <aside class="toc"><div class="toc-title">本页目录</div><a class="toc-link" href="#模块概览">模块概览</a><a class="toc-link" href="#快速开始">快速开始</a><a class="toc-link" href="#appui-示例-appui-camera-picker">AppUI 示例 { appui camera picker}</a><a class="toc-link" href="#api-参考">API 参考</a><a class="toc-link child" href="#速查">速查</a><a class="toc-link child" href="#拍照">拍照</a><a class="toc-link child" href="#appui-camerapicker">AppUI CameraPicker</a><a class="toc-link child" href="#权限">权限</a><a class="toc-link" href="#常见错误">常见错误</a><a class="toc-link" href="#相关文档">相关文档</a></aside>
+    <aside class="toc"><div class="toc-title">本页目录</div><a class="toc-link" href="#模块概览">模块概览</a><a class="toc-link" href="#快速开始">快速开始</a><a class="toc-link" href="#appui-示例-appui-camera-picker">AppUI 示例 { appui camera picker}</a><a class="toc-link" href="#api-参考">API 参考</a><a class="toc-link child" href="#速查">速查</a><a class="toc-link child" href="#拍照">拍照</a><a class="toc-link child" href="#appui-camerapicker">AppUI CameraPicker</a><a class="toc-link child" href="#权限">权限</a><a class="toc-link" href="#常见错误">常见错误</a><a class="toc-link" href="#相关文档">相关文档</a><a class="toc-link" href="#预期效果">预期效果</a></aside>
   </div>
   <div class="mobile-backdrop"></div>
   <div class="search-panel" role="dialog" aria-modal="true" aria-label="搜索">

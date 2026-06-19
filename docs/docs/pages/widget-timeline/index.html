@@ -201,6 +201,7 @@
 <div class="nav-subgroup-title">播放</div>
 <a class="nav-link" href="../../pages/sound-module/">sound</a>
 <a class="nav-link" href="../../pages/avplayer-module/">avplayer</a>
+<a class="nav-link" href="../../pages/music-player-module/">music_player</a>
 <a class="nav-link" href="../../pages/music-module/">music</a>
 <a class="nav-link" href="../../pages/now-playing-module/">now_playing</a>
 <a class="nav-link" href="../../pages/audio-session-module/">audio_session</a>
@@ -293,6 +294,7 @@
 <hr>
 <h2 id="快速开始"><a class="heading-anchor" href="#快速开始">#</a>快速开始</h2>
 <p>桌面点「消费」后余额数字滚动过渡——这是 <strong>state + numericText</strong>，不依赖 timeline。</p>
+<p>预期效果：小组件预览面板显示与脚本一致的布局与交互。</p>
 <figure class="code-block" data-code-id="0afbe1d7b3e7">
   <figcaption>
     <span>python</span>
@@ -351,6 +353,7 @@ w.render()</code></pre>
 <h2 id="时间线示例"><a class="heading-anchor" href="#时间线示例">#</a>时间线示例</h2>
 <h3 id="分时电价-timeline-entry-数字动画"><a class="heading-anchor" href="#分时电价-timeline-entry-数字动画">#</a>分时电价（<code>timeline</code> + <code>entry</code> + 数字动画）</h3>
 <p>声明 3 条未来快照；<code>price</code> / <code>prev_price</code> 为 entry 字段。预览里时间线会按条目轮播（Studio 约每秒切一帧）。</p>
+<p>预期效果：小组件预览面板显示与脚本一致的布局与交互。</p>
 <figure class="code-block" data-code-id="f11abc801122">
   <figcaption>
     <span>python</span>
@@ -393,12 +396,13 @@ w.render()</code></pre>
 <ul><li>每条 entry 是 <code>dict</code>；<strong>必须含 <code>date</code></strong>（ISO 8601 字符串，建议 UTC）。</li><li>entry 里其它 key（<code>price</code>、<code>prev_price</code>）与 <code>widget.entry.*(&quot;price&quot;, ...)</code> 的 name 对应。</li><li><code>update=&quot;end&quot;</code>：在最后一条 entry 之后请求刷新（映射 WidgetKit <code>.atEnd</code>）。</li></ul>
 <h3 id="翻页分钟-flip"><a class="heading-anchor" href="#翻页分钟-flip">#</a>翻页分钟（<code>flip</code>）</h3>
 <p><code>flip</code> 需要<strong>当前值</strong>与 <strong>previous</strong> 两个 entry 字段；适合时钟、日历翻页。</p>
-<figure class="code-block" data-code-id="13bb9e50de4a">
+<p>预期效果：小组件预览面板显示与脚本一致的布局与交互。</p>
+<figure class="code-block" data-code-id="a4902f24ceea">
   <figcaption>
     <span>python</span>
-    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="13bb9e50de4a" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="a4902f24ceea" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
-  <pre><code id="code-13bb9e50de4a" class="language-python">import widget
+  <pre><code id="code-a4902f24ceea" class="language-python">import widget
 from datetime import datetime, timedelta, timezone
 
 now = datetime.now(timezone.utc).replace(second=0, microsecond=0)
@@ -419,7 +423,7 @@ w.timeline(
     ],
     update=&quot;end&quot;,
 )
-w.text(&quot;当前分钟&quot;, size=13, color=&quot;#94A3B8&quot;).line_limit(1)
+w.text(&quot;当前分钟&quot;, size=13, color=&quot;#94A3B8&quot;).line_limit(1).min_scale(0.72).line_limit(1)
 (
     w.flip(
         minute.text(&quot;{:02d}&quot;),
@@ -439,6 +443,7 @@ w.render()</code></pre>
 <ul><li><code>minute.text(&quot;{:02d}&quot;)</code>：entry 整数格式化为两位（与 Python 占位符一致）。</li><li><code>direction=&quot;up&quot;</code> / <code>&quot;down&quot;</code> 控制翻页方向；尺寸用 <code>family_value</code> 防 small 溢出。</li></ul>
 <h3 id="阶段文案-entry-transition"><a class="heading-anchor" href="#阶段文案-entry-transition">#</a>阶段文案（<code>entry</code> + <code>transition</code>）</h3>
 <p>非数字也可用 entry 驱动；文案切换加 <code>content_transition</code> / <code>transition</code>。</p>
+<p>预期效果：小组件预览面板显示与脚本一致的布局与交互。</p>
 <figure class="code-block" data-code-id="d7ff9376a81a">
   <figcaption>
     <span>python</span>
@@ -474,18 +479,20 @@ w.render()</code></pre>
 <hr>
 <h2 id="系统倒计时-无需手写-entries"><a class="heading-anchor" href="#系统倒计时-无需手写-entries">#</a>系统倒计时（无需手写 entries）</h2>
 <p>距目标时刻的剩余时间由 WidgetKit <strong>自动走时</strong>；适合会议、车次、截止时间。</p>
-<figure class="code-block" data-code-id="41bbff169fe0">
+<p>预期效果：小组件预览面板显示与脚本一致的布局与交互。</p>
+<figure class="code-block" data-code-id="ca3d6c01c0da">
   <figcaption>
     <span>python</span>
-    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="41bbff169fe0" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="ca3d6c01c0da" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
-  <pre><code id="code-41bbff169fe0" class="language-python">import widget
+  <pre><code id="code-ca3d6c01c0da" class="language-python">import widget
 from datetime import datetime, timedelta, timezone
 
 eta = datetime.now(timezone.utc) + timedelta(hours=1, minutes=25)
 accent = widget.param.color(&quot;主色&quot;, &quot;#6366F1&quot;)
 
 w = widget.Widget(background=(&quot;#EEF2FF&quot;, &quot;#1E1B4B&quot;), padding=14)
+w.text(&quot;会议倒计时&quot;, size=14, weight=&quot;semibold&quot;).line_limit(1).min_scale(0.72)
 (
     w.countdown(
         &quot;距离会议&quot;,
@@ -564,6 +571,7 @@ w.timeline(entries=[
 <hr>
 <h2 id="相关文档"><a class="heading-anchor" href="#相关文档">#</a>相关文档</h2>
 <div class="table-scroll"><table><thead><tr><th>文档</th><th>用途</th></tr></thead><tbody><tr><td><a href="../../pages/widget-module/">widget 概览</a></td><td>总览</td></tr><tr><td><a href="../../pages/widget-interaction/">状态和交互</a></td><td><code>widget.state</code>、AppIntent</td></tr><tr><td><a href="../../pages/widget-layout/">布局与尺寸</a></td><td><code>family_value</code>、防裁切</td></tr><tr><td><a href="../../pages/widget-quickstart-publish/">从脚本到桌面</a></td><td>发布后在桌面验证</td></tr><tr><td><a href="../../pages/widget-troubleshooting/">排错</a></td><td>预览/桌面不一致</td></tr><tr><td><a href="../../pages/widget-api-reference/">API 参考</a></td><td><code>timeline</code>、<code>entry</code>、<code>flip</code>、修饰符签名</td></tr></tbody></table></div>
+<p>相关 API：<a href="../../pages/widget-api-reference/">widget-api-reference.md</a></p>
   </div>
   <section class="related-section"><h2>相关文档</h2><div class="related-list"><a class="related-link" href="../widget-module/"><strong>widget</strong><span>Python 编写 WidgetKit 小组件：参数、状态、布局与发布到桌面。</span></a><a class="related-link" href="../widget-interaction/"><strong>widget 状态和交互</strong><span>widget.state、按钮 ±、习惯清单、开关与链接；AppIntent 桌面交互。</span></a><a class="related-link" href="../widget-layout/"><strong>widget 布局与尺寸</strong><span>row/column/grid/table/canvas、family 预算、when/unless 与锁屏 accessory。</span></a><a class="related-link" href="../widget-quickstart-publish/"><strong>widget 从脚本到桌面</strong><span>Widget Studio 预览、发布、系统添加主屏小组件与桌面验证。</span></a><a class="related-link" href="../widget-troubleshooting/"><strong>widget 排错</strong><span>基线排查、预览≠桌面、裁切/点击/动画、w.validate 诊断。</span></a><a class="related-link" href="../widget-api-reference/"><strong>widget API 参考</strong><span>公开 Widget() API 速查。</span></a></div></section>
 </article>

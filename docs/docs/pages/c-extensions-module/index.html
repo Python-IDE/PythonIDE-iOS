@@ -201,6 +201,7 @@
 <div class="nav-subgroup-title">播放</div>
 <a class="nav-link" href="../../pages/sound-module/">sound</a>
 <a class="nav-link" href="../../pages/avplayer-module/">avplayer</a>
+<a class="nav-link" href="../../pages/music-player-module/">music_player</a>
 <a class="nav-link" href="../../pages/music-module/">music</a>
 <a class="nav-link" href="../../pages/now-playing-module/">now_playing</a>
 <a class="nav-link" href="../../pages/audio-session-module/">audio_session</a>
@@ -289,7 +290,7 @@
     <p>内置 C 扩展库清单、可用范围与替代建议。<strong>文档页，不是可导入模块。</strong></p>
 <blockquote class="callout note"><strong>边界</strong>：不要写 <code>import c_extensions</code>。第三方含 C/Rust/native 扩展的包，仅<strong>已内置</strong>或当前环境能安装的可用；<code>opencv</code>、<code>torch</code>、<code>scipy</code> 等桌面常见包通常无法直接 pip 到 iOS。优先用内置包、纯 Python 或 PythonIDE 原生模块。</blockquote>
 <h2 id="模块概览"><a class="heading-anchor" href="#模块概览">#</a>模块概览</h2>
-<div class="table-scroll"><table><thead><tr><th>项</th><th>说明</th></tr></thead><tbody><tr><td>导入</td><td>无；使用真实包名如 <code>import numpy</code></td></tr><tr><td>适合做什么</td><td>判断能否 <code>import</code>、选替代路线、写降级逻辑</td></tr><tr><td>调用时机</td><td>脚本开头 <code>try/except ImportError</code></td></tr><tr><td>推荐顺序</td><td>查下表 → 尝试 import → 失败则换路线</td></tr><tr><td>OCR/ML</td><td>用 <a href="vision">vision</a>、<a href="../../pages/coreml-module/">coreml</a>，非 pip 装 CV 包</td></tr></tbody></table></div>
+<div class="table-scroll"><table><thead><tr><th>项</th><th>说明</th></tr></thead><tbody><tr><td>导入</td><td>无；使用真实包名如 <code>import numpy</code></td></tr><tr><td>适合做什么</td><td>判断能否 <code>import</code>、选替代路线、写降级逻辑</td></tr><tr><td>调用时机</td><td>脚本开头 <code>try/except ImportError</code></td></tr><tr><td>推荐顺序</td><td>查下表 → 尝试 import → 失败则换路线</td></tr><tr><td>OCR/ML</td><td>用 <a href="../../pages/vision-module/">vision</a>、<a href="../../pages/coreml-module/">coreml</a>，非 pip 装 CV 包</td></tr></tbody></table></div>
 <hr>
 <h2 id="快速开始"><a class="heading-anchor" href="#快速开始">#</a>快速开始</h2>
 <p>安全使用已内置的 <code>numpy</code>：</p>
@@ -374,7 +375,7 @@ appui.run(body, state=state)</code></pre>
 <h3 id="常见未内置包"><a class="heading-anchor" href="#常见未内置包">#</a>常见未内置包</h3>
 <p><code>cv2</code>、<code>opencv</code>、<code>scipy</code>、<code>scikit-learn</code>、<code>sklearn</code>、<code>tensorflow</code>、<code>torch</code>、<code>torchvision</code>、<code>lxml</code>、<code>psutil</code>、<code>h5py</code>、<code>numba</code>、<code>cython</code>、<code>gevent</code> 等。</p>
 <h3 id="替代路线"><a class="heading-anchor" href="#替代路线">#</a>替代路线</h3>
-<div class="table-scroll"><table><thead><tr><th>需求</th><th>优先选择</th></tr></thead><tbody><tr><td>数组、统计</td><td><code>numpy</code>、<code>pandas</code></td></tr><tr><td>绘图</td><td><code>matplotlib</code>、<a href="../../pages/appui-module/">appui</a> <code>Chart</code></td></tr><tr><td>OCR、条码、人脸</td><td><a href="vision">vision</a>、<a href="../../pages/vision-helper-module/">vision_helper</a></td></tr><tr><td>图片分类模型</td><td><a href="../../pages/coreml-module/">coreml</a></td></tr><tr><td>哈希、压缩</td><td><code>xxhash</code>、<code>zstandard</code></td></tr><tr><td>iOS 设备能力</td><td>对应原生模块</td></tr></tbody></table></div>
+<div class="table-scroll"><table><thead><tr><th>需求</th><th>优先选择</th></tr></thead><tbody><tr><td>数组、统计</td><td><code>numpy</code>、<code>pandas</code></td></tr><tr><td>绘图</td><td><code>matplotlib</code>、<a href="../../pages/appui-module/">appui</a> <code>Chart</code></td></tr><tr><td>OCR、条码、人脸</td><td><a href="../../pages/vision-module/">vision</a>、<a href="../../pages/vision-helper-module/">vision_helper</a></td></tr><tr><td>图片分类模型</td><td><a href="../../pages/coreml-module/">coreml</a></td></tr><tr><td>哈希、压缩</td><td><code>xxhash</code>、<code>zstandard</code></td></tr><tr><td>iOS 设备能力</td><td>对应原生模块</td></tr></tbody></table></div>
 <h3 id="降级模式"><a class="heading-anchor" href="#降级模式">#</a>降级模式</h3>
 <figure class="code-block" data-code-id="c2148dbbb549">
   <figcaption>
@@ -393,16 +394,22 @@ def mean_value(values):
 </figure>
 <hr>
 <h2 id="常见错误"><a class="heading-anchor" href="#常见错误">#</a>常见错误</h2>
-<div class="table-scroll"><table><thead><tr><th>错误写法</th><th>后果</th><th>修正</th></tr></thead><tbody><tr><td><code>import c_extensions</code></td><td>模块不存在</td><td>使用真实包名</td></tr><tr><td>桌面 pip 经验直接套 iOS</td><td>安装失败</td><td>查内置表或换原生模块</td></tr><tr><td>无 <code>ImportError</code> 处理</td><td>脚本直接崩溃</td><td><code>try/except</code> + 纯 Python 降级</td></tr><tr><td>用未内置 CV 包做 OCR</td><td>不可用</td><td><a href="vision">vision</a></td></tr></tbody></table></div>
+<div class="table-scroll"><table><thead><tr><th>错误写法</th><th>后果</th><th>修正</th></tr></thead><tbody><tr><td><code>import c_extensions</code></td><td>模块不存在</td><td>使用真实包名</td></tr><tr><td>桌面 pip 经验直接套 iOS</td><td>安装失败</td><td>查内置表或换原生模块</td></tr><tr><td>无 <code>ImportError</code> 处理</td><td>脚本直接崩溃</td><td><code>try/except</code> + 纯 Python 降级</td></tr><tr><td>用未内置 CV 包做 OCR</td><td>不可用</td><td><a href="../../pages/vision-module/">vision</a></td></tr></tbody></table></div>
 <hr>
 <h2 id="相关文档"><a class="heading-anchor" href="#相关文档">#</a>相关文档</h2>
 <div class="table-scroll"><table><thead><tr><th>文档</th><th>用途</th></tr></thead><tbody><tr><td><a href="../../pages/coreml-module/">coreml</a></td><td>端侧图像模型</td></tr><tr><td><a href="../../pages/vision-helper-module/">vision_helper</a></td><td>Vision 检测 API</td></tr><tr><td><a href="../../pages/miniapp-native-capabilities/">原生能力入口</a></td><td>iOS 模块索引</td></tr></tbody></table></div>
+<h2 id="先选路线"><a class="heading-anchor" href="#先选路线">#</a>先选路线</h2>
+<div class="table-scroll"><table><thead><tr><th>路线</th><th>何时选</th></tr></thead><tbody><tr><td>内置原生模块</td><td>优先查 <a href="../../pages/ios-native/">iOS 原生能力</a></td></tr><tr><td>pip / 纯 Python</td><td>仅在沙盒允许且已有 wheel 时</td></tr><tr><td>C 扩展编译</td><td>仅高级场景；先评估维护成本</td></tr></tbody></table></div>
+<h2 id="发布前检查"><a class="heading-anchor" href="#发布前检查">#</a>发布前检查</h2>
+<ul><li>确认目标能力是否已有官方模块或 AppUI 组件</li><li>在真机验证权限、离线场景与失败返回值</li><li>不要把未审核的扩展当作 App Store 可发布方案</li></ul>
+<h2 id="预期效果"><a class="heading-anchor" href="#预期效果">#</a>预期效果</h2>
+<p>运行示例后，界面应出现文档描述的目标结果；若与预期不符，先看「失败路径」并按返回值或日志排查。</p>
   </div>
   
 </article>
 
     </main>
-    <aside class="toc"><div class="toc-title">本页目录</div><a class="toc-link" href="#模块概览">模块概览</a><a class="toc-link" href="#快速开始">快速开始</a><a class="toc-link" href="#appui-示例">AppUI 示例</a><a class="toc-link" href="#api-参考">API 参考</a><a class="toc-link child" href="#已内置-c-扩展库-节选">已内置 C 扩展库（节选）</a><a class="toc-link child" href="#常见未内置包">常见未内置包</a><a class="toc-link child" href="#替代路线">替代路线</a><a class="toc-link child" href="#降级模式">降级模式</a><a class="toc-link" href="#常见错误">常见错误</a><a class="toc-link" href="#相关文档">相关文档</a></aside>
+    <aside class="toc"><div class="toc-title">本页目录</div><a class="toc-link" href="#模块概览">模块概览</a><a class="toc-link" href="#快速开始">快速开始</a><a class="toc-link" href="#appui-示例">AppUI 示例</a><a class="toc-link" href="#api-参考">API 参考</a><a class="toc-link child" href="#已内置-c-扩展库-节选">已内置 C 扩展库（节选）</a><a class="toc-link child" href="#常见未内置包">常见未内置包</a><a class="toc-link child" href="#替代路线">替代路线</a><a class="toc-link child" href="#降级模式">降级模式</a><a class="toc-link" href="#常见错误">常见错误</a><a class="toc-link" href="#相关文档">相关文档</a><a class="toc-link" href="#先选路线">先选路线</a><a class="toc-link" href="#发布前检查">发布前检查</a><a class="toc-link" href="#预期效果">预期效果</a></aside>
   </div>
   <div class="mobile-backdrop"></div>
   <div class="search-panel" role="dialog" aria-modal="true" aria-label="搜索">

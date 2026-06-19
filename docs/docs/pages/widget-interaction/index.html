@@ -201,6 +201,7 @@
 <div class="nav-subgroup-title">播放</div>
 <a class="nav-link" href="../../pages/sound-module/">sound</a>
 <a class="nav-link" href="../../pages/avplayer-module/">avplayer</a>
+<a class="nav-link" href="../../pages/music-player-module/">music_player</a>
 <a class="nav-link" href="../../pages/music-module/">music</a>
 <a class="nav-link" href="../../pages/now-playing-module/">now_playing</a>
 <a class="nav-link" href="../../pages/audio-session-module/">audio_session</a>
@@ -293,6 +294,7 @@
 <hr>
 <h2 id="快速开始"><a class="heading-anchor" href="#快速开始">#</a>快速开始</h2>
 <p>单按钮累加 + 数字过渡：比 <a href="../../pages/widget-module/#快速开始">概览 · 饮水打卡</a> 的 ± 环图更简单，专讲 <code>action</code> 与 <code>numericText</code>。</p>
+<p>预期效果：小组件预览面板显示与脚本一致的布局与交互。</p>
 <figure class="code-block" data-code-id="79c9c8a6422d">
   <figcaption>
     <span>python</span>
@@ -327,6 +329,7 @@ w.render()</code></pre>
 <h2 id="交互示例"><a class="heading-anchor" href="#交互示例">#</a>交互示例</h2>
 <h3 id="习惯清单-state.list-toggle_item"><a class="heading-anchor" href="#习惯清单-state.list-toggle_item">#</a>习惯清单（<code>state.list</code> + <code>toggle_item</code>）</h3>
 <p>多项勾选用 <code>widget.state.list</code>；每项 <code>done.toggle_item(i)</code> 切换是否在列表里。</p>
+<p>预期效果：小组件预览面板显示与脚本一致的布局与交互。</p>
 <figure class="code-block" data-code-id="ee80fd41e017">
   <figcaption>
     <span>python</span>
@@ -359,6 +362,7 @@ w.render()</code></pre>
 <ul><li><code>done.contains(i)</code>：预览/桌面判断第 <code>i</code> 项是否已勾选；<code>toggle_item(i)</code> 的 <code>i</code> 类型须与 <code>contains</code> 一致。</li><li>多项也可用多个 <code>w.toggle(..., state=)</code>；长清单用 <code>state.list</code> 更省节点。</li><li>九宫格、Bingo 等表格布局见 <a href="../../pages/widget-layout/">布局与尺寸</a> 的 <code>table()</code> 示例。</li></ul>
 <h3 id="开关-state.bool-w.toggle"><a class="heading-anchor" href="#开关-state.bool-w.toggle">#</a>开关（<code>state.bool</code> + <code>w.toggle</code>）</h3>
 <p>布尔状态用 <code>state=</code> 绑定，<strong>不要</strong>手写静态 <code>True/False</code> 配假 action。</p>
+<p>预期效果：小组件预览面板显示与脚本一致的布局与交互。</p>
 <figure class="code-block" data-code-id="25e06c31414b">
   <figcaption>
     <span>python</span>
@@ -380,6 +384,7 @@ w.render()</code></pre>
 <ul><li><code>w.toggle(..., color=accent)</code>：着色用 <code>color=</code>，<strong>没有</strong> <code>tint=</code> 参数。</li><li><code>style=&quot;switch&quot;</code> / <code>&quot;checkbox&quot;</code> 控制外观；与 <code>state=</code> 搭配最省事。</li></ul>
 <h3 id="链接-w.link"><a class="heading-anchor" href="#链接-w.link">#</a>链接（<code>w.link</code>）</h3>
 <p>链接打开 URL；与按钮/开关<strong>不要叠在同一块可点区域</strong>。</p>
+<p>预期效果：小组件预览面板显示与脚本一致的布局与交互。</p>
 <figure class="code-block" data-code-id="18eee6b7efd6">
   <figcaption>
     <span>python</span>
@@ -456,6 +461,7 @@ w.value(count).content_transition(&quot;numericText&quot;).monospaced_digit()</c
 <hr>
 <h2 id="相关文档"><a class="heading-anchor" href="#相关文档">#</a>相关文档</h2>
 <div class="table-scroll"><table><thead><tr><th>文档</th><th>用途</th></tr></thead><tbody><tr><td><a href="../../pages/widget-module/">widget 概览</a></td><td>总览与入门示例</td></tr><tr><td><a href="../../pages/widget-parameters/">参数面板</a></td><td><code>widget.param</code> 与 state 区分</td></tr><tr><td><a href="../../pages/widget-quickstart-publish/">从脚本到桌面</a></td><td>发布后在桌面验证交互</td></tr><tr><td><a href="../../pages/widget-layout/">布局与尺寸</a></td><td><code>table()</code> 九宫格、<code>row()</code> 横排</td></tr><tr><td><a href="../../pages/widget-timeline/">时间线和动画</a></td><td><code>content_transition</code>、数字过渡</td></tr><tr><td><a href="../../pages/widget-troubleshooting/">排错</a></td><td>预览/桌面不一致</td></tr><tr><td><a href="../../pages/widget-api-reference/">API 参考</a></td><td><code>widget.state</code>、<code>button</code>、<code>toggle</code>、<code>link</code> 签名</td></tr></tbody></table></div>
+<p>相关 API：<a href="../../pages/widget-api-reference/">widget-api-reference.md</a></p>
   </div>
   <section class="related-section"><h2>相关文档</h2><div class="related-list"><a class="related-link" href="../widget-module/"><strong>widget</strong><span>Python 编写 WidgetKit 小组件：参数、状态、布局与发布到桌面。</span></a><a class="related-link" href="../widget-parameters/"><strong>widget 参数面板</strong><span>widget.param 声明预览可调配置，与 widget.state 桌面交互区分。</span></a><a class="related-link" href="../widget-quickstart-publish/"><strong>widget 从脚本到桌面</strong><span>Widget Studio 预览、发布、系统添加主屏小组件与桌面验证。</span></a><a class="related-link" href="../widget-layout/"><strong>widget 布局与尺寸</strong><span>row/column/grid/table/canvas、family 预算、when/unless 与锁屏 accessory。</span></a><a class="related-link" href="../widget-timeline/"><strong>widget 时间线和动画</strong><span>timeline/entry、state 数字动画、flip 翻页与 countdown 倒计时。</span></a><a class="related-link" href="../widget-troubleshooting/"><strong>widget 排错</strong><span>基线排查、预览≠桌面、裁切/点击/动画、w.validate 诊断。</span></a></div></section>
 </article>

@@ -201,6 +201,7 @@
 <div class="nav-subgroup-title">播放</div>
 <a class="nav-link" href="../../pages/sound-module/">sound</a>
 <a class="nav-link" href="../../pages/avplayer-module/">avplayer</a>
+<a class="nav-link" href="../../pages/music-player-module/">music_player</a>
 <a class="nav-link" href="../../pages/music-module/">music</a>
 <a class="nav-link" href="../../pages/now-playing-module/">now_playing</a>
 <a class="nav-link" href="../../pages/audio-session-module/">audio_session</a>
@@ -286,7 +287,7 @@
   </header>
   
   <div class="markdown-body">
-    <blockquote class="callout note"><strong>主文档已合并</strong>：入口模型、Python 模块表、AppUI 桥接表与侧边栏导航均由 schema 生成，请优先阅读 **<a href="../../pages/ios-native/">iOS 原生能力</a>**。本文仅保留历史深链，不再维护独立能力表。</blockquote>
+    <blockquote class="callout note"><strong>主文档已合并</strong>：入口模型、Python 模块表、AppUI 原生组件入口表与侧边栏导航均由 schema 生成，请优先阅读 **<a href="../../pages/ios-native/">iOS 原生能力</a>**。本文仅保留历史深链，不再维护独立能力表。</blockquote>
 <p>MiniApp 场景下的原生能力配方：按任务选模块、组合调用、状态写回界面。</p>
 <blockquote class="callout note"><strong>边界</strong>：这是 <strong>MiniApp 配方索引</strong>，不是可 <code>import</code> 的模块。完整 API 以各模块文档为准；系统调用放在按钮回调，不要写在 <code>body()</code> 里。</blockquote>
 <h2 id="模块概览"><a class="heading-anchor" href="#模块概览">#</a>模块概览</h2>
@@ -403,12 +404,18 @@ appui.run(body, state=state)</code></pre>
 <hr>
 <h2 id="相关文档"><a class="heading-anchor" href="#相关文档">#</a>相关文档</h2>
 <div class="table-scroll"><table><thead><tr><th>文档</th><th>用途</th></tr></thead><tbody><tr><td><a href="../../pages/ios-native/">iOS 原生能力</a></td><td>入口模型、模块表与权限矩阵</td></tr><tr><td><a href="../../pages/modules-index/">全部模块总览</a></td><td>按分类浏览模块</td></tr><tr><td><a href="../../pages/miniapp-choose-runtime/">运行时选择</a></td><td>appui / scene / widget 选型</td></tr><tr><td><a href="../../pages/permission-module/">permission</a></td><td>统一权限查询与申请</td></tr><tr><td><a href="../../pages/photos-module/">photos</a></td><td>相册与相机</td></tr><tr><td><a href="../../pages/notification-module/">notification</a></td><td>本地通知</td></tr></tbody></table></div>
+<h2 id="使用原则"><a class="heading-anchor" href="#使用原则">#</a>使用原则</h2>
+<ul><li>原生能力放在用户触发的回调里，不要写在 <code>body()</code> 构建期</li><li>先查最小模块，再组合；避免一次 import 多个无关模块</li><li>返回值、取消和拒绝都要给用户可见反馈</li></ul>
+<h2 id="失败路径"><a class="heading-anchor" href="#失败路径">#</a>失败路径</h2>
+<div class="table-scroll"><table><thead><tr><th>情况</th><th>处理</th></tr></thead><tbody><tr><td>权限拒绝</td><td>提示去设置开启，并保留当前页面</td></tr><tr><td>设备不支持</td><td>用 <code>is_available()</code> 或模块返回值判断</td></tr><tr><td>用户取消</td><td>不要当作成功继续写数据</td></tr></tbody></table></div>
+<h2 id="预期效果"><a class="heading-anchor" href="#预期效果">#</a>预期效果</h2>
+<p>运行示例后，界面应出现文档描述的目标结果；若与预期不符，请按「失败路径」排查。</p>
   </div>
   <section class="related-section"><h2>相关文档</h2><div class="related-list"><a class="related-link" href="../miniapp-choose-runtime/"><strong>运行时选择</strong><span>判断该用 appui、widget、ui、scene 还是 console。</span></a><a class="related-link" href="../miniapp-appui-api-index/"><strong>AppUI API 地图</strong><span>按任务选择入口、状态、布局、控件、导航、媒体和图表 API。</span></a><a class="related-link" href="../location-module/"><strong>location</strong><span>定位、指南针和地理编码。</span></a><a class="related-link" href="../photos-module/"><strong>photos</strong><span>相册选择、拍照、保存和资源查询。</span></a><a class="related-link" href="../notification-module/"><strong>notification</strong><span>本地通知权限、定时通知和角标管理。</span></a><a class="related-link" href="../storage-module/"><strong>storage</strong><span>UserDefaults 持久键值存储。</span></a></div></section>
 </article>
 
     </main>
-    <aside class="toc"><div class="toc-title">本页目录</div><a class="toc-link" href="#模块概览">模块概览</a><a class="toc-link" href="#快速开始">快速开始</a><a class="toc-link" href="#appui-示例">AppUI 示例</a><a class="toc-link" href="#api-参考">API 参考</a><a class="toc-link child" href="#能力入口">能力入口</a><a class="toc-link child" href="#场景配方">场景配方</a><a class="toc-link child" href="#使用规则">使用规则</a><a class="toc-link" href="#常见错误">常见错误</a><a class="toc-link" href="#相关文档">相关文档</a></aside>
+    <aside class="toc"><div class="toc-title">本页目录</div><a class="toc-link" href="#模块概览">模块概览</a><a class="toc-link" href="#快速开始">快速开始</a><a class="toc-link" href="#appui-示例">AppUI 示例</a><a class="toc-link" href="#api-参考">API 参考</a><a class="toc-link child" href="#能力入口">能力入口</a><a class="toc-link child" href="#场景配方">场景配方</a><a class="toc-link child" href="#使用规则">使用规则</a><a class="toc-link" href="#常见错误">常见错误</a><a class="toc-link" href="#相关文档">相关文档</a><a class="toc-link" href="#使用原则">使用原则</a><a class="toc-link" href="#失败路径">失败路径</a><a class="toc-link" href="#预期效果">预期效果</a></aside>
   </div>
   <div class="mobile-backdrop"></div>
   <div class="search-panel" role="dialog" aria-modal="true" aria-label="搜索">

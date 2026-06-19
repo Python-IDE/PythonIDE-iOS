@@ -201,6 +201,7 @@
 <div class="nav-subgroup-title">播放</div>
 <a class="nav-link" href="../../pages/sound-module/">sound</a>
 <a class="nav-link" href="../../pages/avplayer-module/">avplayer</a>
+<a class="nav-link" href="../../pages/music-player-module/">music_player</a>
 <a class="nav-link" href="../../pages/music-module/">music</a>
 <a class="nav-link" href="../../pages/now-playing-module/">now_playing</a>
 <a class="nav-link" href="../../pages/audio-session-module/">audio_session</a>
@@ -403,19 +404,21 @@ appui.run(body, state=state)</code></pre>
 user, pw = console.login_alert(&quot;登录&quot;)
 secret = console.password_alert(&quot;密码&quot;)</code></pre>
 </figure>
-<p>桥接不可用时回退到终端 <code>input()</code>。</p>
+<p>原生能力入口不可用时回退到终端 <code>input()</code>。</p>
 <hr>
 <h2 id="常见错误"><a class="heading-anchor" href="#常见错误">#</a>常见错误</h2>
 <div class="table-scroll"><table><thead><tr><th>错误写法</th><th>后果</th><th>修正</th></tr></thead><tbody><tr><td>在 <code>body()</code> 里 <code>alert</code></td><td>每次刷新弹窗</td><td>放进按钮回调</td></tr><tr><td>忽略 <code>KeyboardInterrupt</code></td><td>取消时崩溃</td><td><code>try/except KeyboardInterrupt</code></td></tr><tr><td>用 <code>console</code> 做 AppUI 布局</td><td>API 不匹配</td><td>用 <a href="../../pages/appui-module/">appui</a> 组件</td></tr><tr><td>主线程长阻塞</td><td>界面假死</td><td>弹窗本身会阻塞，避免嵌套多层</td></tr></tbody></table></div>
 <hr>
 <h2 id="相关文档"><a class="heading-anchor" href="#相关文档">#</a>相关文档</h2>
 <div class="table-scroll"><table><thead><tr><th>文档</th><th>用途</th></tr></thead><tbody><tr><td><a href="../../pages/dialogs-module/">dialogs</a></td><td>另一套原生对话框 API</td></tr><tr><td><a href="../../pages/appui-module/">appui</a></td><td>声明式界面</td></tr></tbody></table></div>
+<h2 id="预期效果"><a class="heading-anchor" href="#预期效果">#</a>预期效果</h2>
+<p>运行示例后，界面应出现文档描述的目标结果；若与预期不符，先看「失败路径」并按返回值或日志排查。</p>
   </div>
   
 </article>
 
     </main>
-    <aside class="toc"><div class="toc-title">本页目录</div><a class="toc-link" href="#模块概览">模块概览</a><a class="toc-link" href="#快速开始">快速开始</a><a class="toc-link" href="#appui-示例">AppUI 示例</a><a class="toc-link" href="#api-参考">API 参考</a><a class="toc-link child" href="#速查">速查</a><a class="toc-link child" href="#alert">alert</a><a class="toc-link child" href="#input_alert-login_alert-password_alert">input_alert / login_alert / password_alert</a><a class="toc-link" href="#常见错误">常见错误</a><a class="toc-link" href="#相关文档">相关文档</a></aside>
+    <aside class="toc"><div class="toc-title">本页目录</div><a class="toc-link" href="#模块概览">模块概览</a><a class="toc-link" href="#快速开始">快速开始</a><a class="toc-link" href="#appui-示例">AppUI 示例</a><a class="toc-link" href="#api-参考">API 参考</a><a class="toc-link child" href="#速查">速查</a><a class="toc-link child" href="#alert">alert</a><a class="toc-link child" href="#input_alert-login_alert-password_alert">input_alert / login_alert / password_alert</a><a class="toc-link" href="#常见错误">常见错误</a><a class="toc-link" href="#相关文档">相关文档</a><a class="toc-link" href="#预期效果">预期效果</a></aside>
   </div>
   <div class="mobile-backdrop"></div>
   <div class="search-panel" role="dialog" aria-modal="true" aria-label="搜索">

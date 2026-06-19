@@ -201,6 +201,7 @@
 <div class="nav-subgroup-title">播放</div>
 <a class="nav-link" href="../../pages/sound-module/">sound</a>
 <a class="nav-link" href="../../pages/avplayer-module/">avplayer</a>
+<a class="nav-link" href="../../pages/music-player-module/">music_player</a>
 <a class="nav-link" href="../../pages/music-module/">music</a>
 <a class="nav-link" href="../../pages/now-playing-module/">now_playing</a>
 <a class="nav-link" href="../../pages/audio-session-module/">audio_session</a>
@@ -290,16 +291,16 @@
 <h2 id="预期效果"><a class="heading-anchor" href="#预期效果">#</a>预期效果</h2>
 <p>运行后会出现血压分析页，授权、最新读数、趋势图和异常空状态都有对应展示。</p>
 <h2 id="完整示例"><a class="heading-anchor" href="#完整示例">#</a>完整示例</h2>
-<figure class="code-block" data-code-id="d7d9dd830353">
+<figure class="code-block" data-code-id="275647c0e23c">
   <figcaption>
     <span>python</span>
-    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="d7d9dd830353" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="275647c0e23c" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
-  <pre><code id="code-d7d9dd830353" class="language-python">import time
+  <pre><code id="code-275647c0e23c" class="language-python">import time
 import appui
 import health
 
-READ_TYPES = [&quot;blood_pressure&quot;, &quot;blood_pressure_systolic&quot;, &quot;blood_pressure_diastolic&quot;]
+READ_TYPES = [&quot;blood_pressure_systolic&quot;, &quot;blood_pressure_diastolic&quot;]
 
 
 def sample_records():
@@ -495,7 +496,7 @@ def body():
 appui.run(body, state=state, presentation=&quot;sheet&quot;)</code></pre>
 </figure>
 <h2 id="关键技巧"><a class="heading-anchor" href="#关键技巧">#</a>关键技巧</h2>
-<ul><li>授权时同时申请 <code>blood_pressure</code> 与 systolic/diastolic 类型，兼容组合样本与数量样本。</li><li><code>query_blood_pressure</code> 返回配对 mmHg；无数据时可回落示例集合并标明数据源。</li><li><code>summarize_blood_pressure</code> 仅作统计展示，非诊断依据。</li></ul>
+<ul><li>授权时申请 <code>blood_pressure_systolic</code> 与 <code>blood_pressure_diastolic</code>，避免依赖组合类型授权表现。</li><li><code>query_blood_pressure</code> 返回配对 mmHg；无数据时可回落示例集合并标明数据源。</li><li><code>summarize_blood_pressure</code> 仅作统计展示，非诊断依据。</li></ul>
   </div>
   
 </article>

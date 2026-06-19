@@ -201,6 +201,7 @@
 <div class="nav-subgroup-title">播放</div>
 <a class="nav-link" href="../../pages/sound-module/">sound</a>
 <a class="nav-link" href="../../pages/avplayer-module/">avplayer</a>
+<a class="nav-link" href="../../pages/music-player-module/">music_player</a>
 <a class="nav-link" href="../../pages/music-module/">music</a>
 <a class="nav-link" href="../../pages/now-playing-module/">now_playing</a>
 <a class="nav-link" href="../../pages/audio-session-module/">audio_session</a>
@@ -288,20 +289,23 @@
   <div class="markdown-body">
     <p>预览正常但桌面异常、点击无反应、文字被裁切、动画不动——按<strong>现象 → 原因 → 修复</strong>逐项排查。先跑最小基线，再二分加回功能。</p>
 <blockquote class="callout note"><strong>边界</strong>：本篇是<strong>故障手册</strong>，不教 API 写法。入门见 <a href="../../pages/widget-module/">widget 概览</a>；发布流程见 <a href="../../pages/widget-quickstart-publish/">从脚本到桌面</a>。</blockquote>
+<h2 id="失败路径"><a class="heading-anchor" href="#失败路径">#</a>失败路径</h2>
+<p>按下方「五步排查流程」与「现象对照表」处理空白、裁切、点击无效与桌面缓存问题。</p>
 <h2 id="本篇目标"><a class="heading-anchor" href="#本篇目标">#</a>本篇目标</h2>
 <div class="table-scroll"><table><thead><tr><th>项</th><th>说明</th></tr></thead><tbody><tr><td>第一步</td><td>用<strong>最小健康基线</strong>确认环境与 <code>w.render()</code></td></tr><tr><td>定位法</td><td>现象对照表 → 专题文档 → <code>w.validate()</code> 诊断</td></tr><tr><td>高发问题</td><td>空白、裁切、参数缺失、点击无效、预览≠桌面、缓存</td></tr><tr><td>工具</td><td>Studio 构建日志、<code>w.validate(family=)</code>、逐 family 预览</td></tr><tr><td>原则</td><td>先减功能再定位，不要同时在脚本里改五处</td></tr></tbody></table></div>
 <hr>
 <h2 id="最小健康基线"><a class="heading-anchor" href="#最小健康基线">#</a>最小健康基线</h2>
 <p>全系列<strong>唯一</strong>可运行基线示例（<a href="../../pages/widget-api-index/">API 地图</a> 等页请链到此处，勿各写一份）。下面只有根容器 + 一行字 + <code>render()</code>。若它也预览空白，问题在环境或运行方式，不在业务逻辑。</p>
-<figure class="code-block" data-code-id="d93473102943">
+<p>预期效果：小组件预览面板显示与脚本一致的布局与交互。</p>
+<figure class="code-block" data-code-id="caeb60101831">
   <figcaption>
     <span>python</span>
-    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="d93473102943" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="caeb60101831" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
-  <pre><code id="code-d93473102943" class="language-python">import widget
+  <pre><code id="code-caeb60101831" class="language-python">import widget
 
 w = widget.Widget(background=(&quot;#FFFFFF&quot;, &quot;#111827&quot;), padding=14)
-w.text(&quot;Widget 基线 OK&quot;, size=16, weight=&quot;semibold&quot;).line_limit(1)
+w.text(&quot;Widget 基线 OK&quot;, size=16, weight=&quot;semibold&quot;).line_limit(1).min_scale(0.72).line_limit(1)
 w.render()</code></pre>
 </figure>
 <p>基线通过后，每次只<strong>加回一类功能</strong>（参数 → 状态按钮 → 图片 → timeline），看哪一步开始坏。</p>
@@ -410,12 +414,13 @@ w.render()</code></pre>
 <hr>
 <h2 id="相关文档"><a class="heading-anchor" href="#相关文档">#</a>相关文档</h2>
 <div class="table-scroll"><table><thead><tr><th>文档</th><th>用途</th></tr></thead><tbody><tr><td><a href="../../pages/widget-module/">widget 概览</a></td><td>API 与心智模型</td></tr><tr><td><a href="../../pages/widget-quickstart-publish/">从脚本到桌面</a></td><td>发布与桌面验证</td></tr><tr><td><a href="../../pages/widget-layout/">布局与尺寸</a></td><td>裁切、family 预算</td></tr><tr><td><a href="../../pages/widget-parameters/">参数面板</a></td><td><code>widget.param</code></td></tr><tr><td><a href="../../pages/widget-interaction/">状态和交互</a></td><td>按钮、开关、链接</td></tr><tr><td><a href="../../pages/widget-timeline/">时间线和动画</a></td><td>numericText、timeline</td></tr><tr><td><a href="../../pages/widget-appearance-assets/">资源与外观</a></td><td>双色图、accentable</td></tr><tr><td><a href="../../pages/widget-api-reference/">API 参考</a></td><td>签名核对</td></tr></tbody></table></div>
+<p>相关 API：<a href="../../pages/widget-api-reference/">widget-api-reference.md</a></p>
   </div>
   <section class="related-section"><h2>相关文档</h2><div class="related-list"><a class="related-link" href="../widget-module/"><strong>widget</strong><span>Python 编写 WidgetKit 小组件：参数、状态、布局与发布到桌面。</span></a><a class="related-link" href="../widget-quickstart-publish/"><strong>widget 从脚本到桌面</strong><span>Widget Studio 预览、发布、系统添加主屏小组件与桌面验证。</span></a><a class="related-link" href="../widget-layout/"><strong>widget 布局与尺寸</strong><span>row/column/grid/table/canvas、family 预算、when/unless 与锁屏 accessory。</span></a><a class="related-link" href="../widget-parameters/"><strong>widget 参数面板</strong><span>widget.param 声明预览可调配置，与 widget.state 桌面交互区分。</span></a><a class="related-link" href="../widget-interaction/"><strong>widget 状态和交互</strong><span>widget.state、按钮 ±、习惯清单、开关与链接；AppIntent 桌面交互。</span></a><a class="related-link" href="../widget-timeline/"><strong>widget 时间线和动画</strong><span>timeline/entry、state 数字动画、flip 翻页与 countdown 倒计时。</span></a></div></section>
 </article>
 
     </main>
-    <aside class="toc"><div class="toc-title">本页目录</div><a class="toc-link" href="#本篇目标">本篇目标</a><a class="toc-link" href="#最小健康基线">最小健康基线</a><a class="toc-link" href="#五步排查流程">五步排查流程</a><a class="toc-link" href="#现象速查">现象速查</a><a class="toc-link" href="#空白-构建失败">空白 / 构建失败</a><a class="toc-link" href="#预览正常-桌面不对">预览正常，桌面不对</a><a class="toc-link" href="#裁切与布局过挤">裁切与布局过挤</a><a class="toc-link" href="#参数与配置">参数与配置</a><a class="toc-link" href="#点击-链接无效">点击 / 链接无效</a><a class="toc-link" href="#动画与时间线">动画与时间线</a><a class="toc-link" href="#外观与资源">外观与资源</a><a class="toc-link" href="#布局诊断-w.validate">布局诊断（w.validate）</a><a class="toc-link" href="#二分定位模板">二分定位模板</a><a class="toc-link" href="#仍解决不了">仍解决不了？</a><a class="toc-link" href="#相关文档">相关文档</a></aside>
+    <aside class="toc"><div class="toc-title">本页目录</div><a class="toc-link" href="#失败路径">失败路径</a><a class="toc-link" href="#本篇目标">本篇目标</a><a class="toc-link" href="#最小健康基线">最小健康基线</a><a class="toc-link" href="#五步排查流程">五步排查流程</a><a class="toc-link" href="#现象速查">现象速查</a><a class="toc-link" href="#空白-构建失败">空白 / 构建失败</a><a class="toc-link" href="#预览正常-桌面不对">预览正常，桌面不对</a><a class="toc-link" href="#裁切与布局过挤">裁切与布局过挤</a><a class="toc-link" href="#参数与配置">参数与配置</a><a class="toc-link" href="#点击-链接无效">点击 / 链接无效</a><a class="toc-link" href="#动画与时间线">动画与时间线</a><a class="toc-link" href="#外观与资源">外观与资源</a><a class="toc-link" href="#布局诊断-w.validate">布局诊断（w.validate）</a><a class="toc-link" href="#二分定位模板">二分定位模板</a><a class="toc-link" href="#仍解决不了">仍解决不了？</a><a class="toc-link" href="#相关文档">相关文档</a></aside>
   </div>
   <div class="mobile-backdrop"></div>
   <div class="search-panel" role="dialog" aria-modal="true" aria-label="搜索">

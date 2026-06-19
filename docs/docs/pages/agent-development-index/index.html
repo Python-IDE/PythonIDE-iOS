@@ -201,6 +201,7 @@
 <div class="nav-subgroup-title">播放</div>
 <a class="nav-link" href="../../pages/sound-module/">sound</a>
 <a class="nav-link" href="../../pages/avplayer-module/">avplayer</a>
+<a class="nav-link" href="../../pages/music-player-module/">music_player</a>
 <a class="nav-link" href="../../pages/music-module/">music</a>
 <a class="nav-link" href="../../pages/now-playing-module/">now_playing</a>
 <a class="nav-link" href="../../pages/audio-session-module/">audio_session</a>
@@ -293,22 +294,31 @@
 <div class="table-scroll"><table><thead><tr><th>Skill</th><th>何时生效</th></tr></thead><tbody><tr><td><code>pythonide</code></td><td>先判断该用 AppUI、Widget、scene 还是原生模块</td></tr><tr><td><code>pythonide-appui</code></td><td>编写或修改 AppUI MiniApp</td></tr><tr><td><code>pythonide-native</code></td><td>选型并调用 iOS 原生模块、权限与存储</td></tr><tr><td><code>pythonide-widget</code></td><td>编写 iOS 主屏幕小组件</td></tr><tr><td><code>pythonide-scene</code></td><td>2D 游戏、场景与 turtle</td></tr><tr><td><code>pythonide-automation</code></td><td>快捷指令、legacy <code>ui</code>、纯 Python 自动化</td></tr></tbody></table></div>
 <p>带相机、定位、通知的 AppUI 应用会同时用到 <code>pythonide-appui</code> 与 <code>pythonide-native</code>（Skills 内已互链）。</p>
 <h2 id="与六大开发路径的对应"><a class="heading-anchor" href="#与六大开发路径的对应">#</a>与六大开发路径的对应</h2>
-<div class="table-scroll"><table><thead><tr><th>文档路径</th><th>相关 Skill</th></tr></thead><tbody><tr><td><a href="../../pages/appui-module/">appui</a></td><td><code>pythonide-appui</code></td></tr><tr><td><a href="../../collections/widget/">widget</a></td><td><code>pythonide-widget</code></td></tr><tr><td><a href="../../collections/scene/">scene</a></td><td><code>pythonide-scene</code></td></tr><tr><td><a href="../../pages/ios-native/">iOS 原生模块</a></td><td><code>pythonide-native</code></td></tr><tr><td><a href="../../collections/automation-extension/">自动化与扩展</a></td><td><code>pythonide-automation</code></td></tr><tr><td>不确定 runtime</td><td><code>pythonide</code></td></tr></tbody></table></div>
+<div class="table-scroll"><table><thead><tr><th>文档路径</th><th>相关 Skill</th></tr></thead><tbody><tr><td><a href="../../pages/appui-module/">appui</a></td><td><code>pythonide-appui</code></td></tr><tr><td><a href="../../pages/widget-module/">widget</a></td><td><code>pythonide-widget</code></td></tr><tr><td><a href="../../pages/scene-module/">scene</a></td><td><code>pythonide-scene</code></td></tr><tr><td><a href="../../pages/ios-native/">iOS 原生模块</a></td><td><code>pythonide-native</code></td></tr><tr><td><a href="../../pages/shortcuts-guide/">自动化与扩展</a></td><td><code>pythonide-automation</code></td></tr><tr><td>不确定 runtime</td><td><code>pythonide</code></td></tr></tbody></table></div>
 <h2 id="文档分工"><a class="heading-anchor" href="#文档分工">#</a>文档分工</h2>
 <div class="table-scroll"><table><thead><tr><th>层级</th><th>作用</th></tr></thead><tbody><tr><td><strong>Agent Skills</strong></td><td>怎么写、禁止什么、何时配对哪个 skill</td></tr><tr><td><strong>本站中文文档</strong></td><td>模块说明、示例、场景配方</td></tr><tr><td><strong>schema / stubs</strong></td><td>API 签名与原生能力路由（机器可读）</td></tr></tbody></table></div>
 <p>编写时：<strong>先遵守 Skill 规则，再查模块文档，再用 schema 校验 API 名称。</strong></p>
 <h2 id="机器可读资源"><a class="heading-anchor" href="#机器可读资源">#</a>机器可读资源</h2>
-<ul><li><a href="/llms-full.txt">llms-full.txt</a> — 生成硬规则与公开 API 表面</li><li><a href="/schemas/native_capabilities_schema.json">Native capabilities schema</a></li><li><a href="/schemas/appui_api_schema.json">AppUI schema</a></li><li><a href="/schemas/widget_api_schema.json">Widget schema</a></li><li><a href="https://github.com/jinwandalaohu66/pythonide-skills">GitHub：pythonide-skills</a></li></ul>
+<ul><li><a href="https://pythonide.app/schemas/native_capabilities_schema.json">Native capabilities schema</a></li><li><a href="https://pythonide.app/schemas/appui_api_schema.json">AppUI schema</a></li><li><a href="https://pythonide.app/schemas/widget_api_schema.json">Widget schema</a></li><li><a href="https://github.com/jinwandalaohu66/pythonide-skills">GitHub：pythonide-skills</a></li></ul>
 <h2 id="常见误区"><a class="heading-anchor" href="#常见误区">#</a>常见误区</h2>
 <ul><li><strong>不要在 AppUI <code>body()</code> 里</strong>直接申请权限、定位、拍照或发网络请求；放在命名回调里。</li><li><strong>内联控件优先</strong>：<code>PhotoPicker</code>、<code>CameraPicker</code>、<code>MapView</code>、<code>FileImporter</code>、<code>ShareLink</code>、<code>VideoPlayer</code>。</li><li><strong>App 内 AI 助手</strong> 与 <strong>编码 Agent Skills</strong> 是两套体系；前者在 iPhone/iPad App 里，后者在电脑终端安装。</li><li><strong>不要编造 API</strong>；以 schema 与各模块文档为准。</li></ul>
 <h2 id="相关文档"><a class="heading-anchor" href="#相关文档">#</a>相关文档</h2>
-<ul><li><a href="../../pages/ios-native/">iOS 原生能力</a> — 入口模型、AppUI 桥接、模块导航</li><li><a href="../../pages/miniapp-choose-runtime/">运行时选择</a> — 选择 appui / widget / scene / ui</li><li><a href="../../pages/appui-quickstart/">appui 快速上手</a></li></ul>
+<ul><li><a href="../../pages/ios-native/">iOS 原生能力</a> — 入口模型、AppUI 原生组件、模块导航</li><li><a href="../../pages/miniapp-choose-runtime/">运行时选择</a> — 选择 appui / widget / scene / ui</li><li><a href="../../pages/appui-quickstart/">appui 快速上手</a></li></ul>
+<h2 id="安装示例"><a class="heading-anchor" href="#安装示例">#</a>安装示例</h2>
+<figure class="code-block" data-code-id="f9d4462acf67">
+  <figcaption>
+    <span>bash</span>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="f9d4462acf67" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
+  </figcaption>
+  <pre><code id="code-f9d4462acf67" class="language-bash">npx skills add jinwandalaohu66/pythonide-skills</code></pre>
+</figure>
+<p>预期效果：编码 Agent 工作区出现 <code>pythonide</code>、<code>pythonide-appui</code> 等 Skills，可在写 MiniApp 前自动加载规则。</p>
   </div>
   <section class="related-section"><h2>相关文档</h2><div class="related-list"><a class="related-link" href="../ios-native/"><strong>iOS 原生能力</strong><span>相册、联系人、权限、相机、控制台和安全存储。</span></a><a class="related-link" href="../appui-module/"><strong>appui 概览</strong><span>用 Python 编写原生 MiniApp 页面、状态、导航和交互。</span></a><a class="related-link" href="../widget-module/"><strong>widget</strong><span>Python 编写 WidgetKit 小组件：参数、状态、布局与发布到桌面。</span></a><a class="related-link" href="../miniapp-choose-runtime/"><strong>运行时选择</strong><span>判断该用 appui、widget、ui、scene 还是 console。</span></a></div></section>
 </article>
 
     </main>
-    <aside class="toc"><div class="toc-title">本页目录</div><a class="toc-link" href="#你会得到什么">你会得到什么</a><a class="toc-link" href="#与六大开发路径的对应">与六大开发路径的对应</a><a class="toc-link" href="#文档分工">文档分工</a><a class="toc-link" href="#机器可读资源">机器可读资源</a><a class="toc-link" href="#常见误区">常见误区</a><a class="toc-link" href="#相关文档">相关文档</a></aside>
+    <aside class="toc"><div class="toc-title">本页目录</div><a class="toc-link" href="#你会得到什么">你会得到什么</a><a class="toc-link" href="#与六大开发路径的对应">与六大开发路径的对应</a><a class="toc-link" href="#文档分工">文档分工</a><a class="toc-link" href="#机器可读资源">机器可读资源</a><a class="toc-link" href="#常见误区">常见误区</a><a class="toc-link" href="#相关文档">相关文档</a><a class="toc-link" href="#安装示例">安装示例</a></aside>
   </div>
   <div class="mobile-backdrop"></div>
   <div class="search-panel" role="dialog" aria-modal="true" aria-label="搜索">

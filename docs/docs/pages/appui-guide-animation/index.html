@@ -201,6 +201,7 @@
 <div class="nav-subgroup-title">播放</div>
 <a class="nav-link" href="../../pages/sound-module/">sound</a>
 <a class="nav-link" href="../../pages/avplayer-module/">avplayer</a>
+<a class="nav-link" href="../../pages/music-player-module/">music_player</a>
 <a class="nav-link" href="../../pages/music-module/">music</a>
 <a class="nav-link" href="../../pages/now-playing-module/">now_playing</a>
 <a class="nav-link" href="../../pages/audio-session-module/">audio_session</a>
@@ -288,7 +289,7 @@
   <div class="markdown-body">
     <p><code>appui</code> 提供两类动画能力：<strong>隐式动画</strong>（<code>.animation(type, value)</code> 在依赖变化时插值）与 <strong>显式动画</strong>（<code>appui.animate(action, type)</code> 包裹一次状态更新）。此外还有 <strong>过渡</strong>（<code>.transition</code>）、<strong>变换</strong>（<code>.scale_effect</code>、<code>.rotation_effect</code>、<code>.rotation_3d_effect</code>）、<strong>共享几何</strong>（<code>.matched_geometry_effect</code>）、<strong>内容过渡</strong>（<code>.content_transition</code>）与 <strong>相位动画</strong>（<code>.phase_animator</code>）。</p>
 <p>从 AppUI Presentation Engine 起，<code>show_*</code>、<code>*_presented</code> 等呈现状态字段变化会自动触发 spring 动画；sheet / alert / cover 的进出通常不必再手写 <code>appui.animate()</code>。</p>
-<p>第四档 <code>PresentationCoordinator</code> 会在注册表有效时跳过 <code>body()</code> 与整树 JSON，直接更新 Swift binding；可用 <code>appui.presentation_present</code> / <code>appui.presentation_dismiss_all</code> 显式控制。完整规范见 <a href="appui-spec-presentation-engine">Presentation Engine Spec</a>。</p>
+<p>第四档 <code>PresentationCoordinator</code> 会在注册表有效时跳过 <code>body()</code> 与整树 JSON，直接更新原生 presentation binding；可用 <code>appui.presentation_present</code> / <code>appui.presentation_dismiss_all</code> 显式控制。完整规范见 <a href="appui-spec-presentation-engine.md">Presentation Engine Spec</a>。</p>
 <hr>
 <h2 id="预期效果"><a class="heading-anchor" href="#预期效果">#</a>预期效果</h2>
 <p>示例会展示隐式动画、显式动画、转场和共享几何效果如何响应状态变化。</p>

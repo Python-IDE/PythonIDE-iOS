@@ -3,8 +3,8 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>ssh - PythonIDE Docs</title>
-  <meta name="description" content="SSH 远程命令与 SFTP 文件传输。">
+  <title>music_player - PythonIDE Docs</title>
+  <meta name="description" content="队列式原生音乐播放器、锁屏控制和播放恢复。">
   <link rel="icon" href="../../assets/brand-mark.svg" type="image/svg+xml">
   <link rel="stylesheet" href="../../assets/docs-v2.css">
   <script>window.PYTHONIDE_DOCS_PREFIX = "../../";</script>
@@ -201,7 +201,7 @@
 <div class="nav-subgroup-title">播放</div>
 <a class="nav-link" href="../../pages/sound-module/">sound</a>
 <a class="nav-link" href="../../pages/avplayer-module/">avplayer</a>
-<a class="nav-link" href="../../pages/music-player-module/">music_player</a>
+<a class="nav-link active" href="../../pages/music-player-module/">music_player</a>
 <a class="nav-link" href="../../pages/music-module/">music</a>
 <a class="nav-link" href="../../pages/now-playing-module/">now_playing</a>
 <a class="nav-link" href="../../pages/audio-session-module/">audio_session</a>
@@ -234,7 +234,7 @@
 <a class="nav-link" href="../../pages/background-download-module/">background_download</a>
 <div class="nav-subgroup-title">本地服务</div>
 <a class="nav-link" href="../../pages/http-server-module/">http_server</a>
-<a class="nav-link active" href="../../pages/ssh-module/">ssh</a>
+<a class="nav-link" href="../../pages/ssh-module/">ssh</a>
 </div>
 <div class="nav-group">
 <div class="nav-group-title">通信与智能</div>
@@ -279,219 +279,183 @@
     </aside>
     <main class="content">
       
-<article class="article" style="--page-accent:#2563eb">
+<article class="article" style="--page-accent:#7c3aed">
   <header class="article-intro">
-    <div class="breadcrumb">iOS 原生模块 / 连接与后台</div>
-    <h1>ssh</h1>
-    <p>SSH 远程命令与 SFTP 文件传输。</p>
+    <div class="breadcrumb">iOS 原生模块 / 媒体</div>
+    <h1>music_player</h1>
+    <p>队列式原生音乐播放器、锁屏控制和播放恢复。</p>
   </header>
   
   <div class="markdown-body">
-    <p>SSH 远程命令与 SFTP 文件传输：连接 Linux/树莓派等设备，执行命令、上传下载文件。</p>
-<blockquote class="callout note"><strong>边界</strong>：需要可达的网络与有效凭据（密码或私钥）。<strong>不要把密码写进公开脚本</strong>；生产环境用 <a href="../../pages/keychain-module/">keychain</a> 存凭据。连接和执行放在按钮回调；<code>session_id</code> 用完后务必 <code>disconnect()</code>。</blockquote>
+    <p>队列式原生音乐播放器：维护当前歌曲、播放队列、播放模式、进度、错误状态、锁屏 Now Playing、控制中心按钮和上次播放恢复。</p>
+<blockquote class="callout note"><strong>边界</strong>：<code>music_player</code> 播放你自己的 URL / 本地音频队列；<a href="../../pages/music-module/">music</a> 是 Apple Music / MusicKit；<a href="../../pages/avplayer-module/">avplayer</a> 是低层单媒体播放器；<a href="../../pages/now-playing-module/">now_playing</a> 只发布元数据。播放、切歌、恢复和系统控制属于副作用，放在按钮回调、页面初始化或用户确认流程里，不要在 AppUI <code>body()</code> 中反复调用。</blockquote>
 <h2 id="模块概览"><a class="heading-anchor" href="#模块概览">#</a>模块概览</h2>
-<div class="table-scroll"><table><thead><tr><th>项</th><th>说明</th></tr></thead><tbody><tr><td>导入</td><td><code>import ssh</code></td></tr><tr><td>适合做什么</td><td>远程运维、部署脚本、拉取日志、SFTP 传文件</td></tr><tr><td>调用时机</td><td>用户点击连接/执行；长命令注意 <code>timeout</code></td></tr><tr><td>推荐顺序</td><td><code>connect()</code> → <code>execute()</code> / <code>upload()</code> / <code>download()</code> → <code>disconnect()</code></td></tr><tr><td>会话</td><td><code>connect()</code> 返回 <code>session_id</code>，后续 API 都要带上</td></tr></tbody></table></div>
+<div class="table-scroll"><table><thead><tr><th>项</th><th>说明</th></tr></thead><tbody><tr><td>导入</td><td><code>import music_player</code></td></tr><tr><td>适合做什么</td><td>音乐 MiniApp、歌单播放器、搜索结果播放、后台音乐播放</td></tr><tr><td>不适合做什么</td><td>Apple Music 资料库控制、短音效、AppUI 内嵌视频</td></tr><tr><td>状态归属</td><td>宿主全局播放器服务</td></tr><tr><td>系统集成</td><td>可选 Now Playing、控制中心 / 锁屏按钮、后台音频</td></tr><tr><td>恢复</td><td><code>restore()</code> 恢复上次队列、当前歌曲、进度和播放模式</td></tr></tbody></table></div>
 <hr>
 <h2 id="快速开始"><a class="heading-anchor" href="#快速开始">#</a>快速开始</h2>
-<p>下面脚本连接主机、执行命令并断开：</p>
-<figure class="code-block" data-code-id="a17a6deff153">
+<figure class="code-block" data-code-id="eae4f4c99984">
   <figcaption>
     <span>python</span>
-    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="a17a6deff153" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="eae4f4c99984" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
-  <pre><code id="code-a17a6deff153" class="language-python">import ssh
+  <pre><code id="code-eae4f4c99984" class="language-python">import music_player
 
-HOST = &quot;192.168.1.10&quot;   # 换成你可访问的主机
-USER = &quot;pi&quot;
-PASSWORD = &quot;YOUR_PASSWORD&quot;  # 勿提交到版本库
+songs = [
+    {
+        &quot;title&quot;: &quot;Demo Track&quot;,
+        &quot;artist&quot;: &quot;PythonIDE&quot;,
+        &quot;url&quot;: &quot;https://example.com/demo.mp3&quot;,
+        &quot;artwork_url&quot;: &quot;https://example.com/cover.jpg&quot;,
+    }
+]
 
-sid = None
-try:
-    sid = ssh.connect(HOST, USER, password=PASSWORD)
-    result = ssh.execute(sid, &quot;echo hello&quot;)
-    print(result[&quot;stdout&quot;].strip())
-    print(&quot;exit_code:&quot;, result[&quot;exit_code&quot;])
-except ssh.SSHError as exc:
-    print(&quot;SSH 失败:&quot;, exc, f&quot;code={exc.code}&quot;)
-finally:
-    if sid:
-        ssh.disconnect(sid)</code></pre>
+music_player.set_queue(songs, start_index=0)
+music_player.play()
+print(music_player.state())</code></pre>
 </figure>
-<p>使用私钥认证：</p>
-<figure class="code-block" data-code-id="fca4108e22e1">
+<p>如果不想显示锁屏卡片或接管控制中心按钮，在播放前关闭：</p>
+<figure class="code-block" data-code-id="dcc5027f8481">
   <figcaption>
     <span>python</span>
-    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="fca4108e22e1" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="dcc5027f8481" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
-  <pre><code id="code-fca4108e22e1" class="language-python">import ssh
-
-sid = ssh.connect(
-    &quot;example.com&quot;,
-    &quot;deploy&quot;,
-    private_key=open(&quot;id_rsa&quot;).read(),
-    passphrase=&quot;optional&quot;,
+  <pre><code id="code-dcc5027f8481" class="language-python">music_player.configure(
+    now_playing=False,
+    remote_commands=False,
+    background=False,
 )</code></pre>
 </figure>
 <hr>
 <h2 id="appui-示例"><a class="heading-anchor" href="#appui-示例">#</a>AppUI 示例</h2>
-<p>连接与命令执行放在按钮回调；凭据存在 <code>State</code>（勿记录到日志）。</p>
-<figure class="code-block" data-code-id="ea1a05765f9a">
+<p>UI 完全由你自己写，播放器只提供能力：</p>
+<figure class="code-block" data-code-id="fa5dfb2a46d7">
   <figcaption>
     <span>python</span>
-    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="ea1a05765f9a" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="fa5dfb2a46d7" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
-  <pre><code id="code-ea1a05765f9a" class="language-python">import appui
-import ssh
+  <pre><code id="code-fa5dfb2a46d7" class="language-python">import json
+import appui
+import music_player
+
+songs = [
+    {
+        &quot;title&quot;: &quot;Night Demo&quot;,
+        &quot;artist&quot;: &quot;PythonIDE&quot;,
+        &quot;url&quot;: &quot;https://example.com/night.mp3&quot;,
+        &quot;artwork_url&quot;: &quot;https://example.com/night.jpg&quot;,
+    },
+    {
+        &quot;title&quot;: &quot;Morning Demo&quot;,
+        &quot;artist&quot;: &quot;PythonIDE&quot;,
+        &quot;url&quot;: &quot;https://example.com/morning.mp3&quot;,
+    },
+]
 
 state = appui.State(
-    host=&quot;192.168.1.10&quot;,
-    user=&quot;pi&quot;,
-    password=&quot;&quot;,
-    session_id=&quot;&quot;,
-    output=&quot;—&quot;,
-    status=&quot;填写主机信息后连接&quot;,
+    title=&quot;未播放&quot;,
+    artist=&quot;&quot;,
+    status=&quot;ready&quot;,
+    elapsed=&quot;0:00&quot;,
+    mode=&quot;sequence&quot;,
 )
 
 
-def do_connect():
-    if not state.host or not state.user:
-        state.status = &quot;请填写主机和用户名&quot;
-        return
-    if state.session_id:
-        state.status = &quot;已连接，请先断开&quot;
-        return
-    try:
-        sid = ssh.connect(
-            state.host,
-            state.user,
-            password=state.password or None,
-        )
-        state.batch_update(
-            session_id=sid or &quot;&quot;,
-            status=&quot;已连接&quot;,
-            output=&quot;—&quot;,
-        )
-    except ssh.SSHError as exc:
-        state.status = f&quot;连接失败: {exc}&quot;
+def handle_player_event(payload):
+    data = json.loads(payload or &quot;{}&quot;)
+    current = data.get(&quot;current&quot;) or {}
+    state.title = current.get(&quot;title&quot;) or current.get(&quot;name&quot;) or &quot;未播放&quot;
+    state.artist = current.get(&quot;artist&quot;) or &quot;&quot;
+    state.status = data.get(&quot;state&quot;, &quot;ready&quot;)
+    seconds = int(data.get(&quot;elapsed&quot;) or 0)
+    state.elapsed = f&quot;{seconds // 60}:{seconds % 60:02d}&quot;
 
 
-def run_command():
-    if not state.session_id:
-        state.status = &quot;请先连接&quot;
-        return
-    try:
-        result = ssh.execute(state.session_id, &quot;uname -a&quot;, timeout=15)
-        text = (result.get(&quot;stdout&quot;) or &quot;&quot;).strip() or &quot;（无输出）&quot;
-        code = result.get(&quot;exit_code&quot;, -1)
-        state.batch_update(
-            output=text[:500],
-            status=f&quot;exit_code={code}&quot;,
-        )
-    except ssh.SSHError as exc:
-        state.status = f&quot;执行失败: {exc}&quot;
+music_player.on_event(
+    handle_player_event,
+    events=[&quot;ready&quot;, &quot;play&quot;, &quot;pause&quot;, &quot;current&quot;, &quot;ended&quot;, &quot;progress&quot;, &quot;remote_command&quot;],
+)
 
 
-def do_disconnect():
-    if not state.session_id:
-        return
-    try:
-        ssh.disconnect(state.session_id)
-        state.batch_update(
-            session_id=&quot;&quot;,
-            output=&quot;—&quot;,
-            status=&quot;已断开&quot;,
-        )
-    except ssh.SSHError as exc:
-        state.status = f&quot;断开失败: {exc}&quot;
+def load_and_play():
+    music_player.configure(now_playing=True, remote_commands=True, background=True)
+    music_player.set_queue(songs, start_index=0)
+    music_player.play()
+
+
+def toggle_mode():
+    next_mode = &quot;repeat_all&quot; if state.mode == &quot;sequence&quot; else &quot;shuffle&quot; if state.mode == &quot;repeat_all&quot; else &quot;sequence&quot;
+    state.mode = next_mode
+    music_player.set_play_mode(next_mode)
 
 
 def body():
-    connected = bool(state.session_id)
     return appui.NavigationStack(
-        appui.Form([
-            appui.Section(&quot;连接&quot;, [
-                appui.TextField(&quot;主机&quot;, text=state.host),
-                appui.TextField(&quot;用户名&quot;, text=state.user),
-                appui.SecureField(&quot;密码&quot;, text=state.password),
-                appui.LabeledContent(
-                    &quot;会话&quot;,
-                    value=state.session_id[:8] + &quot;…&quot; if connected else &quot;未连接&quot;,
-                ),
-            ]),
-            appui.Section(&quot;命令&quot;, [
-                appui.Button(
-                    &quot;连接&quot; if not connected else &quot;已连接&quot;,
-                    action=do_connect,
-                ).button_style(&quot;bordered_prominent&quot;)
-                .disabled(connected),
-                appui.Button(&quot;执行 uname -a&quot;, action=run_command),
-                appui.Button(&quot;断开&quot;, action=do_disconnect, role=&quot;destructive&quot;),
-            ]),
-            appui.Section(&quot;输出&quot;, [
-                appui.Text(state.output).font(&quot;caption&quot;),
-                appui.Text(state.status).foreground_color(&quot;secondaryLabel&quot;),
-            ], footer=&quot;需同一局域网或可达主机；密码勿写入公开代码。&quot;),
-        ]).navigation_title(&quot;SSH&quot;)
+        appui.VStack([
+            appui.Text(state.title).font(&quot;title2&quot;).bold(),
+            appui.Text(state.artist or &quot;—&quot;).foreground_color(&quot;secondaryLabel&quot;),
+            appui.Text(f&quot;{state.status} · {state.elapsed}&quot;).font(&quot;caption&quot;),
+            appui.HStack([
+                appui.Button(&quot;上一首&quot;, action=music_player.previous),
+                appui.Button(&quot;播放&quot;, action=load_and_play).button_style(&quot;bordered_prominent&quot;),
+                appui.Button(&quot;暂停&quot;, action=music_player.pause),
+                appui.Button(&quot;下一首&quot;, action=music_player.next),
+            ], spacing=10),
+            appui.Button(f&quot;模式: {state.mode}&quot;, action=toggle_mode),
+        ], spacing=14)
+        .padding()
+        .navigation_title(&quot;音乐播放器&quot;)
     )
 
 
 appui.run(body, state=state)</code></pre>
 </figure>
 <hr>
+<h2 id="歌曲字段"><a class="heading-anchor" href="#歌曲字段">#</a>歌曲字段</h2>
+<p>每首歌至少需要 <code>url</code>：</p>
+<div class="table-scroll"><table><thead><tr><th>字段</th><th>说明</th></tr></thead><tbody><tr><td><code>url</code></td><td>音频 URL、本地路径或 <code>file://</code></td></tr><tr><td><code>title</code> / <code>name</code></td><td>歌曲标题</td></tr><tr><td><code>artist</code> / <code>singer</code></td><td>艺术家</td></tr><tr><td><code>album</code></td><td>专辑名</td></tr><tr><td><code>duration</code></td><td>可选时长；真实时长准备好后以播放器为准</td></tr><tr><td><code>artwork_path</code></td><td>本地封面路径</td></tr><tr><td><code>artwork_url</code> / <code>cover</code> / <code>pic</code></td><td>远程封面 URL，宿主会缓存后用于 Now Playing</td></tr><tr><td><code>id</code></td><td>业务侧歌曲 ID，可用于你的列表选中状态</td></tr></tbody></table></div>
+<hr>
 <h2 id="api-参考"><a class="heading-anchor" href="#api-参考">#</a>API 参考</h2>
-<h3 id="速查"><a class="heading-anchor" href="#速查">#</a>速查</h3>
-<div class="table-scroll"><table><thead><tr><th>API</th><th>作用</th></tr></thead><tbody><tr><td><code>connect(host, username, ...)</code></td><td>建立连接 → <code>session_id</code></td></tr><tr><td><code>execute(session_id, command, timeout)</code></td><td>远程执行 → <code>{stdout, exit_code}</code></td></tr><tr><td><code>upload(session_id, local, remote)</code></td><td>SFTP 上传</td></tr><tr><td><code>download(session_id, remote, local)</code></td><td>SFTP 下载</td></tr><tr><td><code>disconnect(session_id)</code></td><td>关闭会话</td></tr><tr><td><code>SSHError</code></td><td>操作失败时抛出</td></tr></tbody></table></div>
-<h3 id="connect"><a class="heading-anchor" href="#connect">#</a>connect</h3>
-<p><strong><code>connect(host, username, password=None, port=22, private_key=None, passphrase=None)</code></strong></p>
-<figure class="code-block" data-code-id="42b6efbbf2e9">
+<h3 id="配置"><a class="heading-anchor" href="#配置">#</a>配置</h3>
+<p><strong><code>configure(now_playing=None, remote_commands=None, background=None, persist=None, auto_advance=None, progress_interval=None, can_next=None, can_previous=None)</code></strong></p>
+<div class="table-scroll"><table><thead><tr><th>参数</th><th>说明</th></tr></thead><tbody><tr><td><code>now_playing</code></td><td>是否同步锁屏 / 控制中心元数据</td></tr><tr><td><code>remote_commands</code></td><td>是否响应系统播放、暂停、上一首、下一首、seek</td></tr><tr><td><code>background</code></td><td>是否配置后台播放音频会话</td></tr><tr><td><code>persist</code></td><td>是否保存队列、进度和播放模式</td></tr><tr><td><code>auto_advance</code></td><td>播放结束后是否按模式自动切歌</td></tr><tr><td><code>progress_interval</code></td><td>进度事件间隔，最小 0.25 秒</td></tr><tr><td><code>can_next</code> / <code>can_previous</code></td><td>覆盖系统按钮可用状态</td></tr></tbody></table></div>
+<h3 id="队列"><a class="heading-anchor" href="#队列">#</a>队列</h3>
+<div class="table-scroll"><table><thead><tr><th>API</th><th>说明</th></tr></thead><tbody><tr><td><code>set_queue(songs, start_index=0, play_mode=None, autoplay=False)</code></td><td>替换队列并加载当前歌曲</td></tr><tr><td><code>queue()</code></td><td>返回 <code>{queue, current_index, count}</code></td></tr><tr><td><code>current()</code></td><td>返回当前歌曲</td></tr><tr><td><code>add(song, play_next=False, autoplay=False)</code></td><td>追加或插到下一首</td></tr><tr><td><code>remove(index)</code></td><td>删除歌曲</td></tr><tr><td><code>move(from_index, to_index)</code></td><td>移动歌曲</td></tr><tr><td><code>clear()</code></td><td>停止并清空队列</td></tr></tbody></table></div>
+<h3 id="播放"><a class="heading-anchor" href="#播放">#</a>播放</h3>
+<div class="table-scroll"><table><thead><tr><th>API</th><th>说明</th></tr></thead><tbody><tr><td><code>play()</code></td><td>播放当前歌曲</td></tr><tr><td><code>pause()</code></td><td>暂停</td></tr><tr><td><code>toggle()</code></td><td>播放 / 暂停切换</td></tr><tr><td><code>stop()</code></td><td>停止并回到 0 秒</td></tr><tr><td><code>next()</code></td><td>下一首</td></tr><tr><td><code>previous()</code></td><td>上一首；当前进度超过 3 秒时先回到开头</td></tr><tr><td><code>seek(seconds)</code></td><td>跳转</td></tr><tr><td><code>set_play_mode(mode)</code></td><td><code>sequence</code> / <code>repeat_all</code> / <code>repeat_one</code> / <code>shuffle</code></td></tr><tr><td><code>set_volume(volume)</code></td><td>0.0–1.0</td></tr><tr><td><code>set_rate(rate)</code></td><td>0.25–3.0</td></tr></tbody></table></div>
+<h3 id="状态与恢复"><a class="heading-anchor" href="#状态与恢复">#</a>状态与恢复</h3>
+<div class="table-scroll"><table><thead><tr><th>API</th><th>说明</th></tr></thead><tbody><tr><td><code>state()</code></td><td>返回完整状态：<code>state</code>、<code>playing</code>、<code>current</code>、<code>queue</code>、<code>elapsed</code>、<code>duration</code>、<code>error</code> 等</td></tr><tr><td><code>restore(autoplay=False)</code></td><td>恢复上次队列和进度，默认不自动播放</td></tr></tbody></table></div>
+<h3 id="事件"><a class="heading-anchor" href="#事件">#</a>事件</h3>
+<p><strong><code>on_event(callback, events=None)</code></strong> 订阅事件。<code>callback</code> 可以是 Python 函数或 callback id；函数收到 JSON 字符串。</p>
+<p>常用事件：</p>
+<div class="table-scroll"><table><thead><tr><th>事件</th><th>说明</th></tr></thead><tbody><tr><td><code>ready</code></td><td>当前歌曲可播放</td></tr><tr><td><code>play</code> / <code>pause</code> / <code>stop</code></td><td>播放状态变化</td></tr><tr><td><code>current</code> / <code>queue</code></td><td>当前歌曲或队列变化</td></tr><tr><td><code>ended</code></td><td>当前歌曲结束</td></tr><tr><td><code>progress</code></td><td>进度更新</td></tr><tr><td><code>seek</code></td><td>跳转</td></tr><tr><td><code>error</code></td><td>播放错误</td></tr><tr><td><code>restore</code></td><td>恢复完成</td></tr><tr><td><code>remote_command</code></td><td>锁屏 / 控制中心按钮触发</td></tr></tbody></table></div>
+<figure class="code-block" data-code-id="8128529c50f8">
   <figcaption>
     <span>python</span>
-    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="42b6efbbf2e9" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="8128529c50f8" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
-  <pre><code id="code-42b6efbbf2e9" class="language-python">sid = ssh.connect(&quot;10.0.0.5&quot;, &quot;admin&quot;, password=&quot;secret&quot;)
-sid = ssh.connect(&quot;server&quot;, &quot;deploy&quot;, port=2222, private_key=key_text)</code></pre>
+  <pre><code id="code-8128529c50f8" class="language-python">import json
+import music_player
+
+def on_player_event(payload):
+    event = json.loads(payload)
+    print(event[&quot;event&quot;], event.get(&quot;state&quot;), event.get(&quot;elapsed&quot;))
+
+music_player.on_event(on_player_event, events=[&quot;play&quot;, &quot;pause&quot;, &quot;remote_command&quot;])</code></pre>
 </figure>
-<p>密码与私钥<strong>至少提供一种</strong>。</p>
-<h3 id="execute"><a class="heading-anchor" href="#execute">#</a>execute</h3>
-<p><strong><code>execute(session_id, command, timeout=30)</code></strong></p>
-<figure class="code-block" data-code-id="044152d8aea2">
-  <figcaption>
-    <span>python</span>
-    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="044152d8aea2" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
-  </figcaption>
-  <pre><code id="code-044152d8aea2" class="language-python">result = ssh.execute(sid, &quot;ls -la /tmp&quot;)
-print(result[&quot;stdout&quot;])
-print(result[&quot;exit_code&quot;])</code></pre>
-</figure>
-<p><code>stdout</code> 为合并后的标准输出字符串；<code>exit_code</code> 为远程命令退出码。</p>
-<h3 id="文件传输"><a class="heading-anchor" href="#文件传输">#</a>文件传输</h3>
-<figure class="code-block" data-code-id="2f74f7c55ca6">
-  <figcaption>
-    <span>python</span>
-    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="2f74f7c55ca6" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
-  </figcaption>
-  <pre><code id="code-2f74f7c55ca6" class="language-python">ssh.upload(sid, &quot;/local/file.txt&quot;, &quot;/remote/dir/file.txt&quot;)
-ssh.download(sid, &quot;/remote/log.txt&quot;, &quot;/local/log.txt&quot;)</code></pre>
-</figure>
-<p><code>upload</code> 会上传到 <code>remote_path</code> 的父目录（Bridge 行为）。</p>
-<h3 id="disconnect"><a class="heading-anchor" href="#disconnect">#</a>disconnect</h3>
-<p><strong><code>disconnect(session_id)</code></strong> — 关闭并移除会话；后续再用同一 ID 会报 <code>invalid_session</code>。</p>
-<h3 id="异常"><a class="heading-anchor" href="#异常">#</a>异常</h3>
-<div class="table-scroll"><table><thead><tr><th><code>code</code></th><th>含义</th></tr></thead><tbody><tr><td><code>invalid_input</code></td><td>缺少 host/用户名/凭据</td></tr><tr><td><code>invalid_session</code></td><td><code>session_id</code> 无效或已断开</td></tr><tr><td><code>unknown_command</code></td><td>Bridge 命令错误</td></tr></tbody></table></div>
+<hr>
+<h2 id="和相关模块的分工"><a class="heading-anchor" href="#和相关模块的分工">#</a>和相关模块的分工</h2>
+<div class="table-scroll"><table><thead><tr><th>需求</th><th>用哪个</th></tr></thead><tbody><tr><td>自己的音乐队列、锁屏按钮、后台播放</td><td><code>music_player</code></td></tr><tr><td>播放单个 URL 音频 / 视频</td><td><a href="../../pages/avplayer-module/">avplayer</a></td></tr><tr><td>AppUI 内嵌视频控件</td><td><code>appui.PlayerController</code> + <code>appui.VideoPlayer</code></td></tr><tr><td>只发布锁屏标题 / 封面 / 进度</td><td><a href="../../pages/now-playing-module/">now_playing</a></td></tr><tr><td>Apple Music 资料库 / MusicKit</td><td><a href="../../pages/music-module/">music</a></td></tr><tr><td>短音效</td><td><a href="../../pages/sound-module/">sound</a></td></tr><tr><td>大文件后台下载</td><td><a href="../../pages/background-download-module/">background_download</a></td></tr></tbody></table></div>
 <hr>
 <h2 id="常见错误"><a class="heading-anchor" href="#常见错误">#</a>常见错误</h2>
-<div class="table-scroll"><table><thead><tr><th>错误写法</th><th>后果</th><th>修正</th></tr></thead><tbody><tr><td>密码硬编码并提交 Git</td><td>凭据泄露</td><td>用 <a href="../../pages/keychain-module/">keychain</a> 或运行时输入</td></tr><tr><td>不 <code>disconnect()</code></td><td>连接泄漏</td><td><code>finally</code> 里断开</td></tr><tr><td>在 <code>body()</code> 里 <code>connect()</code></td><td>刷新时重复连接</td><td>放进按钮回调</td></tr><tr><td>主机不可达</td><td>连接超时</td><td>检查网络/VPN/防火墙</td></tr></tbody></table></div>
-<hr>
-<h2 id="相关文档"><a class="heading-anchor" href="#相关文档">#</a>相关文档</h2>
-<div class="table-scroll"><table><thead><tr><th>文档</th><th>用途</th></tr></thead><tbody><tr><td><a href="../../pages/keychain-module/">keychain</a></td><td>安全存储 SSH 凭据</td></tr><tr><td><a href="../../pages/network-module/">network</a></td><td>HTTP 连通性检查</td></tr><tr><td><a href="../../pages/http-server-module/">http_server</a></td><td>本地文件服务</td></tr><tr><td><a href="../../pages/miniapp-native-capabilities/">原生能力入口</a></td><td>MiniApp 场景配方</td></tr></tbody></table></div>
+<div class="table-scroll"><table><thead><tr><th>错误写法</th><th>后果</th><th>修正</th></tr></thead><tbody><tr><td>在 <code>body()</code> 里 <code>set_queue()</code> 或 <code>play()</code></td><td>刷新时反复重载和播放</td><td>放到按钮回调或一次性初始化</td></tr><tr><td>用 <code>music</code> 播放自己的 MP3 URL</td><td>模块不匹配</td><td>用 <code>music_player</code> 或 <code>avplayer</code></td></tr><tr><td>每个页面自己维护队列</td><td>页面关闭后状态容易散</td><td>用 <code>music_player.state()</code> / <code>restore()</code></td></tr><tr><td>不处理 <code>error</code> 事件</td><td>网络或格式失败时 UI 卡住</td><td>订阅 <code>error</code> 并显示失败状态</td></tr><tr><td>不想锁屏显示但没配置</td><td>控制中心出现播放器卡片</td><td>播放前 <code>configure(now_playing=False, remote_commands=False)</code></td></tr></tbody></table></div>
 <h2 id="预期效果"><a class="heading-anchor" href="#预期效果">#</a>预期效果</h2>
-<p>运行示例后，界面应出现文档描述的目标结果；若与预期不符，先看「失败路径」并按返回值或日志排查。</p>
+<p>运行后，歌曲队列由宿主全局播放器维护；关闭页面再恢复时可通过 <code>restore()</code> 找回上次队列和进度。启用系统集成时，锁屏和控制中心会显示歌曲信息，并把系统按钮回调给 miniapp。</p>
   </div>
-  
+  <section class="related-section"><h2>相关文档</h2><div class="related-list"><a class="related-link" href="../avplayer-module/"><strong>avplayer</strong><span>音视频加载、播放控制和原生播放器。</span></a><a class="related-link" href="../now-playing-module/"><strong>now_playing</strong><span>锁屏与控制中心的正在播放信息。</span></a><a class="related-link" href="../music-module/"><strong>music</strong><span>Apple Music 播放控制与曲库搜索。</span></a><a class="related-link" href="../background-download-module/"><strong>background_download</strong><span>后台 URLSession 大文件下载。</span></a></div></section>
 </article>
 
     </main>
-    <aside class="toc"><div class="toc-title">本页目录</div><a class="toc-link" href="#模块概览">模块概览</a><a class="toc-link" href="#快速开始">快速开始</a><a class="toc-link" href="#appui-示例">AppUI 示例</a><a class="toc-link" href="#api-参考">API 参考</a><a class="toc-link child" href="#速查">速查</a><a class="toc-link child" href="#connect">connect</a><a class="toc-link child" href="#execute">execute</a><a class="toc-link child" href="#文件传输">文件传输</a><a class="toc-link child" href="#disconnect">disconnect</a><a class="toc-link child" href="#异常">异常</a><a class="toc-link" href="#常见错误">常见错误</a><a class="toc-link" href="#相关文档">相关文档</a><a class="toc-link" href="#预期效果">预期效果</a></aside>
+    <aside class="toc"><div class="toc-title">本页目录</div><a class="toc-link" href="#模块概览">模块概览</a><a class="toc-link" href="#快速开始">快速开始</a><a class="toc-link" href="#appui-示例">AppUI 示例</a><a class="toc-link" href="#歌曲字段">歌曲字段</a><a class="toc-link" href="#api-参考">API 参考</a><a class="toc-link child" href="#配置">配置</a><a class="toc-link child" href="#队列">队列</a><a class="toc-link child" href="#播放">播放</a><a class="toc-link child" href="#状态与恢复">状态与恢复</a><a class="toc-link child" href="#事件">事件</a><a class="toc-link" href="#和相关模块的分工">和相关模块的分工</a><a class="toc-link" href="#常见错误">常见错误</a><a class="toc-link" href="#预期效果">预期效果</a></aside>
   </div>
   <div class="mobile-backdrop"></div>
   <div class="search-panel" role="dialog" aria-modal="true" aria-label="搜索">

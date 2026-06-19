@@ -201,6 +201,7 @@
 <div class="nav-subgroup-title">播放</div>
 <a class="nav-link" href="../../pages/sound-module/">sound</a>
 <a class="nav-link" href="../../pages/avplayer-module/">avplayer</a>
+<a class="nav-link" href="../../pages/music-player-module/">music_player</a>
 <a class="nav-link" href="../../pages/music-module/">music</a>
 <a class="nav-link" href="../../pages/now-playing-module/">now_playing</a>
 <a class="nav-link" href="../../pages/audio-session-module/">audio_session</a>
@@ -287,12 +288,42 @@
   
   <div class="markdown-body">
     <blockquote class="callout note">本文档已迁移至 <a href="../../pages/vision-helper-module/">vision-helper-module</a>。侧边栏与 schema 均以 <code>vision-helper-module.md</code> 为准。</blockquote>
+<h2 id="appui-图片检测配方"><a class="heading-anchor" href="#appui-图片检测配方">#</a>AppUI 图片检测配方</h2>
+<figure class="code-block" data-code-id="a2a4e43c15bc">
+  <figcaption>
+    <span>python</span>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="a2a4e43c15bc" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
+  </figcaption>
+  <pre><code id="code-a2a4e43c15bc" class="language-python">import appui
+import vision_helper
+
+
+def body():
+    return appui.Form([
+        appui.Section(&quot;Vision Helper&quot;, [
+            appui.Text(&quot;在按钮回调中传入 base64 图片并调用 detect_* API&quot;),
+        ])
+    ])</code></pre>
+</figure>
+<p>预期效果：页面展示检测入口；成功后在界面上显示检测摘要。</p>
+<figure class="code-block" data-code-id="2ae76455ce34">
+  <figcaption>
+    <span>python</span>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="2ae76455ce34" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
+  </figcaption>
+  <pre><code id="code-2ae76455ce34" class="language-python"># 最小调用骨架（在命名回调中执行）
+# result = vision_helper.detect_barcodes(image_b64)</code></pre>
+</figure>
+<h2 id="失败路径"><a class="heading-anchor" href="#失败路径">#</a>失败路径</h2>
+<div class="table-scroll"><table><thead><tr><th>情况</th><th>处理</th></tr></thead><tbody><tr><td>权限被拒绝</td><td>在设置中开启权限后，从用户触发的回调重试</td></tr><tr><td>设备或能力不可用</td><td>先检查返回值或 <code>is_available()</code>，再给用户可读提示</td></tr><tr><td>用户取消</td><td>保留当前界面状态，不要当作成功继续流程</td></tr><tr><td>参数或 API 名错误</td><td>对照模块 API 参考与 schema，修正后再运行</td></tr></tbody></table></div>
+<h2 id="预期效果"><a class="heading-anchor" href="#预期效果">#</a>预期效果</h2>
+<p>运行示例后，界面应出现文档描述的目标结果；若与预期不符，请按「失败路径」排查。</p>
   </div>
   
 </article>
 
     </main>
-    <aside class="toc toc-blank" aria-hidden="true"></aside>
+    <aside class="toc"><div class="toc-title">本页目录</div><a class="toc-link" href="#appui-图片检测配方">AppUI 图片检测配方</a><a class="toc-link" href="#失败路径">失败路径</a><a class="toc-link" href="#预期效果">预期效果</a></aside>
   </div>
   <div class="mobile-backdrop"></div>
   <div class="search-panel" role="dialog" aria-modal="true" aria-label="搜索">

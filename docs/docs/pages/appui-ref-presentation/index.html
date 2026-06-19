@@ -201,6 +201,7 @@
 <div class="nav-subgroup-title">播放</div>
 <a class="nav-link" href="../../pages/sound-module/">sound</a>
 <a class="nav-link" href="../../pages/avplayer-module/">avplayer</a>
+<a class="nav-link" href="../../pages/music-player-module/">music_player</a>
 <a class="nav-link" href="../../pages/music-module/">music</a>
 <a class="nav-link" href="../../pages/now-playing-module/">now_playing</a>
 <a class="nav-link" href="../../pages/audio-session-module/">audio_session</a>
@@ -455,9 +456,9 @@ appui.run(body, state=state)</code></pre>
 <h2 id="与相邻-api-的区别"><a class="heading-anchor" href="#与相邻-api-的区别">#</a>与相邻 API 的区别</h2>
 <div class="table-scroll"><table><thead><tr><th>API</th><th>不同点</th></tr></thead><tbody><tr><td><code>.alert</code> vs <code>.confirmation_dialog</code></td><td>alert 用于提示；confirmation dialog 用于让用户在多个操作里确认。</td></tr><tr><td><code>.sheet</code> vs <code>.full_screen_cover</code></td><td>sheet 适合短任务；full screen 适合必须暂时离开主界面的完整流程。</td></tr><tr><td><code>.popover</code> vs <code>.sheet</code></td><td>popover 更适合 iPad 上从按钮展开的小面板；iPhone 上可能按系统规则表现为 sheet。</td></tr><tr><td><code>.context_menu</code> vs <code>.swipe_actions</code></td><td>context menu 是次要菜单；swipe actions 是列表行的高频快捷操作。</td></tr><tr><td><code>Refreshable</code> vs <code>.refreshable</code></td><td>修饰符更常见；容器用于需要把刷新能力包成独立视图的场景。</td></tr></tbody></table></div>
 <h2 id="presentation-engine-规则"><a class="heading-anchor" href="#presentation-engine-规则">#</a>Presentation Engine 规则</h2>
-<ul><li>呈现修饰符必须始终挂在最终返回的根视图上，只切换 <code>is_presented</code> / <code>show_*</code> 字段。</li><li>禁止 <code>if state.show_sheet: root = root.sheet(...)</code> 这种条件挂载。</li><li><code>content</code> 传命名函数，例如 <code>content=editor_sheet</code>，不要 <code>content=editor_sheet()</code>。</li><li>规范全文见 <a href="appui-spec-presentation-engine">Presentation Engine Spec</a>。</li></ul>
+<ul><li>呈现修饰符必须始终挂在最终返回的根视图上，只切换 <code>is_presented</code> / <code>show_*</code> 字段。</li><li>禁止 <code>if state.show_sheet: root = root.sheet(...)</code> 这种条件挂载。</li><li><code>content</code> 传命名函数，例如 <code>content=editor_sheet</code>，不要 <code>content=editor_sheet()</code>。</li><li>规范全文见 <a href="appui-spec-presentation-engine.md">Presentation Engine Spec</a>。</li></ul>
 <h2 id="presentationcoordinator-档-4"><a class="heading-anchor" href="#presentationcoordinator-档-4">#</a>PresentationCoordinator（档 4）</h2>
-<p><code>show_*</code> 字段变化时，框架优先走 Swift <code>PresentationCoordinator</code>，跳过 <code>body()</code> 与整树 JSON：</p>
+<p><code>show_*</code> 字段变化时，框架优先走原生 <code>PresentationCoordinator</code>，跳过 <code>body()</code> 与整树 JSON：</p>
 <figure class="code-block" data-code-id="92013a53654d">
   <figcaption>
     <span>python</span>

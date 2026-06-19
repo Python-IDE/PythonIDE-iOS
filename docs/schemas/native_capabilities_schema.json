@@ -823,6 +823,35 @@
       "kind": "module",
       "presentation": "api"
     },
+    "music_player": {
+      "importName": "music_player",
+      "category": "mediaVision",
+      "docId": "music-player-module",
+      "docFile": "music-player-module.md",
+      "agentDocId": "music-player-module-agent",
+      "agentDocFile": "music-player-module-agent.md",
+      "capabilities": [
+        "music_queue",
+        "playback_control",
+        "play_mode",
+        "now_playing_metadata",
+        "remote_commands",
+        "playback_restore",
+        "progress_events"
+      ],
+      "permissions": [],
+      "risk": "media_playback",
+      "requiresUserAction": true,
+      "failureStates": [
+        "invalid_song",
+        "unsupported_url",
+        "load_failed",
+        "playback_failed",
+        "unavailable"
+      ],
+      "kind": "module",
+      "presentation": "api"
+    },
     "sound": {
       "importName": "sound",
       "category": "mediaVision",
@@ -1912,6 +1941,7 @@
               "items": [
                 "sound-module",
                 "avplayer-module",
+                "music-player-module",
                 "music-module",
                 "now-playing-module",
                 "audio-session-module"

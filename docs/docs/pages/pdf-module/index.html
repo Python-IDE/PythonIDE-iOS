@@ -201,6 +201,7 @@
 <div class="nav-subgroup-title">播放</div>
 <a class="nav-link" href="../../pages/sound-module/">sound</a>
 <a class="nav-link" href="../../pages/avplayer-module/">avplayer</a>
+<a class="nav-link" href="../../pages/music-player-module/">music_player</a>
 <a class="nav-link" href="../../pages/music-module/">music</a>
 <a class="nav-link" href="../../pages/now-playing-module/">now_playing</a>
 <a class="nav-link" href="../../pages/audio-session-module/">audio_session</a>
@@ -403,19 +404,21 @@ pdf.from_html(&quot;&lt;h1&gt;Report&lt;/h1&gt;&quot;, &quot;/path/report.pdf&qu
 <h3 id="预览"><a class="heading-anchor" href="#预览">#</a>预览</h3>
 <p><strong><code>preview(path)</code></strong> — 呈现原生 QuickLook 查看器，返回 <code>True</code> 表示成功弹出。</p>
 <h3 id="异常"><a class="heading-anchor" href="#异常">#</a>异常</h3>
-<p><strong><code>PDFError(message, code=None)</code></strong> — 桥接不可用或操作失败时抛出。</p>
+<p><strong><code>PDFError(message, code=None)</code></strong> — 原生能力入口不可用或操作失败时抛出。</p>
 <hr>
 <h2 id="常见错误"><a class="heading-anchor" href="#常见错误">#</a>常见错误</h2>
 <div class="table-scroll"><table><thead><tr><th>错误写法</th><th>后果</th><th>修正</th></tr></thead><tbody><tr><td>路径不可写</td><td>创建失败</td><td>使用 <code>~/Documents</code> 等沙盒目录</td></tr><tr><td>在 <code>body()</code> 里调用 <code>preview()</code></td><td>每次刷新弹查看器</td><td>放进按钮回调</td></tr><tr><td>把 <code>page_image</code> 结果当路径用</td><td>类型错误</td><td>返回值是 <code>bytes</code>，需自行保存</td></tr><tr><td>期望编辑已有 PDF</td><td>超出能力</td><td>仅支持创建、读取、渲染</td></tr></tbody></table></div>
 <hr>
 <h2 id="相关文档"><a class="heading-anchor" href="#相关文档">#</a>相关文档</h2>
 <div class="table-scroll"><table><thead><tr><th>文档</th><th>用途</th></tr></thead><tbody><tr><td><a href="../../pages/photos-module/">photos</a></td><td>选图后 <code>create_from_images</code></td></tr><tr><td><a href="../../pages/share-module/">share</a></td><td>生成后通过分享面板发送</td></tr><tr><td><a href="../../pages/file-picker-module/">file_picker</a></td><td>选择已有 PDF 路径</td></tr></tbody></table></div>
+<h2 id="预期效果"><a class="heading-anchor" href="#预期效果">#</a>预期效果</h2>
+<p>运行示例后，界面应出现文档描述的目标结果；若与预期不符，先看「失败路径」并按返回值或日志排查。</p>
   </div>
   
 </article>
 
     </main>
-    <aside class="toc"><div class="toc-title">本页目录</div><a class="toc-link" href="#模块概览">模块概览</a><a class="toc-link" href="#快速开始">快速开始</a><a class="toc-link" href="#appui-示例">AppUI 示例</a><a class="toc-link" href="#api-参考">API 参考</a><a class="toc-link child" href="#速查">速查</a><a class="toc-link child" href="#创建">创建</a><a class="toc-link child" href="#读取">读取</a><a class="toc-link child" href="#预览">预览</a><a class="toc-link child" href="#异常">异常</a><a class="toc-link" href="#常见错误">常见错误</a><a class="toc-link" href="#相关文档">相关文档</a></aside>
+    <aside class="toc"><div class="toc-title">本页目录</div><a class="toc-link" href="#模块概览">模块概览</a><a class="toc-link" href="#快速开始">快速开始</a><a class="toc-link" href="#appui-示例">AppUI 示例</a><a class="toc-link" href="#api-参考">API 参考</a><a class="toc-link child" href="#速查">速查</a><a class="toc-link child" href="#创建">创建</a><a class="toc-link child" href="#读取">读取</a><a class="toc-link child" href="#预览">预览</a><a class="toc-link child" href="#异常">异常</a><a class="toc-link" href="#常见错误">常见错误</a><a class="toc-link" href="#相关文档">相关文档</a><a class="toc-link" href="#预期效果">预期效果</a></aside>
   </div>
   <div class="mobile-backdrop"></div>
   <div class="search-panel" role="dialog" aria-modal="true" aria-label="搜索">

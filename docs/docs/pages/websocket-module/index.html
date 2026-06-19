@@ -201,6 +201,7 @@
 <div class="nav-subgroup-title">播放</div>
 <a class="nav-link" href="../../pages/sound-module/">sound</a>
 <a class="nav-link" href="../../pages/avplayer-module/">avplayer</a>
+<a class="nav-link" href="../../pages/music-player-module/">music_player</a>
 <a class="nav-link" href="../../pages/music-module/">music</a>
 <a class="nav-link" href="../../pages/now-playing-module/">now_playing</a>
 <a class="nav-link" href="../../pages/audio-session-module/">audio_session</a>
@@ -307,16 +308,25 @@ print(msg)  # {&quot;type&quot;: &quot;text&quot;, &quot;data&quot;: &quot;Hello
 ws.close()</code></pre>
 </figure>
 <p>回调式（适合 AppUI）：</p>
-<figure class="code-block" data-code-id="a4ec0dfa6516">
+<figure class="code-block" data-code-id="fee7b433a789">
   <figcaption>
     <span>python</span>
-    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="a4ec0dfa6516" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="fee7b433a789" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
-  <pre><code id="code-a4ec0dfa6516" class="language-python">import websocket
+  <pre><code id="code-fee7b433a789" class="language-python">import websocket
+
+
+def on_message(data):
+    print(&quot;收到:&quot;, data)
+
+
+def on_close(code):
+    print(&quot;关闭:&quot;, code)
+
 
 ws = websocket.connect(&quot;wss://echo.websocket.org&quot;)
-ws.on_message = lambda data: print(&quot;收到:&quot;, data)
-ws.on_close = lambda code: print(&quot;关闭:&quot;, code)
+ws.on_message = on_message
+ws.on_close = on_close
 ws.send(&quot;Hello&quot;)</code></pre>
 </figure>
 <hr>
@@ -428,12 +438,14 @@ appui.run(body, state=state)</code></pre>
 <hr>
 <h2 id="相关文档"><a class="heading-anchor" href="#相关文档">#</a>相关文档</h2>
 <div class="table-scroll"><table><thead><tr><th>文档</th><th>用途</th></tr></thead><tbody><tr><td><a href="../../pages/network-module/">network</a></td><td>HTTP 请求</td></tr><tr><td><a href="../../pages/http-server-module/">http_server</a></td><td>本地 HTTP 服务（非 WS 服务端）</td></tr></tbody></table></div>
+<h2 id="预期效果"><a class="heading-anchor" href="#预期效果">#</a>预期效果</h2>
+<p>运行示例后，界面应出现文档描述的目标结果；若与预期不符，先看「失败路径」并按返回值或日志排查。</p>
   </div>
   
 </article>
 
     </main>
-    <aside class="toc"><div class="toc-title">本页目录</div><a class="toc-link" href="#模块概览">模块概览</a><a class="toc-link" href="#快速开始">快速开始</a><a class="toc-link" href="#appui-示例">AppUI 示例</a><a class="toc-link" href="#api-参考">API 参考</a><a class="toc-link child" href="#速查">速查</a><a class="toc-link child" href="#连接">连接</a><a class="toc-link child" href="#收发">收发</a><a class="toc-link child" href="#回调">回调</a><a class="toc-link" href="#常见错误">常见错误</a><a class="toc-link" href="#相关文档">相关文档</a></aside>
+    <aside class="toc"><div class="toc-title">本页目录</div><a class="toc-link" href="#模块概览">模块概览</a><a class="toc-link" href="#快速开始">快速开始</a><a class="toc-link" href="#appui-示例">AppUI 示例</a><a class="toc-link" href="#api-参考">API 参考</a><a class="toc-link child" href="#速查">速查</a><a class="toc-link child" href="#连接">连接</a><a class="toc-link child" href="#收发">收发</a><a class="toc-link child" href="#回调">回调</a><a class="toc-link" href="#常见错误">常见错误</a><a class="toc-link" href="#相关文档">相关文档</a><a class="toc-link" href="#预期效果">预期效果</a></aside>
   </div>
   <div class="mobile-backdrop"></div>
   <div class="search-panel" role="dialog" aria-modal="true" aria-label="搜索">

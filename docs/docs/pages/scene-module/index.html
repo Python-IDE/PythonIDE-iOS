@@ -201,6 +201,7 @@
 <div class="nav-subgroup-title">播放</div>
 <a class="nav-link" href="../../pages/sound-module/">sound</a>
 <a class="nav-link" href="../../pages/avplayer-module/">avplayer</a>
+<a class="nav-link" href="../../pages/music-player-module/">music_player</a>
 <a class="nav-link" href="../../pages/music-module/">music</a>
 <a class="nav-link" href="../../pages/now-playing-module/">now_playing</a>
 <a class="nav-link" href="../../pages/audio-session-module/">audio_session</a>
@@ -511,12 +512,20 @@ scene.ShapeNode(fill_color=&quot;yellow&quot;, stroke_color=&quot;white&quot;, p
 <hr>
 <h2 id="相关文档"><a class="heading-anchor" href="#相关文档">#</a>相关文档</h2>
 <div class="table-scroll"><table><thead><tr><th>文档</th><th>用途</th></tr></thead><tbody><tr><td><a href="../../pages/scene-api-index/">scene API 索引</a></td><td>按类族快速查名称</td></tr><tr><td><a href="../../pages/scene-api-reference/">scene API 参考</a></td><td>生命周期、节点、Action、Physics 签名</td></tr><tr><td><a href="../../pages/turtle-module/">turtle</a></td><td>海龟教学绘图</td></tr><tr><td><a href="../../pages/appui-module/">appui</a></td><td>原生表单与导航 UI</td></tr><tr><td><a href="../../pages/ui-module/">ui</a></td><td>Pythonista 风格 <code>ui</code> 控件</td></tr><tr><td><a href="../../pages/motion-module/">motion</a></td><td>加速度计/陀螺仪（可与 scene 配合）</td></tr></tbody></table></div>
+<h2 id="先选写法"><a class="heading-anchor" href="#先选写法">#</a>先选写法</h2>
+<div class="table-scroll"><table><thead><tr><th>目标</th><th>写法</th></tr></thead><tbody><tr><td>精灵 / 物理游戏</td><td><code>Scene</code> 子类 + 节点树</td></tr><tr><td>即时画布</td><td><code>draw()</code> + Classic API</td></tr><tr><td>教程海龟</td><td><a href="../../pages/turtle-module/">turtle</a></td></tr></tbody></table></div>
+<h2 id="写-scene-的心智模型"><a class="heading-anchor" href="#写-scene-的心智模型">#</a>写 scene 的心智模型</h2>
+<ol><li><code>setup()</code> 建节点；<code>update()</code> 做帧逻辑；<code>draw()</code> 只负责即时绘制。</li><li>动画优先 <code>Action</code> + <code>run_action</code>，不要阻塞循环。</li><li>脚本末尾只调用一次 <code>scene.run(...)</code>。</li></ol>
+<h2 id="发布前检查"><a class="heading-anchor" href="#发布前检查">#</a>发布前检查</h2>
+<ul><li>触摸、暂停、关闭路径可验证</li><li>精灵颜色使用 <code>color=</code> 关键字参数</li><li>未使用 AppUI 布局 API</li></ul>
+<h2 id="预期效果"><a class="heading-anchor" href="#预期效果">#</a>预期效果</h2>
+<p>运行示例后，界面应出现文档描述的目标结果；若与预期不符，先看「失败路径」并按返回值或日志排查。</p>
   </div>
   <section class="related-section"><h2>相关文档</h2><div class="related-list"><a class="related-link" href="../scene-api-index/"><strong>scene API 索引</strong><span>按生命周期、节点、Action、Physics、Classic 绘图与常量查 scene 公开名称。</span></a><a class="related-link" href="../scene-api-reference/"><strong>scene API 参考</strong><span>集中列出 scene 生命周期、节点、Action、Physics 与 Classic 绘图签名。</span></a><a class="related-link" href="../turtle-module/"><strong>turtle</strong><span>Tk-free 原生 turtle 绘图，兼容教材脚本、填充、多画笔和事件。</span></a></div></section>
 </article>
 
     </main>
-    <aside class="toc"><div class="toc-title">本页目录</div><a class="toc-link" href="#模块概览">模块概览</a><a class="toc-link" href="#快速开始">快速开始</a><a class="toc-link" href="#可运行示例">可运行示例</a><a class="toc-link child" href="#精灵与-action-动画">精灵与 Action 动画</a><a class="toc-link child" href="#classic-绘制-draw">Classic 绘制（draw()）</a><a class="toc-link child" href="#物理与碰撞">物理与碰撞</a><a class="toc-link child" href="#模态子场景">模态子场景</a><a class="toc-link" href="#心智模型">心智模型</a><a class="toc-link child" href="#与-appui-turtle-怎么选">与 appui / turtle 怎么选</a><a class="toc-link" href="#api-参考">API 参考</a><a class="toc-link child" href="#速查">速查</a><a class="toc-link child" href="#scene.run">scene.run()</a><a class="toc-link child" href="#常用节点构造">常用节点构造</a><a class="toc-link child" href="#action-timing">Action Timing</a><a class="toc-link child" href="#classic-绘图要点">Classic 绘图要点</a><a class="toc-link child" href="#场景属性-运行时">场景属性（运行时）</a><a class="toc-link" href="#常见错误">常见错误</a><a class="toc-link" href="#失败路径">失败路径</a><a class="toc-link" href="#相关文档">相关文档</a></aside>
+    <aside class="toc"><div class="toc-title">本页目录</div><a class="toc-link" href="#模块概览">模块概览</a><a class="toc-link" href="#快速开始">快速开始</a><a class="toc-link" href="#可运行示例">可运行示例</a><a class="toc-link child" href="#精灵与-action-动画">精灵与 Action 动画</a><a class="toc-link child" href="#classic-绘制-draw">Classic 绘制（draw()）</a><a class="toc-link child" href="#物理与碰撞">物理与碰撞</a><a class="toc-link child" href="#模态子场景">模态子场景</a><a class="toc-link" href="#心智模型">心智模型</a><a class="toc-link child" href="#与-appui-turtle-怎么选">与 appui / turtle 怎么选</a><a class="toc-link" href="#api-参考">API 参考</a><a class="toc-link child" href="#速查">速查</a><a class="toc-link child" href="#scene.run">scene.run()</a><a class="toc-link child" href="#常用节点构造">常用节点构造</a><a class="toc-link child" href="#action-timing">Action Timing</a><a class="toc-link child" href="#classic-绘图要点">Classic 绘图要点</a><a class="toc-link child" href="#场景属性-运行时">场景属性（运行时）</a><a class="toc-link" href="#常见错误">常见错误</a><a class="toc-link" href="#失败路径">失败路径</a><a class="toc-link" href="#相关文档">相关文档</a><a class="toc-link" href="#先选写法">先选写法</a><a class="toc-link" href="#写-scene-的心智模型">写 scene 的心智模型</a><a class="toc-link" href="#发布前检查">发布前检查</a><a class="toc-link" href="#预期效果">预期效果</a></aside>
   </div>
   <div class="mobile-backdrop"></div>
   <div class="search-panel" role="dialog" aria-modal="true" aria-label="搜索">

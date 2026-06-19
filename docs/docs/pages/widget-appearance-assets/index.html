@@ -201,6 +201,7 @@
 <div class="nav-subgroup-title">播放</div>
 <a class="nav-link" href="../../pages/sound-module/">sound</a>
 <a class="nav-link" href="../../pages/avplayer-module/">avplayer</a>
+<a class="nav-link" href="../../pages/music-player-module/">music_player</a>
 <a class="nav-link" href="../../pages/music-module/">music</a>
 <a class="nav-link" href="../../pages/now-playing-module/">now_playing</a>
 <a class="nav-link" href="../../pages/audio-session-module/">audio_session</a>
@@ -293,6 +294,7 @@
 <hr>
 <h2 id="快速开始"><a class="heading-anchor" href="#快速开始">#</a>快速开始</h2>
 <p>渐变根背景 + 浅色文字，无需外部图片即可预览。</p>
+<p>预期效果：小组件预览面板显示与脚本一致的布局与交互。</p>
 <figure class="code-block" data-code-id="b82cebe9b510">
   <figcaption>
     <span>python</span>
@@ -338,6 +340,7 @@ w.render()</code></pre>
 <h2 id="外观示例"><a class="heading-anchor" href="#外观示例">#</a>外观示例</h2>
 <h3 id="系统染色-accentable"><a class="heading-anchor" href="#系统染色-accentable">#</a>系统染色（<code>accentable</code>）</h3>
 <p>Tinted / 强调色模式下，只有 <code>.accentable(True)</code> 的节点会跟随系统染色；标题等需保持自定义色时显式 <code>.accentable(False)</code>。</p>
+<p>预期效果：小组件预览面板显示与脚本一致的布局与交互。</p>
 <figure class="code-block" data-code-id="94389c41c433">
   <figcaption>
     <span>python</span>
@@ -378,6 +381,7 @@ w.render()</code></pre>
 <ul><li><code>w.container_background(..., removable=True)</code>：允许系统在支持场景移除容器底。</li><li><code>w.symbol(..., rendering=&quot;palette&quot;, palette=[...])</code>：SF Symbol 多色渲染。</li><li>图标参与染色 → <code>.accentable(True)</code>；文案保持设计色 → <code>.accentable(False)</code>。</li></ul>
 <h3 id="分层卡片-layer-背景"><a class="heading-anchor" href="#分层卡片-layer-背景">#</a>分层卡片（<code>layer</code> 背景）</h3>
 <p>用 <code>layer</code> 叠一块圆角面板，不必整张 Widget 都上色。</p>
+<p>预期效果：小组件预览面板显示与脚本一致的布局与交互。</p>
 <figure class="code-block" data-code-id="c0d22b045e06">
   <figcaption>
     <span>python</span>
@@ -399,6 +403,7 @@ w.render()</code></pre>
 </figure>
 <h3 id="图片背景-background_image-文件参数"><a class="heading-anchor" href="#图片背景-background_image-文件参数">#</a>图片背景（<code>background_image</code> + 文件参数）</h3>
 <p>浅色/深色各选一张图；<code>scrim=&quot;bottom&quot;</code> 在底部加渐变遮罩，保证白字可读。</p>
+<p>预期效果：小组件预览面板显示与脚本一致的布局与交互。</p>
 <figure class="code-block" data-code-id="a296021bdb84">
   <figcaption>
     <span>python</span>
@@ -425,12 +430,13 @@ w.render()</code></pre>
 <ul><li>预览侧栏用文件参数选图；路径相对于 widget 脚本或项目 <code>assets/</code>。</li><li><code>focal=&quot;topTrailing&quot;</code> 等控制 <code>fill</code> 裁剪焦点；<code>content_mode=&quot;fit&quot;</code> 可整张展示不裁剪。</li></ul>
 <h3 id="头像位图-w.image"><a class="heading-anchor" href="#头像位图-w.image">#</a>头像位图（<code>w.image</code>）</h3>
 <p>角标/封面用 <code>w.image</code>；支持圆角与浅色/深色双资源。</p>
-<figure class="code-block" data-code-id="c111059b3122">
+<p>预期效果：小组件预览面板显示与脚本一致的布局与交互。</p>
+<figure class="code-block" data-code-id="ad7219fa2da7">
   <figcaption>
     <span>python</span>
-    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="c111059b3122" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="ad7219fa2da7" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
-  <pre><code id="code-c111059b3122" class="language-python">import widget
+  <pre><code id="code-ad7219fa2da7" class="language-python">import widget
 
 avatar = widget.param.file(&quot;头像&quot;, &quot;&quot;, extensions=[&quot;png&quot;, &quot;jpg&quot;, &quot;jpeg&quot;])
 frame = widget.family_value(44, small=36, large=52)
@@ -439,19 +445,20 @@ w = widget.Widget(background=(&quot;#FFFFFF&quot;, &quot;#111827&quot;), padding
 with w.row(spacing=12):
     w.image(avatar, width=frame, height=frame, corner_radius=frame / 2, content_mode=&quot;fill&quot;)
     with w.column(spacing=4):
-        w.text(&quot;Py 开发者&quot;, size=15, weight=&quot;semibold&quot;).line_limit(1)
+        w.text(&quot;Py 开发者&quot;, size=15, weight=&quot;semibold&quot;).line_limit(1).min_scale(0.72).line_limit(1)
         w.text(&quot;本周 commit +12&quot;, size=12, color=&quot;secondary&quot;).line_limit(1)
 w.render()</code></pre>
 </figure>
 <p>若有两张图，可写 <code>w.image(light=&quot;avatar-light.png&quot;, dark=&quot;avatar-dark.png&quot;, ...)</code> 或元组 <code>w.image((&quot;light.png&quot;, &quot;dark.png&quot;), ...)</code>。</p>
 <h3 id="svg-图标-w.svg"><a class="heading-anchor" href="#svg-图标-w.svg">#</a>SVG 图标（<code>w.svg</code>）</h3>
 <p>适合单色可着色的矢量角标；文件放 <code>assets/</code> 或通过 <code>param.file</code> 选择。</p>
-<figure class="code-block" data-code-id="776b59a22d3f">
+<p>预期效果：小组件预览面板显示与脚本一致的布局与交互。</p>
+<figure class="code-block" data-code-id="b13ba8faa204">
   <figcaption>
     <span>python</span>
-    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="776b59a22d3f" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="b13ba8faa204" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
-  <pre><code id="code-776b59a22d3f" class="language-python">import widget
+  <pre><code id="code-b13ba8faa204" class="language-python">import widget
 
 icon = widget.param.file(&quot;图标&quot;, &quot;&quot;, extensions=[&quot;svg&quot;])
 accent = widget.param.color(&quot;图标色&quot;, &quot;#22C55E&quot;)
@@ -461,13 +468,14 @@ w = widget.Widget(background=(&quot;#FAFAFA&quot;, &quot;#1C1C1E&quot;), padding
 with w.row(spacing=10):
     w.svg(icon, width=size, height=size, color=accent, content_mode=&quot;fit&quot;)
     with w.column(spacing=2):
-        w.text(&quot;自定义 SVG&quot;, size=15, weight=&quot;semibold&quot;).line_limit(1)
+        w.text(&quot;自定义 SVG&quot;, size=15, weight=&quot;semibold&quot;).line_limit(1).min_scale(0.72).line_limit(1)
         w.text(&quot;path + viewBox 图标&quot;, size=12, color=&quot;secondary&quot;).line_limit(1)
 w.render()</code></pre>
 </figure>
 <p>预览侧栏选本地 <code>.svg</code> 文件；简单场景优先 <code>w.symbol(...)</code>，免维护文件。</p>
 <h3 id="隐私占位-锁屏敏感信息"><a class="heading-anchor" href="#隐私占位-锁屏敏感信息">#</a>隐私占位（锁屏敏感信息）</h3>
 <p>步数等敏感数字在锁屏可模糊；与 <a href="../../pages/widget-timeline/">时间线和动画</a> 的 <code>numericText</code> 可叠加。</p>
+<p>预期效果：小组件预览面板显示与脚本一致的布局与交互。</p>
 <figure class="code-block" data-code-id="154040f1c1bf">
   <figcaption>
     <span>python</span>
@@ -580,6 +588,7 @@ w.image(&quot;cover&quot;, width=80, height=80)</code></pre>
 <hr>
 <h2 id="相关文档"><a class="heading-anchor" href="#相关文档">#</a>相关文档</h2>
 <div class="table-scroll"><table><thead><tr><th>文档</th><th>用途</th></tr></thead><tbody><tr><td><a href="../../pages/widget-module/">widget 概览</a></td><td>总览</td></tr><tr><td><a href="../../pages/widget-parameters/">参数面板</a></td><td><code>param.color</code> / <code>param.file</code></td></tr><tr><td><a href="../../pages/widget-layout/">布局与尺寸</a></td><td>图标尺寸、<code>family_value</code></td></tr><tr><td><a href="../../pages/widget-timeline/">时间线和动画</a></td><td><code>numericText</code> 与隐私数字叠加</td></tr><tr><td><a href="../../pages/widget-troubleshooting/">排错</a></td><td>预览/桌面外观不一致</td></tr><tr><td><a href="../../pages/widget-api-reference/">API 参考</a></td><td>完整签名</td></tr></tbody></table></div>
+<p>相关 API：<a href="../../pages/widget-api-reference/">widget-api-reference.md</a></p>
   </div>
   <section class="related-section"><h2>相关文档</h2><div class="related-list"><a class="related-link" href="../widget-module/"><strong>widget</strong><span>Python 编写 WidgetKit 小组件：参数、状态、布局与发布到桌面。</span></a><a class="related-link" href="../widget-parameters/"><strong>widget 参数面板</strong><span>widget.param 声明预览可调配置，与 widget.state 桌面交互区分。</span></a><a class="related-link" href="../widget-layout/"><strong>widget 布局与尺寸</strong><span>row/column/grid/table/canvas、family 预算、when/unless 与锁屏 accessory。</span></a><a class="related-link" href="../widget-timeline/"><strong>widget 时间线和动画</strong><span>timeline/entry、state 数字动画、flip 翻页与 countdown 倒计时。</span></a><a class="related-link" href="../widget-troubleshooting/"><strong>widget 排错</strong><span>基线排查、预览≠桌面、裁切/点击/动画、w.validate 诊断。</span></a><a class="related-link" href="../widget-api-reference/"><strong>widget API 参考</strong><span>公开 Widget() API 速查。</span></a></div></section>
 </article>

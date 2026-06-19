@@ -201,6 +201,7 @@
 <div class="nav-subgroup-title">播放</div>
 <a class="nav-link" href="../../pages/sound-module/">sound</a>
 <a class="nav-link" href="../../pages/avplayer-module/">avplayer</a>
+<a class="nav-link" href="../../pages/music-player-module/">music_player</a>
 <a class="nav-link" href="../../pages/music-module/">music</a>
 <a class="nav-link" href="../../pages/now-playing-module/">now_playing</a>
 <a class="nav-link" href="../../pages/audio-session-module/">audio_session</a>
@@ -293,32 +294,51 @@
 <hr>
 <h2 id="快速开始"><a class="heading-anchor" href="#快速开始">#</a>快速开始</h2>
 <p>在编辑器脚本中注册工具栏按钮：</p>
-<figure class="code-block" data-code-id="1c34f875d9fb">
+<figure class="code-block" data-code-id="cc8283f1ecbf">
   <figcaption>
     <span>python</span>
-    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="1c34f875d9fb" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="cc8283f1ecbf" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
-  <pre><code id="code-1c34f875d9fb" class="language-python">import keyboard
+  <pre><code id="code-cc8283f1ecbf" class="language-python">import keyboard
+
+
+def insert_tab():
+    keyboard.insert_text(&quot;    &quot;)
+
+
+def insert_print():
+    keyboard.insert_text(&quot;print()&quot;)
+
+
+def insert_def_snippet():
+    keyboard.insert_snippet(&quot;def ${1:name}(${2:args}):\n    ${0:pass}&quot;)
+
 
 keyboard.clear()
-keyboard.add_button(&quot;Tab&quot;, action=lambda: keyboard.insert_text(&quot;    &quot;))
-keyboard.add_button(&quot;print&quot;, action=lambda: keyboard.insert_text(&quot;print()&quot;))
-keyboard.add_button(
-    &quot;def&quot;,
-    action=lambda: keyboard.insert_snippet(&quot;def ${1:name}(${2:args}):\n    ${0:pass}&quot;),
-)</code></pre>
+keyboard.add_button(&quot;Tab&quot;, action=insert_tab)
+keyboard.add_button(&quot;print&quot;, action=insert_print)
+keyboard.add_button(&quot;def&quot;, action=insert_def_snippet)</code></pre>
 </figure>
 <p>分组按钮：</p>
-<figure class="code-block" data-code-id="d8f6ec464fb9">
+<figure class="code-block" data-code-id="a5d158507b07">
   <figcaption>
     <span>python</span>
-    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="d8f6ec464fb9" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="a5d158507b07" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
-  <pre><code id="code-d8f6ec464fb9" class="language-python">import keyboard
+  <pre><code id="code-a5d158507b07" class="language-python">import keyboard
+
+
+def insert_import():
+    keyboard.insert_text(&quot;import &quot;)
+
+
+def insert_if():
+    keyboard.insert_text(&quot;if :\n    &quot;, offset=-6)
+
 
 keyboard.add_group(&quot;常用&quot;, buttons=[
-    keyboard.Button(&quot;import&quot;, action=lambda: keyboard.insert_text(&quot;import &quot;)),
-    keyboard.Button(&quot;if&quot;, action=lambda: keyboard.insert_text(&quot;if :\n    &quot;, offset=-6)),
+    keyboard.Button(&quot;import&quot;, action=insert_import),
+    keyboard.Button(&quot;if&quot;, action=insert_if),
 ])</code></pre>
 </figure>
 <hr>
@@ -395,12 +415,14 @@ keyboard.move_cursor(-3)</code></pre>
 <hr>
 <h2 id="相关文档"><a class="heading-anchor" href="#相关文档">#</a>相关文档</h2>
 <div class="table-scroll"><table><thead><tr><th>文档</th><th>用途</th></tr></thead><tbody><tr><td><a href="../../pages/console-module/">console</a></td><td>控制台弹窗</td></tr><tr><td><a href="../../pages/appui-module/">appui</a></td><td>小应用界面（非编辑器工具栏）</td></tr></tbody></table></div>
+<h2 id="预期效果"><a class="heading-anchor" href="#预期效果">#</a>预期效果</h2>
+<p>运行示例后，界面应出现文档描述的目标结果；若与预期不符，先看「失败路径」并按返回值或日志排查。</p>
   </div>
   <section class="related-section"><h2>相关文档</h2><div class="related-list"><a class="related-link" href="../miniapp-native-capabilities/"><strong>原生能力入口</strong><span>MiniApp 常用原生能力入口，不是完整模块总表。</span></a><a class="related-link" href="../miniapp-choose-runtime/"><strong>运行时选择</strong><span>判断该用 appui、widget、ui、scene 还是 console。</span></a></div></section>
 </article>
 
     </main>
-    <aside class="toc"><div class="toc-title">本页目录</div><a class="toc-link" href="#模块概览">模块概览</a><a class="toc-link" href="#快速开始">快速开始</a><a class="toc-link" href="#appui-示例">AppUI 示例</a><a class="toc-link" href="#api-参考">API 参考</a><a class="toc-link child" href="#速查">速查</a><a class="toc-link child" href="#insert_text-insert_snippet">insert_text / insert_snippet</a><a class="toc-link child" href="#生命周期">生命周期</a><a class="toc-link" href="#常见错误">常见错误</a><a class="toc-link" href="#相关文档">相关文档</a></aside>
+    <aside class="toc"><div class="toc-title">本页目录</div><a class="toc-link" href="#模块概览">模块概览</a><a class="toc-link" href="#快速开始">快速开始</a><a class="toc-link" href="#appui-示例">AppUI 示例</a><a class="toc-link" href="#api-参考">API 参考</a><a class="toc-link child" href="#速查">速查</a><a class="toc-link child" href="#insert_text-insert_snippet">insert_text / insert_snippet</a><a class="toc-link child" href="#生命周期">生命周期</a><a class="toc-link" href="#常见错误">常见错误</a><a class="toc-link" href="#相关文档">相关文档</a><a class="toc-link" href="#预期效果">预期效果</a></aside>
   </div>
   <div class="mobile-backdrop"></div>
   <div class="search-panel" role="dialog" aria-modal="true" aria-label="搜索">

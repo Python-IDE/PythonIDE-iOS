@@ -201,6 +201,7 @@
 <div class="nav-subgroup-title">播放</div>
 <a class="nav-link" href="../../pages/sound-module/">sound</a>
 <a class="nav-link" href="../../pages/avplayer-module/">avplayer</a>
+<a class="nav-link" href="../../pages/music-player-module/">music_player</a>
 <a class="nav-link" href="../../pages/music-module/">music</a>
 <a class="nav-link" href="../../pages/now-playing-module/">now_playing</a>
 <a class="nav-link" href="../../pages/audio-session-module/">audio_session</a>
@@ -320,7 +321,7 @@ appui.run(body, state=state)</code></pre>
 <h2 id="先选写法"><a class="heading-anchor" href="#先选写法">#</a>先选写法</h2>
 <div class="table-scroll"><table><thead><tr><th>目标</th><th>推荐看</th></tr></thead><tbody><tr><td>第一次写 MiniApp</td><td><a href="../../pages/appui-quickstart/">快速上手</a></td></tr><tr><td>判断该用 AppUI、widget、ui 还是 scene</td><td><a href="../../pages/miniapp-choose-runtime/">运行时选择</a></td></tr><tr><td>选择页面结构</td><td><a href="../../pages/miniapp-appui-ui-patterns/">AppUI UI 模式</a></td></tr><tr><td>按任务查 API</td><td><a href="../../pages/miniapp-appui-api-index/">AppUI API 地图</a></td></tr><tr><td>排查空白、按钮、输入、列表和权限问题</td><td><a href="../../pages/miniapp-dev-troubleshooting/">MiniApp 开发排错</a></td></tr><tr><td>查完整函数和组件</td><td><a href="../../pages/appui-ref-functions/">函数参考</a></td></tr></tbody></table></div>
 <h2 id="写-appui-的心智模型"><a class="heading-anchor" href="#写-appui-的心智模型">#</a>写 AppUI 的心智模型</h2>
-<ol><li>入口：脚本末尾调用一次 <code>appui.run(body, state=state)</code>。</li><li>页面：<code>body()</code> 或 <code>body(view_state)</code> 返回一个 AppUI View。</li><li>状态：<code>State</code> 保存普通界面数据，<code>ReactiveState</code> 只用于高频变化。</li><li>绑定：<code>bind()</code> / <code>State.bind()</code> 适合输入控件和状态双向连接。</li><li>结构：设置页用 <code>Form + Section</code>，列表页用 <code>List + ForEach</code>，多页面用 <code>NavigationStack</code> 或 <code>TabView</code>。</li><li>交互：按钮、输入、搜索、刷新和弹层使用命名回调修改状态。</li><li>副作用：联网、文件、权限、通知和耗时任务不要写在 <code>body()</code> 里。</li></ol>
+<ol><li>入口：脚本末尾调用一次 <code>appui.run(body, state=state)</code>。</li><li>页面：<code>body()</code> 或 <code>body(view_state)</code> 返回一个 AppUI View。</li><li>状态：<code>State</code> 保存普通界面数据，<code>ReactiveState</code> 只用于高频变化。</li><li>绑定：<code>Binding</code> / <code>bind()</code> / <code>State.bind()</code> 适合输入控件和状态双向连接。</li><li>结构：设置页用 <code>Form + Section</code>，列表页用 <code>List + ForEach</code>，多页面用 <code>NavigationStack</code> 或 <code>TabView</code>。</li><li>交互：按钮、输入、搜索、刷新和弹层使用命名回调修改状态。</li><li>副作用：联网、文件、权限、通知和耗时任务不要写在 <code>body()</code> 里。</li></ol>
 <h2 id="适用场景"><a class="heading-anchor" href="#适用场景">#</a>适用场景</h2>
 <div class="table-scroll"><table><thead><tr><th>需求</th><th>首选</th></tr></thead><tbody><tr><td>表单、设置、列表、详情、工具页</td><td><code>appui</code></td></tr><tr><td>多页面 MiniApp、Tab、弹层、搜索、刷新</td><td><code>appui</code></td></tr><tr><td>图表、媒体、地图、WebView 和系统能力入口</td><td><code>appui</code> + 对应模块</td></tr><tr><td>主屏、锁屏、StandBy 小组件</td><td><code>widget</code></td></tr><tr><td>Sprite、碰撞、逐帧绘制、小游戏</td><td><code>scene</code></td></tr><tr><td>Pythonista 兼容的命令式界面脚本</td><td><code>ui</code></td></tr><tr><td>纯输出、批处理、日志转换</td><td>普通 Python / <code>console</code></td></tr></tbody></table></div>
 <h2 id="行为契约"><a class="heading-anchor" href="#行为契约">#</a>行为契约</h2>

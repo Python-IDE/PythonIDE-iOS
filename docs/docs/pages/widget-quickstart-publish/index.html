@@ -201,6 +201,7 @@
 <div class="nav-subgroup-title">播放</div>
 <a class="nav-link" href="../../pages/sound-module/">sound</a>
 <a class="nav-link" href="../../pages/avplayer-module/">avplayer</a>
+<a class="nav-link" href="../../pages/music-player-module/">music_player</a>
 <a class="nav-link" href="../../pages/music-module/">music</a>
 <a class="nav-link" href="../../pages/now-playing-module/">now_playing</a>
 <a class="nav-link" href="../../pages/audio-session-module/">audio_session</a>
@@ -286,13 +287,15 @@
   </header>
   
   <div class="markdown-body">
-    <p>从第一行 Python 脚本到主屏/锁屏真正显示：写脚本 → 预览 → 调参 → 发布 → 系统添加小组件。</p>
+    <p>API 地图见 <a href="../../pages/widget-api-index/">widget-api-index.md</a>；完整签名见 <a href="../../pages/widget-api-reference/">widget-api-reference.md</a>。</p>
+<p>从第一行 Python 脚本到主屏/锁屏真正显示：写脚本 → 预览 → 调参 → 发布 → 系统添加小组件。</p>
 <blockquote class="callout note"><strong>边界</strong>：本篇讲<strong>发布流程</strong>。API 与节点写法见 <a href="../../pages/widget-module/">widget 概览</a>；文档里的 <code>previewWidget</code> <strong>只能预览</strong>，不能直接发布到桌面。</blockquote>
 <h2 id="本篇目标"><a class="heading-anchor" href="#本篇目标">#</a>本篇目标</h2>
 <div class="table-scroll"><table><thead><tr><th>项</th><th>说明</th></tr></thead><tbody><tr><td>读完你会</td><td>完成一次端到端发布，并在桌面验证按钮交互</td></tr><tr><td>前提</td><td>脚本含 <code>Widget()</code> + <code>w.render()</code>，且能正常预览</td></tr><tr><td>推荐路径</td><td><strong>Widget Studio</strong> 独立项目（最省事）</td></tr><tr><td>耗时</td><td>首次约 5–10 分钟（含系统添加小组件）</td></tr></tbody></table></div>
 <hr>
 <h2 id="发布用脚本-可预览"><a class="heading-anchor" href="#发布用脚本-可预览">#</a>发布用脚本（可预览）</h2>
 <p>本篇示例专注<strong>发布验证</strong>：一个开关 + 状态文案，便于在桌面确认 AppIntent 是否生效。完整 API 写法（环形图、± 按钮等）见 <a href="../../pages/widget-module/#快速开始">widget 概览 · 饮水打卡</a>。</p>
+<p>预期效果：小组件预览面板显示与脚本一致的布局与交互。</p>
 <figure class="code-block" data-code-id="efc095904d6f">
   <figcaption>
     <span>python</span>
@@ -352,6 +355,7 @@ w.render()</code></pre>
 <hr>
 <h2 id="相关文档"><a class="heading-anchor" href="#相关文档">#</a>相关文档</h2>
 <div class="table-scroll"><table><thead><tr><th>文档</th><th>用途</th></tr></thead><tbody><tr><td><a href="../../pages/widget-module/">widget 概览</a></td><td>API、示例、心智模型</td></tr><tr><td><a href="../../pages/widget-parameters/">参数面板</a></td><td><code>widget.param</code> 详解</td></tr><tr><td><a href="../../pages/widget-interaction/">状态和交互</a></td><td>按钮、开关、链接</td></tr><tr><td><a href="../../pages/widget-layout/">布局与尺寸</a></td><td>small/medium/large、锁屏 accessory</td></tr><tr><td><a href="../../pages/widget-troubleshooting/">排错</a></td><td>预览/桌面不一致</td></tr><tr><td><a href="../../pages/widget-api-index/">API 索引</a></td><td>按任务选 API</td></tr></tbody></table></div>
+<p>相关 API：<a href="../../pages/widget-api-reference/">widget-api-reference.md</a></p>
   </div>
   <section class="related-section"><h2>相关文档</h2><div class="related-list"><a class="related-link" href="../widget-module/"><strong>widget</strong><span>Python 编写 WidgetKit 小组件：参数、状态、布局与发布到桌面。</span></a><a class="related-link" href="../widget-layout/"><strong>widget 布局与尺寸</strong><span>row/column/grid/table/canvas、family 预算、when/unless 与锁屏 accessory。</span></a><a class="related-link" href="../widget-parameters/"><strong>widget 参数面板</strong><span>widget.param 声明预览可调配置，与 widget.state 桌面交互区分。</span></a><a class="related-link" href="../widget-interaction/"><strong>widget 状态和交互</strong><span>widget.state、按钮 ±、习惯清单、开关与链接；AppIntent 桌面交互。</span></a><a class="related-link" href="../widget-troubleshooting/"><strong>widget 排错</strong><span>基线排查、预览≠桌面、裁切/点击/动画、w.validate 诊断。</span></a></div></section>
 </article>

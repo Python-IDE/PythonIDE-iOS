@@ -201,6 +201,7 @@
 <div class="nav-subgroup-title">播放</div>
 <a class="nav-link" href="../../pages/sound-module/">sound</a>
 <a class="nav-link" href="../../pages/avplayer-module/">avplayer</a>
+<a class="nav-link" href="../../pages/music-player-module/">music_player</a>
 <a class="nav-link" href="../../pages/music-module/">music</a>
 <a class="nav-link" href="../../pages/now-playing-module/">now_playing</a>
 <a class="nav-link" href="../../pages/audio-session-module/">audio_session</a>
@@ -289,7 +290,7 @@
     <p>HealthKit 健康数据：申请授权、读取步数/心率/睡眠等，写入体重样本。</p>
 <blockquote class="callout note"><strong>边界</strong>：健康数据非常敏感。只请求当前功能需要的类型（如 <code>steps</code>、<code>heart_rate</code>），不要一次申请全部。查询结果只做展示，<strong>不做医疗诊断</strong>；不要把明细写入 <a href="../../pages/storage-module/">storage</a>。</blockquote>
 <h2 id="模块概览"><a class="heading-anchor" href="#模块概览">#</a>模块概览</h2>
-<div class="table-scroll"><table><thead><tr><th>项</th><th>说明</th></tr></thead><tbody><tr><td>导入</td><td><code>import health</code></td></tr><tr><td>适合做什么</td><td>步数/心率/睡眠仪表盘、体重记录、血压汇总</td></tr><tr><td>调用时机</td><td>授权和读取放在按钮回调；不要在 <code>body()</code> 里读 HealthKit</td></tr><tr><td>推荐顺序</td><td><code>is_available()</code> → <code>request_authorization(read=[...])</code> → 查询</td></tr><tr><td>类型名</td><td>用 <code>steps</code> 不是 <code>step_count</code>；时间范围用 Unix timestamp</td></tr></tbody></table></div>
+<div class="table-scroll"><table><thead><tr><th>项</th><th>说明</th></tr></thead><tbody><tr><td>导入</td><td><code>import health</code></td></tr><tr><td>适合做什么</td><td>步数/心率/睡眠仪表盘、体重记录、血压汇总</td></tr><tr><td>调用时机</td><td>授权和读取放在按钮回调；不要在 <code>body()</code> 里读 HealthKit</td></tr><tr><td>推荐顺序</td><td><code>is_available()</code> → <code>request_authorization(read=[...])</code> → 查询</td></tr><tr><td>类型名</td><td>用文档列出的 snake_case 类型名；时间范围用 Unix timestamp</td></tr></tbody></table></div>
 <hr>
 <h2 id="快速开始"><a class="heading-anchor" href="#快速开始">#</a>快速开始</h2>
 <p>下面脚本申请权限并读取最近 24 小时步数与心率：</p>
@@ -402,7 +403,18 @@ if health.is_available():
     )
     status = health.authorization_status(&quot;steps&quot;)</code></pre>
 </figure>
-<p>常用读取类型：<code>steps</code>、<code>heart_rate</code>、<code>weight</code>、<code>sleep</code>、<code>workouts</code>、<code>blood_pressure</code>、<code>blood_pressure_systolic</code>、<code>blood_pressure_diastolic</code>、<code>distance</code>、<code>calories</code>。</p>
+<p>常用授权类型：<code>steps</code>、<code>heart_rate</code>、<code>weight</code>、<code>sleep</code>、<code>workout</code>、<code>blood_pressure_systolic</code>、<code>blood_pressure_diastolic</code>、<code>distance</code>、<code>calories</code>。</p>
+<p>血压授权推荐使用组件类型：</p>
+<figure class="code-block" data-code-id="464d662f251f">
+  <figcaption>
+    <span>python</span>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="464d662f251f" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
+  </figcaption>
+  <pre><code id="code-464d662f251f" class="language-python">health.request_authorization(
+    read=[&quot;blood_pressure_systolic&quot;, &quot;blood_pressure_diastolic&quot;]
+)</code></pre>
+</figure>
+<p><code>blood_pressure</code> 只作为兼容简写，会在运行时展开为收缩压和舒张压组件；不要把任意 HealthKit 原始标识符传给 <code>request_authorization</code>。</p>
 <blockquote class="callout warning"><strong>注意</strong>：只申请当前页面需要的类型，用户更容易接受。</blockquote>
 <h3 id="读取数据"><a class="heading-anchor" href="#读取数据">#</a>读取数据</h3>
 <p><strong><code>query_steps(start=None, end=None)</code></strong> — 返回步数整数，默认最近 24 小时。</p>
@@ -444,16 +456,36 @@ summary = health.summarize_blood_pressure(records)
 </figure>
 <hr>
 <h2 id="常见错误"><a class="heading-anchor" href="#常见错误">#</a>常见错误</h2>
-<div class="table-scroll"><table><thead><tr><th>错误写法</th><th>后果</th><th>修正</th></tr></thead><tbody><tr><td><code>read=[&quot;step_count&quot;]</code></td><td>类型名错误</td><td>使用 <code>steps</code></td></tr><tr><td>一次申请所有权限</td><td>用户易拒绝</td><td>只申请当前需要的类型</td></tr><tr><td>健康明细写入 <code>storage</code></td><td>敏感数据扩散</td><td>只展示汇总</td></tr><tr><td>对异常值做诊断结论</td><td>误导用户</td><td>仅展示原始/统计数据</td></tr></tbody></table></div>
+<div class="table-scroll"><table><thead><tr><th>错误写法</th><th>后果</th><th>修正</th></tr></thead><tbody><tr><td><code>read=[&quot;step_count&quot;]</code> 或 <code>read=[&quot;HKQuantityTypeIdentifier...&quot;]</code></td><td>类型名错误，授权会返回 <code>False</code></td><td>使用文档列出的 snake_case 类型</td></tr><tr><td><code>read=[&quot;blood_pressure&quot;]</code> 依赖组合别名</td><td>不同系统对血压组合授权表现不一致</td><td>使用 <code>blood_pressure_systolic</code> + <code>blood_pressure_diastolic</code></td></tr><tr><td>一次申请所有权限</td><td>用户易拒绝</td><td>只申请当前需要的类型</td></tr><tr><td>健康明细写入 <code>storage</code></td><td>敏感数据扩散</td><td>只展示汇总</td></tr><tr><td>对异常值做诊断结论</td><td>误导用户</td><td>仅展示原始/统计数据</td></tr></tbody></table></div>
 <hr>
 <h2 id="相关文档"><a class="heading-anchor" href="#相关文档">#</a>相关文档</h2>
 <div class="table-scroll"><table><thead><tr><th>文档</th><th>用途</th></tr></thead><tbody><tr><td><a href="../../pages/permission-module/">permission</a></td><td>统一权限查询（HealthKit 用本模块授权）</td></tr><tr><td><a href="../../pages/storage-module/">storage</a></td><td>非敏感偏好存储</td></tr><tr><td><a href="../../pages/miniapp-native-capabilities/">原生能力入口</a></td><td>MiniApp 场景配方</td></tr></tbody></table></div>
+<h2 id="健康仪表盘配方"><a class="heading-anchor" href="#健康仪表盘配方">#</a>健康仪表盘配方</h2>
+<figure class="code-block" data-code-id="57054781c559">
+  <figcaption>
+    <span>python</span>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="57054781c559" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
+  </figcaption>
+  <pre><code id="code-57054781c559" class="language-python">import appui
+import health
+
+
+def body():
+    return appui.Form([
+        appui.Section(&quot;健康&quot;, [
+            appui.Text(&quot;在授权后读取步数等指标并绑定到 State&quot;),
+        ])
+    ])</code></pre>
+</figure>
+<p>预期效果：打开健康数据展示页；未授权时提示用户去系统设置授权。</p>
+<h2 id="预期效果"><a class="heading-anchor" href="#预期效果">#</a>预期效果</h2>
+<p>运行示例后，界面应出现文档描述的目标结果；若与预期不符，先看「失败路径」并按返回值或日志排查。</p>
   </div>
   
 </article>
 
     </main>
-    <aside class="toc"><div class="toc-title">本页目录</div><a class="toc-link" href="#模块概览">模块概览</a><a class="toc-link" href="#快速开始">快速开始</a><a class="toc-link" href="#appui-示例">AppUI 示例</a><a class="toc-link" href="#api-参考">API 参考</a><a class="toc-link child" href="#速查">速查</a><a class="toc-link child" href="#授权">授权</a><a class="toc-link child" href="#读取数据">读取数据</a><a class="toc-link child" href="#写入">写入</a><a class="toc-link child" href="#血压汇总">血压汇总</a><a class="toc-link" href="#常见错误">常见错误</a><a class="toc-link" href="#相关文档">相关文档</a></aside>
+    <aside class="toc"><div class="toc-title">本页目录</div><a class="toc-link" href="#模块概览">模块概览</a><a class="toc-link" href="#快速开始">快速开始</a><a class="toc-link" href="#appui-示例">AppUI 示例</a><a class="toc-link" href="#api-参考">API 参考</a><a class="toc-link child" href="#速查">速查</a><a class="toc-link child" href="#授权">授权</a><a class="toc-link child" href="#读取数据">读取数据</a><a class="toc-link child" href="#写入">写入</a><a class="toc-link child" href="#血压汇总">血压汇总</a><a class="toc-link" href="#常见错误">常见错误</a><a class="toc-link" href="#相关文档">相关文档</a><a class="toc-link" href="#健康仪表盘配方">健康仪表盘配方</a><a class="toc-link" href="#预期效果">预期效果</a></aside>
   </div>
   <div class="mobile-backdrop"></div>
   <div class="search-panel" role="dialog" aria-modal="true" aria-label="搜索">

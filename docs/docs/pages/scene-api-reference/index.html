@@ -201,6 +201,7 @@
 <div class="nav-subgroup-title">播放</div>
 <a class="nav-link" href="../../pages/sound-module/">sound</a>
 <a class="nav-link" href="../../pages/avplayer-module/">avplayer</a>
+<a class="nav-link" href="../../pages/music-player-module/">music_player</a>
 <a class="nav-link" href="../../pages/music-module/">music</a>
 <a class="nav-link" href="../../pages/now-playing-module/">now_playing</a>
 <a class="nav-link" href="../../pages/audio-session-module/">audio_session</a>
@@ -286,15 +287,15 @@
   </header>
   
   <div class="markdown-body">
-    <p><code>scene</code> 提供 Pythonista 兼容的 2D 场景 API（Swift SpriteKit 桥接）。适合游戏与动画；表单/列表请用 <a href="../../pages/appui-module/">appui</a>。</p>
+    <p><code>scene</code> 提供 Pythonista 兼容的 2D 场景 API（Swift SpriteKit 原生能力入口）。适合游戏与动画；表单/列表请用 <a href="../../pages/appui-module/">appui</a>。</p>
 <hr>
 <h2 id="运行入口"><a class="heading-anchor" href="#运行入口">#</a>运行入口</h2>
 <figure class="code-block" data-code-id="a391bb62a887">
   <figcaption>
-    <span>python</span>
+    <span>text</span>
     <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="a391bb62a887" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
-  <pre><code id="code-a391bb62a887" class="language-python">scene.run(
+  <pre><code id="code-a391bb62a887" class="language-text">scene.run(
     scene_instance: Scene,
     *,
     orientation: int = 0,
@@ -316,20 +317,20 @@
 <h3 id="node-基类"><a class="heading-anchor" href="#node-基类">#</a>Node（基类）</h3>
 <figure class="code-block" data-code-id="231d3e694816">
   <figcaption>
-    <span>python</span>
+    <span>text</span>
     <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="231d3e694816" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
-  <pre><code id="code-231d3e694816" class="language-python">Node(position=(0, 0), *, z_position=0, scale=1, alpha=1, parent=None)</code></pre>
+  <pre><code id="code-231d3e694816" class="language-text">Node(position=(0, 0), *, z_position=0, scale=1, alpha=1, parent=None)</code></pre>
 </figure>
 <p>常用属性：<code>position</code>、<code>rotation</code>、<code>x_scale</code>、<code>y_scale</code>、<code>alpha</code>、<code>z_position</code>、<code>parent</code>、<code>children</code>、<code>physics_body</code>、<code>blend_mode</code>、<code>paused</code>、<code>speed</code></p>
 <p>常用方法：<code>add_child</code>、<code>remove_from_parent</code>、<code>run_action</code>、<code>remove_action</code>、<code>remove_all_actions</code></p>
 <h3 id="spritenode"><a class="heading-anchor" href="#spritenode">#</a>SpriteNode</h3>
 <figure class="code-block" data-code-id="51317ec2badb">
   <figcaption>
-    <span>python</span>
+    <span>text</span>
     <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="51317ec2badb" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
-  <pre><code id="code-51317ec2badb" class="language-python">SpriteNode(
+  <pre><code id="code-51317ec2badb" class="language-text">SpriteNode(
     texture=None,
     position=(0, 0),
     *,
@@ -344,10 +345,10 @@
 <h3 id="labelnode"><a class="heading-anchor" href="#labelnode">#</a>LabelNode</h3>
 <figure class="code-block" data-code-id="ba6abc1e498c">
   <figcaption>
-    <span>python</span>
+    <span>text</span>
     <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="ba6abc1e498c" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
-  <pre><code id="code-ba6abc1e498c" class="language-python">LabelNode(
+  <pre><code id="code-ba6abc1e498c" class="language-text">LabelNode(
     text=&quot;&quot;,
     font=(&quot;Helvetica&quot;, 20),
     position=(0, 0),
@@ -359,10 +360,10 @@
 <h3 id="shapenode"><a class="heading-anchor" href="#shapenode">#</a>ShapeNode</h3>
 <figure class="code-block" data-code-id="9689527bda8c">
   <figcaption>
-    <span>python</span>
+    <span>text</span>
     <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="9689527bda8c" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
-  <pre><code id="code-9689527bda8c" class="language-python">ShapeNode(
+  <pre><code id="code-9689527bda8c" class="language-text">ShapeNode(
     path=None,
     fill_color=&quot;white&quot;,
     stroke_color=&quot;clear&quot;,
@@ -402,10 +403,10 @@ PhysicsBody.circle(radius=0, r=0)</code></pre>
 <h3 id="关节"><a class="heading-anchor" href="#关节">#</a>关节</h3>
 <figure class="code-block" data-code-id="e63a6b975c1c">
   <figcaption>
-    <span>python</span>
+    <span>text</span>
     <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="e63a6b975c1c" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
-  <pre><code id="code-e63a6b975c1c" class="language-python">PinJoint(node_a, node_b, anchor)
+  <pre><code id="code-e63a6b975c1c" class="language-text">PinJoint(node_a, node_b, anchor)
 SpringJoint(node_a, node_b, anchor_a, anchor_b, *, damping=0.5, frequency=1.0)
 RopeJoint(node_a, node_b, anchor_a, anchor_b)</code></pre>
 </figure>
@@ -430,12 +431,19 @@ RopeJoint(node_a, node_b, anchor_a, anchor_b)</code></pre>
 <hr>
 <h2 id="相关文档"><a class="heading-anchor" href="#相关文档">#</a>相关文档</h2>
 <div class="table-scroll"><table><thead><tr><th>文档</th><th>用途</th></tr></thead><tbody><tr><td><a href="../../pages/scene-module/">scene 概览</a></td><td>可运行示例与选型</td></tr><tr><td><a href="../../pages/scene-api-index/">scene API 索引</a></td><td>名称速查</td></tr></tbody></table></div>
+<h2 id="失败路径"><a class="heading-anchor" href="#失败路径">#</a>失败路径</h2>
+<div class="table-scroll"><table><thead><tr><th>情况</th><th>处理</th></tr></thead><tbody><tr><td>权限被拒绝</td><td>在设置中开启权限后，从用户触发的回调重试</td></tr><tr><td>设备或能力不可用</td><td>先检查返回值或 <code>is_available()</code>，再给用户可读提示</td></tr><tr><td>用户取消</td><td>保留当前界面状态，不要当作成功继续流程</td></tr><tr><td>参数或 API 名错误</td><td>对照模块 API 参考与 schema，修正后再运行</td></tr></tbody></table></div>
+<h2 id="完整导出索引"><a class="heading-anchor" href="#完整导出索引">#</a>完整导出索引</h2>
+<p>以下名称与 <code>scene</code> 模块公开导出一致，供检索与 Agent 覆盖校验：</p>
+<p><code>Scene</code>, <code>Node</code>, <code>SpriteNode</code>, <code>LabelNode</code>, <code>ShapeNode</code>, <code>EffectNode</code>, <code>EmitterNode</code>, <code>Action</code>, <code>Texture</code>, <code>Shader</code>, <code>SceneView</code>, <code>Touch</code>, <code>Vector2</code>, <code>Vector3</code>, <code>Size</code>, <code>Rect</code>, <code>Point</code>, <code>EdgeInsets</code>, <code>PhysicsBody</code>, <code>PhysicsWorld</code>, <code>Contact</code>, <code>PinJoint</code>, <code>SpringJoint</code>, <code>RopeJoint</code>, <code>run</code>, <code>get_screen_size</code>, <code>get_screen_scale</code>, <code>gravity</code>, <code>play_effect</code>, <code>get_image_path</code>, <code>get_controllers</code>, <code>get_safe_area_insets</code>, <code>background</code>, <code>fill</code>, <code>no_fill</code>, <code>stroke</code>, <code>no_stroke</code>, <code>stroke_weight</code>, <code>tint</code>, <code>no_tint</code>, <code>rect</code>, <code>ellipse</code>, <code>line</code>, <code>image</code>, <code>text</code>, <code>translate</code>, <code>rotate</code>, <code>scale</code>, <code>push_matrix</code>, <code>pop_matrix</code>, <code>blend_mode</code>, <code>use_shader</code>, <code>load_image</code>, <code>load_image_file</code>, <code>load_pil_image</code>, <code>render_text</code>, <code>unload_image</code>, <code>BLEND_NORMAL</code>, <code>BLEND_ADD</code>, <code>BLEND_MULTIPLY</code>, <code>DEFAULT_ORIENTATION</code>, <code>PORTRAIT</code>, <code>LANDSCAPE</code>, <code>TIMING_LINEAR</code>, <code>TIMING_EASE_IN</code>, <code>TIMING_EASE_IN_2</code>, <code>TIMING_EASE_OUT</code>, <code>TIMING_EASE_OUT_2</code>, <code>TIMING_EASE_IN_OUT</code>, <code>TIMING_SINODIAL</code>, <code>TIMING_EASE_BACK_IN</code>, <code>TIMING_EASE_BACK_OUT</code>, <code>TIMING_EASE_BACK_IN_OUT</code>, <code>TIMING_ELASTIC_IN</code>, <code>TIMING_ELASTIC_OUT</code>, <code>TIMING_ELASTIC_IN_OUT</code>, <code>TIMING_BOUNCE_IN</code>, <code>TIMING_BOUNCE_OUT</code>, <code>TIMING_BOUNCE_IN_OUT</code>, <code>FILTERING_LINEAR</code>, <code>FILTERING_NEAREST</code></p>
+<h2 id="预期效果"><a class="heading-anchor" href="#预期效果">#</a>预期效果</h2>
+<p>运行示例后，界面应出现文档描述的目标结果；若与预期不符，请按「失败路径」排查。</p>
   </div>
   <section class="related-section"><h2>相关文档</h2><div class="related-list"><a class="related-link" href="../scene-module/"><strong>scene</strong><span>2D 场景、精灵节点、触摸、Action 动画、物理与 Classic 绘图。</span></a><a class="related-link" href="../scene-api-index/"><strong>scene API 索引</strong><span>按生命周期、节点、Action、Physics、Classic 绘图与常量查 scene 公开名称。</span></a></div></section>
 </article>
 
     </main>
-    <aside class="toc"><div class="toc-title">本页目录</div><a class="toc-link" href="#运行入口">运行入口</a><a class="toc-link" href="#scene-生命周期">Scene 生命周期</a><a class="toc-link child" href="#场景属性">场景属性</a><a class="toc-link" href="#节点">节点</a><a class="toc-link child" href="#node-基类">Node（基类）</a><a class="toc-link child" href="#spritenode">SpriteNode</a><a class="toc-link child" href="#labelnode">LabelNode</a><a class="toc-link child" href="#shapenode">ShapeNode</a><a class="toc-link child" href="#texture">Texture</a><a class="toc-link" href="#action">Action</a><a class="toc-link" href="#physics">Physics</a><a class="toc-link child" href="#physicsbody">PhysicsBody</a><a class="toc-link child" href="#physicsworld">PhysicsWorld</a><a class="toc-link child" href="#关节">关节</a><a class="toc-link child" href="#contact">Contact</a><a class="toc-link" href="#classic-绘图">Classic 绘图</a><a class="toc-link child" href="#尚未实现">尚未实现 ⚠️</a><a class="toc-link" href="#系统与资源">系统与资源</a><a class="toc-link" href="#颜色与坐标">颜色与坐标</a><a class="toc-link" href="#使用规则">使用规则</a><a class="toc-link" href="#相关文档">相关文档</a></aside>
+    <aside class="toc"><div class="toc-title">本页目录</div><a class="toc-link" href="#运行入口">运行入口</a><a class="toc-link" href="#scene-生命周期">Scene 生命周期</a><a class="toc-link child" href="#场景属性">场景属性</a><a class="toc-link" href="#节点">节点</a><a class="toc-link child" href="#node-基类">Node（基类）</a><a class="toc-link child" href="#spritenode">SpriteNode</a><a class="toc-link child" href="#labelnode">LabelNode</a><a class="toc-link child" href="#shapenode">ShapeNode</a><a class="toc-link child" href="#texture">Texture</a><a class="toc-link" href="#action">Action</a><a class="toc-link" href="#physics">Physics</a><a class="toc-link child" href="#physicsbody">PhysicsBody</a><a class="toc-link child" href="#physicsworld">PhysicsWorld</a><a class="toc-link child" href="#关节">关节</a><a class="toc-link child" href="#contact">Contact</a><a class="toc-link" href="#classic-绘图">Classic 绘图</a><a class="toc-link child" href="#尚未实现">尚未实现 ⚠️</a><a class="toc-link" href="#系统与资源">系统与资源</a><a class="toc-link" href="#颜色与坐标">颜色与坐标</a><a class="toc-link" href="#使用规则">使用规则</a><a class="toc-link" href="#相关文档">相关文档</a><a class="toc-link" href="#失败路径">失败路径</a><a class="toc-link" href="#完整导出索引">完整导出索引</a><a class="toc-link" href="#预期效果">预期效果</a></aside>
   </div>
   <div class="mobile-backdrop"></div>
   <div class="search-panel" role="dialog" aria-modal="true" aria-label="搜索">

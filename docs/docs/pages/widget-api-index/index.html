@@ -201,6 +201,7 @@
 <div class="nav-subgroup-title">播放</div>
 <a class="nav-link" href="../../pages/sound-module/">sound</a>
 <a class="nav-link" href="../../pages/avplayer-module/">avplayer</a>
+<a class="nav-link" href="../../pages/music-player-module/">music_player</a>
 <a class="nav-link" href="../../pages/music-module/">music</a>
 <a class="nav-link" href="../../pages/now-playing-module/">now_playing</a>
 <a class="nav-link" href="../../pages/audio-session-module/">audio_session</a>
@@ -286,7 +287,8 @@
   </header>
   
   <div class="markdown-body">
-    <p>按<strong>任务</strong>和<strong>场景</strong>组织 <code>widget</code> 公开 API。需要确认参数名、返回值或修饰符链时，再查 <a href="../../pages/widget-api-reference/">API 参考</a>。</p>
+    <p>发布流程见 <a href="../../pages/widget-quickstart-publish/">从脚本到桌面</a>；完整签名见 <a href="../../pages/widget-api-reference/">widget API 参考</a>。</p>
+<p>按<strong>任务</strong>和<strong>场景</strong>组织 <code>widget</code> 公开 API。需要确认参数名、返回值或修饰符链时，再查 <a href="../../pages/widget-api-reference/">API 参考</a>。</p>
 <blockquote class="callout note"><strong>边界</strong>：本页是索引，不展开教程。入门见 <a href="../../pages/widget-module/">widget 概览</a>；故障见 <a href="../../pages/widget-troubleshooting/">排错</a>。</blockquote>
 <h2 id="本篇目标"><a class="heading-anchor" href="#本篇目标">#</a>本篇目标</h2>
 <div class="table-scroll"><table><thead><tr><th>项</th><th>说明</th></tr></thead><tbody><tr><td>用途</td><td>快速定位「该用哪个 API」</td></tr><tr><td>精确签名</td><td><a href="../../pages/widget-api-reference/">API 参考</a></td></tr><tr><td>写法示例</td><td>各专题文档（布局、参数、交互…）</td></tr><tr><td>默认 family</td><td>主屏 <strong>medium</strong>；其它尺寸见 <a href="../../pages/widget-layout/">布局与尺寸</a></td></tr></tbody></table></div>
@@ -341,6 +343,7 @@ w.symbol(&quot;paintpalette.fill&quot;, rendering=&quot;palette&quot;, palette=[
 <hr>
 <h2 id="失败路径"><a class="heading-anchor" href="#失败路径">#</a>失败路径</h2>
 <div class="table-scroll"><table><thead><tr><th>现象</th><th>处理</th></tr></thead><tbody><tr><td>不知道用哪个 API</td><td>本文「先看哪一类」→ 专题文档</td></tr><tr><td>签名记不清</td><td><a href="../../pages/widget-api-reference/">API 参考</a></td></tr><tr><td><code>TypeError: unexpected keyword</code></td><td><a href="../../pages/widget-troubleshooting/">排错</a> 对照表（<code>tint</code>、<code>symbol color</code> 等）</td></tr><tr><td>示例能预览、桌面异常</td><td>发布流程 + 缓存重装</td></tr></tbody></table></div>
+<p>相关 API：<a href="../../pages/widget-api-reference/">widget-api-reference.md</a></p>
   </div>
   <section class="related-section"><h2>相关文档</h2><div class="related-list"><a class="related-link" href="../widget-module/"><strong>widget</strong><span>Python 编写 WidgetKit 小组件：参数、状态、布局与发布到桌面。</span></a><a class="related-link" href="../widget-quickstart-publish/"><strong>widget 从脚本到桌面</strong><span>Widget Studio 预览、发布、系统添加主屏小组件与桌面验证。</span></a><a class="related-link" href="../widget-layout/"><strong>widget 布局与尺寸</strong><span>row/column/grid/table/canvas、family 预算、when/unless 与锁屏 accessory。</span></a><a class="related-link" href="../widget-parameters/"><strong>widget 参数面板</strong><span>widget.param 声明预览可调配置，与 widget.state 桌面交互区分。</span></a><a class="related-link" href="../widget-interaction/"><strong>widget 状态和交互</strong><span>widget.state、按钮 ±、习惯清单、开关与链接；AppIntent 桌面交互。</span></a><a class="related-link" href="../widget-timeline/"><strong>widget 时间线和动画</strong><span>timeline/entry、state 数字动画、flip 翻页与 countdown 倒计时。</span></a></div></section>
 </article>

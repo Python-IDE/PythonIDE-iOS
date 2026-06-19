@@ -201,6 +201,7 @@
 <div class="nav-subgroup-title">播放</div>
 <a class="nav-link" href="../../pages/sound-module/">sound</a>
 <a class="nav-link" href="../../pages/avplayer-module/">avplayer</a>
+<a class="nav-link" href="../../pages/music-player-module/">music_player</a>
 <a class="nav-link" href="../../pages/music-module/">music</a>
 <a class="nav-link active" href="../../pages/now-playing-module/">now_playing</a>
 <a class="nav-link" href="../../pages/audio-session-module/">audio_session</a>
@@ -383,7 +384,7 @@ appui.run(body, state=state)</code></pre>
 <hr>
 <h2 id="api-参考"><a class="heading-anchor" href="#api-参考">#</a>API 参考</h2>
 <h3 id="速查"><a class="heading-anchor" href="#速查">#</a>速查</h3>
-<div class="table-scroll"><table><thead><tr><th>API</th><th>作用</th></tr></thead><tbody><tr><td><code>set_info(title, artist=&#x27;&#x27;, album=&#x27;&#x27;, duration=0, elapsed=0, artwork_path=None, playback_rate=1.0)</code></td><td>发布完整元数据</td></tr><tr><td><code>update_elapsed(seconds, playback_rate=1.0)</code></td><td>仅更新已播放秒数</td></tr><tr><td><code>clear()</code></td><td>清除锁屏卡片信息</td></tr><tr><td><code>NowPlayingError</code></td><td>桥接失败异常</td></tr></tbody></table></div>
+<div class="table-scroll"><table><thead><tr><th>API</th><th>作用</th></tr></thead><tbody><tr><td><code>set_info(title, artist=&#x27;&#x27;, album=&#x27;&#x27;, duration=0, elapsed=0, artwork_path=None, playback_rate=1.0)</code></td><td>发布完整元数据</td></tr><tr><td><code>update_elapsed(seconds, playback_rate=1.0)</code></td><td>仅更新已播放秒数</td></tr><tr><td><code>clear()</code></td><td>清除锁屏卡片信息</td></tr><tr><td><code>NowPlayingError</code></td><td>原生能力入口失败异常</td></tr></tbody></table></div>
 <h3 id="set_info"><a class="heading-anchor" href="#set_info">#</a>set_info</h3>
 <figure class="code-block" data-code-id="96906bdb6055">
   <figcaption>
@@ -416,12 +417,14 @@ now_playing.clear()</code></pre>
 <hr>
 <h2 id="相关文档"><a class="heading-anchor" href="#相关文档">#</a>相关文档</h2>
 <div class="table-scroll"><table><thead><tr><th>文档</th><th>用途</th></tr></thead><tbody><tr><td><a href="../../pages/sound-module/">sound</a></td><td>本地音频播放</td></tr><tr><td><a href="../../pages/avplayer-module/">avplayer</a></td><td>音视频流播放</td></tr><tr><td><a href="../../pages/audio-session-module/">audio_session</a></td><td>音频会话类别</td></tr></tbody></table></div>
+<h2 id="预期效果"><a class="heading-anchor" href="#预期效果">#</a>预期效果</h2>
+<p>运行示例后，界面应出现文档描述的目标结果；若与预期不符，先看「失败路径」并按返回值或日志排查。</p>
   </div>
   
 </article>
 
     </main>
-    <aside class="toc"><div class="toc-title">本页目录</div><a class="toc-link" href="#模块概览">模块概览</a><a class="toc-link" href="#快速开始">快速开始</a><a class="toc-link" href="#appui-示例">AppUI 示例</a><a class="toc-link" href="#api-参考">API 参考</a><a class="toc-link child" href="#速查">速查</a><a class="toc-link child" href="#set_info">set_info</a><a class="toc-link child" href="#update_elapsed-clear">update_elapsed / clear</a><a class="toc-link" href="#常见错误">常见错误</a><a class="toc-link" href="#相关文档">相关文档</a></aside>
+    <aside class="toc"><div class="toc-title">本页目录</div><a class="toc-link" href="#模块概览">模块概览</a><a class="toc-link" href="#快速开始">快速开始</a><a class="toc-link" href="#appui-示例">AppUI 示例</a><a class="toc-link" href="#api-参考">API 参考</a><a class="toc-link child" href="#速查">速查</a><a class="toc-link child" href="#set_info">set_info</a><a class="toc-link child" href="#update_elapsed-clear">update_elapsed / clear</a><a class="toc-link" href="#常见错误">常见错误</a><a class="toc-link" href="#相关文档">相关文档</a><a class="toc-link" href="#预期效果">预期效果</a></aside>
   </div>
   <div class="mobile-backdrop"></div>
   <div class="search-panel" role="dialog" aria-modal="true" aria-label="搜索">

@@ -201,6 +201,7 @@
 <div class="nav-subgroup-title">播放</div>
 <a class="nav-link" href="../../pages/sound-module/">sound</a>
 <a class="nav-link" href="../../pages/avplayer-module/">avplayer</a>
+<a class="nav-link" href="../../pages/music-player-module/">music_player</a>
 <a class="nav-link" href="../../pages/music-module/">music</a>
 <a class="nav-link" href="../../pages/now-playing-module/">now_playing</a>
 <a class="nav-link" href="../../pages/audio-session-module/">audio_session</a>
@@ -293,6 +294,7 @@
 <hr>
 <h2 id="快速开始"><a class="heading-anchor" href="#快速开始">#</a>快速开始</h2>
 <p><code>row()</code> 横排三列指标，<code>column()</code> 在每列里纵向叠标题与数值——适合仪表盘，比单列更省高度。</p>
+<p>预期效果：小组件预览面板显示与脚本一致的布局与交互。</p>
 <figure class="code-block" data-code-id="a56a1def5ec5">
   <figcaption>
     <span>python</span>
@@ -355,6 +357,7 @@ w.render()</code></pre>
 <h2 id="布局示例"><a class="heading-anchor" href="#布局示例">#</a>布局示例</h2>
 <h3 id="三尺寸信息密度-is_family-分支"><a class="heading-anchor" href="#三尺寸信息密度-is_family-分支">#</a>三尺寸信息密度（<code>is_family</code> 分支）</h3>
 <p>同一脚本为 small 只保留单号+状态，medium 加图标行，large 再补预计送达。</p>
+<p>预期效果：小组件预览面板显示与脚本一致的布局与交互。</p>
 <figure class="code-block" data-code-id="28a7a3607ab2">
   <figcaption>
     <span>python</span>
@@ -391,6 +394,7 @@ w.render()</code></pre>
 <ul><li><code>ctx.is_family(&quot;small&quot;)</code> 等价于 <code>ctx.is_family(widget.SMALL)</code>。</li><li>长单号在 small 必须 <code>.min_scale(0.6)</code> 或缩短显示字段。</li></ul>
 <h3 id="family_value-与-w.when-large"><a class="heading-anchor" href="#family_value-与-w.when-large">#</a><code>family_value</code> 与 <code>w.when(&quot;large&quot;)</code></h3>
 <p>只改字号/边距用 <code>family_value</code>；<strong>整段 UI 仅 large 出现</strong>时用 <code>w.when</code>。</p>
+<p>预期效果：小组件预览面板显示与脚本一致的布局与交互。</p>
 <figure class="code-block" data-code-id="93a4294b7773">
   <figcaption>
     <span>python</span>
@@ -420,6 +424,7 @@ w.render()</code></pre>
 <ul><li><code>w.when(&quot;large&quot;, layout=&quot;column&quot;)</code>：仅 large 渲染块内子节点；<code>layout</code> 还可为 <code>&quot;row&quot;</code> / <code>&quot;layer&quot;</code>。</li><li><code>w.unless(&quot;small&quot;)</code>：除 small 外都显示，适合「medium/large 才显示的脚注」。</li></ul>
 <h3 id="grid-周历打卡"><a class="heading-anchor" href="#grid-周历打卡">#</a><code>grid</code> 周历打卡</h3>
 <p><code>grid(columns=7)</code> 按子节点顺序从左到右、从上到下填格；<code>equal=True</code> 等宽列。</p>
+<p>预期效果：小组件预览面板显示与脚本一致的布局与交互。</p>
 <figure class="code-block" data-code-id="d132f8afd8cf">
   <figcaption>
     <span>python</span>
@@ -453,6 +458,7 @@ w.render()</code></pre>
 </figure>
 <h3 id="table-九宫格-bingo"><a class="heading-anchor" href="#table-九宫格-bingo">#</a><code>table</code> 九宫格（Bingo）</h3>
 <p>习惯打卡的<strong>纵向列表</strong>见 <a href="../../pages/widget-interaction/">状态和交互</a>；需要<strong>可见格线</strong>时用 <code>table()</code> + <code>table.cell(row, col)</code>。</p>
+<p>预期效果：小组件预览面板显示与脚本一致的布局与交互。</p>
 <figure class="code-block" data-code-id="edb9bb0d9a08">
   <figcaption>
     <span>python</span>
@@ -492,6 +498,7 @@ w.render()</code></pre>
 <ul><li><code>line_width=&quot;hairline&quot;</code>：最细像素线。</li><li><code>line_cap=&quot;butt&quot;</code>、<code>line_join=&quot;miter&quot;</code>：端点不圆、交点直角。</li><li>格内文字 <code>.min_scale(0.55)</code>，避免 small 格子裁切。</li></ul>
 <h3 id="canvas-读取可画区域"><a class="heading-anchor" href="#canvas-读取可画区域">#</a><code>canvas</code> 读取可画区域</h3>
 <p>需要按<strong>点坐标</strong>摆放（表盘刻度、自定义键盘）时，先读 <code>content_width</code> / <code>content_height</code>，再 <code>.place()</code>。</p>
+<p>预期效果：小组件预览面板显示与脚本一致的布局与交互。</p>
 <figure class="code-block" data-code-id="218240afba85">
   <figcaption>
     <span>python</span>
@@ -523,6 +530,7 @@ w.render()</code></pre>
 <ul><li><code>ctx.width</code> / <code>ctx.height</code> 含 padding 前预算；<strong>摆放内容用 <code>content_*</code></strong>。</li><li><code>coordinate_space=&quot;points&quot;</code>：<code>.place(x, y, unit=&quot;points&quot;)</code> 以画布左上为原点。</li></ul>
 <h3 id="锁屏-accessory-精简版"><a class="heading-anchor" href="#锁屏-accessory-精简版">#</a>锁屏 accessory 精简版</h3>
 <p>锁屏圆形/矩形/行内节点上限低（见上表）；按 family <strong>分别写布局</strong>，不要复用 medium 整块 UI。</p>
+<p>预期效果：小组件预览面板显示与脚本一致的布局与交互。</p>
 <figure class="code-block" data-code-id="8af3644b2461">
   <figcaption>
     <span>python</span>
@@ -619,6 +627,7 @@ with w.when(&quot;large&quot;, layout=&quot;column&quot;):
 <hr>
 <h2 id="相关文档"><a class="heading-anchor" href="#相关文档">#</a>相关文档</h2>
 <div class="table-scroll"><table><thead><tr><th>文档</th><th>用途</th></tr></thead><tbody><tr><td><a href="../../pages/widget-module/">widget 概览</a></td><td>总览与入门</td></tr><tr><td><a href="../../pages/widget-parameters/">参数面板</a></td><td><code>widget.param</code> 与布局配色</td></tr><tr><td><a href="../../pages/widget-interaction/">状态和交互</a></td><td>表格格内 <code>toggle_item</code>、按钮</td></tr><tr><td><a href="../../pages/widget-quickstart-publish/">从脚本到桌面</a></td><td>锁屏 accessory 添加步骤</td></tr><tr><td><a href="../../pages/widget-timeline/">时间线和动画</a></td><td>数字过渡、flip 动画</td></tr><tr><td><a href="../../pages/widget-appearance-assets/">资源与外观</a></td><td>背景、渐变、图片</td></tr><tr><td><a href="../../pages/widget-troubleshooting/">排错</a></td><td>裁切与预览不一致</td></tr><tr><td><a href="../../pages/widget-api-reference/">API 参考</a></td><td>布局节点完整签名</td></tr></tbody></table></div>
+<p>相关 API：<a href="../../pages/widget-api-reference/">widget-api-reference.md</a></p>
   </div>
   <section class="related-section"><h2>相关文档</h2><div class="related-list"><a class="related-link" href="../widget-module/"><strong>widget</strong><span>Python 编写 WidgetKit 小组件：参数、状态、布局与发布到桌面。</span></a><a class="related-link" href="../widget-parameters/"><strong>widget 参数面板</strong><span>widget.param 声明预览可调配置，与 widget.state 桌面交互区分。</span></a><a class="related-link" href="../widget-interaction/"><strong>widget 状态和交互</strong><span>widget.state、按钮 ±、习惯清单、开关与链接；AppIntent 桌面交互。</span></a><a class="related-link" href="../widget-quickstart-publish/"><strong>widget 从脚本到桌面</strong><span>Widget Studio 预览、发布、系统添加主屏小组件与桌面验证。</span></a><a class="related-link" href="../widget-troubleshooting/"><strong>widget 排错</strong><span>基线排查、预览≠桌面、裁切/点击/动画、w.validate 诊断。</span></a><a class="related-link" href="../widget-api-reference/"><strong>widget API 参考</strong><span>公开 Widget() API 速查。</span></a></div></section>
 </article>

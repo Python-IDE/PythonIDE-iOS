@@ -201,6 +201,7 @@
 <div class="nav-subgroup-title">播放</div>
 <a class="nav-link" href="../../pages/sound-module/">sound</a>
 <a class="nav-link" href="../../pages/avplayer-module/">avplayer</a>
+<a class="nav-link" href="../../pages/music-player-module/">music_player</a>
 <a class="nav-link" href="../../pages/music-module/">music</a>
 <a class="nav-link" href="../../pages/now-playing-module/">now_playing</a>
 <a class="nav-link" href="../../pages/audio-session-module/">audio_session</a>
@@ -293,6 +294,7 @@
 <hr>
 <h2 id="快速开始"><a class="heading-anchor" href="#快速开始">#</a>快速开始</h2>
 <p>运行下面脚本会打开<strong>小组件预览</strong>（非 AppUI 全屏）。用环形图展示饮水进度，<code>+</code> / <code>−</code> 在桌面改写杯数。</p>
+<p>预期效果：小组件预览面板显示与脚本一致的布局与交互。</p>
 <figure class="code-block" data-code-id="e29e6b4a13b1">
   <figcaption>
     <span>python</span>
@@ -331,6 +333,7 @@ w.render()</code></pre>
 <h2 id="widget-预览示例"><a class="heading-anchor" href="#widget-预览示例">#</a>Widget 预览示例</h2>
 <h3 id="每日一言-参数-尺寸分支"><a class="heading-anchor" href="#每日一言-参数-尺寸分支">#</a>每日一言（参数 + 尺寸分支）</h3>
 <p>纯展示卡片：无 <code>widget.state</code>，演示 <code>param.text</code>、<code>symbol</code> 与 <code>family_value</code>；small 隐藏出处行。</p>
+<p>预期效果：小组件预览面板显示与脚本一致的布局与交互。</p>
 <figure class="code-block" data-code-id="0befd0929548">
   <figcaption>
     <span>python</span>
@@ -355,6 +358,7 @@ w.render()</code></pre>
 </figure>
 <h3 id="本周专注-折线图"><a class="heading-anchor" href="#本周专注-折线图">#</a>本周专注（折线图）</h3>
 <p>静态数据折线 + 可调曲线色；适合仪表盘类小组件，不涉及桌面点击。</p>
+<p>预期效果：小组件预览面板显示与脚本一致的布局与交互。</p>
 <figure class="code-block" data-code-id="f2f9c3f351af">
   <figcaption>
     <span>python</span>
@@ -386,7 +390,7 @@ w.render()</code></pre>
 <hr>
 <h2 id="api-参考"><a class="heading-anchor" href="#api-参考">#</a>API 参考</h2>
 <h3 id="速查"><a class="heading-anchor" href="#速查">#</a>速查</h3>
-<div class="table-scroll"><table><thead><tr><th>API</th><th>作用</th></tr></thead><tbody><tr><td><code>Widget(...)</code></td><td>根容器；唯一公开入口</td></tr><tr><td><code>w.render()</code></td><td>提交 IR，生成预览/桌面时间线</td></tr><tr><td><code>widget.param.text/color/number/slider/bool/choice/file</code></td><td>用户可调参数</td></tr><tr><td><code>widget.state.int/float/bool/str/list</code></td><td>持久状态 + action 工厂</td></tr><tr><td><code>count.increment()</code> / <code>done.toggle()</code></td><td>按钮/开关的 <code>action=</code></td></tr><tr><td><code>widget.context</code></td><td>当前 family 与内容区尺寸</td></tr><tr><td><code>widget.family_value(d, small=..., large=...)</code></td><td>按尺寸返回值</td></tr><tr><td><code>w.timeline(...)</code></td><td>多条时间线条目（见专题文档）</td></tr><tr><td><code>widget.SMALL</code> / <code>MEDIUM</code> / <code>LARGE</code></td><td>尺寸常量</td></tr></tbody></table></div>
+<div class="table-scroll"><table><thead><tr><th>API</th><th>作用</th></tr></thead><tbody><tr><td><code>Widget(...)</code></td><td>根容器；唯一入口</td></tr><tr><td><code>w.render()</code></td><td>提交 IR，生成预览/桌面时间线</td></tr><tr><td><code>widget.param.text/color/number/slider/bool/choice/file</code></td><td>用户可调参数</td></tr><tr><td><code>widget.state.int/float/bool/str/list</code></td><td>持久状态 + action 工厂</td></tr><tr><td><code>count.increment()</code> / <code>done.toggle()</code></td><td>按钮/开关的 <code>action=</code></td></tr><tr><td><code>widget.context</code></td><td>当前 family 与内容区尺寸</td></tr><tr><td><code>widget.family_value(d, small=..., large=...)</code></td><td>按尺寸返回值</td></tr><tr><td><code>w.timeline(...)</code></td><td>多条时间线条目（见专题文档）</td></tr><tr><td><code>widget.SMALL</code> / <code>MEDIUM</code> / <code>LARGE</code></td><td>尺寸常量</td></tr></tbody></table></div>
 <h3 id="widget.param-声明"><a class="heading-anchor" href="#widget.param-声明">#</a><code>widget.param</code> 声明</h3>
 <div class="table-scroll"><table><thead><tr><th>方法</th><th>用途</th></tr></thead><tbody><tr><td><code>text(name, default)</code></td><td>标题、文案</td></tr><tr><td><code>color(name, default)</code></td><td>十六进制或语义色</td></tr><tr><td><code>number(name, default, min=, max=)</code></td><td>整数/小数参数</td></tr><tr><td><code>slider(name, default, min=, max=, step=)</code></td><td>滑块</td></tr><tr><td><code>bool(name, default)</code></td><td>开关类参数（预览面板，不是桌面 state）</td></tr><tr><td><code>choice(name, options, default=)</code></td><td>下拉选项</td></tr><tr><td><code>file(name, default, extensions=)</code></td><td>图片等资源路径</td></tr></tbody></table></div>
 <p>第一个参数 <code>name</code> 是参数 ID，同时作为预览面板默认标题。</p>
@@ -435,12 +439,16 @@ size = widget.family_value(14, small=12, medium=14, large=18)</code></pre>
 <div class="table-scroll"><table><thead><tr><th>文档</th><th>用途</th></tr></thead><tbody><tr><td><a href="../../pages/widget-quickstart-publish/">从脚本到桌面</a></td><td>发布流程与检查清单</td></tr><tr><td><a href="../../pages/widget-layout/">布局与尺寸</a></td><td>row/column/grid、family 预算</td></tr><tr><td><a href="../../pages/widget-parameters/">参数面板</a></td><td><code>widget.param</code> 详解</td></tr><tr><td><a href="../../pages/widget-interaction/">状态和交互</a></td><td>state、按钮、开关、链接</td></tr><tr><td><a href="../../pages/widget-timeline/">时间线和动画</a></td><td><code>timeline</code>、<code>content_transition</code></td></tr><tr><td><a href="../../pages/widget-appearance-assets/">资源与外观</a></td><td>颜色、渐变、图片、SVG</td></tr><tr><td><a href="../../pages/widget-troubleshooting/">排错</a></td><td>预览/桌面不一致</td></tr><tr><td><a href="../../pages/widget-api-index/">API 索引</a></td><td>按任务选 API</td></tr><tr><td><a href="../../pages/widget-api-reference/">API 参考</a></td><td>全部节点签名</td></tr></tbody></table></div>
 <h2 id="相关模块"><a class="heading-anchor" href="#相关模块">#</a>相关模块</h2>
 <div class="table-scroll"><table><thead><tr><th>文档</th><th>用途</th></tr></thead><tbody><tr><td><a href="../../pages/appui-module/">appui</a></td><td>完整 App 界面（非小组件）</td></tr><tr><td><a href="../../pages/scene-module/">scene</a></td><td>2D 游戏画布（非 WidgetKit）</td></tr><tr><td><a href="../../pages/shortcuts-module/">shortcut</a></td><td>快捷指令触发脚本刷新小组件</td></tr></tbody></table></div>
+<h2 id="相关文档"><a class="heading-anchor" href="#相关文档">#</a>相关文档</h2>
+<ul><li><a href="../../pages/widget-api-reference/">widget API 参考</a></li></ul>
+<h2 id="预期效果"><a class="heading-anchor" href="#预期效果">#</a>预期效果</h2>
+<p>运行示例后，界面应出现文档描述的目标结果；若与预期不符，先看「失败路径」并按返回值或日志排查。</p>
   </div>
   <section class="related-section"><h2>相关文档</h2><div class="related-list"><a class="related-link" href="../widget-quickstart-publish/"><strong>widget 从脚本到桌面</strong><span>Widget Studio 预览、发布、系统添加主屏小组件与桌面验证。</span></a><a class="related-link" href="../widget-layout/"><strong>widget 布局与尺寸</strong><span>row/column/grid/table/canvas、family 预算、when/unless 与锁屏 accessory。</span></a><a class="related-link" href="../widget-parameters/"><strong>widget 参数面板</strong><span>widget.param 声明预览可调配置，与 widget.state 桌面交互区分。</span></a><a class="related-link" href="../widget-interaction/"><strong>widget 状态和交互</strong><span>widget.state、按钮 ±、习惯清单、开关与链接；AppIntent 桌面交互。</span></a><a class="related-link" href="../widget-api-index/"><strong>widget API 地图</strong><span>按任务/场景索引 Widget API；含 symbol 链式 color 等易错点。</span></a><a class="related-link" href="../widget-api-reference/"><strong>widget API 参考</strong><span>公开 Widget() API 速查。</span></a></div></section>
 </article>
 
     </main>
-    <aside class="toc"><div class="toc-title">本页目录</div><a class="toc-link" href="#模块概览">模块概览</a><a class="toc-link" href="#快速开始">快速开始</a><a class="toc-link" href="#widget-预览示例">Widget 预览示例</a><a class="toc-link child" href="#每日一言-参数-尺寸分支">每日一言（参数 + 尺寸分支）</a><a class="toc-link child" href="#本周专注-折线图">本周专注（折线图）</a><a class="toc-link" href="#心智模型">心智模型</a><a class="toc-link child" href="#与-appui-scene-怎么选">与 appui / scene 怎么选</a><a class="toc-link child" href="#widgetkit-能做什么-不能做什么">WidgetKit 能做什么 / 不能做什么</a><a class="toc-link" href="#api-参考">API 参考</a><a class="toc-link child" href="#速查">速查</a><a class="toc-link child" href="#widget.param-声明">widget.param 声明</a><a class="toc-link child" href="#widget.state-与交互">widget.state 与交互</a><a class="toc-link child" href="#尺寸与布局">尺寸与布局</a><a class="toc-link" href="#常见错误">常见错误</a><a class="toc-link" href="#失败路径">失败路径</a><a class="toc-link" href="#发布到桌面-简表">发布到桌面（简表）</a><a class="toc-link" href="#专题文档">专题文档</a><a class="toc-link" href="#相关模块">相关模块</a></aside>
+    <aside class="toc"><div class="toc-title">本页目录</div><a class="toc-link" href="#模块概览">模块概览</a><a class="toc-link" href="#快速开始">快速开始</a><a class="toc-link" href="#widget-预览示例">Widget 预览示例</a><a class="toc-link child" href="#每日一言-参数-尺寸分支">每日一言（参数 + 尺寸分支）</a><a class="toc-link child" href="#本周专注-折线图">本周专注（折线图）</a><a class="toc-link" href="#心智模型">心智模型</a><a class="toc-link child" href="#与-appui-scene-怎么选">与 appui / scene 怎么选</a><a class="toc-link child" href="#widgetkit-能做什么-不能做什么">WidgetKit 能做什么 / 不能做什么</a><a class="toc-link" href="#api-参考">API 参考</a><a class="toc-link child" href="#速查">速查</a><a class="toc-link child" href="#widget.param-声明">widget.param 声明</a><a class="toc-link child" href="#widget.state-与交互">widget.state 与交互</a><a class="toc-link child" href="#尺寸与布局">尺寸与布局</a><a class="toc-link" href="#常见错误">常见错误</a><a class="toc-link" href="#失败路径">失败路径</a><a class="toc-link" href="#发布到桌面-简表">发布到桌面（简表）</a><a class="toc-link" href="#专题文档">专题文档</a><a class="toc-link" href="#相关模块">相关模块</a><a class="toc-link" href="#相关文档">相关文档</a><a class="toc-link" href="#预期效果">预期效果</a></aside>
   </div>
   <div class="mobile-backdrop"></div>
   <div class="search-panel" role="dialog" aria-modal="true" aria-label="搜索">

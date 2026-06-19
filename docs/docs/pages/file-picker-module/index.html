@@ -201,6 +201,7 @@
 <div class="nav-subgroup-title">播放</div>
 <a class="nav-link" href="../../pages/sound-module/">sound</a>
 <a class="nav-link" href="../../pages/avplayer-module/">avplayer</a>
+<a class="nav-link" href="../../pages/music-player-module/">music_player</a>
 <a class="nav-link" href="../../pages/music-module/">music</a>
 <a class="nav-link" href="../../pages/now-playing-module/">now_playing</a>
 <a class="nav-link" href="../../pages/audio-session-module/">audio_session</a>
@@ -404,16 +405,20 @@ appui.run(body, state=state)</code></pre>
 <div class="table-scroll"><table><thead><tr><th>参数</th><th>作用</th></tr></thead><tbody><tr><td><code>allowed_types</code></td><td>限制可选类型（扩展名、MIME、UTType 名）</td></tr><tr><td><code>allows_multiple</code></td><td>是否多选</td></tr><tr><td><code>copy</code></td><td>是否复制到沙盒（默认 <code>True</code>）</td></tr><tr><td><code>on_picked</code></td><td>回调 <code>(paths: list[str])</code></td></tr><tr><td><code>label</code></td><td>自定义按钮外观</td></tr></tbody></table></div>
 <h3 id="fileimporter-file-importer"><a class="heading-anchor" href="#fileimporter-file-importer">#</a>FileImporter {#file-importer}</h3>
 <p><strong><code>FileImporter(allowed_types=None, allows_multiple=False, copy=True, on_picked=None, label=None)</code></strong></p>
-<figure class="code-block" data-code-id="d6bee3b1e22b">
+<figure class="code-block" data-code-id="00f8b3eb7ee3">
   <figcaption>
     <span>python</span>
-    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="d6bee3b1e22b" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="00f8b3eb7ee3" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
-  <pre><code id="code-d6bee3b1e22b" class="language-python">appui.FileImporter(
+  <pre><code id="code-00f8b3eb7ee3" class="language-python">def on_files_picked(paths):
+    print(paths)
+
+
+appui.FileImporter(
     allowed_types=[&quot;pdf&quot;, &quot;csv&quot;, &quot;text&quot;, &quot;image/png&quot;],
     allows_multiple=False,
     copy=True,
-    on_picked=lambda paths: print(paths),
+    on_picked=on_files_picked,
     label=appui.Button(&quot;导入&quot;),
 )</code></pre>
 </figure>
@@ -441,12 +446,14 @@ appui.run(body, state=state)</code></pre>
 <hr>
 <h2 id="相关文档"><a class="heading-anchor" href="#相关文档">#</a>相关文档</h2>
 <div class="table-scroll"><table><thead><tr><th>文档</th><th>用途</th></tr></thead><tbody><tr><td><a href="../../pages/photos-module/">photos</a></td><td>相册选图 / 拍照</td></tr><tr><td><a href="../../pages/pdf-module/">pdf</a></td><td>PDF 生成与预览</td></tr><tr><td><a href="../../pages/appui-ref-media/">AppUI 媒体参考</a></td><td>FileImporter 完整签名</td></tr><tr><td><a href="../../pages/appui-guide-media/">AppUI 媒体指南</a></td><td>更多媒体集成模式</td></tr></tbody></table></div>
+<h2 id="预期效果"><a class="heading-anchor" href="#预期效果">#</a>预期效果</h2>
+<p>运行示例后，界面应出现文档描述的目标结果；若与预期不符，先看「失败路径」并按返回值或日志排查。</p>
   </div>
   <section class="related-section"><h2>相关文档</h2><div class="related-list"><a class="related-link" href="../photos-module/"><strong>photos</strong><span>相册选择、拍照、保存和资源查询。</span></a><a class="related-link" href="../appui-ref-media/"><strong>媒体 API</strong><span>Image、AsyncImage、PhotoPicker、CameraPicker、VideoPlayer、WebView 和 MapView。</span></a><a class="related-link" href="../appui-guide-media/"><strong>媒体与系统集成</strong><span>图片、相册、相机、地图、视频和 WebView 的页面模式。</span></a></div></section>
 </article>
 
     </main>
-    <aside class="toc"><div class="toc-title">本页目录</div><a class="toc-link" href="#模块概览">模块概览</a><a class="toc-link" href="#快速开始">快速开始</a><a class="toc-link" href="#appui-示例">AppUI 示例</a><a class="toc-link" href="#api-参考">API 参考</a><a class="toc-link child" href="#速查">速查</a><a class="toc-link child" href="#fileimporter-file-importer">FileImporter { file importer}</a><a class="toc-link child" href="#allowed_types-常用值">allowed_types 常用值</a><a class="toc-link child" href="#读取已选文件">读取已选文件</a><a class="toc-link child" href="#与-photopicker-的区别">与 PhotoPicker 的区别</a><a class="toc-link" href="#常见错误">常见错误</a><a class="toc-link" href="#相关文档">相关文档</a></aside>
+    <aside class="toc"><div class="toc-title">本页目录</div><a class="toc-link" href="#模块概览">模块概览</a><a class="toc-link" href="#快速开始">快速开始</a><a class="toc-link" href="#appui-示例">AppUI 示例</a><a class="toc-link" href="#api-参考">API 参考</a><a class="toc-link child" href="#速查">速查</a><a class="toc-link child" href="#fileimporter-file-importer">FileImporter { file importer}</a><a class="toc-link child" href="#allowed_types-常用值">allowed_types 常用值</a><a class="toc-link child" href="#读取已选文件">读取已选文件</a><a class="toc-link child" href="#与-photopicker-的区别">与 PhotoPicker 的区别</a><a class="toc-link" href="#常见错误">常见错误</a><a class="toc-link" href="#相关文档">相关文档</a><a class="toc-link" href="#预期效果">预期效果</a></aside>
   </div>
   <div class="mobile-backdrop"></div>
   <div class="search-panel" role="dialog" aria-modal="true" aria-label="搜索">

@@ -201,6 +201,7 @@
 <div class="nav-subgroup-title">播放</div>
 <a class="nav-link" href="../../pages/sound-module/">sound</a>
 <a class="nav-link" href="../../pages/avplayer-module/">avplayer</a>
+<a class="nav-link" href="../../pages/music-player-module/">music_player</a>
 <a class="nav-link" href="../../pages/music-module/">music</a>
 <a class="nav-link" href="../../pages/now-playing-module/">now_playing</a>
 <a class="nav-link" href="../../pages/audio-session-module/">audio_session</a>
@@ -311,18 +312,23 @@ else:
     print(result)</code></pre>
 </figure>
 <p>带附件：</p>
-<figure class="code-block" data-code-id="813cb9a535b1">
+<figure class="code-block" data-code-id="6eb11620ad20">
   <figcaption>
     <span>python</span>
-    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="813cb9a535b1" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="6eb11620ad20" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
-  <pre><code id="code-813cb9a535b1" class="language-python">import mail
+  <pre><code id="code-6eb11620ad20" class="language-python">import mail
 
+attachment = {
+    &quot;path&quot;: &quot;/path/report.pdf&quot;,
+    &quot;mime_type&quot;: &quot;application/pdf&quot;,
+    &quot;name&quot;: &quot;report.pdf&quot;,
+}
 result = mail.compose(
     to=&quot;team@example.com&quot;,
     subject=&quot;周报&quot;,
     body=&quot;请查收附件&quot;,
-    attachments=[{&quot;path&quot;: &quot;/path/report.pdf&quot;, &quot;mime_type&quot;: &quot;application/pdf&quot;, &quot;name&quot;: &quot;report.pdf&quot;}],
+    attachments=[attachment],
 )</code></pre>
 </figure>
 <hr>
@@ -386,7 +392,7 @@ appui.run(body, state=state)</code></pre>
 <hr>
 <h2 id="api-参考"><a class="heading-anchor" href="#api-参考">#</a>API 参考</h2>
 <h3 id="速查"><a class="heading-anchor" href="#速查">#</a>速查</h3>
-<div class="table-scroll"><table><thead><tr><th>API</th><th>作用</th></tr></thead><tbody><tr><td><code>can_send()</code></td><td>是否已配置邮件账户 → <code>bool</code></td></tr><tr><td><code>compose(to, subject=&#x27;&#x27;, body=&#x27;&#x27;, cc=None, bcc=None, attachments=None)</code></td><td>弹出编辑器 → 结果字符串</td></tr><tr><td><code>MailError</code></td><td>桥接失败异常</td></tr></tbody></table></div>
+<div class="table-scroll"><table><thead><tr><th>API</th><th>作用</th></tr></thead><tbody><tr><td><code>can_send()</code></td><td>是否已配置邮件账户 → <code>bool</code></td></tr><tr><td><code>compose(to, subject=&#x27;&#x27;, body=&#x27;&#x27;, cc=None, bcc=None, attachments=None)</code></td><td>弹出编辑器 → 结果字符串</td></tr><tr><td><code>MailError</code></td><td>原生能力入口失败异常</td></tr></tbody></table></div>
 <h3 id="compose"><a class="heading-anchor" href="#compose">#</a>compose</h3>
 <p><strong><code>compose(...)</code></strong> — 呈现系统 <code>MFMailComposeViewController</code>。</p>
 <div class="table-scroll"><table><thead><tr><th>参数</th><th>说明</th></tr></thead><tbody><tr><td><code>to</code> / <code>cc</code> / <code>bcc</code></td><td>字符串或列表</td></tr><tr><td><code>subject</code> / <code>body</code></td><td>主题与正文</td></tr><tr><td><code>attachments</code></td><td><code>[{&quot;path&quot;, &quot;mime_type&quot;, &quot;name&quot;}, ...]</code></td></tr></tbody></table></div>
@@ -404,12 +410,14 @@ appui.run(body, state=state)</code></pre>
 <hr>
 <h2 id="相关文档"><a class="heading-anchor" href="#相关文档">#</a>相关文档</h2>
 <div class="table-scroll"><table><thead><tr><th>文档</th><th>用途</th></tr></thead><tbody><tr><td><a href="../../pages/message-module/">message</a></td><td>短信 / iMessage</td></tr><tr><td><a href="../../pages/share-module/">share</a></td><td>通用分享面板</td></tr></tbody></table></div>
+<h2 id="预期效果"><a class="heading-anchor" href="#预期效果">#</a>预期效果</h2>
+<p>运行示例后，界面应出现文档描述的目标结果；若与预期不符，先看「失败路径」并按返回值或日志排查。</p>
   </div>
   
 </article>
 
     </main>
-    <aside class="toc"><div class="toc-title">本页目录</div><a class="toc-link" href="#模块概览">模块概览</a><a class="toc-link" href="#快速开始">快速开始</a><a class="toc-link" href="#appui-示例">AppUI 示例</a><a class="toc-link" href="#api-参考">API 参考</a><a class="toc-link child" href="#速查">速查</a><a class="toc-link child" href="#compose">compose</a><a class="toc-link" href="#常见错误">常见错误</a><a class="toc-link" href="#相关文档">相关文档</a></aside>
+    <aside class="toc"><div class="toc-title">本页目录</div><a class="toc-link" href="#模块概览">模块概览</a><a class="toc-link" href="#快速开始">快速开始</a><a class="toc-link" href="#appui-示例">AppUI 示例</a><a class="toc-link" href="#api-参考">API 参考</a><a class="toc-link child" href="#速查">速查</a><a class="toc-link child" href="#compose">compose</a><a class="toc-link" href="#常见错误">常见错误</a><a class="toc-link" href="#相关文档">相关文档</a><a class="toc-link" href="#预期效果">预期效果</a></aside>
   </div>
   <div class="mobile-backdrop"></div>
   <div class="search-panel" role="dialog" aria-modal="true" aria-label="搜索">

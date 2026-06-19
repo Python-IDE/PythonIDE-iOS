@@ -201,6 +201,7 @@
 <div class="nav-subgroup-title">播放</div>
 <a class="nav-link" href="../../pages/sound-module/">sound</a>
 <a class="nav-link" href="../../pages/avplayer-module/">avplayer</a>
+<a class="nav-link" href="../../pages/music-player-module/">music_player</a>
 <a class="nav-link" href="../../pages/music-module/">music</a>
 <a class="nav-link" href="../../pages/now-playing-module/">now_playing</a>
 <a class="nav-link" href="../../pages/audio-session-module/">audio_session</a>
@@ -394,19 +395,39 @@ info = coreml.model_info(model)
 results = coreml.predict_image(model, &quot;/path/photo.jpg&quot;)
 # [{&quot;identifier&quot;: &quot;...&quot;, &quot;confidence&quot;: 0.92}, ...]</code></pre>
 </figure>
-<p>模型句柄为 <code>_ModelHandle</code>，可用 <code>model.name</code> 查看名称。加载失败抛 <code>FileNotFoundError</code>；桥接不可用抛 <code>RuntimeError</code>。</p>
+<p>模型句柄为 <code>_ModelHandle</code>，可用 <code>model.name</code> 查看名称。加载失败抛 <code>FileNotFoundError</code>；原生能力入口不可用抛 <code>RuntimeError</code>。</p>
 <hr>
 <h2 id="常见错误"><a class="heading-anchor" href="#常见错误">#</a>常见错误</h2>
-<div class="table-scroll"><table><thead><tr><th>错误写法</th><th>后果</th><th>修正</th></tr></thead><tbody><tr><td>图片路径不存在</td><td>预测失败</td><td>先用 <code>photos.pick_image()</code> 获取有效路径</td></tr><tr><td>模型名拼写错误</td><td><code>FileNotFoundError</code></td><td>先 <code>list_models()</code> 确认名称</td></tr><tr><td>在 <code>body()</code> 里自动预测</td><td>每次刷新重复推理</td><td>放进按钮回调</td></tr><tr><td>期望 OCR 或条码</td><td>能力不匹配</td><td>用 <a href="vision">vision</a> 或 <a href="../../pages/vision-helper-module/">vision_helper</a></td></tr></tbody></table></div>
+<div class="table-scroll"><table><thead><tr><th>错误写法</th><th>后果</th><th>修正</th></tr></thead><tbody><tr><td>图片路径不存在</td><td>预测失败</td><td>先用 <code>photos.pick_image()</code> 获取有效路径</td></tr><tr><td>模型名拼写错误</td><td><code>FileNotFoundError</code></td><td>先 <code>list_models()</code> 确认名称</td></tr><tr><td>在 <code>body()</code> 里自动预测</td><td>每次刷新重复推理</td><td>放进按钮回调</td></tr><tr><td>期望 OCR 或条码</td><td>能力不匹配</td><td>用 <a href="../../pages/vision-module/">vision</a> 或 <a href="../../pages/vision-helper-module/">vision_helper</a></td></tr></tbody></table></div>
 <hr>
 <h2 id="相关文档"><a class="heading-anchor" href="#相关文档">#</a>相关文档</h2>
 <div class="table-scroll"><table><thead><tr><th>文档</th><th>用途</th></tr></thead><tbody><tr><td><a href="../../pages/photos-module/">photos</a></td><td>选图获取路径</td></tr><tr><td><a href="../../pages/vision-helper-module/">vision_helper</a></td><td>Vision 框架检测与分类</td></tr><tr><td><a href="../../pages/c-extensions-module/">c_extensions</a></td><td>未内置深度学习包的替代路线</td></tr></tbody></table></div>
+<h2 id="图片推理配方"><a class="heading-anchor" href="#图片推理配方">#</a>图片推理配方</h2>
+<figure class="code-block" data-code-id="41825a22146f">
+  <figcaption>
+    <span>python</span>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="41825a22146f" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
+  </figcaption>
+  <pre><code id="code-41825a22146f" class="language-python">import appui
+import coreml
+
+
+def body():
+    return appui.Form([
+        appui.Section(&quot;Core ML&quot;, [
+            appui.Text(&quot;选择模型后在回调中调用 coreml.predict_image&quot;),
+        ])
+    ])</code></pre>
+</figure>
+<p>预期效果：打开 AppUI 表单页，后续在按钮回调中加载模型并展示预测结果。</p>
+<h2 id="预期效果"><a class="heading-anchor" href="#预期效果">#</a>预期效果</h2>
+<p>运行示例后，界面应出现文档描述的目标结果；若与预期不符，先看「失败路径」并按返回值或日志排查。</p>
   </div>
   
 </article>
 
     </main>
-    <aside class="toc"><div class="toc-title">本页目录</div><a class="toc-link" href="#模块概览">模块概览</a><a class="toc-link" href="#快速开始">快速开始</a><a class="toc-link" href="#appui-示例">AppUI 示例</a><a class="toc-link" href="#api-参考">API 参考</a><a class="toc-link child" href="#速查">速查</a><a class="toc-link child" href="#加载与预测">加载与预测</a><a class="toc-link" href="#常见错误">常见错误</a><a class="toc-link" href="#相关文档">相关文档</a></aside>
+    <aside class="toc"><div class="toc-title">本页目录</div><a class="toc-link" href="#模块概览">模块概览</a><a class="toc-link" href="#快速开始">快速开始</a><a class="toc-link" href="#appui-示例">AppUI 示例</a><a class="toc-link" href="#api-参考">API 参考</a><a class="toc-link child" href="#速查">速查</a><a class="toc-link child" href="#加载与预测">加载与预测</a><a class="toc-link" href="#常见错误">常见错误</a><a class="toc-link" href="#相关文档">相关文档</a><a class="toc-link" href="#图片推理配方">图片推理配方</a><a class="toc-link" href="#预期效果">预期效果</a></aside>
   </div>
   <div class="mobile-backdrop"></div>
   <div class="search-panel" role="dialog" aria-modal="true" aria-label="搜索">

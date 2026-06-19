@@ -201,6 +201,7 @@
 <div class="nav-subgroup-title">播放</div>
 <a class="nav-link" href="../../pages/sound-module/">sound</a>
 <a class="nav-link" href="../../pages/avplayer-module/">avplayer</a>
+<a class="nav-link" href="../../pages/music-player-module/">music_player</a>
 <a class="nav-link" href="../../pages/music-module/">music</a>
 <a class="nav-link" href="../../pages/now-playing-module/">now_playing</a>
 <a class="nav-link" href="../../pages/audio-session-module/">audio_session</a>
@@ -287,7 +288,7 @@
   
   <div class="markdown-body">
     <p>按生命周期、节点、Action、Physics、Classic 绘图与常量快速查找 <code>scene</code> 公开名称。</p>
-<blockquote class="callout note">精确签名以 <a href="../../pages/scene-api-reference/">scene API 参考</a> 与 <code>pyboot/scene.pyi</code> 为准。</blockquote>
+<blockquote class="callout note">精确签名以 <a href="../../pages/scene-api-reference/">scene API 参考</a> 与 <code>运行时/scene类型存根</code> 为准。</blockquote>
 <h2 id="最小入口"><a class="heading-anchor" href="#最小入口">#</a>最小入口</h2>
 <figure class="code-block" data-code-id="c3b7561cc668">
   <figcaption>
@@ -332,12 +333,16 @@ scene.run(DemoScene())</code></pre>
 <hr>
 <h2 id="相关文档"><a class="heading-anchor" href="#相关文档">#</a>相关文档</h2>
 <div class="table-scroll"><table><thead><tr><th>文档</th><th>用途</th></tr></thead><tbody><tr><td><a href="../../pages/scene-module/">scene 概览</a></td><td>教程、可运行示例、常见错误</td></tr><tr><td><a href="../../pages/scene-api-reference/">scene API 参考</a></td><td>构造函数与参数详解</td></tr></tbody></table></div>
+<h2 id="失败路径"><a class="heading-anchor" href="#失败路径">#</a>失败路径</h2>
+<div class="table-scroll"><table><thead><tr><th>情况</th><th>处理</th></tr></thead><tbody><tr><td>权限被拒绝</td><td>在设置中开启权限后，从用户触发的回调重试</td></tr><tr><td>设备或能力不可用</td><td>先检查返回值或 <code>is_available()</code>，再给用户可读提示</td></tr><tr><td>用户取消</td><td>保留当前界面状态，不要当作成功继续流程</td></tr><tr><td>参数或 API 名错误</td><td>对照模块 API 参考与 schema，修正后再运行</td></tr></tbody></table></div>
+<h2 id="预期效果"><a class="heading-anchor" href="#预期效果">#</a>预期效果</h2>
+<p>运行示例后，界面应出现文档描述的目标结果；若与预期不符，请按「失败路径」排查。</p>
   </div>
   <section class="related-section"><h2>相关文档</h2><div class="related-list"><a class="related-link" href="../scene-module/"><strong>scene</strong><span>2D 场景、精灵节点、触摸、Action 动画、物理与 Classic 绘图。</span></a><a class="related-link" href="../scene-api-reference/"><strong>scene API 参考</strong><span>集中列出 scene 生命周期、节点、Action、Physics 与 Classic 绘图签名。</span></a></div></section>
 </article>
 
     </main>
-    <aside class="toc"><div class="toc-title">本页目录</div><a class="toc-link" href="#最小入口">最小入口</a><a class="toc-link" href="#先看哪一类">先看哪一类</a><a class="toc-link" href="#索引">索引</a><a class="toc-link child" href="#模块函数">模块函数</a><a class="toc-link child" href="#classic-绘图">Classic 绘图</a><a class="toc-link child" href="#几何与输入">几何与输入</a><a class="toc-link child" href="#类">类</a><a class="toc-link child" href="#scene-生命周期方法">Scene 生命周期方法</a><a class="toc-link child" href="#scene-常用属性">Scene 常用属性</a><a class="toc-link child" href="#action-静态方法">Action 静态方法</a><a class="toc-link child" href="#常量">常量</a><a class="toc-link" href="#相关文档">相关文档</a></aside>
+    <aside class="toc"><div class="toc-title">本页目录</div><a class="toc-link" href="#最小入口">最小入口</a><a class="toc-link" href="#先看哪一类">先看哪一类</a><a class="toc-link" href="#索引">索引</a><a class="toc-link child" href="#模块函数">模块函数</a><a class="toc-link child" href="#classic-绘图">Classic 绘图</a><a class="toc-link child" href="#几何与输入">几何与输入</a><a class="toc-link child" href="#类">类</a><a class="toc-link child" href="#scene-生命周期方法">Scene 生命周期方法</a><a class="toc-link child" href="#scene-常用属性">Scene 常用属性</a><a class="toc-link child" href="#action-静态方法">Action 静态方法</a><a class="toc-link child" href="#常量">常量</a><a class="toc-link" href="#相关文档">相关文档</a><a class="toc-link" href="#失败路径">失败路径</a><a class="toc-link" href="#预期效果">预期效果</a></aside>
   </div>
   <div class="mobile-backdrop"></div>
   <div class="search-panel" role="dialog" aria-modal="true" aria-label="搜索">

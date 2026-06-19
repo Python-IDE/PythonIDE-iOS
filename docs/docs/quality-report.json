@@ -1,8 +1,5 @@
 {
-  "generated_pages": 151,
-  "document_items": 143,
-  "findings": [
-    "widget-module: contains public-blocked term '公开入口'",
-    "agent-development-index: contains public-blocked term 'llms'"
-  ]
+  "generated_pages": 152,
+  "document_items": 144,
+  "findings": []
 }
