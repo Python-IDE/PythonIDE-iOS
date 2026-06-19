@@ -67,7 +67,7 @@ w.render()
 - Module functions: `adaptive`, `animate`, `auto_refresh`, `bind`, `call_native`, `computed`, `custom_font`, `dismiss`, `dismiss_all`, `dynamic`, `effect`, `fixed`, `flexible`, `get_native_lib`, `grid_item`, `preload`, `presentation_dismiss`, `presentation_dismiss_all`, `presentation_present`, `run`, `set_custom_prop`
 - Views: `Alert`, `AsyncImage`, `AttributedText`, `Badge`, `Button`, `CameraPicker`, `Canvas`, `Capsule`, `Chart`, `Circle`, `CloseButton`, `Color`, `ColorPicker`, `ConfirmationDialog`, `ContentUnavailableView`, `ControlGroup`, `DatePicker`, `DisclosureGroup`, `Divider`, `EditButton`, `Ellipse`, `FileImporter`, `ForEach`, `Form`, `Gauge`, `GeometryReader`, `Grid`, `GridRow`, `Group`, `GroupBox`, `HStack`, `Image`, `InlinePickerStyle`, `Label`, `LabeledContent`, `LazyHGrid`, `LazyHStack`, `LazyVGrid`, `LazyVStack`, `Link`, `List`, `MapView`, `Menu`, `MultiDatePicker`, `NavigationLink`, `NavigationSplitView`, `NavigationStack`, `Overlay`, `PasteButton`, `Path`, `PhotoPicker`, `Picker`, `Popover`, `ProgressView`, `Rectangle`, `Refreshable`, `RenameButton`, `RoundedRectangle`, `SafeAreaInset`, `ScrollView`, `ScrollViewReader`, `SearchField`, `Section`, `SecureField`, `SegmentedControl`, `ShareLink`, `SignInWithAppleButton`, `Slider`, `Spacer`, `Stepper`, `SwipeActions`, `Tab`, `TabView`, `Table`, `Text`, `TextEditor`, `TextField`, `TextFieldLink`, `TimelineView`, `Toggle`, `ToolbarItem`, `ToolbarSpacer`, `VStack`, `VideoPlayer`, `ViewThatFits`, `WebView`, `WheelPicker`, `ZStack`
 - Typed helpers/classes: `DrawingContext`, `NavigationPath`, `ObservableDict`, `ObservableList`, `PersistentState`, `PlayerController`, `Prop`, `ReactiveState`, `Ref`, `State`, `Timer`, `View`, `infinity`
-- View modifiers: `.accessibility_hidden`, `.accessibility_label`, `.alert`, `.alignment_guide`, `.animation`, `.aspect_ratio`, `.background`, `.background_extension_effect`, `.badge`, `.blur`, `.bold`, `.border`, `.brightness`, `.button_style`, `.clip_shape`, `.clipped`, `.confirmation_dialog`, `.container_relative_frame`, `.content_margins`, `.content_shape`, `.content_transition`, `.context_menu`, `.contrast`, `.corner_radius`, `.date_picker_style`, `.default_scroll_anchor`, `.disabled`, `.drawing_group`, `.environment`, `.fill`, `.fixed_size`, `.focused`, `.font`, `.foreground_color`, `.foreground_style`, `.frame`, `.full_screen_cover`, `.gauge_style`, `.glass_effect`, `.glass_effect_id`, `.glass_effect_transition`, `.glass_effect_union`, `.grayscale`, `.hidden`, `.high_priority_gesture`, `.id`, `.ignores_safe_area`, `.image_scale`, `.inspector`, `.italic`, `.keyboard_dismiss`, `.layout_priority`, `.line_limit`, `.list_row_background`, `.list_row_insets`, `.list_row_separator`, `.list_style`, `.mask`, `.matched_geometry_effect`, `.minimum_scale_factor`, `.multiline_text_alignment`, `.navigation_bar_back_button_hidden`, `.navigation_bar_title_display_mode`, `.navigation_destination`, `.navigation_title`, `.offset`, `.on_appear`, `.on_disappear`, `.on_drag_gesture`, `.on_drop`, `.on_geometry`, `.on_long_press_gesture`, `.on_magnification_gesture`, `.on_rotation_gesture`, `.on_submit`, `.on_tap_gesture`, `.opacity`, `.overlay`, `.padding`, `.phase_animator`, `.picker_style`, `.popover`, `.position`, `.progress_view_style`, `.refreshable`, `.resizable`, `.rotation_3d_effect`, `.rotation_effect`, `.safe_area_bar`, `.safe_area_inset`, `.saturation`, `.scale_effect`, `.scroll_clip_disabled`, `.scroll_content_background`, `.scroll_edge_effect_hidden`, `.scroll_edge_effect_style`, `.scroll_position`, `.scroll_target_behavior`, `.scroll_target_layout`, `.scroll_transition`, `.search_toolbar_behavior`, `.searchable`, `.sensory_feedback`, `.shadow`, `.sheet`, `.simultaneous_gesture`, `.strikethrough`, `.stroke`, `.submit_label`, `.swipe_actions`, `.symbol_effect`, `.symbol_rendering_mode`, `.tab_bar_minimize_behavior`, `.tab_view_bottom_accessory`, `.tab_view_search_activation`, `.tab_view_style`, `.task`, `.text_field_style`, `.tint`, `.toggle_style`, `.toolbar`, `.toolbar_background`, `.toolbar_color_scheme`, `.transition`, `.truncation_mode`, `.underline`, `.z_index`
+- View modifiers: `.accessibility_hidden`, `.accessibility_label`, `.alert`, `.alignment_guide`, `.animation`, `.aspect_ratio`, `.background`, `.background_extension_effect`, `.badge`, `.blur`, `.bold`, `.border`, `.brightness`, `.button_style`, `.clip_shape`, `.clipped`, `.confirmation_dialog`, `.container_relative_frame`, `.content_margins`, `.content_shape`, `.content_transition`, `.context_menu`, `.contrast`, `.corner_radius`, `.date_picker_style`, `.default_scroll_anchor`, `.disabled`, `.drawing_group`, `.environment`, `.expandable_bottom_accessory`, `.fill`, `.fixed_size`, `.focused`, `.font`, `.foreground_color`, `.foreground_style`, `.frame`, `.full_screen_cover`, `.gauge_style`, `.glass_effect`, `.glass_effect_id`, `.glass_effect_transition`, `.glass_effect_union`, `.grayscale`, `.hidden`, `.high_priority_gesture`, `.id`, `.ignores_safe_area`, `.image_scale`, `.inspector`, `.italic`, `.keyboard_dismiss`, `.layout_priority`, `.line_limit`, `.list_row_background`, `.list_row_insets`, `.list_row_separator`, `.list_style`, `.mask`, `.matched_geometry_effect`, `.minimum_scale_factor`, `.multiline_text_alignment`, `.navigation_bar_back_button_hidden`, `.navigation_bar_title_display_mode`, `.navigation_destination`, `.navigation_title`, `.offset`, `.on_appear`, `.on_disappear`, `.on_drag_gesture`, `.on_drop`, `.on_geometry`, `.on_long_press_gesture`, `.on_magnification_gesture`, `.on_rotation_gesture`, `.on_submit`, `.on_tap_gesture`, `.opacity`, `.overlay`, `.padding`, `.phase_animator`, `.picker_style`, `.popover`, `.position`, `.progress_view_style`, `.refreshable`, `.resizable`, `.rotation_3d_effect`, `.rotation_effect`, `.safe_area_bar`, `.safe_area_inset`, `.saturation`, `.scale_effect`, `.scroll_clip_disabled`, `.scroll_content_background`, `.scroll_edge_effect_hidden`, `.scroll_edge_effect_style`, `.scroll_position`, `.scroll_target_behavior`, `.scroll_target_layout`, `.scroll_transition`, `.search_toolbar_behavior`, `.searchable`, `.sensory_feedback`, `.shadow`, `.sheet`, `.simultaneous_gesture`, `.strikethrough`, `.stroke`, `.submit_label`, `.swipe_actions`, `.symbol_effect`, `.symbol_rendering_mode`, `.tab_bar_minimize_behavior`, `.tab_view_bottom_accessory`, `.tab_view_search_activation`, `.tab_view_style`, `.task`, `.text_field_style`, `.tint`, `.toggle_style`, `.toolbar`, `.toolbar_background`, `.toolbar_color_scheme`, `.transition`, `.truncation_mode`, `.underline`, `.z_index`
 
 ## Widget Complete Public Surface
 
@@ -651,6 +651,7 @@ appui.run(body)
 | 列表页 | `NavigationStack + List + ForEach` | 任务、笔记、记录、搜索结果 |
 | 列表详情 | `NavigationStack + NavigationLink` | 课程、商品、文档、条目详情 |
 | 多主分区 | `TabView + Tab` | 首页、记录、设置、统计 |
+| 底部常驻状态条 | `TabView + .expandable_bottom_accessory` | 音乐、播客、下载、录音、导航 |
 | 仪表盘 | `ScrollView + LazyVGrid + Chart` | KPI、日报、趋势图、监控 |
 | 媒体页 | `VideoPlayer` / `MapView` / `WebView` | 视频、地图、网页和富内容 |
 | 自定义绘制 | `Canvas + DrawingContext + Path` | 轻量绘图、签名板、图形面板 |
@@ -663,14 +664,13 @@ appui.run(body)
 | `NavigationLink` | 列表进详情、设置项进入子页 | [导航与页面结构](appui-guide-navigation.md) |
 | `NavigationPath` | 程序化跳转、返回、带参数详情 | [导航与页面结构](appui-guide-navigation.md) |
 | `TabView` / `Tab` | 首页、记录、设置等主分区 | [导航与页面结构](appui-guide-navigation.md) |
+| `.expandable_bottom_accessory` | 底部状态条点击展开完整面板 | [导航参考](appui-ref-navigation.md#可展开底部附件) |
 | `Form` / `Section` | 设置、资料编辑、筛选条件 | [布局系统](appui-guide-layout.md) |
 | `TextField` / `SecureField` | 单行输入、密码、API Key | [控件 API](appui-ref-controls.md) |
 | `Toggle` / `Picker` / `Slider` | 开关、模式、连续数值 | [控件 API](appui-ref-controls.md) |
 | `List` / `ForEach` | 动态行、分组数据、原生列表 | [布局系统](appui-guide-layout.md) |
 | `ContentUnavailableView` | 空状态、无结果、无权限提示 | [数据展示](appui-ref-data.md) |
 | `.searchable` / `.refreshable` | 搜索过滤、下拉刷新 | [交互与回调](appui-guide-interaction.md) |
-| `PhotoPicker` / `FileImporter` | 选图、导入 PDF/CSV/文本 | [媒体与系统集成](appui-guide-media.md) |
-| `CameraPicker` / `MapView` / `WebView` | 拍照、地图、网页 | [媒体与系统集成](appui-guide-media.md) |
 
 <!-- excerpt trimmed; see the in-app docs for the full tutorial text -->
 
@@ -747,6 +747,7 @@ appui.run(body, state=state)
 | 列表进详情 | `NavigationStack + NavigationLink` | [导航与页面结构](appui-guide-navigation.md) |
 | 程序化跳转 | `NavigationPath + destinations` | [导航与页面结构](appui-guide-navigation.md) |
 | 多主分区 | `TabView + Tab` | [导航与页面结构](appui-guide-navigation.md) |
+| 底部状态条展开面板 | `.expandable_bottom_accessory` | [导航参考](appui-ref-navigation.md#可展开底部附件) |
 | 导航栏按钮 | `ToolbarItem` | [导航参考](appui-ref-navigation.md) |
 | 临时弹层 | `.sheet` / `.popover` | [呈现 API](appui-ref-presentation.md) |
 | 确认和错误提示 | `.alert` / `.confirmation_dialog` | [呈现 API](appui-ref-presentation.md) |
@@ -765,7 +766,6 @@ appui.run(body, state=state)
 | --- | --- | --- |
 | `appui.run(...)` | 启动当前 MiniApp 页面。 | 一个脚本只保留一个最终入口。 |
 | `State` | 字段变化后页面重建。 | 多字段同时更新用 `batch_update(...)`。 |
-| `Button(action=...)` | 点击后执行命名回调。 | 不要写 `action=save()`。 |
 
 <!-- excerpt trimmed; see the in-app docs for the full tutorial text -->
 

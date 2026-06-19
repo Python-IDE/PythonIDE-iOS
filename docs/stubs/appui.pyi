@@ -576,6 +576,24 @@ class View:
                                   isEnabled: Optional[bool] = None) -> Self:
         """Attach iOS 26 TabView bottom accessory content."""
         ...
+    def expandable_bottom_accessory(self, compact: Optional[Union["View", Callable[[], "View"]]] = None,
+                                    expanded: Optional[Union["View", Callable[[], "View"]]] = None,
+                                    is_presented: bool = False,
+                                    on_dismiss: Optional[Callable] = None,
+                                    enabled: bool = True,
+                                    detents: Optional[str] = 'large',
+                                    drag_indicator: Optional[str] = 'visible',
+                                    interactive_dismiss_disabled: bool = False,
+                                    isPresented: Optional[bool] = None,
+                                    onDismiss: Optional[Callable] = None,
+                                    is_enabled: Optional[bool] = None,
+                                    isEnabled: Optional[bool] = None,
+                                    dragIndicator: Optional[str] = None,
+                                    interactiveDismissDisabled: Optional[bool] = None,
+                                    on_expand: Optional[Callable] = None,
+                                    onExpand: Optional[Callable] = None) -> Self:
+        """Attach a tappable bottom accessory that presents expanded content."""
+        ...
     def tab_bar_minimize_behavior(self, behavior: str = 'automatic') -> Self:
         """Set iOS 26 tab bar minimize behavior: ``'automatic'``, ``'never'``, ``'on_scroll_down'``, ``'on_scroll_up'``."""
         ...
@@ -724,7 +742,9 @@ class View:
     def searchable(self, text: str = '', on_change: Optional[Callable] = None,
                    onChange: Optional[Callable] = None,
                    placement: str = 'automatic',
-                   prompt: Optional[str] = None) -> Self:
+                   prompt: Optional[str] = None,
+                   on_submit: Optional[Callable] = None,
+                   onSubmit: Optional[Callable] = None) -> Self:
         """Add a search bar."""
         ...
     def search_toolbar_behavior(self, behavior: str = 'minimize') -> Self:
@@ -1038,6 +1058,7 @@ class View:
     navigationDestination = navigation_destination
     safeAreaBar = safe_area_bar
     tabViewBottomAccessory = tab_view_bottom_accessory
+    expandableBottomAccessory = expandable_bottom_accessory
     tabBarMinimizeBehavior = tab_bar_minimize_behavior
     tabViewSearchActivation = tab_view_search_activation
     searchToolbarBehavior = search_toolbar_behavior

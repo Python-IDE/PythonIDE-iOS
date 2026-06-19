@@ -445,12 +445,69 @@ def body():
 
 appui.run(body, state=state)</code></pre>
 </figure>
+<h2 id="可展开底部附件"><a class="heading-anchor" href="#可展开底部附件">#</a>可展开底部附件</h2>
+<p><code>.expandable_bottom_accessory(...)</code> 用于“底部常驻状态条，点击后展开为完整面板”的结构。它是通用 UI 容器，不是音乐专用 API；音乐播放器、播客、录音、下载任务、计时器和地图导航都可以把自己的 compact / expanded 视图放进去。</p>
+<figure class="code-block" data-code-id="5e9d7f23fd44">
+  <figcaption>
+    <span>python</span>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="5e9d7f23fd44" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
+  </figcaption>
+  <pre><code id="code-5e9d7f23fd44" class="language-python">import appui
+
+state = appui.State(show_panel=False)
+
+
+def close_panel():
+    state.show_panel = False
+
+
+def compact_bar():
+    return appui.HStack([
+        appui.Image(system_name=&quot;arrow.down.circle.fill&quot;).foreground_color(&quot;systemBlue&quot;),
+        appui.VStack([
+            appui.Text(&quot;下载中&quot;).font(&quot;subheadline&quot;).bold(),
+            appui.Text(&quot;42% · 3 个任务&quot;).font(&quot;caption&quot;).foreground_style(&quot;secondary&quot;),
+        ], alignment=&quot;leading&quot;, spacing=2)
+        .frame(max_width=appui.infinity, alignment=&quot;leading&quot;),
+        appui.Image(system_name=&quot;chevron.up&quot;).foreground_color(&quot;secondaryLabel&quot;),
+    ], spacing=10).padding(horizontal=14, vertical=10)
+
+
+def expanded_panel():
+    return appui.NavigationStack(
+        appui.Form([
+            appui.Section(&quot;任务&quot;, [
+                appui.LabeledContent(&quot;当前进度&quot;, value=&quot;42%&quot;),
+                appui.LabeledContent(&quot;剩余任务&quot;, value=&quot;3&quot;),
+                appui.Button(&quot;完成&quot;, action=close_panel),
+            ])
+        ]).navigation_title(&quot;下载&quot;)
+    )
+
+
+def body():
+    tabs = appui.TabView(tabs=[
+        appui.Tab(&quot;首页&quot;, system_image=&quot;house&quot;, content=appui.Text(&quot;Home&quot;), tag=0),
+        appui.Tab(&quot;设置&quot;, system_image=&quot;gear&quot;, content=appui.Text(&quot;Settings&quot;), tag=1),
+    ])
+    return tabs.expandable_bottom_accessory(
+        compact=compact_bar,
+        expanded=expanded_panel,
+        is_presented=state.show_panel,
+        on_dismiss=close_panel,
+        detents=&quot;medium_large&quot;,
+    )
+
+
+appui.run(body, state=state)</code></pre>
+</figure>
+<p>紧凑条会放在底部系统区域；iOS 26 使用 TabView bottom accessory，旧系统降级为底部 safe-area inset。展开页使用原生 sheet detents。不要再额外给同一个 <code>TabView</code> 挂底部 <code>safe_area_bar</code>，否则会和底部附件争同一块区域。</p>
 <h2 id="常用修饰符"><a class="heading-anchor" href="#常用修饰符">#</a>常用修饰符</h2>
-<div class="table-scroll"><table><thead><tr><th>API</th><th>签名</th><th>所属类型</th></tr></thead><tbody><tr><td><code>.navigation_title</code></td><td><code>.navigation_title(title: Union[str, &quot;View&quot;]) -&gt; Self</code></td><td><code>View</code></td></tr><tr><td><code>.navigation_bar_title_display_mode</code></td><td><code>.navigation_bar_title_display_mode(mode: str) -&gt; Self</code></td><td><code>View</code></td></tr><tr><td><code>.navigation_bar_back_button_hidden</code></td><td><code>.navigation_bar_back_button_hidden(value: bool = True) -&gt; Self</code></td><td><code>View</code></td></tr><tr><td><code>.toolbar</code></td><td><code>.toolbar(items: Any) -&gt; Self</code></td><td><code>View</code></td></tr><tr><td><code>.toolbar_background</code></td><td><code>.toolbar_background(visibility: str = &#x27;visible&#x27;, bars: str = &#x27;navigation_bar&#x27;) -&gt; Self</code></td><td><code>View</code></td></tr><tr><td><code>.toolbar_color_scheme</code></td><td><code>.toolbar_color_scheme(scheme: str = &#x27;dark&#x27;, bars: str = &#x27;navigation_bar&#x27;) -&gt; Self</code></td><td><code>View</code></td></tr><tr><td><code>.navigation_destination</code></td><td><code>.navigation_destination(is_presented: bool = False, content: Optional[&quot;View&quot;] = None, on_dismiss: Optional[Callable] = None, isPresented: Optional[bool] = None, onDismiss: Optional[Callable] = None) -&gt; Self</code></td><td><code>View</code></td></tr></tbody></table></div>
+<div class="table-scroll"><table><thead><tr><th>API</th><th>签名</th><th>所属类型</th></tr></thead><tbody><tr><td><code>.navigation_title</code></td><td><code>.navigation_title(title: Union[str, &quot;View&quot;]) -&gt; Self</code></td><td><code>View</code></td></tr><tr><td><code>.navigation_bar_title_display_mode</code></td><td><code>.navigation_bar_title_display_mode(mode: str) -&gt; Self</code></td><td><code>View</code></td></tr><tr><td><code>.navigation_bar_back_button_hidden</code></td><td><code>.navigation_bar_back_button_hidden(value: bool = True) -&gt; Self</code></td><td><code>View</code></td></tr><tr><td><code>.toolbar</code></td><td><code>.toolbar(items: Any) -&gt; Self</code></td><td><code>View</code></td></tr><tr><td><code>.toolbar_background</code></td><td><code>.toolbar_background(visibility: str = &#x27;visible&#x27;, bars: str = &#x27;navigation_bar&#x27;) -&gt; Self</code></td><td><code>View</code></td></tr><tr><td><code>.toolbar_color_scheme</code></td><td><code>.toolbar_color_scheme(scheme: str = &#x27;dark&#x27;, bars: str = &#x27;navigation_bar&#x27;) -&gt; Self</code></td><td><code>View</code></td></tr><tr><td><code>.navigation_destination</code></td><td><code>.navigation_destination(is_presented: bool = False, content: Optional[&quot;View&quot;] = None, on_dismiss: Optional[Callable] = None, isPresented: Optional[bool] = None, onDismiss: Optional[Callable] = None) -&gt; Self</code></td><td><code>View</code></td></tr><tr><td><code>.safe_area_bar</code></td><td><code>.safe_area_bar(edge: str = &#x27;bottom&#x27;, content: Optional[&quot;View&quot;] = None, alignment: str = &#x27;center&#x27;, spacing: Optional[float] = None, safeAreaEdge: Optional[str] = None) -&gt; Self</code></td><td><code>View</code></td></tr><tr><td><code>.tab_view_bottom_accessory</code></td><td><code>.tab_view_bottom_accessory(content: Optional[&quot;View&quot;] = None, enabled: bool = True, is_enabled: Optional[bool] = None, isEnabled: Optional[bool] = None) -&gt; Self</code></td><td><code>View</code></td></tr><tr><td><code>.expandable_bottom_accessory</code></td><td><code>.expandable_bottom_accessory(compact: Optional[Union[&quot;View&quot;, Callable[[], &quot;View&quot;]]] = None, expanded: Optional[Union[&quot;View&quot;, Callable[[], &quot;View&quot;]]] = None, is_presented: bool = False, on_dismiss: Optional[Callable] = None, enabled: bool = True, detents: Optional[str] = &#x27;large&#x27;, drag_indicator: Optional[str] = &#x27;visible&#x27;, interactive_dismiss_disabled: bool = False, isPresented: Optional[bool] = None, onDismiss: Optional[Callable] = None, is_enabled: Optional[bool] = None, isEnabled: Optional[bool] = None, dragIndicator: Optional[str] = None, interactiveDismissDisabled: Optional[bool] = None, on_expand: Optional[Callable] = None, onExpand: Optional[Callable] = None) -&gt; Self</code></td><td><code>View</code></td></tr><tr><td><code>.tab_bar_minimize_behavior</code></td><td><code>.tab_bar_minimize_behavior(behavior: str = &#x27;automatic&#x27;) -&gt; Self</code></td><td><code>View</code></td></tr><tr><td><code>.tab_view_search_activation</code></td><td><code>.tab_view_search_activation(activation: str = &#x27;search_tab_selection&#x27;) -&gt; Self</code></td><td><code>View</code></td></tr></tbody></table></div>
 <h2 id="与相邻-api-的区别"><a class="heading-anchor" href="#与相邻-api-的区别">#</a>与相邻 API 的区别</h2>
-<div class="table-scroll"><table><thead><tr><th>API</th><th>不同点</th></tr></thead><tbody><tr><td><code>NavigationLink</code> vs <code>NavigationPath</code></td><td><code>NavigationLink</code> 适合用户点击某一行进入详情；<code>NavigationPath</code> 适合业务逻辑主动跳转。</td></tr><tr><td><code>TabView</code> vs <code>NavigationStack</code></td><td><code>TabView</code> 是顶层栏目切换；每个 Tab 里面通常再放自己的 <code>NavigationStack</code>。</td></tr><tr><td><code>NavigationSplitView</code> vs <code>TabView</code></td><td><code>NavigationSplitView</code> 是同一任务的多列信息架构；<code>TabView</code> 是多个任务域的顶层切换。</td></tr><tr><td><code>.toolbar</code> vs 页面正文按钮</td><td>页面级命令放工具栏；内容相关动作放在表单、列表或卡片中。</td></tr><tr><td><code>CloseButton</code> vs 普通 <code>Button</code></td><td>关闭 MiniApp 时使用 <code>CloseButton</code> 或 <code>ToolbarItem(role=&quot;close&quot;)</code>，系统能识别关闭语义。</td></tr><tr><td><code>ToolbarSpacer</code> vs 空白 <code>Spacer</code></td><td><code>ToolbarSpacer</code> 是工具栏项；正文布局留白继续用 <code>Spacer</code>。</td></tr></tbody></table></div>
+<div class="table-scroll"><table><thead><tr><th>API</th><th>不同点</th></tr></thead><tbody><tr><td><code>NavigationLink</code> vs <code>NavigationPath</code></td><td><code>NavigationLink</code> 适合用户点击某一行进入详情；<code>NavigationPath</code> 适合业务逻辑主动跳转。</td></tr><tr><td><code>TabView</code> vs <code>NavigationStack</code></td><td><code>TabView</code> 是顶层栏目切换；每个 Tab 里面通常再放自己的 <code>NavigationStack</code>。</td></tr><tr><td><code>NavigationSplitView</code> vs <code>TabView</code></td><td><code>NavigationSplitView</code> 是同一任务的多列信息架构；<code>TabView</code> 是多个任务域的顶层切换。</td></tr><tr><td><code>.toolbar</code> vs 页面正文按钮</td><td>页面级命令放工具栏；内容相关动作放在表单、列表或卡片中。</td></tr><tr><td><code>.expandable_bottom_accessory</code> vs <code>.sheet</code></td><td>前者适合有底部常驻状态条的任务；普通临时表单继续用 <code>.sheet</code>。</td></tr><tr><td><code>.expandable_bottom_accessory</code> vs <code>.tab_view_bottom_accessory</code></td><td>前者自带点击展开页；后者只负责显示底部附件内容。</td></tr><tr><td><code>CloseButton</code> vs 普通 <code>Button</code></td><td>关闭 MiniApp 时使用 <code>CloseButton</code> 或 <code>ToolbarItem(role=&quot;close&quot;)</code>，系统能识别关闭语义。</td></tr><tr><td><code>ToolbarSpacer</code> vs 空白 <code>Spacer</code></td><td><code>ToolbarSpacer</code> 是工具栏项；正文布局留白继续用 <code>Spacer</code>。</td></tr></tbody></table></div>
 <h2 id="常见错误"><a class="heading-anchor" href="#常见错误">#</a>常见错误</h2>
-<div class="table-scroll"><table><thead><tr><th>错误</th><th>正确做法</th></tr></thead><tbody><tr><td>只用 <code>VStack</code> 加按钮模拟页面切换。</td><td>使用 <code>NavigationStack</code>、<code>NavigationLink</code> 或 <code>NavigationPath</code>。</td></tr><tr><td>在 <code>TabView</code> 外面只包一个全局 <code>NavigationStack</code>。</td><td>每个 Tab 里面放自己的 <code>NavigationStack</code>，避免标题和返回栈互相污染。</td></tr><tr><td>隐藏返回按钮但没有替代路径。</td><td>用 toolbar 放明确的返回、取消或关闭按钮。</td></tr><tr><td><code>ForEach</code> 行没有稳定 <code>key</code>。</td><td>给 <code>ForEach</code> 传稳定键函数，避免列表刷新后导航状态错位。</td></tr><tr><td><code>ToolbarItem</code> 使用旧 placement 名称。</td><td>使用 AppUI 文档中的 <code>navigation_bar_trailing</code>。</td></tr></tbody></table></div>
+<div class="table-scroll"><table><thead><tr><th>错误</th><th>正确做法</th></tr></thead><tbody><tr><td>只用 <code>VStack</code> 加按钮模拟页面切换。</td><td>使用 <code>NavigationStack</code>、<code>NavigationLink</code> 或 <code>NavigationPath</code>。</td></tr><tr><td>在 <code>TabView</code> 外面只包一个全局 <code>NavigationStack</code>。</td><td>每个 Tab 里面放自己的 <code>NavigationStack</code>，避免标题和返回栈互相污染。</td></tr><tr><td>用“播放”或“下载”单独占一个 Tab，但又需要全局状态条。</td><td>用 <code>.expandable_bottom_accessory(compact=..., expanded=...)</code>，把完整面板做成展开页。</td></tr><tr><td>隐藏返回按钮但没有替代路径。</td><td>用 toolbar 放明确的返回、取消或关闭按钮。</td></tr><tr><td><code>ForEach</code> 行没有稳定 <code>key</code>。</td><td>给 <code>ForEach</code> 传稳定键函数，避免列表刷新后导航状态错位。</td></tr><tr><td><code>ToolbarItem</code> 使用旧 placement 名称。</td><td>使用 AppUI 文档中的 <code>navigation_bar_trailing</code>。</td></tr></tbody></table></div>
 <h2 id="相关文档"><a class="heading-anchor" href="#相关文档">#</a>相关文档</h2>
 <div class="table-scroll"><table><thead><tr><th>文档</th><th>用途</th></tr></thead><tbody><tr><td><a href="../../pages/appui-guide-navigation/">导航与页面结构</a></td><td>TabView、NavigationStack、NavigationPath 和 sheet 的完整模式。</td></tr><tr><td><a href="../../pages/appui-ref-presentation/">呈现 API</a></td><td>sheet、alert、popover、confirmation dialog。</td></tr><tr><td><a href="../../pages/appui-ref-shapes/">形状 API</a></td><td><code>ToolbarItem</code> 也在形状/工具栏页中保留了签名。</td></tr></tbody></table></div>
   </div>
@@ -458,7 +515,7 @@ appui.run(body, state=state)</code></pre>
 </article>
 
     </main>
-    <aside class="toc"><div class="toc-title">本页目录</div><a class="toc-link" href="#什么时候用">什么时候用</a><a class="toc-link" href="#最小正确示例">最小正确示例</a><a class="toc-link" href="#导航容器签名">导航容器签名</a><a class="toc-link" href="#navigationpath-方法">NavigationPath 方法</a><a class="toc-link" href="#tabview-示例">TabView 示例</a><a class="toc-link" href="#常用修饰符">常用修饰符</a><a class="toc-link" href="#与相邻-api-的区别">与相邻 API 的区别</a><a class="toc-link" href="#常见错误">常见错误</a><a class="toc-link" href="#相关文档">相关文档</a></aside>
+    <aside class="toc"><div class="toc-title">本页目录</div><a class="toc-link" href="#什么时候用">什么时候用</a><a class="toc-link" href="#最小正确示例">最小正确示例</a><a class="toc-link" href="#导航容器签名">导航容器签名</a><a class="toc-link" href="#navigationpath-方法">NavigationPath 方法</a><a class="toc-link" href="#tabview-示例">TabView 示例</a><a class="toc-link" href="#可展开底部附件">可展开底部附件</a><a class="toc-link" href="#常用修饰符">常用修饰符</a><a class="toc-link" href="#与相邻-api-的区别">与相邻 API 的区别</a><a class="toc-link" href="#常见错误">常见错误</a><a class="toc-link" href="#相关文档">相关文档</a></aside>
   </div>
   <div class="mobile-backdrop"></div>
   <div class="search-panel" role="dialog" aria-modal="true" aria-label="搜索">
