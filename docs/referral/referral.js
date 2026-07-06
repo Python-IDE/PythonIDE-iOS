@@ -33,7 +33,7 @@ const copy = {
     valid: [
       ["首次使用的新用户", "老用户、重复设备和自邀不会计入"],
       ["绑定邀请码", "被邀请人只能绑定一次邀请码"],
-      ["完成核心行为", "运行 Python、创建项目或使用 AI 功能"],
+      ["完成核心行为", "运行 Python 或使用 AI 功能"],
       ["次日仍打开 App", "完成留存验证后才计入有效邀请"],
     ],
     other: [
@@ -73,7 +73,7 @@ const copy = {
     valid: [
       ["A first-time new user", "Existing users, duplicate devices, and self-invites are excluded"],
       ["Invite code is bound", "Each invited user can bind only one code"],
-      ["Core action completed", "Run Python, create a project, or use AI"],
+      ["Core action completed", "Run Python or use AI"],
       ["Returns the next day", "Retention must be verified before it becomes valid"],
     ],
     other: [
@@ -199,6 +199,9 @@ function renderInviteCode(code) {
   const target = document.querySelector("[data-invite-code]");
   if (!target) return;
   target.dataset.inviteCode = code;
+  target.dataset.length = String(code.length);
+  target.classList.toggle("compact", code.length >= 7);
+  target.classList.toggle("ultra-compact", code.length >= 10);
   target.innerHTML = code.split("").map((char, index) => `<span style="--i:${index}">${char}</span>`).join("");
 }
 

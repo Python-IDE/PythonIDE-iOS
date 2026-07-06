@@ -234,16 +234,31 @@ html[lang="en"] .language-toggle [data-lang="en"] {
 
 .invite-code {
   margin: 26px auto 18px;
+  width: 100%;
+  max-width: 100%;
   color: var(--ink);
   font-family: var(--mono);
-  font-size: clamp(50px, 15vw, 84px);
+  font-size: clamp(46px, 13vw, 84px);
   font-weight: 520;
-  letter-spacing: 0.22em;
+  letter-spacing: 0.18em;
   line-height: 1;
   text-align: center;
-  text-indent: 0.22em;
+  text-indent: 0.18em;
   white-space: nowrap;
+  overflow: hidden;
   transform: translateZ(0);
+}
+
+.invite-code.compact {
+  font-size: clamp(38px, 10.6vw, 64px);
+  letter-spacing: 0.12em;
+  text-indent: 0.12em;
+}
+
+.invite-code.ultra-compact {
+  font-size: clamp(32px, 8.8vw, 52px);
+  letter-spacing: 0.08em;
+  text-indent: 0.08em;
 }
 
 .invite-code span {
@@ -661,7 +676,8 @@ html[lang="en"] .language-toggle [data-lang="en"] {
   .invite-code {
     margin-left: 0;
     text-align: left;
-    text-indent: 0.22em;
+    text-indent: 0.18em;
+    overflow: visible;
   }
 
   .actions {
