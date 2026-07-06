@@ -1,4 +1,5 @@
 const APP_STORE_URL = "https://apps.apple.com/app/id6753987304";
+const APP_REFERRAL_URL = "pythonide://referral";
 
 const copy = {
   zh: {
@@ -11,6 +12,10 @@ const copy = {
     failed: "复制失败，请手动复制",
     invitedTitle: "好友邀请你使用 PythonIDE",
     invitedSummary: "下载 App 后输入邀请码，即可建立邀请关系。",
+    inviteEntryTitle: "PythonIDE 邀请",
+    inviteEntrySummary: "打开 App 后进入「我的」-「邀请好友」，即可查看并分享你的专属邀请码。",
+    getInviteCode: "获取邀请码",
+    noCodeToCopy: "当前页面没有邀请码",
     howWorks: "如何生效",
     viewRules: "查看活动规则",
     ruleTitle: "邀请活动规则",
@@ -51,6 +56,10 @@ const copy = {
     failed: "Copy failed. Please copy manually.",
     invitedTitle: "A friend invited you to PythonIDE",
     invitedSummary: "Download the app and enter this invite code to bind the referral.",
+    inviteEntryTitle: "PythonIDE Referral",
+    inviteEntrySummary: "Open the app, then go to Me - Invite Friends to find and share your personal invite code.",
+    getInviteCode: "Get Invite Code",
+    noCodeToCopy: "No invite code on this page.",
     howWorks: "How it counts",
     viewRules: "View rules",
     ruleTitle: "Referral Program Rules",
@@ -102,15 +111,20 @@ function routePath() {
 
 function inviteCodeFromPath() {
   const raw = routePath();
-  const url = new URL(raw, location.origin);
+  let url;
+  try {
+    url = new URL(raw, location.origin);
+  } catch {
+    return "";
+  }
   const parts = url.pathname.split("/").filter(Boolean);
   const code = parts[0] === "i" && parts[1] ? parts[1] : url.searchParams.get("code");
-  return normalizeCode(code || "PY8K29");
+  return normalizeCode(code);
 }
 
 function normalizeCode(value) {
   const cleaned = String(value || "").replace(/[\s-]+/g, "").toUpperCase();
-  return /^[A-Z0-9]{4,12}$/.test(cleaned) ? cleaned : "PY8K29";
+  return /^[A-Z0-9]{4,12}$/.test(cleaned) ? cleaned : "";
 }
 
 function initialLanguage() {
@@ -119,6 +133,10 @@ function initialLanguage() {
   const saved = localStorage.getItem("referral_lang");
   if (saved === "en" || saved === "zh") return saved;
   return navigator.language && navigator.language.toLowerCase().startsWith("en") ? "en" : "zh";
+}
+
+function currentLanguage() {
+  return document.documentElement.dataset.lang === "en" ? "en" : "zh";
 }
 
 function setLanguage(lang) {
@@ -140,8 +158,7 @@ function setLanguage(lang) {
   document.querySelectorAll("[data-copy-feedback]").forEach((node) => {
     node.dataset.copyFeedback = t.copied;
   });
-  const code = document.querySelector("[data-invite-code]")?.dataset.inviteCode || inviteCodeFromPath();
-  renderInviteCode(code);
+  applyInvitePageState(inviteCodeFromPath(), t);
   setupReveal();
   setupPointerMotion();
 }
@@ -208,15 +225,69 @@ function svgIcon(name) {
 function renderInviteCode(code) {
   const target = document.querySelector("[data-invite-code]");
   if (!target) return;
+  if (!code) {
+    renderInvitePlaceholder(copy[currentLanguage()].getInviteCode);
+    return;
+  }
   target.dataset.inviteCode = code;
   target.dataset.length = String(code.length);
+  target.classList.remove("invite-placeholder");
   target.classList.toggle("compact", code.length >= 7);
   target.classList.toggle("ultra-compact", code.length >= 10);
+  target.removeAttribute("role");
+  target.removeAttribute("tabindex");
+  target.setAttribute("aria-label", `${copy[currentLanguage()].invalidCode} ${code}`);
   target.innerHTML = code.split("").map((char, index) => `<span style="--i:${index}">${char}</span>`).join("");
+}
+
+function renderInvitePlaceholder(label) {
+  const target = document.querySelector("[data-invite-code]");
+  if (!target) return;
+  target.dataset.inviteCode = "";
+  target.dataset.length = "0";
+  target.classList.remove("compact", "ultra-compact");
+  target.classList.add("invite-placeholder");
+  target.setAttribute("role", "button");
+  target.setAttribute("tabindex", "0");
+  target.setAttribute("aria-label", label);
+  target.textContent = label;
+}
+
+function applyInvitePageState(code, t) {
+  const target = document.querySelector("[data-invite-code]");
+  if (!target) {
+    document.body.classList.remove("invite-missing-code");
+    return;
+  }
+
+  const hasCode = Boolean(code);
+  document.body.classList.toggle("invite-missing-code", !hasCode);
+
+  const title = document.getElementById("invite-title");
+  if (title) title.textContent = hasCode ? t.invitedTitle : t.inviteEntryTitle;
+
+  const summary = document.querySelector("[data-invite-summary]");
+  if (summary) summary.textContent = hasCode ? t.invitedSummary : t.inviteEntrySummary;
+
+  const copyButton = document.querySelector("[data-copy-code]");
+  if (copyButton) copyButton.hidden = !hasCode;
+
+  const rulesButton = document.querySelector("[data-no-code-rules]");
+  if (rulesButton) rulesButton.hidden = hasCode;
+
+  if (hasCode) {
+    renderInviteCode(code);
+  } else {
+    renderInvitePlaceholder(t.getInviteCode);
+  }
 }
 
 async function copyInviteCode() {
   const code = document.querySelector("[data-invite-code]")?.dataset.inviteCode || inviteCodeFromPath();
+  if (!code) {
+    showToast(copy[currentLanguage()].noCodeToCopy);
+    return;
+  }
   try {
     await copyText(code);
     document.body.classList.add("code-copied");
@@ -230,6 +301,30 @@ async function copyInviteCode() {
   } catch {
     showToast(copy[document.documentElement.dataset.lang || "zh"].failed);
   }
+}
+
+function openReferralInApp() {
+  const startedAt = Date.now();
+  let didHide = false;
+  const fallbackDelay = 900;
+  const onVisibilityChange = () => {
+    if (document.hidden) didHide = true;
+  };
+
+  document.addEventListener("visibilitychange", onVisibilityChange, { once: true });
+  window.setTimeout(() => {
+    document.removeEventListener("visibilitychange", onVisibilityChange);
+    if (!didHide && Date.now() - startedAt < 1800) {
+      window.location.href = APP_STORE_URL;
+    }
+  }, fallbackDelay);
+
+  window.location.href = APP_REFERRAL_URL;
+}
+
+function activateInvitePlaceholder() {
+  if (!document.body.classList.contains("invite-missing-code")) return;
+  openReferralInApp();
 }
 
 async function copyText(text) {
@@ -316,10 +411,19 @@ function setupPointerMotion() {
 }
 
 function init() {
-  renderInviteCode(inviteCodeFromPath());
   document.querySelectorAll("[data-download]").forEach((node) => {
     node.setAttribute("href", APP_STORE_URL);
   });
+  const inviteCode = document.querySelector("[data-invite-code]");
+  if (inviteCode) {
+    inviteCode.addEventListener("click", activateInvitePlaceholder);
+    inviteCode.addEventListener("keydown", (event) => {
+      if (event.key !== "Enter" && event.key !== " ") return;
+      if (!document.body.classList.contains("invite-missing-code")) return;
+      event.preventDefault();
+      openReferralInApp();
+    });
+  }
   document.querySelectorAll("[data-copy-code]").forEach((node) => {
     node.addEventListener("click", copyInviteCode);
   });

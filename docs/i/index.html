@@ -39,8 +39,8 @@
       <div class="invite-layout">
         <section class="invite-hero" aria-labelledby="invite-title">
           <p class="eyebrow reveal" id="invite-title" data-t="invitedTitle">好友邀请你使用 PythonIDE</p>
-          <div class="invite-code" data-invite-code aria-label="邀请码">PY8K29</div>
-          <p class="summary reveal" data-t="invitedSummary">下载 App 后输入邀请码，即可建立邀请关系。</p>
+          <div class="invite-code" data-invite-code aria-label="获取邀请码">获取邀请码</div>
+          <p class="summary reveal" data-invite-summary data-t="invitedSummary">下载 App 后输入邀请码，即可建立邀请关系。</p>
 
           <div class="actions reveal">
             <a class="button primary" href="#" data-download>
@@ -55,6 +55,12 @@
               </svg>
               <span data-t="copyCode">复制邀请码</span>
             </button>
+            <a class="button secondary no-code-only" href="/activity/" data-no-code-rules hidden>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M8 6h13M8 12h13M8 18h13M3 6h.01M3 12h.01M3 18h.01"></path>
+              </svg>
+              <span data-t="viewRules">查看活动规则</span>
+            </a>
           </div>
 
           <div class="divider" aria-hidden="true"></div>

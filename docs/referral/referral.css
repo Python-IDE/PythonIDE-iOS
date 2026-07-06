@@ -261,6 +261,29 @@ html[lang="en"] .language-toggle [data-lang="en"] {
   text-indent: 0.08em;
 }
 
+.invite-code.invite-placeholder {
+  font-family: var(--font);
+  font-size: clamp(40px, 11vw, 62px);
+  font-weight: 700;
+  letter-spacing: 0;
+  line-height: 1.12;
+  text-indent: 0;
+  white-space: normal;
+  cursor: pointer;
+  transition: opacity 220ms ease, transform 260ms var(--ease);
+}
+
+.invite-code.invite-placeholder:hover {
+  opacity: 0.78;
+  transform: translateY(-1px);
+}
+
+.invite-code.invite-placeholder:focus-visible {
+  outline: 2px solid var(--ink);
+  outline-offset: 8px;
+  border-radius: 8px;
+}
+
 .invite-code span {
   display: inline-block;
   animation: codeEnter 760ms var(--ease) both;
@@ -346,6 +369,15 @@ html[lang="en"] .language-toggle [data-lang="en"] {
 .button.secondary {
   background: rgba(255, 255, 255, 0.86);
   color: var(--ink);
+}
+
+.no-code-only[hidden],
+[data-copy-code][hidden] {
+  display: none;
+}
+
+body.invite-missing-code .invite-hero > .inline-link {
+  display: none;
 }
 
 .divider {
@@ -665,8 +697,6 @@ html[lang="en"] .language-toggle [data-lang="en"] {
     background: linear-gradient(180deg, transparent, var(--line), transparent);
   }
 
-  .eyebrow,
-  .summary,
   .activity-title,
   .note {
     text-align: left;
@@ -674,14 +704,16 @@ html[lang="en"] .language-toggle [data-lang="en"] {
   }
 
   .invite-code {
-    margin-left: 0;
-    text-align: left;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
     text-indent: 0.18em;
     overflow: visible;
   }
 
   .actions {
-    margin-left: 0;
+    margin-left: auto;
+    margin-right: auto;
   }
 
   .desktop-only {
