@@ -598,6 +598,57 @@ body.invite-missing-code .invite-hero > .inline-link {
   line-height: 1.75;
 }
 
+.contact-link-list {
+  margin-top: 20px;
+  border-top: 1px solid var(--line);
+}
+
+.contact-link {
+  min-height: 54px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+  border-bottom: 1px solid var(--line);
+  color: var(--ink);
+  font-size: 16px;
+  font-weight: 620;
+  line-height: 1.4;
+  text-decoration: none;
+  transition: color 180ms ease, opacity 180ms ease, transform 180ms ease;
+}
+
+.contact-link::after {
+  content: "打开";
+  flex: 0 0 auto;
+  color: var(--muted);
+  font-size: 13px;
+  font-weight: 520;
+}
+
+html[data-lang="en"] .contact-link::after {
+  content: "Open";
+}
+
+.contact-link[href]:hover {
+  color: var(--ink);
+  transform: translateX(2px);
+}
+
+.contact-link.is-disabled {
+  color: var(--muted);
+  cursor: default;
+}
+
+.contact-link.is-disabled::after {
+  content: "待补";
+  color: var(--subtle);
+}
+
+html[data-lang="en"] .contact-link.is-disabled::after {
+  content: "Pending";
+}
+
 .contact-request-list {
   display: grid;
   gap: 0;
