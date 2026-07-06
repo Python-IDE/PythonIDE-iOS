@@ -88,6 +88,11 @@ const iconPaths = {
   link: "M10 13a5 5 0 0 0 7.07 0l2-2a5 5 0 0 0-7.07-7.07l-1.2 1.2M14 11a5 5 0 0 0-7.07 0l-2 2A5 5 0 0 0 12 20.07l1.2-1.2",
   spark: "M12 2v5M12 17v5M4.22 4.22l3.54 3.54M16.24 16.24l3.54 3.54M2 12h5M17 12h5M4.22 19.78l3.54-3.54M16.24 7.76l3.54-3.54",
   clock: "M12 8v5l3 2M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z",
+  gift: "M20 12v8a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1v-8M2 8h20v4H2V8ZM12 8v13M12 8H8.5A2.5 2.5 0 1 1 11 5.5L12 8Zm0 0h3.5A2.5 2.5 0 1 0 13 5.5L12 8Z",
+  percent: "M19 5 5 19M7.5 8.5a2 2 0 1 0 0-4 2 2 0 0 0 0 4ZM16.5 19.5a2 2 0 1 0 0-4 2 2 0 0 0 0 4Z",
+  crown: "M3 8l4.5 4L12 5l4.5 7L21 8l-2 11H5L3 8Z",
+  pen: "M17 3l4 4L8 20H4v-4L17 3Z",
+  community: "M16 20a4 4 0 0 0-8 0M12 13a4 4 0 1 0 0-8 4 4 0 0 0 0 8ZM22 20a3.5 3.5 0 0 0-5.4-2.95M17 11a3 3 0 1 0 0-6M2 20a3.5 3.5 0 0 1 5.4-2.95M7 11a3 3 0 1 1 0-6",
 };
 
 function routePath() {
@@ -145,10 +150,14 @@ function renderArray(node, t) {
   const key = node.dataset.array;
   const rows = t[key] || [];
   if (key === "rewards") {
-    node.innerHTML = rows.map(([left, right]) => `
-      <div class="reward-row reveal motion-surface">
-        <strong>${left}</strong>
-        <em>${right}</em>
+    const icons = ["gift", "percent", "crown"];
+    node.innerHTML = rows.map(([requirement, reward], index) => `
+      <div class="rule-row reveal">
+        <div class="rule-icon" aria-hidden="true">${svgIcon(icons[index] || "gift")}</div>
+        <div>
+          <strong>${reward}</strong>
+          <span>${requirement}</span>
+        </div>
       </div>
     `).join("");
     return;
@@ -179,13 +188,14 @@ function renderArray(node, t) {
     return;
   }
   if (key === "other") {
-    node.innerHTML = rows.map(([title, detail]) => `
-      <div class="other-row reveal motion-surface">
+    const icons = ["pen", "community"];
+    node.innerHTML = rows.map(([title, detail], index) => `
+      <div class="rule-row reveal">
+        <div class="rule-icon" aria-hidden="true">${svgIcon(icons[index] || "spark")}</div>
         <div>
           <strong>${title}</strong>
           <span>${detail}</span>
         </div>
-        <em>›</em>
       </div>
     `).join("");
   }
