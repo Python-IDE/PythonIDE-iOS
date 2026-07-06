@@ -23,7 +23,7 @@ const copy = {
     validTitle: "什么是有效邀请",
     otherTitle: "其他活动",
     footer: "活动解释权与兑换记录以后台数据为准",
-    note: "奖励达到后请按 App 内邀请明细与后台记录联系兑换。为防止刷量，截图不能作为有效邀请依据。",
+    note: "奖励达到后请按 App 内邀请明细与后台记录联系兑换。Pro 月卡兑换以 App Store 弹窗为准，可在 App Store 账户设置取消订阅。截图不能作为有效邀请依据。",
     invalidCode: "邀请码",
     rewards: [
       ["10 位有效邀请", "Pro 月卡"],
@@ -67,7 +67,7 @@ const copy = {
     validTitle: "What counts as a valid referral",
     otherTitle: "Other campaigns",
     footer: "Final eligibility and redemption are based on backend records.",
-    note: "After reaching a tier, contact the developer with your in-app referral details. Screenshots alone do not count as valid referrals.",
+    note: "After reaching a tier, use your in-app referral details to claim. For Pro Monthly, follow the App Store redemption prompt; subscriptions can be canceled in App Store account settings. Screenshots alone do not count as valid referrals.",
     invalidCode: "Invite Code",
     rewards: [
       ["10 valid referrals", "Pro Monthly"],
