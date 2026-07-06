@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#ffffff">
+  <meta name="apple-itunes-app" content="app-id=6753987304">
+  <meta name="description" content="PythonIDE 邀请活动规则：有效邀请、奖励档位、其他活动与兑换说明。">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="PythonIDE 邀请活动规则">
+  <meta property="og:description" content="查看 PythonIDE 邀请活动的有效邀请条件、奖励档位与兑换说明。">
+  <meta property="og:image" content="https://pythonide.xin/assets/brand-mark.svg">
+  <link rel="icon" href="/assets/brand-mark.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/referral/referral.css">
+  <script defer src="/referral/referral.js"></script>
+  <title>PythonIDE 邀请活动规则</title>
+</head>
+<body>
+  <div class="page">
+    <header class="site-header">
+      <nav class="nav" aria-label="PythonIDE">
+        <a class="brand" href="/" aria-label="PythonIDE">
+          <img class="brand-mark" src="/assets/brand-mark.svg" alt="">
+          <span>PythonIDE</span>
+        </a>
+        <div class="nav-links" aria-label="Primary">
+          <a class="nav-link" href="/i/" data-t="navInvite">邀请</a>
+          <a class="nav-link" href="/activity/" aria-current="page" data-t="navRules">规则</a>
+          <a class="nav-download" href="#" data-download data-t="download">下载 App</a>
+        </div>
+        <div class="language-toggle" aria-label="Language">
+          <button type="button" data-lang="zh" aria-pressed="true">中</button>
+          <button type="button" data-lang="en" aria-pressed="false">EN</button>
+        </div>
+      </nav>
+    </header>
+
+    <main class="main">
+      <div class="activity-layout">
+        <section aria-labelledby="activity-title">
+          <h1 class="activity-title reveal" id="activity-title" data-t="ruleTitle">邀请活动规则</h1>
+          <section class="activity-block" aria-labelledby="reward-title">
+            <h2 class="section-title" id="reward-title" data-t="rewardTitle">奖励档位</h2>
+            <div class="surface reward-list" data-array="rewards"></div>
+          </section>
+          <p class="note reveal" data-t="note">奖励达到后请按 App 内邀请明细与后台记录联系兑换。为防止刷量，截图不能作为有效邀请依据。</p>
+        </section>
+
+        <section class="activity-summary" aria-label="邀请规则明细">
+          <section class="activity-block" aria-labelledby="valid-title">
+            <h2 class="section-title" id="valid-title" data-t="validTitle">什么是有效邀请</h2>
+            <div class="rule-list" data-array="valid"></div>
+          </section>
+
+          <section class="activity-block" aria-labelledby="other-title">
+            <h2 class="section-title" id="other-title" data-t="otherTitle">其他活动</h2>
+            <div class="surface other-list" data-array="other"></div>
+          </section>
+        </section>
+      </div>
+    </main>
+
+    <footer class="footer" data-t="footer">活动解释权与兑换记录以后台数据为准</footer>
+  </div>
+</body>
+</html>
