@@ -552,6 +552,105 @@ body.invite-missing-code .invite-hero > .inline-link {
   gap: 34px;
 }
 
+.contact-layout {
+  width: min(620px, 100%);
+  margin: 0 auto;
+  display: grid;
+  gap: 34px;
+}
+
+.contact-hero {
+  padding-top: 18px;
+  text-align: center;
+}
+
+.contact-title {
+  margin: 0;
+  color: var(--ink);
+  font-size: clamp(31px, 9vw, 50px);
+  line-height: 1.08;
+  font-weight: 720;
+  letter-spacing: 0;
+}
+
+.contact-summary {
+  width: min(520px, 100%);
+  margin: 18px auto 0;
+  color: var(--muted);
+  font-size: 15px;
+  line-height: 1.72;
+}
+
+.contact-panel {
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+  padding: 24px 0;
+}
+
+.contact-panel + .contact-panel {
+  margin-top: -10px;
+}
+
+.contact-body {
+  margin: 0;
+  color: var(--text);
+  font-size: 16px;
+  line-height: 1.75;
+}
+
+.contact-request-list {
+  display: grid;
+  gap: 0;
+}
+
+.contact-request {
+  display: grid;
+  grid-template-columns: 34px minmax(0, 1fr);
+  gap: 10px;
+  padding: 16px 0;
+  border-bottom: 1px solid var(--line);
+}
+
+.contact-request:last-child {
+  border-bottom: 0;
+}
+
+.contact-request-number {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  display: inline-grid;
+  place-items: center;
+  border: 1px solid var(--line-strong);
+  background: rgba(255, 255, 255, 0.88);
+  color: var(--ink);
+  font-size: 13px;
+  font-weight: 650;
+}
+
+.contact-request strong {
+  display: block;
+  color: var(--ink);
+  font-size: 15px;
+  line-height: 1.42;
+  font-weight: 680;
+}
+
+.contact-request span {
+  display: block;
+  margin-top: 4px;
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.55;
+}
+
+.contact-actions {
+  display: grid;
+  gap: 12px;
+  width: min(360px, 100%);
+  margin: 0 auto;
+}
+
 .activity-block + .activity-block {
   margin-top: 34px;
 }
@@ -688,6 +787,10 @@ body.invite-missing-code .invite-hero > .inline-link {
   .rules-hero {
     min-height: 0;
     align-content: center;
+  }
+
+  .contact-layout {
+    padding-top: 26px;
   }
 
   .vertical-divider {
