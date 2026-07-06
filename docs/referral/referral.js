@@ -26,9 +26,9 @@ const copy = {
     note: "奖励达到后请按 App 内邀请明细与后台记录联系兑换。为防止刷量，截图不能作为有效邀请依据。",
     invalidCode: "邀请码",
     rewards: [
-      ["10 位有效邀请", "1 个月会员"],
-      ["20 位有效邀请", "终身 5 折"],
-      ["40 位有效邀请", "终身会员"],
+      ["10 位有效邀请", "Pro 月卡"],
+      ["20 位有效邀请", "Pro 终身 5 折"],
+      ["40 位有效邀请", "Pro 终身"],
     ],
     steps: [
       ["输入邀请码", "在 App 内「我的」-「输入邀请码」"],
@@ -42,8 +42,8 @@ const copy = {
       ["次日仍打开 App", "完成留存验证后才计入有效邀请"],
     ],
     other: [
-      ["小红书作品", "@我并获得 100 赞，可申请终身会员兑换"],
-      ["社区抽奖名额", "5000 人以上社区可申请 10 个终身会员抽奖名额"],
+      ["小红书作品", "@我并获得 100 赞，可申请 Pro 终身兑换"],
+      ["社区抽奖名额", "5000 人以上社区可申请 10 个 Pro 终身抽奖名额"],
     ],
   },
   en: {
@@ -70,9 +70,9 @@ const copy = {
     note: "After reaching a tier, contact the developer with your in-app referral details. Screenshots alone do not count as valid referrals.",
     invalidCode: "Invite Code",
     rewards: [
-      ["10 valid referrals", "1 month membership"],
-      ["20 valid referrals", "50% lifetime discount"],
-      ["40 valid referrals", "Lifetime membership"],
+      ["10 valid referrals", "Pro Monthly"],
+      ["20 valid referrals", "50% off Pro Lifetime"],
+      ["40 valid referrals", "Pro Lifetime"],
     ],
     steps: [
       ["Enter the invite code", "In the app, open Me - Enter Invite Code"],
@@ -86,8 +86,8 @@ const copy = {
       ["Returns the next day", "Retention must be verified before it becomes valid"],
     ],
     other: [
-      ["Xiaohongshu post", "@ me and reach 100 likes to apply for lifetime membership"],
-      ["Community raffle", "Communities over 5,000 members may apply for 10 lifetime raffle slots"],
+      ["Xiaohongshu post", "@ me and reach 100 likes to apply for Pro Lifetime"],
+      ["Community raffle", "Communities over 5,000 members may apply for 10 Pro Lifetime raffle slots"],
     ],
   },
 };
