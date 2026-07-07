@@ -588,7 +588,8 @@ body.invite-missing-code .invite-hero > .inline-link {
 }
 
 .contact-panel + .contact-panel {
-  margin-top: -10px;
+  margin-top: 0;
+  border-top: 0;
 }
 
 .contact-body {
@@ -616,6 +617,10 @@ body.invite-missing-code .invite-hero > .inline-link {
   line-height: 1.4;
   text-decoration: none;
   transition: color 180ms ease, opacity 180ms ease, transform 180ms ease;
+}
+
+.contact-link:last-child {
+  border-bottom: 0;
 }
 
 .contact-link::after {
