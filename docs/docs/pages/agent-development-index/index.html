@@ -285,7 +285,7 @@
     <h1>Agent Skills 安装与说明</h1>
     <p>一行命令安装 Skills，配合 AppUI、Widget 与 iOS 原生文档使用。</p>
   </header>
-  <section class="agent-install-panel" id="agent-skills-install"><div class="install-cmd" data-install-cmd><span class="install-cmd-prompt" aria-hidden="true">$</span><code class="install-cmd-text" id="code-211b7af28bee">npx skills add jinwandalaohu66/pythonide-skills -g</code><div class="install-cmd-actions"><button class="install-cmd-copy" type="button" data-copy-code="211b7af28bee" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="install-cmd-toast" role="status" aria-live="polite" hidden>已复制</span></div></div></section>
+  <section class="agent-install-panel" id="agent-skills-install"><div class="install-cmd" data-install-cmd><span class="install-cmd-prompt" aria-hidden="true">$</span><code class="install-cmd-text" id="code-211b7af28bee">npx skills add Python-IDE/pythonide-skills -g</code><div class="install-cmd-actions"><button class="install-cmd-copy" type="button" data-copy-code="211b7af28bee" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="install-cmd-toast" role="status" aria-live="polite" hidden>已复制</span></div></div></section>
   <div class="markdown-body">
     <p>在 <strong>编码 Agent</strong>（如 Codex、Claude Code、Gemini CLI 等）中编写 PythonIDE 代码时，先安装本站的 Agent Skills。Skills 提供执行规则；完整 API 仍以左侧文档与公开 schema 为准。</p>
 <blockquote class="callout note"><strong>边界</strong>：这是给 <strong>电脑上的编码 Agent</strong> 用的安装包，不是 PythonIDE App 内的 AI 助手，也不是替代在线文档的第二套手册。</blockquote>
@@ -299,7 +299,7 @@
 <div class="table-scroll"><table><thead><tr><th>层级</th><th>作用</th></tr></thead><tbody><tr><td><strong>Agent Skills</strong></td><td>怎么写、禁止什么、何时配对哪个 skill</td></tr><tr><td><strong>本站中文文档</strong></td><td>模块说明、示例、场景配方</td></tr><tr><td><strong>schema / stubs</strong></td><td>API 签名与原生能力路由（机器可读）</td></tr></tbody></table></div>
 <p>编写时：<strong>先遵守 Skill 规则，再查模块文档，再用 schema 校验 API 名称。</strong></p>
 <h2 id="机器可读资源"><a class="heading-anchor" href="#机器可读资源">#</a>机器可读资源</h2>
-<ul><li><a href="https://pythonide.app/schemas/native_capabilities_schema.json">Native capabilities schema</a></li><li><a href="https://pythonide.app/schemas/appui_api_schema.json">AppUI schema</a></li><li><a href="https://pythonide.app/schemas/widget_api_schema.json">Widget schema</a></li><li><a href="https://github.com/jinwandalaohu66/pythonide-skills">GitHub：pythonide-skills</a></li></ul>
+<ul><li><a href="https://pythonide.app/schemas/native_capabilities_schema.json">Native capabilities schema</a></li><li><a href="https://pythonide.app/schemas/appui_api_schema.json">AppUI schema</a></li><li><a href="https://pythonide.app/schemas/widget_api_schema.json">Widget schema</a></li><li><a href="https://github.com/Python-IDE/pythonide-skills">GitHub：pythonide-skills</a></li></ul>
 <h2 id="常见误区"><a class="heading-anchor" href="#常见误区">#</a>常见误区</h2>
 <ul><li><strong>不要在 AppUI <code>body()</code> 里</strong>直接申请权限、定位、拍照或发网络请求；放在命名回调里。</li><li><strong>内联控件优先</strong>：<code>PhotoPicker</code>、<code>CameraPicker</code>、<code>MapView</code>、<code>FileImporter</code>、<code>ShareLink</code>、<code>VideoPlayer</code>。</li><li><strong>App 内 AI 助手</strong> 与 <strong>编码 Agent Skills</strong> 是两套体系；前者在 iPhone/iPad App 里，后者在电脑终端安装。</li><li><strong>不要编造 API</strong>；以 schema 与各模块文档为准。</li></ul>
 <h2 id="相关文档"><a class="heading-anchor" href="#相关文档">#</a>相关文档</h2>
@@ -310,7 +310,7 @@
     <span>bash</span>
     <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="f9d4462acf67" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
-  <pre><code id="code-f9d4462acf67" class="language-bash">npx skills add jinwandalaohu66/pythonide-skills</code></pre>
+  <pre><code id="code-f9d4462acf67" class="language-bash">npx skills add Python-IDE/pythonide-skills</code></pre>
 </figure>
 <p>预期效果：编码 Agent 工作区出现 <code>pythonide</code>、<code>pythonide-appui</code> 等 Skills，可在写 MiniApp 前自动加载规则。</p>
   </div>

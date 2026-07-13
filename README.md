@@ -18,8 +18,8 @@
     <img src="https://img.shields.io/badge/Docs-pythonide.xin-3776AB?style=for-the-badge" alt="PythonIDE docs" height="40" />
   </a>
   &nbsp;
-  <a href="https://github.com/jinwandalaohu66/PythonIDE-iOS">
-    <img src="https://img.shields.io/github/stars/jinwandalaohu66/PythonIDE-iOS?style=for-the-badge&logo=github" alt="GitHub stars" height="40" />
+  <a href="https://github.com/Python-IDE/PythonIDE-iOS">
+    <img src="https://img.shields.io/github/stars/Python-IDE/PythonIDE-iOS?style=for-the-badge&logo=github" alt="GitHub stars" height="40" />
   </a>
 </p>
 
@@ -208,8 +208,8 @@ PythonIDE 也可以处理更接近开发者工作流的任务：
 | 渠道 | 链接 |
 |---|---|
 | Telegram | [iOS 端 Py 编程 IDE](https://t.me/pythonzwb) |
-| 功能建议 | [GitHub Discussions](https://github.com/jinwandalaohu66/PythonIDE-iOS/discussions) |
-| 问题反馈 | [GitHub Issues](https://github.com/jinwandalaohu66/PythonIDE-iOS/issues) |
+| 功能建议 | [GitHub Discussions](https://github.com/Python-IDE/PythonIDE-iOS/discussions) |
+| 问题反馈 | [GitHub Issues](https://github.com/Python-IDE/PythonIDE-iOS/issues) |
 | App Store | [PythonIDE on App Store](https://apps.apple.com/app/id6753987304) |
 
 ---
