@@ -598,6 +598,24 @@
       letter-spacing: -0.02em;
     }
 
+    .bottom-links {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      font-size: 13px;
+    }
+
+    .bottom-links a {
+      color: var(--white);
+      text-decoration: none;
+      opacity: 0.82;
+    }
+
+    .bottom-links a:hover {
+      opacity: 1;
+      text-decoration: underline;
+    }
+
     @keyframes enter {
       from { opacity: 0; transform: translateY(18px); }
       to { opacity: 1; transform: translateY(0); }
@@ -796,7 +814,10 @@
     <footer class="bottom-cta">
       <div class="bottom-cta-inner">
         <p data-i18n="bottomCtaText">在 iPhone 和 iPad 上写 Python，也能做原生 App</p>
-        <a class="pill-btn light" href="https://apps.apple.com/app/id6753987304" data-i18n="bottomCtaBtn">立即下载</a>
+        <div class="bottom-links">
+          <a href="https://pythonide.xin/privacy/" data-i18n="privacyLink">隐私政策</a>
+          <a class="pill-btn light" href="https://apps.apple.com/app/id6753987304" data-i18n="bottomCtaBtn">立即下载</a>
+        </div>
       </div>
     </footer>
   </div>
@@ -813,6 +834,7 @@
         title: "Python IDE - iPhone 和 iPad 上的 Python 开发工具",
         description: "Python IDE: 在 iPhone 和 iPad 上编写 Python，构建 AppUI、小组件、Agent、SSH、社区脚本和 iOS 工作流。",
         navGithub: "GitHub",
+        privacyLink: "隐私政策",
         heroTitle: "在 iPhone 上写 Python",
         subtitle: "在 iPhone 和 iPad 上编写 Python，构建 AppUI、小组件、Agent 工作流与 iOS 原生能力。",
         downloadCta: "下载",
@@ -851,6 +873,7 @@
         title: "Python IDE - Python for iPhone and iPad",
         description: "Python IDE lets you write Python on iPhone and iPad, build AppUI pages, widgets, Agent workflows, SSH tasks, and native iOS automations.",
         navGithub: "GitHub",
+        privacyLink: "Privacy",
         heroTitle: "Write Python on iPhone",
         subtitle: "Build AppUI, widgets, Agent workflows, and native iOS capabilities on iPhone and iPad.",
         downloadCta: "Download",

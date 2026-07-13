@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Python IDE 隐私政策</title>
+  <link rel="canonical" href="https://pythonide.xin/privacy/">
+  <style>
+    :root {
+      color-scheme: light dark;
+      --bg: #f7f8fb;
+      --text: #1d1d1f;
+      --muted: #636366;
+      --card: #ffffff;
+      --link: #0066cc;
+      --border: #e5e5ea;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg: #111113;
+        --text: #f5f5f7;
+        --muted: #a1a1a6;
+        --card: #1c1c1e;
+        --link: #64a9ff;
+        --border: #2c2c2e;
+      }
+    }
+
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue", Arial, sans-serif;
+      line-height: 1.72;
+    }
+
+    main {
+      max-width: 920px;
+      margin: 0 auto;
+      padding: 40px 20px 56px;
+    }
+
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 28px;
+    }
+
+    h1, h2, h3 {
+      line-height: 1.25;
+    }
+
+    h1 {
+      margin: 0 0 8px;
+      font-size: 34px;
+      letter-spacing: 0;
+    }
+
+    h2 {
+      margin-top: 34px;
+      padding-top: 22px;
+      border-top: 1px solid var(--border);
+      font-size: 23px;
+    }
+
+    h3 {
+      margin-top: 22px;
+      font-size: 18px;
+    }
+
+    p, li {
+      font-size: 16px;
+    }
+
+    ul {
+      padding-left: 22px;
+    }
+
+    a {
+      color: var(--link);
+    }
+
+    .meta, .note {
+      color: var(--muted);
+    }
+
+    .lang-switch {
+      margin: 18px 0 0;
+    }
+
+    .lang-switch a {
+      margin-right: 14px;
+      font-weight: 600;
+    }
+
+    .footer {
+      margin-top: 40px;
+      color: var(--muted);
+      font-size: 14px;
+    }
+  </style>
+</head>
+<body>
+<main>
+  <section class="card">
+    <h1>Python IDE 隐私政策</h1>
+    <p class="meta"><strong>更新日期：</strong>2026年6月20日</p>
+    <p class="meta"><strong>开发者：</strong>张文禄</p>
+    <p class="lang-switch"><a href="#zh">中文</a><a href="#en">English</a></p>
+
+    <section id="zh">
+      <h2>一、概述</h2>
+      <p>Python IDE 是一款面向 iPhone 和 iPad 的 Python 编程工具。应用默认将用户创建的代码、脚本、项目文件和本地配置保存在用户设备本地。为了提供会员权益同步、购买验证、防滥用保护、AI 功能、社区脚本分享以及部分系统能力，应用可能会在用户使用相关功能时处理必要的数据。</p>
+      <p>我们不会出售用户个人数据，也不会将用户数据用于第三方广告追踪。</p>
+
+      <h2>二、我们可能处理的数据</h2>
+      <h3>1. 本地保存的数据</h3>
+      <p>应用可能在设备本地保存以下数据：</p>
+      <ul>
+        <li>用户创建或导入的代码、脚本、项目文件、运行结果和编辑器设置。</li>
+        <li>AI 服务配置，例如服务商地址、模型 ID、自定义请求头、API Key、OAuth token 等。</li>
+        <li>SSH 服务器配置，例如服务器地址、端口、用户名、认证方式、密码、私钥和 passphrase。</li>
+        <li>小组件配置、快捷入口、应用偏好设置和本地缓存。</li>
+      </ul>
+      <p>其中，密码、私钥、API Key、token 等敏感信息会优先使用系统 Keychain 或设备本地安全存储保存。除非用户主动使用同步、分享、AI 请求、SSH 连接或社区功能，我们不会主动上传这些本地内容。</p>
+
+      <h3>2. 购买、会员和防滥用数据</h3>
+      <p>当用户购买、恢复购买、同步会员状态或使用 Pro 权益时，我们可能处理以下数据：</p>
+      <ul>
+        <li>Apple StoreKit 交易信息，例如 transaction ID、original transaction ID、product ID、订阅状态、到期时间、环境信息和 App Transaction ID。</li>
+        <li>用于权益同步的内部 principal ID、app account token、权益状态、消耗包余额、购买事件和恢复购买记录。</li>
+        <li>设备标识、App Attest challenge、App Attest credential、签名计数、平台 JWT 等防滥用和安全验证数据。</li>
+      </ul>
+      <p>这些数据用于验证购买、恢复权益、同步订阅状态、防止破解和滥用、保障会员功能正常工作。</p>
+
+      <h3>3. AI 功能相关数据</h3>
+      <p>当用户使用 AI 功能时，用户输入的提示词、上下文、代码片段、图片、文件内容、工具调用结果或相关运行信息可能会发送至用户选择或配置的 AI 服务商，或发送至我们用于转发、计费和鉴权的服务端接口。</p>
+      <p>如果用户使用自定义 API Key 或自定义 AI 服务商，相关请求会发送到用户配置的服务商地址。第三方 AI 服务商对数据的处理受其自身隐私政策和服务条款约束。请避免在 AI 对话或代码片段中提交不希望第三方处理的敏感信息。</p>
+
+      <h3>4. 社区和分享功能</h3>
+      <p>如果用户主动发布、上传或分享脚本、模板、说明、截图或其他内容，相关内容及必要的元数据可能会被上传到社区服务，用于展示、同步、审核、排序和滥用防护。用户不主动分享的本地项目文件不会因为社区功能自动公开。</p>
+
+      <h3>5. 系统权限和设备能力</h3>
+      <p>应用提供相机、相册、文件、位置、天气、麦克风、语音识别、通讯录、日历、HealthKit、运动传感器、NFC、蓝牙、Shazam、Apple Music、通知等能力的调用或脚本接口。相关权限只会在用户主动使用对应功能时请求，并受 iOS 系统权限控制。</p>
+      <p>这些数据通常用于完成用户主动发起的本地脚本、工具或系统集成任务。我们不会将相册、通讯录、HealthKit、位置或麦克风数据用于广告、营销或数据挖掘。</p>
+
+      <h2>三、数据的用途</h2>
+      <p>我们处理数据的目的包括：</p>
+      <ul>
+        <li>提供代码编辑、运行、文件管理、小组件和本地开发工具能力。</li>
+        <li>验证 App 内购买、恢复购买、同步 Pro 权益和处理订阅状态。</li>
+        <li>提供 AI 对话、Agent、模型配置、用量统计和相关调试信息。</li>
+        <li>提供 SSH 连接、远程命令、文件传输和服务器管理功能。</li>
+        <li>提供社区脚本分享、内容展示和必要的滥用防护。</li>
+        <li>保障应用安全、防止欺诈、破解、重复领取和异常使用。</li>
+        <li>响应用户反馈、处理故障、改进应用稳定性和用户体验。</li>
+      </ul>
+
+      <h2>四、第三方服务</h2>
+      <p>根据用户使用的功能，应用可能与以下服务交互：</p>
+      <ul>
+        <li>Apple 服务：App Store、StoreKit、App Store Server API、App Attest、iCloud、WeatherKit、HealthKit、MusicKit、ShazamKit 等。</li>
+        <li>云服务：用于会员验证、权益同步、防滥用、社区功能和必要的服务端存储。</li>
+        <li>AI 服务商：例如 OpenAI、DeepSeek 或用户自行配置的 OpenAI 兼容服务商。</li>
+        <li>用户主动连接的服务：例如 SSH 服务器、WebDAV、Git、HTTP API、PyPI 或用户脚本访问的网络服务。</li>
+      </ul>
+      <p>我们不会将用户数据出售给第三方广告平台。第三方服务对数据的处理可能受其自身隐私政策和服务条款约束。</p>
+
+      <h2>五、数据保存和删除</h2>
+      <ul>
+        <li>本地项目、脚本、配置和缓存通常保存在用户设备中，用户可以在应用内删除，或删除 App 来清除大部分本地数据。</li>
+        <li>Keychain 中的敏感凭据可能受 iOS 系统机制影响，在卸载 App 后仍短期保留，用户可以在应用内删除对应配置或通过系统设置清理设备数据。</li>
+        <li>购买、会员、权益、防滥用和交易记录会在服务端保存必要时间，用于恢复购买、订阅同步、财务记录、安全审计和纠纷处理。</li>
+        <li>用户主动发布到社区的内容，可通过应用内功能或联系我们请求删除；已经被他人引用、缓存或备份的内容可能无法立即完全移除。</li>
+      </ul>
+
+      <h2>六、用户选择和控制</h2>
+      <ul>
+        <li>用户可以在 iOS 设置中管理相机、相册、位置、麦克风、通讯录、日历、HealthKit 等权限。</li>
+        <li>用户可以在 App Store 账户设置中管理或取消自动续订订阅。</li>
+        <li>用户可以删除本地项目、SSH 配置、AI 配置、API Key 和其他本地数据。</li>
+        <li>用户可以停止使用 AI、社区、SSH 或其他会产生网络请求的功能。</li>
+      </ul>
+
+      <h2>七、儿童隐私</h2>
+      <p>本应用不是专门面向儿童的应用。我们不会有意收集儿童个人信息。如果你认为儿童向我们提供了个人信息，请联系我们处理。</p>
+
+      <h2>八、安全</h2>
+      <p>我们会采取合理的技术措施保护数据安全，包括使用系统 Keychain 保存敏感凭据、使用 Apple StoreKit 和 App Attest 验证购买和设备可信度、通过 HTTPS 与服务端通信等。但任何网络传输或存储方式都无法保证绝对安全，请用户妥善保管自己的代码、密钥、服务器凭据和 API Key。</p>
+
+      <h2>九、政策更新</h2>
+      <p>我们可能会根据功能变化、法律要求或审核要求更新本隐私政策。更新后的政策会发布在当前页面，并以页面顶部的更新日期为准。</p>
+
+      <h2>十、联系我们</h2>
+      <p>如果你对本隐私政策或数据处理方式有疑问，可以发送邮件联系我们：</p>
+      <p><a href="mailto:jinwandalaohu940@gmail.com">jinwandalaohu940@gmail.com</a></p>
+    </section>
+
+    <section id="en" lang="en">
+      <h2>Privacy Policy</h2>
+      <p class="meta"><strong>Last updated:</strong> June 20, 2026</p>
+      <p>Python IDE is a Python coding app for iPhone and iPad. By default, code files, scripts, projects, and local settings are stored on the user's device. Some features, such as in-app purchase verification, Pro entitlement sync, anti-abuse checks, AI features, community sharing, and system integrations, may process the minimum data needed to provide those features.</p>
+      <p>We do not sell personal data and do not use user data for third-party advertising tracking.</p>
+
+      <h3>Data We May Process</h3>
+      <ul>
+        <li>Local data: code, scripts, project files, editor settings, widget settings, AI provider configuration, SSH server configuration, API keys, OAuth tokens, passwords, private keys, and local caches. Sensitive credentials are stored locally using system-provided secure storage such as Keychain where possible.</li>
+        <li>Purchase and entitlement data: Apple StoreKit transaction IDs, original transaction IDs, product IDs, subscription status, expiration dates, App Transaction ID, internal principal ID, entitlement status, consumable balances, and restore-purchase records.</li>
+        <li>Security and anti-abuse data: device identifier, App Attest challenges, credentials, signature counters, and platform JWTs used to protect paid features and prevent fraud or abuse.</li>
+        <li>AI data: prompts, code snippets, context, images, files, tool results, and related request metadata may be sent to the AI provider selected by the user or to our server endpoint for forwarding, authorization, and usage accounting.</li>
+        <li>Community data: scripts, templates, descriptions, screenshots, display metadata, and other content that the user voluntarily publishes or shares.</li>
+        <li>System permission data: Photos, Camera, Files, Location, Weather, Microphone, Speech Recognition, Contacts, Calendar, HealthKit, Motion, NFC, Bluetooth, Shazam, Apple Music, and Notifications may be accessed only when the user actively uses related features and grants the required iOS permissions.</li>
+      </ul>
+
+      <h3>How We Use Data</h3>
+      <p>We use data to provide code editing and execution, file management, widgets, AI features, SSH and server management, purchase verification, Pro entitlement sync, community sharing, security protection, fraud prevention, troubleshooting, and customer support.</p>
+
+      <h3>Third-Party Services</h3>
+      <p>Depending on the features used, the app may interact with Apple services such as App Store, StoreKit, App Store Server API, App Attest, iCloud, WeatherKit, HealthKit, MusicKit, and ShazamKit; cloud services used for entitlement sync and community features; AI providers such as OpenAI, DeepSeek, or user-configured OpenAI-compatible providers; and network services explicitly configured or contacted by the user, such as SSH servers, WebDAV, Git, HTTP APIs, or PyPI.</p>
+      <p>Third-party services process data under their own privacy policies and terms. We do not sell user data to advertising platforms.</p>
+
+      <h3>Retention and Deletion</h3>
+      <p>Local projects, scripts, settings, and caches are stored on the user's device and can be deleted in the app or by deleting the app. Some Keychain items may be retained by iOS after app deletion. Purchase, entitlement, anti-abuse, and transaction records may be retained on the server as needed for purchase restoration, subscription sync, accounting, security auditing, fraud prevention, and dispute handling.</p>
+
+      <h3>User Choices</h3>
+      <p>Users can manage system permissions in iOS Settings, manage or cancel subscriptions in their App Store account settings, delete local projects and credentials in the app, and stop using features that require network requests such as AI, community sharing, or SSH connections.</p>
+
+      <h3>Children's Privacy</h3>
+      <p>This app is not directed to children. We do not knowingly collect personal information from children. If you believe a child has provided personal information to us, please contact us.</p>
+
+      <h3>Contact</h3>
+      <p>If you have questions about this Privacy Policy, contact us by email:</p>
+      <p><a href="mailto:jinwandalaohu940@gmail.com">jinwandalaohu940@gmail.com</a></p>
+    </section>
+
+    <p class="footer">© 2026 Python IDE. All rights reserved.</p>
+  </section>
+</main>
+</body>
+</html>
