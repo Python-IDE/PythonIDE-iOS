@@ -1,8 +1,8 @@
 {
   "schema": "pythonide.native_capabilities.v2",
   "version": 2,
-  "status": "audit_only",
-  "description": "Canonical contract for PythonIDE native iOS capabilities (v2). Single source of truth for Python modules, AppUI bridges, topic pages, navigation, runtimes, docs, Agent routing, and audit surfaces.",
+  "status": "executable_contract",
+  "description": "Executable canonical contract for PythonIDE native iOS capabilities (v2). Single source of truth for Python modules, AppUI bridges, topic pages, navigation, runtimes, docs, Agent routing, scopes, risk, and user-action presentation.",
   "topLevelDocs": {
     "user": [
       "ios-native",
@@ -262,17 +262,27 @@
       "actions": [
         "photo_save",
         "calendar_create",
-        "file_export"
+        "file_export",
+        "open_url",
+        "open_settings",
+        "clipboard_write",
+        "notification_schedule"
       ],
       "modules": [
         "photos",
         "calendar_events",
-        "dialogs"
+        "dialogs",
+        "shortcuts",
+        "clipboard",
+        "notification"
       ],
       "scopeIds": [
         "native.photos",
         "native.calendar",
-        "native.export"
+        "native.export",
+        "native.open",
+        "native.clipboard",
+        "native.notifications"
       ],
       "description": "User-visible native mutation/export bridge for Photos, Calendar, and share sheet actions.",
       "actionDetails": {
@@ -318,6 +328,85 @@
           "requiresConfirmation": false,
           "requiresUserAction": true,
           "summary": "Present the iOS share/export sheet for a workspace file."
+        },
+        "open_url": {
+          "modules": [
+            "shortcuts"
+          ],
+          "scopeIds": [
+            "native.open"
+          ],
+          "permissionKeys": [],
+          "agentRisk": "externalMutation",
+          "requiresConfirmation": false,
+          "requiresUserAction": true,
+          "summary": "Open an http(s) URL, universal link, or installed-app deep link through the shared native URL executor.",
+          "searchTerms": [
+            "打开",
+            "跳转",
+            "应用",
+            "微信",
+            "链接",
+            "deep link",
+            "open app"
+          ]
+        },
+        "open_settings": {
+          "modules": [
+            "shortcuts"
+          ],
+          "scopeIds": [
+            "native.open"
+          ],
+          "permissionKeys": [],
+          "agentRisk": "nativePermission",
+          "requiresConfirmation": false,
+          "requiresUserAction": true,
+          "summary": "Open PythonIDE's page in the iOS Settings app through the shared native URL executor.",
+          "searchTerms": [
+            "打开设置",
+            "系统设置",
+            "设置权限"
+          ]
+        },
+        "clipboard_write": {
+          "modules": [
+            "clipboard"
+          ],
+          "scopeIds": [
+            "native.clipboard"
+          ],
+          "permissionKeys": [],
+          "agentRisk": "externalMutation",
+          "requiresConfirmation": false,
+          "requiresUserAction": false,
+          "summary": "Write user-requested text to the general pasteboard through the same native bridge used by the Python clipboard module.",
+          "searchTerms": [
+            "复制",
+            "剪贴板",
+            "粘贴板"
+          ]
+        },
+        "notification_schedule": {
+          "modules": [
+            "notification"
+          ],
+          "scopeIds": [
+            "native.notifications"
+          ],
+          "permissionKeys": [
+            "notifications"
+          ],
+          "agentRisk": "nativePermission",
+          "requiresConfirmation": false,
+          "requiresUserAction": true,
+          "summary": "Request notification authorization when needed and schedule a local notification through the shared native notification executor.",
+          "searchTerms": [
+            "通知",
+            "提醒",
+            "本地通知",
+            "完成后通知"
+          ]
         }
       }
     }

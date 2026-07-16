@@ -288,7 +288,8 @@
   
   <div class="markdown-body">
     <p>轻量级键值存储（基于 UserDefaults）：保存设置项、开关、计数和小型 JSON 配置。</p>
-<blockquote class="callout note"><strong>边界</strong>：适合小数据偏好，不是文件数据库，也不是敏感数据存储。token / 密码用 <a href="../../pages/keychain-module/">keychain</a>；大列表、离线缓存用 <a href="../../pages/database-module/">database</a>。MiniApp 内键名会自动按应用目录隔离，不同 MiniApp 不会互相覆盖。</blockquote>
+<blockquote class="callout note"><strong>边界</strong>：适合小数据偏好，不是文件数据库，也不是敏感数据存储。token / 密码用 <a href="../../pages/keychain-module/">keychain</a>；大列表、离线缓存用 <a href="../../pages/database-module/">database</a>。MiniApp 内键名会自动按应用隔离，不同 MiniApp 不会互相覆盖。</blockquote>
+<p>写入后可在「设置 → 应用数据」中直接查看和修改，不需要把经常变化的值写死在代码里。关联小组件会读取同一份数据；界面只显示脚本使用的简单键名，不显示内部隔离前缀。</p>
 <h2 id="模块概览"><a class="heading-anchor" href="#模块概览">#</a>模块概览</h2>
 <div class="table-scroll"><table><thead><tr><th>项</th><th>说明</th></tr></thead><tbody><tr><td>导入</td><td><code>import storage</code></td></tr><tr><td>适合做什么</td><td>主题、排序、筛选条件、开关、小型 JSON 配置</td></tr><tr><td>调用时机</td><td>在 <code>on_change</code>、按钮回调或启动时读写；不要在 <code>body()</code> 里反复写入</td></tr><tr><td>推荐顺序</td><td>启动时 <code>get</code>（带默认值）→ 用户操作后 <code>set</code> → 需要时 <code>remove</code> / <code>all_keys</code></td></tr><tr><td>键名规范</td><td>用 <code>settings.theme</code> 这类命名空间，避免不同脚本冲突</td></tr></tbody></table></div>
 <hr>

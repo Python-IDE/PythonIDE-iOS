@@ -58,6 +58,10 @@
       if (!node.dataset.labelZh) node.dataset.labelZh = node.getAttribute("aria-label") || "";
       node.setAttribute("aria-label", lang === "en" ? node.dataset.labelEn : node.dataset.labelZh);
     });
+    document.querySelectorAll("[data-alt-en]").forEach(function (node) {
+      if (!node.dataset.altZh) node.dataset.altZh = node.getAttribute("alt") || "";
+      node.setAttribute("alt", lang === "en" ? node.dataset.altEn : node.dataset.altZh);
+    });
 
     setMeta("title[data-zh]", lang);
     setMeta('meta[name="description"][data-zh]', lang);
