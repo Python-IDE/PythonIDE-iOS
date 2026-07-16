@@ -1,108 +1,19 @@
-<!doctype html>
-<html lang="zh-CN">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <meta name="theme-color" content="#ffffff">
-  <meta name="apple-itunes-app" content="app-id=6753987304">
-  <meta name="description" content="好友邀请你使用 PythonIDE。复制邀请码，下载 App 后输入即可建立邀请关系。">
-  <meta property="og:type" content="website">
-  <meta property="og:title" content="PythonIDE 邀请">
-  <meta property="og:description" content="下载 App 后输入邀请码，即可建立邀请关系。">
-  <meta property="og:image" content="https://pythonide.xin/assets/brand-mark.svg">
-  <link rel="icon" href="/assets/brand-mark.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="/referral/referral.css">
-  <script defer src="/referral/referral.js"></script>
-  <title>PythonIDE 邀请</title>
-</head>
-<body>
-  <div class="page">
-    <header class="site-header">
-      <nav class="nav" aria-label="PythonIDE">
-        <a class="brand" href="/" aria-label="PythonIDE">
-          <img class="brand-mark" src="/assets/brand-mark.svg" alt="">
-          <span>PythonIDE</span>
-        </a>
-        <div class="nav-links" aria-label="Primary">
-          <a class="nav-link" href="/i/" aria-current="page" data-t="navInvite">邀请</a>
-          <a class="nav-link" href="/activity/" data-t="navRules">规则</a>
-          <a class="nav-link" href="/contact/" data-t="navContact">联系</a>
-          <a class="nav-download" href="#" data-download data-t="download">下载 App</a>
-        </div>
-        <div class="language-toggle" aria-label="Language">
-          <button type="button" data-lang="zh" aria-pressed="true">中</button>
-          <button type="button" data-lang="en" aria-pressed="false">EN</button>
-        </div>
-      </nav>
-    </header>
-
-    <main class="main">
-      <div class="invite-layout">
-        <section class="invite-hero" aria-labelledby="invite-title">
-          <p class="eyebrow reveal" id="invite-title" data-t="invitedTitle">好友邀请你使用 PythonIDE</p>
-          <div class="invite-code" data-invite-code aria-label="获取邀请码">获取邀请码</div>
-          <p class="summary reveal" data-invite-summary data-t="invitedSummary">下载 App 后输入邀请码，即可建立邀请关系。</p>
-
-          <div class="actions reveal">
-            <a class="button primary" href="#" data-download>
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                <path d="M12 3v12m0 0 4-4m-4 4-4-4M5 21h14"></path>
-              </svg>
-              <span data-t="download">下载 App</span>
-            </a>
-            <button class="button secondary" type="button" data-copy-code data-copy-feedback="已复制">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                <path d="M8 8h10v12H8zM6 16H5a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v1"></path>
-              </svg>
-              <span data-t="copyCode">复制邀请码</span>
-            </button>
-            <a class="button secondary no-code-only" href="/activity/" data-no-code-rules hidden>
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                <path d="M8 6h13M8 12h13M8 18h13M3 6h.01M3 12h.01M3 18h.01"></path>
-              </svg>
-              <span data-t="viewRules">查看活动规则</span>
-            </a>
-          </div>
-
-          <div class="divider" aria-hidden="true"></div>
-
-          <section aria-labelledby="how-title">
-            <h1 class="section-title" id="how-title" data-t="howWorks">如何生效</h1>
-            <div class="steps" data-array="steps"></div>
-          </section>
-
-          <a class="inline-link reveal" href="/activity/">
-            <span data-t="viewRules">查看活动规则</span>
-            <span aria-hidden="true">›</span>
-          </a>
-        </section>
-
-        <div class="vertical-divider desktop-only" aria-hidden="true"></div>
-
-        <aside class="rules-hero desktop-only" aria-label="邀请活动规则">
-          <h2 class="activity-title reveal" data-t="ruleTitle">邀请活动规则</h2>
-          <div class="activity-summary">
-            <section class="activity-block" aria-labelledby="reward-title">
-              <h3 class="section-title" id="reward-title" data-t="rewardTitle">奖励档位</h3>
-              <div class="surface reward-list" data-array="rewards"></div>
-            </section>
-
-            <section class="activity-block" aria-labelledby="valid-title">
-              <h3 class="section-title" id="valid-title" data-t="validTitle">什么是有效邀请</h3>
-              <div class="rule-list" data-array="valid"></div>
-            </section>
-
-            <section class="activity-block" aria-labelledby="other-title">
-              <h3 class="section-title" id="other-title" data-t="otherTitle">其他活动</h3>
-              <div class="surface other-list" data-array="other"></div>
-            </section>
-          </div>
-          <p class="note reveal" data-t="note">奖励达到后请按 App 内邀请明细与后台记录联系兑换。为防止刷量，截图不能作为有效邀请依据。</p>
-        </aside>
-      </div>
-    </main>
-
-    <footer class="footer" data-t="footer">活动解释权与兑换记录以后台数据为准</footer>
-  </div>
-</body>
-</html>
+<!doctype html><html lang="zh-CN"><head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><meta name="theme-color" content="#ffffff"><meta name="apple-itunes-app" content="app-id=6753987304">
+  <meta name="description" content="好友邀请你使用 PythonIDE。下载 App 后输入邀请码，完成核心行为并在次日打开，即可建立有效邀请。" data-zh="好友邀请你使用 PythonIDE。下载 App 后输入邀请码，完成核心行为并在次日打开，即可建立有效邀请。" data-en="A friend invited you to PythonIDE. Download the app, enter the invite code, complete a core action, and return the next day.">
+  <meta property="og:type" content="website"><meta property="og:site_name" content="PythonIDE"><meta property="og:title" content="好友邀请你加入 PythonIDE" data-zh="好友邀请你加入 PythonIDE" data-en="A friend invited you to PythonIDE"><meta property="og:description" content="复制邀请码，下载 PythonIDE，一起把想法变成可以运行的作品。" data-zh="复制邀请码，下载 PythonIDE，一起把想法变成可以运行的作品。" data-en="Copy the invite code, download PythonIDE, and turn ideas into runnable work."><meta property="og:url" content="https://pythonide.xin/i/"><meta property="og:image" content="https://pythonide.xin/assets/pythonide-social-card.png?v=3"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="好友邀请你加入 PythonIDE" data-zh="好友邀请你加入 PythonIDE" data-en="A friend invited you to PythonIDE"><meta name="twitter:description" content="复制邀请码，下载 PythonIDE，一起把想法变成可以运行的作品。" data-zh="复制邀请码，下载 PythonIDE，一起把想法变成可以运行的作品。" data-en="Copy the invite code, download PythonIDE, and turn ideas into runnable work."><meta name="twitter:image" content="https://pythonide.xin/assets/pythonide-social-card.png?v=3">
+  <link rel="canonical" href="https://pythonide.xin/i/"><link rel="alternate" hreflang="zh-CN" href="https://pythonide.xin/i/"><link rel="alternate" hreflang="en" href="https://pythonide.xin/i/?lang=en"><link rel="alternate" hreflang="x-default" href="https://pythonide.xin/i/"><link rel="icon" href="/assets/brand-mark.svg" type="image/svg+xml"><script>(function(){try{var t=localStorage.getItem("pythonide_site_theme");if(t==="light"||t==="dark")document.documentElement.dataset.theme=t;}catch(_){}}());</script><link rel="stylesheet" href="/assets/site.css"><script defer src="/assets/site.js"></script><title data-zh="PythonIDE 邀请" data-en="PythonIDE Invitation">PythonIDE 邀请</title>
+</head><body class="invite-page"><a class="skip-link" href="#content" data-en="Skip to content">跳到正文</a><div class="page">
+  <header class="site-header"><nav class="nav" aria-label="PythonIDE"><a class="brand" href="/"><img class="brand-mark" src="/assets/brand-mark.svg" alt=""><span>PythonIDE</span></a><div class="nav-links" data-nav-links data-open="false"><a class="nav-link" href="/" data-en="Overview">概览</a><a class="nav-link" href="/i/" aria-current="page" data-en="Invite">邀请</a><a class="nav-link" href="/support/" data-en="Support">支持</a><a class="nav-link" href="/about/" data-en="About">关于</a><a class="nav-link nav-external" href="https://github.com/Python-IDE/PythonIDE-iOS" target="_blank" rel="noreferrer" data-en="GitHub">GitHub</a><a class="button primary nav-download" href="https://apps.apple.com/app/id6753987304" data-download data-en="Download App">下载 App</a></div><div class="nav-actions"><button class="icon-button" type="button" data-theme-toggle aria-label="切换深色模式"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M21 12.8A9 9 0 1 1 11.2 3 7 7 0 0 0 21 12.8Z"/></svg></button><div class="language-toggle" aria-label="语言 / Language"><button type="button" data-lang="zh" aria-pressed="true">中</button><button type="button" data-lang="en" aria-pressed="false">EN</button></div><button class="menu-button" type="button" data-menu-toggle aria-label="打开导航菜单" data-label-en="Open navigation menu" aria-expanded="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button></div></nav></header>
+  <main class="main" id="content"><section class="hero"><div class="shell invite-wrap"><div class="invite-card enter">
+    <section class="invite-primary" aria-labelledby="invite-title"><h1 class="invite-kicker" id="invite-title" data-invite-title data-en="PythonIDE Invitation">PythonIDE 邀请</h1><div class="invite-code is-empty" data-invite-code aria-live="polite">获取邀请码</div><p class="invite-summary" data-invite-summary data-en="Open PythonIDE to find and share your personal invite code.">打开 PythonIDE，在“我的—邀请好友”查看并分享你的专属邀请码。</p>
+      <div class="invite-actions"><button class="button primary" type="button" data-open-app><span data-en="Open in PythonIDE">用 PythonIDE 打开</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true"><path d="M5 12h14M14 7l5 5-5 5"/></svg></button><a class="button" href="https://apps.apple.com/app/id6753987304" data-download data-en="Download App">下载 App</a></div>
+      <div class="invite-text-links"><button type="button" data-copy-invite data-copy="" data-success-zh="邀请码已复制" data-success-en="Invite code copied" hidden data-en="Copy invite code">复制邀请码</button><button type="button" data-copy="" data-success-zh="分享链接已复制" data-success-en="Share link copied" data-en="Copy share link">复制分享链接</button><a href="/activity/" data-en="View full rules">查看完整规则</a></div>
+    </section>
+    <aside class="invite-secondary" aria-label="邀请如何生效" data-label-en="How referrals qualify"><h2 class="mini-title" data-en="Three steps to qualify">三步成为有效邀请</h2><div class="compact-list"><div class="compact-item"><span class="dot">1</span><div><strong data-en="Enter the invite code">输入邀请码</strong><span data-en="In the app, open Me and enter the code.">在 App 内进入“我的”，输入邀请码。</span></div></div><div class="compact-item"><span class="dot">2</span><div><strong data-en="Use a core feature">使用一次核心功能</strong><span data-en="Run Python once or use AI.">运行一次 Python 或使用一次 AI。</span></div></div><div class="compact-item"><span class="dot">3</span><div><strong data-en="Return the next day">次日再次打开</strong><span data-en="The return open completes retention verification.">次日打开 App，完成留存验证。</span></div></div></div><div class="notice" style="margin-bottom:0"><strong data-en="Referral rewards">邀请奖励</strong><p data-en="10 valid referrals: Pro Monthly · 20: 50% off Pro Lifetime · 40: Pro Lifetime. Backend records determine eligibility.">10 位有效邀请：Pro 月卡 · 20 位：Pro 终身 5 折 · 40 位：Pro 终身。资格以后台记录为准。</p></div></aside>
+  </div></div></section></main>
+  <footer class="site-footer"><div class="shell"><div class="footer-bottom" style="margin-top:0;padding-top:0;border:0"><span>© 2026 PythonIDE</span><span><a href="/activity/" data-en="Referral rules">邀请规则</a> · <a href="/privacy/" data-en="Privacy">隐私</a> · <a href="/support/" data-en="Support">支持</a></span></div></div></footer>
+</div>
+<div class="modal-backdrop" data-app-modal hidden role="dialog" aria-modal="true" aria-labelledby="app-modal-title"><div class="modal"><h2 id="app-modal-title" data-en="PythonIDE did not open?">没有成功打开 PythonIDE？</h2><p data-en="Some in-app browsers, including WeChat, may block app links. Use the top-right menu to open this page in your default browser, then tap “Open in PythonIDE” again.">微信等 App 内浏览器可能拦截跳转。请使用右上角菜单选择“在默认浏览器中打开”，再点击“在 PythonIDE 中打开”。</p><div class="modal-actions"><button class="button primary" type="button" data-copy="" data-success-zh="分享链接已复制" data-success-en="Share link copied"><span data-en="Copy share link">复制分享链接</span></button><button class="button" type="button" data-modal-close data-en="Got it">我知道了</button></div></div></div>
+</body></html>

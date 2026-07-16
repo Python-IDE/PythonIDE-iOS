@@ -3,27 +3,25 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <meta name="robots" content="noindex">
-  <title>PythonIDE</title>
+  <meta name="theme-color" content="#ffffff">
+  <meta name="robots" content="noindex,follow">
+  <link rel="icon" href="/assets/brand-mark.svg" type="image/svg+xml">
+  <script>(function(){try{var t=localStorage.getItem("pythonide_site_theme");if(t==="light"||t==="dark")document.documentElement.dataset.theme=t;}catch(_){}}());</script><link rel="stylesheet" href="/assets/site.css">
   <script>
     (function () {
       var parts = location.pathname.split("/").filter(Boolean);
       if (parts[0] === "i" && parts[1]) {
-        var code = encodeURIComponent(parts[1]);
         var params = new URLSearchParams(location.search);
-        if (params.get("lang")) code += "&lang=" + encodeURIComponent(params.get("lang"));
-        location.replace("/i/?code=" + code);
-        return;
+        params.set("code", parts[1]);
+        location.replace("/i/?" + params.toString() + location.hash);
       }
-      if (parts[0] === "activity" && !parts[1]) {
-        location.replace("/activity/" + location.search);
-        return;
-      }
-      location.replace("/");
     }());
   </script>
+  <script defer src="/assets/site.js"></script>
+  <title data-zh="页面未找到 — PythonIDE" data-en="Page not found — PythonIDE">页面未找到 — PythonIDE</title>
 </head>
-<body>
-  <p>Redirecting...</p>
-</body>
-</html>
+<body><div class="page">
+  <header class="site-header"><nav class="nav" aria-label="PythonIDE"><a class="brand" href="/"><img class="brand-mark" src="/assets/brand-mark.svg" alt=""><span>PythonIDE</span></a><div class="nav-actions" style="margin-left:auto"><button class="icon-button" type="button" data-theme-toggle aria-label="切换深色模式"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M21 12.8A9 9 0 1 1 11.2 3 7 7 0 0 0 21 12.8Z"/></svg></button><div class="language-toggle"><button type="button" data-lang="zh" aria-pressed="true">中</button><button type="button" data-lang="en" aria-pressed="false">EN</button></div></div></nav></header>
+  <main class="main"><section class="hero"><div class="shell hero-center"><div class="error-code">404</div><h1 class="display small" style="margin-top:36px" data-en="This page is not here.">这个页面不在这里。</h1><p class="lede" data-en="The link may be incomplete, expired, or moved. Return home or open the Support Center.">链接可能不完整、已失效或已经移动。你可以返回首页，或打开支持中心。</p><div class="button-row"><a class="button primary" href="/" data-en="Back to home">返回首页</a><a class="button" href="/support/" data-en="Support Center">支持中心</a></div></div></section></main>
+  <footer class="site-footer"><div class="shell"><div class="footer-bottom" style="margin-top:0;padding-top:0;border:0"><span>© 2026 PythonIDE</span><span><a href="/privacy/" data-en="Privacy">隐私</a> · <a href="/terms/" data-en="Terms">条款</a></span></div></div></footer>
+</div></body></html>

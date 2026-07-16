@@ -1,242 +1,128 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="zh-CN">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Python IDE 隐私政策</title>
-  <link rel="canonical" href="https://pythonide.xin/privacy/">
-  <style>
-    :root {
-      color-scheme: light dark;
-      --bg: #f7f8fb;
-      --text: #1d1d1f;
-      --muted: #636366;
-      --card: #ffffff;
-      --link: #0066cc;
-      --border: #e5e5ea;
-    }
-
-    @media (prefers-color-scheme: dark) {
-      :root {
-        --bg: #111113;
-        --text: #f5f5f7;
-        --muted: #a1a1a6;
-        --card: #1c1c1e;
-        --link: #64a9ff;
-        --border: #2c2c2e;
-      }
-    }
-
-    body {
-      margin: 0;
-      background: var(--bg);
-      color: var(--text);
-      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue", Arial, sans-serif;
-      line-height: 1.72;
-    }
-
-    main {
-      max-width: 920px;
-      margin: 0 auto;
-      padding: 40px 20px 56px;
-    }
-
-    .card {
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: 18px;
-      padding: 28px;
-    }
-
-    h1, h2, h3 {
-      line-height: 1.25;
-    }
-
-    h1 {
-      margin: 0 0 8px;
-      font-size: 34px;
-      letter-spacing: 0;
-    }
-
-    h2 {
-      margin-top: 34px;
-      padding-top: 22px;
-      border-top: 1px solid var(--border);
-      font-size: 23px;
-    }
-
-    h3 {
-      margin-top: 22px;
-      font-size: 18px;
-    }
-
-    p, li {
-      font-size: 16px;
-    }
-
-    ul {
-      padding-left: 22px;
-    }
-
-    a {
-      color: var(--link);
-    }
-
-    .meta, .note {
-      color: var(--muted);
-    }
-
-    .lang-switch {
-      margin: 18px 0 0;
-    }
-
-    .lang-switch a {
-      margin-right: 14px;
-      font-weight: 600;
-    }
-
-    .footer {
-      margin-top: 40px;
-      color: var(--muted);
-      font-size: 14px;
-    }
-  </style>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#ffffff">
+  <meta name="description" content="PythonIDE 隐私政策：说明本地文件、账户、社区、订阅、AI 服务、系统权限与账户删除相关的数据处理方式。" data-zh="PythonIDE 隐私政策：说明本地文件、账户、社区、订阅、AI 服务、系统权限与账户删除相关的数据处理方式。" data-en="PythonIDE Privacy Policy covering local files, accounts, community, subscriptions, AI services, system permissions, and account deletion.">
+  <meta property="og:type" content="article"><meta property="og:site_name" content="PythonIDE">
+  <meta property="og:title" content="PythonIDE 隐私政策" data-zh="PythonIDE 隐私政策" data-en="PythonIDE Privacy Policy">
+  <meta property="og:description" content="清楚了解 PythonIDE 如何处理你的数据与权限。" data-zh="清楚了解 PythonIDE 如何处理你的数据与权限。" data-en="Understand how PythonIDE handles your data and permissions.">
+  <meta property="og:url" content="https://pythonide.xin/privacy/"><meta property="og:image" content="https://pythonide.xin/assets/pythonide-social-card.png?v=3">
+  <meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="PythonIDE 隐私政策" data-zh="PythonIDE 隐私政策" data-en="PythonIDE Privacy Policy"><meta name="twitter:description" content="清楚了解 PythonIDE 如何处理你的数据与权限。" data-zh="清楚了解 PythonIDE 如何处理你的数据与权限。" data-en="Understand how PythonIDE handles your data and permissions."><meta name="twitter:image" content="https://pythonide.xin/assets/pythonide-social-card.png?v=3">
+  <link rel="canonical" href="https://pythonide.xin/privacy/"><link rel="alternate" hreflang="zh-CN" href="https://pythonide.xin/privacy/"><link rel="alternate" hreflang="en" href="https://pythonide.xin/privacy/?lang=en"><link rel="alternate" hreflang="x-default" href="https://pythonide.xin/privacy/">
+  <link rel="icon" href="/assets/brand-mark.svg" type="image/svg+xml"><script>(function(){try{var t=localStorage.getItem("pythonide_site_theme");if(t==="light"||t==="dark")document.documentElement.dataset.theme=t;}catch(_){}}());</script><link rel="stylesheet" href="/assets/site.css"><script defer src="/assets/site.js"></script>
+  <title data-zh="隐私政策 — PythonIDE" data-en="Privacy Policy — PythonIDE">隐私政策 — PythonIDE</title>
 </head>
 <body>
-<main>
-  <section class="card">
-    <h1>Python IDE 隐私政策</h1>
-    <p class="meta"><strong>更新日期：</strong>2026年6月20日</p>
-    <p class="meta"><strong>开发者：</strong>张文禄</p>
-    <p class="lang-switch"><a href="#zh">中文</a><a href="#en">English</a></p>
+  <a class="skip-link" href="#content" data-en="Skip to content">跳到正文</a>
+  <div class="page">
+    <header class="site-header"><nav class="nav" aria-label="PythonIDE" data-label-en="PythonIDE navigation">
+      <a class="brand" href="/" aria-label="PythonIDE 首页" data-label-en="PythonIDE home"><img class="brand-mark" src="/assets/brand-mark.svg" alt=""><span>PythonIDE</span></a>
+      <div class="nav-links" data-nav-links data-open="false"><a class="nav-link" href="/" data-en="Overview">概览</a><a class="nav-link" href="/i/" data-en="Invite">邀请</a><a class="nav-link" href="/support/" data-en="Support">支持</a><a class="nav-link" href="/about/" data-en="About">关于</a><a class="nav-link nav-external" href="https://github.com/Python-IDE/PythonIDE-iOS" target="_blank" rel="noreferrer" data-en="GitHub">GitHub</a><a class="button primary nav-download" href="https://apps.apple.com/app/id6753987304" data-download data-en="Download App">下载 App</a></div>
+      <div class="nav-actions"><button class="icon-button" type="button" data-theme-toggle aria-label="切换深色模式" aria-pressed="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3 7 7 0 0 0 21 12.8Z"/></svg></button><div class="language-toggle" aria-label="语言 / Language"><button type="button" data-lang="zh" aria-pressed="true">中</button><button type="button" data-lang="en" aria-pressed="false">EN</button></div><button class="menu-button" type="button" data-menu-toggle aria-label="打开导航菜单" data-label-en="Open navigation menu" aria-expanded="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button></div>
+    </nav></header>
 
-    <section id="zh">
-      <h2>一、概述</h2>
-      <p>Python IDE 是一款面向 iPhone 和 iPad 的 Python 编程工具。应用默认将用户创建的代码、脚本、项目文件和本地配置保存在用户设备本地。为了提供会员权益同步、购买验证、防滥用保护、AI 功能、社区脚本分享以及部分系统能力，应用可能会在用户使用相关功能时处理必要的数据。</p>
-      <p>我们不会出售用户个人数据，也不会将用户数据用于第三方广告追踪。</p>
+    <main class="main" id="content">
+      <section class="hero compact document-hero"><div class="shell hero-center"><div class="hero-copy"><p class="kicker" data-en="Privacy">隐私</p><h1 class="display medium" data-en="Your work should remain yours.">你的创作，应该始终属于你。</h1><p class="lede" data-en="This policy explains what PythonIDE keeps on your device, what is sent only when you use an online feature, and what controls you have.">本政策说明哪些内容保留在设备上、哪些内容只在你使用在线功能时发送，以及你可以如何控制它们。</p><p class="hero-meta" data-en="Effective and last updated: July 16, 2026">生效及最近更新：2026 年 7 月 16 日</p></div></div></section>
 
-      <h2>二、我们可能处理的数据</h2>
-      <h3>1. 本地保存的数据</h3>
-      <p>应用可能在设备本地保存以下数据：</p>
-      <ul>
-        <li>用户创建或导入的代码、脚本、项目文件、运行结果和编辑器设置。</li>
-        <li>AI 服务配置，例如服务商地址、模型 ID、自定义请求头、API Key、OAuth token 等。</li>
-        <li>SSH 服务器配置，例如服务器地址、端口、用户名、认证方式、密码、私钥和 passphrase。</li>
-        <li>小组件配置、快捷入口、应用偏好设置和本地缓存。</li>
-      </ul>
-      <p>其中，密码、私钥、API Key、token 等敏感信息会优先使用系统 Keychain 或设备本地安全存储保存。除非用户主动使用同步、分享、AI 请求、SSH 连接或社区功能，我们不会主动上传这些本地内容。</p>
+      <div class="shell document-layout">
+        <aside class="toc" aria-label="本页目录" data-label-en="On this page"><p class="toc-title" data-en="On this page">本页目录</p><a href="#summary" data-en="At a glance">概览</a><a href="#data" data-en="Data we handle">处理的数据</a><a href="#ai" data-en="AI services">AI 服务</a><a href="#permissions" data-en="Permissions">系统权限</a><a href="#sharing" data-en="Sharing">共享与披露</a><a href="#retention" data-en="Retention & deletion">保存与删除</a><a href="#rights" data-en="Your controls">你的控制权</a><a href="#contact" data-en="Contact">联系</a></aside>
+        <article class="article">
+          <section class="article-section" id="summary">
+            <h2 data-en="Privacy at a glance">隐私原则概览</h2>
+            <div class="info-list">
+              <div class="info-row"><strong data-en="Local first">本地优先</strong><span data-en="Scripts, projects, settings, and AI chat history are primarily stored on your device or in storage you choose, such as iCloud Drive.">脚本、项目、设置与 AI 对话历史主要保存在你的设备，或你主动选择的 iCloud Drive 等存储位置。</span></div>
+              <div class="info-row"><strong data-en="Explicit online actions">明确的在线操作</strong><span data-en="Data is sent to our services or a third party when you sign in, publish to the community, verify a purchase, or make an online AI request.">仅当你登录、发布社区作品、验证购买或发起在线 AI 请求时，相关数据才会发送至我们的服务或第三方。</span></div>
+              <div class="info-row"><strong data-en="Sensitive values protected">敏感信息受保护</strong><span data-en="AI API keys, custom authentication secrets, and sign-in credentials are stored using the system Keychain where supported.">AI API 密钥、自定义认证信息与登录凭证在受支持的平台上使用系统钥匙串保存。</span></div>
+              <div class="info-row"><strong data-en="No data sale or ad tracking">不出售数据、不做广告追踪</strong><span data-en="PythonIDE does not sell personal information and does not use your code or AI prompts for third-party advertising profiles.">PythonIDE 不出售个人信息，也不会用你的代码或 AI 提示词建立第三方广告画像。</span></div>
+            </div>
+            <div class="notice"><strong data-en="Scope">适用范围</strong><p data-en="This policy applies to the PythonIDE app, pythonide.xin, account and community services, the PythonIDE AI proxy, and related official support channels. Third-party services you choose have their own policies.">本政策适用于 PythonIDE App、pythonide.xin、账户与社区服务、PythonIDE AI 代理及官方支持渠道。你主动选择的第三方服务适用其各自政策。</p></div>
+          </section>
 
-      <h3>2. 购买、会员和防滥用数据</h3>
-      <p>当用户购买、恢复购买、同步会员状态或使用 Pro 权益时，我们可能处理以下数据：</p>
-      <ul>
-        <li>Apple StoreKit 交易信息，例如 transaction ID、original transaction ID、product ID、订阅状态、到期时间、环境信息和 App Transaction ID。</li>
-        <li>用于权益同步的内部 principal ID、app account token、权益状态、消耗包余额、购买事件和恢复购买记录。</li>
-        <li>设备标识、App Attest challenge、App Attest credential、签名计数、平台 JWT 等防滥用和安全验证数据。</li>
-      </ul>
-      <p>这些数据用于验证购买、恢复权益、同步订阅状态、防止破解和滥用、保障会员功能正常工作。</p>
+          <section class="article-section" id="data">
+            <h2 data-en="Data we handle">我们处理哪些数据</h2>
+            <h3 data-en="1. Files, code, and local settings">1. 文件、代码与本地设置</h3>
+            <p data-en="Your scripts, project files, editor state, installed-package information, bookmarks, downloads, local execution output, and most preferences are stored locally. If you save a document to iCloud Drive or another file provider, that provider processes it under your account and settings.">你的脚本、项目文件、编辑器状态、已安装包信息、书签、下载内容、本地运行输出和大部分偏好设置保存在本地。若你把文稿保存到 iCloud Drive 或其他文件提供商，该提供商会依据你的账户与设置处理它。</p>
+            <h3 data-en="2. Account and identity">2. 账户与身份信息</h3>
+            <p data-en="When you use Sign in with Apple or community account features, we may process an Apple user identifier, session token, display name, email address when Apple provides it, avatar, username, account status, and security or anti-abuse records needed to maintain the account.">当你使用“通过 Apple 登录”或社区账户功能时，我们可能处理 Apple 用户标识、会话令牌、Apple 提供时的姓名与邮箱、头像、用户名、账户状态，以及维护账户安全与防滥用所需的记录。</p>
+            <h3 data-en="3. Community content">3. 社区内容</h3>
+            <p data-en="Content you choose to submit may include source code, title, description, category, cover or preview assets, author profile, review status, moderation reasons, usage counts, and related timestamps. Approved content is public and may be copied or imported by other users as the interface indicates.">你主动提交的内容可能包括源码、标题、描述、分类、封面或预览素材、作者资料、审核状态、处理原因、使用统计与相关时间。通过审核的内容会公开展示，并可能按界面提示被其他用户复制或导入。</p>
+            <h3 data-en="4. Purchases and entitlements">4. 购买与权益</h3>
+            <p data-en="Apple handles payment details. PythonIDE processes the minimum StoreKit transaction and entitlement information needed to load products, verify a purchase, restore access, synchronize subscription state, respond to refunds, prevent abuse, and troubleshoot billing. This may include product identifiers, signed transaction data, transaction identifiers, environment, expiration or revocation state, and an app-scoped billing identity.">付款资料由 Apple 处理。PythonIDE 仅处理加载商品、验证购买、恢复权益、同步订阅状态、响应退款、防止滥用与排查问题所需的最少 StoreKit 交易和权益信息，包括商品标识、签名交易数据、交易标识、环境、到期或撤销状态及 App 范围内的计费身份。</p>
+            <h3 data-en="5. Service and security records">5. 服务与安全记录</h3>
+            <p data-en="Our servers may process request time, route, response status, app version, device or installation identifiers used for account integrity, attestation results, quota usage, and concise error information. We use these records to operate the service, prevent fraud, and diagnose failures—not to build advertising profiles.">服务器可能处理请求时间、接口路径、响应状态、App 版本、用于账户完整性的设备或安装标识、设备认证结果、额度使用与精简错误信息。这些记录用于运行服务、防欺诈与故障排查，不用于广告画像。</p>
+          </section>
 
-      <h3>3. AI 功能相关数据</h3>
-      <p>当用户使用 AI 功能时，用户输入的提示词、上下文、代码片段、图片、文件内容、工具调用结果或相关运行信息可能会发送至用户选择或配置的 AI 服务商，或发送至我们用于转发、计费和鉴权的服务端接口。</p>
-      <p>如果用户使用自定义 API Key 或自定义 AI 服务商，相关请求会发送到用户配置的服务商地址。第三方 AI 服务商对数据的处理受其自身隐私政策和服务条款约束。请避免在 AI 对话或代码片段中提交不希望第三方处理的敏感信息。</p>
+          <section class="article-section" id="ai">
+            <h2 data-en="AI services and your content">AI 服务与你的内容</h2>
+            <p data-en="When you make an online AI request, PythonIDE sends the content required to complete that request. Depending on your choices, this may include your prompt, selected conversation history, selected code or files, images or attachments, tool results, model settings, and generated responses.">当你发起在线 AI 请求时，PythonIDE 会发送完成该请求所需的内容。根据你的选择，这可能包括提示词、所选对话历史、所选代码或文件、图片或附件、工具结果、模型设置与生成回复。</p>
+            <ul>
+              <li data-en="Platform AI: requests pass through the PythonIDE AI proxy for authentication, quota enforcement, provider routing, and response delivery.">平台 AI：请求会经过 PythonIDE AI 代理，用于鉴权、额度控制、模型路由与返回结果。</li>
+              <li data-en="Bring your own provider: requests are sent to the provider or custom compatible endpoint you configure. Its privacy policy and terms apply.">自有模型服务：请求会发送到你配置的提供商或兼容接口，其隐私政策与条款同时适用。</li>
+              <li data-en="On-device models: when a supported on-device model is selected, eligible processing can occur locally without sending the request to a cloud model.">端侧模型：当你选择受支持的端侧模型时，符合条件的处理可以在本地完成，无需把请求发送给云端模型。</li>
+            </ul>
+            <p data-en="AI chat sessions and execution traces are stored locally for continuity and diagnostics. PythonIDE's in-app AI analytics are local operational records and do not contain raw file paths; online providers may independently retain data under their own policies. Review the dedicated AI Data Use Notice before sending confidential material.">AI 对话与执行轨迹会在本地保存，以便连续使用和排查问题。App 内 AI 分析属于本地运行记录，文件路径会以摘要形式记录而非原文；在线模型提供方可能依据自身政策独立保存数据。发送机密材料前，请阅读专门的《AI 服务与数据使用说明》。</p>
+            <p><a href="/ai-policy/" data-en="Read the AI Data Use Notice">查看 AI 服务与数据使用说明</a></p>
+          </section>
 
-      <h3>4. 社区和分享功能</h3>
-      <p>如果用户主动发布、上传或分享脚本、模板、说明、截图或其他内容，相关内容及必要的元数据可能会被上传到社区服务，用于展示、同步、审核、排序和滥用防护。用户不主动分享的本地项目文件不会因为社区功能自动公开。</p>
+          <section class="article-section" id="permissions">
+            <h2 data-en="System permissions">系统权限与原生能力</h2>
+            <p data-en="PythonIDE exposes optional native capabilities to scripts and AppUI experiences. A permission is requested only when you or a script you choose invokes the related feature. Denying a permission prevents that feature from accessing the protected resource.">PythonIDE 可向脚本与 AppUI 作品提供可选的原生能力。只有当你或你选择运行的脚本调用相关功能时，系统才会请求权限；拒绝权限会阻止该功能访问受保护资源。</p>
+            <div class="info-list">
+              <div class="info-row"><strong data-en="Media and input">媒体与输入</strong><span data-en="Camera, microphone, speech recognition, photos, Apple Music, and Bluetooth are used only for the action you initiate.">相机、麦克风、语音识别、照片、Apple Music 与蓝牙仅用于你主动发起的操作。</span></div>
+              <div class="info-row"><strong data-en="Personal and health data">个人与健康数据</strong><span data-en="Contacts, calendars, reminders, Health data, motion, and location require system permission and remain subject to the access you grant.">通讯录、日历、提醒事项、健康数据、运动与定位均需系统授权，并受你授予的访问范围限制。</span></div>
+              <div class="info-row"><strong data-en="Nearby and device features">附近与设备能力</strong><span data-en="Local network, NFC, notifications, alarms, Face ID, WeatherKit, Shortcuts, and widgets are used only for supported features you enable.">本地网络、NFC、通知、闹钟、Face ID、WeatherKit、快捷指令与小组件仅用于你启用的受支持功能。</span></div>
+            </div>
+            <div class="notice warning"><strong data-en="Review code before running it">运行前请检查代码</strong><p data-en="Community or imported scripts can request network or system capabilities. PythonIDE provides permission boundaries, but you should still inspect untrusted code and grant only necessary access.">社区或导入脚本可能请求网络或系统能力。PythonIDE 提供权限边界，但你仍应检查不受信任的代码，并仅授予必要权限。</p></div>
+          </section>
 
-      <h3>5. 系统权限和设备能力</h3>
-      <p>应用提供相机、相册、文件、位置、天气、麦克风、语音识别、通讯录、日历、HealthKit、运动传感器、NFC、蓝牙、Shazam、Apple Music、通知等能力的调用或脚本接口。相关权限只会在用户主动使用对应功能时请求，并受 iOS 系统权限控制。</p>
-      <p>这些数据通常用于完成用户主动发起的本地脚本、工具或系统集成任务。我们不会将相册、通讯录、HealthKit、位置或麦克风数据用于广告、营销或数据挖掘。</p>
+          <section class="article-section" id="sharing">
+            <h2 data-en="Sharing and disclosure">共享、委托处理与公开</h2>
+            <p data-en="We share data only as needed to provide the feature you request, operate and secure the service, meet legal obligations, or protect users and PythonIDE. Relevant recipients may include:">我们仅会为提供你请求的功能、运行与保护服务、履行法律义务或保护用户与 PythonIDE 而共享必要数据。相关接收方可能包括：</p>
+            <ul>
+              <li data-en="Apple, for Sign in with Apple, App Store distribution, StoreKit purchases, refunds, iCloud, and system services you enable.">Apple：用于通过 Apple 登录、App Store 分发、StoreKit 购买与退款、iCloud 及你启用的系统服务。</li>
+              <li data-en="AI providers or custom endpoints selected by you, for online AI inference.">你选择的 AI 提供方或自定义接口：用于在线 AI 推理。</li>
+              <li data-en="Infrastructure providers, for hosting account, community, entitlement, and AI proxy services under operational and security controls.">基础设施服务商：在运行与安全控制下托管账户、社区、权益和 AI 代理服务。</li>
+              <li data-en="The public and other users, for community content and profile information you intentionally publish.">公众与其他用户：用于你主动公开的社区内容与作者资料。</li>
+              <li data-en="Authorities or affected parties when reasonably necessary to comply with law, enforce terms, investigate abuse, or protect rights and safety.">主管机关或相关方：在遵守法律、执行协议、调查滥用或保护权利与安全所合理必需时。</li>
+            </ul>
+            <p data-en="PythonIDE does not sell personal information. We do not disclose private code or AI prompts to advertisers for targeted advertising.">PythonIDE 不出售个人信息，也不会为定向广告把私有代码或 AI 提示词披露给广告商。</p>
+          </section>
 
-      <h2>三、数据的用途</h2>
-      <p>我们处理数据的目的包括：</p>
-      <ul>
-        <li>提供代码编辑、运行、文件管理、小组件和本地开发工具能力。</li>
-        <li>验证 App 内购买、恢复购买、同步 Pro 权益和处理订阅状态。</li>
-        <li>提供 AI 对话、Agent、模型配置、用量统计和相关调试信息。</li>
-        <li>提供 SSH 连接、远程命令、文件传输和服务器管理功能。</li>
-        <li>提供社区脚本分享、内容展示和必要的滥用防护。</li>
-        <li>保障应用安全、防止欺诈、破解、重复领取和异常使用。</li>
-        <li>响应用户反馈、处理故障、改进应用稳定性和用户体验。</li>
-      </ul>
+          <section class="article-section" id="retention">
+            <h2 data-en="Retention, deletion, and account closure">保存、删除与注销账户</h2>
+            <p data-en="Local data remains until you delete it, clear app data, or uninstall the app, subject to iCloud or file-provider synchronization. Account and community data is retained while your account is active and only as long afterward as needed for security, dispute resolution, service integrity, or legal obligations. Backup copies and anti-abuse records may take additional time to expire.">本地数据会保留到你删除、清除 App 数据或卸载 App 为止，并可能受 iCloud 或文件提供商同步影响。账户与社区数据在账户有效期间保留，之后仅在安全、争议处理、服务完整性或法律义务所需范围内继续保存；备份副本与防滥用记录可能需要额外时间到期。</p>
+            <p data-en="You can permanently delete your PythonIDE account in the app. The current flow reauthenticates with Apple, revokes active sessions, removes personal profile fields, removes your published scripts and pending submissions from normal service, and queues related cleanup. Deleting a PythonIDE account does not automatically cancel an Apple subscription.">你可以在 App 内永久删除 PythonIDE 账户。当前流程会通过 Apple 重新验证身份、撤销有效会话、移除个人资料字段、从正常服务中移除已发布脚本与待审提交，并安排相关清理。删除 PythonIDE 账户不会自动取消 Apple 订阅。</p>
+            <p><a href="/account-deletion/" data-en="Read account deletion instructions">查看账户删除说明</a> · <a href="/subscription/" data-en="Manage a subscription">管理订阅</a></p>
+          </section>
 
-      <h2>四、第三方服务</h2>
-      <p>根据用户使用的功能，应用可能与以下服务交互：</p>
-      <ul>
-        <li>Apple 服务：App Store、StoreKit、App Store Server API、App Attest、iCloud、WeatherKit、HealthKit、MusicKit、ShazamKit 等。</li>
-        <li>云服务：用于会员验证、权益同步、防滥用、社区功能和必要的服务端存储。</li>
-        <li>AI 服务商：例如 OpenAI、DeepSeek 或用户自行配置的 OpenAI 兼容服务商。</li>
-        <li>用户主动连接的服务：例如 SSH 服务器、WebDAV、Git、HTTP API、PyPI 或用户脚本访问的网络服务。</li>
-      </ul>
-      <p>我们不会将用户数据出售给第三方广告平台。第三方服务对数据的处理可能受其自身隐私政策和服务条款约束。</p>
+          <section class="article-section" id="rights">
+            <h2 data-en="Your choices and controls">你的选择与控制权</h2>
+            <ul>
+              <li data-en="Access and edit your profile and community content through the app where the feature is available.">在功能支持的范围内，通过 App 访问和修改个人资料与社区内容。</li>
+              <li data-en="Delete local files, chat sessions, traces, presets, or app data using the relevant app and system controls.">通过 App 与系统中的相关控制删除本地文件、对话、轨迹、预设或 App 数据。</li>
+              <li data-en="Change or revoke permissions in Apple system settings.">在 Apple 系统设置中更改或撤销权限。</li>
+              <li data-en="Choose a different AI provider, use a supported on-device model, or avoid sending particular content.">更换 AI 提供方、使用受支持的端侧模型，或不发送特定内容。</li>
+              <li data-en="Remove your own community content where available, request review of a moderation decision, or permanently delete your account.">在功能支持时移除自己的社区内容、申请复核社区处理决定，或永久删除账户。</li>
+              <li data-en="Contact us to ask about access, correction, deletion, restriction, or other rights available under applicable law.">联系我们，提出适用法律下的访问、更正、删除、限制处理或其他权利请求。</li>
+            </ul>
+            <h3 data-en="Children">未成年人</h3>
+            <p data-en="PythonIDE is a general programming tool and is not directed to young children. If local law requires consent from a parent or guardian, minors should use online account, community, purchase, and AI features only with that consent. Contact us if you believe a child provided personal information without appropriate authorization.">PythonIDE 是通用编程工具，并非面向低龄儿童。若当地法律要求监护人同意，未成年人应在取得同意后使用在线账户、社区、购买与 AI 功能。如你认为未成年人未经适当授权提供了个人信息，请联系我们。</p>
+            <h3 data-en="Security and international processing">安全与跨境处理</h3>
+            <p data-en="We use transport encryption, system security features, signed StoreKit data, device attestation where enabled, access controls, and anti-abuse measures. No service can guarantee absolute security. Online providers and infrastructure may process data in regions different from yours, subject to their terms and applicable safeguards.">我们采用传输加密、系统安全能力、StoreKit 签名数据、启用时的设备认证、访问控制与防滥用措施。任何服务都无法保证绝对安全。在线提供方与基础设施可能在你所在地区以外处理数据，并受其条款和适用保障措施约束。</p>
+          </section>
 
-      <h2>五、数据保存和删除</h2>
-      <ul>
-        <li>本地项目、脚本、配置和缓存通常保存在用户设备中，用户可以在应用内删除，或删除 App 来清除大部分本地数据。</li>
-        <li>Keychain 中的敏感凭据可能受 iOS 系统机制影响，在卸载 App 后仍短期保留，用户可以在应用内删除对应配置或通过系统设置清理设备数据。</li>
-        <li>购买、会员、权益、防滥用和交易记录会在服务端保存必要时间，用于恢复购买、订阅同步、财务记录、安全审计和纠纷处理。</li>
-        <li>用户主动发布到社区的内容，可通过应用内功能或联系我们请求删除；已经被他人引用、缓存或备份的内容可能无法立即完全移除。</li>
-      </ul>
+          <section class="article-section" id="contact">
+            <h2 data-en="Changes and contact">政策更新与联系</h2>
+            <p data-en="We may update this policy when features, providers, or legal requirements change. Material changes will be reflected by the date at the top and, when appropriate, by an in-app or website notice. The Chinese and English versions are intended to communicate the same policy; if wording differs, the Chinese version controls to the extent permitted by law.">当功能、服务商或法律要求变化时，我们可能更新本政策。重要变更会更新页面顶部日期，并在适当时通过 App 或网站提示。中英文版本旨在表达同一政策；如文字存在差异，在法律允许范围内以中文版本为准。</p>
+            <div class="notice"><strong data-en="Privacy contact">隐私联系</strong><p><span data-en="Developer: Wenlu Zhang · Email: ">开发者：张文禄 · 邮箱：</span><a href="mailto:jinwandalaohu940@gmail.com">jinwandalaohu940@gmail.com</a></p></div>
+          </section>
+        </article>
+      </div>
+    </main>
 
-      <h2>六、用户选择和控制</h2>
-      <ul>
-        <li>用户可以在 iOS 设置中管理相机、相册、位置、麦克风、通讯录、日历、HealthKit 等权限。</li>
-        <li>用户可以在 App Store 账户设置中管理或取消自动续订订阅。</li>
-        <li>用户可以删除本地项目、SSH 配置、AI 配置、API Key 和其他本地数据。</li>
-        <li>用户可以停止使用 AI、社区、SSH 或其他会产生网络请求的功能。</li>
-      </ul>
-
-      <h2>七、儿童隐私</h2>
-      <p>本应用不是专门面向儿童的应用。我们不会有意收集儿童个人信息。如果你认为儿童向我们提供了个人信息，请联系我们处理。</p>
-
-      <h2>八、安全</h2>
-      <p>我们会采取合理的技术措施保护数据安全，包括使用系统 Keychain 保存敏感凭据、使用 Apple StoreKit 和 App Attest 验证购买和设备可信度、通过 HTTPS 与服务端通信等。但任何网络传输或存储方式都无法保证绝对安全，请用户妥善保管自己的代码、密钥、服务器凭据和 API Key。</p>
-
-      <h2>九、政策更新</h2>
-      <p>我们可能会根据功能变化、法律要求或审核要求更新本隐私政策。更新后的政策会发布在当前页面，并以页面顶部的更新日期为准。</p>
-
-      <h2>十、联系我们</h2>
-      <p>如果你对本隐私政策或数据处理方式有疑问，可以发送邮件联系我们：</p>
-      <p><a href="mailto:jinwandalaohu940@gmail.com">jinwandalaohu940@gmail.com</a></p>
-    </section>
-
-    <section id="en" lang="en">
-      <h2>Privacy Policy</h2>
-      <p class="meta"><strong>Last updated:</strong> June 20, 2026</p>
-      <p>Python IDE is a Python coding app for iPhone and iPad. By default, code files, scripts, projects, and local settings are stored on the user's device. Some features, such as in-app purchase verification, Pro entitlement sync, anti-abuse checks, AI features, community sharing, and system integrations, may process the minimum data needed to provide those features.</p>
-      <p>We do not sell personal data and do not use user data for third-party advertising tracking.</p>
-
-      <h3>Data We May Process</h3>
-      <ul>
-        <li>Local data: code, scripts, project files, editor settings, widget settings, AI provider configuration, SSH server configuration, API keys, OAuth tokens, passwords, private keys, and local caches. Sensitive credentials are stored locally using system-provided secure storage such as Keychain where possible.</li>
-        <li>Purchase and entitlement data: Apple StoreKit transaction IDs, original transaction IDs, product IDs, subscription status, expiration dates, App Transaction ID, internal principal ID, entitlement status, consumable balances, and restore-purchase records.</li>
-        <li>Security and anti-abuse data: device identifier, App Attest challenges, credentials, signature counters, and platform JWTs used to protect paid features and prevent fraud or abuse.</li>
-        <li>AI data: prompts, code snippets, context, images, files, tool results, and related request metadata may be sent to the AI provider selected by the user or to our server endpoint for forwarding, authorization, and usage accounting.</li>
-        <li>Community data: scripts, templates, descriptions, screenshots, display metadata, and other content that the user voluntarily publishes or shares.</li>
-        <li>System permission data: Photos, Camera, Files, Location, Weather, Microphone, Speech Recognition, Contacts, Calendar, HealthKit, Motion, NFC, Bluetooth, Shazam, Apple Music, and Notifications may be accessed only when the user actively uses related features and grants the required iOS permissions.</li>
-      </ul>
-
-      <h3>How We Use Data</h3>
-      <p>We use data to provide code editing and execution, file management, widgets, AI features, SSH and server management, purchase verification, Pro entitlement sync, community sharing, security protection, fraud prevention, troubleshooting, and customer support.</p>
-
-      <h3>Third-Party Services</h3>
-      <p>Depending on the features used, the app may interact with Apple services such as App Store, StoreKit, App Store Server API, App Attest, iCloud, WeatherKit, HealthKit, MusicKit, and ShazamKit; cloud services used for entitlement sync and community features; AI providers such as OpenAI, DeepSeek, or user-configured OpenAI-compatible providers; and network services explicitly configured or contacted by the user, such as SSH servers, WebDAV, Git, HTTP APIs, or PyPI.</p>
-      <p>Third-party services process data under their own privacy policies and terms. We do not sell user data to advertising platforms.</p>
-
-      <h3>Retention and Deletion</h3>
-      <p>Local projects, scripts, settings, and caches are stored on the user's device and can be deleted in the app or by deleting the app. Some Keychain items may be retained by iOS after app deletion. Purchase, entitlement, anti-abuse, and transaction records may be retained on the server as needed for purchase restoration, subscription sync, accounting, security auditing, fraud prevention, and dispute handling.</p>
-
-      <h3>User Choices</h3>
-      <p>Users can manage system permissions in iOS Settings, manage or cancel subscriptions in their App Store account settings, delete local projects and credentials in the app, and stop using features that require network requests such as AI, community sharing, or SSH connections.</p>
-
-      <h3>Children's Privacy</h3>
-      <p>This app is not directed to children. We do not knowingly collect personal information from children. If you believe a child has provided personal information to us, please contact us.</p>
-
-      <h3>Contact</h3>
-      <p>If you have questions about this Privacy Policy, contact us by email:</p>
-      <p><a href="mailto:jinwandalaohu940@gmail.com">jinwandalaohu940@gmail.com</a></p>
-    </section>
-
-    <p class="footer">© 2026 Python IDE. All rights reserved.</p>
-  </section>
-</main>
+    <footer class="site-footer"><div class="shell"><div class="footer-grid"><div class="footer-brand"><a class="brand" href="/"><img class="brand-mark" src="/assets/brand-mark.svg" alt=""><span>PythonIDE</span></a><p data-en="Clear policies for a serious creative tool.">为一款认真做事的创作工具，提供清楚的政策说明。</p></div><div class="footer-col"><strong data-en="Policies">政策</strong><a href="/privacy/" data-en="Privacy">隐私政策</a><a href="/terms/" data-en="Terms">用户协议</a><a href="/subscription/" data-en="Subscriptions">订阅与退款</a><a href="/ai-policy/" data-en="AI data use">AI 数据使用</a></div><div class="footer-col"><strong data-en="Help">帮助</strong><a href="/support/" data-en="Support">帮助与支持</a><a href="/account-deletion/" data-en="Delete account">删除账户</a><a href="/security/" data-en="Security">安全说明</a></div><div class="footer-col"><strong data-en="Community">社区</strong><a href="/community-guidelines/" data-en="Guidelines & appeals">规范与申诉</a><a href="/activity/" data-en="Referral rules">邀请活动规则</a><a href="/about/" data-en="About">关于 PythonIDE</a></div></div><div class="footer-bottom"><span>© 2026 PythonIDE</span><span data-en="Last updated July 16, 2026">最近更新：2026 年 7 月 16 日</span></div></div></footer>
+  </div>
 </body>
 </html>

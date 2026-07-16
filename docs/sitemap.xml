@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  <url><loc>https://pythonide.xin/</loc><xhtml:link rel="alternate" hreflang="zh-CN" href="https://pythonide.xin/"/><xhtml:link rel="alternate" hreflang="en" href="https://pythonide.xin/?lang=en"/></url>
+  <url><loc>https://pythonide.xin/docs/</loc></url>
+  <url><loc>https://pythonide.xin/i/</loc><xhtml:link rel="alternate" hreflang="zh-CN" href="https://pythonide.xin/i/"/><xhtml:link rel="alternate" hreflang="en" href="https://pythonide.xin/i/?lang=en"/></url>
+  <url><loc>https://pythonide.xin/activity/</loc><xhtml:link rel="alternate" hreflang="zh-CN" href="https://pythonide.xin/activity/"/><xhtml:link rel="alternate" hreflang="en" href="https://pythonide.xin/activity/?lang=en"/></url>
+  <url><loc>https://pythonide.xin/support/</loc><xhtml:link rel="alternate" hreflang="zh-CN" href="https://pythonide.xin/support/"/><xhtml:link rel="alternate" hreflang="en" href="https://pythonide.xin/support/?lang=en"/></url>
+  <url><loc>https://pythonide.xin/privacy/</loc><xhtml:link rel="alternate" hreflang="zh-CN" href="https://pythonide.xin/privacy/"/><xhtml:link rel="alternate" hreflang="en" href="https://pythonide.xin/privacy/?lang=en"/></url>
+  <url><loc>https://pythonide.xin/terms/</loc><xhtml:link rel="alternate" hreflang="zh-CN" href="https://pythonide.xin/terms/"/><xhtml:link rel="alternate" hreflang="en" href="https://pythonide.xin/terms/?lang=en"/></url>
+  <url><loc>https://pythonide.xin/subscription/</loc><xhtml:link rel="alternate" hreflang="zh-CN" href="https://pythonide.xin/subscription/"/><xhtml:link rel="alternate" hreflang="en" href="https://pythonide.xin/subscription/?lang=en"/></url>
+  <url><loc>https://pythonide.xin/ai-policy/</loc><xhtml:link rel="alternate" hreflang="zh-CN" href="https://pythonide.xin/ai-policy/"/><xhtml:link rel="alternate" hreflang="en" href="https://pythonide.xin/ai-policy/?lang=en"/></url>
+  <url><loc>https://pythonide.xin/community-guidelines/</loc><xhtml:link rel="alternate" hreflang="zh-CN" href="https://pythonide.xin/community-guidelines/"/><xhtml:link rel="alternate" hreflang="en" href="https://pythonide.xin/community-guidelines/?lang=en"/></url>
+  <url><loc>https://pythonide.xin/account-deletion/</loc><xhtml:link rel="alternate" hreflang="zh-CN" href="https://pythonide.xin/account-deletion/"/><xhtml:link rel="alternate" hreflang="en" href="https://pythonide.xin/account-deletion/?lang=en"/></url>
+  <url><loc>https://pythonide.xin/security/</loc><xhtml:link rel="alternate" hreflang="zh-CN" href="https://pythonide.xin/security/"/><xhtml:link rel="alternate" hreflang="en" href="https://pythonide.xin/security/?lang=en"/></url>
+  <url><loc>https://pythonide.xin/about/</loc><xhtml:link rel="alternate" hreflang="zh-CN" href="https://pythonide.xin/about/"/><xhtml:link rel="alternate" hreflang="en" href="https://pythonide.xin/about/?lang=en"/></url>
+</urlset>
