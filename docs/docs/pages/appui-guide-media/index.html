@@ -167,6 +167,7 @@
 <a class="nav-link" href="../../pages/permission-module/">permission</a>
 <a class="nav-link" href="../../pages/storage-module/">storage</a>
 <a class="nav-link" href="../../pages/database-module/">database</a>
+<a class="nav-link" href="../../pages/archive-module/">archive</a>
 <a class="nav-link" href="../../pages/keychain-module/">keychain</a>
 <a class="nav-link" href="../../pages/clipboard-module/">clipboard</a>
 <a class="nav-link" href="../../pages/console-module/">console</a>
@@ -214,6 +215,7 @@
 </div>
 <div class="nav-group">
 <div class="nav-group-title">视觉与文档</div>
+<a class="nav-link" href="../../pages/native-image-module/">native_image</a>
 <a class="nav-link" href="../../pages/vision-module/">vision</a>
 <a class="nav-link" href="../../pages/vision-helper-module/">vision_helper</a>
 <a class="nav-link" href="../../pages/coreml-module/">coreml</a>
@@ -291,7 +293,7 @@
 <h2 id="预期效果"><a class="heading-anchor" href="#预期效果">#</a>预期效果</h2>
 <p>示例会展示图片、网络图、相册、文件、相机、视频、网页和地图控件如何嵌入 AppUI 页面。</p>
 <h2 id="设计原则"><a class="heading-anchor" href="#设计原则">#</a>设计原则</h2>
-<ul><li><strong>资源图</strong>用 <code>Image(name=...)</code>；<strong>SF Symbols</strong> 用 <code>Image(system_name=...)</code>。</li><li><strong>网络图</strong>用 <code>AsyncImage</code>，占位与失败视图通过子视图传入。</li><li><strong>相册 / 相机</strong>返回的是设备上的<strong>文件路径字符串</strong>（由系统写入临时目录后回调）。</li><li><strong>Files App / 文档提供方</strong>用 <code>FileImporter</code>，默认复制到 App 可访问位置后返回路径列表。</li><li><strong>WebView</strong> 只能二选一：<code>url</code> 或 <code>html</code>。</li><li><strong>MapView</strong> 的 <code>markers</code> 为字典列表，键包括 <code>latitude</code>、<code>longitude</code>、<code>title</code>。</li></ul>
+<ul><li><strong>资源图</strong>用 <code>Image(name=...)</code>；<strong>SF Symbols</strong> 用 <code>Image(system_name=...)</code>。</li><li><strong>网络图</strong>用 <code>AsyncImage</code>，占位与失败视图通过子视图传入。</li><li><strong>相册 / 相机</strong>返回的是当前 MiniApp 会话拥有的<strong>临时文件路径字符串</strong>；普通页面重建不会删除，MiniApp 停止时自动清理。</li><li><strong>Files App / 文档提供方</strong>用 <code>FileImporter</code>，默认复制到 App 可访问位置后返回路径列表。</li><li><strong>WebView</strong> 只能二选一：<code>url</code> 或 <code>html</code>。</li><li><strong>MapView</strong> 的 <code>markers</code> 为字典列表，键包括 <code>latitude</code>、<code>longitude</code>、<code>title</code>。</li></ul>
 <hr>
 <h2 id="image-本地资源与-sf-symbol"><a class="heading-anchor" href="#image-本地资源与-sf-symbol">#</a>Image：本地资源与 SF Symbol</h2>
 <p><code>Image</code> 支持链式修饰：<code>resizable()</code>、<code>aspect_ratio(ratio, content_mode)</code>、<code>symbol_rendering_mode(mode)</code>、<code>image_scale(scale)</code>。</p>
@@ -368,19 +370,23 @@ appui.run(body, state=state, presentation=&quot;sheet&quot;)</code></pre>
 </figure>
 <hr>
 <h2 id="photopicker-相册"><a class="heading-anchor" href="#photopicker-相册">#</a>PhotoPicker：相册</h2>
-<p><code>selection_limit</code>：<code>1</code> 表示单选；<code>0</code> 表示不限制（以系统行为为准）。<code>filter</code>：<code>&#x27;images&#x27;</code>、<code>&#x27;videos&#x27;</code>、<code>&#x27;all&#x27;</code>。<code>on_picked</code> 收到 <strong>路径列表</strong>。</p>
-<figure class="code-block" data-code-id="2cba6d0e45af">
+<p><code>selection_limit</code>：<code>1</code> 表示单选；<code>0</code> 表示不限制（以系统行为为准）。<code>filter</code>：<code>&#x27;images&#x27;</code>、<code>&#x27;videos&#x27;</code>、<code>&#x27;all&#x27;</code>。<code>on_picked</code> 收到 <strong>路径列表</strong>，<code>on_error</code> 收到结构化错误。媒体使用文件式传输，选择大视频时不会先把完整文件读入内存。</p>
+<figure class="code-block" data-code-id="0aa6bae147a7">
   <figcaption>
     <span>python</span>
-    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="2cba6d0e45af" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="0aa6bae147a7" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
-  <pre><code id="code-2cba6d0e45af" class="language-python">import appui
+  <pre><code id="code-0aa6bae147a7" class="language-python">import appui
 
 state = appui.State(paths=[])
 
 
 def on_picked(paths):
     state.paths = paths or []
+
+
+def on_pick_error(error):
+    state.paths = [error.get(&quot;message&quot;, &quot;选择失败&quot;)]
 
 
 def body():
@@ -390,6 +396,7 @@ def body():
             selection_limit=1,
             filter=&quot;images&quot;,
             on_picked=on_picked,
+            on_error=on_pick_error,
             label=appui.Label(&quot;选择照片&quot;, system_image=&quot;photo.on.rectangle&quot;),
         ),
     ], spacing=12).padding()
@@ -437,22 +444,30 @@ def body():
 
 appui.run(body, state=state, presentation=&quot;sheet&quot;)</code></pre>
 </figure>
-<p>文件选择由系统界面完成；用户取消时通常不会触发有效路径。需要读取文件内容时，在回调里保存路径，再在按钮动作、刷新函数或后台流程中读取，避免在 <code>body()</code> 里同步读大文件。</p>
+<p>文件选择由系统界面完成。默认 <code>copy=True</code> 会在安全访问范围内复制到会话临时目录，最适合普通 MiniApp；<code>copy=False</code> 只在视图存活期间保持外部文件授权。需要读取文件内容时，在回调里保存路径，再在按钮动作、刷新函数或后台流程中读取，避免在 <code>body()</code> 里同步读大文件。</p>
 <hr>
 <h2 id="camerapicker-相机"><a class="heading-anchor" href="#camerapicker-相机">#</a>CameraPicker：相机</h2>
-<p><code>source</code>：<code>&#x27;camera&#x27;</code> 或 <code>&#x27;front&#x27;</code>。<code>media_type</code>：<code>&#x27;photo&#x27;</code> 或 <code>&#x27;video&#x27;</code>。<code>on_captured</code> 收到<strong>单个路径字符串</strong>。</p>
-<figure class="code-block" data-code-id="f659be529241">
+<p><code>source</code>：<code>&#x27;camera&#x27;</code>、<code>&#x27;rear&#x27;</code>、<code>&#x27;back&#x27;</code> 或 <code>&#x27;front&#x27;</code>。<code>media_type</code>：<code>&#x27;photo&#x27;</code> 或 <code>&#x27;video&#x27;</code>。<code>on_captured</code> 收到<strong>单个路径字符串</strong>；取消走 <code>on_cancel</code>，失败走 <code>on_error</code>。照片可配置 <code>quality</code> 与 <code>allows_editing</code>；视频可配置 <code>video_quality</code> 与 <code>maximum_duration</code>。</p>
+<figure class="code-block" data-code-id="fdc12cbd7396">
   <figcaption>
     <span>python</span>
-    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="f659be529241" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="fdc12cbd7396" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
-  <pre><code id="code-f659be529241" class="language-python">import appui
+  <pre><code id="code-fdc12cbd7396" class="language-python">import appui
 
 state = appui.State(last=&quot;&quot;)
 
 
 def on_captured(path):
     state.last = path or &quot;&quot;
+
+
+def on_cancel():
+    state.last = &quot;已取消&quot;
+
+
+def on_error(error):
+    state.last = error.get(&quot;message&quot;, &quot;相机不可用&quot;)
 
 
 def body():
@@ -462,6 +477,9 @@ def body():
             source=&quot;camera&quot;,
             media_type=&quot;photo&quot;,
             on_captured=on_captured,
+            on_cancel=on_cancel,
+            on_error=on_error,
+            quality=0.9,
             label=appui.Label(&quot;拍照&quot;, system_image=&quot;camera.fill&quot;),
         ),
     ], spacing=12).padding()
@@ -499,6 +517,7 @@ appui.run(body, state=state, presentation=&quot;sheet&quot;)</code></pre>
 </figure>
 <hr>
 <h2 id="webview-url-或-html"><a class="heading-anchor" href="#webview-url-或-html">#</a>WebView：URL 或 HTML</h2>
+<p><code>WebView</code> 支持双向导航状态、前进/后退/刷新/停止、JavaScript 执行、网页消息、Cookie/网站数据命令、原生下载、临时数据仓库和 host allowlist。命令必须带稳定 <code>id</code>，这样 UI 重建不会重复执行同一命令。</p>
 <figure class="code-block" data-code-id="310b7469c2ab">
   <figcaption>
     <span>python</span>
@@ -515,10 +534,11 @@ def body():
 
 appui.run(body, state=state, presentation=&quot;sheet&quot;)</code></pre>
 </figure>
-<p>远程页面示例：<code>appui.WebView(url=&quot;https://www.apple.com&quot;).frame(height=360)</code>。</p>
+<p>远程页面示例：<code>appui.WebView(url=&quot;https://www.apple.com&quot;).frame(height=360)</code>。声明了 <code>miniapp.json</code> capabilities 的 MiniApp 还需要 <code>network</code> 与匹配的 <code>allowedNetworkHosts</code>；控件自己的 <code>allowed_hosts</code> 只能进一步缩小范围，且会作用于导航、子资源、WSS 和 Cookie/网站数据操作。</p>
+<p>需要下载时同时提供 <code>allows_downloads=True</code> 和命名的 <code>on_download(path)</code> 回调，并声明 <code>file_system</code>。返回路径是当前运行会话拥有的临时文件：UI 重建不会令它失效，MiniApp 停止后会自动删除。Cookie 与网站数据命令为 <code>get_cookies</code>、<code>set_cookie</code>、<code>delete_cookie</code>、<code>clear_website_data</code>；每条命令都必须有新的稳定 <code>id</code>。</p>
 <hr>
 <h2 id="mapview-地图与标注"><a class="heading-anchor" href="#mapview-地图与标注">#</a>MapView：地图与标注</h2>
-<p>默认中心为旧金山坐标。<code>span</code> 为经纬跨度。<code>map_style</code> 可为 <code>&#x27;automatic&#x27;</code>（默认，不传样式）、<code>&#x27;standard&#x27;</code>、<code>&#x27;satellite&#x27;</code>、<code>&#x27;hybrid&#x27;</code>。</p>
+<p>默认中心为旧金山坐标。<code>span</code> 为经纬跨度。<code>map_style</code> 可为 <code>&#x27;automatic&#x27;</code>、<code>&#x27;standard&#x27;</code>、<code>&#x27;satellite&#x27;</code>、<code>&#x27;imagery&#x27;</code>、<code>&#x27;hybrid&#x27;</code>。生产页面优先用 <code>region=state.bind.region</code> 双向同步原生相机；标记提供稳定 <code>id</code>，轨迹与区域使用 <code>polyline</code> / <code>polygon</code> / <code>circle</code> overlays。</p>
 <figure class="code-block" data-code-id="a42024b94299">
   <figcaption>
     <span>python</span>

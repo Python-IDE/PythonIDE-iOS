@@ -167,6 +167,7 @@
 <a class="nav-link" href="../../pages/permission-module/">permission</a>
 <a class="nav-link" href="../../pages/storage-module/">storage</a>
 <a class="nav-link" href="../../pages/database-module/">database</a>
+<a class="nav-link" href="../../pages/archive-module/">archive</a>
 <a class="nav-link" href="../../pages/keychain-module/">keychain</a>
 <a class="nav-link" href="../../pages/clipboard-module/">clipboard</a>
 <a class="nav-link" href="../../pages/console-module/">console</a>
@@ -214,6 +215,7 @@
 </div>
 <div class="nav-group">
 <div class="nav-group-title">视觉与文档</div>
+<a class="nav-link" href="../../pages/native-image-module/">native_image</a>
 <a class="nav-link" href="../../pages/vision-module/">vision</a>
 <a class="nav-link" href="../../pages/vision-helper-module/">vision_helper</a>
 <a class="nav-link" href="../../pages/coreml-module/">coreml</a>
@@ -287,10 +289,10 @@
   </header>
   
   <div class="markdown-body">
-    <p>原生 HTTP 客户端：发起 GET/POST 等请求、判断网络状态、下载文件到本地路径。</p>
-<blockquote class="callout warning"><strong>边界</strong>：适合 REST API 和小文件下载。大文件、后台传输或复杂上传请看系统能力规划；响应体在内存中，超大响应注意内存占用。</blockquote>
+    <p>原生 HTTP 客户端：发起 GET/POST 等请求、按块读取 HTTP/SSE 响应、判断网络状态、下载文件到本地路径。</p>
+<blockquote class="callout note"><strong>边界</strong>：普通 <code>get()</code> / <code>request()</code> 会把响应体放入内存，适合 REST API 和小响应；长响应、SSE、NDJSON 或需要边下载边处理的内容使用 <code>stream()</code>。双向实时通信使用 <a href="../../pages/websocket-module/">websocket</a>，可恢复的后台文件下载使用 <a href="../../pages/background-download-module/">background_download</a>。</blockquote>
 <h2 id="模块概览"><a class="heading-anchor" href="#模块概览">#</a>模块概览</h2>
-<div class="table-scroll"><table><thead><tr><th>项</th><th>说明</th></tr></thead><tbody><tr><td>导入</td><td><code>import network</code></td></tr><tr><td>适合做什么</td><td>拉取 JSON API、提交表单、检查联网、下载文件</td></tr><tr><td>调用时机</td><td>放在按钮回调或加载任务；不要写在 AppUI <code>body()</code> 中</td></tr><tr><td>推荐顺序</td><td><code>is_connected()</code> 提示 → <code>get</code>/<code>post</code> → 检查 <code>response.ok</code> → 解析 <code>json()</code></td></tr><tr><td>蜂窝/低数据</td><td><code>is_expensive()</code> / <code>is_constrained()</code> 为真时避免自动下大文件</td></tr></tbody></table></div>
+<div class="table-scroll"><table><thead><tr><th>项</th><th>说明</th></tr></thead><tbody><tr><td>导入</td><td><code>import network</code></td></tr><tr><td>适合做什么</td><td>拉取 JSON API、提交表单、HTTP/SSE 流、检查联网、下载文件</td></tr><tr><td>调用时机</td><td>放在按钮回调或加载任务；不要写在 AppUI <code>body()</code> 中</td></tr><tr><td>推荐顺序</td><td><code>is_connected()</code> 提示 → <code>get</code>/<code>post</code> → 检查 <code>response.ok</code> → 解析 <code>json()</code></td></tr><tr><td>蜂窝/低数据</td><td><code>is_expensive()</code> / <code>is_constrained()</code> 为真时避免自动下大文件</td></tr></tbody></table></div>
 <hr>
 <h2 id="快速开始"><a class="heading-anchor" href="#快速开始">#</a>快速开始</h2>
 <p>下面脚本检查网络，请求 GitHub API 并打印仓库名：</p>
@@ -395,7 +397,7 @@ appui.run(body, state=state)</code></pre>
 <hr>
 <h2 id="api-参考"><a class="heading-anchor" href="#api-参考">#</a>API 参考</h2>
 <h3 id="速查"><a class="heading-anchor" href="#速查">#</a>速查</h3>
-<div class="table-scroll"><table><thead><tr><th>API</th><th>作用</th></tr></thead><tbody><tr><td><code>is_connected()</code></td><td>是否有可用网络 → <code>bool</code></td></tr><tr><td><code>connection_type()</code></td><td><code>wifi</code> / <code>cellular</code> / <code>ethernet</code> / <code>none</code> / <code>other</code></td></tr><tr><td><code>is_expensive()</code></td><td>是否计费网络（蜂窝/热点）</td></tr><tr><td><code>is_constrained()</code></td><td>是否低数据模式</td></tr><tr><td><code>get/post/put/delete/patch(...)</code></td><td>HTTP 快捷方法 → <code>Response</code></td></tr><tr><td><code>request(method, url, ...)</code></td><td>通用 HTTP 请求</td></tr><tr><td><code>download(url, dest_path)</code></td><td>下载文件 → <code>bool</code></td></tr></tbody></table></div>
+<div class="table-scroll"><table><thead><tr><th>API</th><th>作用</th></tr></thead><tbody><tr><td><code>is_connected()</code></td><td>是否有可用网络 → <code>bool</code></td></tr><tr><td><code>connection_type()</code></td><td><code>wifi</code> / <code>cellular</code> / <code>ethernet</code> / <code>none</code> / <code>other</code></td></tr><tr><td><code>is_expensive()</code></td><td>是否计费网络（蜂窝/热点）</td></tr><tr><td><code>is_constrained()</code></td><td>是否低数据模式</td></tr><tr><td><code>get/post/put/delete/patch(...)</code></td><td>HTTP 快捷方法 → <code>Response</code></td></tr><tr><td><code>request(method, url, ...)</code></td><td>通用 HTTP 请求</td></tr><tr><td><code>stream(method, url, ...)</code></td><td>有界、可取消的 HTTP 响应流 → <code>StreamResponse</code></td></tr><tr><td><code>download(url, dest_path)</code></td><td>下载文件 → <code>bool</code></td></tr></tbody></table></div>
 <h3 id="网络状态"><a class="heading-anchor" href="#网络状态">#</a>网络状态</h3>
 <figure class="code-block" data-code-id="0c87351b6064">
   <figcaption>
@@ -438,6 +440,31 @@ response = network.post(
 else:
     print(response.status, response.text[:200])</code></pre>
 </figure>
+<h3 id="http-流"><a class="heading-anchor" href="#http-流">#</a>HTTP 流</h3>
+<p><strong><code>stream(method, url, *, headers=None, body=None, json=None, timeout=30, read_timeout=30, buffer_limit=1048576)</code></strong> — 等待响应头后立即返回 <code>StreamResponse</code>，正文由 Python 主动按块消费，不会先把完整响应放进内存。</p>
+<figure class="code-block" data-code-id="a5ae149a1595">
+  <figcaption>
+    <span>python</span>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="a5ae149a1595" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
+  </figcaption>
+  <pre><code id="code-a5ae149a1595" class="language-python">import network
+
+with network.stream(
+    &quot;GET&quot;,
+    &quot;https://example.com/events&quot;,
+    headers={&quot;Accept&quot;: &quot;text/event-stream&quot;},
+    read_timeout=45,
+) as response:
+    if not response.ok:
+        print(&quot;HTTP 错误:&quot;, response.status)
+    else:
+        for event in response.iter_sse():
+            print(event.get(&quot;event&quot;, &quot;message&quot;), event[&quot;data&quot;])</code></pre>
+</figure>
+<p><code>StreamResponse</code> 会对慢消费者施加背压：原生缓冲达到上限后暂停接收，Python 消费后继续。离开 <code>with</code>、调用 <code>close()</code> / <code>cancel()</code>，或当前 MiniApp 运行停止时，原生任务都会取消。</p>
+<div class="table-scroll"><table><thead><tr><th>属性/方法</th><th>说明</th></tr></thead><tbody><tr><td><code>status</code> / <code>ok</code> / <code>headers</code> / <code>url</code></td><td>响应元数据</td></tr><tr><td><code>closed</code></td><td>流是否已结束或取消</td></tr><tr><td><code>iter_bytes(chunk_size=65536, timeout=None)</code></td><td>逐块返回 <code>bytes</code>；块大小必须为 1 字节至 1 MiB</td></tr><tr><td><code>iter_text(...)</code></td><td>用增量解码器返回文本，正确处理跨块 UTF-8 字符</td></tr><tr><td><code>iter_lines(..., max_line_chars=1048576)</code></td><td>逐行返回文本，移除行尾换行符；无换行超长内容会在 1 MiB 上限处失败</td></tr><tr><td><code>iter_sse(..., max_event_chars=1048576)</code></td><td>解析 Server-Sent Events；单事件有 1 MiB 聚合上限</td></tr><tr><td><code>read(max_bytes=67108864, ...)</code></td><td>有明确内存上限地读取剩余正文，返回 <code>bytes</code></td></tr><tr><td><code>json(max_bytes=67108864, ...)</code></td><td>在上限内读取并解析 JSON</td></tr><tr><td><code>close()</code> / <code>cancel()</code></td><td>幂等取消并释放原生任务</td></tr></tbody></table></div>
+<p><code>buffer_limit</code> 可设为 64 KiB–4 MiB，只控制原生待消费缓冲，不是完整响应大小；每个运行最多 8 条流、全局最多 64 条，request body 最大 16 MiB、headers 最大 64 KiB。<code>read()</code> 默认 64 MiB且不得超过 256 MiB。等待下一块超过 <code>read_timeout</code> 会抛 <code>TimeoutError</code>；超长行或 SSE 事件会抛出带稳定 <code>code</code> 的 <code>StreamError</code>，不会无限累积内存。</p>
+<p>普通 <code>request/get/post</code> 同样限制为 128 个 header、64 KiB header 总量和 16 MiB 文本/JSON body；header 名大小写不敏感且不得重复，也不能自行设置 URLSession 管理的 <code>Host</code>、<code>Content-Length</code>、<code>Connection</code>、<code>Transfer-Encoding</code>。重定向继续按原始能力租约校验，HTTPS 不会降级到 HTTP，跨 origin 时会移除认证、Cookie、API key 和 token/secret 类 header。更大的上传应使用后台传输 V2，而不是在 Python 与 JSON 之间复制整块数据。</p>
 <h3 id="下载"><a class="heading-anchor" href="#下载">#</a>下载</h3>
 <p><strong><code>download(url, dest_path, timeout=120)</code></strong> — 下载到本地路径，成功返回 <code>True</code>。</p>
 <figure class="code-block" data-code-id="c8844b0240e7">
@@ -454,10 +481,10 @@ else:
 <p>下载失败返回 <code>False</code>；路径需脚本可写。配合 <a href="../../pages/photos-module/">photos</a> 的 <code>save_video</code> 时，先 <code>download</code> 再传本地路径。</p>
 <hr>
 <h2 id="常见错误"><a class="heading-anchor" href="#常见错误">#</a>常见错误</h2>
-<div class="table-scroll"><table><thead><tr><th>错误写法</th><th>后果</th><th>修正</th></tr></thead><tbody><tr><td>在 <code>body()</code> 里发请求</td><td>每次刷新都联网</td><td>放进按钮回调</td></tr><tr><td>不检查 <code>response.ok</code></td><td>把错误当成功解析</td><td>先判断 <code>ok</code> 再 <code>json()</code></td></tr><tr><td>对非 JSON 直接 <code>json()</code></td><td>解析异常</td><td><code>try/except</code> 或改读 <code>text</code></td></tr><tr><td>蜂窝网络自动下大文件</td><td>流量浪费</td><td>检查 <code>is_expensive()</code> 并提示用户</td></tr></tbody></table></div>
+<div class="table-scroll"><table><thead><tr><th>错误写法</th><th>后果</th><th>修正</th></tr></thead><tbody><tr><td>在 <code>body()</code> 里发请求</td><td>每次刷新都联网</td><td>放进按钮回调</td></tr><tr><td>不检查 <code>response.ok</code></td><td>把错误当成功解析</td><td>先判断 <code>ok</code> 再 <code>json()</code></td></tr><tr><td>对非 JSON 直接 <code>json()</code></td><td>解析异常</td><td><code>try/except</code> 或改读 <code>text</code></td></tr><tr><td>流打开后不关闭</td><td>原生请求与缓冲占用资源</td><td>使用 <code>with</code> 或在 <code>finally</code> 调用 <code>close()</code></td></tr><tr><td>用 <code>read()</code> 无限制接收长流</td><td>可能占用过多内存</td><td>用迭代器；确需完整内容时设置合适的 <code>max_bytes</code></td></tr><tr><td>蜂窝网络自动下大文件</td><td>流量浪费</td><td>检查 <code>is_expensive()</code> 并提示用户</td></tr></tbody></table></div>
 <hr>
 <h2 id="相关文档"><a class="heading-anchor" href="#相关文档">#</a>相关文档</h2>
-<div class="table-scroll"><table><thead><tr><th>文档</th><th>用途</th></tr></thead><tbody><tr><td><a href="../../pages/photos-module/">photos</a></td><td>下载视频后 <code>save_video</code></td></tr><tr><td><a href="../../pages/weather-module/">weather</a></td><td>WeatherKit 联网查询</td></tr><tr><td><a href="../../pages/miniapp-native-capabilities/">原生能力入口</a></td><td>MiniApp 场景配方</td></tr></tbody></table></div>
+<div class="table-scroll"><table><thead><tr><th>文档</th><th>用途</th></tr></thead><tbody><tr><td><a href="../../pages/photos-module/">photos</a></td><td>下载视频后 <code>save_video</code></td></tr><tr><td><a href="../../pages/websocket-module/">websocket</a></td><td>双向实时消息</td></tr><tr><td><a href="../../pages/background-download-module/">后台下载</a></td><td>可恢复、可离开前台的文件任务</td></tr><tr><td><a href="../../pages/weather-module/">weather</a></td><td>WeatherKit 联网查询</td></tr><tr><td><a href="../../pages/miniapp-native-capabilities/">原生能力入口</a></td><td>MiniApp 场景配方</td></tr></tbody></table></div>
 <h2 id="预期效果"><a class="heading-anchor" href="#预期效果">#</a>预期效果</h2>
 <p>运行示例后，界面应出现文档描述的目标结果；若与预期不符，先看「失败路径」并按返回值或日志排查。</p>
   </div>
@@ -465,7 +492,7 @@ else:
 </article>
 
     </main>
-    <aside class="toc"><div class="toc-title">本页目录</div><a class="toc-link" href="#模块概览">模块概览</a><a class="toc-link" href="#快速开始">快速开始</a><a class="toc-link" href="#appui-示例">AppUI 示例</a><a class="toc-link" href="#api-参考">API 参考</a><a class="toc-link child" href="#速查">速查</a><a class="toc-link child" href="#网络状态">网络状态</a><a class="toc-link child" href="#http-请求">HTTP 请求</a><a class="toc-link child" href="#下载">下载</a><a class="toc-link" href="#常见错误">常见错误</a><a class="toc-link" href="#相关文档">相关文档</a><a class="toc-link" href="#预期效果">预期效果</a></aside>
+    <aside class="toc"><div class="toc-title">本页目录</div><a class="toc-link" href="#模块概览">模块概览</a><a class="toc-link" href="#快速开始">快速开始</a><a class="toc-link" href="#appui-示例">AppUI 示例</a><a class="toc-link" href="#api-参考">API 参考</a><a class="toc-link child" href="#速查">速查</a><a class="toc-link child" href="#网络状态">网络状态</a><a class="toc-link child" href="#http-请求">HTTP 请求</a><a class="toc-link child" href="#http-流">HTTP 流</a><a class="toc-link child" href="#下载">下载</a><a class="toc-link" href="#常见错误">常见错误</a><a class="toc-link" href="#相关文档">相关文档</a><a class="toc-link" href="#预期效果">预期效果</a></aside>
   </div>
   <div class="mobile-backdrop"></div>
   <div class="search-panel" role="dialog" aria-modal="true" aria-label="搜索">

@@ -54,6 +54,94 @@ ViewChild = Union["View", Sequence["View"]]
 infinity: float
 """Positive infinity constant — use with ``max_width`` / ``max_height`` in ``.frame()``."""
 
+
+class Animation:
+    """Immutable native SwiftUI animation description."""
+    @classmethod
+    def default(cls) -> "Animation": ...
+    @classmethod
+    def linear(cls, duration: float = 0.35) -> "Animation": ...
+    @classmethod
+    def ease_in(cls, duration: float = 0.35) -> "Animation": ...
+    @classmethod
+    def ease_out(cls, duration: float = 0.35) -> "Animation": ...
+    @classmethod
+    def ease_in_out(cls, duration: float = 0.35) -> "Animation": ...
+    @classmethod
+    def spring(cls, response: float = 0.45, damping_fraction: float = 0.82,
+               blend_duration: float = 0.0) -> "Animation": ...
+    @classmethod
+    def interactive_spring(cls, response: float = 0.32,
+                           damping_fraction: float = 0.86,
+                           blend_duration: float = 0.0) -> "Animation": ...
+    @classmethod
+    def interpolating_spring(cls, mass: float = 1.0,
+                             stiffness: float = 170.0,
+                             damping: float = 15.0,
+                             initial_velocity: float = 0.0) -> "Animation": ...
+    @classmethod
+    def smooth(cls, duration: float = 0.5, extra_bounce: float = 0.0) -> "Animation": ...
+    @classmethod
+    def snappy(cls, duration: float = 0.5, extra_bounce: float = 0.0) -> "Animation": ...
+    @classmethod
+    def bouncy(cls, duration: float = 0.5, extra_bounce: float = 0.0) -> "Animation": ...
+    def delay(self, seconds: float) -> "Animation": ...
+    def speed(self, factor: float) -> "Animation": ...
+    def repeat_count(self, count: int, autoreverses: bool = True) -> "Animation": ...
+    def repeat_forever(self, autoreverses: bool = True) -> "Animation": ...
+    def respecting_reduce_motion(self, enabled: bool = True) -> "Animation": ...
+
+
+class Transition:
+    """Immutable, composable native SwiftUI transition description."""
+    @classmethod
+    def identity(cls) -> "Transition": ...
+    @classmethod
+    def opacity(cls) -> "Transition": ...
+    @classmethod
+    def slide(cls) -> "Transition": ...
+    @classmethod
+    def scale(cls, scale: float = 0.0, anchor: str = 'center') -> "Transition": ...
+    @classmethod
+    def move(cls, edge: str = 'trailing') -> "Transition": ...
+    @classmethod
+    def push(cls, edge: str = 'trailing') -> "Transition": ...
+    @classmethod
+    def offset(cls, x: float = 0.0, y: float = 0.0) -> "Transition": ...
+    @classmethod
+    def blur_replace(cls) -> "Transition": ...
+    @classmethod
+    def asymmetric(cls, insertion: "Transition", removal: "Transition") -> "Transition": ...
+    def combined(self, other: "Transition") -> "Transition": ...
+    def animation(self, animation: Animation) -> "Transition": ...
+    def respecting_reduce_motion(self, enabled: bool = True) -> "Transition": ...
+
+
+class Gesture:
+    """Native gesture description with callbacks and simultaneous composition."""
+    @classmethod
+    def tap(cls, count: int = 1) -> "Gesture": ...
+    @classmethod
+    def long_press(cls, minimum_duration: float = 0.5,
+                   maximum_distance: float = 10.0) -> "Gesture": ...
+    @classmethod
+    def drag(cls, minimum_distance: float = 10.0,
+             coordinate_space: str = 'local') -> "Gesture": ...
+    @classmethod
+    def magnify(cls, minimum_scale_delta: float = 0.01) -> "Gesture": ...
+    @classmethod
+    def rotate(cls, minimum_angle_delta: float = 0.01) -> "Gesture": ...
+    def on_changed(self, action: Callable[[Any], None]) -> "Gesture": ...
+    def on_ended(self, action: Callable[[Any], None]) -> "Gesture": ...
+    def on_pressing(self, action: Callable[[bool], None]) -> "Gesture": ...
+    def simultaneously(self, other: "Gesture") -> "Gesture": ...
+
+
+class Namespace:
+    """Stable namespace for matched geometry and zoom navigation."""
+    identifier: str
+    def __init__(self, identifier: Optional[str] = None) -> None: ...
+
 # ═══════════════════════════════════════════════════════════
 #  State Management
 # ═══════════════════════════════════════════════════════════
@@ -96,6 +184,31 @@ class ObservableDict(dict):
     def copy(self) -> Dict[Any, Any]: ...
 
 
+class Binding(Dict[str, Any]):
+    """Stable two-way state handle with legacy mapping compatibility.
+
+    ``Control(**binding)`` remains supported. A binding can also be passed as
+    the controlled value of supported controls or obtained as
+    ``state.bind.field``.
+    """
+    field_name: str
+    binding_id: str
+    value: Any
+    wrapped_value: Any
+    dynamic_value: Any
+    def read(self) -> Any: ...
+    def set(self, new_value: Any) -> Any: ...
+    def native_metadata(self) -> Dict[str, str]: ...
+
+
+class _BindingNamespace:
+    def __call__(self, field_name: str, *,
+                 parse: Optional[Callable[[Any], Any]] = None,
+                 format: Optional[Callable[[Any], Any]] = None,
+                 validate: Optional[Callable[[Any], bool]] = None) -> Binding: ...
+    def __getattr__(self, field_name: str) -> Binding: ...
+
+
 class State:
     """Reactive state container — attribute changes automatically trigger UI refresh.
 
@@ -119,6 +232,7 @@ class State:
     def __setattr__(self, key: str, value: Any) -> None: ...
     def __getitem__(self, key: str) -> Any: ...
     def __setitem__(self, key: str, value: Any) -> None: ...
+    bind: _BindingNamespace
     def batch_update(self, **kwargs: Any) -> None:
         """Update multiple values in one pass, triggering only one rebuild."""
         ...
@@ -174,12 +288,7 @@ class ReactiveState:
     def batch_update(self, **kwargs: Any) -> None:
         """Update multiple values, triggering only one rebuild."""
         ...
-    def bind(self, field_name: str, *,
-             parse: Optional[Callable[[Any], Any]] = None,
-             format: Optional[Callable[[Any], Any]] = None,
-             validate: Optional[Callable[[Any], bool]] = None) -> Dict[str, Any]:
-        """Create a two-way binding dict (``value`` + ``on_change``)."""
-        ...
+    bind: _BindingNamespace
     def bind_handles(self, **bindings: int) -> None:
         """Bind Aurora handles to fields for binary fast-path."""
         ...
@@ -252,9 +361,9 @@ def bind(state: Union[State, ReactiveState], field_name: str, *,
          parse: Optional[Callable[[Any], Any]] = None,
          format: Optional[Callable[[Any], Any]] = None,
          validate: Optional[Callable[[Any], bool]] = None) -> Dict[str, Any]:
-    """Create a two-way binding dict for interactive components.
+    """Create a stable two-way binding for interactive components.
 
-    Returns ``{'value': ..., 'on_change': ...}`` suitable for unpacking::
+    The result remains ``{'value': ..., 'on_change': ...}`` compatible::
 
         appui.Slider(**appui.bind(state, 'volume'))
 
@@ -617,7 +726,7 @@ class View:
 
     # ── Interaction ──
 
-    def on_tap(self, action: Callable) -> Self:
+    def on_tap(self, action: Callable, count: int = 1) -> Self:
         """Called when the view is tapped."""
         ...
     def on_appear(self, action: Callable) -> Self:
@@ -629,26 +738,39 @@ class View:
     def on_long_press(self, action: Optional[Callable] = None, min_duration: float = 0.5,
                       minDuration: Optional[float] = None,
                       on_pressing: Optional[Callable] = None,
-                      onPressing: Optional[Callable] = None) -> Self:
+                      onPressing: Optional[Callable] = None,
+                      *,
+                      maximum_distance: float = 10.0,
+                      maximumDistance: Optional[float] = None) -> Self:
         """Called on long press. ``on_pressing`` fires while pressed (bool arg)."""
         ...
     def on_drag(self, on_changed: Optional[Callable] = None,
                 on_ended: Optional[Callable] = None,
                 onChanged: Optional[Callable] = None,
-                onEnded: Optional[Callable] = None) -> Self:
+                onEnded: Optional[Callable] = None,
+                *,
+                minimum_distance: float = 10.0,
+                coordinate_space: str = 'local') -> Self:
         """Pan/drag gesture callbacks."""
         ...
     def on_magnification(self, on_changed: Optional[Callable] = None,
                          on_ended: Optional[Callable] = None,
                          onChanged: Optional[Callable] = None,
-                         onEnded: Optional[Callable] = None) -> Self:
+                         onEnded: Optional[Callable] = None,
+                         *,
+                         minimum_scale_delta: float = 0.01) -> Self:
         """Pinch-to-zoom gesture callbacks."""
         ...
     def on_rotation(self, on_changed: Optional[Callable] = None,
                     on_ended: Optional[Callable] = None,
                     onChanged: Optional[Callable] = None,
-                    onEnded: Optional[Callable] = None) -> Self:
+                    onEnded: Optional[Callable] = None,
+                    *,
+                    minimum_angle_delta: float = 0.01) -> Self:
         """Two-finger rotation gesture callbacks."""
+        ...
+    def gesture(self, gesture: Gesture, action: Optional[Callable] = None) -> Self:
+        """Attach a first-class native gesture or simultaneous composition."""
         ...
     def on_drop(self, action: Callable) -> Self:
         """Called when content is dropped onto this view."""
@@ -683,15 +805,27 @@ class View:
               onDismiss: Optional[Callable] = None) -> Self:
         """Present an alert dialog."""
         ...
-    def sheet(self, is_presented: bool = False, content: Optional[Union["View", Callable[[], "View"]]] = None,
+    def sheet(self, is_presented: Union[bool, Binding] = False,
+              content: Optional[Union["View", Callable[[], "View"]]] = None,
               on_dismiss: Optional[Callable] = None,
-              detents: Optional[str] = None,
+              detents: Optional[Union[str, float, Mapping[str, float],
+                                      Sequence[Union[str, float, Mapping[str, float]]]]] = None,
               drag_indicator: Optional[str] = None,
               interactive_dismiss_disabled: bool = False,
-              isPresented: Optional[bool] = None,
+              isPresented: Optional[Union[bool, Binding]] = None,
               onDismiss: Optional[Callable] = None,
               dragIndicator: Optional[str] = None,
-              interactiveDismissDisabled: Optional[bool] = None) -> Self:
+              interactiveDismissDisabled: Optional[bool] = None,
+              *,
+              selected_detent: Optional[Union[str, Mapping[str, float], Binding]] = None,
+              on_selected_detent_change: Optional[Callable[[str], Any]] = None,
+              corner_radius: Optional[float] = None,
+              presentation_background: Optional[ColorLike] = None,
+              background_interaction: str = 'automatic',
+              background_interaction_up_through: Optional[Union[str, float, Mapping[str, float]]] = None,
+              content_interaction: str = 'automatic',
+              compact_adaptation: str = 'automatic',
+              sizing: str = 'automatic') -> Self:
         """Present a modal sheet.
 
         Always attach this modifier on the rendered root and toggle ``is_presented`` only.
@@ -699,9 +833,13 @@ class View:
         Pass ``content=sheet_view`` as a callable, not ``content=sheet_view()``.
 
         Args:
-            detents: Sheet heights — ``'medium'``, ``'large'``, ``'medium_large'``.
+            detents: Native medium/large, fractional, or fixed-height detents.
             drag_indicator: ``'visible'`` or ``'hidden'``.
             interactive_dismiss_disabled: Prevent swipe-to-dismiss.
+            selected_detent: Optional two-way selected-detent binding.
+            background_interaction: ``'automatic'``, ``'enabled'``, or ``'disabled'``.
+            content_interaction: ``'automatic'``, ``'resizes'``, or ``'scrolls'``.
+            sizing: iOS 18 ``'automatic'``, ``'fitted'``, ``'form'``, or ``'page'``.
         """
         ...
     def full_screen_cover(self, is_presented: bool = False, content: Optional[Union["View", Callable[[], "View"]]] = None,
@@ -754,14 +892,20 @@ class View:
 
     # ── Animation & Transform ──
 
+    @overload
     def animation(self, type: str = 'default', value: Optional[Any] = None) -> Self:
         """Apply implicit animation. Types: ``'default'``, ``'linear'``, ``'easeIn'``,
         ``'easeOut'``, ``'easeInOut'``, ``'spring'``, ``'interpolatingSpring'``."""
         ...
+    @overload
+    def animation(self, type: Animation, value: Optional[Any] = None) -> Self: ...
+    @overload
     def transition(self, type: str = 'opacity') -> Self:
         """Apply insertion/removal transition. Types: ``'opacity'``, ``'slide'``, ``'scale'``,
         ``'move'``, ``'push'``, ``'identity'``."""
         ...
+    @overload
+    def transition(self, type: Transition) -> Self: ...
     def scale_effect(self, scale: float) -> Self:
         """Scale the view uniformly."""
         ...
@@ -776,6 +920,15 @@ class View:
                                 nsId: Optional[str] = None,
                                 isSource: Optional[bool] = None) -> Self:
         """Shared geometry animation between views with the same ``ns_id``."""
+        ...
+    def matched_transition_source(self, id: Any,
+                                  namespace: Optional[Union[str, Namespace]] = None) -> Self:
+        """Mark an iOS 18 zoom-navigation source."""
+        ...
+    def navigation_transition(self, style: str = 'zoom', source_id: Optional[Any] = None,
+                              namespace: Optional[Union[str, Namespace]] = None,
+                              sourceID: Optional[Any] = None) -> Self:
+        """Apply an interruptible native page transition."""
         ...
     def glass_effect_id(self, id: Any) -> Self:
         """Assign an iOS 26 Liquid Glass matched-effect identity."""
@@ -801,6 +954,22 @@ class View:
             opacity_range: Opacity delta per unit phase (default 0.2).
             duration: Seconds per phase transition (default 0.6).
             animation: ``'easeInOut'``, ``'linear'``, ``'easeIn'``, ``'easeOut'``, ``'spring'``.
+        """
+        ...
+    def keyframe_animator(self,
+                          keyframes: Optional[Sequence[Union[float, Mapping[str, float]]]] = None,
+                          effect: str = 'scale_opacity', initial_value: float = 0.0,
+                          repeating: bool = True, curve: str = 'easeInOut',
+                          scale_range: float = 0.1, opacity_range: float = 0.2,
+                          rotation_range: float = 360.0, offset_range: float = 40.0,
+                          trigger: Optional[Any] = None) -> Self:
+        """Native SwiftUI keyframe animation (iOS 17+).
+
+        Each frame is either a numeric value (0.3-second duration) or a
+        ``{'value': number, 'duration': seconds}`` mapping. ``effect`` accepts
+        ``'scale_opacity'``, ``'scale'``, ``'opacity'``, ``'rotation'`` or
+        ``'offset_y'``. Supplying ``trigger`` replays a non-looping sequence
+        whenever the trigger value changes.
         """
         ...
 
@@ -885,6 +1054,45 @@ class View:
     def accessibility_hidden(self, value: bool = True) -> Self:
         """Hide from the accessibility tree."""
         ...
+    def accessibility_value(self, value: Any) -> Self:
+        """VoiceOver value for this view."""
+        ...
+    def accessibility_hint(self, hint: str) -> Self:
+        """VoiceOver usage hint for this view."""
+        ...
+    def accessibility_identifier(self, identifier: str) -> Self:
+        """Stable identifier used by UI automation and assistive tools."""
+        ...
+    def accessibility_sort_priority(self, priority: float) -> Self:
+        """Set VoiceOver traversal priority."""
+        ...
+    def accessibility_heading(self, level: str = 'unspecified') -> Self:
+        """Mark a heading level: ``'unspecified'`` or ``'h1'``…``'h6'``."""
+        ...
+    def accessibility_add_traits(self, *traits: Union[str, Sequence[str]]) -> Self:
+        """Add native SwiftUI accessibility traits."""
+        ...
+    def accessibility_remove_traits(self, *traits: Union[str, Sequence[str]]) -> Self:
+        """Remove native SwiftUI accessibility traits."""
+        ...
+    def accessibility_input_labels(self, labels: Union[str, Sequence[str]]) -> Self:
+        """Set alternate labels for Voice Control input."""
+        ...
+    def accessibility_responds_to_user_interaction(self, value: bool = True) -> Self:
+        """Declare whether this element responds to user interaction (iOS 17+)."""
+        ...
+    def accessibility_element(self, children: str = 'contain') -> Self:
+        """Control child exposure: ``'contain'``, ``'combine'``, or ``'ignore'``."""
+        ...
+    def accessibility_action(self, action: Callable[[], Any],
+                             name: Optional[str] = None,
+                             kind: str = 'default') -> Self:
+        """Register a native default, escape, magic-tap, or named action."""
+        ...
+    def accessibility_adjustable_action(self,
+                                        action: Callable[[str], Any]) -> Self:
+        """Handle native ``'increment'`` and ``'decrement'`` actions."""
+        ...
 
     # ── Scroll ──
 
@@ -893,6 +1101,19 @@ class View:
         ...
     def scroll_position(self, id: Optional[str] = None) -> Self:
         """Bind scroll position to an anchor ID (iOS 17+)."""
+        ...
+    def on_scroll_geometry_change(self,
+                                  action: Callable[[Dict[str, float]], Any],
+                                  minimum_interval: float = 1 / 30) -> Self:
+        """Observe native ScrollGeometry, coalesced off the frame loop (iOS 18+)."""
+        ...
+    def on_scroll_phase_change(self,
+                               action: Callable[[Dict[str, Any]], Any]) -> Self:
+        """Observe native idle/tracking/interacting/decelerating phases (iOS 18+)."""
+        ...
+    def on_scroll_visibility_change(self, action: Callable[[bool], Any],
+                                    threshold: float = 0.5) -> Self:
+        """Report whether the modified view is visible in its scroll view (iOS 18+)."""
         ...
     def scroll_target_layout(self, enabled: bool = True) -> Self:
         """Mark children as scroll-snap targets (iOS 17+)."""
@@ -1007,8 +1228,11 @@ class View:
     rotationEffect = rotation_effect
     rotation3dEffect = rotation_3d_effect
     matchedGeometryEffect = matched_geometry_effect
+    matchedTransitionSource = matched_transition_source
+    navigationTransition = navigation_transition
     contentTransition = content_transition
     phaseAnimator = phase_animator
+    keyframeAnimator = keyframe_animator
     minimumScaleFactor = minimum_scale_factor
     multilineTextAlignment = multiline_text_alignment
     truncationMode = truncation_mode
@@ -1214,9 +1438,23 @@ class SecureField(View):
                  onSubmit: Optional[Callable] = None) -> None: ...
 
 class TextEditor(View):
-    """Multi-line text editing area."""
-    def __init__(self, text: str = '', on_change: Optional[Callable] = None,
-                 onChange: Optional[Callable] = None) -> None: ...
+    """Multi-line native text editor with selection, find, and Writing Tools."""
+    def __init__(self, text: Union[str, Binding] = '',
+                 on_change: Optional[Callable[[str], Any]] = None,
+                 onChange: Optional[Callable[[str], Any]] = None, *,
+                 selection: Optional[Union[Binding, Mapping[str, int], Tuple[int, int]]] = None,
+                 on_selection_change: Optional[Callable[[Dict[str, int]], Any]] = None,
+                 find_presented: Union[bool, Binding] = False,
+                 on_find_presented_change: Optional[Callable[[bool], Any]] = None,
+                 find_disabled: bool = False,
+                 replace_disabled: bool = False,
+                 writing_tools_behavior: str = 'automatic',
+                 keyboard_type: str = 'default',
+                 autocapitalization: str = 'sentences',
+                 autocorrection_disabled: bool = False,
+                 onSelectionChange: Optional[Callable[[Dict[str, int]], Any]] = None,
+                 findPresented: Optional[Union[bool, Binding]] = None,
+                 onFindPresentedChange: Optional[Callable[[bool], Any]] = None) -> None: ...
 
 class TextFieldLink(View):
     """Text field that triggers a submission action."""
@@ -1320,7 +1558,9 @@ class DatePicker(View):
 class MultiDatePicker(View):
     """Multi-date selection (iOS 16+)."""
     def __init__(self, title: str = '', on_change: Optional[Callable] = None,
-                 onChange: Optional[Callable] = None) -> None: ...
+                 onChange: Optional[Callable] = None,
+                 selection: Optional[Union[str, Sequence[str]]] = None,
+                 value: Optional[Union[str, Sequence[str]]] = None) -> None: ...
 
 class ColorPicker(View):
     """Native color picker."""
@@ -1386,6 +1626,9 @@ class PhotoPicker(View):
                  on_picked: Optional[Callable] = None, label: Optional[View] = None,
                  selectionLimit: Optional[int] = None,
                  onPicked: Optional[Callable] = None,
+                 *,
+                 on_error: Optional[Callable[[Dict[str, Any]], Any]] = None,
+                 onError: Optional[Callable[[Dict[str, Any]], Any]] = None,
                  **kwargs: Any) -> None: ...
 
 class CameraPicker(View):
@@ -1398,6 +1641,12 @@ class CameraPicker(View):
                  on_captured: Optional[Callable] = None, label: Optional[View] = None,
                  mediaType: Optional[str] = None,
                  onCaptured: Optional[Callable] = None,
+                 *,
+                 on_cancel: Optional[Callable[[], Any]] = None,
+                 on_error: Optional[Callable[[Dict[str, Any]], Any]] = None,
+                 quality: float = 0.9, allows_editing: bool = False,
+                 video_quality: str = 'high',
+                 maximum_duration: Optional[float] = None,
                  **kwargs: Any) -> None: ...
 
 
@@ -1418,6 +1667,8 @@ class FileImporter(View):
                  allowedTypes: Optional[Union[str, Sequence[str]]] = None,
                  allowsMultiple: Optional[bool] = None,
                  onPicked: Optional[Callable] = None,
+                 *,
+                 on_error: Optional[Callable[[Dict[str, Any]], Any]] = None,
                  **kwargs: Any) -> None: ...
 
 
@@ -1528,6 +1779,19 @@ class GeometryReader(View):
                  on_geometry: Optional[Callable] = None,
                  onGeometry: Optional[Callable] = None) -> None: ...
 
+class EnvironmentReader(View):
+    """Transparent container that reports selected native environment values.
+
+    Pass a ``Binding`` as ``values`` to write the environment dictionary
+    directly into ``State``; otherwise use ``on_change``.
+    """
+    def __init__(self, content: Optional[ViewChild] = None,
+                 values: Optional[Union[Binding, Mapping[str, Any]]] = None,
+                 on_change: Optional[Callable[[Dict[str, Any]], Any]] = None,
+                 keys: Optional[Union[str, Sequence[str]]] = None,
+                 onChange: Optional[Callable[[Dict[str, Any]], Any]] = None,
+                 children: Optional[ViewChild] = None) -> None: ...
+
 class ViewThatFits(View):
     """Picks the first child that fits the available space."""
     def __init__(self, content: Optional[Sequence[View]] = None) -> None: ...
@@ -1576,9 +1840,13 @@ class NavigationSplitView(View):
     """Two- or three-column layout (iPad).
 
     Args:
-        column_visibility: ``'all'``, ``'double'``, ``'detail'``."""
+        column_visibility: ``'automatic'``, ``'all'``, ``'double'``, or
+            ``'detail'``. A State binding receives system-driven iPad column
+            visibility changes."""
     def __init__(self, sidebar: Optional[View] = None, detail: Optional[View] = None,
-                 supplementary: Optional[View] = None, column_visibility: str = 'all') -> None: ...
+                 supplementary: Optional[View] = None, column_visibility: Any = 'all',
+                 on_change: Optional[Callable[[str], Any]] = None,
+                 onChange: Optional[Callable[[str], Any]] = None) -> None: ...
 
 class TabView(View):
     """Tab-based navigation.
@@ -1614,8 +1882,18 @@ class Tab(View):
 # ═══════════════════════════════════════════════════════════
 
 class List(_ContainerView):
-    """Scrollable list of rows. Style with ``.list_style()``."""
-    def __init__(self, content: Optional[Sequence[View]] = None) -> None: ...
+    """Scrollable list of rows with optional native selection/edit mode.
+
+    ``on_change`` receives the selected key (single selection) or a list of
+    selected keys (multiple selection). Existing content-only calls are
+    unchanged.
+    """
+    def __init__(self, content: Optional[Sequence[View]] = None,
+                 selection: Optional[Union[str, Sequence[str]]] = None,
+                 on_change: Optional[Callable] = None,
+                 edit_mode: Optional[Union[str, bool]] = None,
+                 onChange: Optional[Callable] = None,
+                 editMode: Optional[Union[str, bool]] = None) -> None: ...
 
 class ForEach(View):
     """Dynamic list of views from data.
@@ -1633,7 +1911,13 @@ class ForEach(View):
     def __init__(self, data: Any, row_builder: Optional[Callable] = None,
                  key: Optional[Callable] = None,
                  rowBuilder: Optional[Callable] = None,
-                 content: Optional[Callable] = None) -> None: ...
+                 content: Optional[Callable] = None,
+                 edit_actions: Optional[Union[str, Sequence[str]]] = None,
+                 on_move: Optional[Callable] = None,
+                 editActions: Optional[Union[str, Sequence[str]]] = None,
+                 onMove: Optional[Callable] = None) -> None:
+        """Build keyed rows; ``on_move`` receives ``{'from': [...], 'to': n}``."""
+        ...
 
 class Form(_ContainerView):
     """Grouped settings form. Use with ``Section``."""
@@ -1660,7 +1944,9 @@ class DisclosureGroup(View):
     def __init__(self, label: str = '', is_expanded: Optional[bool] = None,
                  content: Optional[ViewChild] = None,
                  isExpanded: Optional[bool] = None,
-                 children: Optional[ViewChild] = None) -> None: ...
+                 children: Optional[ViewChild] = None,
+                 on_change: Optional[Callable[[bool], None]] = None,
+                 onChange: Optional[Callable[[bool], None]] = None) -> None: ...
 
 class LabeledContent(View):
     """Label-value pair for settings rows."""
@@ -1759,7 +2045,7 @@ class SwipeActions(View):
 # ═══════════════════════════════════════════════════════════
 
 class MapView(View):
-    """Native Apple Maps view.
+    """Native MapKit view with camera bindings, marker selection, controls, and overlays.
 
     Example::
 
@@ -1770,7 +2056,18 @@ class MapView(View):
     def __init__(self, latitude: float = 37.7749, longitude: float = -122.4194,
                  span: float = 0.05, markers: Optional[Sequence[Dict[str, Any]]] = None,
                  map_style: str = 'automatic',
-                 mapStyle: Optional[str] = None) -> None: ...
+                 mapStyle: Optional[str] = None, *, region: Any = None,
+                 on_region_change: Optional[Callable[[Dict[str, float]], Any]] = None,
+                 selection: Any = None,
+                 on_selection_change: Optional[Callable[[Optional[str]], Any]] = None,
+                 on_marker_tap: Optional[Callable[[Dict[str, Any]], Any]] = None,
+                 overlays: Optional[Sequence[Dict[str, Any]]] = None,
+                 shows_user_location: bool = False,
+                 controls: Optional[Sequence[str]] = None,
+                 interaction_modes: Any = 'all',
+                 camera_frequency: str = 'on_end',
+                 shows_traffic: bool = False,
+                 elevation: str = 'automatic') -> None: ...
     def aurora_set_center(self, latitude: float, longitude: float) -> None:
         """Update map center via Aurora binary fast-path."""
         ...
@@ -1779,8 +2076,23 @@ class MapView(View):
         ...
 
 class WebView(View):
-    """Embedded web view (WKWebView). Provide ``url`` or ``html``."""
-    def __init__(self, url: Optional[str] = None, html: Optional[str] = None) -> None: ...
+    """Lifecycle-safe WKWebView with navigation state, messages, policy, and commands."""
+    def __init__(self, url: Optional[str] = None, html: Optional[str] = None, *,
+                 base_url: Optional[str] = None, allows_javascript: bool = True,
+                 allows_navigation_gestures: bool = True,
+                 allows_link_preview: bool = True,
+                 custom_user_agent: Optional[str] = None,
+                 allowed_hosts: Optional[Sequence[str]] = None,
+                 data_store: str = 'default', navigation_state: Any = None,
+                 on_navigation_change: Optional[Callable[[Dict[str, Any]], Any]] = None,
+                 on_message: Optional[Callable[[Dict[str, Any]], Any]] = None,
+                 on_error: Optional[Callable[[Dict[str, Any]], Any]] = None,
+                 command: Any = None,
+                 on_command_result: Optional[Callable[[Dict[str, Any]], Any]] = None,
+                 allows_downloads: bool = False,
+                 on_download: Optional[Callable[[str], Any]] = None,
+                 on_download_error: Optional[Callable[[Dict[str, Any]], Any]] = None,
+                 progress_minimum_interval: float = 0.1) -> None: ...
 
 class PlayerController:
     """Primary AppUI video controller for ``VideoPlayer(player=...)``.
@@ -1855,8 +2167,167 @@ class VideoPlayer(View):
 #  Charts (iOS 16+)
 # ═══════════════════════════════════════════════════════════
 
+class ChartField:
+    """Typed reference to a key in every Chart data row."""
+    key: str
+    label: str
+    value_type: str
+    def __init__(
+        self,
+        key: str,
+        label: Optional[str] = ...,
+        value_type: str = ...,
+    ) -> None: ...
+
+class ChartValue:
+    """Constant plottable value for a Chart mark."""
+    value: Any
+    label: str
+    value_type: str
+    def __init__(
+        self,
+        value: Any,
+        label: str = ...,
+        value_type: str = ...,
+    ) -> None: ...
+
+ChartCoordinate = Union[str, int, float, ChartField, ChartValue]
+
+class BarMark:
+    """Native Swift Charts BarMark descriptor."""
+    def __init__(
+        self,
+        x: Optional[ChartCoordinate] = ...,
+        y: Optional[ChartCoordinate] = ...,
+        *,
+        x_start: Optional[ChartCoordinate] = ...,
+        x_end: Optional[ChartCoordinate] = ...,
+        y_start: Optional[ChartCoordinate] = ...,
+        y_end: Optional[ChartCoordinate] = ...,
+        series: Optional[ChartCoordinate] = ...,
+        stacking: str = ...,
+        width: Optional[float] = ...,
+        corner_radius: Optional[float] = ...,
+        foreground_style: Optional[ColorLike] = ...,
+        opacity: float = ...,
+        annotation: Optional[ChartCoordinate] = ...,
+        annotation_position: str = ...,
+    ) -> None: ...
+
+class LineMark:
+    """Native Swift Charts LineMark descriptor."""
+    def __init__(
+        self,
+        x: ChartCoordinate,
+        y: ChartCoordinate,
+        *,
+        series: Optional[ChartCoordinate] = ...,
+        interpolation: str = ...,
+        line_width: float = ...,
+        dash: Optional[Sequence[float]] = ...,
+        symbol: Optional[str] = ...,
+        symbol_size: Optional[float] = ...,
+        foreground_style: Optional[ColorLike] = ...,
+        opacity: float = ...,
+        annotation: Optional[ChartCoordinate] = ...,
+        annotation_position: str = ...,
+    ) -> None: ...
+
+class AreaMark:
+    """Native Swift Charts AreaMark descriptor."""
+    def __init__(
+        self,
+        x: ChartCoordinate,
+        y: Optional[ChartCoordinate] = ...,
+        *,
+        y_start: Optional[ChartCoordinate] = ...,
+        y_end: Optional[ChartCoordinate] = ...,
+        series: Optional[ChartCoordinate] = ...,
+        interpolation: str = ...,
+        stacking: str = ...,
+        foreground_style: Optional[ColorLike] = ...,
+        opacity: float = ...,
+        annotation: Optional[ChartCoordinate] = ...,
+        annotation_position: str = ...,
+    ) -> None: ...
+
+class PointMark:
+    """Native Swift Charts PointMark descriptor."""
+    def __init__(
+        self,
+        x: ChartCoordinate,
+        y: ChartCoordinate,
+        *,
+        series: Optional[ChartCoordinate] = ...,
+        symbol: str = ...,
+        symbol_size: float = ...,
+        foreground_style: Optional[ColorLike] = ...,
+        opacity: float = ...,
+        annotation: Optional[ChartCoordinate] = ...,
+        annotation_position: str = ...,
+    ) -> None: ...
+
+class RuleMark:
+    """Native Swift Charts RuleMark descriptor."""
+    def __init__(
+        self,
+        *,
+        x: Optional[ChartCoordinate] = ...,
+        y: Optional[ChartCoordinate] = ...,
+        series: Optional[ChartCoordinate] = ...,
+        line_width: float = ...,
+        dash: Optional[Sequence[float]] = ...,
+        foreground_style: Optional[ColorLike] = ...,
+        opacity: float = ...,
+        annotation: Optional[ChartCoordinate] = ...,
+        annotation_position: str = ...,
+    ) -> None: ...
+
+class RectangleMark:
+    """Native Swift Charts RectangleMark range descriptor."""
+    def __init__(
+        self,
+        x_start: ChartCoordinate,
+        x_end: ChartCoordinate,
+        y_start: ChartCoordinate,
+        y_end: ChartCoordinate,
+        *,
+        series: Optional[ChartCoordinate] = ...,
+        corner_radius: Optional[float] = ...,
+        foreground_style: Optional[ColorLike] = ...,
+        opacity: float = ...,
+        annotation: Optional[ChartCoordinate] = ...,
+        annotation_position: str = ...,
+    ) -> None: ...
+
+class SectorMark:
+    """Native iOS 17+ Swift Charts SectorMark descriptor."""
+    def __init__(
+        self,
+        angle: ChartCoordinate,
+        *,
+        series: Optional[ChartCoordinate] = ...,
+        inner_radius: float = ...,
+        outer_radius: float = ...,
+        angular_inset: float = ...,
+        foreground_style: Optional[ColorLike] = ...,
+        opacity: float = ...,
+        annotation: Optional[ChartCoordinate] = ...,
+        annotation_position: str = ...,
+    ) -> None: ...
+
+ChartMark = Union[
+    BarMark,
+    LineMark,
+    AreaMark,
+    PointMark,
+    RuleMark,
+    RectangleMark,
+    SectorMark,
+]
+
 class Chart(View):
-    """Swift Charts view. Types: ``'bar'``, ``'line'``, ``'area'``, ``'point'``, ``'rule'``.
+    """Native Swift Charts view with typed axes, selection, scrolling, and annotations.
 
     Example::
 
@@ -1865,7 +2336,21 @@ class Chart(View):
     """
     def __init__(self, data: Optional[Sequence[Dict[str, Any]]] = None, x: str = 'x', y: str = 'y',
                  type: str = 'bar', color: Optional[ColorLike] = None,
-                 series: Optional[str] = None) -> None: ...
+                 series: Optional[str] = None, *, x_type: str = 'auto',
+                 interpolation: str = 'linear', stacking: str = 'standard',
+                 symbol: Optional[str] = None, symbol_size: Optional[float] = None,
+                 show_legend: bool = True, show_x_axis: bool = True,
+                 show_y_axis: bool = True,
+                 y_domain: Optional[Sequence[float]] = None,
+                 selection: Any = None,
+                 on_selection_change: Optional[Callable[[Any], Any]] = None,
+                 on_select: Optional[Callable[[Optional[Dict[str, Any]]], Any]] = None,
+                 scrollable_axes: Optional[str] = None,
+                 visible_domain: Optional[float] = None,
+                 annotation_key: Optional[str] = None,
+                 area_opacity: float = 0.3,
+                 marks: Optional[Sequence[ChartMark]] = None,
+                 selection_x: Optional[str] = None) -> None: ...
     def aurora_set_data(self, data: Sequence[Dict[str, Any]]) -> None:
         """Update chart data via Aurora binary fast-path (avoids full rebuild)."""
         ...
@@ -2052,7 +2537,8 @@ def dismiss_all(*, state: Optional[Union[State, ReactiveState]] = None) -> bool:
     """Dismiss every currently presented registered slot."""
     ...
 
-def animate(action: Callable[[], None], type: str = 'default') -> None:
+def animate(action: Callable[[], None], type: str = 'default',
+            completion: Optional[Callable[..., None]] = None) -> None:
     """Wrap state changes in an animation.
 
     Example::
@@ -2064,6 +2550,33 @@ def animate(action: Callable[[], None], type: str = 'default') -> None:
 
     Types: ``'default'``, ``'linear'``, ``'easeIn'``, ``'easeOut'``, ``'easeInOut'``, ``'spring'``.
     """
+    ...
+
+class _AppUITransactionContext:
+    def __enter__(self) -> "_AppUITransactionContext": ...
+    def __exit__(self, exc_type: Any, exc: Any, traceback: Any) -> bool: ...
+
+@overload
+def transaction(action: None = None, *, animation: str = 'default',
+                type: Optional[str] = None, duration: float = 0.0,
+                delay: float = 0.0, response: float = 0.45,
+                damping_fraction: float = 0.82,
+                blend_duration: float = 0.0,
+                completion: Optional[Callable[..., None]] = None) -> _AppUITransactionContext: ...
+@overload
+def transaction(action: Callable[[], Any], *, animation: str = 'default',
+                type: Optional[str] = None, duration: float = 0.0,
+                delay: float = 0.0, response: float = 0.45,
+                damping_fraction: float = 0.82,
+                blend_duration: float = 0.0,
+                completion: Optional[Callable[..., None]] = None) -> Any: ...
+
+def runtime_features() -> Dict[str, Any]:
+    """Return the negotiated AppUI Platform Kernel feature catalog."""
+    ...
+
+def supports(feature: str) -> bool:
+    """Return whether the current runtime advertises ``feature``."""
     ...
 
 def auto_refresh(interval: float = 1.0) -> None:

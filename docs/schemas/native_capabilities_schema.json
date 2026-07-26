@@ -14,12 +14,14 @@
     ]
   },
   "permissionKeys": [
+    "alarms",
     "biometric",
     "bluetooth",
     "calendar",
     "camera",
     "contacts",
     "health",
+    "live_activity",
     "location",
     "microphone",
     "motion",
@@ -48,6 +50,18 @@
         "device.status"
       ],
       "description": "Direct read-only device status facts exposed by the iOS runtime.",
+      "inputSchema": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "action": {
+            "type": "string",
+            "enum": ["status"],
+            "description": "Required device action."
+          }
+        },
+        "required": ["action"]
+      },
       "actionDetails": {
         "status": {
           "modules": [
@@ -88,10 +102,30 @@
         "clipboard",
         "notification"
       ],
+      "excludedCapabilities": ["badges"],
       "scopeIds": [
         "native.query"
       ],
       "description": "Read-only query bridge for current app/device/user-authorized local data.",
+      "inputSchema": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "action": {
+            "type": "string",
+            "enum": ["photos_count", "photos_summary", "contacts_count", "contacts_summary", "calendar_events", "reminders", "location", "device_status", "app_info", "clipboard_text", "notification_settings"],
+            "description": "Required read-only native query."
+          },
+          "start": {"type": "string", "description": "Optional ISO-8601 or Unix start time."},
+          "end": {"type": "string", "description": "Optional ISO-8601 or Unix end time."},
+          "calendar_id": {"type": "string", "description": "Optional Calendar identifier."},
+          "limit": {"type": "integer", "minimum": 1, "maximum": 200, "description": "Maximum returned records."},
+          "max_text_chars": {"type": "integer", "minimum": 0, "maximum": 20000, "description": "Maximum clipboard characters."},
+          "include_samples": {"type": "boolean", "description": "Include bounded sample records only when needed."},
+          "request_permission": {"type": "boolean", "description": "Ask iOS for an undetermined permission and await the result. Defaults to true."}
+        },
+        "required": ["action"]
+      },
       "actionAliases": {
         "current_location": "location"
       },
@@ -276,6 +310,7 @@
         "clipboard",
         "notification"
       ],
+      "excludedCapabilities": ["badges"],
       "scopeIds": [
         "native.photos",
         "native.calendar",
@@ -285,6 +320,40 @@
         "native.notifications"
       ],
       "description": "User-visible native mutation/export bridge for Photos, Calendar, and share sheet actions.",
+      "inputSchema": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "action": {
+            "type": "string",
+            "enum": ["photo_save", "calendar_create", "file_export", "open_url", "open_settings", "clipboard_write", "notification_schedule"],
+            "description": "Required common native action."
+          },
+          "path": {"type": "string", "description": "Workspace-relative input path."},
+          "media_type": {"type": "string", "enum": ["photo", "video"], "description": "Optional media type."},
+          "url": {"type": "string", "description": "URL or installed-app deep link."},
+          "text": {"type": "string", "description": "Text to write to the clipboard."},
+          "identifier": {"type": "string", "description": "Stable notification identifier. Reusing it updates the same notification."},
+          "idempotency_key": {"type": "string", "description": "Stable caller key that prevents duplicate notification creation."},
+          "title": {"type": "string", "description": "Calendar event or notification title."},
+          "body": {"type": "string", "description": "Notification body."},
+          "delay_seconds": {"type": "number", "minimum": 0.1, "maximum": 31536000, "description": "Delay before notification delivery."},
+          "fire_at": {"type": "string", "description": "Optional ISO-8601 absolute notification time."},
+          "repeat": {"type": "string", "enum": ["none", "hourly", "daily", "weekly", "monthly", "yearly"], "description": "Notification recurrence."},
+          "weekdays": {"type": "array", "items": {"type": "integer", "minimum": 1, "maximum": 7}, "description": "Calendar weekdays 1=Sunday through 7=Saturday."},
+          "time_zone": {"type": "string", "description": "IANA time-zone identifier."},
+          "sound": {"type": "boolean", "description": "Play the default notification sound."},
+          "request_permission": {"type": "boolean", "description": "Ask iOS for an undetermined permission and await the result. Defaults to true."},
+          "start": {"type": "string", "description": "Calendar start as ISO-8601 or Unix seconds."},
+          "end": {"type": "string", "description": "Calendar end as ISO-8601 or Unix seconds."},
+          "notes": {"type": "string", "description": "Optional calendar notes."},
+          "location": {"type": "string", "description": "Optional calendar location."},
+          "calendar_id": {"type": "string", "description": "Optional writable Calendar identifier."},
+          "all_day": {"type": "boolean", "description": "Whether the event is all day."},
+          "present_share_sheet": {"type": "boolean", "description": "Present the system share sheet for file_export."}
+        },
+        "required": ["action"]
+      },
       "actionDetails": {
         "photo_save": {
           "modules": [
@@ -400,14 +469,398 @@
           "agentRisk": "nativePermission",
           "requiresConfirmation": false,
           "requiresUserAction": true,
-          "summary": "Request notification authorization when needed and schedule a local notification through the shared native notification executor.",
+          "summary": "Request notification authorization when needed and schedule a local notification without changing the app icon badge.",
+          "effectKind": "local_notification",
           "searchTerms": [
             "通知",
             "提醒",
+            "通知我",
+            "提醒我",
+            "稍后提醒",
+            "定时提醒",
             "本地通知",
-            "完成后通知"
+            "完成后通知",
+            "notify me",
+            "remind me",
+            "local notification"
           ]
         }
+      }
+    },
+    "native_notifications": {
+      "toolId": "native_notifications",
+      "actions": [
+        "notification_list",
+        "notification_get",
+        "notification_update",
+        "notification_cancel",
+        "notification_cancel_all",
+        "notification_verify"
+      ],
+      "modules": ["notification"],
+      "excludedCapabilities": ["badges"],
+      "scopeIds": ["native.notifications"],
+      "description": "Complete local-notification lifecycle with stable identifiers, recurrence, Agent deep links, and read-back verification, without app icon badges.",
+      "inputSchema": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "action": {"type": "string", "enum": ["notification_list", "notification_get", "notification_update", "notification_cancel", "notification_cancel_all", "notification_verify"], "description": "Required notification lifecycle action."},
+          "identifier": {"type": "string", "description": "Stable local notification identifier."},
+          "title": {"type": "string", "description": "Updated notification title."},
+          "body": {"type": "string", "description": "Updated notification body."},
+          "delay_seconds": {"type": "number", "minimum": 0.1, "maximum": 31536000, "description": "Delay before delivery."},
+          "fire_at": {"type": "string", "description": "ISO-8601 absolute delivery time."},
+          "repeat": {"type": "string", "enum": ["none", "hourly", "daily", "weekly", "monthly", "yearly"], "description": "Recurrence rule."},
+          "weekdays": {"type": "array", "items": {"type": "integer", "minimum": 1, "maximum": 7}, "description": "Calendar weekdays 1=Sunday through 7=Saturday."},
+          "time_zone": {"type": "string", "description": "IANA time-zone identifier."},
+          "sound": {"type": "boolean", "description": "Play the default sound."},
+          "include_delivered": {"type": "boolean", "description": "Include already delivered notifications."},
+          "request_permission": {"type": "boolean", "description": "Ask iOS for undetermined permission and await the result."}
+        },
+        "required": ["action"]
+      },
+      "actionDetails": {
+        "notification_list": {"modules": ["notification"], "scopeIds": ["native.notifications"], "permissionKeys": ["notifications"], "agentRisk": "readOnly", "requiresConfirmation": false, "requiresUserAction": false, "summary": "List pending local notifications with their next trigger times and recurrence.", "effectKind": "local_notification", "searchTerms": ["查看通知", "通知列表", "有哪些通知", "list notifications"]},
+        "notification_get": {"modules": ["notification"], "scopeIds": ["native.notifications"], "permissionKeys": ["notifications"], "agentRisk": "readOnly", "requiresConfirmation": false, "requiresUserAction": false, "summary": "Read one pending or delivered local notification by stable identifier.", "effectKind": "local_notification", "searchTerms": ["通知详情", "查看通知详情", "notification details"]},
+        "notification_update": {"modules": ["notification"], "scopeIds": ["native.notifications"], "permissionKeys": ["notifications"], "agentRisk": "externalMutation", "requiresConfirmation": true, "requiresUserAction": true, "summary": "Replace one notification in place while preserving its stable identifier and Agent deep link.", "effectKind": "local_notification", "searchTerms": ["修改通知", "更新通知", "修改提醒时间", "update notification"]},
+        "notification_cancel": {"modules": ["notification"], "scopeIds": ["native.notifications"], "permissionKeys": ["notifications"], "agentRisk": "destructive", "requiresConfirmation": true, "requiresUserAction": false, "summary": "Cancel one pending notification and remove its delivered copy.", "effectKind": "local_notification", "searchTerms": ["取消通知", "删除通知", "取消定时提醒", "cancel notification"]},
+        "notification_cancel_all": {"modules": ["notification"], "scopeIds": ["native.notifications"], "permissionKeys": ["notifications"], "agentRisk": "destructive", "requiresConfirmation": true, "requiresUserAction": false, "summary": "Cancel only Agent-created notifications, leaving unrelated app notifications intact.", "effectKind": "local_notification", "searchTerms": ["取消所有通知", "清空通知", "删除所有提醒", "cancel all notifications"]},
+        "notification_verify": {"modules": ["notification"], "scopeIds": ["native.notifications"], "permissionKeys": ["notifications"], "agentRisk": "readOnly", "requiresConfirmation": false, "requiresUserAction": false, "summary": "Read back a scheduled notification and verify its identifier and next trigger.", "effectKind": "local_notification", "searchTerms": ["验证通知", "确认通知时间", "下次通知时间", "verify notification"]}
+      }
+    },
+    "native_events": {
+      "toolId": "native_events",
+      "actions": [
+        "calendar_list",
+        "calendar_event_get",
+        "calendar_event_update",
+        "calendar_event_delete",
+        "calendar_conflicts",
+        "reminder_get",
+        "reminder_create",
+        "reminder_update",
+        "reminder_complete",
+        "reminder_delete",
+        "alarm_list",
+        "alarm_schedule",
+        "alarm_cancel"
+      ],
+      "modules": ["calendar_events", "alarm"],
+      "scopeIds": ["native.calendar", "native.reminders", "native.alarms"],
+      "description": "Calendar, Reminders, and system Alarm lifecycle backed by EventKit and AlarmKit.",
+      "inputSchema": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "action": {"type": "string", "enum": ["calendar_list", "calendar_event_get", "calendar_event_update", "calendar_event_delete", "calendar_conflicts", "reminder_get", "reminder_create", "reminder_update", "reminder_complete", "reminder_delete", "alarm_list", "alarm_schedule", "alarm_cancel"], "description": "Required event/reminder/alarm action."},
+          "event_id": {"type": "string", "description": "Calendar event identifier."},
+          "reminder_id": {"type": "string", "description": "Reminder identifier."},
+          "alarm_id": {"type": "string", "description": "Alarm UUID."},
+          "idempotency_key": {"type": "string", "description": "Stable caller key that makes retries return the same verified Agent-owned alarm. Reusing the key with different alarm details fails instead of creating a duplicate."},
+          "title": {"type": "string", "description": "Event, reminder, or alarm title."},
+          "notes": {"type": "string", "description": "Optional notes."},
+          "location": {"type": "string", "description": "Optional event location."},
+          "start": {"type": "string", "description": "ISO-8601 or Unix event start."},
+          "end": {"type": "string", "description": "ISO-8601 or Unix event end."},
+          "due": {"type": "string", "description": "ISO-8601 or Unix reminder due date."},
+          "calendar_id": {"type": "string", "description": "Target Calendar or Reminders list identifier."},
+          "all_day": {"type": "boolean", "description": "All-day event flag."},
+          "completed": {"type": "boolean", "description": "Reminder completion state."},
+          "time_zone": {"type": "string", "description": "IANA time-zone identifier."},
+          "span": {"type": "string", "enum": ["this", "future"], "description": "Recurring-event mutation span."},
+          "recurrence_frequency": {"type": "string", "enum": ["none", "daily", "weekly", "monthly", "yearly"], "description": "Optional recurrence frequency."},
+          "recurrence_interval": {"type": "integer", "minimum": 1, "maximum": 999, "description": "Recurrence interval."},
+          "recurrence_end": {"type": "string", "description": "Optional ISO-8601 recurrence end date."},
+          "recurrence_count": {"type": "integer", "minimum": 1, "maximum": 999, "description": "Optional maximum recurrence count."},
+          "weekdays": {"type": "array", "items": {"type": "integer", "minimum": 1, "maximum": 7}, "description": "Weekdays for weekly recurrence."},
+          "hour": {"type": "integer", "minimum": 0, "maximum": 23, "description": "Alarm hour."},
+          "minute": {"type": "integer", "minimum": 0, "maximum": 59, "description": "Alarm minute."},
+          "fire_at": {"type": "string", "description": "Optional fixed AlarmKit fire date."},
+          "repeat": {"type": "string", "enum": ["none", "daily", "weekdays", "weekends", "weekly"], "description": "Alarm recurrence."},
+          "request_permission": {"type": "boolean", "description": "Ask iOS for undetermined permission and await the result."}
+        },
+        "required": ["action"]
+      },
+      "actionDetails": {
+        "calendar_list": {"modules": ["calendar_events"], "scopeIds": ["native.calendar"], "permissionKeys": ["calendar"], "agentRisk": "readOnly", "requiresConfirmation": false, "requiresUserAction": true, "summary": "List calendars and whether each one can be modified.", "effectKind": "calendar_event", "searchTerms": ["日历列表", "有哪些日历", "查看日历", "list calendars"]},
+        "calendar_event_get": {"modules": ["calendar_events"], "scopeIds": ["native.calendar"], "permissionKeys": ["calendar"], "agentRisk": "readOnly", "requiresConfirmation": false, "requiresUserAction": true, "summary": "Read one Calendar event, recurrence, attendees, time zone, and writable state.", "effectKind": "calendar_event", "searchTerms": ["查看日程", "日程详情", "查看日历事件", "calendar event details"]},
+        "calendar_event_update": {"modules": ["calendar_events"], "scopeIds": ["native.calendar"], "permissionKeys": ["calendar"], "agentRisk": "externalMutation", "requiresConfirmation": true, "requiresUserAction": true, "summary": "Modify one Calendar event and verify the saved values by reading it back.", "effectKind": "calendar_event", "searchTerms": ["修改日程", "更新日程", "修改日历事件", "update calendar event"]},
+        "calendar_event_delete": {"modules": ["calendar_events"], "scopeIds": ["native.calendar"], "permissionKeys": ["calendar"], "agentRisk": "destructive", "requiresConfirmation": true, "requiresUserAction": true, "summary": "Delete one Calendar event using the requested recurrence span and verify absence.", "effectKind": "calendar_event", "searchTerms": ["删除日程", "取消日程", "删除日历事件", "delete calendar event"]},
+        "calendar_conflicts": {"modules": ["calendar_events"], "scopeIds": ["native.calendar"], "permissionKeys": ["calendar"], "agentRisk": "readOnly", "requiresConfirmation": false, "requiresUserAction": true, "summary": "Find events that overlap a proposed time range.", "effectKind": "calendar_event", "searchTerms": ["日程冲突", "时间冲突", "检查日程冲突", "calendar conflicts"]},
+        "reminder_get": {"modules": ["calendar_events"], "scopeIds": ["native.reminders"], "permissionKeys": ["reminders"], "agentRisk": "readOnly", "requiresConfirmation": false, "requiresUserAction": true, "summary": "Read one EventKit reminder and its list, due date, priority, and completion state.", "effectKind": "system_reminder", "searchTerms": ["查看提醒事项", "提醒事项详情", "reminder details"]},
+        "reminder_create": {"modules": ["calendar_events"], "scopeIds": ["native.reminders"], "permissionKeys": ["reminders"], "agentRisk": "externalMutation", "requiresConfirmation": true, "requiresUserAction": true, "summary": "Create a system Reminders item and verify it by identifier.", "effectKind": "system_reminder", "searchTerms": ["添加提醒事项", "创建提醒事项", "加入提醒事项", "待办事项", "add reminder", "create reminder"]},
+        "reminder_update": {"modules": ["calendar_events"], "scopeIds": ["native.reminders"], "permissionKeys": ["reminders"], "agentRisk": "externalMutation", "requiresConfirmation": true, "requiresUserAction": true, "summary": "Modify a system Reminders item and verify the saved values.", "effectKind": "system_reminder", "searchTerms": ["修改提醒事项", "更新提醒事项", "update reminder"]},
+        "reminder_complete": {"modules": ["calendar_events"], "scopeIds": ["native.reminders"], "permissionKeys": ["reminders"], "agentRisk": "externalMutation", "requiresConfirmation": true, "requiresUserAction": true, "summary": "Mark one system reminder complete or incomplete and verify its state.", "effectKind": "system_reminder", "searchTerms": ["完成提醒事项", "标记提醒完成", "complete reminder"]},
+        "reminder_delete": {"modules": ["calendar_events"], "scopeIds": ["native.reminders"], "permissionKeys": ["reminders"], "agentRisk": "destructive", "requiresConfirmation": true, "requiresUserAction": true, "summary": "Delete one system reminder and verify absence.", "effectKind": "system_reminder", "searchTerms": ["删除提醒事项", "取消提醒事项", "delete reminder"]},
+        "alarm_list": {"modules": ["alarm"], "scopeIds": ["native.alarms"], "permissionKeys": ["alarms"], "agentRisk": "readOnly", "requiresConfirmation": false, "requiresUserAction": false, "summary": "List only alarms created through the Agent-owned AlarmKit ledger.", "effectKind": "system_alarm", "searchTerms": ["查看闹钟", "闹钟列表", "有哪些闹钟", "list alarms", "show alarms"]},
+        "alarm_schedule": {"modules": ["alarm"], "scopeIds": ["native.alarms"], "permissionKeys": ["alarms"], "agentRisk": "externalMutation", "requiresConfirmation": true, "requiresUserAction": true, "summary": "Request AlarmKit authorization when needed, idempotently schedule an Agent-owned system alarm, persist ownership, and verify its exact schedule in AlarmManager.", "effectKind": "system_alarm", "searchTerms": ["创建闹钟", "设置闹钟", "定闹钟", "叫我起床", "叫醒我", "起床闹钟", "set alarm", "create alarm", "wake me", "wake up alarm"]},
+        "alarm_cancel": {"modules": ["alarm"], "scopeIds": ["native.alarms"], "permissionKeys": ["alarms"], "agentRisk": "destructive", "requiresConfirmation": true, "requiresUserAction": false, "summary": "Stop an active Agent-owned AlarmKit alarm when needed, cancel its remaining schedule, and verify complete removal.", "effectKind": "system_alarm", "searchTerms": ["取消闹钟", "删除闹钟", "关闭闹钟", "cancel alarm", "delete alarm"]}
+      }
+    },
+    "native_files": {
+      "toolId": "native_files",
+      "actions": ["file_pick", "folder_pick", "file_import", "file_save", "share_items", "document_scan"],
+      "modules": ["dialogs", "storage", "pdf"],
+      "scopeIds": ["native.files", "native.export"],
+      "description": "System Files pickers, security-scoped imports/exports, multi-item sharing, and document scanning.",
+      "inputSchema": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "action": {"type": "string", "enum": ["file_pick", "folder_pick", "file_import", "file_save", "share_items", "document_scan"], "description": "Required file interaction action."},
+          "path": {"type": "string", "description": "Workspace-relative source path or destination path."},
+          "paths": {"type": "array", "items": {"type": "string"}, "maxItems": 20, "description": "Workspace-relative files to share."},
+          "destination_path": {"type": "string", "description": "Workspace-relative import destination."},
+          "allowed_types": {"type": "array", "items": {"type": "string"}, "description": "UTType identifiers or filename extensions accepted by a picker."},
+          "allows_multiple": {"type": "boolean", "description": "Allow selecting multiple files."},
+          "text": {"type": "string", "description": "Optional text to share."},
+          "url": {"type": "string", "description": "Optional URL to share."},
+          "filename": {"type": "string", "description": "Suggested output or scanned PDF filename."},
+          "as_pdf": {"type": "boolean", "description": "Combine scanned pages into a PDF."}
+        },
+        "required": ["action"]
+      },
+      "actionDetails": {
+        "file_pick": {"modules": ["dialogs"], "scopeIds": ["native.files"], "permissionKeys": [], "agentRisk": "nativePermission", "requiresConfirmation": false, "requiresUserAction": true, "summary": "Present the system Files picker, await the user's selection, and return security-scoped file metadata."},
+        "folder_pick": {"modules": ["dialogs"], "scopeIds": ["native.files"], "permissionKeys": [], "agentRisk": "nativePermission", "requiresConfirmation": false, "requiresUserAction": true, "summary": "Present the system folder picker, await selection, and persist a security-scoped bookmark."},
+        "file_import": {"modules": ["storage"], "scopeIds": ["native.files"], "permissionKeys": [], "agentRisk": "workspaceWrite", "requiresConfirmation": true, "requiresUserAction": true, "summary": "Pick an external file and copy it into the active workspace with collision-safe naming and verification."},
+        "file_save": {"modules": ["dialogs"], "scopeIds": ["native.export"], "permissionKeys": [], "agentRisk": "externalMutation", "requiresConfirmation": true, "requiresUserAction": true, "summary": "Export a workspace file to a user-selected Files location and await completion."},
+        "share_items": {"modules": ["dialogs"], "scopeIds": ["native.export"], "permissionKeys": [], "agentRisk": "externalMutation", "requiresConfirmation": true, "requiresUserAction": true, "summary": "Present one system share sheet for text, URL, image, or multiple workspace files."},
+        "document_scan": {"modules": ["pdf"], "scopeIds": ["native.files"], "permissionKeys": ["camera"], "agentRisk": "nativePermission", "requiresConfirmation": false, "requiresUserAction": true, "summary": "Present the VisionKit document scanner, await completion, and save verified images or a PDF under a collision-safe workspace filename."}
+      }
+    },
+    "native_media": {
+      "toolId": "native_media",
+      "actions": ["photo_pick", "photo_capture", "photo_metadata", "vision_ocr", "vision_barcodes", "vision_classify", "vision_rectangles", "qr_generate"],
+      "modules": ["photos", "vision", "qrcode"],
+      "scopeIds": ["native.photos", "native.camera", "native.vision"],
+      "description": "User-selected photos and camera capture plus deterministic on-device Vision analysis.",
+      "inputSchema": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "action": {"type": "string", "enum": ["photo_pick", "photo_capture", "photo_metadata", "vision_ocr", "vision_barcodes", "vision_classify", "vision_rectangles", "qr_generate"], "description": "Required media or Vision action."},
+          "path": {"type": "string", "description": "Workspace-relative image input or output path."},
+          "filename": {"type": "string", "description": "Suggested workspace filename for selected or captured media."},
+          "media_type": {"type": "string", "enum": ["photo", "video", "any"], "description": "Picker media filter."},
+          "allows_multiple": {"type": "boolean", "description": "Allow multiple photo-library selections."},
+          "language_codes": {"type": "array", "items": {"type": "string"}, "description": "Preferred OCR languages."},
+          "recognition_level": {"type": "string", "enum": ["fast", "accurate"], "description": "Vision text recognition level."},
+          "max_results": {"type": "integer", "minimum": 1, "maximum": 100, "description": "Maximum returned classifications."},
+          "text": {"type": "string", "description": "Text or URL to encode as QR."},
+          "size": {"type": "integer", "minimum": 64, "maximum": 4096, "description": "Generated QR image size."},
+          "request_permission": {"type": "boolean", "description": "Ask iOS for undetermined permission and await the result."}
+        },
+        "required": ["action"]
+      },
+      "actionDetails": {
+        "photo_pick": {"modules": ["photos"], "scopeIds": ["native.photos"], "permissionKeys": ["photos"], "agentRisk": "nativePermission", "requiresConfirmation": false, "requiresUserAction": true, "summary": "Present the privacy-preserving Photos picker, await selection, and copy chosen media into the workspace."},
+        "photo_capture": {"modules": ["photos"], "scopeIds": ["native.camera"], "permissionKeys": ["camera"], "agentRisk": "nativePermission", "requiresConfirmation": false, "requiresUserAction": true, "summary": "Request camera access when needed, present capture UI, and save the captured image into the workspace."},
+        "photo_metadata": {"modules": ["photos"], "scopeIds": ["native.vision"], "permissionKeys": [], "agentRisk": "readOnly", "requiresConfirmation": false, "requiresUserAction": false, "summary": "Read dimensions, orientation, color model, file size, and image metadata from a workspace image."},
+        "vision_ocr": {"modules": ["vision"], "scopeIds": ["native.vision"], "permissionKeys": [], "agentRisk": "readOnly", "requiresConfirmation": false, "requiresUserAction": false, "summary": "Run Apple Vision text recognition on a workspace image and return text with confidence and bounding boxes."},
+        "vision_barcodes": {"modules": ["vision"], "scopeIds": ["native.vision"], "permissionKeys": [], "agentRisk": "readOnly", "requiresConfirmation": false, "requiresUserAction": false, "summary": "Detect QR codes and supported barcodes in a workspace image using Apple Vision."},
+        "vision_classify": {"modules": ["vision"], "scopeIds": ["native.vision"], "permissionKeys": [], "agentRisk": "readOnly", "requiresConfirmation": false, "requiresUserAction": false, "summary": "Classify a workspace image on device using Apple Vision."},
+        "vision_rectangles": {"modules": ["vision"], "scopeIds": ["native.vision"], "permissionKeys": [], "agentRisk": "readOnly", "requiresConfirmation": false, "requiresUserAction": false, "summary": "Detect document-like rectangles in a workspace image."},
+        "qr_generate": {"modules": ["qrcode"], "scopeIds": ["native.vision"], "permissionKeys": [], "agentRisk": "workspaceWrite", "requiresConfirmation": true, "requiresUserAction": false, "summary": "Generate a QR image from model-provided content and save it into the workspace."}
+      }
+    },
+    "native_audio": {
+      "toolId": "native_audio",
+      "actions": ["speech_speak", "speech_stop", "speech_recognition_start", "speech_recognition_status", "speech_recognition_stop", "audio_transcribe", "audio_record_start", "audio_record_pause", "audio_record_resume", "audio_record_stop", "audio_record_cancel", "audio_record_status"],
+      "modules": ["speech", "speech_recognition", "audio_recorder"],
+      "scopeIds": ["native.speech", "native.microphone", "native.audio"],
+      "description": "Text-to-speech, live/file speech recognition, and lifecycle-safe microphone recording.",
+      "inputSchema": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "action": {"type": "string", "enum": ["speech_speak", "speech_stop", "speech_recognition_start", "speech_recognition_status", "speech_recognition_stop", "audio_transcribe", "audio_record_start", "audio_record_pause", "audio_record_resume", "audio_record_stop", "audio_record_cancel", "audio_record_status"], "description": "Required speech or audio action."},
+          "text": {"type": "string", "description": "Text to speak."},
+          "path": {"type": "string", "description": "Workspace-relative audio input or recording output path."},
+          "language": {"type": "string", "description": "BCP-47 speech language or locale."},
+          "locale": {"type": "string", "description": "Speech-recognition locale."},
+          "rate": {"type": "number", "minimum": 0.1, "maximum": 1.0, "description": "Speech rate."},
+          "pitch": {"type": "number", "minimum": 0.5, "maximum": 2.0, "description": "Speech pitch multiplier."},
+          "volume": {"type": "number", "minimum": 0.0, "maximum": 1.0, "description": "Speech volume."},
+          "wait": {"type": "boolean", "description": "Wait until speaking finishes."},
+          "on_device": {"type": "boolean", "description": "Require on-device recognition when available."},
+          "partial": {"type": "boolean", "description": "Return partial live recognition results."},
+          "format": {"type": "string", "enum": ["m4a", "wav", "caf"], "description": "Recording format."},
+          "quality": {"type": "string", "enum": ["low", "medium", "high", "max"], "description": "Recording quality."},
+          "sample_rate": {"type": "number", "minimum": 8000, "maximum": 192000, "description": "Recording sample rate."},
+          "channels": {"type": "integer", "minimum": 1, "maximum": 2, "description": "Recording channel count."},
+          "request_permission": {"type": "boolean", "description": "Ask iOS for undetermined speech/microphone permission and await the result."}
+        },
+        "required": ["action"]
+      },
+      "actionDetails": {
+        "speech_speak": {"modules": ["speech"], "scopeIds": ["native.speech"], "permissionKeys": [], "agentRisk": "externalMutation", "requiresConfirmation": false, "requiresUserAction": false, "summary": "Speak model-provided text with the system synthesizer and optionally await completion."},
+        "speech_stop": {"modules": ["speech"], "scopeIds": ["native.speech"], "permissionKeys": [], "agentRisk": "externalMutation", "requiresConfirmation": false, "requiresUserAction": false, "summary": "Stop current text-to-speech playback."},
+        "speech_recognition_start": {"modules": ["speech_recognition"], "scopeIds": ["native.microphone"], "permissionKeys": ["speech", "microphone"], "agentRisk": "nativePermission", "requiresConfirmation": false, "requiresUserAction": true, "summary": "Request speech and microphone permissions, then start live transcription."},
+        "speech_recognition_status": {"modules": ["speech_recognition"], "scopeIds": ["native.microphone"], "permissionKeys": ["speech", "microphone"], "agentRisk": "readOnly", "requiresConfirmation": false, "requiresUserAction": false, "summary": "Read the current live-transcription snapshot."},
+        "speech_recognition_stop": {"modules": ["speech_recognition"], "scopeIds": ["native.microphone"], "permissionKeys": ["speech", "microphone"], "agentRisk": "externalMutation", "requiresConfirmation": false, "requiresUserAction": false, "summary": "Stop live transcription and return the final captured text."},
+        "audio_transcribe": {"modules": ["speech_recognition"], "scopeIds": ["native.audio"], "permissionKeys": ["speech"], "agentRisk": "nativePermission", "requiresConfirmation": false, "requiresUserAction": true, "summary": "Transcribe a workspace audio file and return the verified final transcript."},
+        "audio_record_start": {"modules": ["audio_recorder"], "scopeIds": ["native.microphone"], "permissionKeys": ["microphone"], "agentRisk": "nativePermission", "requiresConfirmation": false, "requiresUserAction": true, "summary": "Request microphone permission and start recording to a workspace file."},
+        "audio_record_pause": {"modules": ["audio_recorder"], "scopeIds": ["native.microphone"], "permissionKeys": ["microphone"], "agentRisk": "externalMutation", "requiresConfirmation": false, "requiresUserAction": false, "summary": "Pause the active recording."},
+        "audio_record_resume": {"modules": ["audio_recorder"], "scopeIds": ["native.microphone"], "permissionKeys": ["microphone"], "agentRisk": "externalMutation", "requiresConfirmation": false, "requiresUserAction": false, "summary": "Resume the paused recording."},
+        "audio_record_stop": {"modules": ["audio_recorder"], "scopeIds": ["native.microphone"], "permissionKeys": ["microphone"], "agentRisk": "externalMutation", "requiresConfirmation": false, "requiresUserAction": false, "summary": "Stop recording and verify the resulting workspace audio file."},
+        "audio_record_cancel": {"modules": ["audio_recorder"], "scopeIds": ["native.microphone"], "permissionKeys": ["microphone"], "agentRisk": "destructive", "requiresConfirmation": true, "requiresUserAction": false, "summary": "Cancel the active recording and remove its partial file."},
+        "audio_record_status": {"modules": ["audio_recorder"], "scopeIds": ["native.microphone"], "permissionKeys": ["microphone"], "agentRisk": "readOnly", "requiresConfirmation": false, "requiresUserAction": false, "summary": "Read recording state, duration, level, and output path."}
+      }
+    },
+    "native_people_location": {
+      "toolId": "native_people_location",
+      "actions": ["location_geocode", "location_reverse_geocode", "location_heading", "geofence_list", "geofence_create", "geofence_delete", "contact_search", "contact_get", "contact_create", "contact_update", "contact_delete", "contact_pick", "vcard_export", "vcard_import"],
+      "modules": ["location", "notification", "contacts"],
+      "excludedCapabilities": ["badges"],
+      "scopeIds": ["native.location", "native.notifications", "native.contacts"],
+      "description": "Precise, minimally scoped Location and Contacts actions; contact pickers never disclose the whole address book.",
+      "inputSchema": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "action": {"type": "string", "enum": ["location_geocode", "location_reverse_geocode", "location_heading", "geofence_list", "geofence_create", "geofence_delete", "contact_search", "contact_get", "contact_create", "contact_update", "contact_delete", "contact_pick", "vcard_export", "vcard_import"], "description": "Required Location or Contacts action."},
+          "address": {"type": "string", "description": "Address to geocode."},
+          "latitude": {"type": "number", "minimum": -90, "maximum": 90, "description": "Latitude."},
+          "longitude": {"type": "number", "minimum": -180, "maximum": 180, "description": "Longitude."},
+          "radius_meters": {"type": "number", "minimum": 50, "maximum": 100000, "description": "Circular geofence radius in meters."},
+          "geofence_id": {"type": "string", "description": "Stable geofence identifier for get/update/delete semantics."},
+          "idempotency_key": {"type": "string", "description": "Stable key which makes repeated geofence creation update the same system region."},
+          "notify_on_entry": {"type": "boolean", "description": "Notify when entering the region."},
+          "notify_on_exit": {"type": "boolean", "description": "Notify when leaving the region."},
+          "title": {"type": "string", "description": "Local notification title for a region event."},
+          "body": {"type": "string", "description": "Local notification body for a region event."},
+          "query": {"type": "string", "description": "Contact name, email, or phone query."},
+          "contact_id": {"type": "string", "description": "Stable Contacts identifier."},
+          "given_name": {"type": "string", "description": "Given name."},
+          "family_name": {"type": "string", "description": "Family name."},
+          "organization": {"type": "string", "description": "Organization name."},
+          "phone_numbers": {"type": "array", "items": {"type": "string"}, "description": "Phone numbers."},
+          "email_addresses": {"type": "array", "items": {"type": "string"}, "description": "Email addresses."},
+          "note": {"type": "string", "description": "Contact note."},
+          "path": {"type": "string", "description": "Workspace-relative vCard path."},
+          "limit": {"type": "integer", "minimum": 1, "maximum": 100, "description": "Maximum search results."},
+          "request_permission": {"type": "boolean", "description": "Ask iOS for undetermined permission and await the result."}
+        },
+        "required": ["action"]
+      },
+      "actionDetails": {
+        "location_geocode": {"modules": ["location"], "scopeIds": ["native.location"], "permissionKeys": [], "agentRisk": "externalNetwork", "requiresConfirmation": false, "requiresUserAction": false, "summary": "Resolve an address into coordinates with the system geocoder."},
+        "location_reverse_geocode": {"modules": ["location"], "scopeIds": ["native.location"], "permissionKeys": [], "agentRisk": "externalNetwork", "requiresConfirmation": false, "requiresUserAction": false, "summary": "Resolve coordinates into a postal address with the system geocoder."},
+        "location_heading": {"modules": ["location"], "scopeIds": ["native.location"], "permissionKeys": ["location"], "agentRisk": "nativePermission", "requiresConfirmation": false, "requiresUserAction": true, "summary": "Request Location permission when needed and read one bounded compass-heading sample."},
+        "geofence_list": {"modules": ["location", "notification"], "scopeIds": ["native.location", "native.notifications"], "permissionKeys": ["location", "notifications"], "agentRisk": "readOnly", "requiresConfirmation": false, "requiresUserAction": false, "summary": "List persistent Agent geofences and their actual Core Location monitoring state."},
+        "geofence_create": {"modules": ["location", "notification"], "scopeIds": ["native.location", "native.notifications"], "permissionKeys": ["location", "notifications"], "agentRisk": "externalMutation", "requiresConfirmation": true, "requiresUserAction": true, "summary": "Request Always Location and notification permission, monitor one circular region, persist it idempotently, and verify registration."},
+        "geofence_delete": {"modules": ["location", "notification"], "scopeIds": ["native.location", "native.notifications"], "permissionKeys": ["location", "notifications"], "agentRisk": "destructive", "requiresConfirmation": true, "requiresUserAction": false, "summary": "Stop and delete one persistent geofence, then verify it is absent."},
+        "contact_search": {"modules": ["contacts"], "scopeIds": ["native.contacts"], "permissionKeys": ["contacts"], "agentRisk": "nativePermission", "requiresConfirmation": false, "requiresUserAction": true, "summary": "Search Contacts by an explicit query and return only bounded matching fields."},
+        "contact_get": {"modules": ["contacts"], "scopeIds": ["native.contacts"], "permissionKeys": ["contacts"], "agentRisk": "nativePermission", "requiresConfirmation": false, "requiresUserAction": true, "summary": "Read one explicitly identified contact."},
+        "contact_create": {"modules": ["contacts"], "scopeIds": ["native.contacts"], "permissionKeys": ["contacts"], "agentRisk": "externalMutation", "requiresConfirmation": true, "requiresUserAction": true, "summary": "Create one contact and verify the returned identifier."},
+        "contact_update": {"modules": ["contacts"], "scopeIds": ["native.contacts"], "permissionKeys": ["contacts"], "agentRisk": "externalMutation", "requiresConfirmation": true, "requiresUserAction": true, "summary": "Update one contact and verify the saved values."},
+        "contact_delete": {"modules": ["contacts"], "scopeIds": ["native.contacts"], "permissionKeys": ["contacts"], "agentRisk": "destructive", "requiresConfirmation": true, "requiresUserAction": true, "summary": "Delete one contact and verify absence."},
+        "contact_pick": {"modules": ["contacts"], "scopeIds": ["native.contacts"], "permissionKeys": [], "agentRisk": "nativePermission", "requiresConfirmation": false, "requiresUserAction": true, "summary": "Present the system contact picker and return only the contact selected by the user."},
+        "vcard_export": {"modules": ["contacts"], "scopeIds": ["native.contacts"], "permissionKeys": ["contacts"], "agentRisk": "workspaceWrite", "requiresConfirmation": true, "requiresUserAction": true, "summary": "Export explicitly identified contacts as a workspace vCard."},
+        "vcard_import": {"modules": ["contacts"], "scopeIds": ["native.contacts"], "permissionKeys": ["contacts"], "agentRisk": "externalMutation", "requiresConfirmation": true, "requiresUserAction": true, "summary": "Import contacts from a workspace vCard and return created identifiers."}
+      }
+    },
+    "native_health_motion": {
+      "toolId": "native_health_motion",
+      "actions": ["health_steps", "health_heart_rate", "health_sleep", "health_weight", "health_workouts", "health_save_weight", "motion_snapshot"],
+      "modules": ["health", "motion"],
+      "scopeIds": ["native.health", "native.motion"],
+      "description": "Minimally scoped HealthKit reads/writes and bounded Core Motion snapshots.",
+      "inputSchema": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "action": {"type": "string", "enum": ["health_steps", "health_heart_rate", "health_sleep", "health_weight", "health_workouts", "health_save_weight", "motion_snapshot"], "description": "Required Health or Motion action."},
+          "start": {"type": "string", "description": "ISO-8601 or Unix query start."},
+          "end": {"type": "string", "description": "ISO-8601 or Unix query end."},
+          "limit": {"type": "integer", "minimum": 1, "maximum": 500, "description": "Maximum samples."},
+          "kg": {"type": "number", "minimum": 1, "maximum": 1000, "description": "Body mass in kilograms."},
+          "timestamp": {"type": "string", "description": "ISO-8601 or Unix sample time."},
+          "sensor": {"type": "string", "enum": ["acceleration", "gravity", "rotation_rate", "magnetic_field", "attitude", "altitude"], "description": "Motion sample type."},
+          "sample_seconds": {"type": "number", "minimum": 0.1, "maximum": 30, "description": "Bounded sampling duration."},
+          "request_permission": {"type": "boolean", "description": "Ask iOS for only the exact requested data types and await the result."}
+        },
+        "required": ["action"]
+      },
+      "actionDetails": {
+        "health_steps": {"modules": ["health"], "scopeIds": ["native.health"], "permissionKeys": ["health"], "agentRisk": "nativePermission", "requiresConfirmation": false, "requiresUserAction": true, "summary": "Request read access only to step count and return an aggregate for the requested interval."},
+        "health_heart_rate": {"modules": ["health"], "scopeIds": ["native.health"], "permissionKeys": ["health"], "agentRisk": "nativePermission", "requiresConfirmation": false, "requiresUserAction": true, "summary": "Request read access only to heart rate and return bounded samples."},
+        "health_sleep": {"modules": ["health"], "scopeIds": ["native.health"], "permissionKeys": ["health"], "agentRisk": "nativePermission", "requiresConfirmation": false, "requiresUserAction": true, "summary": "Request read access only to sleep analysis and return bounded intervals."},
+        "health_weight": {"modules": ["health"], "scopeIds": ["native.health"], "permissionKeys": ["health"], "agentRisk": "nativePermission", "requiresConfirmation": false, "requiresUserAction": true, "summary": "Request read access only to body mass and return bounded samples."},
+        "health_workouts": {"modules": ["health"], "scopeIds": ["native.health"], "permissionKeys": ["health"], "agentRisk": "nativePermission", "requiresConfirmation": false, "requiresUserAction": true, "summary": "Request read access only to workouts and return bounded records."},
+        "health_save_weight": {"modules": ["health"], "scopeIds": ["native.health"], "permissionKeys": ["health"], "agentRisk": "externalMutation", "requiresConfirmation": true, "requiresUserAction": true, "summary": "Request write access only to body mass, save one sample, and verify authorization."},
+        "motion_snapshot": {"modules": ["motion"], "scopeIds": ["native.motion"], "permissionKeys": ["motion"], "agentRisk": "nativePermission", "requiresConfirmation": false, "requiresUserAction": true, "summary": "Collect one short, bounded Core Motion snapshot and stop the sensor immediately."}
+      }
+    },
+    "native_hardware": {
+      "toolId": "native_hardware",
+      "actions": ["bluetooth_state", "bluetooth_scan", "bluetooth_connect", "bluetooth_disconnect", "bluetooth_services", "bluetooth_read", "bluetooth_write", "nfc_scan", "nfc_write"],
+      "modules": ["bluetooth", "nfc"],
+      "scopeIds": ["native.bluetooth", "native.nfc"],
+      "description": "Explicit, bounded Bluetooth LE and NFC operations for user-created hardware Skills.",
+      "inputSchema": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "action": {"type": "string", "enum": ["bluetooth_state", "bluetooth_scan", "bluetooth_connect", "bluetooth_disconnect", "bluetooth_services", "bluetooth_read", "bluetooth_write", "nfc_scan", "nfc_write"], "description": "Required hardware action."},
+          "duration_seconds": {"type": "number", "minimum": 0.5, "maximum": 30, "description": "Bounded Bluetooth scan duration."},
+          "peripheral_uuid": {"type": "string", "description": "Bluetooth peripheral UUID returned by a scan."},
+          "service_uuid": {"type": "string", "description": "Bluetooth service UUID."},
+          "characteristic_uuid": {"type": "string", "description": "Bluetooth characteristic UUID."},
+          "data_base64": {"type": "string", "description": "Base64 bytes for a characteristic write."},
+          "with_response": {"type": "boolean", "description": "Use a write-with-response transaction."},
+          "message": {"type": "string", "description": "System NFC scan/write prompt."},
+          "records": {"type": "array", "items": {"type": "object", "additionalProperties": {"type": "string"}}, "description": "NDEF records to write."}
+        },
+        "required": ["action"]
+      },
+      "actionDetails": {
+        "bluetooth_state": {"modules": ["bluetooth"], "scopeIds": ["native.bluetooth"], "permissionKeys": ["bluetooth"], "agentRisk": "readOnly", "requiresConfirmation": false, "requiresUserAction": false, "summary": "Read the current Core Bluetooth manager state."},
+        "bluetooth_scan": {"modules": ["bluetooth"], "scopeIds": ["native.bluetooth"], "permissionKeys": ["bluetooth"], "agentRisk": "nativePermission", "requiresConfirmation": false, "requiresUserAction": true, "summary": "Run a bounded Bluetooth LE scan and return discovered peripheral identifiers."},
+        "bluetooth_connect": {"modules": ["bluetooth"], "scopeIds": ["native.bluetooth"], "permissionKeys": ["bluetooth"], "agentRisk": "externalMutation", "requiresConfirmation": true, "requiresUserAction": true, "summary": "Connect to one explicitly identified Bluetooth peripheral."},
+        "bluetooth_disconnect": {"modules": ["bluetooth"], "scopeIds": ["native.bluetooth"], "permissionKeys": ["bluetooth"], "agentRisk": "externalMutation", "requiresConfirmation": false, "requiresUserAction": false, "summary": "Disconnect one Bluetooth peripheral."},
+        "bluetooth_services": {"modules": ["bluetooth"], "scopeIds": ["native.bluetooth"], "permissionKeys": ["bluetooth"], "agentRisk": "readOnly", "requiresConfirmation": false, "requiresUserAction": false, "summary": "Discover services and characteristics on a connected peripheral."},
+        "bluetooth_read": {"modules": ["bluetooth"], "scopeIds": ["native.bluetooth"], "permissionKeys": ["bluetooth"], "agentRisk": "readOnly", "requiresConfirmation": false, "requiresUserAction": false, "summary": "Read one explicitly identified Bluetooth characteristic."},
+        "bluetooth_write": {"modules": ["bluetooth"], "scopeIds": ["native.bluetooth"], "permissionKeys": ["bluetooth"], "agentRisk": "externalMutation", "requiresConfirmation": true, "requiresUserAction": false, "summary": "Write bytes to one explicitly identified Bluetooth characteristic."},
+        "nfc_scan": {"modules": ["nfc"], "scopeIds": ["native.nfc"], "permissionKeys": ["nfc"], "agentRisk": "nativePermission", "requiresConfirmation": false, "requiresUserAction": true, "summary": "Present the system NFC scan sheet and await an NDEF result."},
+        "nfc_write": {"modules": ["nfc"], "scopeIds": ["native.nfc"], "permissionKeys": ["nfc"], "agentRisk": "externalMutation", "requiresConfirmation": true, "requiresUserAction": true, "summary": "Present the system NFC writer and write explicit NDEF records."}
+      }
+    },
+    "native_automation": {
+      "toolId": "native_automation",
+      "actions": ["live_activity_status", "live_activity_start", "live_activity_update", "live_activity_end", "mail_compose", "message_compose"],
+      "modules": ["live_activity", "mail", "message", "shortcuts"],
+      "scopeIds": ["native.live_activity", "native.compose"],
+      "description": "Agent Live Activity lifecycle and system-reviewed Mail/SMS compose flows.",
+      "inputSchema": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "action": {"type": "string", "enum": ["live_activity_status", "live_activity_start", "live_activity_update", "live_activity_end", "mail_compose", "message_compose"], "description": "Required automation action."},
+          "activity_id": {"type": "string", "description": "Agent run or Live Activity identifier."},
+          "title": {"type": "string", "description": "Live Activity title."},
+          "message": {"type": "string", "description": "Live Activity detail text."},
+          "progress": {"type": "number", "minimum": 0, "maximum": 1, "description": "Optional progress fraction."},
+          "status": {"type": "string", "description": "Live Activity status label."},
+          "to": {"type": "array", "items": {"type": "string"}, "description": "Mail recipients."},
+          "cc": {"type": "array", "items": {"type": "string"}, "description": "Mail CC recipients."},
+          "bcc": {"type": "array", "items": {"type": "string"}, "description": "Mail BCC recipients."},
+          "recipients": {"type": "array", "items": {"type": "string"}, "description": "Message recipients."},
+          "subject": {"type": "string", "description": "Mail subject."},
+          "body": {"type": "string", "description": "Mail or message body."},
+          "paths": {"type": "array", "items": {"type": "string"}, "description": "Workspace-relative attachments."}
+        },
+        "required": ["action"]
+      },
+      "actionDetails": {
+        "live_activity_status": {"modules": ["live_activity"], "scopeIds": ["native.live_activity"], "permissionKeys": ["live_activity"], "agentRisk": "readOnly", "requiresConfirmation": false, "requiresUserAction": false, "summary": "Read Live Activity support, authorization, and active Agent activity state."},
+        "live_activity_start": {"modules": ["live_activity"], "scopeIds": ["native.live_activity"], "permissionKeys": ["live_activity"], "agentRisk": "externalMutation", "requiresConfirmation": false, "requiresUserAction": false, "summary": "Start an Agent-linked Live Activity for a long-running task."},
+        "live_activity_update": {"modules": ["live_activity"], "scopeIds": ["native.live_activity"], "permissionKeys": ["live_activity"], "agentRisk": "externalMutation", "requiresConfirmation": false, "requiresUserAction": false, "summary": "Update the current Agent-linked Live Activity."},
+        "live_activity_end": {"modules": ["live_activity"], "scopeIds": ["native.live_activity"], "permissionKeys": ["live_activity"], "agentRisk": "externalMutation", "requiresConfirmation": false, "requiresUserAction": false, "summary": "End the current Agent-linked Live Activity."},
+        "mail_compose": {"modules": ["mail"], "scopeIds": ["native.compose"], "permissionKeys": [], "agentRisk": "externalMutation", "requiresConfirmation": true, "requiresUserAction": true, "summary": "Present Apple's Mail composer with recipients, content, and workspace attachments; iOS requires the user to review and send."},
+        "message_compose": {"modules": ["message"], "scopeIds": ["native.compose"], "permissionKeys": [], "agentRisk": "externalMutation", "requiresConfirmation": true, "requiresUserAction": true, "summary": "Present Apple's Messages composer with recipients, content, and attachments; iOS requires the user to review and send."}
       }
     }
   },
@@ -646,14 +1099,44 @@
         "sqlite",
         "native_sqlite_bridge",
         "collections",
-        "transactions"
+        "transactions",
+        "blob_parameters",
+        "blob_results"
       ],
       "permissions": [],
       "risk": "local_persistence",
       "requiresUserAction": false,
       "failureStates": [
         "missing_record",
-        "query_error"
+        "query_error",
+        "blob_too_large",
+        "decode_error"
+      ],
+      "kind": "module",
+      "presentation": "api"
+    },
+    "archive": {
+      "importName": "archive",
+      "category": "systemServices",
+      "docId": "archive-module",
+      "docFile": "archive-module.md",
+      "agentDocId": "archive-module-agent",
+      "agentDocFile": "archive-module-agent.md",
+      "capabilities": [
+        "zip_inspection",
+        "zip_extraction",
+        "zip_creation",
+        "native_archive_bridge"
+      ],
+      "permissions": [],
+      "risk": "local_file_write",
+      "requiresUserAction": false,
+      "failureStates": [
+        "invalid_archive",
+        "unsafe_path",
+        "unsupported_compression",
+        "budget_exceeded",
+        "cancelled"
       ],
       "kind": "module",
       "presentation": "api"
@@ -828,7 +1311,7 @@
         "dynamic_island",
         "lock_screen_activity"
       ],
-      "permissions": [],
+      "permissions": ["live_activity"],
       "risk": "system_write",
       "requiresUserAction": true,
       "failureStates": [
@@ -1086,6 +1569,114 @@
       "kind": "module",
       "presentation": "api"
     },
+    "native_image": {
+      "importName": "native_image",
+      "category": "mediaVision",
+      "docId": "native-image-module",
+      "docFile": "native-image-module.md",
+      "agentDocId": "native-image-module-agent",
+      "agentDocFile": "native-image-module-agent.md",
+      "capabilities": [
+        "image_inspection",
+        "native_image_processing",
+        "resize",
+        "thumbnail",
+        "crop",
+        "rotate",
+        "core_image_filters"
+      ],
+      "permissions": [],
+      "risk": "local_file_write",
+      "requiresUserAction": false,
+      "failureStates": [
+        "busy",
+        "cancelled",
+        "decode_failed",
+        "empty_image",
+        "encode_failed",
+        "file_denied",
+        "filter_failed",
+        "filter_limit",
+        "input_too_large",
+        "invalid_crop",
+        "invalid_destination",
+        "invalid_dimensions",
+        "invalid_filter",
+        "invalid_frame",
+        "invalid_quality",
+        "invalid_resize",
+        "invalid_rotation",
+        "invalid_source",
+        "io_error",
+        "pixel_limit",
+        "render_failed",
+        "session_expired",
+        "unsupported_format",
+        "unknown_command"
+      ],
+      "contract": {
+        "geometrySpace": "exif_normalized_visual_top_left",
+        "pipeline": [
+          "normalize_orientation",
+          "crop",
+          "resize",
+          "rotate",
+          "flip_horizontal",
+          "flip_vertical",
+          "filters",
+          "encode_without_metadata"
+        ],
+        "resizeModes": ["fit", "fill", "stretch"],
+        "outputFormats": ["jpg", "jpeg", "png", "heic", "heif", "tif", "tiff"],
+        "limits": {
+          "maximumInputBytes": 268435456,
+          "maximumDimension": 32768,
+          "minimumPixelBudget": 8000000,
+          "maximumPixelBudget": 40000000,
+          "maximumFilterCount": 16
+        },
+        "filters": {
+          "gaussian_blur": {
+            "nativeName": "CIGaussianBlur",
+            "parameters": {
+              "radius": {"nativeKey": "inputRadius", "minimum": 0, "maximum": 100}
+            }
+          },
+          "monochrome": {
+            "nativeName": "CIColorMonochrome",
+            "parameters": {
+              "intensity": {"nativeKey": "inputIntensity", "minimum": 0, "maximum": 1}
+            }
+          },
+          "sepia": {
+            "nativeName": "CISepiaTone",
+            "parameters": {
+              "intensity": {"nativeKey": "inputIntensity", "minimum": 0, "maximum": 1}
+            }
+          },
+          "vibrance": {
+            "nativeName": "CIVibrance",
+            "parameters": {
+              "amount": {"nativeKey": "inputAmount", "minimum": -1, "maximum": 1}
+            }
+          },
+          "exposure": {
+            "nativeName": "CIExposureAdjust",
+            "parameters": {
+              "ev": {"nativeKey": "inputEV", "minimum": -10, "maximum": 10}
+            }
+          },
+          "sharpen": {
+            "nativeName": "CISharpenLuminance",
+            "parameters": {
+              "sharpness": {"nativeKey": "inputSharpness", "minimum": 0, "maximum": 2}
+            }
+          }
+        }
+      },
+      "kind": "module",
+      "presentation": "api"
+    },
     "weather": {
       "importName": "weather",
       "category": "networkData",
@@ -1329,6 +1920,8 @@
       "agentDocFile": "network-module-agent.md",
       "capabilities": [
         "http",
+        "http_streaming",
+        "server_sent_events",
         "download",
         "connectivity"
       ],
@@ -1338,7 +1931,10 @@
       "failureStates": [
         "offline",
         "timeout",
-        "http_error"
+        "http_error",
+        "stream_error",
+        "response_too_large",
+        "cancelled"
       ],
       "kind": "module",
       "presentation": "api"
@@ -1556,13 +2152,38 @@
       "agentDocFile": "background-download-module-agent.md",
       "capabilities": [
         "background_download",
-        "download_progress"
+        "background_upload",
+        "download_progress",
+        "transfer_pause_resume",
+        "durable_task_center",
+        "checksum_validation"
       ],
       "permissions": [],
       "risk": "network",
       "requiresUserAction": false,
       "failureStates": [
         "network_error",
+        "http_error",
+        "network_denied",
+        "redirect_denied",
+        "file_denied",
+        "file_changed",
+        "file_commit_failed",
+        "download_missing_file",
+        "upload_spool_unavailable",
+        "insufficient_storage",
+        "checksum_mismatch",
+        "resume_unavailable",
+        "finalization_missing",
+        "sensitive_headers_required",
+        "task_missing",
+        "persistence_failed",
+        "reconciliation_pending",
+        "duplicate_task",
+        "too_many_tasks",
+        "not_running",
+        "not_resumable",
+        "not_retryable",
         "cancelled",
         "invalid_input"
       ],
@@ -1710,10 +2331,11 @@
       "agentDocId": "alarm-module-agent",
       "agentDocFile": "alarm-module-agent.md",
       "capabilities": [
+        "alarm_list",
         "alarm_schedule",
         "alarm_cancel"
       ],
-      "permissions": [],
+      "permissions": ["alarms"],
       "risk": "system_write",
       "requiresUserAction": true,
       "failureStates": [
@@ -1984,6 +2606,7 @@
             "permission-module",
             "storage-module",
             "database-module",
+            "archive-module",
             "keychain-module",
             "clipboard-module",
             "console-module",
@@ -2059,6 +2682,7 @@
           "id": "vision-docs",
           "title": "视觉与文档",
           "items": [
+            "native-image-module",
             "vision-module",
             "vision-helper-module",
             "coreml-module",

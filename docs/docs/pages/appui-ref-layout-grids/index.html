@@ -167,6 +167,7 @@
 <a class="nav-link" href="../../pages/permission-module/">permission</a>
 <a class="nav-link" href="../../pages/storage-module/">storage</a>
 <a class="nav-link" href="../../pages/database-module/">database</a>
+<a class="nav-link" href="../../pages/archive-module/">archive</a>
 <a class="nav-link" href="../../pages/keychain-module/">keychain</a>
 <a class="nav-link" href="../../pages/clipboard-module/">clipboard</a>
 <a class="nav-link" href="../../pages/console-module/">console</a>
@@ -214,6 +215,7 @@
 </div>
 <div class="nav-group">
 <div class="nav-group-title">视觉与文档</div>
+<a class="nav-link" href="../../pages/native-image-module/">native_image</a>
 <a class="nav-link" href="../../pages/vision-module/">vision</a>
 <a class="nav-link" href="../../pages/vision-helper-module/">vision_helper</a>
 <a class="nav-link" href="../../pages/coreml-module/">coreml</a>
@@ -299,7 +301,7 @@
   <pre><code id="code-5b254dfd333f" class="language-text">LazyVGrid(columns=None, content=None, spacing=None, children=None)</code></pre>
 </figure>
 <p><strong>参数</strong></p>
-<div class="table-scroll"><table><thead><tr><th>参数</th><th>类型</th><th>说明</th></tr></thead><tbody><tr><td><code>columns</code></td><td><code>list[dict] \| None</code></td><td>列描述列表；缺省为 <code>[{&#x27;type&#x27;: &#x27;flexible&#x27;}]</code>。</td></tr><tr><td><code>content</code> / <code>children</code></td><td><code>list[View] \| None</code></td><td>网格单元视图。</td></tr><tr><td><code>spacing</code></td><td><code>数值 \| None</code></td><td>单元间距。</td></tr></tbody></table></div>
+<div class="table-scroll"><table><thead><tr><th>参数</th><th>类型</th><th>说明</th></tr></thead><tbody><tr><td><code>columns</code></td><td><code>list[dict] | None</code></td><td>列描述列表；缺省为 <code>[{&#x27;type&#x27;: &#x27;flexible&#x27;}]</code>。</td></tr><tr><td><code>content</code> / <code>children</code></td><td><code>list[View] | None</code></td><td>网格单元视图。</td></tr><tr><td><code>spacing</code></td><td><code>数值 | None</code></td><td>单元间距。</td></tr></tbody></table></div>
 <p><strong>示例</strong></p>
 <figure class="code-block" data-code-id="cccbab3b0adb">
   <figcaption>
@@ -335,7 +337,7 @@ appui.run(body, presentation=&quot;sheet&quot;)</code></pre>
   <pre><code id="code-b8afddd18295" class="language-text">LazyHGrid(rows=None, content=None, spacing=None, children=None)</code></pre>
 </figure>
 <p><strong>参数</strong></p>
-<div class="table-scroll"><table><thead><tr><th>参数</th><th>类型</th><th>说明</th></tr></thead><tbody><tr><td><code>rows</code></td><td><code>list[dict] \| None</code></td><td>行描述；缺省为 <code>[{&#x27;type&#x27;: &#x27;flexible&#x27;}]</code>。</td></tr><tr><td><code>content</code> / <code>children</code></td><td><code>list[View] \| None</code></td><td>子视图。</td></tr><tr><td><code>spacing</code></td><td><code>数值 \| None</code></td><td>间距。</td></tr></tbody></table></div>
+<div class="table-scroll"><table><thead><tr><th>参数</th><th>类型</th><th>说明</th></tr></thead><tbody><tr><td><code>rows</code></td><td><code>list[dict] | None</code></td><td>行描述；缺省为 <code>[{&#x27;type&#x27;: &#x27;flexible&#x27;}]</code>。</td></tr><tr><td><code>content</code> / <code>children</code></td><td><code>list[View] | None</code></td><td>子视图。</td></tr><tr><td><code>spacing</code></td><td><code>数值 | None</code></td><td>间距。</td></tr></tbody></table></div>
 <p><strong>示例</strong></p>
 <figure class="code-block" data-code-id="08b51068ddd7">
   <figcaption>
@@ -368,7 +370,7 @@ appui.run(body, presentation=&quot;sheet&quot;)</code></pre>
      horizontalSpacing=None, verticalSpacing=None)</code></pre>
 </figure>
 <p><strong>参数</strong></p>
-<div class="table-scroll"><table><thead><tr><th>参数</th><th>类型</th><th>说明</th></tr></thead><tbody><tr><td><code>content</code></td><td><code>list[View] \| None</code></td><td>通常由若干 <a href="#gridrow">GridRow</a> 组成。</td></tr><tr><td><code>alignment</code></td><td><code>str</code></td><td>单元格对齐。</td></tr><tr><td><code>horizontal_spacing</code> / <code>vertical_spacing</code></td><td><code>数值 \| None</code></td><td>行/列间距。</td></tr></tbody></table></div>
+<div class="table-scroll"><table><thead><tr><th>参数</th><th>类型</th><th>说明</th></tr></thead><tbody><tr><td><code>content</code></td><td><code>list[View] | None</code></td><td>通常由若干 <a href="#gridrow">GridRow</a> 组成。</td></tr><tr><td><code>alignment</code></td><td><code>str</code></td><td>单元格对齐。</td></tr><tr><td><code>horizontal_spacing</code> / <code>vertical_spacing</code></td><td><code>数值 | None</code></td><td>行/列间距。</td></tr></tbody></table></div>
 <p><strong>示例</strong></p>
 <figure class="code-block" data-code-id="a13b9df96e13">
   <figcaption>
@@ -401,7 +403,7 @@ appui.run(body, presentation=&quot;sheet&quot;)</code></pre>
   <pre><code id="code-70f9c5e6d3fd" class="language-text">GridRow(content=None, alignment=None)</code></pre>
 </figure>
 <p><strong>参数</strong></p>
-<div class="table-scroll"><table><thead><tr><th>参数</th><th>类型</th><th>说明</th></tr></thead><tbody><tr><td><code>content</code></td><td><code>list[View] \| None</code></td><td>一行中的单元视图。</td></tr><tr><td><code>alignment</code></td><td><code>str \| None</code></td><td>行内对齐；<code>None</code> 表示默认。</td></tr></tbody></table></div>
+<div class="table-scroll"><table><thead><tr><th>参数</th><th>类型</th><th>说明</th></tr></thead><tbody><tr><td><code>content</code></td><td><code>list[View] | None</code></td><td>一行中的单元视图。</td></tr><tr><td><code>alignment</code></td><td><code>str | None</code></td><td>行内对齐；<code>None</code> 表示默认。</td></tr></tbody></table></div>
 <p><strong>示例</strong></p>
 <p>见 <a href="#grid">Grid</a>。</p>
 <p><strong>参阅</strong>：<a href="#grid">Grid</a>、<a href="../../pages/appui-ref-layout-stacks/#hstack">HStack</a></p>
@@ -416,7 +418,7 @@ appui.run(body, presentation=&quot;sheet&quot;)</code></pre>
   <pre><code id="code-190647a0c5f6" class="language-text">flexible(minimum=10, maximum=None)</code></pre>
 </figure>
 <p><strong>参数</strong></p>
-<div class="table-scroll"><table><thead><tr><th>参数</th><th>类型</th><th>说明</th></tr></thead><tbody><tr><td><code>minimum</code></td><td><code>数值</code></td><td>轨道最小尺寸。</td></tr><tr><td><code>maximum</code></td><td><code>数值 \| None</code></td><td>最大尺寸；<code>None</code> 表示不限制。</td></tr></tbody></table></div>
+<div class="table-scroll"><table><thead><tr><th>参数</th><th>类型</th><th>说明</th></tr></thead><tbody><tr><td><code>minimum</code></td><td><code>数值</code></td><td>轨道最小尺寸。</td></tr><tr><td><code>maximum</code></td><td><code>数值 | None</code></td><td>最大尺寸；<code>None</code> 表示不限制。</td></tr></tbody></table></div>
 <p><strong>示例</strong></p>
 <figure class="code-block" data-code-id="218b689f99a9">
   <figcaption>
@@ -464,7 +466,7 @@ assert c[&quot;type&quot;] == &quot;fixed&quot;</code></pre>
   <pre><code id="code-a843d5807105" class="language-text">adaptive(minimum=50, maximum=None)</code></pre>
 </figure>
 <p><strong>参数</strong></p>
-<div class="table-scroll"><table><thead><tr><th>参数</th><th>类型</th><th>说明</th></tr></thead><tbody><tr><td><code>minimum</code></td><td><code>数值</code></td><td>每个自适应单元最小宽度。</td></tr><tr><td><code>maximum</code></td><td><code>数值 \| None</code></td><td>可选上限。</td></tr></tbody></table></div>
+<div class="table-scroll"><table><thead><tr><th>参数</th><th>类型</th><th>说明</th></tr></thead><tbody><tr><td><code>minimum</code></td><td><code>数值</code></td><td>每个自适应单元最小宽度。</td></tr><tr><td><code>maximum</code></td><td><code>数值 | None</code></td><td>可选上限。</td></tr></tbody></table></div>
 <p><strong>示例</strong></p>
 <figure class="code-block" data-code-id="11ac79ac9208">
   <figcaption>
@@ -488,7 +490,7 @@ print(len(cols), cols[0][&quot;type&quot;])</code></pre>
   <pre><code id="code-fbd4079f9f53" class="language-text">grid_item(type=&#x27;flexible&#x27;, minimum=None, maximum=None, count=None)</code></pre>
 </figure>
 <p><strong>参数</strong></p>
-<div class="table-scroll"><table><thead><tr><th>参数</th><th>类型</th><th>说明</th></tr></thead><tbody><tr><td><code>type</code></td><td><code>str</code></td><td>轨道类型：<code>&#x27;flexible&#x27;</code>、<code>&#x27;fixed&#x27;</code>、<code>&#x27;adaptive&#x27;</code>。</td></tr><tr><td><code>minimum</code></td><td><code>数值 \| None</code></td><td>轨道最小尺寸。</td></tr><tr><td><code>maximum</code></td><td><code>数值 \| None</code></td><td>轨道最大尺寸；<code>None</code> 表示不限制。</td></tr><tr><td><code>count</code></td><td><code>int \| None</code></td><td>用于 <code>adaptive</code> 类型时的列数提示。</td></tr></tbody></table></div>
+<div class="table-scroll"><table><thead><tr><th>参数</th><th>类型</th><th>说明</th></tr></thead><tbody><tr><td><code>type</code></td><td><code>str</code></td><td>轨道类型：<code>&#x27;flexible&#x27;</code>、<code>&#x27;fixed&#x27;</code>、<code>&#x27;adaptive&#x27;</code>。</td></tr><tr><td><code>minimum</code></td><td><code>数值 | None</code></td><td>轨道最小尺寸。</td></tr><tr><td><code>maximum</code></td><td><code>数值 | None</code></td><td>轨道最大尺寸；<code>None</code> 表示不限制。</td></tr><tr><td><code>count</code></td><td><code>int | None</code></td><td>用于 <code>adaptive</code> 类型时的列数提示。</td></tr></tbody></table></div>
 <p><strong>用途</strong></p>
 <p>通用网格轨道描述函数，返回 <code>dict</code>；与 <code>flexible</code>、<code>fixed</code>、<code>adaptive</code> 功能等价，适合动态生成列/行描述。</p>
 <figure class="code-block" data-code-id="6f5d2e14cc49">

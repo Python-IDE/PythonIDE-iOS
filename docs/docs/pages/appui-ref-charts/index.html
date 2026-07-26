@@ -167,6 +167,7 @@
 <a class="nav-link" href="../../pages/permission-module/">permission</a>
 <a class="nav-link" href="../../pages/storage-module/">storage</a>
 <a class="nav-link" href="../../pages/database-module/">database</a>
+<a class="nav-link" href="../../pages/archive-module/">archive</a>
 <a class="nav-link" href="../../pages/keychain-module/">keychain</a>
 <a class="nav-link" href="../../pages/clipboard-module/">clipboard</a>
 <a class="nav-link" href="../../pages/console-module/">console</a>
@@ -214,6 +215,7 @@
 </div>
 <div class="nav-group">
 <div class="nav-group-title">视觉与文档</div>
+<a class="nav-link" href="../../pages/native-image-module/">native_image</a>
 <a class="nav-link" href="../../pages/vision-module/">vision</a>
 <a class="nav-link" href="../../pages/vision-helper-module/">vision_helper</a>
 <a class="nav-link" href="../../pages/coreml-module/">coreml</a>
@@ -289,10 +291,13 @@
   <div class="markdown-body">
     <p>本页覆盖 <code>Chart</code>、<code>Canvas</code>、<code>DrawingContext</code> 和 <code>Path</code>。<code>Chart</code> 用系统图表展示结构化数据；<code>Canvas</code> 和 <code>DrawingContext</code> 用命令列表画 2D 图形；<code>Path</code> 用矢量路径命令画自定义形状。</p>
 <h2 id="什么时候用"><a class="heading-anchor" href="#什么时候用">#</a>什么时候用</h2>
-<div class="table-scroll"><table><thead><tr><th>目标</th><th>首选 API</th><th>说明</th></tr></thead><tbody><tr><td>柱状、折线、面积、散点图</td><td><code>Chart</code></td><td>数据是字典列表，字段由 <code>x</code>、<code>y</code>、<code>series</code> 指定。</td></tr><tr><td>简单 2D 绘图</td><td><code>Canvas</code> + <code>DrawingContext</code></td><td>矩形、圆、线、文本、渐变、路径等命令。</td></tr><tr><td>自定义矢量形状</td><td><code>Path</code></td><td>三角形、曲线、弧线、可填充或描边的路径。</td></tr><tr><td>实时高频绘制</td><td><code>Canvas</code> + 稳定命令列表</td><td>避免每次 <code>body()</code> 重建大量命令。</td></tr></tbody></table></div>
+<div class="table-scroll"><table><thead><tr><th>目标</th><th>首选 API</th><th>说明</th></tr></thead><tbody><tr><td>单一柱状、折线、面积、散点图</td><td><code>Chart(type=..., x=..., y=...)</code></td><td>旧写法继续支持，适合一种图形。</td></tr><tr><td>组合图、区间图、饼图、阈值和逐 Mark 样式</td><td><code>Chart(marks=[...])</code></td><td>一份数据可组合多种系统原生 Mark。</td></tr><tr><td>简单 2D 绘图</td><td><code>Canvas</code> + <code>DrawingContext</code></td><td>矩形、圆、线、文本、渐变、路径等命令。</td></tr><tr><td>自定义矢量形状</td><td><code>Path</code></td><td>三角形、曲线、弧线、可填充或描边的路径。</td></tr><tr><td>实时高频绘制</td><td><code>Canvas</code> + 稳定命令列表</td><td>避免每次 <code>body()</code> 重建大量命令。</td></tr></tbody></table></div>
 <h2 id="chart"><a class="heading-anchor" href="#chart">#</a>Chart</h2>
-<p><code>Chart(data=None, x=&#x27;x&#x27;, y=&#x27;y&#x27;, type=&#x27;bar&#x27;, color=None, series=None)</code></p>
-<div class="table-scroll"><table><thead><tr><th>API</th><th>签名</th><th>分类</th></tr></thead><tbody><tr><td><code>Chart</code></td><td><code>Chart(data: Optional[Sequence[Dict[str, Any]]] = None, x: str = &#x27;x&#x27;, y: str = &#x27;y&#x27;, type: str = &#x27;bar&#x27;, color: Optional[ColorLike] = None, series: Optional[str] = None)</code></td><td><code>media</code></td></tr></tbody></table></div>
+<p><code>Chart(data=None, x=&#x27;x&#x27;, y=&#x27;y&#x27;, type=&#x27;bar&#x27;, color=None, series=None, *, ...)</code></p>
+<div class="table-scroll"><table><thead><tr><th>API</th><th>签名</th><th>分类</th></tr></thead><tbody><tr><td><code>Chart</code></td><td><code>Chart(data: Optional[Sequence[Dict[str, Any]]] = None, x: str = &#x27;x&#x27;, y: str = &#x27;y&#x27;, type: str = &#x27;bar&#x27;, color: Optional[ColorLike] = None, series: Optional[str] = None, *, x_type: str = &#x27;auto&#x27;, interpolation: str = &#x27;linear&#x27;, stacking: str = &#x27;standard&#x27;, symbol: Optional[str] = None, symbol_size: Optional[float] = None, show_legend: bool = True, show_x_axis: bool = True, show_y_axis: bool = True, y_domain: Optional[Sequence[float]] = None, selection: Any = None, on_selection_change: Optional[Callable[[Any], Any]] = None, on_select: Optional[Callable[[Optional[Dict[str, Any]]], Any]] = None, scrollable_axes: Optional[str] = None, visible_domain: Optional[float] = None, annotation_key: Optional[str] = None, area_opacity: float = 0.3, marks: Optional[Sequence[ChartMark]] = None, selection_x: Optional[str] = None)</code></td><td><code>media</code></td></tr></tbody></table></div>
+<p><code>Chart</code> 直接由系统原生图表框架渲染，坐标计算、滚动、选择命中、插值和动画都留在原生端执行；Python 只在数据或用户选择真正变化时收到事件。</p>
+<div class="table-scroll"><table><thead><tr><th>参数</th><th>取值与语义</th></tr></thead><tbody><tr><td><code>x_type</code></td><td><code>&#x27;auto&#x27;</code>、<code>&#x27;category&#x27;</code>、<code>&#x27;number&#x27;</code>、<code>&#x27;date&#x27;</code>；日期接受 ISO-8601 字符串或 Unix 时间戳。</td></tr><tr><td><code>interpolation</code></td><td><code>&#x27;linear&#x27;</code>、<code>&#x27;monotone&#x27;</code>、<code>&#x27;cardinal&#x27;</code>、<code>&#x27;catmull_rom&#x27;</code>、<code>&#x27;step_start&#x27;</code>、<code>&#x27;step_center&#x27;</code>、<code>&#x27;step_end&#x27;</code>。</td></tr><tr><td><code>stacking</code></td><td><code>&#x27;standard&#x27;</code>、<code>&#x27;normalized&#x27;</code>、<code>&#x27;center&#x27;</code>、<code>&#x27;unstacked&#x27;</code>。</td></tr><tr><td><code>symbol</code> / <code>symbol_size</code></td><td>折线或散点的原生符号及面积；可用 circle、square、triangle、diamond、pentagon、plus、cross、asterisk。</td></tr><tr><td><code>show_legend</code> / <code>show_x_axis</code> / <code>show_y_axis</code></td><td>控制系统图例和坐标轴可见性。</td></tr><tr><td><code>y_domain</code></td><td>两个数值组成的 <code>[minimum, maximum]</code>。</td></tr><tr><td><code>selection</code></td><td>标量或 <code>State.bind.&lt;field&gt;</code>；用户在图表中选择 x 值后双向同步。iOS 17+ 支持触摸选择。</td></tr><tr><td><code>on_select</code></td><td>接收最接近所选 x 值的原始数据字典。</td></tr><tr><td><code>scrollable_axes</code> / <code>visible_domain</code></td><td>iOS 17+ 的原生图表滚动方向和可见 x 域长度。</td></tr><tr><td><code>annotation_key</code></td><td>数据字典中用作原生标注文字的字段名。</td></tr><tr><td><code>marks</code></td><td>1–32 个 <code>BarMark</code> / <code>LineMark</code> / <code>AreaMark</code> / <code>PointMark</code> / <code>RuleMark</code> / <code>RectangleMark</code> / <code>SectorMark</code>；传入后启用组合 Mark。</td></tr><tr><td><code>selection_x</code></td><td>组合 Mark 用于触摸选择、最近行回调和横向可见域的字段名；省略时继续使用 <code>x</code>。</td></tr></tbody></table></div>
+<p>旧的 <code>Chart(data, x, y, type, ...)</code> 没有废弃，也不会被偷偷改写成新的用户 API。它仍是单一图形的最短写法；需要组合多个 Mark、区间坐标、环形扇区或每个 Mark 独立样式时，再使用 <code>marks=</code>。两条写法共享同一套系统原生图表渲染、选择和数据更新路径。</p>
 <figure class="code-block" data-code-id="3dddc8da4f9b">
   <figcaption>
     <span>python</span>
@@ -324,6 +329,166 @@ def body():
 
 
 appui.run(body)</code></pre>
+</figure>
+<h2 id="组合-mark-构造器"><a class="heading-anchor" href="#组合-mark-构造器">#</a>组合 Mark 构造器</h2>
+<div class="table-scroll"><table><thead><tr><th>API</th><th>签名</th><th>分类</th></tr></thead><tbody><tr><td><code>ChartField</code></td><td><code>__init__( self, key: str, label: Optional[str] = ..., value_type: str = ..., )</code></td><td><code>公开类型</code></td></tr><tr><td><code>ChartValue</code></td><td><code>__init__( self, value: Any, label: str = ..., value_type: str = ..., )</code></td><td><code>公开类型</code></td></tr><tr><td><code>BarMark</code></td><td><code>__init__( self, x: Optional[ChartCoordinate] = ..., y: Optional[ChartCoordinate] = ..., *, x_start: Optional[ChartCoordinate] = ..., x_end: Optional[ChartCoordinate] = ..., y_start: Optional[ChartCoordinate] = ..., y_end: Optional[ChartCoordinate] = ..., series: Optional[ChartCoordinate] = ..., stacking: str = ..., width: Optional[float] = ..., corner_radius: Optional[float] = ..., foreground_style: Optional[ColorLike] = ..., opacity: float = ..., annotation: Optional[ChartCoordinate] = ..., annotation_position: str = ..., )</code></td><td><code>公开类型</code></td></tr><tr><td><code>LineMark</code></td><td><code>__init__( self, x: ChartCoordinate, y: ChartCoordinate, *, series: Optional[ChartCoordinate] = ..., interpolation: str = ..., line_width: float = ..., dash: Optional[Sequence[float]] = ..., symbol: Optional[str] = ..., symbol_size: Optional[float] = ..., foreground_style: Optional[ColorLike] = ..., opacity: float = ..., annotation: Optional[ChartCoordinate] = ..., annotation_position: str = ..., )</code></td><td><code>公开类型</code></td></tr><tr><td><code>AreaMark</code></td><td><code>__init__( self, x: ChartCoordinate, y: Optional[ChartCoordinate] = ..., *, y_start: Optional[ChartCoordinate] = ..., y_end: Optional[ChartCoordinate] = ..., series: Optional[ChartCoordinate] = ..., interpolation: str = ..., stacking: str = ..., foreground_style: Optional[ColorLike] = ..., opacity: float = ..., annotation: Optional[ChartCoordinate] = ..., annotation_position: str = ..., )</code></td><td><code>公开类型</code></td></tr><tr><td><code>PointMark</code></td><td><code>__init__( self, x: ChartCoordinate, y: ChartCoordinate, *, series: Optional[ChartCoordinate] = ..., symbol: str = ..., symbol_size: float = ..., foreground_style: Optional[ColorLike] = ..., opacity: float = ..., annotation: Optional[ChartCoordinate] = ..., annotation_position: str = ..., )</code></td><td><code>公开类型</code></td></tr><tr><td><code>RuleMark</code></td><td><code>__init__( self, *, x: Optional[ChartCoordinate] = ..., y: Optional[ChartCoordinate] = ..., series: Optional[ChartCoordinate] = ..., line_width: float = ..., dash: Optional[Sequence[float]] = ..., foreground_style: Optional[ColorLike] = ..., opacity: float = ..., annotation: Optional[ChartCoordinate] = ..., annotation_position: str = ..., )</code></td><td><code>公开类型</code></td></tr><tr><td><code>RectangleMark</code></td><td><code>__init__( self, x_start: ChartCoordinate, x_end: ChartCoordinate, y_start: ChartCoordinate, y_end: ChartCoordinate, *, series: Optional[ChartCoordinate] = ..., corner_radius: Optional[float] = ..., foreground_style: Optional[ColorLike] = ..., opacity: float = ..., annotation: Optional[ChartCoordinate] = ..., annotation_position: str = ..., )</code></td><td><code>公开类型</code></td></tr><tr><td><code>SectorMark</code></td><td><code>__init__( self, angle: ChartCoordinate, *, series: Optional[ChartCoordinate] = ..., inner_radius: float = ..., outer_radius: float = ..., angular_inset: float = ..., foreground_style: Optional[ColorLike] = ..., opacity: float = ..., annotation: Optional[ChartCoordinate] = ..., annotation_position: str = ..., )</code></td><td><code>公开类型</code></td></tr></tbody></table></div>
+<h3 id="坐标值"><a class="heading-anchor" href="#坐标值">#</a>坐标值</h3>
+<p>Mark 的 <code>x</code>、<code>y</code>、<code>series</code>、区间端点和 <code>annotation</code> 使用同一套 <code>ChartCoordinate</code> 规则：</p>
+<div class="table-scroll"><table><thead><tr><th>写法</th><th>含义</th></tr></thead><tbody><tr><td><code>&quot;sales&quot;</code></td><td>当前数据行中的 <code>sales</code> 字段；字符串默认是字段名。</td></tr><tr><td><code>ChartField(&quot;sales&quot;, label=&quot;销售额&quot;, value_type=&quot;number&quot;)</code></td><td>带轴标题与类型的字段引用。<code>value_type</code> 为 <code>auto</code>、<code>category</code>、<code>number</code> 或 <code>date</code>。</td></tr><tr><td><code>ChartValue(100, label=&quot;目标&quot;)</code></td><td>常量坐标，适合阈值或固定区间。常量字符串必须显式包成 <code>ChartValue</code>，否则会被当成字段名。</td></tr></tbody></table></div>
+<p><code>ChartValue</code> 接受字符串、有限数字、<code>date</code> 或 <code>datetime</code>，不接受 <code>bool</code>。日期会以 ISO-8601 传给原生端。</p>
+<h3 id="mark-能力"><a class="heading-anchor" href="#mark-能力">#</a>Mark 能力</h3>
+<div class="table-scroll"><table><thead><tr><th>Mark</th><th>必要坐标</th><th>专属能力</th></tr></thead><tbody><tr><td><code>BarMark</code></td><td><code>x</code> + <code>y</code>，或成对的 <code>x_start/x_end</code>、<code>y_start/y_end</code></td><td>stacking、宽度、圆角、区间柱。</td></tr><tr><td><code>LineMark</code></td><td><code>x</code> + <code>y</code></td><td>插值、线宽、虚线、系统 symbol。</td></tr><tr><td><code>AreaMark</code></td><td><code>x</code> + <code>y</code>，或 <code>x</code> + <code>y_start/y_end</code></td><td>插值、stacking、范围面积。</td></tr><tr><td><code>PointMark</code></td><td><code>x</code> + <code>y</code></td><td>symbol 与 symbol_size。</td></tr><tr><td><code>RuleMark</code></td><td><code>x</code> 或 <code>y</code>，必须且只能选一个</td><td>阈值线、虚线、标注。</td></tr><tr><td><code>RectangleMark</code></td><td><code>x_start/x_end/y_start/y_end</code></td><td>热力区间、时间窗口、圆角矩形。</td></tr><tr><td><code>SectorMark</code></td><td><code>angle</code></td><td>iOS 17+ 扇区/饼图/环形图，支持内外半径与间隔。</td></tr></tbody></table></div>
+<p>所有 Mark 都支持 <code>series</code>、<code>foreground_style</code>、<code>opacity</code>、<code>annotation</code> 和 <code>annotation_position</code>。标注位置可用 <code>top</code>、<code>bottom</code>、<code>leading</code>、<code>trailing</code>、<code>overlay</code>。</p>
+<h3 id="组合面积-折线-点和阈值"><a class="heading-anchor" href="#组合面积-折线-点和阈值">#</a>组合面积、折线、点和阈值</h3>
+<figure class="code-block" data-code-id="4fdcc1741a2a">
+  <figcaption>
+    <span>python</span>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="4fdcc1741a2a" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
+  </figcaption>
+  <pre><code id="code-4fdcc1741a2a" class="language-python">import appui
+
+state = appui.State(selected_day=&quot;Wed&quot;, detail=&quot;&quot;)
+
+ROWS = [
+    {&quot;day&quot;: &quot;Mon&quot;, &quot;actual&quot;: 7},
+    {&quot;day&quot;: &quot;Tue&quot;, &quot;actual&quot;: 11},
+    {&quot;day&quot;: &quot;Wed&quot;, &quot;actual&quot;: 9},
+    {&quot;day&quot;: &quot;Thu&quot;, &quot;actual&quot;: 14},
+]
+
+
+def selected_row(row):
+    state.detail = &quot;未选择&quot; if row is None else f&quot;{row[&#x27;day&#x27;]}: {row[&#x27;actual&#x27;]}&quot;
+
+
+def body():
+    day = appui.ChartField(&quot;day&quot;, label=&quot;日期&quot;, value_type=&quot;category&quot;)
+    actual = appui.ChartField(&quot;actual&quot;, label=&quot;实际值&quot;, value_type=&quot;number&quot;)
+
+    marks = [
+        appui.AreaMark(
+            day,
+            actual,
+            interpolation=&quot;monotone&quot;,
+            foreground_style=&quot;systemBlue&quot;,
+            opacity=0.16,
+        ),
+        appui.LineMark(
+            day,
+            actual,
+            interpolation=&quot;monotone&quot;,
+            line_width=3,
+            foreground_style=&quot;systemBlue&quot;,
+        ),
+        appui.PointMark(
+            day,
+            actual,
+            symbol=&quot;circle&quot;,
+            symbol_size=34,
+            foreground_style=&quot;systemBlue&quot;,
+        ),
+        appui.RuleMark(
+            y=appui.ChartValue(10, label=&quot;目标&quot;),
+            dash=[5, 3],
+            foreground_style=&quot;systemOrange&quot;,
+            annotation=appui.ChartValue(&quot;目标&quot;, label=&quot;目标&quot;),
+            annotation_position=&quot;top&quot;,
+        ),
+    ]
+
+    return appui.VStack([
+        appui.Chart(
+            ROWS,
+            marks=marks,
+            selection_x=&quot;day&quot;,
+            selection=state.bind.selected_day,
+            on_select=selected_row,
+            y_domain=[0, 16],
+        ).frame(height=260),
+        appui.Text(state.detail or &quot;触摸图表查看数据&quot;),
+    ], spacing=12).padding()
+
+
+appui.run(body, state=state)</code></pre>
+</figure>
+<p>逐帧拖动、命中测试、插值与过渡动画留在原生端；Python 只接收离散选择结果。<code>marks</code> 是结构描述，不要在手势过程中反复重建它。</p>
+<h3 id="环形图"><a class="heading-anchor" href="#环形图">#</a>环形图</h3>
+<figure class="code-block" data-code-id="ef0ad68ec8c5">
+  <figcaption>
+    <span>python</span>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="ef0ad68ec8c5" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
+  </figcaption>
+  <pre><code id="code-ef0ad68ec8c5" class="language-python">import appui
+
+ROWS = [
+    {&quot;name&quot;: &quot;照片&quot;, &quot;size&quot;: 42},
+    {&quot;name&quot;: &quot;视频&quot;, &quot;size&quot;: 31},
+    {&quot;name&quot;: &quot;其他&quot;, &quot;size&quot;: 27},
+]
+
+
+def body():
+    return appui.Chart(
+        ROWS,
+        marks=[
+            appui.SectorMark(
+                &quot;size&quot;,
+                series=&quot;name&quot;,
+                inner_radius=0.55,
+                outer_radius=1.0,
+                angular_inset=1.5,
+            )
+        ],
+        selection_x=&quot;name&quot;,
+    ).frame(height=260)
+
+
+appui.run(body)</code></pre>
+</figure>
+<p><code>SectorMark</code> 在 iOS 17+ 使用系统原生扇区；应用仍需为更低系统版本准备可用的替代页面或不显示该图表。</p>
+<h3 id="可滚动-可选择的数值轴"><a class="heading-anchor" href="#可滚动-可选择的数值轴">#</a>可滚动、可选择的数值轴</h3>
+<figure class="code-block" data-code-id="0d66fd2132c9">
+  <figcaption>
+    <span>python</span>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="0d66fd2132c9" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
+  </figcaption>
+  <pre><code id="code-0d66fd2132c9" class="language-python">import appui
+
+state = appui.State(selected=2.0, detail=&quot;&quot;)
+rows = [
+    {&quot;id&quot;: &quot;m1&quot;, &quot;month&quot;: 1.0, &quot;value&quot;: 8, &quot;label&quot;: &quot;Jan&quot;},
+    {&quot;id&quot;: &quot;m2&quot;, &quot;month&quot;: 2.0, &quot;value&quot;: 13, &quot;label&quot;: &quot;Feb&quot;},
+    {&quot;id&quot;: &quot;m3&quot;, &quot;month&quot;: 3.0, &quot;value&quot;: 9, &quot;label&quot;: &quot;Mar&quot;},
+    {&quot;id&quot;: &quot;m4&quot;, &quot;month&quot;: 4.0, &quot;value&quot;: 16, &quot;label&quot;: &quot;Apr&quot;},
+]
+
+
+def selected_row(row):
+    state.detail = row[&quot;label&quot;] if row else &quot;&quot;
+
+
+def body():
+    return appui.VStack([
+        appui.Chart(
+            rows,
+            x=&quot;month&quot;,
+            y=&quot;value&quot;,
+            type=&quot;line&quot;,
+            x_type=&quot;number&quot;,
+            interpolation=&quot;monotone&quot;,
+            symbol=&quot;circle&quot;,
+            y_domain=[0, 20],
+            selection=state.bind.selected,
+            on_select=selected_row,
+            scrollable_axes=&quot;horizontal&quot;,
+            visible_domain=3,
+            annotation_key=&quot;label&quot;,
+        ).frame(height=240),
+        appui.Text(state.detail or &quot;Touch a point&quot;),
+    ], spacing=12).padding()
+
+
+appui.run(body, state=state)</code></pre>
 </figure>
 <h3 id="多序列示例"><a class="heading-anchor" href="#多序列示例">#</a>多序列示例</h3>
 <figure class="code-block" data-code-id="36038fe82262">
@@ -451,7 +616,7 @@ appui.run(body)</code></pre>
 <h2 id="与相邻-api-的区别"><a class="heading-anchor" href="#与相邻-api-的区别">#</a>与相邻 API 的区别</h2>
 <div class="table-scroll"><table><thead><tr><th>API</th><th>不同点</th></tr></thead><tbody><tr><td><code>Chart</code> vs <code>Canvas</code></td><td><code>Chart</code> 负责数据可视化和坐标轴；<code>Canvas</code> 只画你给的图形命令。</td></tr><tr><td><code>Canvas</code> vs <code>Path</code></td><td><code>Canvas</code> 可以混合矩形、圆、文字、渐变；<code>Path</code> 专注一个可填充/描边的矢量形状。</td></tr><tr><td><code>Path</code> vs <code>Rectangle</code> / <code>Circle</code></td><td>常见形状用形状 API；不规则图形才用 <code>Path</code>。</td></tr><tr><td><code>Canvas</code> 命令 vs <code>DrawingContext</code></td><td>直接命令适合从数据生成；<code>DrawingContext</code> 适合手写绘图逻辑。</td></tr></tbody></table></div>
 <h2 id="常见错误"><a class="heading-anchor" href="#常见错误">#</a>常见错误</h2>
-<div class="table-scroll"><table><thead><tr><th>错误</th><th>正确做法</th></tr></thead><tbody><tr><td>每次 <code>body()</code> 都重新生成大量静态命令。</td><td>静态命令放到模块级常量或函数缓存，状态变化只更新必要数据。</td></tr><tr><td><code>Chart</code> 的 <code>x</code> / <code>y</code> 字段名和数据字典不匹配。</td><td>统一字段名，缺失值先清洗再传入。</td></tr><tr><td>用 <code>Chart</code> 展示非数值 y 值。</td><td><code>y</code> 对应字段应是数值。</td></tr><tr><td><code>Canvas(width,height)</code> 和外层 <code>.frame(...)</code> 尺寸冲突。</td><td>两者保持一致，或明确只让外层控制显示尺寸。</td></tr><tr><td>用 <code>Canvas</code> 手写原生控件。</td><td>表单、按钮、列表、进度优先用 AppUI 原生控件。</td></tr></tbody></table></div>
+<div class="table-scroll"><table><thead><tr><th>错误</th><th>正确做法</th></tr></thead><tbody><tr><td>每次 <code>body()</code> 都重新生成大量静态命令。</td><td>静态命令放到模块级常量或函数缓存，状态变化只更新必要数据。</td></tr><tr><td><code>Chart</code> 的 <code>x</code> / <code>y</code> 字段名和数据字典不匹配。</td><td>统一字段名，缺失值先清洗再传入。</td></tr><tr><td>把常量字符串直接传给 Mark。</td><td>字符串表示字段名；常量字符串用 <code>ChartValue(&quot;文字&quot;)</code>。</td></tr><tr><td>同时给 <code>AreaMark</code> 传 <code>y</code> 和 <code>y_start/y_end</code>。</td><td>标量与范围二选一，范围端点必须成对。</td></tr><tr><td><code>RuleMark</code> 同时传 <code>x</code> 和 <code>y</code>。</td><td>只传一个坐标，表示垂直线或水平线。</td></tr><tr><td>动态创建超过 32 个 Mark。</td><td>Mark 描述图层而不是数据点；把大量点放进 <code>data</code> 行。</td></tr><tr><td>用 <code>Chart</code> 展示非数值 y 值。</td><td><code>y</code> 对应字段应是数值。</td></tr><tr><td><code>Canvas(width,height)</code> 和外层 <code>.frame(...)</code> 尺寸冲突。</td><td>两者保持一致，或明确只让外层控制显示尺寸。</td></tr><tr><td>用 <code>Canvas</code> 手写原生控件。</td><td>表单、按钮、列表、进度优先用 AppUI 原生控件。</td></tr></tbody></table></div>
 <h2 id="相关文档"><a class="heading-anchor" href="#相关文档">#</a>相关文档</h2>
 <div class="table-scroll"><table><thead><tr><th>文档</th><th>用途</th></tr></thead><tbody><tr><td><a href="../../pages/appui-ref-shapes/">形状 API</a></td><td>Rectangle、RoundedRectangle、Circle、Capsule、Ellipse、Color。</td></tr><tr><td><a href="../../pages/appui-guide-performance/">性能指南</a></td><td>大数据图表和高频绘制的刷新边界。</td></tr><tr><td><a href="../../pages/miniapp-appui-ui-patterns/">UI 模式</a></td><td>图表和媒体在 MiniApp 页面中的布局选择。</td></tr></tbody></table></div>
   </div>
@@ -459,7 +624,7 @@ appui.run(body)</code></pre>
 </article>
 
     </main>
-    <aside class="toc"><div class="toc-title">本页目录</div><a class="toc-link" href="#什么时候用">什么时候用</a><a class="toc-link" href="#chart">Chart</a><a class="toc-link child" href="#多序列示例">多序列示例</a><a class="toc-link" href="#canvas">Canvas</a><a class="toc-link" href="#drawingcontext-方法">DrawingContext 方法</a><a class="toc-link child" href="#命令字段">命令字段</a><a class="toc-link" href="#path">Path</a><a class="toc-link" href="#与相邻-api-的区别">与相邻 API 的区别</a><a class="toc-link" href="#常见错误">常见错误</a><a class="toc-link" href="#相关文档">相关文档</a></aside>
+    <aside class="toc"><div class="toc-title">本页目录</div><a class="toc-link" href="#什么时候用">什么时候用</a><a class="toc-link" href="#chart">Chart</a><a class="toc-link" href="#组合-mark-构造器">组合 Mark 构造器</a><a class="toc-link child" href="#坐标值">坐标值</a><a class="toc-link child" href="#mark-能力">Mark 能力</a><a class="toc-link child" href="#组合面积-折线-点和阈值">组合面积、折线、点和阈值</a><a class="toc-link child" href="#环形图">环形图</a><a class="toc-link child" href="#可滚动-可选择的数值轴">可滚动、可选择的数值轴</a><a class="toc-link child" href="#多序列示例">多序列示例</a><a class="toc-link" href="#canvas">Canvas</a><a class="toc-link" href="#drawingcontext-方法">DrawingContext 方法</a><a class="toc-link child" href="#命令字段">命令字段</a><a class="toc-link" href="#path">Path</a><a class="toc-link" href="#与相邻-api-的区别">与相邻 API 的区别</a><a class="toc-link" href="#常见错误">常见错误</a><a class="toc-link" href="#相关文档">相关文档</a></aside>
   </div>
   <div class="mobile-backdrop"></div>
   <div class="search-panel" role="dialog" aria-modal="true" aria-label="搜索">

@@ -167,6 +167,7 @@
 <a class="nav-link" href="../../pages/permission-module/">permission</a>
 <a class="nav-link" href="../../pages/storage-module/">storage</a>
 <a class="nav-link active" href="../../pages/database-module/">database</a>
+<a class="nav-link" href="../../pages/archive-module/">archive</a>
 <a class="nav-link" href="../../pages/keychain-module/">keychain</a>
 <a class="nav-link" href="../../pages/clipboard-module/">clipboard</a>
 <a class="nav-link" href="../../pages/console-module/">console</a>
@@ -214,6 +215,7 @@
 </div>
 <div class="nav-group">
 <div class="nav-group-title">视觉与文档</div>
+<a class="nav-link" href="../../pages/native-image-module/">native_image</a>
 <a class="nav-link" href="../../pages/vision-module/">vision</a>
 <a class="nav-link" href="../../pages/vision-helper-module/">vision_helper</a>
 <a class="nav-link" href="../../pages/coreml-module/">coreml</a>
@@ -392,7 +394,7 @@ appui.run(body, state=state)</code></pre>
 <hr>
 <h2 id="api-参考"><a class="heading-anchor" href="#api-参考">#</a>API 参考</h2>
 <h3 id="速查"><a class="heading-anchor" href="#速查">#</a>速查</h3>
-<div class="table-scroll"><table><thead><tr><th>API</th><th>作用</th></tr></thead><tbody><tr><td><code>collection(name)</code></td><td>默认库中的 JSON 文档集合（推荐）</td></tr><tr><td><code>open(name)</code> / <code>connect(name)</code></td><td>打开 MiniApp 作用域 SQLite</td></tr><tr><td><code>database_path(name)</code></td><td>调试用的数据库绝对路径</td></tr><tr><td><code>close_default_database()</code> / <code>close_all()</code></td><td>关闭默认库或当前进程打开的库</td></tr><tr><td><code>Collection.upsert/get/delete</code></td><td>增删改查 JSON 记录</td></tr><tr><td><code>Collection.items/list</code></td><td>排序分页列表</td></tr><tr><td><code>Database.execute/query/transaction</code></td><td>原生 SQL 操作</td></tr></tbody></table></div>
+<div class="table-scroll"><table><thead><tr><th>API</th><th>作用</th></tr></thead><tbody><tr><td><code>collection(name)</code></td><td>默认库中的 JSON 文档集合（推荐）</td></tr><tr><td><code>open(name)</code> / <code>connect(name)</code></td><td>打开 MiniApp 作用域 SQLite</td></tr><tr><td><code>database_path(name)</code></td><td>调试用的数据库绝对路径</td></tr><tr><td><code>close_default_database()</code> / <code>close_all()</code></td><td>关闭默认库或当前进程打开的库</td></tr><tr><td><code>Collection.upsert/get/delete</code></td><td>增删改查 JSON 记录</td></tr><tr><td><code>Collection.items/list</code></td><td>排序分页列表</td></tr><tr><td><code>Database.execute/query/transaction</code></td><td>原生 SQL 操作，支持 SQLite BLOB</td></tr></tbody></table></div>
 <h3 id="选型"><a class="heading-anchor" href="#选型">#</a>选型</h3>
 <div class="table-scroll"><table><thead><tr><th>目标</th><th>首选 API</th></tr></thead><tbody><tr><td>收藏、历史、缓存、源列表</td><td><code>database.collection(name)</code></td></tr><tr><td>索引、JOIN、迁移、事务</td><td><code>database.open(name)</code> + SQL</td></tr><tr><td>少量开关、主题</td><td><a href="../../pages/storage-module/">storage</a></td></tr><tr><td>token、密码</td><td><a href="../../pages/keychain-module/">keychain</a></td></tr></tbody></table></div>
 <h3 id="collection-api"><a class="heading-anchor" href="#collection-api">#</a>Collection API</h3>
@@ -443,6 +445,30 @@ db.close()</code></pre>
 </figure>
 <div class="table-scroll"><table><thead><tr><th>API</th><th>说明</th></tr></thead><tbody><tr><td><code>execute(sql, params)</code></td><td>执行 SQL，返回影响行数</td></tr><tr><td><code>query(sql, params)</code></td><td>返回 <code>list[dict]</code></td></tr><tr><td><code>query_one(sql, params, default)</code></td><td>单行或默认值</td></tr><tr><td><code>scalar(sql, params, default)</code></td><td>第一列标量</td></tr><tr><td><code>transaction()</code></td><td>原子事务，异常回滚</td></tr><tr><td><code>user_version</code></td><td>schema 版本号（<code>PRAGMA user_version</code>）</td></tr><tr><td><code>close()</code></td><td>关闭当前连接</td></tr></tbody></table></div>
 <p><code>database.open(&quot;media&quot;)</code> 自动变为 <code>media.db</code>，拒绝 <code>../</code> 和绝对路径。</p>
+<h3 id="blob-二进制值"><a class="heading-anchor" href="#blob-二进制值">#</a>BLOB 二进制值</h3>
+<p>SQL API 的参数可直接传 <code>bytes</code>、<code>bytearray</code> 或 <code>memoryview</code>，三者都会绑定为 SQLite <code>BLOB</code>；查询 BLOB 列时统一返回不可变的 Python <code>bytes</code>。不需要 Base64，也不要先把二进制转成字符串。</p>
+<figure class="code-block" data-code-id="5934d74d3112">
+  <figcaption>
+    <span>python</span>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="5934d74d3112" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
+  </figcaption>
+  <pre><code id="code-5934d74d3112" class="language-python">import database
+
+db = database.open(&quot;assets&quot;)
+db.execute(&quot;CREATE TABLE IF NOT EXISTS blobs (id TEXT PRIMARY KEY, body BLOB NOT NULL)&quot;)
+
+payload = memoryview(b&quot;\x00\xffPythonIDE&quot;)
+db.execute(
+    &quot;INSERT OR REPLACE INTO blobs(id, body) VALUES (?, ?)&quot;,
+    [&quot;icon&quot;, payload],
+)
+
+row = db.query_one(&quot;SELECT body FROM blobs WHERE id = ?&quot;, [&quot;icon&quot;])
+assert isinstance(row[&quot;body&quot;], bytes)
+assert row[&quot;body&quot;] == bytes(payload)
+db.close()</code></pre>
+</figure>
+<p>原生数据库运行时对单个 BLOB 的上限为 16 MiB，单次查询还受 10000 行和 32 MiB 结果预算保护；超出会抛出 <code>DatabaseError</code>。BLOB 仅属于 SQL 参数/结果语义；<code>Collection</code> 仍是 JSON 文档接口，大型图片、视频或文档应保存为文件并在数据库中记录路径。</p>
 <h3 id="从-storage-迁移"><a class="heading-anchor" href="#从-storage-迁移">#</a>从 storage 迁移</h3>
 <figure class="code-block" data-code-id="ce692e00dced">
   <figcaption>
@@ -455,7 +481,7 @@ print(&quot;已迁移&quot;, count, &quot;条&quot;)</code></pre>
 </figure>
 <hr>
 <h2 id="常见错误"><a class="heading-anchor" href="#常见错误">#</a>常见错误</h2>
-<div class="table-scroll"><table><thead><tr><th>错误写法</th><th>后果</th><th>修正</th></tr></thead><tbody><tr><td>大列表塞进 <code>storage</code></td><td>慢、难查询</td><td>用 <code>collection()</code></td></tr><tr><td>token 写进 SQLite</td><td>不安全</td><td>用 <a href="../../pages/keychain-module/">keychain</a></td></tr><tr><td><code>open(&quot;../data.db&quot;)</code></td><td>路径被拒绝</td><td>只传 <code>&quot;media&quot;</code> 等文件名</td></tr><tr><td>直接 <code>import sqlite3</code></td><td>真机可能崩溃或绕过宿主隔离</td><td>用 <code>import database</code></td></tr><tr><td>SQL 拼接用户输入</td><td>注入风险</td><td>用 <code>?</code> 参数绑定</td></tr><tr><td>长时间不 <code>close()</code></td><td>连接泄漏</td><td>任务结束时关闭</td></tr></tbody></table></div>
+<div class="table-scroll"><table><thead><tr><th>错误写法</th><th>后果</th><th>修正</th></tr></thead><tbody><tr><td>大列表塞进 <code>storage</code></td><td>慢、难查询</td><td>用 <code>collection()</code></td></tr><tr><td>token 写进 SQLite</td><td>不安全</td><td>用 <a href="../../pages/keychain-module/">keychain</a></td></tr><tr><td><code>open(&quot;../data.db&quot;)</code></td><td>路径被拒绝</td><td>只传 <code>&quot;media&quot;</code> 等文件名</td></tr><tr><td>直接 <code>import sqlite3</code></td><td>真机可能崩溃或绕过宿主隔离</td><td>用 <code>import database</code></td></tr><tr><td>SQL 拼接用户输入</td><td>注入风险</td><td>用 <code>?</code> 参数绑定</td></tr><tr><td>把 BLOB Base64 后再入库</td><td>增加体积和编码开销</td><td>直接绑定 <code>bytes</code>/<code>bytearray</code>/<code>memoryview</code></td></tr><tr><td>把大型媒体放进 BLOB/Collection</td><td>数据库膨胀、复制开销大</td><td>媒体写文件，SQLite 只存路径和元数据</td></tr><tr><td>长时间不 <code>close()</code></td><td>连接泄漏</td><td>任务结束时关闭</td></tr></tbody></table></div>
 <hr>
 <h2 id="相关文档"><a class="heading-anchor" href="#相关文档">#</a>相关文档</h2>
 <div class="table-scroll"><table><thead><tr><th>文档</th><th>用途</th></tr></thead><tbody><tr><td><a href="../../pages/storage-module/">storage</a></td><td>小型键值偏好</td></tr><tr><td><a href="../../pages/keychain-module/">keychain</a></td><td>敏感凭据</td></tr><tr><td><a href="../../pages/miniapp-native-capabilities/">原生能力入口</a></td><td>MiniApp 场景配方</td></tr></tbody></table></div>
@@ -466,7 +492,7 @@ print(&quot;已迁移&quot;, count, &quot;条&quot;)</code></pre>
 </article>
 
     </main>
-    <aside class="toc"><div class="toc-title">本页目录</div><a class="toc-link" href="#模块概览">模块概览</a><a class="toc-link" href="#快速开始">快速开始</a><a class="toc-link" href="#appui-示例">AppUI 示例</a><a class="toc-link" href="#api-参考">API 参考</a><a class="toc-link child" href="#速查">速查</a><a class="toc-link child" href="#选型">选型</a><a class="toc-link child" href="#collection-api">Collection API</a><a class="toc-link child" href="#sql-api">SQL API</a><a class="toc-link child" href="#从-storage-迁移">从 storage 迁移</a><a class="toc-link" href="#常见错误">常见错误</a><a class="toc-link" href="#相关文档">相关文档</a><a class="toc-link" href="#预期效果">预期效果</a></aside>
+    <aside class="toc"><div class="toc-title">本页目录</div><a class="toc-link" href="#模块概览">模块概览</a><a class="toc-link" href="#快速开始">快速开始</a><a class="toc-link" href="#appui-示例">AppUI 示例</a><a class="toc-link" href="#api-参考">API 参考</a><a class="toc-link child" href="#速查">速查</a><a class="toc-link child" href="#选型">选型</a><a class="toc-link child" href="#collection-api">Collection API</a><a class="toc-link child" href="#sql-api">SQL API</a><a class="toc-link child" href="#blob-二进制值">BLOB 二进制值</a><a class="toc-link child" href="#从-storage-迁移">从 storage 迁移</a><a class="toc-link" href="#常见错误">常见错误</a><a class="toc-link" href="#相关文档">相关文档</a><a class="toc-link" href="#预期效果">预期效果</a></aside>
   </div>
   <div class="mobile-backdrop"></div>
   <div class="search-panel" role="dialog" aria-modal="true" aria-label="搜索">

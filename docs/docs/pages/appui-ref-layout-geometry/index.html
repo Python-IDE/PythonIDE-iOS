@@ -167,6 +167,7 @@
 <a class="nav-link" href="../../pages/permission-module/">permission</a>
 <a class="nav-link" href="../../pages/storage-module/">storage</a>
 <a class="nav-link" href="../../pages/database-module/">database</a>
+<a class="nav-link" href="../../pages/archive-module/">archive</a>
 <a class="nav-link" href="../../pages/keychain-module/">keychain</a>
 <a class="nav-link" href="../../pages/clipboard-module/">clipboard</a>
 <a class="nav-link" href="../../pages/console-module/">console</a>
@@ -214,6 +215,7 @@
 </div>
 <div class="nav-group">
 <div class="nav-group-title">视觉与文档</div>
+<a class="nav-link" href="../../pages/native-image-module/">native_image</a>
 <a class="nav-link" href="../../pages/vision-module/">vision</a>
 <a class="nav-link" href="../../pages/vision-helper-module/">vision_helper</a>
 <a class="nav-link" href="../../pages/coreml-module/">coreml</a>
@@ -300,7 +302,7 @@
                children=None, on_geometry=None, onGeometry=None)</code></pre>
 </figure>
 <p><strong>参数</strong></p>
-<div class="table-scroll"><table><thead><tr><th>参数</th><th>类型</th><th>说明</th></tr></thead><tbody><tr><td><code>content</code> / <code>children</code></td><td><code>View \| list[View] \| None</code></td><td>填充可用区域的内容。</td></tr><tr><td><code>on_change</code> / <code>onChange</code> / <code>on_geometry</code></td><td><code>可调用 \| None</code></td><td>尺寸变化时触发。默认传入<strong>单参数</strong>：<code>&quot;宽度,高度&quot;</code> 形式的字符串（如 <code>&quot;390.0,844.0&quot;</code>）。若回调在签名上接受<strong>两个</strong>必选位置参数，则运行时会拆分为 <code>(width: float, height: float)</code> 调用。</td></tr></tbody></table></div>
+<div class="table-scroll"><table><thead><tr><th>参数</th><th>类型</th><th>说明</th></tr></thead><tbody><tr><td><code>content</code> / <code>children</code></td><td><code>View | list[View] | None</code></td><td>填充可用区域的内容。</td></tr><tr><td><code>on_change</code> / <code>onChange</code> / <code>on_geometry</code></td><td><code>可调用 | None</code></td><td>尺寸变化时触发。默认传入<strong>单参数</strong>：<code>&quot;宽度,高度&quot;</code> 形式的字符串（如 <code>&quot;390.0,844.0&quot;</code>）。若回调在签名上接受<strong>两个</strong>必选位置参数，则运行时会拆分为 <code>(width: float, height: float)</code> 调用。</td></tr></tbody></table></div>
 <p><strong>示例</strong></p>
 <figure class="code-block" data-code-id="fb46c209cfd6">
   <figcaption>
@@ -338,7 +340,7 @@ appui.run(body, state=state, presentation=&quot;sheet&quot;)</code></pre>
   <pre><code id="code-a8ede9c3a19b" class="language-text">ViewThatFits(content=None)</code></pre>
 </figure>
 <p><strong>参数</strong></p>
-<div class="table-scroll"><table><thead><tr><th>参数</th><th>类型</th><th>说明</th></tr></thead><tbody><tr><td><code>content</code></td><td><code>list[View] \| None</code></td><td>按顺序尝试子视图，采用第一个可在当前约束下布局成功的方案。</td></tr></tbody></table></div>
+<div class="table-scroll"><table><thead><tr><th>参数</th><th>类型</th><th>说明</th></tr></thead><tbody><tr><td><code>content</code></td><td><code>list[View] | None</code></td><td>按顺序尝试子视图，采用第一个可在当前约束下布局成功的方案。</td></tr></tbody></table></div>
 <p><strong>示例</strong></p>
 <figure class="code-block" data-code-id="8f1fe826f142">
   <figcaption>
@@ -367,7 +369,7 @@ appui.run(body, presentation=&quot;sheet&quot;)</code></pre>
   <pre><code id="code-1adb41ea1820" class="language-text">Group(content=None)</code></pre>
 </figure>
 <p><strong>参数</strong></p>
-<div class="table-scroll"><table><thead><tr><th>参数</th><th>类型</th><th>说明</th></tr></thead><tbody><tr><td><code>content</code></td><td><code>list[View] \| None</code></td><td>透明容器，不参与自身布局，用于组合或修饰器作用域。</td></tr></tbody></table></div>
+<div class="table-scroll"><table><thead><tr><th>参数</th><th>类型</th><th>说明</th></tr></thead><tbody><tr><td><code>content</code></td><td><code>list[View] | None</code></td><td>透明容器，不参与自身布局，用于组合或修饰器作用域。</td></tr></tbody></table></div>
 <p><strong>示例</strong></p>
 <figure class="code-block" data-code-id="8b03f7262c8d">
   <figcaption>
@@ -398,7 +400,7 @@ appui.run(body, presentation=&quot;sheet&quot;)</code></pre>
   <pre><code id="code-8907e1e93600" class="language-text">Overlay(content=None, overlay=None, alignment=&#x27;center&#x27;)</code></pre>
 </figure>
 <p><strong>参数</strong></p>
-<div class="table-scroll"><table><thead><tr><th>参数</th><th>类型</th><th>说明</th></tr></thead><tbody><tr><td><code>content</code></td><td><code>View \| None</code></td><td>承载视图。</td></tr><tr><td><code>overlay</code></td><td><code>View \| None</code></td><td>叠放在上的视图。</td></tr><tr><td><code>alignment</code></td><td><code>str</code></td><td>与 <a href="../../pages/appui-ref-layout-stacks/#zstack">ZStack</a> 相同的对齐关键字。</td></tr></tbody></table></div>
+<div class="table-scroll"><table><thead><tr><th>参数</th><th>类型</th><th>说明</th></tr></thead><tbody><tr><td><code>content</code></td><td><code>View | None</code></td><td>承载视图。</td></tr><tr><td><code>overlay</code></td><td><code>View | None</code></td><td>叠放在上的视图。</td></tr><tr><td><code>alignment</code></td><td><code>str</code></td><td>与 <a href="../../pages/appui-ref-layout-stacks/#zstack">ZStack</a> 相同的对齐关键字。</td></tr></tbody></table></div>
 <p><strong>示例</strong></p>
 <figure class="code-block" data-code-id="4f38d576ee3e">
   <figcaption>
@@ -428,7 +430,7 @@ appui.run(body, presentation=&quot;sheet&quot;)</code></pre>
   <pre><code id="code-c75b3257dd56" class="language-text">SafeAreaInset(edge=&#x27;bottom&#x27;, content=None)</code></pre>
 </figure>
 <p><strong>参数</strong></p>
-<div class="table-scroll"><table><thead><tr><th>参数</th><th>类型</th><th>说明</th></tr></thead><tbody><tr><td><code>edge</code></td><td><code>str</code></td><td>嵌入安全区的一侧，如 <code>bottom</code>。</td></tr><tr><td><code>content</code></td><td><code>View \| None</code></td><td>持久显示的条带内容。</td></tr></tbody></table></div>
+<div class="table-scroll"><table><thead><tr><th>参数</th><th>类型</th><th>说明</th></tr></thead><tbody><tr><td><code>edge</code></td><td><code>str</code></td><td>嵌入安全区的一侧，如 <code>bottom</code>。</td></tr><tr><td><code>content</code></td><td><code>View | None</code></td><td>持久显示的条带内容。</td></tr></tbody></table></div>
 <p><strong>示例</strong></p>
 <figure class="code-block" data-code-id="a04048598b29">
   <figcaption>

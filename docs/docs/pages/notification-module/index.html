@@ -167,6 +167,7 @@
 <a class="nav-link" href="../../pages/permission-module/">permission</a>
 <a class="nav-link" href="../../pages/storage-module/">storage</a>
 <a class="nav-link" href="../../pages/database-module/">database</a>
+<a class="nav-link" href="../../pages/archive-module/">archive</a>
 <a class="nav-link" href="../../pages/keychain-module/">keychain</a>
 <a class="nav-link" href="../../pages/clipboard-module/">clipboard</a>
 <a class="nav-link" href="../../pages/console-module/">console</a>
@@ -214,6 +215,7 @@
 </div>
 <div class="nav-group">
 <div class="nav-group-title">视觉与文档</div>
+<a class="nav-link" href="../../pages/native-image-module/">native_image</a>
 <a class="nav-link" href="../../pages/vision-module/">vision</a>
 <a class="nav-link" href="../../pages/vision-helper-module/">vision_helper</a>
 <a class="nav-link" href="../../pages/coreml-module/">coreml</a>
@@ -405,18 +407,17 @@ if result.get(&quot;granted&quot;):
 <p>也可用 <a href="../../pages/permission-module/">permission</a> 查询：<code>permission.status(&quot;notifications&quot;)</code>。</p>
 <h3 id="调度"><a class="heading-anchor" href="#调度">#</a>调度</h3>
 <p><strong><code>schedule(identifier, title, body, delay=5.0, sound=True, badge=0)</code></strong> — 相对延迟发送。</p>
-<figure class="code-block" data-code-id="63229a880490">
+<figure class="code-block" data-code-id="a0eb8b1857e0">
   <figcaption>
     <span>python</span>
-    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="63229a880490" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="a0eb8b1857e0" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
-  <pre><code id="code-63229a880490" class="language-python">notification.schedule(
+  <pre><code id="code-a0eb8b1857e0" class="language-python">notification.schedule(
     &quot;stretch.break&quot;,
     &quot;活动一下&quot;,
     &quot;站起来伸展 1 分钟&quot;,
     delay=60,
     sound=True,
-    badge=1,
 )</code></pre>
 </figure>
 <div class="table-scroll"><table><thead><tr><th>参数</th><th>说明</th></tr></thead><tbody><tr><td><code>identifier</code></td><td>稳定 ID</td></tr><tr><td><code>title</code> / <code>body</code></td><td>标题与正文</td></tr><tr><td><code>delay</code></td><td>延迟秒数</td></tr><tr><td><code>badge</code></td><td><code>0</code> 表示不修改角标</td></tr></tbody></table></div>

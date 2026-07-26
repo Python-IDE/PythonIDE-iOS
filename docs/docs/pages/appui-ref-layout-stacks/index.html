@@ -167,6 +167,7 @@
 <a class="nav-link" href="../../pages/permission-module/">permission</a>
 <a class="nav-link" href="../../pages/storage-module/">storage</a>
 <a class="nav-link" href="../../pages/database-module/">database</a>
+<a class="nav-link" href="../../pages/archive-module/">archive</a>
 <a class="nav-link" href="../../pages/keychain-module/">keychain</a>
 <a class="nav-link" href="../../pages/clipboard-module/">clipboard</a>
 <a class="nav-link" href="../../pages/console-module/">console</a>
@@ -214,6 +215,7 @@
 </div>
 <div class="nav-group">
 <div class="nav-group-title">视觉与文档</div>
+<a class="nav-link" href="../../pages/native-image-module/">native_image</a>
 <a class="nav-link" href="../../pages/vision-module/">vision</a>
 <a class="nav-link" href="../../pages/vision-helper-module/">vision_helper</a>
 <a class="nav-link" href="../../pages/coreml-module/">coreml</a>
@@ -299,7 +301,7 @@
   <pre><code id="code-c2ce16904487" class="language-text">VStack(content=None, alignment=&#x27;center&#x27;, spacing=None)</code></pre>
 </figure>
 <p><strong>参数</strong></p>
-<div class="table-scroll"><table><thead><tr><th>参数</th><th>类型</th><th>说明</th></tr></thead><tbody><tr><td><code>content</code></td><td><code>list[View] \| None</code></td><td>子视图列表；亦可配合上下文管理器收集子级。</td></tr><tr><td><code>alignment</code></td><td><code>str</code></td><td>横轴对齐（如 <code>center</code>、<code>leading</code>、<code>trailing</code> 等，由运行时映射）。</td></tr><tr><td><code>spacing</code></td><td><code>数值 \| None</code></td><td>子视图间距；<code>None</code> 为系统默认。</td></tr></tbody></table></div>
+<div class="table-scroll"><table><thead><tr><th>参数</th><th>类型</th><th>说明</th></tr></thead><tbody><tr><td><code>content</code></td><td><code>list[View] | None</code></td><td>子视图列表；亦可配合上下文管理器收集子级。</td></tr><tr><td><code>alignment</code></td><td><code>str</code></td><td>横轴对齐（如 <code>center</code>、<code>leading</code>、<code>trailing</code> 等，由运行时映射）。</td></tr><tr><td><code>spacing</code></td><td><code>数值 | None</code></td><td>子视图间距；<code>None</code> 为系统默认。</td></tr></tbody></table></div>
 <p><strong>示例</strong></p>
 <figure class="code-block" data-code-id="e23253f2f44e">
   <figcaption>
@@ -359,7 +361,7 @@ appui.run(body, presentation=&quot;sheet&quot;)</code></pre>
   <pre><code id="code-17cdefe52bfa" class="language-text">ZStack(content=None, alignment=&#x27;center&#x27;)</code></pre>
 </figure>
 <p><strong>参数</strong></p>
-<div class="table-scroll"><table><thead><tr><th>参数</th><th>类型</th><th>说明</th></tr></thead><tbody><tr><td><code>content</code></td><td><code>list[View] \| None</code></td><td>层叠子视图，后者绘制在上层。</td></tr><tr><td><code>alignment</code></td><td><code>str</code></td><td><code>center</code>、<code>leading</code>、<code>trailing</code>、<code>top</code>、<code>bottom</code>、<code>topLeading</code>、<code>topTrailing</code>、<code>bottomLeading</code>、<code>bottomTrailing</code>。</td></tr></tbody></table></div>
+<div class="table-scroll"><table><thead><tr><th>参数</th><th>类型</th><th>说明</th></tr></thead><tbody><tr><td><code>content</code></td><td><code>list[View] | None</code></td><td>层叠子视图，后者绘制在上层。</td></tr><tr><td><code>alignment</code></td><td><code>str</code></td><td><code>center</code>、<code>leading</code>、<code>trailing</code>、<code>top</code>、<code>bottom</code>、<code>topLeading</code>、<code>topTrailing</code>、<code>bottomLeading</code>、<code>bottomTrailing</code>。</td></tr></tbody></table></div>
 <p><strong>示例</strong></p>
 <figure class="code-block" data-code-id="c6c70a0a1135">
   <figcaption>
@@ -456,7 +458,7 @@ appui.run(body, presentation=&quot;sheet&quot;)</code></pre>
   <pre><code id="code-7931303d69a5" class="language-text">Spacer(min_length=None, minLength=None)</code></pre>
 </figure>
 <p><strong>参数</strong></p>
-<div class="table-scroll"><table><thead><tr><th>参数</th><th>类型</th><th>说明</th></tr></thead><tbody><tr><td><code>min_length</code> / <code>minLength</code></td><td><code>数值 \| None</code></td><td>在所在堆栈中占据弹性空白的最小长度。</td></tr></tbody></table></div>
+<div class="table-scroll"><table><thead><tr><th>参数</th><th>类型</th><th>说明</th></tr></thead><tbody><tr><td><code>min_length</code> / <code>minLength</code></td><td><code>数值 | None</code></td><td>在所在堆栈中占据弹性空白的最小长度。</td></tr></tbody></table></div>
 <p><strong>示例</strong></p>
 <figure class="code-block" data-code-id="0aba2f43e517">
   <figcaption>

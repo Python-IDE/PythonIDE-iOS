@@ -14,10 +14,71 @@
 - [AppUI schema](https://pythonide.xin/schemas/appui_api_schema.json): canonical AppUI public API projection.
 - [Widget schema](https://pythonide.xin/schemas/widget_api_schema.json): canonical Widget public API projection.
 - [Native capabilities schema](https://pythonide.xin/schemas/native_capabilities_schema.json): canonical iOS native capability projection.
+- [MiniApp capability contract](https://pythonide.xin/schemas/miniapp_capability_contract.json): canonical manifest capability, network-host, and external-input vocabulary.
+- [MiniApp event schema](https://pythonide.xin/schemas/miniapp_event_schema.json): canonical event ABI, envelope, delivery, and reserved-event contract.
 - [appui.pyi](https://pythonide.xin/stubs/appui.pyi): AppUI typing surface.
 - [widget.pyi](https://pythonide.xin/stubs/widget.pyi): Widget typing surface.
 - [ui.pyi](https://pythonide.xin/stubs/ui.pyi): Pythonista-compatible ui typing surface.
 - [scene.pyi](https://pythonide.xin/stubs/scene.pyi): Pythonista-compatible scene typing surface.
+- [miniapp_runtime.pyi](https://pythonide.xin/stubs/miniapp_runtime.pyi): managed launch-request and runtime metadata typing surface.
+- [device.pyi](https://pythonide.xin/stubs/device.pyi): native module typing surface declared by the native capabilities schema.
+- [location.pyi](https://pythonide.xin/stubs/location.pyi): native module typing surface declared by the native capabilities schema.
+- [motion.pyi](https://pythonide.xin/stubs/motion.pyi): native module typing surface declared by the native capabilities schema.
+- [haptics.pyi](https://pythonide.xin/stubs/haptics.pyi): native module typing surface declared by the native capabilities schema.
+- [biometric.pyi](https://pythonide.xin/stubs/biometric.pyi): native module typing surface declared by the native capabilities schema.
+- [health.pyi](https://pythonide.xin/stubs/health.pyi): native module typing surface declared by the native capabilities schema.
+- [permission.pyi](https://pythonide.xin/stubs/permission.pyi): native module typing surface declared by the native capabilities schema.
+- [storage.pyi](https://pythonide.xin/stubs/storage.pyi): native module typing surface declared by the native capabilities schema.
+- [database.pyi](https://pythonide.xin/stubs/database.pyi): native module typing surface declared by the native capabilities schema.
+- [archive.pyi](https://pythonide.xin/stubs/archive.pyi): native module typing surface declared by the native capabilities schema.
+- [keychain.pyi](https://pythonide.xin/stubs/keychain.pyi): native module typing surface declared by the native capabilities schema.
+- [clipboard.pyi](https://pythonide.xin/stubs/clipboard.pyi): native module typing surface declared by the native capabilities schema.
+- [console.pyi](https://pythonide.xin/stubs/console.pyi): native module typing surface declared by the native capabilities schema.
+- [dialogs.pyi](https://pythonide.xin/stubs/dialogs.pyi): native module typing surface declared by the native capabilities schema.
+- [notification.pyi](https://pythonide.xin/stubs/notification.pyi): native module typing surface declared by the native capabilities schema.
+- [calendar_events.pyi](https://pythonide.xin/stubs/calendar_events.pyi): native module typing surface declared by the native capabilities schema.
+- [contacts.pyi](https://pythonide.xin/stubs/contacts.pyi): native module typing surface declared by the native capabilities schema.
+- [live_activity.pyi](https://pythonide.xin/stubs/live_activity.pyi): native module typing surface declared by the native capabilities schema.
+- [nfc.pyi](https://pythonide.xin/stubs/nfc.pyi): native module typing surface declared by the native capabilities schema.
+- [photos.pyi](https://pythonide.xin/stubs/photos.pyi): native module typing surface declared by the native capabilities schema.
+- [avplayer.pyi](https://pythonide.xin/stubs/avplayer.pyi): native module typing surface declared by the native capabilities schema.
+- [music_player.pyi](https://pythonide.xin/stubs/music_player.pyi): native module typing surface declared by the native capabilities schema.
+- [sound.pyi](https://pythonide.xin/stubs/sound.pyi): native module typing surface declared by the native capabilities schema.
+- [speech.pyi](https://pythonide.xin/stubs/speech.pyi): native module typing surface declared by the native capabilities schema.
+- [audio_recorder.pyi](https://pythonide.xin/stubs/audio_recorder.pyi): native module typing surface declared by the native capabilities schema.
+- [speech_recognition.pyi](https://pythonide.xin/stubs/speech_recognition.pyi): native module typing surface declared by the native capabilities schema.
+- [qrcode.pyi](https://pythonide.xin/stubs/qrcode.pyi): native module typing surface declared by the native capabilities schema.
+- [pdf.pyi](https://pythonide.xin/stubs/pdf.pyi): native module typing surface declared by the native capabilities schema.
+- [native_image.pyi](https://pythonide.xin/stubs/native_image.pyi): native module typing surface declared by the native capabilities schema.
+- [weather.pyi](https://pythonide.xin/stubs/weather.pyi): native module typing surface declared by the native capabilities schema.
+- [mail.pyi](https://pythonide.xin/stubs/mail.pyi): native module typing surface declared by the native capabilities schema.
+- [message.pyi](https://pythonide.xin/stubs/message.pyi): native module typing surface declared by the native capabilities schema.
+- [translation.pyi](https://pythonide.xin/stubs/translation.pyi): native module typing surface declared by the native capabilities schema.
+- [music.pyi](https://pythonide.xin/stubs/music.pyi): native module typing surface declared by the native capabilities schema.
+- [shazam.pyi](https://pythonide.xin/stubs/shazam.pyi): native module typing surface declared by the native capabilities schema.
+- [now_playing.pyi](https://pythonide.xin/stubs/now_playing.pyi): native module typing surface declared by the native capabilities schema.
+- [vision.pyi](https://pythonide.xin/stubs/vision.pyi): native module typing surface declared by the native capabilities schema.
+- [vision_helper.pyi](https://pythonide.xin/stubs/vision_helper.pyi): native module typing surface declared by the native capabilities schema.
+- [coreml.pyi](https://pythonide.xin/stubs/coreml.pyi): native module typing surface declared by the native capabilities schema.
+- [network.pyi](https://pythonide.xin/stubs/network.pyi): native module typing surface declared by the native capabilities schema.
+- [websocket.pyi](https://pythonide.xin/stubs/websocket.pyi): native module typing surface declared by the native capabilities schema.
+- [bluetooth.pyi](https://pythonide.xin/stubs/bluetooth.pyi): native module typing surface declared by the native capabilities schema.
+- [background.pyi](https://pythonide.xin/stubs/background.pyi): native module typing surface declared by the native capabilities schema.
+- [shortcuts.pyi](https://pythonide.xin/stubs/shortcuts.pyi): native module typing surface declared by the native capabilities schema.
+- [objc_util.pyi](https://pythonide.xin/stubs/objc_util.pyi): native module typing surface declared by the native capabilities schema.
+- [keyboard.pyi](https://pythonide.xin/stubs/keyboard.pyi): native module typing surface declared by the native capabilities schema.
+- [http_server.pyi](https://pythonide.xin/stubs/http_server.pyi): native module typing surface declared by the native capabilities schema.
+- [ssh.pyi](https://pythonide.xin/stubs/ssh.pyi): native module typing surface declared by the native capabilities schema.
+- [background_download.pyi](https://pythonide.xin/stubs/background_download.pyi): native module typing surface declared by the native capabilities schema.
+- [ble_peripheral.pyi](https://pythonide.xin/stubs/ble_peripheral.pyi): native module typing surface declared by the native capabilities schema.
+- [video_recorder.pyi](https://pythonide.xin/stubs/video_recorder.pyi): native module typing surface declared by the native capabilities schema.
+- [media_composer.pyi](https://pythonide.xin/stubs/media_composer.pyi): native module typing surface declared by the native capabilities schema.
+- [audio_session.pyi](https://pythonide.xin/stubs/audio_session.pyi): native module typing surface declared by the native capabilities schema.
+- [storekit.pyi](https://pythonide.xin/stubs/storekit.pyi): native module typing surface declared by the native capabilities schema.
+- [font_picker.pyi](https://pythonide.xin/stubs/font_picker.pyi): native module typing surface declared by the native capabilities schema.
+- [alarm.pyi](https://pythonide.xin/stubs/alarm.pyi): native module typing surface declared by the native capabilities schema.
+- [foundation_models.pyi](https://pythonide.xin/stubs/foundation_models.pyi): native module typing surface declared by the native capabilities schema.
+- [assistant.pyi](https://pythonide.xin/stubs/assistant.pyi): native module typing surface declared by the native capabilities schema.
 
 ## Generation Rules
 

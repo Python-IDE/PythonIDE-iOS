@@ -63,11 +63,11 @@ w.render()
 
 ## AppUI Complete Public Surface
 
-- Exported symbols: 122
-- Module functions: `adaptive`, `animate`, `auto_refresh`, `bind`, `call_native`, `computed`, `custom_font`, `dismiss`, `dismiss_all`, `dynamic`, `effect`, `fixed`, `flexible`, `get_native_lib`, `grid_item`, `preload`, `presentation_dismiss`, `presentation_dismiss_all`, `presentation_present`, `run`, `set_custom_prop`
-- Views: `Alert`, `AsyncImage`, `AttributedText`, `Badge`, `Button`, `CameraPicker`, `Canvas`, `Capsule`, `Chart`, `Circle`, `CloseButton`, `Color`, `ColorPicker`, `ConfirmationDialog`, `ContentUnavailableView`, `ControlGroup`, `DatePicker`, `DisclosureGroup`, `Divider`, `EditButton`, `Ellipse`, `FileImporter`, `ForEach`, `Form`, `Gauge`, `GeometryReader`, `Grid`, `GridRow`, `Group`, `GroupBox`, `HStack`, `Image`, `InlinePickerStyle`, `Label`, `LabeledContent`, `LazyHGrid`, `LazyHStack`, `LazyVGrid`, `LazyVStack`, `Link`, `List`, `MapView`, `Menu`, `MultiDatePicker`, `NavigationLink`, `NavigationSplitView`, `NavigationStack`, `Overlay`, `PasteButton`, `Path`, `PhotoPicker`, `Picker`, `Popover`, `ProgressView`, `Rectangle`, `Refreshable`, `RenameButton`, `RoundedRectangle`, `SafeAreaInset`, `ScrollView`, `ScrollViewReader`, `SearchField`, `Section`, `SecureField`, `SegmentedControl`, `ShareLink`, `SignInWithAppleButton`, `Slider`, `Spacer`, `Stepper`, `SwipeActions`, `Tab`, `TabView`, `Table`, `Text`, `TextEditor`, `TextField`, `TextFieldLink`, `TimelineView`, `Toggle`, `ToolbarItem`, `ToolbarSpacer`, `VStack`, `VideoPlayer`, `ViewThatFits`, `WebView`, `WheelPicker`, `ZStack`
-- Typed helpers/classes: `DrawingContext`, `NavigationPath`, `ObservableDict`, `ObservableList`, `PersistentState`, `PlayerController`, `Prop`, `ReactiveState`, `Ref`, `State`, `Timer`, `View`, `infinity`
-- View modifiers: `.accessibility_hidden`, `.accessibility_label`, `.alert`, `.alignment_guide`, `.animation`, `.aspect_ratio`, `.background`, `.background_extension_effect`, `.badge`, `.blur`, `.bold`, `.border`, `.brightness`, `.button_style`, `.clip_shape`, `.clipped`, `.confirmation_dialog`, `.container_relative_frame`, `.content_margins`, `.content_shape`, `.content_transition`, `.context_menu`, `.contrast`, `.corner_radius`, `.date_picker_style`, `.default_scroll_anchor`, `.disabled`, `.drawing_group`, `.environment`, `.fill`, `.fixed_size`, `.focused`, `.font`, `.foreground_color`, `.foreground_style`, `.frame`, `.full_screen_cover`, `.gauge_style`, `.glass_effect`, `.glass_effect_id`, `.glass_effect_transition`, `.glass_effect_union`, `.grayscale`, `.hidden`, `.high_priority_gesture`, `.id`, `.ignores_safe_area`, `.image_scale`, `.inspector`, `.italic`, `.keyboard_dismiss`, `.layout_priority`, `.line_limit`, `.list_row_background`, `.list_row_insets`, `.list_row_separator`, `.list_style`, `.mask`, `.matched_geometry_effect`, `.minimum_scale_factor`, `.multiline_text_alignment`, `.navigation_bar_back_button_hidden`, `.navigation_bar_title_display_mode`, `.navigation_destination`, `.navigation_title`, `.offset`, `.on_appear`, `.on_disappear`, `.on_drag_gesture`, `.on_drop`, `.on_geometry`, `.on_long_press_gesture`, `.on_magnification_gesture`, `.on_rotation_gesture`, `.on_submit`, `.on_tap_gesture`, `.opacity`, `.overlay`, `.padding`, `.phase_animator`, `.picker_style`, `.popover`, `.position`, `.progress_view_style`, `.refreshable`, `.resizable`, `.rotation_3d_effect`, `.rotation_effect`, `.safe_area_bar`, `.safe_area_inset`, `.saturation`, `.scale_effect`, `.scroll_clip_disabled`, `.scroll_content_background`, `.scroll_edge_effect_hidden`, `.scroll_edge_effect_style`, `.scroll_position`, `.scroll_target_behavior`, `.scroll_target_layout`, `.scroll_transition`, `.search_toolbar_behavior`, `.searchable`, `.sensory_feedback`, `.shadow`, `.sheet`, `.simultaneous_gesture`, `.strikethrough`, `.stroke`, `.submit_label`, `.swipe_actions`, `.symbol_effect`, `.symbol_rendering_mode`, `.tab_bar_minimize_behavior`, `.tab_view_bottom_accessory`, `.tab_view_search_activation`, `.tab_view_style`, `.task`, `.text_field_style`, `.tint`, `.toggle_style`, `.toolbar`, `.toolbar_background`, `.toolbar_color_scheme`, `.transition`, `.truncation_mode`, `.underline`, `.z_index`
+- Exported symbols: 140
+- Module functions: `adaptive`, `animate`, `auto_refresh`, `bind`, `call_native`, `computed`, `custom_font`, `dismiss`, `dismiss_all`, `dynamic`, `effect`, `fixed`, `flexible`, `get_native_lib`, `grid_item`, `preload`, `presentation_dismiss`, `presentation_dismiss_all`, `presentation_present`, `run`, `runtime_features`, `set_custom_prop`, `supports`, `transaction`
+- Views: `Alert`, `AsyncImage`, `AttributedText`, `Badge`, `Button`, `CameraPicker`, `Canvas`, `Capsule`, `Chart`, `Circle`, `CloseButton`, `Color`, `ColorPicker`, `ConfirmationDialog`, `ContentUnavailableView`, `ControlGroup`, `DatePicker`, `DisclosureGroup`, `Divider`, `EditButton`, `Ellipse`, `EnvironmentReader`, `FileImporter`, `ForEach`, `Form`, `Gauge`, `GeometryReader`, `Grid`, `GridRow`, `Group`, `GroupBox`, `HStack`, `Image`, `InlinePickerStyle`, `Label`, `LabeledContent`, `LazyHGrid`, `LazyHStack`, `LazyVGrid`, `LazyVStack`, `Link`, `List`, `MapView`, `Menu`, `MultiDatePicker`, `NavigationLink`, `NavigationSplitView`, `NavigationStack`, `Overlay`, `PasteButton`, `Path`, `PhotoPicker`, `Picker`, `Popover`, `ProgressView`, `Rectangle`, `Refreshable`, `RenameButton`, `RoundedRectangle`, `SafeAreaInset`, `ScrollView`, `ScrollViewReader`, `SearchField`, `Section`, `SecureField`, `SegmentedControl`, `ShareLink`, `SignInWithAppleButton`, `Slider`, `Spacer`, `Stepper`, `SwipeActions`, `Tab`, `TabView`, `Table`, `Text`, `TextEditor`, `TextField`, `TextFieldLink`, `TimelineView`, `Toggle`, `ToolbarItem`, `ToolbarSpacer`, `VStack`, `VideoPlayer`, `ViewThatFits`, `WebView`, `WheelPicker`, `ZStack`
+- Typed helpers/classes: `Animation`, `AreaMark`, `BarMark`, `Binding`, `ChartField`, `ChartValue`, `DrawingContext`, `Gesture`, `LineMark`, `Namespace`, `NavigationPath`, `ObservableDict`, `ObservableList`, `PersistentState`, `PlayerController`, `PointMark`, `Prop`, `ReactiveState`, `RectangleMark`, `Ref`, `RuleMark`, `SectorMark`, `State`, `Timer`, `Transition`, `View`, `infinity`
+- View modifiers: `.accessibility_action`, `.accessibility_add_traits`, `.accessibility_adjustable_action`, `.accessibility_element`, `.accessibility_heading`, `.accessibility_hidden`, `.accessibility_hint`, `.accessibility_identifier`, `.accessibility_input_labels`, `.accessibility_label`, `.accessibility_remove_traits`, `.accessibility_responds_to_user_interaction`, `.accessibility_sort_priority`, `.accessibility_value`, `.alert`, `.alignment_guide`, `.animation`, `.aspect_ratio`, `.background`, `.background_extension_effect`, `.badge`, `.blur`, `.bold`, `.border`, `.brightness`, `.button_style`, `.clip_shape`, `.clipped`, `.confirmation_dialog`, `.container_relative_frame`, `.content_margins`, `.content_shape`, `.content_transition`, `.context_menu`, `.contrast`, `.corner_radius`, `.date_picker_style`, `.default_scroll_anchor`, `.disabled`, `.drawing_group`, `.environment`, `.fill`, `.fixed_size`, `.focused`, `.font`, `.foreground_color`, `.foreground_style`, `.frame`, `.full_screen_cover`, `.gauge_style`, `.gesture_tree`, `.glass_effect`, `.glass_effect_id`, `.glass_effect_transition`, `.glass_effect_union`, `.grayscale`, `.hidden`, `.high_priority_gesture`, `.id`, `.ignores_safe_area`, `.image_scale`, `.inspector`, `.italic`, `.keyboard_dismiss`, `.keyframe_animator`, `.layout_priority`, `.line_limit`, `.list_row_background`, `.list_row_insets`, `.list_row_separator`, `.list_style`, `.mask`, `.matched_geometry_effect`, `.matched_transition_source`, `.minimum_scale_factor`, `.multiline_text_alignment`, `.navigation_bar_back_button_hidden`, `.navigation_bar_title_display_mode`, `.navigation_destination`, `.navigation_title`, `.navigation_transition`, `.offset`, `.on_appear`, `.on_disappear`, `.on_drag_gesture`, `.on_drop`, `.on_geometry`, `.on_long_press_gesture`, `.on_magnification_gesture`, `.on_rotation_gesture`, `.on_scroll_geometry_change`, `.on_scroll_phase_change`, `.on_scroll_visibility_change`, `.on_submit`, `.on_tap_gesture`, `.opacity`, `.overlay`, `.padding`, `.phase_animator`, `.picker_style`, `.popover`, `.position`, `.progress_view_style`, `.refreshable`, `.resizable`, `.rotation_3d_effect`, `.rotation_effect`, `.safe_area_bar`, `.safe_area_inset`, `.saturation`, `.scale_effect`, `.scroll_clip_disabled`, `.scroll_content_background`, `.scroll_edge_effect_hidden`, `.scroll_edge_effect_style`, `.scroll_position`, `.scroll_target_behavior`, `.scroll_target_layout`, `.scroll_transition`, `.search_toolbar_behavior`, `.searchable`, `.sensory_feedback`, `.shadow`, `.sheet`, `.simultaneous_gesture`, `.strikethrough`, `.stroke`, `.submit_label`, `.swipe_actions`, `.symbol_effect`, `.symbol_rendering_mode`, `.tab_bar_minimize_behavior`, `.tab_view_bottom_accessory`, `.tab_view_search_activation`, `.tab_view_style`, `.task`, `.text_field_style`, `.tint`, `.toggle_style`, `.toolbar`, `.toolbar_background`, `.toolbar_color_scheme`, `.transition`, `.truncation_mode`, `.underline`, `.z_index`
 
 ## Widget Complete Public Surface
 
@@ -222,13 +222,14 @@ Compatibility names are intentionally omitted from public AI output.
 
 | Module | Category | Permissions | Capabilities | Core APIs |
 | --- | --- | --- | --- | --- |
-| `alarm` | `系统服务` | - | `alarm_schedule`, `alarm_cancel` | `alarm.is_available`, `alarm.request_authorization`, `alarm.schedule`, `alarm.cancel`, `alarm.list_alarms`, `alarm.AlarmError` |
+| `alarm` | `系统服务` | `alarms` | `alarm_list`, `alarm_schedule`, `alarm_cancel` | `alarm.is_available`, `alarm.request_authorization`, `alarm.schedule`, `alarm.cancel`, `alarm.list_alarms`, `alarm.AlarmError` |
+| `archive` | `系统服务` | - | `zip_inspection`, `zip_extraction`, `zip_creation`, `native_archive_bridge` | `archive.ArchiveError`, `archive.inspect`, `archive.list`, `archive.extract`, `archive.create`, `archive.cancel`, `archive.new_operation_id` |
 | `assistant` | `系统服务` | - | `assistant_tools`, `device_context_answers` | `assistant.is_available`, `assistant.list_tools`, `assistant.run`, `assistant.AssistantError` |
 | `audio_recorder` | `媒体与视觉` | `microphone` | `microphone_capture`, `recording_control`, `level_metering` | `audio_recorder.start`, `audio_recorder.stop`, `audio_recorder.pause`, `audio_recorder.resume`, `audio_recorder.cancel`, `audio_recorder.status`, `audio_recorder.is_recording`, `audio_recorder.duration`, `audio_recorder.metering`, `audio_recorder.AudioRecorderError` |
 | `audio_session` | `媒体与视觉` | - | `audio_session_category`, `audio_route_query` | `audio_session.set_category`, `audio_session.set_active`, `audio_session.current_route`, `audio_session.AudioSessionError` |
 | `avplayer` | `媒体与视觉` | - | `audio_video_load`, `playback_control`, `native_player` | `avplayer.Player`, `avplayer.load`, `avplayer.play`, `avplayer.pause`, `avplayer.stop`, `avplayer.seek`, `avplayer.duration`, `avplayer.current_time`, `avplayer.is_playing`, `avplayer.set_volume`, `avplayer.set_rate`, `avplayer.present_video`, `avplayer.on_progress`, `avplayer.stop_progress`, `avplayer.on_end`, `avplayer.cleanup` |
 | `background` | `网络与连接` | - | `background_task`, `remaining_time`, `app_state` | `background.begin_task`, `background.end_task`, `background.remaining_time`, `background.app_state`, `background.start_keep_alive`, `background.stop_keep_alive`, `background.schedule_refresh`, `background.schedule_processing` |
-| `background_download` | `网络与连接` | - | `background_download`, `download_progress` | `background_download.download`, `background_download.status`, `background_download.cancel`, `background_download.BackgroundDownloadError` |
+| `background_download` | `网络与连接` | - | `background_download`, `background_upload`, `download_progress`, `transfer_pause_resume`, `durable_task_center`, `checksum_validation` | `background_download.download`, `background_download.upload`, `background_download.status`, `background_download.list`, `background_download.cancel`, `background_download.pause`, `background_download.resume`, `background_download.retry`, `background_download.BackgroundDownloadError` |
 | `biometric` | `设备与传感器` | `biometric` | `face_id`, `touch_id`, `passcode_fallback` | `biometric.biometric_type`, `biometric.is_available`, `biometric.authenticate`, `biometric.authenticate_with_passcode` |
 | `ble_peripheral` | `网络与连接` | - | `ble_peripheral_advertising`, `ble_characteristic_update` | `ble_peripheral.start_advertising`, `ble_peripheral.stop_advertising`, `ble_peripheral.status`, `ble_peripheral.update_value`, `ble_peripheral.BlePeripheralError` |
 | `bluetooth` | `网络与连接` | `bluetooth` | `ble_scan`, `ble_connect`, `read`, `write` | `bluetooth.state`, `bluetooth.scan`, `bluetooth.stop_scan`, `bluetooth.connect`, `bluetooth.disconnect`, `bluetooth.discover_services`, `bluetooth.read`, `bluetooth.write` |
@@ -238,7 +239,7 @@ Compatibility names are intentionally omitted from public AI output.
 | `console` | `系统服务` | - | `hud`, `alerts`, `input_dialogs` | `console.alert`, `console.hud_alert`, `console.input_alert`, `console.login_alert`, `console.password_alert`, `console.set_color`, `console.set_font`, `console.clear`, `console.write_link` |
 | `contacts` | `系统服务` | `contacts` | `contacts_read`, `contacts_picker`, `contacts_edit` | `contacts.PERSON`, `contacts.ORGANIZATION`, `contacts.ContactsError`, `contacts.Person`, `contacts.Group`, `contacts.Container`, `contacts.PropertySelection`, `contacts.authorization_status`, `contacts.capabilities`, `contacts.is_authorized`, `contacts.request_access`, `contacts.get_all_people`, `contacts.get_person`, `contacts.get_me`, `contacts.find`, `contacts.find_by_phone`, `contacts.find_by_email`, `contacts.add_person`, `contacts.remove_person`, `contacts.save`, `contacts.revert`, `contacts.get_all_groups`, `contacts.get_group`, `contacts.add_group`, `contacts.remove_group`, `contacts.get_all_containers`, `contacts.get_default_container`, `contacts.get_people_in_group`, `contacts.get_people_in_container`, `contacts.get_groups_in_container`, `contacts.pick_contact`, `contacts.pick_contacts`, `contacts.pick_property`, `contacts.show_person`, `contacts.edit_person`, `contacts.new_person`, `contacts.export_vcards`, `contacts.import_vcards`, `contacts.get_change_history`, `contacts.manage_limited_access`, `contacts.localized_label` |
 | `coreml` | `媒体与视觉` | - | `model_listing`, `model_loading`, `image_prediction` | `coreml.list_models`, `coreml.load_model`, `coreml.predict_image`, `coreml.model_info` |
-| `database` | `系统服务` | - | `sqlite`, `native_sqlite_bridge`, `collections`, `transactions` | `database.DatabaseError`, `database.Database`, `database.Collection`, `database.open`, `database.connect`, `database.default_database`, `database.collection`, `database.database_path`, `database.close_default_database`, `database.close_all` |
+| `database` | `系统服务` | - | `sqlite`, `native_sqlite_bridge`, `collections`, `transactions`, `blob_parameters`, `blob_results` | `database.DatabaseError`, `database.Database`, `database.Collection`, `database.open`, `database.connect`, `database.default_database`, `database.collection`, `database.database_path`, `database.close_default_database`, `database.close_all` |
 | `device` | `设备与传感器` | - | `device_state`, `screen`, `battery`, `thermal_state` | `device.name`, `device.model`, `device.system_name`, `device.system_version`, `device.identifier_for_vendor`, `device.battery_level`, `device.battery_state`, `device.orientation`, `device.screen_width`, `device.screen_height`, `device.screen_size`, `device.screen_scale`, `device.screen_brightness`, `device.set_screen_brightness`, `device.total_memory`, `device.processor_count`, `device.system_uptime`, `device.thermal_state`, `device.is_low_power_mode`, `device.locale`, `device.timezone`, `device.preferred_languages` |
 | `dialogs` | `系统服务` | - | `native_dialogs`, `forms`, `pickers` | `dialogs.alert`, `dialogs.input_alert`, `dialogs.list_dialog`, `dialogs.form_dialog`, `dialogs.date_dialog`, `dialogs.hud_alert`, `dialogs.editor` |
 | `font_picker` | `系统服务` | - | `font_picker_ui` | `font_picker.pick`, `font_picker.FontPickerError` |
@@ -248,7 +249,7 @@ Compatibility names are intentionally omitted from public AI output.
 | `http_server` | `网络与连接` | - | `local_http_server`, `file_serving` | `http_server.start`, `http_server.stop`, `http_server.status`, `http_server.HttpServerError` |
 | `keyboard` | `自动化与扩展` | - | `toolbar_buttons`, `insert_text`, `set_buttons` | `keyboard.add_button`, `keyboard.add_group`, `keyboard.remove_button`, `keyboard.clear`, `keyboard.insert_text`, `keyboard.insert_snippet`, `keyboard.move_cursor`, `keyboard.Button`, `keyboard.set_buttons` |
 | `keychain` | `系统服务` | - | `secure_password_storage`, `service_listing` | `keychain.get_password`, `keychain.set_password`, `keychain.delete_password`, `keychain.get_services` |
-| `live_activity` | `系统服务` | - | `dynamic_island`, `lock_screen_activity` | `live_activity.start`, `live_activity.update`, `live_activity.end`, `live_activity.is_supported` |
+| `live_activity` | `系统服务` | `live_activity` | `dynamic_island`, `lock_screen_activity` | `live_activity.start`, `live_activity.update`, `live_activity.end`, `live_activity.is_supported` |
 | `location` | `设备与传感器` | `location` | `gps`, `heading`, `geocoding` | `location.authorization_status`, `location.is_authorized`, `location.request_access`, `location.start_updates`, `location.stop_updates`, `location.get_location`, `location.start_heading`, `location.stop_heading`, `location.get_heading`, `location.reverse_geocode`, `location.geocode` |
 | `mail` | `系统服务` | - | `mail_compose`, `attachment_send` | `mail.can_send`, `mail.compose`, `mail.MailError` |
 | `media_composer` | `媒体与视觉` | - | `video_merge`, `audio_mux`, `media_export` | `media_composer.merge_videos`, `media_composer.merge_audio`, `media_composer.export`, `media_composer.MediaComposerError` |
@@ -256,7 +257,8 @@ Compatibility names are intentionally omitted from public AI output.
 | `motion` | `设备与传感器` | `motion` | `accelerometer`, `gyroscope`, `attitude`, `barometer` | `motion.is_available`, `motion.start_updates`, `motion.stop_updates`, `motion.start_accelerometer`, `motion.stop_accelerometer`, `motion.start_gyroscope`, `motion.stop_gyroscope`, `motion.start_magnetometer`, `motion.stop_magnetometer`, `motion.start_altimeter`, `motion.stop_altimeter`, `motion.get_acceleration`, `motion.get_gravity`, `motion.get_rotation_rate`, `motion.get_magnetic_field`, `motion.get_attitude`, `motion.get_altitude` |
 | `music` | `媒体与视觉` | - | `music_playback`, `catalog_search` | `music.authorization_status`, `music.request_authorization`, `music.play`, `music.play_song`, `music.play_songs`, `music.play_search_result`, `music.pause`, `music.skip_to_next`, `music.skip_to_previous`, `music.current_track`, `music.search`, `music.MusicError` |
 | `music_player` | `媒体与视觉` | - | `music_queue`, `playback_control`, `play_mode`, `now_playing_metadata`, `remote_commands`, `playback_restore`, `progress_events`, `queue_preload`, `preload_events` | `music_player.PLAY_MODE_SEQUENCE`, `music_player.PLAY_MODE_REPEAT_ALL`, `music_player.PLAY_MODE_REPEAT_ONE`, `music_player.PLAY_MODE_SHUFFLE`, `music_player.MusicPlayerError`, `music_player.configure`, `music_player.set_queue`, `music_player.queue`, `music_player.current`, `music_player.add`, `music_player.remove`, `music_player.move`, `music_player.clear`, `music_player.prepare`, `music_player.prefetch_next`, `music_player.preload_state`, `music_player.play`, `music_player.pause`, `music_player.toggle`, `music_player.stop`, `music_player.next`, `music_player.previous`, `music_player.seek`, `music_player.set_play_mode`, `music_player.set_volume`, `music_player.set_rate`, `music_player.state`, `music_player.restore`, `music_player.on_event`, `music_player.off_event` |
-| `network` | `网络与连接` | - | `http`, `download`, `connectivity` | `network.is_connected`, `network.connection_type`, `network.is_expensive`, `network.is_constrained`, `network.request`, `network.get`, `network.post`, `network.put`, `network.delete`, `network.patch`, `network.download`, `network.Response` |
+| `native_image` | `媒体与视觉` | - | `image_inspection`, `native_image_processing`, `resize`, `thumbnail`, `crop`, `rotate`, `core_image_filters` | `native_image.inspect`, `native_image.process`, `native_image.resize`, `native_image.thumbnail`, `native_image.crop`, `native_image.rotate`, `native_image.NativeImageError` |
+| `network` | `网络与连接` | - | `http`, `http_streaming`, `server_sent_events`, `download`, `connectivity` | `network.is_connected`, `network.connection_type`, `network.is_expensive`, `network.is_constrained`, `network.request`, `network.get`, `network.post`, `network.put`, `network.delete`, `network.patch`, `network.stream`, `network.download`, `network.Response`, `network.StreamResponse`, `network.StreamError` |
 | `nfc` | `系统服务` | `nfc` | `ndef_scan`, `ndef_write` | `nfc.is_available`, `nfc.scan`, `nfc.write` |
 | `notification` | `系统服务` | `notifications` | `local_notifications`, `badges`, `scheduled_alerts` | `notification.request_permission`, `notification.authorization_status`, `notification.schedule`, `notification.schedule_at_date`, `notification.remove_pending`, `notification.remove_all_pending`, `notification.pending_count`, `notification.pending_identifiers`, `notification.set_badge` |
 | `now_playing` | `媒体与视觉` | - | `now_playing_metadata`, `playback_progress` | `now_playing.set_info`, `now_playing.update_elapsed`, `now_playing.clear`, `now_playing.NowPlayingError` |
@@ -271,7 +273,7 @@ Compatibility names are intentionally omitted from public AI output.
 | `speech` | `媒体与视觉` | `speech` | `text_to_speech`, `voice_listing` | `speech.say`, `speech.stop`, `speech.pause`, `speech.resume`, `speech.is_speaking`, `speech.available_voices` |
 | `speech_recognition` | `媒体与视觉` | `speech`, `microphone` | `live_transcription`, `file_transcription`, `locale_listing` | `speech_recognition.is_available`, `speech_recognition.supported_locales`, `speech_recognition.start`, `speech_recognition.status`, `speech_recognition.text`, `speech_recognition.is_listening`, `speech_recognition.stop`, `speech_recognition.cancel`, `speech_recognition.recognize_file`, `speech_recognition.SpeechRecognitionError` |
 | `ssh` | `网络与连接` | - | `ssh_exec`, `sftp_upload`, `sftp_download` | `ssh.connect`, `ssh.execute`, `ssh.upload`, `ssh.download`, `ssh.disconnect`, `ssh.SSHError` |
-| `storage` | `系统服务` | - | `user_defaults`, `json_values` | `storage.get`, `storage.set`, `storage.get_int`, `storage.set_int`, `storage.get_float`, `storage.set_float`, `storage.get_bool`, `storage.set_bool`, `storage.get_json`, `storage.set_json`, `storage.remove`, `storage.has_key`, `storage.all_keys` |
+| `storage` | `系统服务` | - | `user_defaults`, `json_values` | `storage.get`, `storage.set`, `storage.get_int`, `storage.set_int`, `storage.get_float`, `storage.set_float`, `storage.get_bool`, `storage.set_bool`, `storage.get_json`, `storage.set_json`, `storage.remove`, `storage.has_key`, `storage.all_keys`, `storage.shared` |
 | `storekit` | `系统服务` | - | `iap_purchase`, `subscription_status`, `product_catalog` | `storekit.load_products`, `storekit.purchase`, `storekit.restore`, `storekit.subscription_status`, `storekit.show_manage_subscriptions`, `storekit.StoreKitError` |
 | `translation` | `系统服务` | - | `on_device_translation`, `language_listing` | `translation.is_available`, `translation.supported_languages`, `translation.translate`, `translation.TranslationError` |
 | `video_recorder` | `媒体与视觉` | `camera` | `video_recording` | `video_recorder.start`, `video_recorder.stop`, `video_recorder.cancel`, `video_recorder.status`, `video_recorder.VideoRecorderError` |
@@ -745,6 +747,7 @@ appui.run(body, state=state)
 | 输入设置项 | `Form + Section` | [布局系统](appui-guide-layout.md) |
 | 动态列表 | `List + ForEach` | [布局系统](appui-guide-layout.md) |
 | 列表进详情 | `NavigationStack + NavigationLink` | [导航与页面结构](appui-guide-navigation.md) |
+| iPad 多列与系统折叠同步 | `NavigationSplitView(column_visibility=state.bind.columns)` | [导航参考](appui-ref-navigation.md#navigationsplitview-列可见性) |
 | 程序化跳转 | `NavigationPath + destinations` | [导航与页面结构](appui-guide-navigation.md) |
 | 多主分区 | `TabView + Tab` | [导航与页面结构](appui-guide-navigation.md) |
 | 底部状态条展开面板 | `.tab_view_bottom_accessory` + `.sheet` | [导航参考](appui-ref-navigation.md#底部附件与原生-sheet) |
@@ -758,14 +761,13 @@ appui.run(body, state=state)
 | 选择控件 | `Toggle`、`Picker`、`Slider`、`Stepper` | [控件 API](appui-ref-controls.md) |
 | 媒体和文件 | `PhotoPicker`、`CameraPicker`、`FileImporter` | [媒体 API](appui-ref-media.md) |
 | 地图、网页、视频 | `MapView`、`WebView`、`VideoPlayer` | [媒体 API](appui-ref-media.md) |
-| 图表和绘制 | `Chart`、`Canvas`、`DrawingContext`、`Path` | [图表 API](appui-ref-charts.md) |
+| 简单图表 | `Chart(type=..., x=..., y=...)` | [图表 API](appui-ref-charts.md) |
+| 原生组合图与扇区图 | `Chart(marks=[...])`、`ChartField`、`ChartValue`、七种 Mark | [图表 API](appui-ref-charts.md#组合-mark-构造器) |
+| 自定义绘制 | `Canvas`、`DrawingContext`、`Path` | [图表 API](appui-ref-charts.md#canvas) |
 
 ## 行为契约
 
 | API | 保证 | 注意 |
-| --- | --- | --- |
-| `appui.run(...)` | 启动当前 MiniApp 页面。 | 一个脚本只保留一个最终入口。 |
-| `State` | 字段变化后页面重建。 | 多字段同时更新用 `batch_update(...)`。 |
 
 <!-- excerpt trimmed; see the in-app docs for the full tutorial text -->
 
@@ -1546,7 +1548,7 @@ MiniApp 场景下的原生能力配方：按任务选模块、组合调用、状
 | 导入 | 按场景 `import` 对应模块（如 `photos`、`storage`） |
 | 适合做什么 | 选图、定位、通知、持久化、网络列表等 MiniApp 常见流 |
 | 调用时机 | 按钮、刷新、选择器触发；`body()` 只读 `State` |
-| 数据分工 | 设置 `storage`、记录 `database`、密钥 `keychain` |
+| 数据分工 | 设置 `storage`、记录 `database`、密钥 `keychain`、ZIP/IPA 用 `archive` |
 | 反馈 | 成功/取消/失败都写回 `State` 或 HUD |
 
 ---
@@ -1565,62 +1567,62 @@ if haptics.is_supported():
 print("已保存:", storage.get("demo.theme"))
 ```
 
----
+## 每个 MiniApp 的能力声明
 
-## AppUI 示例
-
-设备信息、快照、通知组合；所有原生调用在按钮回调里。
-
-```python runnable previewAppUI
-import appui
-import device
-import haptics
-import notification
-import storage
-
-SNAPSHOT_KEY = "native.snapshot"
-REMINDER_ID = "native.snapshot.reminder"
-
-state = appui.State(
-    message="就绪",
-    rows=[
-        {"id": "model", "title": "型号", "value": "点击刷新"},
-        {"id": "battery", "title": "电量", "value": "—"},
-    ],
-)
+新建或准备分发的 MiniApp 应在 `miniapp.json` 声明最小能力。字段缺失表示旧应用兼容 profile；字段存在且为 `[]` 表示明确不允许任何受控能力。已有 MiniApp 不需要改代码，新能力只做增量声明。
 
 
-def row_key(row):
-    return row["id"]
+### 分享页如何选择 MiniApp
 
+系统分享页不会在多个候选中“随便打开第一个”。它会用每个已安装 MiniApp 的 `externalInputs` 对本次全部输入做匹配，并把所有匹配项显示为 MiniApp 卡片；用户点了哪一张卡片，请求就只绑定到哪一个 MiniApp。没有匹配项时仍可按普通导入/预览处理。
 
-def row_view(row):
-    return appui.LabeledContent(row["title"], value=row["value"])
+匹配规则是确定的：
 
+- `kinds` 未填写时由更具体的类型、扩展名或 URL 选择器决定；`file` 可接收除 URL 以外的文件型输入。
+- 对文件输入，`contentTypes` 使用 UTI 一致性/继承关系匹配，和 `fileExtensions` 之间是“任一匹配”；图片、音频和视频会按实际文件类型识别，不按分享传输层的泛型 `public.file-url` 误判。
+- 对 URL 输入，已填写的 `urlSchemes`、`urlHosts`、`urlPathPrefixes` 必须同时满足；`*.example.com` 不包含裸域 `example.com`。
+- 每个输入都必须匹配；多项目还需 `acceptsMultiple=true`，混合类别还需 `acceptsMixedKinds=true`。
 
-def refresh_device_info():
-    state.rows = [
-        {"id": "model", "title": "型号", "value": device.model()},
-        {"id": "battery", "title": "电量", "value": f"{device.battery_level():.0%}"},
-    ]
-    state.message = "设备信息已刷新"
+分享扩展只负责暂存输入和记录用户选择。主 App 打开后会再次校验目标 MiniApp 仍存在、工作区没有切换、运行时支持外部请求且当前声明仍匹配；如果安装状态或声明已经变化，输入会安全回退为普通导入，不会误交给另一个 MiniApp，也不会因为目标失效直接丢失。
 
+### `miniapp_runtime` 启动请求
 
-def save_snapshot():
-    storage.set_json(SNAPSHOT_KEY, state.rows)
-    if haptics.is_supported():
-        haptics.notification("success")
-    state.message = "快照已保存"
+普通启动时 `launch_request()` 返回 `None`；外部启动时返回非空、只读的 `LaunchRequest`。如果当前业务必须由外部输入启动，可使用 `launch_request(required=True)`，缺少请求时会抛 `LaunchRequestError`。
 
+```python
+import miniapp_runtime
 
-def remind_later():
-    perm = notification.request_permission()
-    if not perm.get("granted"):
-        state.message = "未获得通知权限"
-        return
+request = miniapp_runtime.launch_request(required=True)
+item = request.first
 
-    result = notification.schedule(
-        REMINDER_ID,
+print(request.id, request.source, request.target_miniapp_id)
+print(item.kind, item.name, item.content_type, item.size)
+
+if item.url:
+    print("原始 URL:", item.url)
+else:
+    with item.open("rb") as stream:
+        header = stream.read(64)
+        print(header)
+```
+
+| 对象 | 字段/方法 | 说明 |
+| --- | --- | --- |
+| `LaunchRequest` | `id` / `source` / `created_at` / `target_miniapp_id` | 本次请求、来源、创建时间与已选目标；对象不可修改。 |
+| `LaunchRequest` | `items` / `first` | 非空输入元组与第一项。 |
+| `LaunchRequest` | `files` / `urls` | 本次受管文件路径与原始 URL 的只读元组。 |
+| `LaunchItem` | `id` / `kind` / `name` / `content_type` / `size` | 输入的稳定元数据。 |
+| `LaunchItem` | `path` / `url` | 宿主暂存路径；URL 输入还提供规范化原始 URL。 |
+| `LaunchItem` | `open("rb")` / `open("r")` / `open("rt")` | 只读打开；写入、追加和更新模式会被拒绝。 |
+| `LaunchItem` | `read_bytes(max_bytes=...)` / `read_text(...)` | 有明确大小上限的便捷读取；大文件应使用 `open()` 流式处理。 |
+| 模块函数 | `has_launch_request()` | 判断本次运行是否带外部请求。 |
+
+`intentEntry` 只是在外部请求存在时选择另一份 Python 入口文件；请求内容仍统一从 `miniapp_runtime` 读取。未填写、文件名为空或普通启动时继续运行原 `entry`，因此不会改变旧 MiniApp 的启动写法。请求授权与当前运行票据绑定：运行结束后不要保存 `LaunchItem.path` 供下次使用；需要跨运行继续使用时，应在当前授权有效期间导入工作区，或交给会立即接管文件的宿主持久任务（例如 `background_download.upload()`）。
+
+### Server MiniApp 启动就绪握手
+
+这组 API 只用于自己启动 HTTP 监听器的 Server MiniApp；AppUI、console、scene、ui 和 widget 不需要调用。旧 Server MiniApp 仍保留兼容启动路径，新代码建议在正常路由之前响应宿主为本次运行生成的健康请求，让宿主确认“当前端口确实属于这一代 Python 运行”，而不是误连上一次遗留的监听器。
+
 
 <!-- excerpt trimmed; see the in-app docs for the full tutorial text -->
 

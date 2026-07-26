@@ -167,6 +167,7 @@
 <a class="nav-link" href="../../pages/permission-module/">permission</a>
 <a class="nav-link" href="../../pages/storage-module/">storage</a>
 <a class="nav-link" href="../../pages/database-module/">database</a>
+<a class="nav-link" href="../../pages/archive-module/">archive</a>
 <a class="nav-link" href="../../pages/keychain-module/">keychain</a>
 <a class="nav-link" href="../../pages/clipboard-module/">clipboard</a>
 <a class="nav-link" href="../../pages/console-module/">console</a>
@@ -214,6 +215,7 @@
 </div>
 <div class="nav-group">
 <div class="nav-group-title">视觉与文档</div>
+<a class="nav-link" href="../../pages/native-image-module/">native_image</a>
 <a class="nav-link" href="../../pages/vision-module/">vision</a>
 <a class="nav-link" href="../../pages/vision-helper-module/">vision_helper</a>
 <a class="nav-link" href="../../pages/coreml-module/">coreml</a>
@@ -400,6 +402,8 @@ def body():
 appui.run(body, state=state)</code></pre>
 </figure>
 <p><code>path.append({&quot;tag&quot;: &quot;...&quot;, &quot;data&quot;: ...})</code> 的 <code>tag</code> 用来找目标构建函数，<code>data</code> 会传给目标函数。</p>
+<p>也可以直接 <code>path.append(View)</code>，或用 <code>path.append(&quot;profile&quot;)</code> 配合 <code>destinations={&quot;profile&quot;: builder}</code>；字符串/整数路由值本身会传给 builder。 每次 append 都会获得运行时内部的稳定 route identity，用户不需要创建或保存这个 ID。系统返回按钮、侧滑返回、<code>pop(count)</code>、<code>pop_to_root()</code> 与 <code>replace(...)</code> 都同步到同一条路径；热更新只替换目标页面内容，不会把已有页面误认成另一层。</p>
+<p>如果 tag 没有对应 builder，Debug 严格模式会直接报告错误；兼容模式会显示明确的 “Navigation Destination Unavailable”页面并记录诊断，不会再静默推入空白页。</p>
 <h2 id="tabview"><a class="heading-anchor" href="#tabview">#</a>TabView</h2>
 <p>Tab 适合并列的顶层区域，不要用来承载一次性流程。每个 tab 中如果还需要进入详情，再单独放自己的 <code>NavigationStack</code>。</p>
 <figure class="code-block" data-code-id="969d8f88349d">
@@ -519,20 +523,23 @@ appui.run(body, state=state)</code></pre>
 </figure>
 <p>普通编辑用 sheet，破坏性操作先 alert 或 confirmation dialog。</p>
 <h2 id="navigationsplitview"><a class="heading-anchor" href="#navigationsplitview">#</a>NavigationSplitView</h2>
-<p><code>NavigationSplitView</code> 适合大屏。窄屏上系统会自动退化为栈式体验。</p>
-<figure class="code-block" data-code-id="10d05f9105f6">
+<p><code>NavigationSplitView</code> 适合大屏。窄屏上系统会自动退化为栈式体验。<code>column_visibility</code> 支持 <code>automatic</code>、<code>all</code>、<code>double</code>、<code>detail</code>，并可绑定到 <code>State</code>，因此 iPad 分屏、旋转或用户折叠侧边栏后 Python 状态不会停留在旧值。</p>
+<figure class="code-block" data-code-id="c0f56cf679c9">
   <figcaption>
     <span>python</span>
-    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="10d05f9105f6" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="c0f56cf679c9" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
-  <pre><code id="code-10d05f9105f6" class="language-python">appui.NavigationSplitView(
+  <pre><code id="code-c0f56cf679c9" class="language-python">state = appui.State(columns=&quot;automatic&quot;)
+
+appui.NavigationSplitView(
     sidebar=appui.List([...]).navigation_title(&quot;项目&quot;),
     detail=appui.Text(&quot;选择一个项目&quot;).navigation_title(&quot;详情&quot;),
+    column_visibility=state.bind.columns,
 )</code></pre>
 </figure>
-<p>如果目标设备主要是 iPhone，不要为了“看起来高级”强行使用 SplitView。</p>
+<p>需要记录系统变化时再加 <code>on_change=columns_changed</code>；绑定与回调同时存在时两者都会更新。三列布局使用 <code>supplementary=</code>。如果目标设备主要是 iPhone，不要为了“看起来高级”强行使用 SplitView。</p>
 <h2 id="常见问题"><a class="heading-anchor" href="#常见问题">#</a>常见问题</h2>
-<div class="table-scroll"><table><thead><tr><th>问题</th><th>处理</th></tr></thead><tbody><tr><td>页面没有标题</td><td>在内容 View 上加 <code>.navigation_title(...)</code>。</td></tr><tr><td>返回后状态丢失</td><td>把状态放在外层 <code>State</code>，不要在目标页面函数里重新创建。</td></tr><tr><td><code>destinations</code> 回调报参数错</td><td>回调写成接收 <code>data</code> 的命名函数。</td></tr><tr><td>sheet 点了没反应</td><td>确认 <code>is_presented</code> 读取的是状态字段，关闭时会把字段改回 <code>False</code>。</td></tr><tr><td>Tab 和导航栈混乱</td><td>Tab 做顶层分区，Stack 做分区内跳转。</td></tr><tr><td>工具栏图标按钮报错</td><td><code>Button</code> 的图标放在 <code>content=Image(...)</code> 或 <code>content=Label(...)</code>。</td></tr></tbody></table></div>
+<div class="table-scroll"><table><thead><tr><th>问题</th><th>处理</th></tr></thead><tbody><tr><td>页面没有标题</td><td>在内容 View 上加 <code>.navigation_title(...)</code>。</td></tr><tr><td>返回后状态丢失</td><td>把状态放在外层 <code>State</code>，不要在目标页面函数里重新创建。</td></tr><tr><td><code>destinations</code> 回调报参数错</td><td>回调写成接收 <code>data</code> 的命名函数。</td></tr><tr><td>sheet 点了没反应</td><td>确认 <code>is_presented</code> 读取的是状态字段，关闭时会把字段改回 <code>False</code>。</td></tr><tr><td>Tab 和导航栈混乱</td><td>Tab 做顶层分区，Stack 做分区内跳转。</td></tr><tr><td>工具栏图标按钮报错</td><td><code>Button</code> 的图标放在 <code>content=Image(...)</code> 或 <code>content=Label(...)</code>。</td></tr><tr><td>iPad 侧边栏状态和 Python 不一致</td><td>把 <code>column_visibility</code> 改为 <code>State.bind.&lt;field&gt;</code>，不要只传启动时的固定字符串。</td></tr></tbody></table></div>
 <h2 id="下一步"><a class="heading-anchor" href="#下一步">#</a>下一步</h2>
 <ul><li><a href="../../pages/appui-guide-layout/">布局系统</a> 组织可编辑数据。</li><li><a href="../../pages/appui-guide-interaction/">交互与回调</a> 处理点击、拖拽、菜单、焦点。</li><li><a href="../../pages/appui-ref-navigation/">API：导航</a> 查询完整签名。</li></ul>
   </div>

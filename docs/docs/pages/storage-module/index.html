@@ -167,6 +167,7 @@
 <a class="nav-link" href="../../pages/permission-module/">permission</a>
 <a class="nav-link active" href="../../pages/storage-module/">storage</a>
 <a class="nav-link" href="../../pages/database-module/">database</a>
+<a class="nav-link" href="../../pages/archive-module/">archive</a>
 <a class="nav-link" href="../../pages/keychain-module/">keychain</a>
 <a class="nav-link" href="../../pages/clipboard-module/">clipboard</a>
 <a class="nav-link" href="../../pages/console-module/">console</a>
@@ -214,6 +215,7 @@
 </div>
 <div class="nav-group">
 <div class="nav-group-title">视觉与文档</div>
+<a class="nav-link" href="../../pages/native-image-module/">native_image</a>
 <a class="nav-link" href="../../pages/vision-module/">vision</a>
 <a class="nav-link" href="../../pages/vision-helper-module/">vision_helper</a>
 <a class="nav-link" href="../../pages/coreml-module/">coreml</a>
@@ -288,10 +290,11 @@
   
   <div class="markdown-body">
     <p>轻量级键值存储（基于 UserDefaults）：保存设置项、开关、计数和小型 JSON 配置。</p>
-<blockquote class="callout note"><strong>边界</strong>：适合小数据偏好，不是文件数据库，也不是敏感数据存储。token / 密码用 <a href="../../pages/keychain-module/">keychain</a>；大列表、离线缓存用 <a href="../../pages/database-module/">database</a>。MiniApp 内键名会自动按应用隔离，不同 MiniApp 不会互相覆盖。</blockquote>
-<p>写入后可在「设置 → 应用数据」中直接查看和修改，不需要把经常变化的值写死在代码里。关联小组件会读取同一份数据；界面只显示脚本使用的简单键名，不显示内部隔离前缀。</p>
+<blockquote class="callout note"><strong>边界</strong>：适合小数据偏好，不是文件数据库，也不是敏感数据存储。token / 密码用 <a href="../../pages/keychain-module/">keychain</a>；大列表、离线缓存用 <a href="../../pages/database-module/">database</a>。默认数据按 Python 文件或 MiniApp 的稳定 ID 隔离；不同所有者可以放心使用相同键名。</blockquote>
+<p>写入后可在「设置 → 应用数据」中直接查看和修改，不需要把经常变化的值写死在代码里。关联小组件可读取显式声明或代码中直接使用的键；界面只显示脚本使用的简单键名，不显示内部隔离前缀。</p>
+<p>「应用数据」用于普通状态和配置，不是密码库。Cookie、Token、密码、API Key 等敏感值请使用 <code>keychain</code>；浏览器 Cookie、网页 <code>localStorage</code> 和 <code>keychain</code> 内容不会出现在该页面。</p>
 <h2 id="模块概览"><a class="heading-anchor" href="#模块概览">#</a>模块概览</h2>
-<div class="table-scroll"><table><thead><tr><th>项</th><th>说明</th></tr></thead><tbody><tr><td>导入</td><td><code>import storage</code></td></tr><tr><td>适合做什么</td><td>主题、排序、筛选条件、开关、小型 JSON 配置</td></tr><tr><td>调用时机</td><td>在 <code>on_change</code>、按钮回调或启动时读写；不要在 <code>body()</code> 里反复写入</td></tr><tr><td>推荐顺序</td><td>启动时 <code>get</code>（带默认值）→ 用户操作后 <code>set</code> → 需要时 <code>remove</code> / <code>all_keys</code></td></tr><tr><td>键名规范</td><td>用 <code>settings.theme</code> 这类命名空间，避免不同脚本冲突</td></tr></tbody></table></div>
+<div class="table-scroll"><table><thead><tr><th>项</th><th>说明</th></tr></thead><tbody><tr><td>导入</td><td><code>import storage</code></td></tr><tr><td>适合做什么</td><td>主题、排序、筛选条件、开关、小型 JSON 配置</td></tr><tr><td>调用时机</td><td>在 <code>on_change</code>、按钮回调或启动时读写；不要在 <code>body()</code> 里反复写入</td></tr><tr><td>推荐顺序</td><td>启动时 <code>get</code>（带默认值）→ 用户操作后 <code>set</code> → 需要时 <code>remove</code> / <code>all_keys</code></td></tr><tr><td>键名规范</td><td>用 <code>settings.theme</code> 这类分组名，便于本文件批量管理</td></tr><tr><td>跨脚本共享</td><td>只有确实需要共享时才使用 <code>storage.shared.*</code></td></tr></tbody></table></div>
 <hr>
 <h2 id="快速开始"><a class="heading-anchor" href="#快速开始">#</a>快速开始</h2>
 <p>下面脚本写入并读取字符串、布尔、整数和 JSON：</p>
@@ -383,7 +386,7 @@ appui.run(body, state=state)</code></pre>
 <hr>
 <h2 id="api-参考"><a class="heading-anchor" href="#api-参考">#</a>API 参考</h2>
 <h3 id="速查"><a class="heading-anchor" href="#速查">#</a>速查</h3>
-<div class="table-scroll"><table><thead><tr><th>API</th><th>作用</th></tr></thead><tbody><tr><td><code>get(key, default)</code> / <code>set(key, value)</code></td><td>字符串读写</td></tr><tr><td><code>get_bool</code> / <code>set_bool</code></td><td>布尔读写</td></tr><tr><td><code>get_int</code> / <code>set_int</code></td><td>整数读写</td></tr><tr><td><code>get_float</code> / <code>set_float</code></td><td>浮点数读写</td></tr><tr><td><code>get_json</code> / <code>set_json</code></td><td>JSON 对象读写</td></tr><tr><td><code>has_key(key)</code></td><td>判断键是否存在</td></tr><tr><td><code>remove(key)</code></td><td>删除一个键</td></tr><tr><td><code>all_keys(prefix=&quot;&quot;)</code></td><td>列出键，可按前缀筛选</td></tr></tbody></table></div>
+<div class="table-scroll"><table><thead><tr><th>API</th><th>作用</th></tr></thead><tbody><tr><td><code>get(key, default)</code> / <code>set(key, value)</code></td><td>字符串读写</td></tr><tr><td><code>get_bool</code> / <code>set_bool</code></td><td>布尔读写</td></tr><tr><td><code>get_int</code> / <code>set_int</code></td><td>整数读写</td></tr><tr><td><code>get_float</code> / <code>set_float</code></td><td>浮点数读写</td></tr><tr><td><code>get_json</code> / <code>set_json</code></td><td>JSON 对象读写</td></tr><tr><td><code>has_key(key)</code></td><td>判断键是否存在</td></tr><tr><td><code>remove(key)</code></td><td>删除一个键</td></tr><tr><td><code>all_keys(prefix=&quot;&quot;)</code></td><td>列出键，可按前缀筛选</td></tr><tr><td><code>shared.&lt;同名 API&gt;</code></td><td>显式读写所有获准脚本共用的公共区</td></tr></tbody></table></div>
 <h3 id="基础读写"><a class="heading-anchor" href="#基础读写">#</a>基础读写</h3>
 <figure class="code-block" data-code-id="7eb929504154">
   <figcaption>
@@ -401,7 +404,7 @@ done = storage.get_bool(&quot;settings.done&quot;, False)
 storage.set_int(&quot;counter&quot;, 3)
 storage.set_float(&quot;volume&quot;, 0.8)</code></pre>
 </figure>
-<div class="table-scroll"><table><thead><tr><th>API</th><th>返回</th><th>说明</th></tr></thead><tbody><tr><td><code>get(key, default=None)</code></td><td><code>str</code> 或 <code>default</code></td><td>键不存在时返回 <code>default</code></td></tr><tr><td><code>set(key, value)</code></td><td><code>None</code></td><td>写入字符串或可转字符串的值</td></tr><tr><td><code>get_int</code> / <code>set_int</code></td><td><code>int</code> / <code>None</code></td><td>计数、索引、步进值</td></tr><tr><td><code>get_float</code> / <code>set_float</code></td><td><code>float</code> / <code>None</code></td><td>比例、阈值、音量</td></tr><tr><td><code>get_bool</code> / <code>set_bool</code></td><td><code>bool</code> / <code>None</code></td><td>开关状态</td></tr></tbody></table></div>
+<div class="table-scroll"><table><thead><tr><th>API</th><th>返回</th><th>说明</th></tr></thead><tbody><tr><td><code>get(key, default=None)</code></td><td><code>str</code> 或 <code>default</code></td><td>键不存在时返回 <code>default</code></td></tr><tr><td><code>set(key, value)</code></td><td><code>None</code></td><td>写入字符串或可转字符串的值；失败时抛出异常，旧值保持不变</td></tr><tr><td><code>get_int</code> / <code>set_int</code></td><td><code>int</code> / <code>None</code></td><td>计数、索引、步进值</td></tr><tr><td><code>get_float</code> / <code>set_float</code></td><td><code>float</code> / <code>None</code></td><td>比例、阈值、音量</td></tr><tr><td><code>get_bool</code> / <code>set_bool</code></td><td><code>bool</code> / <code>None</code></td><td>开关状态</td></tr></tbody></table></div>
 <blockquote class="callout warning"><strong>注意</strong>：读取时总是传 <code>default</code>，让首次运行和清空后仍能正常工作。</blockquote>
 <h3 id="json"><a class="heading-anchor" href="#json">#</a>JSON</h3>
 <p><strong><code>get_json(key, default=None)</code></strong> / <strong><code>set_json(key, value)</code></strong> — 存取 JSON 可序列化对象。</p>
@@ -415,8 +418,8 @@ filters = storage.get_json(&quot;filters&quot;, {})</code></pre>
 </figure>
 <p>保持 JSON 小而稳定；大列表、图片、日志请改用 <a href="../../pages/database-module/">database</a> 或文件。</p>
 <h3 id="键管理"><a class="heading-anchor" href="#键管理">#</a>键管理</h3>
-<p><strong><code>has_key(key)</code></strong> — 判断键是否存在（兼容旧版未隔离的键名）。</p>
-<p><strong><code>remove(key)</code></strong> — 删除键；会同时尝试删除当前命名空间和旧格式键。</p>
+<p><strong><code>has_key(key)</code></strong> — 判断当前脚本或 MiniApp 的隔离空间内是否存在该键。</p>
+<p><strong><code>remove(key)</code></strong> — 删除键；MiniApp 会同时清理稳定 ID 和旧目录前缀下的兼容值，但不会访问应用自身的其他设置。</p>
 <p><strong><code>all_keys(prefix=&quot;&quot;)</code></strong> — 列出键，传前缀可清理一组设置：</p>
 <figure class="code-block" data-code-id="2a01f2536a16">
   <figcaption>
@@ -427,9 +430,37 @@ filters = storage.get_json(&quot;filters&quot;, {})</code></pre>
     storage.remove(key)</code></pre>
 </figure>
 <p>MiniApp 内 <code>all_keys</code> 返回的是去掉应用前缀后的逻辑键名，便于脚本按 <code>settings.*</code> 管理。</p>
+<p>脚本在本次运行中创建的 Python 子线程会继承同一个私有存储身份；运行结束后该身份立即失效，因此旧线程或延迟回调不能误写到下一次运行的文件或 MiniApp。</p>
+<h3 id="公共数据"><a class="heading-anchor" href="#公共数据">#</a>公共数据</h3>
+<p>默认的 <code>storage.*</code> 永远属于当前 Python 文件或 MiniApp。需要让多个组件协作时，显式改用 <code>storage.shared.*</code>；公共区提供与默认区相同的类型化 API：</p>
+<figure class="code-block" data-code-id="5363c0931b4d">
+  <figcaption>
+    <span>python</span>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="5363c0931b4d" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
+  </figcaption>
+  <pre><code id="code-5363c0931b4d" class="language-python">import storage
+
+storage.shared.set_json(&quot;player.now_playing&quot;, {
+    &quot;title&quot;: &quot;示例视频&quot;,
+    &quot;position&quot;: 42,
+})
+
+snapshot = storage.shared.get_json(&quot;player.now_playing&quot;, {})</code></pre>
+</figure>
+<p>普通 Python 文件可直接使用公共区。MiniApp 除 <code>storage</code> 外，还必须在 <code>miniapp.json</code> 的 <code>capabilities</code> 中声明 <code>shared_storage</code>：</p>
+<figure class="code-block" data-code-id="9dde9a606a0f">
+  <figcaption>
+    <span>json</span>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="9dde9a606a0f" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
+  </figcaption>
+  <pre><code id="code-9dde9a606a0f" class="language-json">{
+  &quot;capabilities&quot;: [&quot;storage&quot;, &quot;shared_storage&quot;]
+}</code></pre>
+</figure>
+<p>公共数据会在「设置 → 应用数据 → 公共数据」单独显示。升级前由旧版脚本写入的全局数据也会在这里读取；下一次保存同名公共值时会无损迁移到新公共命名空间。公共区仍然不能保存 Cookie、Token、密码或 API Key。</p>
 <hr>
 <h2 id="常见错误"><a class="heading-anchor" href="#常见错误">#</a>常见错误</h2>
-<div class="table-scroll"><table><thead><tr><th>错误写法</th><th>后果</th><th>修正</th></tr></thead><tbody><tr><td>把 token 放进 <code>storage</code></td><td>敏感数据不安全</td><td>使用 <a href="../../pages/keychain-module/">keychain</a></td></tr><tr><td>多个脚本共用 <code>theme</code> 短键</td><td>键名互相覆盖</td><td>使用 <code>settings.theme</code> 命名空间</td></tr><tr><td>读取不传 <code>default</code></td><td>首次运行显示 <code>None</code></td><td><code>storage.get(&quot;key&quot;, default)</code></td></tr><tr><td>大列表 / 图片塞进 JSON</td><td>慢、占空间</td><td>改用 <a href="../../pages/database-module/">database</a> 或文件</td></tr></tbody></table></div>
+<div class="table-scroll"><table><thead><tr><th>错误写法</th><th>后果</th><th>修正</th></tr></thead><tbody><tr><td>把 token 放进 <code>storage</code></td><td>敏感数据不安全</td><td>使用 <a href="../../pages/keychain-module/">keychain</a></td></tr><tr><td>为了“省事”把所有状态都放进 <code>storage.shared</code></td><td>无关脚本可以读取或覆盖</td><td>默认使用 <code>storage</code>，只共享明确的协作状态</td></tr><tr><td>MiniApp 未声明 <code>shared_storage</code> 就访问公共区</td><td>抛出权限错误</td><td>在清单中显式声明，或改回私有 <code>storage</code></td></tr><tr><td>读取不传 <code>default</code></td><td>首次运行显示 <code>None</code></td><td><code>storage.get(&quot;key&quot;, default)</code></td></tr><tr><td>大列表 / 图片塞进 JSON</td><td>慢、占空间</td><td>改用 <a href="../../pages/database-module/">database</a> 或文件</td></tr></tbody></table></div>
 <hr>
 <h2 id="相关文档"><a class="heading-anchor" href="#相关文档">#</a>相关文档</h2>
 <div class="table-scroll"><table><thead><tr><th>文档</th><th>用途</th></tr></thead><tbody><tr><td><a href="../../pages/keychain-module/">keychain</a></td><td>安全存储 token / 密码</td></tr><tr><td><a href="../../pages/database-module/">database</a></td><td>可查询列表与离线缓存</td></tr><tr><td><a href="../../pages/device-module/">device</a></td><td>读取设备与环境信息</td></tr><tr><td><a href="../../pages/miniapp-native-capabilities/">原生能力入口</a></td><td>MiniApp 场景配方</td></tr></tbody></table></div>
@@ -440,7 +471,7 @@ filters = storage.get_json(&quot;filters&quot;, {})</code></pre>
 </article>
 
     </main>
-    <aside class="toc"><div class="toc-title">本页目录</div><a class="toc-link" href="#模块概览">模块概览</a><a class="toc-link" href="#快速开始">快速开始</a><a class="toc-link" href="#appui-示例">AppUI 示例</a><a class="toc-link" href="#api-参考">API 参考</a><a class="toc-link child" href="#速查">速查</a><a class="toc-link child" href="#基础读写">基础读写</a><a class="toc-link child" href="#json">JSON</a><a class="toc-link child" href="#键管理">键管理</a><a class="toc-link" href="#常见错误">常见错误</a><a class="toc-link" href="#相关文档">相关文档</a><a class="toc-link" href="#预期效果">预期效果</a></aside>
+    <aside class="toc"><div class="toc-title">本页目录</div><a class="toc-link" href="#模块概览">模块概览</a><a class="toc-link" href="#快速开始">快速开始</a><a class="toc-link" href="#appui-示例">AppUI 示例</a><a class="toc-link" href="#api-参考">API 参考</a><a class="toc-link child" href="#速查">速查</a><a class="toc-link child" href="#基础读写">基础读写</a><a class="toc-link child" href="#json">JSON</a><a class="toc-link child" href="#键管理">键管理</a><a class="toc-link child" href="#公共数据">公共数据</a><a class="toc-link" href="#常见错误">常见错误</a><a class="toc-link" href="#相关文档">相关文档</a><a class="toc-link" href="#预期效果">预期效果</a></aside>
   </div>
   <div class="mobile-backdrop"></div>
   <div class="search-panel" role="dialog" aria-modal="true" aria-label="搜索">

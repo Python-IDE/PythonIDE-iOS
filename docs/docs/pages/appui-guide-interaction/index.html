@@ -167,6 +167,7 @@
 <a class="nav-link" href="../../pages/permission-module/">permission</a>
 <a class="nav-link" href="../../pages/storage-module/">storage</a>
 <a class="nav-link" href="../../pages/database-module/">database</a>
+<a class="nav-link" href="../../pages/archive-module/">archive</a>
 <a class="nav-link" href="../../pages/keychain-module/">keychain</a>
 <a class="nav-link" href="../../pages/clipboard-module/">clipboard</a>
 <a class="nav-link" href="../../pages/console-module/">console</a>
@@ -214,6 +215,7 @@
 </div>
 <div class="nav-group">
 <div class="nav-group-title">视觉与文档</div>
+<a class="nav-link" href="../../pages/native-image-module/">native_image</a>
 <a class="nav-link" href="../../pages/vision-module/">vision</a>
 <a class="nav-link" href="../../pages/vision-helper-module/">vision_helper</a>
 <a class="nav-link" href="../../pages/coreml-module/">coreml</a>
@@ -288,10 +290,11 @@
   
   <div class="markdown-body">
     <p>触摸、长按、拖拽与捏合等交互通过视图修饰符绑定到 Python 回调。键盘与焦点用 <code>.focused</code> 与 <code>.keyboard_dismiss</code> 控制；上下文菜单用 <code>.context_menu</code>；需要与系统手势共存时用 <code>.simultaneous_gesture</code> 或 <code>.high_priority_gesture</code>。</p>
+<p>需要组合手势时使用一等 <code>Gesture</code> 对象。它描述系统手势识别器及其回调，不是某种页面模板；同一个 <code>Gesture.drag()</code>、<code>Gesture.magnify()</code> 或 <code>Gesture.rotate()</code> 可以用于任意视图。</p>
 <h2 id="预期效果"><a class="heading-anchor" href="#预期效果">#</a>预期效果</h2>
 <p>示例会展示点击、长按、焦点、键盘、拖拽和行级动作的反馈路径。</p>
 <h2 id="概念速览"><a class="heading-anchor" href="#概念速览">#</a>概念速览</h2>
-<div class="table-scroll"><table><thead><tr><th>能力</th><th>API</th></tr></thead><tbody><tr><td>点击 / 长按</td><td><code>.on_tap(action)</code>、<code>.on_long_press(...)</code></td></tr><tr><td>拖移 / 捏合 / 旋转</td><td><code>.on_drag</code>、<code>.on_magnification</code>、<code>.on_rotation</code></td></tr><tr><td>组合手势</td><td><code>.simultaneous_gesture(...)</code>、<code>.high_priority_gesture(...)</code></td></tr><tr><td>菜单</td><td><code>.context_menu(content=[...])</code></td></tr><tr><td>焦点与键盘</td><td><code>.focused(...)</code>、<code>.keyboard_dismiss(mode)</code></td></tr><tr><td>禁用</td><td><code>.disabled(value)</code></td></tr><tr><td>气泡菜单</td><td><code>.popover(is_presented, content, on_dismiss)</code></td></tr><tr><td>搜索和刷新</td><td><code>.searchable(...)</code>、<code>.refreshable(...)</code></td></tr><tr><td>列表动作</td><td><code>.swipe_actions(...)</code></td></tr></tbody></table></div>
+<div class="table-scroll"><table><thead><tr><th>能力</th><th>API</th></tr></thead><tbody><tr><td>点击 / 长按</td><td><code>.on_tap(action)</code>、<code>.on_long_press(...)</code></td></tr><tr><td>拖移 / 捏合 / 旋转</td><td><code>.on_drag</code>、<code>.on_magnification</code>、<code>.on_rotation</code></td></tr><tr><td>组合手势</td><td><code>.simultaneous_gesture(...)</code>、<code>.high_priority_gesture(...)</code></td></tr><tr><td>类型化组合</td><td><code>Gesture.tap/long_press/drag/magnify/rotate</code> + <code>.gesture(...)</code></td></tr><tr><td>菜单</td><td><code>.context_menu(content=[...])</code></td></tr><tr><td>焦点与键盘</td><td><code>.focused(...)</code>、<code>.keyboard_dismiss(mode)</code></td></tr><tr><td>禁用</td><td><code>.disabled(value)</code></td></tr><tr><td>气泡菜单</td><td><code>.popover(is_presented, content, on_dismiss)</code></td></tr><tr><td>搜索和刷新</td><td><code>.searchable(...)</code>、<code>.refreshable(...)</code></td></tr><tr><td>列表动作</td><td><code>.swipe_actions(...)</code></td></tr></tbody></table></div>
 <h2 id="手势优先级"><a class="heading-anchor" href="#手势优先级">#</a>手势优先级</h2>
 <ul><li>普通子视图手势：默认由子控件（如 <code>Button</code>）消费点击。</li><li><code>simultaneous_gesture</code>：与视图自身手势并行，适合在可滚动区域附加轻量检测。</li><li><code>high_priority_gesture</code>：优先于子视图；仅在确有需要时使用，否则容易导致按钮点不动。</li></ul>
 <p><code>context_menu</code> 的 <code>content</code> 是 <code>Button</code> 视图列表，不要用任意字符串代替 <code>Button</code>。</p>
@@ -472,6 +475,37 @@ def drag_ended(value):
 view.on_drag(on_changed=drag_changed, on_ended=drag_ended)</code></pre>
 </figure>
 <p>如果子控件本身需要点击，谨慎使用 <code>high_priority_gesture</code>，它会优先于子视图手势。</p>
+<h3 id="类型化手势组合"><a class="heading-anchor" href="#类型化手势组合">#</a>类型化手势组合</h3>
+<figure class="code-block" data-code-id="af6b7aa87227">
+  <figcaption>
+    <span>python</span>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="af6b7aa87227" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
+  </figcaption>
+  <pre><code id="code-af6b7aa87227" class="language-python">def drag_changed(payload):
+    state.gesture_log = str(payload)
+
+
+def drag_ended(payload):
+    state.gesture_log = &quot;ended&quot;
+
+
+def magnified(scale):
+    state.gesture_log = f&quot;scale: {scale}&quot;
+
+
+gesture = (
+    appui.Gesture.drag(minimum_distance=2)
+    .on_changed(drag_changed)
+    .on_ended(drag_ended)
+    .simultaneously(
+        appui.Gesture.magnify().on_changed(magnified)
+    )
+)
+
+card = appui.RoundedRectangle(corner_radius=20).gesture(gesture)</code></pre>
+</figure>
+<p>拖拽 payload 包含原生位置、位移、预测结束位置与阶段。连续 <code>changed</code> 事件可以合并，<code>ended</code>、点击、按钮、选择和关闭等离散事件不能合并或静默丢失。</p>
+<p>组合不是页面模板，也不会为某类 MiniApp 硬编码控件。可用 <code>.simultaneously(...)</code> 表达并行识别、<code>.sequenced(...)</code> 表达先后识别、 <code>.exclusively(...)</code> 表达二选一识别；三者会作为一棵语义树一次发送，识别、竞争、 取消和逐帧值全部留在原生渲染层。<code>.gesture(..., including=&quot;all|gesture|subviews|none&quot;)</code> 以及 <code>simultaneous_gesture</code> / <code>high_priority_gesture</code> 对应原生 GestureMask 与优先级。</p>
 <h2 id="行级动作和刷新"><a class="heading-anchor" href="#行级动作和刷新">#</a>行级动作和刷新</h2>
 <p>列表行的交互要绑定稳定 id，不要依赖过滤后的下标。下拉刷新使用 <code>.refreshable(action=...)</code>。</p>
 <figure class="code-block" data-code-id="0cbc9cfb4636">
@@ -578,7 +612,7 @@ appui.run(body, state=state)</code></pre>
 </article>
 
     </main>
-    <aside class="toc"><div class="toc-title">本页目录</div><a class="toc-link" href="#预期效果">预期效果</a><a class="toc-link" href="#概念速览">概念速览</a><a class="toc-link" href="#手势优先级">手势优先级</a><a class="toc-link" href="#基础示例">基础示例</a><a class="toc-link" href="#焦点-键盘和-popover">焦点、键盘和 Popover</a><a class="toc-link" href="#拖拽-缩放和旋转">拖拽、缩放和旋转</a><a class="toc-link" href="#行级动作和刷新">行级动作和刷新</a><a class="toc-link" href="#常见误区">常见误区</a><a class="toc-link" href="#延伸阅读">延伸阅读</a></aside>
+    <aside class="toc"><div class="toc-title">本页目录</div><a class="toc-link" href="#预期效果">预期效果</a><a class="toc-link" href="#概念速览">概念速览</a><a class="toc-link" href="#手势优先级">手势优先级</a><a class="toc-link" href="#基础示例">基础示例</a><a class="toc-link" href="#焦点-键盘和-popover">焦点、键盘和 Popover</a><a class="toc-link" href="#拖拽-缩放和旋转">拖拽、缩放和旋转</a><a class="toc-link child" href="#类型化手势组合">类型化手势组合</a><a class="toc-link" href="#行级动作和刷新">行级动作和刷新</a><a class="toc-link" href="#常见误区">常见误区</a><a class="toc-link" href="#延伸阅读">延伸阅读</a></aside>
   </div>
   <div class="mobile-backdrop"></div>
   <div class="search-panel" role="dialog" aria-modal="true" aria-label="搜索">

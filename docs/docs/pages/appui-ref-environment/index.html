@@ -167,6 +167,7 @@
 <a class="nav-link" href="../../pages/permission-module/">permission</a>
 <a class="nav-link" href="../../pages/storage-module/">storage</a>
 <a class="nav-link" href="../../pages/database-module/">database</a>
+<a class="nav-link" href="../../pages/archive-module/">archive</a>
 <a class="nav-link" href="../../pages/keychain-module/">keychain</a>
 <a class="nav-link" href="../../pages/clipboard-module/">clipboard</a>
 <a class="nav-link" href="../../pages/console-module/">console</a>
@@ -214,6 +215,7 @@
 </div>
 <div class="nav-group">
 <div class="nav-group-title">视觉与文档</div>
+<a class="nav-link" href="../../pages/native-image-module/">native_image</a>
 <a class="nav-link" href="../../pages/vision-module/">vision</a>
 <a class="nav-link" href="../../pages/vision-helper-module/">vision_helper</a>
 <a class="nav-link" href="../../pages/coreml-module/">coreml</a>
@@ -288,6 +290,7 @@
   
   <div class="markdown-body">
     <p><code>environment_value(key, value)</code> 用来设置少量通用环境值。它是一个通用入口；如果已经有更直接的专用修饰符，优先用专用修饰符。</p>
+<p>读取系统环境使用 <code>EnvironmentReader</code>。写入和读取是两个方向：<code>environment_value</code> 向子树提供值，<code>EnvironmentReader</code> 把设备当前值写回 Python <code>State</code>。</p>
 <h2 id="签名"><a class="heading-anchor" href="#签名">#</a>签名</h2>
 <figure class="code-block" data-code-id="ffb77e2391e0">
   <figcaption>
@@ -326,17 +329,62 @@ def body():
 
 appui.run(body)</code></pre>
 </figure>
+<h2 id="environmentreader"><a class="heading-anchor" href="#environmentreader">#</a>EnvironmentReader</h2>
+<figure class="code-block" data-code-id="a8bb6484e957">
+  <figcaption>
+    <span>text</span>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="a8bb6484e957" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
+  </figcaption>
+  <pre><code id="code-a8bb6484e957" class="language-text">EnvironmentReader(content=None, values=None, on_change=None, keys=None,
+                  onChange=None, children=None)</code></pre>
+</figure>
+<p><code>EnvironmentReader</code> 是透明容器，不改变布局。<code>values</code> 推荐传 <code>State.bind.&lt;field&gt;</code>；系统环境真正变化时才会回写，不需要 Timer 或轮询。</p>
+<p>可读 key：<code>color_scheme</code>、<code>color_scheme_contrast</code>、<code>display_scale</code>、<code>dynamic_type_size</code>、<code>horizontal_size_class</code>、<code>vertical_size_class</code>、<code>layout_direction</code>、<code>locale</code>、<code>legibility_weight</code>、<code>reduce_motion</code>、<code>reduce_transparency</code>、<code>differentiate_without_color</code>、<code>scene_phase</code>。</p>
+<figure class="code-block" data-code-id="afd243da37d0">
+  <figcaption>
+    <span>python</span>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="afd243da37d0" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
+  </figcaption>
+  <pre><code id="code-afd243da37d0" class="language-python">import appui
+
+state = appui.State(environment={})
+
+
+def body():
+    values = state.environment
+    summary = (
+        f&quot;{values.get(&#x27;horizontal_size_class&#x27;, &#x27;unknown&#x27;)} · &quot;
+        f&quot;{values.get(&#x27;color_scheme&#x27;, &#x27;unknown&#x27;)}&quot;
+    )
+    content = appui.VStack([
+        appui.Text(&quot;Responsive layout&quot;).font(&quot;headline&quot;),
+        appui.Text(summary).foreground_color(&quot;secondaryLabel&quot;),
+    ], spacing=8).padding()
+    return appui.EnvironmentReader(
+        content,
+        values=state.bind.environment,
+        keys=[
+            &quot;horizontal_size_class&quot;,
+            &quot;color_scheme&quot;,
+            &quot;reduce_motion&quot;,
+            &quot;dynamic_type_size&quot;,
+        ],
+    )
+
+
+appui.run(body, state=state)</code></pre>
+</figure>
 <h2 id="专用修饰符优先"><a class="heading-anchor" href="#专用修饰符优先">#</a>专用修饰符优先</h2>
 <p>这些场景优先用专用 API，不要为了“统一写法”强行全部塞进 <code>environment_value</code>：</p>
 <ul><li>明暗模式：<code>preferred_color_scheme(&quot;dark&quot;)</code></li><li>多行文本对齐：<code>multiline_text_alignment(&quot;leading&quot;)</code></li><li>截断：<code>truncation_mode(&quot;middle&quot;)</code></li><li>输入框自动纠错：<code>TextField(..., autocorrection_disabled=...)</code></li></ul>
 <h2 id="注意事项"><a class="heading-anchor" href="#注意事项">#</a>注意事项</h2>
-<ul><li><code>environment_value</code> 更适合“给一整段视图树施加环境”，不是每个修饰符都拿它代替。</li><li><code>dynamic_type_size</code> 依赖较新的系统版本；过低系统可能不会生效。</li><li><code>autocorrection</code> 的实际体验最稳的方式仍然是直接在输入控件构造参数里声明。</li><li>不在当前支持表里的 key 不保证生效。</li></ul>
+<ul><li><code>environment_value</code> 更适合“给一整段视图树施加环境”，不是每个修饰符都拿它代替。</li><li><code>EnvironmentReader</code> 只接受上表列出的 key；未知 key 会在 Python 构建期直接报错，不会静默忽略。</li><li><code>reduce_motion=True</code> 时，优先使用 <code>Animation(...).respecting_reduce_motion()</code> 和 <code>Transition(...).respecting_reduce_motion()</code>。</li><li><code>dynamic_type_size</code> 依赖较新的系统版本；过低系统可能不会生效。</li><li><code>autocorrection</code> 的实际体验最稳的方式仍然是直接在输入控件构造参数里声明。</li><li>不在当前支持表里的 key 不保证生效。</li></ul>
   </div>
   <section class="related-section"><h2>相关文档</h2><div class="related-list"><a class="related-link" href="../appui-ref-layout/"><strong>布局 API</strong><span>Stack、ScrollView、List/Form、Grid 和 GeometryReader。</span></a></div></section>
 </article>
 
     </main>
-    <aside class="toc"><div class="toc-title">本页目录</div><a class="toc-link" href="#签名">签名</a><a class="toc-link" href="#什么时候用">什么时候用</a><a class="toc-link" href="#当前支持的-key">当前支持的 key</a><a class="toc-link" href="#推荐写法">推荐写法</a><a class="toc-link" href="#专用修饰符优先">专用修饰符优先</a><a class="toc-link" href="#注意事项">注意事项</a></aside>
+    <aside class="toc"><div class="toc-title">本页目录</div><a class="toc-link" href="#签名">签名</a><a class="toc-link" href="#什么时候用">什么时候用</a><a class="toc-link" href="#当前支持的-key">当前支持的 key</a><a class="toc-link" href="#推荐写法">推荐写法</a><a class="toc-link" href="#environmentreader">EnvironmentReader</a><a class="toc-link" href="#专用修饰符优先">专用修饰符优先</a><a class="toc-link" href="#注意事项">注意事项</a></aside>
   </div>
   <div class="mobile-backdrop"></div>
   <div class="search-panel" role="dialog" aria-modal="true" aria-label="搜索">

@@ -1,0 +1,39 @@
+"""Type stubs for `music` public PythonIDE module."""
+
+from __future__ import annotations
+
+from typing import Any, Dict, List, Optional
+
+class MusicError(RuntimeError):
+    code: Optional[Any]
+    def __init__(self, message: str, code: Optional[Any] = ...) -> None: ...
+
+def authorization_status() -> str: ...
+
+def request_authorization() -> bool: ...
+
+def play() -> None: ...
+
+def play_song(song_id: str) -> None: ...
+
+def play_songs(song_ids: List[str]) -> None: ...
+
+def play_search_result(song: Dict[str, Any]) -> None: ...
+
+def pause() -> None: ...
+
+def skip_to_next() -> None: ...
+
+def skip_to_previous() -> None: ...
+
+def current_track() -> Optional[Dict[str, Any]]: ...
+
+def search(term: str, limit: int = ...) -> List[Dict[str, Any]]: ...
+
+__all__ = [
+    'authorization_status', 'request_authorization',
+    'play', 'play_song', 'play_songs', 'play_search_result',
+    'pause', 'skip_to_next', 'skip_to_previous',
+    'current_track', 'search',
+    'MusicError',
+]

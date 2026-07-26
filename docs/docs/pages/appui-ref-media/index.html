@@ -167,6 +167,7 @@
 <a class="nav-link" href="../../pages/permission-module/">permission</a>
 <a class="nav-link" href="../../pages/storage-module/">storage</a>
 <a class="nav-link" href="../../pages/database-module/">database</a>
+<a class="nav-link" href="../../pages/archive-module/">archive</a>
 <a class="nav-link" href="../../pages/keychain-module/">keychain</a>
 <a class="nav-link" href="../../pages/clipboard-module/">clipboard</a>
 <a class="nav-link" href="../../pages/console-module/">console</a>
@@ -214,6 +215,7 @@
 </div>
 <div class="nav-group">
 <div class="nav-group-title">视觉与文档</div>
+<a class="nav-link" href="../../pages/native-image-module/">native_image</a>
 <a class="nav-link" href="../../pages/vision-module/">vision</a>
 <a class="nav-link" href="../../pages/vision-helper-module/">vision_helper</a>
 <a class="nav-link" href="../../pages/coreml-module/">coreml</a>
@@ -395,8 +397,10 @@ def body():
 appui.run(body)</code></pre>
 </figure>
 <h2 id="相册-相机和文件导入"><a class="heading-anchor" href="#相册-相机和文件导入">#</a>相册、相机和文件导入</h2>
-<div class="table-scroll"><table><thead><tr><th>API</th><th>签名</th><th>分类</th></tr></thead><tbody><tr><td><code>PhotoPicker</code></td><td><code>PhotoPicker(selection_limit: int = 1, filter: str = &#x27;images&#x27;, on_picked: Optional[Callable] = None, label: Optional[View] = None, selectionLimit: Optional[int] = None, onPicked: Optional[Callable] = None, **kwargs: Any)</code></td><td><code>media</code></td></tr><tr><td><code>CameraPicker</code></td><td><code>CameraPicker(source: str = &#x27;camera&#x27;, media_type: str = &#x27;photo&#x27;, on_captured: Optional[Callable] = None, label: Optional[View] = None, mediaType: Optional[str] = None, onCaptured: Optional[Callable] = None, **kwargs: Any)</code></td><td><code>media</code></td></tr><tr><td><code>FileImporter</code></td><td><code>FileImporter(allowed_types: Optional[Union[str, Sequence[str]]] = None, allows_multiple: bool = False, copy: bool = True, on_picked: Optional[Callable] = None, label: Optional[View] = None, allowedTypes: Optional[Union[str, Sequence[str]]] = None, allowsMultiple: Optional[bool] = None, onPicked: Optional[Callable] = None, **kwargs: Any)</code></td><td><code>media</code></td></tr></tbody></table></div>
-<p>回调契约：<code>PhotoPicker.on_picked(paths)</code> 与 <code>FileImporter.on_picked(paths)</code> 接收路径字符串列表；<code>CameraPicker.on_captured(path)</code> 接收单个路径字符串或空值。用户可能拒绝权限、取消选择或设备不可用，回调中要处理空路径和空列表。</p>
+<div class="table-scroll"><table><thead><tr><th>API</th><th>签名</th><th>分类</th></tr></thead><tbody><tr><td><code>PhotoPicker</code></td><td><code>PhotoPicker(selection_limit: int = 1, filter: str = &#x27;images&#x27;, on_picked: Optional[Callable] = None, label: Optional[View] = None, selectionLimit: Optional[int] = None, onPicked: Optional[Callable] = None, *, on_error: Optional[Callable[[Dict[str, Any]], Any]] = None, onError: Optional[Callable[[Dict[str, Any]], Any]] = None, **kwargs: Any)</code></td><td><code>media</code></td></tr><tr><td><code>CameraPicker</code></td><td><code>CameraPicker(source: str = &#x27;camera&#x27;, media_type: str = &#x27;photo&#x27;, on_captured: Optional[Callable] = None, label: Optional[View] = None, mediaType: Optional[str] = None, onCaptured: Optional[Callable] = None, *, on_cancel: Optional[Callable[[], Any]] = None, on_error: Optional[Callable[[Dict[str, Any]], Any]] = None, quality: float = 0.9, allows_editing: bool = False, video_quality: str = &#x27;high&#x27;, maximum_duration: Optional[float] = None, **kwargs: Any)</code></td><td><code>media</code></td></tr><tr><td><code>FileImporter</code></td><td><code>FileImporter(allowed_types: Optional[Union[str, Sequence[str]]] = None, allows_multiple: bool = False, copy: bool = True, on_picked: Optional[Callable] = None, label: Optional[View] = None, allowedTypes: Optional[Union[str, Sequence[str]]] = None, allowsMultiple: Optional[bool] = None, onPicked: Optional[Callable] = None, *, on_error: Optional[Callable[[Dict[str, Any]], Any]] = None, **kwargs: Any)</code></td><td><code>media</code></td></tr></tbody></table></div>
+<p>回调契约：<code>PhotoPicker.on_picked(paths)</code> 与 <code>FileImporter.on_picked(paths)</code> 接收路径字符串列表；<code>CameraPicker.on_captured(path)</code> 接收单个路径字符串。<code>on_error(error)</code> 接收包含 <code>domain</code>、<code>code</code>、<code>message</code> 的字典；相机取消使用独立的 <code>on_cancel()</code>，不会伪装成成功或错误。</p>
+<p>选择器返回的临时文件属于当前 MiniApp 运行会话：普通 UI 重建、Tab 切换和热更新 generation 不会提前删除；MiniApp 真正停止后自动清理。要跨运行长期保存，请在回调中复制到自己的项目或存储目录。</p>
+<div class="table-scroll"><table><thead><tr><th>API</th><th>生产级行为</th></tr></thead><tbody><tr><td><code>PhotoPicker</code></td><td>使用文件式媒体传输，不把整张照片或视频一次性读入内存；新选择会取消旧传输，取消或失败会清理半成品。</td></tr><tr><td><code>CameraPicker</code></td><td><code>quality</code> 控制 JPEG 质量；<code>allows_editing</code> 使用系统裁剪；录像可设置 <code>video_quality</code> 与 <code>maximum_duration</code>。</td></tr><tr><td><code>FileImporter(copy=True)</code></td><td>在安全访问范围内复制到应用临时目录后回调，最适合普通 MiniApp。</td></tr><tr><td><code>FileImporter(copy=False)</code></td><td>返回提供方 URL，并在视图存活期间保持安全访问；不要把该路径当作永久授权。</td></tr></tbody></table></div>
 <figure class="code-block" data-code-id="704cd5f95e4a">
   <figcaption>
     <span>python</span>
@@ -479,7 +483,99 @@ appui.run(body, state=state)</code></pre>
 <h3 id="webview-webview"><a class="heading-anchor" href="#webview-webview">#</a>WebView {#webview}</h3>
 <h3 id="视频-api-选择规则"><a class="heading-anchor" href="#视频-api-选择规则">#</a>视频 API 选择规则</h3>
 <div class="table-scroll"><table><thead><tr><th>场景</th><th>推荐写法</th><th>说明</th></tr></thead><tbody><tr><td>只需要在页面里显示并播放一个视频</td><td><code>VideoPlayer(url=...)</code></td><td>最简单，适合普通预览、详情页视频。</td></tr><tr><td>Mini App 需要播放/暂停/seek/倍速/进度保存/PiP 状态</td><td><code>PlayerController</code> + <code>VideoPlayer(player=player)</code></td><td>AppUI 视频类应用的主入口。</td></tr><tr><td>不写 AppUI 页面，只写脚本播放音视频</td><td><code>import avplayer</code></td><td>脚本级媒体能力；AppUI 新页面不要优先用它控制内嵌播放器。</td></tr></tbody></table></div>
-<div class="table-scroll"><table><thead><tr><th>API</th><th>签名</th><th>分类</th></tr></thead><tbody><tr><td><code>VideoPlayer</code></td><td><code>VideoPlayer(url: str = &#x27;&#x27;, autoplay: bool = False, loop: bool = False, show_controls: bool = True, presentation: str = &#x27;inline&#x27;, allows_fullscreen: bool = True, allows_pip: bool = True, allows_airplay: bool = True, video_gravity: str = &#x27;resizeAspect&#x27;, enters_fullscreen_when_playback_begins: bool = False, exits_fullscreen_when_playback_ends: bool = True, showControls: Optional[bool] = None, allowsFullscreen: Optional[bool] = None, allowsPiP: Optional[bool] = None, allowsPictureInPicture: Optional[bool] = None, allowsAirPlay: Optional[bool] = None, videoGravity: Optional[str] = None, entersFullscreenWhenPlaybackBegins: Optional[bool] = None, exitsFullscreenWhenPlaybackEnds: Optional[bool] = None, allows_picture_in_picture: Optional[bool] = None, player: Optional[PlayerController] = None, player_id: Optional[str] = None, pause_on_disappear: Optional[bool] = None)</code></td><td><code>media</code></td></tr><tr><td><code>PlayerController</code></td><td><code>PlayerController(id: str = &#x27;main&#x27;, url: str = &#x27;&#x27;, autoplay: bool = False, loop: bool = False, rate: float = 1.0, volume: float = 1.0, allows_pip: bool = True, allows_airplay: bool = True, video_gravity: str = &#x27;resizeAspect&#x27;, pause_on_disappear: bool = True)</code></td><td><code>公开类型</code></td></tr><tr><td><code>WebView</code></td><td><code>WebView(url: Optional[str] = None, html: Optional[str] = None)</code></td><td><code>media</code></td></tr><tr><td><code>MapView</code></td><td><code>MapView(latitude: float = 37.7749, longitude: float = -122.4194, span: float = 0.05, markers: Optional[Sequence[Dict[str, Any]]] = None, map_style: str = &#x27;automatic&#x27;, mapStyle: Optional[str] = None)</code></td><td><code>media</code></td></tr><tr><td><code>ShareLink</code></td><td><code>ShareLink(item: str = &#x27;&#x27;, subject: Optional[str] = None, message: Optional[str] = None)</code></td><td><code>control</code></td></tr></tbody></table></div>
+<div class="table-scroll"><table><thead><tr><th>API</th><th>签名</th><th>分类</th></tr></thead><tbody><tr><td><code>VideoPlayer</code></td><td><code>VideoPlayer(url: str = &#x27;&#x27;, autoplay: bool = False, loop: bool = False, show_controls: bool = True, presentation: str = &#x27;inline&#x27;, allows_fullscreen: bool = True, allows_pip: bool = True, allows_airplay: bool = True, video_gravity: str = &#x27;resizeAspect&#x27;, enters_fullscreen_when_playback_begins: bool = False, exits_fullscreen_when_playback_ends: bool = True, showControls: Optional[bool] = None, allowsFullscreen: Optional[bool] = None, allowsPiP: Optional[bool] = None, allowsPictureInPicture: Optional[bool] = None, allowsAirPlay: Optional[bool] = None, videoGravity: Optional[str] = None, entersFullscreenWhenPlaybackBegins: Optional[bool] = None, exitsFullscreenWhenPlaybackEnds: Optional[bool] = None, allows_picture_in_picture: Optional[bool] = None, player: Optional[PlayerController] = None, player_id: Optional[str] = None, pause_on_disappear: Optional[bool] = None)</code></td><td><code>media</code></td></tr><tr><td><code>PlayerController</code></td><td><code>PlayerController(id: str = &#x27;main&#x27;, url: str = &#x27;&#x27;, autoplay: bool = False, loop: bool = False, rate: float = 1.0, volume: float = 1.0, allows_pip: bool = True, allows_airplay: bool = True, video_gravity: str = &#x27;resizeAspect&#x27;, pause_on_disappear: bool = True)</code></td><td><code>公开类型</code></td></tr><tr><td><code>WebView</code></td><td><code>WebView(url: Optional[str] = None, html: Optional[str] = None, *, base_url: Optional[str] = None, allows_javascript: bool = True, allows_navigation_gestures: bool = True, allows_link_preview: bool = True, custom_user_agent: Optional[str] = None, allowed_hosts: Optional[Sequence[str]] = None, data_store: str = &#x27;default&#x27;, navigation_state: Any = None, on_navigation_change: Optional[Callable[[Dict[str, Any]], Any]] = None, on_message: Optional[Callable[[Dict[str, Any]], Any]] = None, on_error: Optional[Callable[[Dict[str, Any]], Any]] = None, command: Any = None, on_command_result: Optional[Callable[[Dict[str, Any]], Any]] = None, allows_downloads: bool = False, on_download: Optional[Callable[[str], Any]] = None, on_download_error: Optional[Callable[[Dict[str, Any]], Any]] = None, progress_minimum_interval: float = 0.1)</code></td><td><code>media</code></td></tr><tr><td><code>MapView</code></td><td><code>MapView(latitude: float = 37.7749, longitude: float = -122.4194, span: float = 0.05, markers: Optional[Sequence[Dict[str, Any]]] = None, map_style: str = &#x27;automatic&#x27;, mapStyle: Optional[str] = None, *, region: Any = None, on_region_change: Optional[Callable[[Dict[str, float]], Any]] = None, selection: Any = None, on_selection_change: Optional[Callable[[Optional[str]], Any]] = None, on_marker_tap: Optional[Callable[[Dict[str, Any]], Any]] = None, overlays: Optional[Sequence[Dict[str, Any]]] = None, shows_user_location: bool = False, controls: Optional[Sequence[str]] = None, interaction_modes: Any = &#x27;all&#x27;, camera_frequency: str = &#x27;on_end&#x27;, shows_traffic: bool = False, elevation: str = &#x27;automatic&#x27;)</code></td><td><code>media</code></td></tr><tr><td><code>ShareLink</code></td><td><code>ShareLink(item: str = &#x27;&#x27;, subject: Optional[str] = None, message: Optional[str] = None)</code></td><td><code>control</code></td></tr></tbody></table></div>
+<h3 id="webview-v2"><a class="heading-anchor" href="#webview-v2">#</a>WebView V2</h3>
+<p><code>WebView</code> 是生命周期归属当前节点的可编程浏览器，而不是一次性网页截图。<code>navigation_state</code> 可传 <code>Binding</code>，收到：<code>phase</code>、<code>url</code>、<code>title</code>、<code>progress</code>、<code>can_go_back</code>、<code>can_go_forward</code>。网页可通过 <code>window.webkit.messageHandlers.appui.postMessage(value)</code> 向 <code>on_message</code> 发送 JSON 兼容值。</p>
+<p>命令使用带稳定 <code>id</code> 的字典；同一个 id 只执行一次，避免页面重建重复刷新、重复执行脚本或重复导航。</p>
+<figure class="code-block" data-code-id="ddbead811f3c">
+  <figcaption>
+    <span>python</span>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="ddbead811f3c" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
+  </figcaption>
+  <pre><code id="code-ddbead811f3c" class="language-python">state = appui.State(web={}, command=None, result={})
+
+
+def reload_page():
+    state.command = {&quot;id&quot;: &quot;reload-1&quot;, &quot;op&quot;: &quot;reload&quot;}
+
+
+def run_script():
+    state.command = {
+        &quot;id&quot;: &quot;read-title-1&quot;,
+        &quot;op&quot;: &quot;evaluate_javascript&quot;,
+        &quot;script&quot;: &quot;document.title&quot;,
+    }
+
+
+def current_command():
+    return state.command
+
+
+def receive_result(value):
+    state.result = value
+
+
+web = appui.WebView(
+    url=&quot;https://docs.example.com&quot;,
+    allowed_hosts=[&quot;docs.example.com&quot;, &quot;*.cdn.example.com&quot;],
+    data_store=&quot;non_persistent&quot;,
+    navigation_state=state.bind.web,
+    command=current_command,
+    on_command_result=receive_result,
+)</code></pre>
+</figure>
+<p>可用 op：<code>reload</code>、<code>stop</code>、<code>go_back</code>、<code>go_forward</code>、<code>evaluate_javascript</code>、<code>load_url</code>、<code>load_html</code>、<code>get_cookies</code>、<code>set_cookie</code>、<code>delete_cookie</code>、<code>clear_website_data</code>。Cookie 命令和网站数据清理需要 <code>network</code>；声明式安全 profile 只会读取、修改或清除 allowlist 内域名的数据，不会暴露或删除其他 MiniApp 的站点数据。<code>clear_website_data</code> 的 <code>data_types</code> 可选 <code>cookies</code>、<code>disk_cache</code>、<code>memory_cache</code>、<code>local_storage</code>、<code>session_storage</code>、<code>indexed_db</code>、<code>service_workers</code>；省略表示全部。</p>
+<p>下载必须同时传 <code>allows_downloads=True</code> 与 <code>on_download(path)</code>，并声明 <code>file_system</code>。下载由 WebKit 原生下载任务执行；完成后的临时文件跨 UI 重建可用，并在所属 MiniApp 运行会话结束时清理。失败或策略拒绝由 <code>on_download_error(error)</code> 接收。</p>
+<p>系统 JavaScript alert / confirm / prompt 会使用原生对话框；视图销毁时会停止加载、取消未完成下载，并移除 message handler、观察者和 delegate。</p>
+<p><code>allowed_hosts</code> 只能缩小 <code>miniapp.json</code> 中 <code>allowedNetworkHosts</code> 的范围，不能扩大。声明式安全 profile 只允许 HTTPS/WSS；策略同时覆盖主导航、图片/脚本等子资源和 WebSocket，网页消息只接受主 frame。旧 MiniApp 保持 legacy profile 以兼容已有代码。</p>
+<h3 id="mapview-v2"><a class="heading-anchor" href="#mapview-v2">#</a>MapView V2</h3>
+<p><code>region</code> 可传 <code>{&quot;latitude&quot;, &quot;longitude&quot;, &quot;span&quot;, &quot;longitude_span&quot;}</code> 或对应 <code>Binding</code>；用户平移、缩放后由 <code>on_region_change</code> 双向回写。标记推荐提供稳定 <code>id</code>，还可用 <code>subtitle</code>、<code>system_image</code>、<code>tint</code>。</p>
+<p><code>overlays</code> 支持：</p>
+<ul><li><code>{&quot;type&quot;: &quot;polyline&quot;, &quot;coordinates&quot;: [[lat, lon], ...]}</code></li><li><code>{&quot;type&quot;: &quot;polygon&quot;, &quot;coordinates&quot;: [...], &quot;fill_color&quot;: ...}</code></li><li><code>{&quot;type&quot;: &quot;circle&quot;, &quot;latitude&quot;: ..., &quot;longitude&quot;: ..., &quot;radius&quot;: ...}</code></li></ul>
+<p><code>controls</code> 可选 <code>compass</code>、<code>scale</code>、<code>user_location</code>、<code>pitch</code>；<code>interaction_modes</code> 可为 <code>&quot;all&quot;</code>、<code>&quot;none&quot;</code> 或 <code>pan</code> / <code>zoom</code> 列表；<code>camera_frequency=&quot;on_end&quot;</code> 适合业务状态，<code>&quot;continuous&quot;</code> 只用于确实需要连续地图反馈的场景。</p>
+<figure class="code-block" data-code-id="144803349d75">
+  <figcaption>
+    <span>python</span>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="144803349d75" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
+  </figcaption>
+  <pre><code id="code-144803349d75" class="language-python">import appui
+
+state = appui.State(
+    region={&quot;latitude&quot;: 31.2304, &quot;longitude&quot;: 121.4737, &quot;span&quot;: 0.08},
+    selected=None,
+)
+
+
+def marker_tapped(marker):
+    print(marker.get(&quot;title&quot;, &quot;&quot;))
+
+
+def body():
+    return appui.MapView(
+        region=state.bind.region,
+        selection=state.bind.selected,
+        markers=[{
+            &quot;id&quot;: &quot;bund&quot;,
+            &quot;latitude&quot;: 31.2400,
+            &quot;longitude&quot;: 121.4900,
+            &quot;title&quot;: &quot;The Bund&quot;,
+            &quot;system_image&quot;: &quot;building.2.fill&quot;,
+            &quot;tint&quot;: &quot;systemBlue&quot;,
+        }],
+        overlays=[{
+            &quot;id&quot;: &quot;route&quot;,
+            &quot;type&quot;: &quot;polyline&quot;,
+            &quot;coordinates&quot;: [[31.2304, 121.4737], [31.2400, 121.4900]],
+            &quot;stroke_color&quot;: &quot;systemBlue&quot;,
+            &quot;line_width&quot;: 4,
+        }],
+        controls=[&quot;compass&quot;, &quot;scale&quot;],
+        on_marker_tap=marker_tapped,
+    ).frame(height=320)
+
+
+appui.run(body, state=state)</code></pre>
+</figure>
 <p><code>VideoPlayer(url=...)</code> 适合只展示并播放一个视频。视频类 Mini App 需要恢复播放进度、切集、外部按钮控制、倍速、音量或 PiP 状态时，先创建 <code>PlayerController</code>，再传给 <code>VideoPlayer(player=player)</code>。AppUI 页面不要再额外 import <code>avplayer</code> 去控制同一块内嵌视频；<code>PlayerController</code> 已经是 AppUI 的播放器控制入口。</p>
 <p><code>PlayerController</code> 默认 <code>pause_on_disappear=True</code>，页面退出或视图消失时会暂停对应播放器，避免视频声音继续播放。确实需要离开页面后继续播放时，显式传 <code>pause_on_disappear=False</code>。</p>
 <figure class="code-block" data-code-id="9355d3ab17da">
@@ -571,7 +667,7 @@ appui.run(body)</code></pre>
 </article>
 
     </main>
-    <aside class="toc"><div class="toc-title">本页目录</div><a class="toc-link" href="#什么时候用">什么时候用</a><a class="toc-link" href="#最小正确示例">最小正确示例</a><a class="toc-link" href="#图片和标签">图片和标签</a><a class="toc-link child" href="#image-方法">Image 方法</a><a class="toc-link" href="#相册-相机和文件导入">相册、相机和文件导入</a><a class="toc-link" href="#视频-网页和地图">视频、网页和地图</a><a class="toc-link child" href="#videoplayer-video-player">VideoPlayer { video player}</a><a class="toc-link child" href="#playercontroller-player-controller">PlayerController { player controller}</a><a class="toc-link child" href="#webview-webview">WebView { webview}</a><a class="toc-link child" href="#视频-api-选择规则">视频 API 选择规则</a><a class="toc-link" href="#加载状态和权限">加载状态和权限</a><a class="toc-link" href="#与相邻-api-的区别">与相邻 API 的区别</a><a class="toc-link" href="#常见错误">常见错误</a><a class="toc-link" href="#相关文档">相关文档</a></aside>
+    <aside class="toc"><div class="toc-title">本页目录</div><a class="toc-link" href="#什么时候用">什么时候用</a><a class="toc-link" href="#最小正确示例">最小正确示例</a><a class="toc-link" href="#图片和标签">图片和标签</a><a class="toc-link child" href="#image-方法">Image 方法</a><a class="toc-link" href="#相册-相机和文件导入">相册、相机和文件导入</a><a class="toc-link" href="#视频-网页和地图">视频、网页和地图</a><a class="toc-link child" href="#videoplayer-video-player">VideoPlayer { video player}</a><a class="toc-link child" href="#playercontroller-player-controller">PlayerController { player controller}</a><a class="toc-link child" href="#webview-webview">WebView { webview}</a><a class="toc-link child" href="#视频-api-选择规则">视频 API 选择规则</a><a class="toc-link child" href="#webview-v2">WebView V2</a><a class="toc-link child" href="#mapview-v2">MapView V2</a><a class="toc-link" href="#加载状态和权限">加载状态和权限</a><a class="toc-link" href="#与相邻-api-的区别">与相邻 API 的区别</a><a class="toc-link" href="#常见错误">常见错误</a><a class="toc-link" href="#相关文档">相关文档</a></aside>
   </div>
   <div class="mobile-backdrop"></div>
   <div class="search-panel" role="dialog" aria-modal="true" aria-label="搜索">

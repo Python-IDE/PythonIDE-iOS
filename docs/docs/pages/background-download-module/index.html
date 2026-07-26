@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>background_download - PythonIDE Docs</title>
-  <meta name="description" content="后台 URLSession 大文件下载。">
+  <meta name="description" content="原生后台下载、上传与持久任务中心。">
   <link rel="icon" href="../../assets/brand-mark.svg" type="image/svg+xml">
   <link rel="stylesheet" href="../../assets/docs-v2.css">
   <script>window.PYTHONIDE_DOCS_PREFIX = "../../";</script>
@@ -167,6 +167,7 @@
 <a class="nav-link" href="../../pages/permission-module/">permission</a>
 <a class="nav-link" href="../../pages/storage-module/">storage</a>
 <a class="nav-link" href="../../pages/database-module/">database</a>
+<a class="nav-link" href="../../pages/archive-module/">archive</a>
 <a class="nav-link" href="../../pages/keychain-module/">keychain</a>
 <a class="nav-link" href="../../pages/clipboard-module/">clipboard</a>
 <a class="nav-link" href="../../pages/console-module/">console</a>
@@ -214,6 +215,7 @@
 </div>
 <div class="nav-group">
 <div class="nav-group-title">视觉与文档</div>
+<a class="nav-link" href="../../pages/native-image-module/">native_image</a>
 <a class="nav-link" href="../../pages/vision-module/">vision</a>
 <a class="nav-link" href="../../pages/vision-helper-module/">vision_helper</a>
 <a class="nav-link" href="../../pages/coreml-module/">coreml</a>
@@ -283,184 +285,197 @@
   <header class="article-intro">
     <div class="breadcrumb">iOS 原生模块 / 连接与后台</div>
     <h1>background_download</h1>
-    <p>后台 URLSession 大文件下载。</p>
+    <p>原生后台下载、上传与持久任务中心。</p>
   </header>
   
   <div class="markdown-body">
-    <p>后台 URLSession 大文件下载：App 进入后台后仍可继续，适合较大文件。</p>
-<blockquote class="callout note"><strong>边界</strong>：使用系统后台 <code>URLSession</code>，通过 <code>task_id</code> 轮询 <code>status()</code> 获取结果。前台小文件下载请用 <a href="../../pages/network-module/">network</a> 的 <code>download()</code>。<code>destination_path</code> 需为 App 可写路径；下载启动放在按钮回调，不要在 <code>body()</code> 里自动发起。</blockquote>
-<h2 id="模块概览"><a class="heading-anchor" href="#模块概览">#</a>模块概览</h2>
-<div class="table-scroll"><table><thead><tr><th>项</th><th>说明</th></tr></thead><tbody><tr><td>导入</td><td><code>import background_download</code></td></tr><tr><td>适合做什么</td><td>大 JSON/媒体包后台拉取、断点续传式后台任务</td></tr><tr><td>调用时机</td><td>用户确认后 <code>download()</code>；用 <code>Timer</code> 或按钮轮询 <code>status()</code></td></tr><tr><td>推荐顺序</td><td><code>download()</code> 拿 <code>task_id</code> → 轮询 <code>status()</code> → 读 <code>path</code></td></tr><tr><td>状态机</td><td><code>running</code> → <code>completed</code> / <code>failed</code> / <code>cancelled</code></td></tr></tbody></table></div>
-<hr>
-<h2 id="快速开始"><a class="heading-anchor" href="#快速开始">#</a>快速开始</h2>
-<p>下面脚本发起下载并轮询状态：</p>
-<figure class="code-block" data-code-id="b0ae60e57f47">
+    <p><code>background_download</code> 是 iOS 原生后台文件传输与持久任务中心。它既能下载，也能把本地文件复制到宿主持有的安全 spool 后后台上传；任务离开 MiniApp 页面、结束本次 Python 运行，甚至 App 因系统事件重启后，仍可由同一个 MiniApp 查询和控制。</p>
+<blockquote class="callout note"><strong>诚实的恢复边界</strong>：可恢复的是宿主的 URLSession 文件任务，不是 Python 调用栈、局部变量、Timer 或回调。新运行通过保存的 <code>task_id</code>、<code>background_download.list()</code> 或 <code>miniapp_runtime.durable_tasks()</code> 重新连接。旧运行会在记录中显示 <code>origin_run_state=&quot;interrupted&quot;</code>，宿主不会伪装继续执行旧 Python 代码。</blockquote>
+<p>声明式 <code>miniapp.json</code> 通常声明：</p>
+<figure class="code-block" data-code-id="07312d2fe37c">
+  <figcaption>
+    <span>json</span>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="07312d2fe37c" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
+  </figcaption>
+  <pre><code id="code-07312d2fe37c" class="language-json">{
+  &quot;capabilities&quot;: [&quot;network&quot;, &quot;file_system&quot;],
+  &quot;allowedNetworkHosts&quot;: [&quot;downloads.example.com&quot;, &quot;uploads.example.com&quot;]
+}</code></pre>
+</figure>
+<p>从系统分享页启动时，<code>miniapp_runtime.launch_request()</code> 返回的文件拥有本次运行的只读 host grant。<code>upload()</code> 会在该授权仍有效时立即复制到宿主 spool，因此无需长期持有外部文件 URL；联网能力和目标 host 仍必须通过检查。普通工作区文件和下载目标继续要求 <code>file_system</code>。</p>
+<h2 id="能力概览"><a class="heading-anchor" href="#能力概览">#</a>能力概览</h2>
+<div class="table-scroll"><table><thead><tr><th>能力</th><th>行为</th></tr></thead><tbody><tr><td>后台下载</td><td>原生 background <code>URLSessionDownloadTask</code>，完成后校验并原子写入目标</td></tr><tr><td>后台上传</td><td>只接受文件；先复制到宿主持有、禁止备份且受文件保护的 spool</td></tr><tr><td>暂停与恢复</td><td>下载使用持久化 <code>resumeData</code>；服务端不支持时明确失败为 <code>resume_unavailable</code></td></tr><tr><td>重试</td><td>复用不可变能力租约与持久请求元数据；敏感 header 必须重新提供</td></tr><tr><td>任务中心</td><td>同 MiniApp 可 <code>status()</code> / <code>list()</code>；其他 MiniApp 即使猜中 ID 也只能得到 <code>unknown</code></td></tr><tr><td>完整性</td><td>可选 SHA-256；下载在落盘前校验，上传在 spool 提交前校验</td></tr><tr><td>响应元数据</td><td>返回 HTTP status、安全响应 header、收发字节数；不保存响应体和 Cookie</td></tr></tbody></table></div>
+<p>状态机：</p>
+<figure class="code-block" data-code-id="ab68da82825f">
+  <figcaption>
+    <span>text</span>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="ab68da82825f" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
+  </figcaption>
+  <pre><code id="code-ab68da82825f" class="language-text">running ── pause() ──&gt; pausing ── resumeData ──&gt; paused ── resume() ──&gt; running
+   │                         └── 无 resumeData ──&gt; failed(resume_unavailable)
+   ├── 收完 ──&gt; finalizing（校验/原子提交）──&gt; completed
+   ├── 错误 ──&gt; failed ── retry() ──&gt; running
+   └── cancel() ──&gt; cancelled</code></pre>
+</figure>
+<h2 id="快速开始-下载-暂停与恢复"><a class="heading-anchor" href="#快速开始-下载-暂停与恢复">#</a>快速开始：下载、暂停与恢复</h2>
+<figure class="code-block" data-code-id="15d27bdb4e31">
   <figcaption>
     <span>python</span>
-    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="b0ae60e57f47" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="15d27bdb4e31" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
-  <pre><code id="code-b0ae60e57f47" class="language-python">import os
+  <pre><code id="code-15d27bdb4e31" class="language-python">import os
 import time
 import background_download
 
-dest = os.path.join(os.path.expanduser(&quot;~/Documents&quot;), &quot;httpbin.json&quot;)
-
-try:
-    task_id = background_download.download(
-        &quot;https://httpbin.org/json&quot;,
-        dest,
-    )
-    print(&quot;任务:&quot;, task_id)
-
-    for _ in range(30):
-        st = background_download.status(task_id)
-        print(st.get(&quot;state&quot;), st.get(&quot;progress&quot;))
-        if st.get(&quot;state&quot;) in (&quot;completed&quot;, &quot;failed&quot;, &quot;cancelled&quot;):
-            break
-        time.sleep(1)
-
-    if st.get(&quot;state&quot;) == &quot;completed&quot;:
-        print(&quot;已保存:&quot;, st.get(&quot;path&quot;))
-    elif st.get(&quot;error&quot;):
-        print(&quot;失败:&quot;, st.get(&quot;error&quot;))
-except background_download.BackgroundDownloadError as exc:
-    print(&quot;下载失败:&quot;, exc, f&quot;code={exc.code}&quot;)</code></pre>
-</figure>
-<hr>
-<h2 id="appui-示例"><a class="heading-anchor" href="#appui-示例">#</a>AppUI 示例</h2>
-<p>下载和轮询放在按钮回调；用 <code>Timer</code> 刷新进度状态。</p>
-<figure class="code-block" data-code-id="f78b6a6ff9f2">
-  <figcaption>
-    <span>python</span>
-    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="f78b6a6ff9f2" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
-  </figcaption>
-  <pre><code id="code-f78b6a6ff9f2" class="language-python">import appui
-import os
-import background_download
-
-DEST = os.path.join(os.path.expanduser(&quot;~/Documents&quot;), &quot;demo-download.json&quot;)
-URL = &quot;https://httpbin.org/json&quot;
-
-state = appui.State(
-    task_id=&quot;&quot;,
-    dl_state=&quot;空闲&quot;,
-    progress=&quot;—&quot;,
-    status=&quot;点击开始下载&quot;,
+destination = os.path.join(os.path.expanduser(&quot;~/Documents&quot;), &quot;package.zip&quot;)
+task_id = background_download.download(
+    &quot;https://downloads.example.com/package.zip&quot;,
+    destination,
+    headers={&quot;Accept&quot;: &quot;application/zip&quot;},
+    sha256=&quot;0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef&quot;,
 )
 
+while True:
+    task = background_download.status(task_id)
+    print(task[&quot;state&quot;], task[&quot;progress&quot;], task[&quot;bytes_received&quot;])
+    if task[&quot;state&quot;] in (&quot;completed&quot;, &quot;failed&quot;, &quot;cancelled&quot;):
+        break
+    time.sleep(0.5)
 
-def poll():
-    if not state.task_id:
-        return
-    try:
-        st = background_download.status(state.task_id) or {}
-        dl_state = st.get(&quot;state&quot;, &quot;unknown&quot;)
-        prog = st.get(&quot;progress&quot;, 0.0)
-        state.batch_update(
-            dl_state=dl_state,
-            progress=f&quot;{float(prog) * 100:.0f}%&quot;,
-        )
-        if dl_state == &quot;completed&quot;:
-            poll_timer.stop()
-            state.status = f&quot;完成: {st.get(&#x27;path&#x27;, DEST)}&quot;
-        elif dl_state == &quot;failed&quot;:
-            poll_timer.stop()
-            state.status = f&quot;失败: {st.get(&#x27;error&#x27;, &#x27;未知错误&#x27;)}&quot;
-        elif dl_state == &quot;cancelled&quot;:
-            poll_timer.stop()
-            state.status = &quot;已取消&quot;
-    except background_download.BackgroundDownloadError as exc:
-        poll_timer.stop()
-        state.status = f&quot;查询失败: {exc}&quot;
-
-
-poll_timer = appui.Timer(interval=0.5, repeats=True, action=poll)
-
-
-def start_download():
-    try:
-        task_id = background_download.download(URL, DEST)
-        state.batch_update(
-            task_id=task_id or &quot;&quot;,
-            dl_state=&quot;running&quot;,
-            progress=&quot;0%&quot;,
-            status=&quot;下载中…&quot;,
-        )
-        poll_timer.start()
-    except background_download.BackgroundDownloadError as exc:
-        state.status = f&quot;启动失败: {exc}&quot;
-
-
-def cancel_download():
-    if not state.task_id:
-        return
-    try:
-        background_download.cancel(state.task_id)
-        poll_timer.stop()
-        state.batch_update(dl_state=&quot;cancelled&quot;, status=&quot;已请求取消&quot;)
-    except background_download.BackgroundDownloadError as exc:
-        state.status = f&quot;取消失败: {exc}&quot;
-
-
-def body():
-    return appui.NavigationStack(
-        appui.Form([
-            appui.Section(&quot;任务&quot;, [
-                appui.LabeledContent(&quot;状态&quot;, value=state.dl_state),
-                appui.LabeledContent(&quot;进度&quot;, value=state.progress),
-                appui.Text(state.task_id or &quot;—&quot;)
-                .font(&quot;caption&quot;)
-                .foreground_color(&quot;secondaryLabel&quot;),
-            ]),
-            appui.Section(&quot;操作&quot;, [
-                appui.Button(&quot;开始后台下载&quot;, action=start_download)
-                .button_style(&quot;bordered_prominent&quot;),
-                appui.Button(&quot;取消&quot;, action=cancel_download, role=&quot;destructive&quot;),
-                appui.Text(state.status).foreground_color(&quot;secondaryLabel&quot;),
-            ], footer=&quot;需网络；大文件更适合后台下载。&quot;),
-        ]).navigation_title(&quot;后台下载&quot;)
-    )
-
-
-appui.run(body, state=state)</code></pre>
+# pause() 是请求；轮询到 paused 后才代表 resumeData 已安全持久化。
+# background_download.pause(task_id)
+# background_download.resume(task_id)</code></pre>
 </figure>
-<hr>
-<h2 id="api-参考"><a class="heading-anchor" href="#api-参考">#</a>API 参考</h2>
-<h3 id="速查"><a class="heading-anchor" href="#速查">#</a>速查</h3>
-<div class="table-scroll"><table><thead><tr><th>API</th><th>作用</th></tr></thead><tbody><tr><td><code>download(url, destination_path, task_id)</code></td><td>开始下载 → <code>task_id</code></td></tr><tr><td><code>status(task_id)</code></td><td><code>{state, progress, path, error}</code></td></tr><tr><td><code>cancel(task_id)</code></td><td>取消任务</td></tr><tr><td><code>BackgroundDownloadError</code></td><td>操作失败时抛出</td></tr></tbody></table></div>
-<h3 id="download"><a class="heading-anchor" href="#download">#</a>download</h3>
-<p><strong><code>download(url, destination_path, task_id=None)</code></strong></p>
-<figure class="code-block" data-code-id="739c8c26410f">
+<h2 id="分享文件直接后台上传"><a class="heading-anchor" href="#分享文件直接后台上传">#</a>分享文件直接后台上传</h2>
+<figure class="code-block" data-code-id="0905d1de16fb">
   <figcaption>
     <span>python</span>
-    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="739c8c26410f" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="0905d1de16fb" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
-  <pre><code id="code-739c8c26410f" class="language-python">task_id = background_download.download(
-    &quot;https://example.com/file.zip&quot;,
-    &quot;/path/to/save.zip&quot;,
+  <pre><code id="code-0905d1de16fb" class="language-python">import background_download
+import miniapp_runtime
+
+request = miniapp_runtime.launch_request(required=True)
+item = request.first
+
+task_id = background_download.upload(
+    &quot;https://uploads.example.com/import&quot;,
+    item.path,
+    method=&quot;POST&quot;,
+    headers={&quot;Authorization&quot;: &quot;Bearer current-secret&quot;},
+)
+print(&quot;后台任务：&quot;, task_id)</code></pre>
+</figure>
+<p><code>upload()</code> 返回前，文件已复制到宿主 spool。之后分享授权失效、原文件移动或本次 MiniApp 退出，都不会让已提交上传失去源文件。成功或取消会删除 spool；失败时保留它供 <code>retry()</code> 使用，终态记录过期时再统一清理。</p>
+<h2 id="重新连接持久任务"><a class="heading-anchor" href="#重新连接持久任务">#</a>重新连接持久任务</h2>
+<figure class="code-block" data-code-id="62df2a1cc6f1">
+  <figcaption>
+    <span>python</span>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="62df2a1cc6f1" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
+  </figcaption>
+  <pre><code id="code-62df2a1cc6f1" class="language-python">import miniapp_runtime
+import background_download
+
+for task in miniapp_runtime.durable_tasks(limit=50):
+    print(
+        task[&quot;task_id&quot;],
+        task[&quot;kind&quot;],
+        task[&quot;state&quot;],
+        task[&quot;origin_run_state&quot;],
+    )
+
+failed = background_download.list(state=&quot;failed&quot;)
+for task in failed:
+    if task[&quot;can_resume&quot;]:
+        background_download.resume(task[&quot;task_id&quot;])
+    elif task[&quot;can_retry&quot;] and not task[&quot;retry_requires_headers&quot;]:
+        background_download.retry(task[&quot;task_id&quot;])</code></pre>
+</figure>
+<p>如果 <code>retry_requires_headers</code> 非空，表示这些自定义或敏感值从未写入 App 的任务记录：</p>
+<figure class="code-block" data-code-id="b63aafc5e9df">
+  <figcaption>
+    <span>python</span>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="b63aafc5e9df" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
+  </figcaption>
+  <pre><code id="code-b63aafc5e9df" class="language-python">background_download.retry(
+    task_id,
+    headers={&quot;Authorization&quot;: &quot;Bearer refreshed-secret&quot;},
 )</code></pre>
 </figure>
-<div class="table-scroll"><table><thead><tr><th>参数</th><th>说明</th></tr></thead><tbody><tr><td><code>url</code></td><td>下载地址</td></tr><tr><td><code>destination_path</code></td><td>保存路径（App 可写）</td></tr><tr><td><code>task_id</code></td><td>可选自定义 ID；省略时自动生成 UUID</td></tr></tbody></table></div>
-<h3 id="status"><a class="heading-anchor" href="#status">#</a>status</h3>
-<p><strong><code>status(task_id)</code></strong> 返回：</p>
-<div class="table-scroll"><table><thead><tr><th>字段</th><th>说明</th></tr></thead><tbody><tr><td><code>state</code></td><td><code>running</code> / <code>completed</code> / <code>failed</code> / <code>cancelled</code> / <code>unknown</code></td></tr><tr><td><code>progress</code></td><td>0.0–1.0（完成时为 1.0）</td></tr><tr><td><code>path</code></td><td>目标路径（完成后有效）</td></tr><tr><td><code>error</code></td><td>失败时的错误信息</td></tr></tbody></table></div>
-<p>建议轮询间隔 ≥ 0.5 秒。</p>
-<h3 id="cancel"><a class="heading-anchor" href="#cancel">#</a>cancel</h3>
-<p><strong><code>cancel(task_id)</code></strong> — 取消进行中的任务，状态变为 <code>cancelled</code>。</p>
-<hr>
-<h2 id="常见错误"><a class="heading-anchor" href="#常见错误">#</a>常见错误</h2>
-<div class="table-scroll"><table><thead><tr><th>错误写法</th><th>后果</th><th>修正</th></tr></thead><tbody><tr><td>在 <code>body()</code> 里 <code>download()</code></td><td>刷新时重复下载</td><td>放进按钮回调</td></tr><tr><td><code>destination_path</code> 不可写</td><td>移动文件失败</td><td>用 Documents 等沙盒路径</td></tr><tr><td>不轮询 <code>status()</code></td><td>不知道何时完成</td><td><code>Timer</code> 或循环查询</td></tr><tr><td>小文件也用后台下载</td><td>过度复杂</td><td>前台用 <a href="../../pages/network-module/">network</a></td></tr></tbody></table></div>
-<hr>
+<h2 id="api-参考"><a class="heading-anchor" href="#api-参考">#</a>API 参考</h2>
+<h3 id="download"><a class="heading-anchor" href="#download">#</a><code>download()</code></h3>
+<figure class="code-block" data-code-id="c24c5f0ab903">
+  <figcaption>
+    <span>text</span>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="c24c5f0ab903" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
+  </figcaption>
+  <pre><code id="code-c24c5f0ab903" class="language-text">download(
+    url,
+    destination_path,
+    task_id=None,
+    *,
+    method=&quot;GET&quot;,
+    headers=None,
+    sha256=None,
+) -&gt; str</code></pre>
+</figure>
+<ul><li>保留原有 <code>download(url, destination_path, task_id)</code> 写法。</li><li><code>method</code> 支持 <code>GET</code>、<code>HEAD</code>、<code>POST</code>、<code>PUT</code>、<code>PATCH</code>、<code>DELETE</code>；模块不接受内存 request body。</li><li><code>headers</code> 最多 64 项、总计 32 KiB；禁止 <code>Host</code>、<code>Content-Length</code> 等 URLSession 管理字段。</li><li><code>sha256</code> 是可选的 64 位十六进制摘要。校验失败不会替换已有目标文件。</li><li>目标必须位于当前 MiniApp 可写范围。写入使用同目录 staging 与原子替换，并拒绝符号链接目标。</li></ul>
+<h3 id="upload"><a class="heading-anchor" href="#upload">#</a><code>upload()</code></h3>
+<figure class="code-block" data-code-id="55baf9c8e2ce">
+  <figcaption>
+    <span>text</span>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="55baf9c8e2ce" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
+  </figcaption>
+  <pre><code id="code-55baf9c8e2ce" class="language-text">upload(
+    url,
+    source_path,
+    task_id=None,
+    *,
+    method=&quot;POST&quot;,
+    headers=None,
+    sha256=None,
+) -&gt; str</code></pre>
+</figure>
+<ul><li><code>method</code> 支持 <code>POST</code>、<code>PUT</code>、<code>PATCH</code>。</li><li>只上传常规文件，不接受目录、符号链接或内存 <code>bytes</code>。</li><li><code>source_path</code> 在原始 capability lease 下复验并复制；spool 由宿主持有。</li><li>iOS 后台上传要求 file-backed body，因此这是正确的系统级实现，不是前台 async 请求伪装。</li></ul>
+<h3 id="status-与-list"><a class="heading-anchor" href="#status-与-list">#</a><code>status()</code> 与 <code>list()</code></h3>
+<figure class="code-block" data-code-id="763811e118d1">
+  <figcaption>
+    <span>text</span>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="763811e118d1" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
+  </figcaption>
+  <pre><code id="code-763811e118d1" class="language-text">status(task_id) -&gt; dict
+list(*, state=None, kind=None, limit=100) -&gt; list[dict]</code></pre>
+</figure>
+<p><code>status()</code> 含最多 32 条 <code>events</code>；<code>list()</code> 返回紧凑摘要。任务只对相同 <code>owner_app_id</code> 可见。终态记录保留约 30 天，最多保留 256 条；同时活动任务最多 64 条。</p>
+<p>省略 <code>task_id</code> 会生成安全的 UUID，通常应采用这种方式。若业务必须自定义 ID，请使用足够唯一的值；宿主不会允许另一个 MiniApp 以同名 ID 覆盖现存记录。</p>
+<p>主要字段：</p>
+<div class="table-scroll"><table><thead><tr><th>字段</th><th>说明</th></tr></thead><tbody><tr><td><code>task_id</code> / <code>provider</code> / <code>kind</code></td><td>逻辑任务 ID；任务中心 provider 为 <code>background_transfer</code>；类型为 <code>download</code> 或 <code>upload</code></td></tr><tr><td><code>state</code> / <code>progress</code></td><td>当前状态；含校验/原子提交中的 <code>finalizing</code>；进度为 0.0–1.0，未知长度时可保持 0</td></tr><tr><td><code>owner_app_id</code></td><td>任务所属 MiniApp；宿主任务为 <code>None</code></td></tr><tr><td><code>origin_session_id</code></td><td>创建任务的运行票据，不会因重试或重启变化</td></tr><tr><td><code>origin_run_state</code></td><td><code>current</code>、<code>interrupted</code> 或 <code>host</code>；<code>interrupted</code> 明确表示旧 Python 栈已结束</td></tr><tr><td><code>path</code></td><td>下载目标；上传不会暴露宿主 spool 路径</td></tr><tr><td><code>can_pause</code> / <code>can_resume</code> / <code>can_retry</code></td><td>当前可用控制能力</td></tr><tr><td><code>retry_requires_headers</code></td><td>重试前必须重新提供的自定义或敏感 header 名称；仅少量内容协商字段会持久化</td></tr><tr><td><code>http_status</code> / <code>response_headers</code></td><td>最终响应元数据；Cookie、认证 challenge 等敏感字段被过滤</td></tr><tr><td><code>bytes_received</code> / <code>bytes_sent</code></td><td>已收/发字节；也提供对应 expected 字段</td></tr><tr><td><code>expected_sha256</code> / <code>sha256</code></td><td>期望值与实际校验值（启用校验时）</td></tr><tr><td><code>attempt</code> / <code>retry_count</code> / <code>resume_count</code></td><td>持久化执行统计</td></tr><tr><td><code>created_at</code> / <code>updated_at</code> / <code>last_retry_at</code></td><td>Unix 时间戳</td></tr><tr><td><code>error_code</code> / <code>error</code></td><td>稳定错误码与去敏后的说明</td></tr><tr><td><code>events</code></td><td>有序、有界的状态历史，仅 <code>status()</code> 返回</td></tr></tbody></table></div>
+<h3 id="pause-resume-retry-cancel"><a class="heading-anchor" href="#pause-resume-retry-cancel">#</a><code>pause()</code> / <code>resume()</code> / <code>retry()</code> / <code>cancel()</code></h3>
+<figure class="code-block" data-code-id="adc797b3a014">
+  <figcaption>
+    <span>text</span>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="adc797b3a014" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
+  </figcaption>
+  <pre><code id="code-adc797b3a014" class="language-text">pause(task_id) -&gt; dict
+resume(task_id) -&gt; dict
+retry(task_id, *, headers=None) -&gt; dict
+cancel(task_id) -&gt; None</code></pre>
+</figure>
+<ul><li><code>pause()</code> 仅支持下载，并先进入 <code>pausing</code>。只有生成并持久化非空 <code>resumeData</code> 后才进入 <code>paused</code>。</li><li><code>resume()</code> 仅接受有可用 resumeData 的 <code>paused</code> / <code>failed</code> 下载；失效时抛出 <code>resume_unavailable</code> 并更新任务状态。</li><li><code>retry()</code> 发起全新 attempt。上传失败会复用宿主 spool；下载失败或取消后重新开始。已取消上传释放了 spool，若要再次上传需创建新任务。敏感 header 不落盘，必须按提示重新提供。</li><li><code>cancel()</code> 保持旧 API 的幂等语义：未知、跨 MiniApp、已终止或已经进入不可中断原子提交的 ID 是 no-op。</li></ul>
+<h2 id="安全与系统行为"><a class="heading-anchor" href="#安全与系统行为">#</a>安全与系统行为</h2>
+<ul><li>每个重定向都在创建任务时的不可变 capability lease 下重新验证。</li><li>HTTPS 到 HTTP 的降级重定向会被拒绝；跨 scheme/host/port 的重定向只保留少量内容协商字段，其余自定义或凭据 header 全部移除。</li><li>持久 JSON 只保存少量可移植内容协商 request header，不含其他自定义/敏感值，不含上传 spool 路径的公开返回，也不保存响应体。</li><li>为了能够在重启后重试，请求 URL（包括 query）会持久化。不要把长期凭据放进 URL；把凭据放在敏感 header 中，并在重试时重新提供。</li><li>HTTP 非 2xx 明确为 <code>http_error</code>；安全响应 header 和 status 仍可诊断。</li><li>iOS 决定后台调度时机、蜂窝网络和电量策略；“后台”不等于保证立即运行。</li><li>模拟器可以验证 API 和状态机，但挂起、系统杀进程后恢复、网络切换与大文件必须在真机验收。</li></ul>
+<p>常见稳定错误码：</p>
+<div class="table-scroll"><table><thead><tr><th>错误码</th><th>含义与处理</th></tr></thead><tbody><tr><td><code>network_denied</code> / <code>redirect_denied</code></td><td>初始地址或重定向不符合原始网络授权；修改声明/host，不要盲目重试</td></tr><tr><td><code>http_error</code> / <code>network_error</code></td><td>服务端非 2xx 或网络失败；查看 <code>http_status</code>，再决定 <code>retry()</code></td></tr><tr><td><code>checksum_mismatch</code></td><td>文件与期望 SHA-256 不一致；下载不会覆盖旧目标，上传不会启动</td></tr><tr><td><code>resume_unavailable</code></td><td>服务端/系统没有可用 resumeData；改用 <code>retry()</code> 重新下载</td></tr><tr><td><code>sensitive_headers_required</code></td><td>自定义或敏感 header 未落盘；按 <code>retry_requires_headers</code> 重新提供</td></tr><tr><td><code>upload_spool_unavailable</code> / <code>finalization_missing</code></td><td>宿主持有的恢复文件已不存在；需要重新创建任务</td></tr><tr><td><code>task_missing</code></td><td>重启时找不到原 URLSession 任务；记录诚实进入失败态</td></tr><tr><td><code>persistence_failed</code> / <code>insufficient_storage</code></td><td>任务记录或 spool 无法安全落盘；释放空间后重试</td></tr><tr><td><code>reconciliation_pending</code></td><td>冷启动正在与 iOS 后台会话重连；稍后再次调用控制 API</td></tr><tr><td><code>duplicate_task</code> / <code>too_many_tasks</code></td><td>ID 冲突或达到 64 个活动任务上限</td></tr></tbody></table></div>
+<h2 id="appui-使用建议"><a class="heading-anchor" href="#appui-使用建议">#</a>AppUI 使用建议</h2>
+<p>在按钮回调里创建和控制任务；不要在 <code>body()</code> 里发起副作用。把 <code>task_id</code> 存入业务状态，用 0.5 秒或更慢的 Timer 轮询；页面重建时也可从 <code>miniapp_runtime.durable_tasks()</code> 恢复展示。</p>
 <h2 id="相关文档"><a class="heading-anchor" href="#相关文档">#</a>相关文档</h2>
-<div class="table-scroll"><table><thead><tr><th>文档</th><th>用途</th></tr></thead><tbody><tr><td><a href="../../pages/network-module/">network</a></td><td>前台 HTTP / 小文件下载</td></tr><tr><td><a href="../../pages/background-module/">background</a></td><td>后台任务保活</td></tr><tr><td><a href="../../pages/storage-module/">storage</a></td><td>记录 task_id 等元数据</td></tr></tbody></table></div>
-<h2 id="预期效果"><a class="heading-anchor" href="#预期效果">#</a>预期效果</h2>
-<p>运行示例后，界面应出现文档描述的目标结果；若与预期不符，先看「失败路径」并按返回值或日志排查。</p>
+<div class="table-scroll"><table><thead><tr><th>文档</th><th>用途</th></tr></thead><tbody><tr><td><a href="../../pages/network-module/">network</a></td><td>前台 REST、流式响应和普通文件请求</td></tr><tr><td><a href="../../pages/background-module/">background</a></td><td>有限后台执行时间与 BGTask 调度，不是文件传输</td></tr><tr><td><a href="../../pages/miniapp-native-capabilities/">MiniApp 原生能力</a></td><td>capability、host allowlist、外部输入与运行隔离</td></tr><tr><td><a href="../../pages/storage-module/">storage</a></td><td>保存业务侧 task_id 和 UI 偏好</td></tr></tbody></table></div>
   </div>
   
 </article>
 
     </main>
-    <aside class="toc"><div class="toc-title">本页目录</div><a class="toc-link" href="#模块概览">模块概览</a><a class="toc-link" href="#快速开始">快速开始</a><a class="toc-link" href="#appui-示例">AppUI 示例</a><a class="toc-link" href="#api-参考">API 参考</a><a class="toc-link child" href="#速查">速查</a><a class="toc-link child" href="#download">download</a><a class="toc-link child" href="#status">status</a><a class="toc-link child" href="#cancel">cancel</a><a class="toc-link" href="#常见错误">常见错误</a><a class="toc-link" href="#相关文档">相关文档</a><a class="toc-link" href="#预期效果">预期效果</a></aside>
+    <aside class="toc"><div class="toc-title">本页目录</div><a class="toc-link" href="#能力概览">能力概览</a><a class="toc-link" href="#快速开始-下载-暂停与恢复">快速开始：下载、暂停与恢复</a><a class="toc-link" href="#分享文件直接后台上传">分享文件直接后台上传</a><a class="toc-link" href="#重新连接持久任务">重新连接持久任务</a><a class="toc-link" href="#api-参考">API 参考</a><a class="toc-link child" href="#download">download()</a><a class="toc-link child" href="#upload">upload()</a><a class="toc-link child" href="#status-与-list">status() 与 list()</a><a class="toc-link child" href="#pause-resume-retry-cancel">pause() / resume() / retry() / cancel()</a><a class="toc-link" href="#安全与系统行为">安全与系统行为</a><a class="toc-link" href="#appui-使用建议">AppUI 使用建议</a><a class="toc-link" href="#相关文档">相关文档</a></aside>
   </div>
   <div class="mobile-backdrop"></div>
   <div class="search-panel" role="dialog" aria-modal="true" aria-label="搜索">

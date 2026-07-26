@@ -167,6 +167,7 @@
 <a class="nav-link" href="../../pages/permission-module/">permission</a>
 <a class="nav-link" href="../../pages/storage-module/">storage</a>
 <a class="nav-link" href="../../pages/database-module/">database</a>
+<a class="nav-link" href="../../pages/archive-module/">archive</a>
 <a class="nav-link" href="../../pages/keychain-module/">keychain</a>
 <a class="nav-link" href="../../pages/clipboard-module/">clipboard</a>
 <a class="nav-link" href="../../pages/console-module/">console</a>
@@ -214,6 +215,7 @@
 </div>
 <div class="nav-group">
 <div class="nav-group-title">视觉与文档</div>
+<a class="nav-link" href="../../pages/native-image-module/">native_image</a>
 <a class="nav-link" href="../../pages/vision-module/">vision</a>
 <a class="nav-link" href="../../pages/vision-helper-module/">vision_helper</a>
 <a class="nav-link" href="../../pages/coreml-module/">coreml</a>
@@ -347,9 +349,45 @@ def body():
 appui.run(body)</code></pre>
 </figure>
 <h2 id="导航容器签名"><a class="heading-anchor" href="#导航容器签名">#</a>导航容器签名</h2>
-<div class="table-scroll"><table><thead><tr><th>API</th><th>签名</th><th>分类</th></tr></thead><tbody><tr><td><code>NavigationStack</code></td><td><code>NavigationStack(content: Optional[View] = None, path: Optional[NavigationPath] = None, destinations: Optional[Dict[str, Callable]] = None)</code></td><td><code>navigation</code></td></tr><tr><td><code>NavigationView</code></td><td><code>NavigationView = NavigationStack</code></td><td><code>兼容别名</code></td></tr><tr><td><code>NavigationLink</code></td><td><code>NavigationLink(title: Optional[str] = None, destination: Optional[View] = None, label: Optional[View] = None)</code></td><td><code>navigation</code></td></tr><tr><td><code>NavigationSplitView</code></td><td><code>NavigationSplitView(sidebar: Optional[View] = None, detail: Optional[View] = None, supplementary: Optional[View] = None, column_visibility: str = &#x27;all&#x27;)</code></td><td><code>navigation</code></td></tr><tr><td><code>TabView</code></td><td><code>TabView(tabs: Optional[Sequence[&quot;Tab&quot;]] = None, selection: Optional[int] = None, on_change: Optional[Callable] = None, onChange: Optional[Callable] = None)</code></td><td><code>navigation</code></td></tr><tr><td><code>Tab</code></td><td><code>Tab(title: str = &#x27;&#x27;, system_image: Optional[str] = None, image: Optional[str] = None, content: Optional[View] = None, badge: Optional[int] = None, tag: Optional[int] = None, systemImage: Optional[str] = None, role: Optional[str] = None, key: Optional[str] = None)</code></td><td><code>navigation</code></td></tr><tr><td><code>NavigationPath</code></td><td><code>NavigationPath()</code></td><td><code>公开类型</code></td></tr><tr><td><code>ToolbarItem</code></td><td><code>ToolbarItem(placement: str = &#x27;automatic&#x27;, content: Optional[View] = None, role: Optional[str] = None)</code></td><td><code>presentation</code></td></tr><tr><td><code>ToolbarSpacer</code></td><td><code>ToolbarSpacer(sizing: str = &#x27;fixed&#x27;, placement: str = &#x27;automatic&#x27;)</code></td><td><code>presentation</code></td></tr></tbody></table></div>
+<div class="table-scroll"><table><thead><tr><th>API</th><th>签名</th><th>分类</th></tr></thead><tbody><tr><td><code>NavigationStack</code></td><td><code>NavigationStack(content: Optional[View] = None, path: Optional[NavigationPath] = None, destinations: Optional[Dict[str, Callable]] = None)</code></td><td><code>navigation</code></td></tr><tr><td><code>NavigationView</code></td><td><code>NavigationView = NavigationStack</code></td><td><code>兼容别名</code></td></tr><tr><td><code>NavigationLink</code></td><td><code>NavigationLink(title: Optional[str] = None, destination: Optional[View] = None, label: Optional[View] = None)</code></td><td><code>navigation</code></td></tr><tr><td><code>NavigationSplitView</code></td><td><code>NavigationSplitView(sidebar: Optional[View] = None, detail: Optional[View] = None, supplementary: Optional[View] = None, column_visibility: Any = &#x27;all&#x27;, on_change: Optional[Callable[[str], Any]] = None, onChange: Optional[Callable[[str], Any]] = None)</code></td><td><code>navigation</code></td></tr><tr><td><code>TabView</code></td><td><code>TabView(tabs: Optional[Sequence[&quot;Tab&quot;]] = None, selection: Optional[int] = None, on_change: Optional[Callable] = None, onChange: Optional[Callable] = None)</code></td><td><code>navigation</code></td></tr><tr><td><code>Tab</code></td><td><code>Tab(title: str = &#x27;&#x27;, system_image: Optional[str] = None, image: Optional[str] = None, content: Optional[View] = None, badge: Optional[int] = None, tag: Optional[int] = None, systemImage: Optional[str] = None, role: Optional[str] = None, key: Optional[str] = None)</code></td><td><code>navigation</code></td></tr><tr><td><code>NavigationPath</code></td><td><code>NavigationPath()</code></td><td><code>公开类型</code></td></tr><tr><td><code>ToolbarItem</code></td><td><code>ToolbarItem(placement: str = &#x27;automatic&#x27;, content: Optional[View] = None, role: Optional[str] = None)</code></td><td><code>presentation</code></td></tr><tr><td><code>ToolbarSpacer</code></td><td><code>ToolbarSpacer(sizing: str = &#x27;fixed&#x27;, placement: str = &#x27;automatic&#x27;)</code></td><td><code>presentation</code></td></tr></tbody></table></div>
+<h3 id="navigationsplitview-列可见性"><a class="heading-anchor" href="#navigationsplitview-列可见性">#</a>NavigationSplitView 列可见性</h3>
+<p><code>column_visibility</code> 可传静态字符串，也可传 <code>State.bind.&lt;field&gt;</code> 做双向绑定：</p>
+<div class="table-scroll"><table><thead><tr><th>值</th><th>含义</th></tr></thead><tbody><tr><td><code>&quot;automatic&quot;</code></td><td>由系统按窗口尺寸和用户操作决定。</td></tr><tr><td><code>&quot;all&quot;</code></td><td>显示当前布局可容纳的全部列。</td></tr><tr><td><code>&quot;double&quot;</code></td><td>显示两列。</td></tr><tr><td><code>&quot;detail&quot;</code></td><td>只显示详情列。</td></tr></tbody></table></div>
+<p>在 iPad 分屏、旋转、侧边栏按钮或系统折叠行为改变列状态时，绑定字段会收到系统最终值。传入 <code>on_change</code> 时，回调也会收到同一个字符串；如果同时传绑定与回调，运行时先同步绑定，再执行回调。旧的 <code>onChange</code> 仍兼容，新代码使用 <code>on_change</code>。</p>
+<figure class="code-block" data-code-id="db1518149afb">
+  <figcaption>
+    <span>python</span>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="db1518149afb" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
+  </figcaption>
+  <pre><code id="code-db1518149afb" class="language-python">import appui
+
+state = appui.State(columns=&quot;automatic&quot;, status=&quot;等待系统变化&quot;)
+
+
+def columns_changed(value):
+    state.status = f&quot;当前列模式：{value}&quot;
+
+
+def body():
+    return appui.NavigationSplitView(
+        sidebar=appui.List([
+            appui.Section(&quot;项目&quot;, [appui.Text(&quot;示例项目&quot;)]),
+        ]).navigation_title(&quot;项目&quot;),
+        detail=appui.VStack([
+            appui.Text(&quot;选择一个项目&quot;),
+            appui.Text(state.status).foreground_color(&quot;secondaryLabel&quot;),
+        ], spacing=8).navigation_title(&quot;详情&quot;),
+        column_visibility=state.bind.columns,
+        on_change=columns_changed,
+    )
+
+
+appui.run(body, state=state)</code></pre>
+</figure>
+<p>三列布局再传 <code>supplementary=</code>。不要用 Python 手势或自定义宽度模拟系统侧边栏；折叠、展开和紧凑宽度退化由原生导航容器完成。</p>
 <h2 id="navigationpath-方法"><a class="heading-anchor" href="#navigationpath-方法">#</a>NavigationPath 方法</h2>
 <div class="table-scroll"><table><thead><tr><th>API</th><th>签名</th><th>所属类型</th></tr></thead><tbody><tr><td><code>append</code></td><td><code>append(view_or_value: Union[&quot;View&quot;, str, int, Dict[str, Any]]) -&gt; None</code></td><td><code>NavigationPath</code></td></tr><tr><td><code>pop</code></td><td><code>pop(count: int = 1) -&gt; None</code></td><td><code>NavigationPath</code></td></tr><tr><td><code>pop_to_root</code></td><td><code>pop_to_root() -&gt; None</code></td><td><code>NavigationPath</code></td></tr><tr><td><code>replace</code></td><td><code>replace(items: Sequence[Any]) -&gt; None</code></td><td><code>NavigationPath</code></td></tr></tbody></table></div>
+<p><code>NavigationPath</code> 的公开写法保持值驱动；稳定 route ID、路径版本、系统侧滑返回确认与 热更新恢复均由运行时内部管理。<code>append(View)</code> 直接推入页面；<code>append({&quot;tag&quot;: ..., &quot;data&quot;: ...})</code> 按 tag 查找 builder 并传入 data；<code>append(&quot;profile&quot;)</code> / <code>append(1)</code> 按该值查找 builder，并把该值传给 builder。未解析的目标不会被静默丢弃。</p>
 <figure class="code-block" data-code-id="fe9ccd498e17">
   <figcaption>
     <span>python</span>
@@ -521,7 +559,7 @@ appui.run(body, state=state)</code></pre>
 </article>
 
     </main>
-    <aside class="toc"><div class="toc-title">本页目录</div><a class="toc-link" href="#什么时候用">什么时候用</a><a class="toc-link" href="#最小正确示例">最小正确示例</a><a class="toc-link" href="#导航容器签名">导航容器签名</a><a class="toc-link" href="#navigationpath-方法">NavigationPath 方法</a><a class="toc-link" href="#tabview-示例">TabView 示例</a><a class="toc-link" href="#底部附件与原生-sheet">底部附件与原生 Sheet</a><a class="toc-link" href="#常用修饰符">常用修饰符</a><a class="toc-link" href="#与相邻-api-的区别">与相邻 API 的区别</a><a class="toc-link" href="#常见错误">常见错误</a><a class="toc-link" href="#相关文档">相关文档</a></aside>
+    <aside class="toc"><div class="toc-title">本页目录</div><a class="toc-link" href="#什么时候用">什么时候用</a><a class="toc-link" href="#最小正确示例">最小正确示例</a><a class="toc-link" href="#导航容器签名">导航容器签名</a><a class="toc-link child" href="#navigationsplitview-列可见性">NavigationSplitView 列可见性</a><a class="toc-link" href="#navigationpath-方法">NavigationPath 方法</a><a class="toc-link" href="#tabview-示例">TabView 示例</a><a class="toc-link" href="#底部附件与原生-sheet">底部附件与原生 Sheet</a><a class="toc-link" href="#常用修饰符">常用修饰符</a><a class="toc-link" href="#与相邻-api-的区别">与相邻 API 的区别</a><a class="toc-link" href="#常见错误">常见错误</a><a class="toc-link" href="#相关文档">相关文档</a></aside>
   </div>
   <div class="mobile-backdrop"></div>
   <div class="search-panel" role="dialog" aria-modal="true" aria-label="搜索">

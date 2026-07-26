@@ -167,6 +167,7 @@
 <a class="nav-link" href="../../pages/permission-module/">permission</a>
 <a class="nav-link" href="../../pages/storage-module/">storage</a>
 <a class="nav-link" href="../../pages/database-module/">database</a>
+<a class="nav-link" href="../../pages/archive-module/">archive</a>
 <a class="nav-link" href="../../pages/keychain-module/">keychain</a>
 <a class="nav-link" href="../../pages/clipboard-module/">clipboard</a>
 <a class="nav-link" href="../../pages/console-module/">console</a>
@@ -214,6 +215,7 @@
 </div>
 <div class="nav-group">
 <div class="nav-group-title">视觉与文档</div>
+<a class="nav-link" href="../../pages/native-image-module/">native_image</a>
 <a class="nav-link" href="../../pages/vision-module/">vision</a>
 <a class="nav-link" href="../../pages/vision-helper-module/">vision_helper</a>
 <a class="nav-link" href="../../pages/coreml-module/">coreml</a>
@@ -287,14 +289,56 @@
   </header>
   
   <div class="markdown-body">
-    <p><code>Chart</code> 提供系统图表视图，用字典列表作为数据源，指定 <code>x</code> / <code>y</code> 键与 <code>type</code>。<code>Canvas</code> 用绘制命令渲染自定义图形，可用 <strong><code>DrawingContext</code></strong> 链式生成命令，或直接传入 <strong><code>commands</code></strong> 字典列表。<code>Path</code> 则用于矢量路径（<code>move</code> / <code>line</code> / <code>close</code> 等）。</p>
+    <p><code>Chart</code> 提供系统原生图表视图。简单图表继续用 <code>x</code> / <code>y</code> / <code>type</code>；组合图、范围图、阈值、逐层样式和扇区图使用 <code>marks=[BarMark(...), LineMark(...), ...]</code>。坐标、插值、图例、滚动、触摸选择和动画在原生端执行，Python 只处理数据与离散选择结果。<code>Canvas</code> 用绘制命令渲染自定义图形，可用 <strong><code>DrawingContext</code></strong> 链式生成命令，或直接传入 <strong><code>commands</code></strong> 字典列表。<code>Path</code> 则用于矢量路径（<code>move</code> / <code>line</code> / <code>close</code> 等）。</p>
 <hr>
 <h2 id="预期效果"><a class="heading-anchor" href="#预期效果">#</a>预期效果</h2>
 <p>示例会展示柱状/折线图、Canvas 绘制和 Path 图形在页面中的结果。</p>
 <h2 id="概念速览"><a class="heading-anchor" href="#概念速览">#</a>概念速览</h2>
-<div class="table-scroll"><table><thead><tr><th>能力</th><th>API</th></tr></thead><tbody><tr><td>统计图</td><td><code>Chart(data, x, y, type=&#x27;bar&#x27;, color=None, series=None)</code></td></tr><tr><td>画布绘制</td><td><code>DrawingContext().fill_rect(...)...</code> 与 <code>Canvas(width, height, context=ctx)</code></td></tr><tr><td>原始命令</td><td><code>Canvas(width, height, commands=[{&#x27;op&#x27;: &#x27;fill_rect&#x27;, ...}, ...])</code></td></tr><tr><td>矢量路径</td><td><code>Path(commands=[...], fill=..., stroke=..., line_width=...)</code></td></tr></tbody></table></div>
-<h3 id="五种-chart-类型的直观含义"><a class="heading-anchor" href="#五种-chart-类型的直观含义">#</a>五种 <code>Chart</code> 类型的直观含义</h3>
+<div class="table-scroll"><table><thead><tr><th>能力</th><th>API</th></tr></thead><tbody><tr><td>统计图</td><td><code>Chart(data, x, y, type=&#x27;bar&#x27;, color=None, series=None, ...)</code></td></tr><tr><td>原生 Mark 组合</td><td><code>Chart(data, marks=[BarMark(...), LineMark(...)], selection_x=...)</code></td></tr><tr><td>类型化字段/常量</td><td><code>ChartField(key, label, value_type)</code> / <code>ChartValue(value, label, value_type)</code></td></tr><tr><td>连续数值 / 日期轴</td><td><code>x_type=&#x27;number&#x27;</code> / <code>&#x27;date&#x27;</code></td></tr><tr><td>原生滚动与触摸选择</td><td><code>scrollable_axes</code>、<code>visible_domain</code>、<code>selection</code>、<code>on_select</code></td></tr><tr><td>画布绘制</td><td><code>DrawingContext().fill_rect(...)...</code> 与 <code>Canvas(width, height, context=ctx)</code></td></tr><tr><td>原始命令</td><td><code>Canvas(width, height, commands=[{&#x27;op&#x27;: &#x27;fill_rect&#x27;, ...}, ...])</code></td></tr><tr><td>矢量路径</td><td><code>Path(commands=[...], fill=..., stroke=..., line_width=...)</code></td></tr></tbody></table></div>
+<h3 id="旧写法的五种-chart-类型"><a class="heading-anchor" href="#旧写法的五种-chart-类型">#</a>旧写法的五种 <code>Chart</code> 类型</h3>
 <ul><li><strong><code>bar</code></strong>：离散类别对比，适合少量枚举横轴（如月份、地区）。</li><li><strong><code>line</code></strong>：连续或有序横轴上的趋势；与 <code>series</code> 组合可绘制多条线。</li><li><strong><code>area</code></strong>：与折线类似，但填充下方区域，强调「累积感」或占比。</li><li><strong><code>point</code></strong>：强调散点分布，适合样本量不大时的离群观察。</li><li><strong><code>rule</code></strong>：水平或垂直参考线，适合阈值、平均线等「标线」场景（数据需自行构造为常数 <code>y</code> 或 <code>x</code>）。</li></ul>
+<h3 id="生产级参数"><a class="heading-anchor" href="#生产级参数">#</a>生产级参数</h3>
+<ul><li><code>interpolation</code>：<code>linear</code>、<code>monotone</code>、<code>cardinal</code>、<code>catmull_rom</code>、<code>step_start</code>、<code>step_center</code>、<code>step_end</code>。</li><li><code>stacking</code>：<code>standard</code>、<code>normalized</code>、<code>center</code>、<code>unstacked</code>。</li><li><code>symbol</code> / <code>symbol_size</code>：折线与散点的系统符号。</li><li><code>show_legend</code>、<code>show_x_axis</code>、<code>show_y_axis</code>、<code>y_domain</code>：图例、坐标轴和固定数值域。</li><li><code>selection=state.bind.x</code>：触摸选择与 Python 状态双向同步；<code>on_select(row)</code> 得到最接近的原始数据字典。</li><li><code>scrollable_axes=&#x27;horizontal&#x27;</code> + <code>visible_domain=...</code>：大于屏幕宽度的数据使用系统图表滚动。</li><li><code>annotation_key</code>：把某个字段作为原生 mark 标注。</li><li><code>marks</code>：1–32 个 Mark 图层；可用 <code>BarMark</code>、<code>LineMark</code>、<code>AreaMark</code>、<code>PointMark</code>、<code>RuleMark</code>、<code>RectangleMark</code>、<code>SectorMark</code>。</li><li><code>selection_x</code>：组合 Mark 用于触摸选择和最近数据行匹配的字段；省略时沿用 <code>x</code>。</li></ul>
+<h3 id="什么时候使用组合-mark"><a class="heading-anchor" href="#什么时候使用组合-mark">#</a>什么时候使用组合 Mark</h3>
+<p>一种图形、统一颜色、统一插值时，旧的 <code>type=</code> 写法更短，也会长期兼容。以下情况用 <code>marks=</code>：</p>
+<ul><li>同一图中叠加面积、折线、散点与阈值。</li><li>需要区间柱、范围面积或 <code>RectangleMark</code>。</li><li>每个图层需要独立颜色、透明度、线宽、虚线、symbol 或标注。</li><li>需要 iOS 17+ 的 <code>SectorMark</code> 饼图/环形图。</li></ul>
+<p>Mark 坐标中的字符串表示数据字段。要表达常量，尤其是常量字符串，使用 <code>ChartValue</code>；需要明确轴标题或字段类型时使用 <code>ChartField</code>。</p>
+<figure class="code-block" data-code-id="f932f61379c3">
+  <figcaption>
+    <span>python</span>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="f932f61379c3" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
+  </figcaption>
+  <pre><code id="code-f932f61379c3" class="language-python">import appui
+
+ROWS = [
+    {&quot;day&quot;: &quot;Mon&quot;, &quot;value&quot;: 6},
+    {&quot;day&quot;: &quot;Tue&quot;, &quot;value&quot;: 9},
+    {&quot;day&quot;: &quot;Wed&quot;, &quot;value&quot;: 8},
+    {&quot;day&quot;: &quot;Thu&quot;, &quot;value&quot;: 13},
+]
+
+
+def body():
+    x = appui.ChartField(&quot;day&quot;, label=&quot;日期&quot;, value_type=&quot;category&quot;)
+    y = appui.ChartField(&quot;value&quot;, label=&quot;数值&quot;, value_type=&quot;number&quot;)
+    return appui.Chart(
+        ROWS,
+        marks=[
+            appui.AreaMark(x, y, interpolation=&quot;monotone&quot;, opacity=0.15),
+            appui.LineMark(x, y, interpolation=&quot;monotone&quot;, line_width=3),
+            appui.PointMark(x, y, symbol=&quot;circle&quot;, symbol_size=30),
+            appui.RuleMark(
+                y=appui.ChartValue(10, label=&quot;目标&quot;),
+                dash=[5, 3],
+                foreground_style=&quot;systemOrange&quot;,
+            ),
+        ],
+        selection_x=&quot;day&quot;,
+    ).frame(height=240)
+
+
+appui.run(body)</code></pre>
+</figure>
 <h3 id="canvas-两条路径"><a class="heading-anchor" href="#canvas-两条路径">#</a><code>Canvas</code> 两条路径</h3>
 <ol><li><strong>声明式</strong>：<code>DrawingContext</code> 链式调用，最后交给 <code>Canvas(..., context=ctx)</code>；可读性高，适合中等数量图元。</li><li><strong>命令列表</strong>：直接维护 <code>commands</code> 列表，适合波形、频谱等高频追加场景。</li></ol>
 <hr>
@@ -451,10 +495,10 @@ appui.run(body, state=state)</code></pre>
 </figure>
 <hr>
 <h2 id="常见误区"><a class="heading-anchor" href="#常见误区">#</a>常见误区</h2>
-<ol><li><strong><code>Chart</code> 使用参数名 <code>type=</code></strong>：不是 <code>mark</code>；<code>x</code> / <code>y</code> 为数据字典中的键名字符串。</li><li><strong><code>Canvas</code> 命令字典的字段</strong>：手写 <code>commands</code> 时使用 <code>&#x27;op&#x27;</code>, <code>&#x27;x&#x27;</code>, <code>&#x27;y&#x27;</code>, <code>&#x27;w&#x27;</code>, <code>&#x27;h&#x27;</code>, <code>&#x27;c&#x27;</code> 等键。</li><li><strong><code>Path</code> 命令格式</strong>：<code>appui</code> 的 <code>Path</code> 使用 <code>{&#x27;move&#x27;: [x, y]}</code>、<code>{&#x27;line&#x27;: [x, y]}</code>、<code>{&#x27;close&#x27;: True}</code> 等形式，与 <code>DrawingContext</code> 的 <code>op</code> 字典不同。</li><li><strong>性能</strong>：高频更新（如波形）可优先 <code>Canvas</code> + <code>commands</code> 列表局部重建；<code>Chart</code> 更适合中等规模静态或慢变数据。</li><li><strong>系统版本</strong>：<code>Chart</code> 依赖 iOS 16+，<code>Canvas</code> 依赖 iOS 15+；在过低版本设备上可能空白或降级。</li><li><strong><code>series</code> 与颜色</strong>：多系列时 <code>color</code> 仍可作为默认着色提示，具体调色策略由系统图表渲染决定；若发现图例颜色异常，应先检查数据中 <code>series</code> 字段是否稳定存在。</li></ol>
+<ol><li><strong>不要把两种层级混在一起</strong>：单一图表用 <code>type=</code>；组合图用 <code>marks=[...]</code>。Mark 的字符串坐标是字段名，常量用 <code>ChartValue</code>。</li><li><strong><code>Canvas</code> 命令字典的字段</strong>：手写 <code>commands</code> 时使用 <code>&#x27;op&#x27;</code>, <code>&#x27;x&#x27;</code>, <code>&#x27;y&#x27;</code>, <code>&#x27;w&#x27;</code>, <code>&#x27;h&#x27;</code>, <code>&#x27;c&#x27;</code> 等键。</li><li><strong><code>Path</code> 命令格式</strong>：<code>appui</code> 的 <code>Path</code> 使用 <code>{&#x27;move&#x27;: [x, y]}</code>、<code>{&#x27;line&#x27;: [x, y]}</code>、<code>{&#x27;close&#x27;: True}</code> 等形式，与 <code>DrawingContext</code> 的 <code>op</code> 字典不同。</li><li><strong>性能</strong>：高频更新（如波形）可优先 <code>Canvas</code> + 稳定命令列表；普通业务图表使用 <code>Chart</code>。不要从 Python 逐帧改变选择或滚动位置，原生图表已经负责手势和动画。</li><li><strong>系统版本</strong>：<code>Chart</code> 依赖 iOS 16+，<code>SectorMark</code> 依赖 iOS 17+，<code>Canvas</code> 依赖 iOS 15+；为较低版本保留替代内容。</li><li><strong><code>series</code> 与颜色</strong>：多系列时 <code>color</code> 仍可作为默认着色提示，具体调色策略由系统图表渲染决定；若发现图例颜色异常，应先检查数据中 <code>series</code> 字段是否稳定存在。</li></ol>
 <hr>
 <h2 id="练习题"><a class="heading-anchor" href="#练习题">#</a>练习题</h2>
-<ol><li>将 <code>Chart</code> 的 <code>type</code> 改为 <code>&#x27;rule&#x27;</code>，用水平参考线标注「目标值」常量（在数据中复制同一 <code>y</code>）。</li><li>用 <code>DrawingContext</code> 绘制一条正弦折线（多点 <code>line</code> 或 <code>stroke_path</code>）。</li><li>把 <code>Path</code> 的 <code>commands</code> 改为带 <code>curve</code> / <code>arc</code> 的复杂轮廓（若当前环境支持对应序列化键）。</li></ol>
+<ol><li>给现有折线增加 <code>RuleMark(y=ChartValue(...))</code>，标注目标阈值。</li><li>用 <code>DrawingContext</code> 绘制一条正弦折线（多点 <code>line</code> 或 <code>stroke_path</code>）。</li><li>把 <code>Path</code> 的 <code>commands</code> 改为带 <code>curve</code> / <code>arc</code> 的复杂轮廓（若当前环境支持对应序列化键）。</li></ol>
 <hr>
 <h2 id="附录-最小-canvas-与-chart"><a class="heading-anchor" href="#附录-最小-canvas-与-chart">#</a>附录：最小 <code>Canvas</code> 与 <code>Chart</code></h2>
 <figure class="code-block" data-code-id="f9f796365843">
@@ -480,7 +524,7 @@ print(c, g)</code></pre>
 </figure>
 <hr>
 <h2 id="数据字典约定-给-chart"><a class="heading-anchor" href="#数据字典约定-给-chart">#</a>数据字典约定（给 <code>Chart</code>）</h2>
-<p><code>Chart</code> 期望 <code>data</code> 为 <strong><code>list[dict]</code></strong>，且每个字典至少包含你在 <code>x=</code>、<code>y=</code> 上指定的键；若使用 <code>series=</code>，则每个字典还应包含该键以便分组。键名建议使用 <strong>ASCII 标识符</strong>（如 <code>month</code>、<code>sales</code>），可减少跨端序列化问题。</p>
+<p><code>Chart</code> 期望 <code>data</code> 为 <strong><code>list[dict]</code></strong>。旧写法要求每行包含 <code>x=</code>、<code>y=</code> 和可选 <code>series=</code> 对应键；组合 Mark 要求每行包含所有 <code>ChartField</code>/字符串坐标引用的键。<code>ChartValue</code> 是常量，不要求数据行存在同名字段。键名建议使用 <strong>ASCII 标识符</strong>（如 <code>month</code>、<code>sales</code>），可减少跨端序列化问题。</p>
 <hr>
 <h2 id="drawingcontext-生成的-op-一览"><a class="heading-anchor" href="#drawingcontext-生成的-op-一览">#</a><code>DrawingContext</code> 生成的 <code>op</code> 一览</h2>
 <p>下列为 <code>DrawingContext</code> 常用命令，便于手写 <code>commands</code> 数组时对照：</p>
@@ -490,7 +534,7 @@ print(c, g)</code></pre>
 </article>
 
     </main>
-    <aside class="toc"><div class="toc-title">本页目录</div><a class="toc-link" href="#预期效果">预期效果</a><a class="toc-link" href="#概念速览">概念速览</a><a class="toc-link child" href="#五种-chart-类型的直观含义">五种 Chart 类型的直观含义</a><a class="toc-link child" href="#canvas-两条路径">Canvas 两条路径</a><a class="toc-link" href="#基础示例">基础示例</a><a class="toc-link" href="#进阶示例">进阶示例</a><a class="toc-link" href="#常见误区">常见误区</a><a class="toc-link" href="#练习题">练习题</a><a class="toc-link" href="#附录-最小-canvas-与-chart">附录：最小 Canvas 与 Chart</a><a class="toc-link" href="#数据字典约定-给-chart">数据字典约定（给 Chart）</a><a class="toc-link" href="#drawingcontext-生成的-op-一览">DrawingContext 生成的 op 一览</a></aside>
+    <aside class="toc"><div class="toc-title">本页目录</div><a class="toc-link" href="#预期效果">预期效果</a><a class="toc-link" href="#概念速览">概念速览</a><a class="toc-link child" href="#旧写法的五种-chart-类型">旧写法的五种 Chart 类型</a><a class="toc-link child" href="#生产级参数">生产级参数</a><a class="toc-link child" href="#什么时候使用组合-mark">什么时候使用组合 Mark</a><a class="toc-link child" href="#canvas-两条路径">Canvas 两条路径</a><a class="toc-link" href="#基础示例">基础示例</a><a class="toc-link" href="#进阶示例">进阶示例</a><a class="toc-link" href="#常见误区">常见误区</a><a class="toc-link" href="#练习题">练习题</a><a class="toc-link" href="#附录-最小-canvas-与-chart">附录：最小 Canvas 与 Chart</a><a class="toc-link" href="#数据字典约定-给-chart">数据字典约定（给 Chart）</a><a class="toc-link" href="#drawingcontext-生成的-op-一览">DrawingContext 生成的 op 一览</a></aside>
   </div>
   <div class="mobile-backdrop"></div>
   <div class="search-panel" role="dialog" aria-modal="true" aria-label="搜索">

@@ -1,0 +1,19 @@
+"""Type stubs for `speech` public PythonIDE module."""
+
+from __future__ import annotations
+
+from typing import Any, Callable, Dict, Iterable, List, Mapping, Optional, Sequence, Tuple, Union
+
+def say(text: Any, language: Any | None = ..., rate: float = ..., pitch: float = ..., volume: float = ..., wait: bool = ...) -> Any: ...
+
+def stop() -> Any: ...
+
+def pause() -> Any: ...
+
+def resume() -> Any: ...
+
+def is_speaking() -> bool: ...
+
+def available_voices() -> Any: ...
+
+__all__ = ['say', 'stop', 'pause', 'resume', 'is_speaking', 'available_voices']

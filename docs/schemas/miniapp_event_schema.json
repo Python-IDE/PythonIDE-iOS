@@ -1,0 +1,372 @@
+{
+  "schema": "pythonide.miniapp_events.v1",
+  "version": 1,
+  "status": "executable_contract",
+  "description": "Canonical cross-language MiniApp event transport and reserved event contract. Public and internal producers share the same session/generation envelope; ui_revision is optional for events that do not originate from an AppUI render graph.",
+  "transport": {
+    "callbackIdMaxBytes": 128,
+    "inlineValueMaxBytes": 8192,
+    "valueTypes": [
+      {
+        "name": "none",
+        "rawValue": 0,
+        "cName": "AURORA_CB_VAL_NONE",
+        "swiftCase": "none",
+        "pythonName": "NONE"
+      },
+      {
+        "name": "string",
+        "rawValue": 1,
+        "cName": "AURORA_CB_VAL_STRING",
+        "swiftCase": "string",
+        "pythonName": "STRING"
+      },
+      {
+        "name": "double",
+        "rawValue": 2,
+        "cName": "AURORA_CB_VAL_DOUBLE",
+        "swiftCase": "double",
+        "pythonName": "DOUBLE"
+      },
+      {
+        "name": "bool",
+        "rawValue": 3,
+        "cName": "AURORA_CB_VAL_BOOL",
+        "swiftCase": "bool",
+        "pythonName": "BOOL"
+      },
+      {
+        "name": "json",
+        "rawValue": 4,
+        "cName": "AURORA_CB_VAL_JSON",
+        "swiftCase": "json",
+        "pythonName": "JSON"
+      },
+      {
+        "name": "event_ref",
+        "rawValue": 5,
+        "cName": "AURORA_CB_VAL_EVENT_REF",
+        "swiftCase": "eventReference",
+        "pythonName": "EVENT_REFERENCE"
+      }
+    ],
+    "eventKinds": [
+      {
+        "name": "action",
+        "rawValue": 1,
+        "cName": "AURORA_EVENT_ACTION",
+        "swiftCase": "action",
+        "pythonName": "ACTION"
+      },
+      {
+        "name": "lifecycle",
+        "rawValue": 2,
+        "cName": "AURORA_EVENT_LIFECYCLE",
+        "swiftCase": "lifecycle",
+        "pythonName": "LIFECYCLE"
+      },
+      {
+        "name": "presentation",
+        "rawValue": 3,
+        "cName": "AURORA_EVENT_PRESENTATION",
+        "swiftCase": "presentation",
+        "pythonName": "PRESENTATION"
+      },
+      {
+        "name": "system",
+        "rawValue": 4,
+        "cName": "AURORA_EVENT_SYSTEM",
+        "swiftCase": "system",
+        "pythonName": "SYSTEM"
+      }
+    ],
+    "deliveryPolicies": [
+      {
+        "name": "discrete",
+        "rawValue": 1,
+        "cName": "AURORA_DELIVERY_DISCRETE",
+        "swiftCase": "discrete",
+        "pythonName": "DISCRETE",
+        "coalesces": false
+      },
+      {
+        "name": "continuous",
+        "rawValue": 2,
+        "cName": "AURORA_DELIVERY_CONTINUOUS",
+        "swiftCase": "continuous",
+        "pythonName": "CONTINUOUS",
+        "coalesces": true
+      }
+    ]
+  },
+  "callbackEntry": {
+    "fields": [
+      {
+        "name": "session_token",
+        "cType": "uint64_t",
+        "pythonCType": "uint64"
+      },
+      {
+        "name": "generation",
+        "cType": "uint64_t",
+        "pythonCType": "uint64"
+      },
+      {
+        "name": "sequence",
+        "cType": "uint64_t",
+        "pythonCType": "uint64"
+      },
+      {
+        "name": "transaction_id",
+        "cType": "uint64_t",
+        "pythonCType": "uint64"
+      },
+      {
+        "name": "ui_revision",
+        "cType": "uint64_t",
+        "pythonCType": "uint64"
+      },
+      {
+        "name": "event_kind",
+        "cType": "uint8_t",
+        "pythonCType": "uint8"
+      },
+      {
+        "name": "delivery_policy",
+        "cType": "uint8_t",
+        "pythonCType": "uint8"
+      },
+      {
+        "name": "value_type",
+        "cType": "uint8_t",
+        "pythonCType": "uint8"
+      },
+      {
+        "name": "bool_val",
+        "cType": "uint8_t",
+        "pythonCType": "uint8"
+      },
+      {
+        "name": "_reserved",
+        "cType": "uint32_t",
+        "pythonCType": "uint32"
+      },
+      {
+        "name": "double_val",
+        "cType": "double",
+        "pythonCType": "double"
+      },
+      {
+        "name": "callback_id",
+        "cType": "char",
+        "pythonCType": "char",
+        "arrayLengthFrom": "callbackIdMaxBytes"
+      },
+      {
+        "name": "string_val",
+        "cType": "char",
+        "pythonCType": "char",
+        "arrayLengthFrom": "inlineValueMaxBytes"
+      }
+    ]
+  },
+  "envelope": {
+    "fields": [
+      {
+        "name": "session_token",
+        "swiftName": "sessionToken",
+        "pythonName": "session_token",
+        "required": true,
+        "minimum": 1,
+        "description": "Unique runtime session identity."
+      },
+      {
+        "name": "generation",
+        "swiftName": "generation",
+        "pythonName": "generation",
+        "required": true,
+        "minimum": 1,
+        "description": "Hot-reload or interpreter generation within a session."
+      },
+      {
+        "name": "sequence",
+        "swiftName": "sequence",
+        "pythonName": "sequence",
+        "required": false,
+        "default": 0,
+        "description": "Monotonic delivery sequence when the transport assigns one."
+      },
+      {
+        "name": "transaction_id",
+        "swiftName": "transactionID",
+        "pythonName": "transaction_id",
+        "required": false,
+        "default": 0,
+        "description": "Event-originated transaction identity when available."
+      },
+      {
+        "name": "ui_revision",
+        "swiftName": "uiRevision",
+        "pythonName": "ui_revision",
+        "required": false,
+        "nullable": true,
+        "abiSentinel": 0,
+        "description": "Mounted AppUI callback graph revision. Absent for platform events that do not originate from a rendered view."
+      }
+    ]
+  },
+  "reservedEvents": [
+    {
+      "key": "lifecycleDismissed",
+      "swiftCase": "dismissed",
+      "pythonName": "LIFECYCLE_DISMISSED",
+      "cName": "MINIAPP_EVENT_ID_LIFECYCLE_DISMISSED",
+      "id": "__appui_lifecycle__:dismissed",
+      "kind": "lifecycle",
+      "delivery": "discrete",
+      "payload": {
+        "type": "none"
+      }
+    },
+    {
+      "key": "presentationState",
+      "swiftCase": "presentationState",
+      "pythonName": "PRESENTATION_STATE",
+      "cName": "MINIAPP_EVENT_ID_PRESENTATION_STATE",
+      "id": "__appui_presentation__:state",
+      "kind": "presentation",
+      "delivery": "discrete",
+      "payload": {
+        "type": "object",
+        "required": [
+          "field",
+          "binding_key",
+          "is_presented"
+        ],
+        "properties": {
+          "field": {
+            "type": "string"
+          },
+          "binding_key": {
+            "type": "string"
+          },
+          "binding_id": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "is_presented": {
+            "type": "boolean"
+          }
+        }
+      }
+    },
+    {
+      "key": "systemRequestFullSnapshot",
+      "swiftCase": "systemRequestFullSnapshot",
+      "pythonName": "SYSTEM_REQUEST_FULL_SNAPSHOT",
+      "cName": "MINIAPP_EVENT_ID_SYSTEM_REQUEST_FULL_SNAPSHOT",
+      "id": "__appui_system__:request_full_snapshot",
+      "kind": "system",
+      "delivery": "discrete",
+      "payload": {
+        "type": "object",
+        "required": [
+          "reason"
+        ],
+        "properties": {
+          "reason": {
+            "type": "string"
+          },
+          "rejected_generation": {
+            "type": [
+              "integer",
+              "null"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "key": "systemUITransaction",
+      "swiftCase": "systemUITransaction",
+      "pythonName": "SYSTEM_UI_TRANSACTION",
+      "cName": "MINIAPP_EVENT_ID_SYSTEM_UI_TRANSACTION",
+      "id": "__appui_system__:ui_transaction",
+      "kind": "system",
+      "delivery": "discrete",
+      "payload": {
+        "type": "object",
+        "required": [
+          "transaction_id",
+          "status",
+          "animated"
+        ],
+        "properties": {
+          "transaction_id": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "status": {
+            "type": "string"
+          },
+          "animated": {
+            "type": "boolean"
+          },
+          "origin_event_transaction_id": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "revision": {
+            "type": "integer",
+            "minimum": 1
+          }
+        }
+      }
+    },
+    {
+      "key": "asyncCancel",
+      "swiftCase": "asyncCancel",
+      "pythonName": "ASYNC_CANCEL",
+      "cName": "MINIAPP_EVENT_ID_ASYNC_CANCEL",
+      "id": "__appui_async__:cancel",
+      "kind": "system",
+      "delivery": "discrete",
+      "payload": {
+        "type": "object",
+        "required": [
+          "request_id"
+        ],
+        "properties": {
+          "request_id": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  ],
+  "reservedIdentifiers": [
+    {
+      "key": "eventReferenceCallbackID",
+      "swiftName": "eventReferenceCallbackID",
+      "pythonName": "EVENT_REFERENCE_CALLBACK_ID",
+      "cName": "MINIAPP_EVENT_REFERENCE_CALLBACK_ID",
+      "value": "__appui_event_ref__"
+    },
+    {
+      "key": "asyncRequestIDKey",
+      "swiftName": "asyncRequestIDKey",
+      "pythonName": "ASYNC_REQUEST_ID_KEY",
+      "cName": "MINIAPP_EVENT_ASYNC_REQUEST_ID_KEY",
+      "value": "__appui_async_request_id"
+    },
+    {
+      "key": "callbackTokenPrefix",
+      "swiftName": "callbackTokenPrefix",
+      "pythonName": "CALLBACK_TOKEN_PREFIX",
+      "cName": "MINIAPP_EVENT_CALLBACK_TOKEN_PREFIX",
+      "value": "__appui_callback_v1__"
+    }
+  ]
+}

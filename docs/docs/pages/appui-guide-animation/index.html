@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>动画 - PythonIDE Docs</title>
-  <meta name="description" content="animate、animation、transition、matched geometry 和 phase animator。">
+  <meta name="description" content="原子动画事务、transition、matched geometry、phase 与 keyframe animator。">
   <link rel="icon" href="../../assets/brand-mark.svg" type="image/svg+xml">
   <link rel="stylesheet" href="../../assets/docs-v2.css">
   <script>window.PYTHONIDE_DOCS_PREFIX = "../../";</script>
@@ -167,6 +167,7 @@
 <a class="nav-link" href="../../pages/permission-module/">permission</a>
 <a class="nav-link" href="../../pages/storage-module/">storage</a>
 <a class="nav-link" href="../../pages/database-module/">database</a>
+<a class="nav-link" href="../../pages/archive-module/">archive</a>
 <a class="nav-link" href="../../pages/keychain-module/">keychain</a>
 <a class="nav-link" href="../../pages/clipboard-module/">clipboard</a>
 <a class="nav-link" href="../../pages/console-module/">console</a>
@@ -214,6 +215,7 @@
 </div>
 <div class="nav-group">
 <div class="nav-group-title">视觉与文档</div>
+<a class="nav-link" href="../../pages/native-image-module/">native_image</a>
 <a class="nav-link" href="../../pages/vision-module/">vision</a>
 <a class="nav-link" href="../../pages/vision-helper-module/">vision_helper</a>
 <a class="nav-link" href="../../pages/coreml-module/">coreml</a>
@@ -283,22 +285,41 @@
   <header class="article-intro">
     <div class="breadcrumb">appui / 指南</div>
     <h1>动画</h1>
-    <p>animate、animation、transition、matched geometry 和 phase animator。</p>
+    <p>原子动画事务、transition、matched geometry、phase 与 keyframe animator。</p>
   </header>
   
   <div class="markdown-body">
-    <p><code>appui</code> 提供两类动画能力：<strong>隐式动画</strong>（<code>.animation(type, value)</code> 在依赖变化时插值）与 <strong>显式动画</strong>（<code>appui.animate(action, type)</code> 包裹一次状态更新）。此外还有 <strong>过渡</strong>（<code>.transition</code>）、<strong>变换</strong>（<code>.scale_effect</code>、<code>.rotation_effect</code>、<code>.rotation_3d_effect</code>）、<strong>共享几何</strong>（<code>.matched_geometry_effect</code>）、<strong>内容过渡</strong>（<code>.content_transition</code>）与 <strong>相位动画</strong>（<code>.phase_animator</code>）。</p>
+    <p><code>appui</code> 提供两类动画能力：<strong>隐式动画</strong>（<code>.animation(type, value)</code> 在依赖变化时插值）与 <strong>显式动画</strong>（<code>appui.animate(action, type)</code> 或 <code>appui.transaction(...)</code> 包裹一次原子状态更新）。此外还有 <strong>过渡</strong>（<code>.transition</code>）、<strong>变换</strong>（<code>.scale_effect</code>、<code>.rotation_effect</code>、<code>.rotation_3d_effect</code>）、<strong>共享几何</strong>（<code>.matched_geometry_effect</code>）、<strong>内容过渡</strong>（<code>.content_transition</code>）、<strong>相位动画</strong>（<code>.phase_animator</code>）与 iOS 17+ 原生 <strong>关键帧动画</strong>（<code>.keyframe_animator</code>）。</p>
+<p>复杂效果使用一等对象 <code>Animation</code>、<code>Transition</code>、<code>Gesture</code> 与 <code>Namespace</code>。这些不是针对某类 MiniApp 的硬编码组合控件，而是与原生动画、过渡、手势和命名空间对应的通用原语；旧字符串写法会自动转换，继续兼容。</p>
 <p>从 AppUI Presentation Engine 起，<code>show_*</code>、<code>*_presented</code> 等呈现状态字段变化会自动触发 spring 动画；sheet / alert / cover 的进出通常不必再手写 <code>appui.animate()</code>。</p>
 <p>第四档 <code>PresentationCoordinator</code> 会在注册表有效时跳过 <code>body()</code> 与整树 JSON，直接更新原生 presentation binding；可用 <code>appui.presentation_present</code> / <code>appui.presentation_dismiss_all</code> 显式控制。完整规范见 <a href="appui-spec-presentation-engine.md">Presentation Engine Spec</a>。</p>
 <hr>
 <h2 id="预期效果"><a class="heading-anchor" href="#预期效果">#</a>预期效果</h2>
 <p>示例会展示隐式动画、显式动画、转场和共享几何效果如何响应状态变化。</p>
 <h2 id="概念速览"><a class="heading-anchor" href="#概念速览">#</a>概念速览</h2>
-<div class="table-scroll"><table><thead><tr><th>能力</th><th>API</th></tr></thead><tbody><tr><td>隐式动画</td><td><code>.animation(type=&#x27;spring&#x27;, value=...)</code>，<code>type</code> 可为 <code>default</code>、<code>linear</code>、<code>easeIn</code>、<code>easeOut</code>、<code>easeInOut</code>、<code>spring</code>、<code>interpolatingSpring</code></td></tr><tr><td>显式动画</td><td><code>appui.animate(action, type)</code></td></tr><tr><td>出现 / 消失</td><td><code>.transition(type)</code>：<code>opacity</code>、<code>slide</code>、<code>scale</code>、<code>move</code>、<code>push</code>、<code>identity</code></td></tr><tr><td>2D / 3D 变换</td><td><code>.scale_effect</code>、<code>.rotation_effect</code>、<code>.rotation_3d_effect</code></td></tr><tr><td>共享元素</td><td><code>.matched_geometry_effect(ns_id, namespace, is_source)</code></td></tr><tr><td>文本或数字切换</td><td><code>.content_transition(type)</code></td></tr><tr><td>循环呼吸效果</td><td><code>.phase_animator(phases)</code></td></tr></tbody></table></div>
+<div class="table-scroll"><table><thead><tr><th>能力</th><th>API</th></tr></thead><tbody><tr><td>隐式动画</td><td><code>.animation(type=&#x27;spring&#x27;, value=...)</code>，<code>type</code> 可为 <code>default</code>、<code>linear</code>、<code>easeIn</code>、<code>easeOut</code>、<code>easeInOut</code>、<code>spring</code>、<code>interactiveSpring</code>、<code>interpolatingSpring</code>、<code>smooth</code>、<code>snappy</code>、<code>bouncy</code></td></tr><tr><td>显式动画</td><td><code>appui.animate(action, type)</code></td></tr><tr><td>出现 / 消失</td><td><code>.transition(type)</code>：<code>opacity</code>、<code>slide</code>、<code>scale</code>、<code>move</code>、<code>push</code>、<code>identity</code></td></tr><tr><td>2D / 3D 变换</td><td><code>.scale_effect</code>、<code>.rotation_effect</code>、<code>.rotation_3d_effect</code></td></tr><tr><td>共享元素</td><td><code>.matched_geometry_effect(ns_id, namespace, is_source)</code></td></tr><tr><td>文本或数字切换</td><td><code>.content_transition(type)</code></td></tr><tr><td>循环呼吸效果</td><td><code>.phase_animator(phases)</code></td></tr><tr><td>精确控制每段时长的复杂动画</td><td><code>.keyframe_animator(keyframes, effect=...)</code></td></tr><tr><td>可组合动画曲线</td><td><code>Animation.spring(...).delay(...).repeat_count(...)</code></td></tr><tr><td>组合 / 非对称过渡</td><td><code>Transition.move(...).combined(...)</code>、<code>Transition.asymmetric(...)</code></td></tr><tr><td>稳定共享命名空间</td><td><code>Namespace()</code></td></tr><tr><td>页面级 Hero / Zoom</td><td><code>.matched_transition_source(...)</code> + <code>.navigation_transition(...)</code></td></tr></tbody></table></div>
 <h3 id="隐式-vs-显式-怎么选"><a class="heading-anchor" href="#隐式-vs-显式-怎么选">#</a>隐式 vs 显式：怎么选</h3>
 <ul><li><strong>隐式</strong>：适合「依赖项变化 → 自动插值」的 UI，如计数、开关、列表插入；把 <code>.animation(..., value=state.x)</code> 放在 <strong>依赖该字段的子树</strong> 上。</li><li><strong>显式</strong>：适合一次事务内多处 <code>State</code> 同步更新（例如先收起面板再改标题）。把更新逻辑放进命名函数，再用 <code>appui.animate(update_state, &quot;spring&quot;)</code> 保证同一帧动画曲线一致。</li></ul>
 <h3 id="animation-的-type-取值"><a class="heading-anchor" href="#animation-的-type-取值">#</a><code>animation</code> 的 <code>type</code> 取值</h3>
-<p><code>default</code>、<code>linear</code>、<code>easeIn</code>、<code>easeOut</code>、<code>easeInOut</code>、<code>spring</code>、<code>interpolatingSpring</code>。未列出的字符串请避免使用，以免系统忽略。</p>
+<p><code>default</code>、<code>linear</code>、<code>easeIn</code>、<code>easeOut</code>、<code>easeInOut</code>、<code>spring</code>、<code>interactiveSpring</code>、<code>interpolatingSpring</code>、<code>smooth</code>、<code>snappy</code>、<code>bouncy</code>。camelCase、snake_case 与连字符写法会归一化到同一曲线；<code>smooth</code>、<code>snappy</code>、<code>bouncy</code> 在 iOS 16 会安全降级。</p>
+<p><code>value</code> 支持可 JSON 序列化的数字、字符串、布尔值、数组和对象。传入布尔值或集合时会绑定该值本身，不再退化为“每次整树刷新都动画”。<code>appui.animate(action, type=...)</code> 的 <code>type</code> 会随更新事务传入原生渲染器，完整树与 PresentationCoordinator 快路径使用同一曲线解析规则。</p>
+<p><code>Animation</code> 可以精确设置 duration、spring 参数、delay、speed、重复次数和 autoreverse。<code>Transition</code> 可以组合、分别声明插入/移除效果，并绑定自己的 <code>Animation</code>。动画插值、手势进度和完成判断留在原生主线程；Python 只发起状态事务和接收离散完成/取消事件。</p>
+<p>动画事务具有明确的中断语义：新的原生 UI 事务开始时，尚未结束的旧事务会结算为 <code>animation_cancelled</code>，其旧回调图租约同时释放；迟到的原生 completion 不会再把 旧事务误报为完成。<code>phase_animator</code> 和 <code>keyframe_animator</code> 最多接受 128 个有限值， 单段时长上限为 60 秒；系统开启“减少动态效果”时，连续相位/关键帧动画会停用， 而页面内容仍正常显示。</p>
+<figure class="code-block" data-code-id="aaa39f16c06a">
+  <figcaption>
+    <span>python</span>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="aaa39f16c06a" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
+  </figcaption>
+  <pre><code id="code-aaa39f16c06a" class="language-python">spring = (
+    appui.Animation.spring(response=0.42, damping_fraction=0.84)
+    .delay(0.05)
+    .respecting_reduce_motion()
+)
+transition = appui.Transition.asymmetric(
+    insertion=appui.Transition.move(&quot;bottom&quot;).combined(appui.Transition.opacity()),
+    removal=appui.Transition.scale(0.92).combined(appui.Transition.opacity()),
+).animation(spring)</code></pre>
+</figure>
 <hr>
 <h2 id="基础示例"><a class="heading-anchor" href="#基础示例">#</a>基础示例</h2>
 <p>用 <code>appui.animate</code> 更新计数，并对数字附加 <code>.animation(&#x27;spring&#x27;, value=...)</code>。</p>
@@ -437,7 +458,7 @@ appui.run(body, state=state)</code></pre>
 </figure>
 <hr>
 <h2 id="常见误区"><a class="heading-anchor" href="#常见误区">#</a>常见误区</h2>
-<ol><li><strong><code>value</code> 与隐式动画</strong>：<code>.animation(..., value=state.x)</code> 仅在 <code>value</code> 引用发生变化时触发动画；若传入常量则不会按预期刷新。</li><li><strong><code>appui.animate</code> 的第一个参数</strong>：必须是 <strong>无参可调用对象</strong>（推荐命名函数里批量改 <code>State</code>），不要写成 <code>appui.animate(state.count + 1)</code>。</li><li><strong><code>matched_geometry_effect</code></strong>：成对视图需 <strong>相同的 <code>namespace</code> 与 <code>ns_id</code></strong>，且通常配合显式布局；在复杂导航栈里要注意 <code>is_source</code> 切换时机。</li><li><strong><code>phase_animator</code></strong>：依赖 iOS 17+ 能力，在旧系统上可能降级或无动画。</li><li><strong><code>transition</code> 与条件渲染</strong>：过渡只在视图插入/移除时生效；若仅修改子视图文字，应优先 <code>.content_transition</code>。</li><li><strong><code>interpolatingSpring</code> 与 <code>spring</code></strong>：二者曲线不同；若出现振荡或回弹过大，优先改回 <code>default</code> 或 <code>easeInOut</code> 验证是否由曲线本身引起。</li><li><strong><code>rotation_3d_effect</code> 与透视</strong>：极端角度可能导致子视图不可读；建议限制在 ±45° 内做 UI 提示级动效。</li></ol>
+<ol><li><strong><code>value</code> 与隐式动画</strong>：<code>.animation(..., value=state.x)</code> 仅在 <code>value</code> 引用发生变化时触发动画；若传入常量则不会按预期刷新。</li><li><strong><code>appui.animate</code> 的第一个参数</strong>：必须是 <strong>无参可调用对象</strong>（推荐命名函数里批量改 <code>State</code>），不要写成 <code>appui.animate(state.count + 1)</code>。</li><li><strong><code>matched_geometry_effect</code></strong>：成对视图需 <strong>相同的 <code>namespace</code> 与 <code>ns_id</code></strong>，且通常配合显式布局；不同 namespace 即使使用相同 <code>ns_id</code> 也会隔离。在复杂导航栈里要注意 <code>is_source</code> 切换时机。</li><li><strong><code>phase_animator</code></strong>：依赖 iOS 17+ 能力，在旧系统上可能降级或无动画。</li><li><strong><code>transition</code> 与条件渲染</strong>：过渡只在视图插入/移除时生效；若仅修改子视图文字，应优先 <code>.content_transition</code>。</li><li><strong><code>interpolatingSpring</code> 与 <code>spring</code></strong>：二者曲线不同；若出现振荡或回弹过大，优先改回 <code>default</code> 或 <code>easeInOut</code> 验证是否由曲线本身引起。</li><li><strong><code>rotation_3d_effect</code> 与透视</strong>：极端角度可能导致子视图不可读；建议限制在 ±45° 内做 UI 提示级动效。</li></ol>
 <hr>
 <h2 id="练习题"><a class="heading-anchor" href="#练习题">#</a>练习题</h2>
 <ol><li>用 <code>ZStack</code> 叠放两个 <code>Text</code>，通过 <code>state</code> 切换 <code>id(...)</code>，并分别设置 <code>.transition(&#x27;slide&#x27;)</code> 与 <code>.transition(&#x27;move&#x27;)</code>。</li><li>给按钮增加 <code>.sensory_feedback(style=&#x27;success&#x27;, trigger=str(state.score))</code>，观察与 <code>animate</code> 联动的手感。</li><li>对照 <a href="../../pages/appui-ref-functions/">入口函数 API</a>，说明为何在回调里应优先使用 <code>batch_update</code>。</li></ol>
@@ -474,7 +495,7 @@ assert root is not None</code></pre>
 <p>若动画「时有时无」，先在浏览器式调试思路下 <strong>二分法</strong> 排查：去掉 <code>matched_geometry_effect</code> 与 <code>phase_animator</code> 等高级修饰符，仅保留 <code>.animation(..., value=...)</code>，确认基础路径正常后再逐项加回。</p>
 <hr>
 <h2 id="drawingcontext-与动画的关系"><a class="heading-anchor" href="#drawingcontext-与动画的关系">#</a><code>DrawingContext</code> 与动画的关系</h2>
-<p>本章专注视图修饰符与 <code>animate()</code>；若需要在画布上做连续帧动画，常见做法是：用 <code>State</code> 保存相位或采样数组，在 <code>Timer</code> 或后台线程里更新 <code>State</code>，由 <code>Canvas(..., commands=...)</code> 或 <code>DrawingContext</code> 重建命令列表。此类模式属于「数据驱动重绘」，而不是 <code>transition</code> 插值。</p>
+<p>本章专注视图修饰符与 <code>animate()</code>。视觉上的连续逐帧动画应优先使用 <code>.phase_animator</code>、<code>.keyframe_animator</code>、手势进度或原生 transition，不要用 Python <code>Timer</code> 模拟 60/120 Hz 帧循环。<code>Timer</code> 只适合低频业务采样；波形等新数据可以分批写入 <code>Canvas</code>，但帧间插值仍应交给原生动画系统。</p>
 <hr>
 <h2 id="与-reactivestate-实时属性通道"><a class="heading-anchor" href="#与-reactivestate-实时属性通道">#</a>与 <code>ReactiveState</code> / 实时属性通道</h2>
 <p>高频控件（如 <code>Slider</code>）在 <code>ReactiveState</code> 场景下可能走实时属性通道；此时 <code>.animation(..., value=...)</code> 仍绑定在普通 <code>Text</code> 上即可。避免同一字段既高频写入，又驱动整棵页面频繁重建。若动画曲线和预期不一致，先拆分「需要动画的只读展示」与「高频写控件」，再查看 <a href="../../pages/appui-ref-state/">状态 API</a>。</p>

@@ -167,6 +167,7 @@
 <a class="nav-link" href="../../pages/permission-module/">permission</a>
 <a class="nav-link" href="../../pages/storage-module/">storage</a>
 <a class="nav-link" href="../../pages/database-module/">database</a>
+<a class="nav-link" href="../../pages/archive-module/">archive</a>
 <a class="nav-link" href="../../pages/keychain-module/">keychain</a>
 <a class="nav-link" href="../../pages/clipboard-module/">clipboard</a>
 <a class="nav-link" href="../../pages/console-module/">console</a>
@@ -214,6 +215,7 @@
 </div>
 <div class="nav-group">
 <div class="nav-group-title">视觉与文档</div>
+<a class="nav-link" href="../../pages/native-image-module/">native_image</a>
 <a class="nav-link" href="../../pages/vision-module/">vision</a>
 <a class="nav-link" href="../../pages/vision-helper-module/">vision_helper</a>
 <a class="nav-link" href="../../pages/coreml-module/">coreml</a>
@@ -299,7 +301,7 @@
   <pre><code id="code-c2acd7f92795" class="language-text">ScrollView(content=None, axes=&#x27;vertical&#x27;, shows_indicators=True, showsIndicators=None)</code></pre>
 </figure>
 <p><strong>参数</strong></p>
-<div class="table-scroll"><table><thead><tr><th>参数</th><th>类型</th><th>说明</th></tr></thead><tbody><tr><td><code>content</code></td><td><code>list[View] \| View \| None</code></td><td>可滚动区域；支持 <code>with ScrollView():</code> 收集子视图。</td></tr><tr><td><code>axes</code></td><td><code>str</code></td><td><code>vertical</code>、<code>horizontal</code> 或 <code>both</code>。</td></tr><tr><td><code>shows_indicators</code></td><td><code>bool</code></td><td>是否显示滚动指示条。</td></tr></tbody></table></div>
+<div class="table-scroll"><table><thead><tr><th>参数</th><th>类型</th><th>说明</th></tr></thead><tbody><tr><td><code>content</code></td><td><code>list[View] | View | None</code></td><td>可滚动区域；支持 <code>with ScrollView():</code> 收集子视图。</td></tr><tr><td><code>axes</code></td><td><code>str</code></td><td><code>vertical</code>、<code>horizontal</code> 或 <code>both</code>。</td></tr><tr><td><code>shows_indicators</code></td><td><code>bool</code></td><td>是否显示滚动指示条。</td></tr></tbody></table></div>
 <p><strong>示例</strong></p>
 <figure class="code-block" data-code-id="86c348f74b6f">
   <figcaption>
@@ -330,7 +332,7 @@ appui.run(body, presentation=&quot;sheet&quot;)</code></pre>
                  children=None)</code></pre>
 </figure>
 <p><strong>参数</strong></p>
-<div class="table-scroll"><table><thead><tr><th>参数</th><th>类型</th><th>说明</th></tr></thead><tbody><tr><td><code>content</code> / <code>children</code></td><td><code>list[View] \| None</code></td><td>滚动内容。</td></tr><tr><td><code>axes</code></td><td><code>str</code></td><td>同 <a href="#scrollview">ScrollView</a>。</td></tr><tr><td><code>shows_indicators</code></td><td><code>bool</code></td><td>是否显示指示器。</td></tr><tr><td><code>scroll_to</code> / <code>scrollTo</code></td><td><code>任意 \| None</code></td><td>初始或受控滚动目标，需与子视图 <code>.id(...)</code> 对应。</td></tr><tr><td><code>anchor</code></td><td><code>str</code></td><td>滚动对齐锚点，如 <code>top</code>。</td></tr></tbody></table></div>
+<div class="table-scroll"><table><thead><tr><th>参数</th><th>类型</th><th>说明</th></tr></thead><tbody><tr><td><code>content</code> / <code>children</code></td><td><code>list[View] | None</code></td><td>滚动内容。</td></tr><tr><td><code>axes</code></td><td><code>str</code></td><td>同 <a href="#scrollview">ScrollView</a>。</td></tr><tr><td><code>shows_indicators</code></td><td><code>bool</code></td><td>是否显示指示器。</td></tr><tr><td><code>scroll_to</code> / <code>scrollTo</code></td><td><code>任意 | None</code></td><td>初始或受控滚动目标，需与子视图 <code>.id(...)</code> 对应。</td></tr><tr><td><code>anchor</code></td><td><code>str</code></td><td>滚动对齐锚点，如 <code>top</code>。</td></tr></tbody></table></div>
 <p><strong>示例</strong></p>
 <figure class="code-block" data-code-id="2ed080b66492">
   <figcaption>
@@ -354,12 +356,62 @@ def body():
 appui.run(body, presentation=&quot;sheet&quot;)</code></pre>
 </figure>
 <p><strong>参阅</strong>：<a href="#scrollview">ScrollView</a>、<a href="../../pages/appui-ref-layout-stacks/#spacer">Spacer</a></p>
+<hr>
+<h2 id="双向位置与原生滚动观察"><a class="heading-anchor" href="#双向位置与原生滚动观察">#</a>双向位置与原生滚动观察</h2>
+<div class="table-scroll"><table><thead><tr><th>API</th><th>系统版本</th><th>回调数据</th></tr></thead><tbody><tr><td><code>.scroll_position(id=...)</code></td><td>iOS 17+</td><td>可传 <code>State.bind.&lt;field&gt;</code>，用户滚动与程序改值双向同步稳定 id。</td></tr><tr><td><code>.scroll_target_layout()</code></td><td>iOS 17+</td><td>把子视图标记为对齐或分页目标。</td></tr><tr><td><code>.scroll_target_behavior(&quot;view_aligned&quot; | &quot;paging&quot;)</code></td><td>iOS 17+</td><td>使用系统吸附与分页行为。</td></tr><tr><td><code>.on_scroll_geometry_change(action, minimum_interval=...)</code></td><td>iOS 18+</td><td>内容偏移、内容尺寸、容器尺寸、insets、bounds 和可见区域。</td></tr><tr><td><code>.on_scroll_phase_change(action)</code></td><td>iOS 18+</td><td>旧/新阶段、是否滚动和速度。</td></tr><tr><td><code>.on_scroll_visibility_change(action, threshold=...)</code></td><td>iOS 18+</td><td>当前子视图是否达到可见阈值。</td></tr></tbody></table></div>
+<p>高频几何变化在原生端按 <code>minimum_interval</code> 合并后才发送给 Python。布局、惯性、吸附与逐帧滚动仍由系统完成；回调适合埋点、懒加载和状态展示，不要在其中逐帧重建整个页面。</p>
+<figure class="code-block" data-code-id="6aa8b6ce4ee0">
+  <figcaption>
+    <span>python</span>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="6aa8b6ce4ee0" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
+  </figcaption>
+  <pre><code id="code-6aa8b6ce4ee0" class="language-python">import appui
+
+state = appui.State(position=&quot;row-0&quot;, phase=&quot;idle&quot;)
+
+
+def phase_changed(payload):
+    state.phase = payload.get(&quot;new_phase&quot;, &quot;unknown&quot;)
+
+
+def visibility_changed(visible):
+    pass
+
+
+def row(index):
+    return (
+        appui.Text(f&quot;Row {index}&quot;)
+        .id(f&quot;row-{index}&quot;)
+        .frame(max_width=&quot;.infinity&quot;, min_height=64, alignment=&quot;leading&quot;)
+        .on_scroll_visibility_change(
+            visibility_changed,
+            threshold=0.5,
+        )
+    )
+
+
+def body():
+    rows = appui.LazyVStack([row(index) for index in range(30)])
+    return appui.NavigationStack(
+        appui.VStack([
+            appui.Text(f&quot;Phase: {state.phase}&quot;),
+            appui.ScrollView(rows.scroll_target_layout())
+                .scroll_position(state.bind.position)
+                .scroll_target_behavior(&quot;view_aligned&quot;)
+                .on_scroll_phase_change(phase_changed),
+        ])
+        .navigation_title(&quot;Scroll&quot;)
+    )
+
+
+appui.run(body, state=state)</code></pre>
+</figure>
   </div>
   <section class="related-section"><h2>相关文档</h2><div class="related-list"><a class="related-link" href="../appui-ref-layout/"><strong>布局 API</strong><span>Stack、ScrollView、List/Form、Grid 和 GeometryReader。</span></a></div></section>
 </article>
 
     </main>
-    <aside class="toc"><div class="toc-title">本页目录</div><a class="toc-link" href="#scrollview">ScrollView</a><a class="toc-link" href="#scrollviewreader">ScrollViewReader</a></aside>
+    <aside class="toc"><div class="toc-title">本页目录</div><a class="toc-link" href="#scrollview">ScrollView</a><a class="toc-link" href="#scrollviewreader">ScrollViewReader</a><a class="toc-link" href="#双向位置与原生滚动观察">双向位置与原生滚动观察</a></aside>
   </div>
   <div class="mobile-backdrop"></div>
   <div class="search-panel" role="dialog" aria-modal="true" aria-label="搜索">

@@ -1,0 +1,229 @@
+{
+  "version": 2,
+  "environment_keys": [
+    "PYTHONIDE_MINIAPP_ID",
+    "PYTHONIDE_MINIAPP_ACTIVE",
+    "PYTHONIDE_MINIAPP_DIR",
+    "PYTHONIDE_MINIAPP_SOURCE_DIR",
+    "PYTHONIDE_MINIAPP_RUN_TICKET",
+    "PYTHONIDE_MINIAPP_GENERATION",
+    "PYTHONIDE_MINIAPP_CAPABILITY_PROFILE",
+    "PYTHONIDE_MINIAPP_CAPABILITIES_JSON",
+    "PYTHONIDE_MINIAPP_NETWORK_HOSTS_JSON",
+    "PYTHONIDE_MINIAPP_LAUNCH_REQUEST_PATH",
+    "PYTHONIDE_MINIAPP_EXTERNAL_INPUT_ROOT",
+    "PYTHONIDE_MINIAPP_HEALTH_PROTOCOL",
+    "PYTHONIDE_MINIAPP_HEALTH_TOKEN",
+    "PYTHONIDE_MINIAPP_HEALTH_PATH",
+    "PYTHONIDE_MINIAPP_HEALTH_HEADER",
+    "PYTHONIDE_DESKTOP_LIVE_PREVIEW",
+    "PYTHONIDE_APPUI_HOT_RELOAD",
+    "PYTHONIDE_APPUI_PRESENTATION"
+  ],
+  "network": {
+    "legacy_schemes": ["http", "https", "ws", "wss"],
+    "declared_schemes": ["https", "wss"],
+    "wildcard_prefix": "*."
+  },
+  "host_grant_import_modules": [
+    "archive",
+    "background_download",
+    "native_image"
+  ],
+  "manifest": {
+    "fields": [
+      {
+        "name": "capabilities",
+        "type": "array<string> | omitted",
+        "required": false,
+        "descriptionZh": "最小原生能力集合；缺失时使用旧应用兼容 profile，空数组表示不允许受控能力。",
+        "descriptionEn": "Minimum native capability set. Omission selects the legacy compatibility profile; an empty array denies controlled capabilities."
+      },
+      {
+        "name": "allowedNetworkHosts",
+        "type": "array<string>",
+        "required": false,
+        "descriptionZh": "声明式 MiniApp 可访问的 HTTPS/WSS 主机；`*.example.com` 仅匹配子域。",
+        "descriptionEn": "HTTPS/WSS hosts available to a declared MiniApp; `*.example.com` matches subdomains only."
+      },
+      {
+        "name": "externalInputs",
+        "type": "object",
+        "required": false,
+        "descriptionZh": "声明此 MiniApp 可从系统分享页接收的内容；缺失或没有任何选择器时不会出现在可运行 MiniApp 列表。",
+        "descriptionEn": "Declares content this MiniApp can receive from the system share sheet. Missing or selector-free declarations are not discoverable."
+      },
+      {
+        "name": "intentEntry",
+        "type": "string",
+        "required": false,
+        "descriptionZh": "处理外部启动请求的可选 Python 入口；缺失时由常规 `entry` 接收。",
+        "descriptionEn": "Optional Python entry for external launch requests; the normal `entry` receives them when omitted."
+      }
+    ],
+    "externalInputKinds": [
+      "file",
+      "url",
+      "text",
+      "image",
+      "audio",
+      "video",
+      "data"
+    ],
+    "externalInputsFields": [
+      {
+        "name": "kinds",
+        "type": "array<externalInputKind>",
+        "default": [],
+        "descriptionZh": "允许的输入类别；`file` 可匹配除 URL 外的文件型内容。",
+        "descriptionEn": "Accepted input kinds; `file` matches file-backed non-URL content."
+      },
+      {
+        "name": "contentTypes",
+        "type": "array<string>",
+        "default": [],
+        "descriptionZh": "允许的 Uniform Type Identifier，例如 `public.image`。",
+        "descriptionEn": "Accepted Uniform Type Identifiers, for example `public.image`."
+      },
+      {
+        "name": "fileExtensions",
+        "type": "array<string>",
+        "default": [],
+        "descriptionZh": "允许的文件扩展名，不区分大小写，可写 `ipa` 或 `.ipa`。",
+        "descriptionEn": "Accepted case-insensitive file extensions, with or without a leading dot."
+      },
+      {
+        "name": "urlSchemes",
+        "type": "array<string>",
+        "default": [],
+        "descriptionZh": "允许的 URL scheme，例如 `https`。",
+        "descriptionEn": "Accepted URL schemes, for example `https`."
+      },
+      {
+        "name": "urlHosts",
+        "type": "array<string>",
+        "default": [],
+        "descriptionZh": "允许的 URL 主机；`*.example.com` 仅匹配子域。",
+        "descriptionEn": "Accepted URL hosts; `*.example.com` matches subdomains only."
+      },
+      {
+        "name": "urlPathPrefixes",
+        "type": "array<string>",
+        "default": [],
+        "descriptionZh": "允许的 URL 路径前缀。",
+        "descriptionEn": "Accepted URL path prefixes."
+      },
+      {
+        "name": "acceptsMultiple",
+        "type": "boolean",
+        "default": false,
+        "descriptionZh": "是否允许一次接收多个项目。",
+        "descriptionEn": "Whether one launch may contain multiple items."
+      },
+      {
+        "name": "acceptsMixedKinds",
+        "type": "boolean",
+        "default": false,
+        "descriptionZh": "多项目时是否允许混合不同输入类别。",
+        "descriptionEn": "Whether a multi-item launch may mix input kinds."
+      }
+    ]
+  },
+  "legacy_denied_capabilities": ["shared_storage"],
+  "capabilities": [
+    {"name": "installed_apps", "swift_case": "installedApps", "aliases": ["installedapps"]},
+    {"name": "external_navigation", "swift_case": "externalNavigation", "aliases": ["externalnavigation"]},
+    {"name": "network", "swift_case": "network", "aliases": ["internet"]},
+    {"name": "media_preview", "swift_case": "mediaPreview", "aliases": ["mediapreview"]},
+    {"name": "media", "swift_case": "media", "aliases": []},
+    {"name": "haptics", "swift_case": "haptics", "aliases": []},
+    {"name": "clipboard_read", "swift_case": "clipboardRead", "aliases": ["clipboardread"]},
+    {"name": "clipboard_write", "swift_case": "clipboardWrite", "aliases": ["clipboardwrite"]},
+    {"name": "camera", "swift_case": "camera", "aliases": []},
+    {"name": "device_info", "swift_case": "deviceInfo", "aliases": ["deviceinfo"]},
+    {"name": "storage", "swift_case": "storage", "aliases": []},
+    {"name": "shared_storage", "swift_case": "sharedStorage", "aliases": ["sharedstorage"]},
+    {"name": "file_system", "swift_case": "fileSystem", "aliases": ["filesystem", "files"]},
+    {"name": "photos", "swift_case": "photos", "aliases": ["photo", "photo_library"]},
+    {"name": "health", "swift_case": "health", "aliases": ["healthkit"]},
+    {"name": "contacts", "swift_case": "contacts", "aliases": ["contacts_read", "contacts_write"]},
+    {"name": "location", "swift_case": "location", "aliases": ["location_when_in_use"]},
+    {"name": "motion", "swift_case": "motion", "aliases": []},
+    {"name": "bluetooth", "swift_case": "bluetooth", "aliases": ["ble"]},
+    {"name": "nfc", "swift_case": "nfc", "aliases": []},
+    {"name": "microphone", "swift_case": "microphone", "aliases": ["microphone_capture"]},
+    {"name": "notifications", "swift_case": "notifications", "aliases": ["local_notifications"]},
+    {"name": "calendar", "swift_case": "calendar", "aliases": ["calendar_events"]},
+    {"name": "alarms", "swift_case": "alarms", "aliases": []},
+    {"name": "biometric", "swift_case": "biometric", "aliases": []},
+    {"name": "unsafe_native", "swift_case": "unsafeNative", "aliases": ["ctypes", "native_ffi"]}
+  ],
+  "bridge_requirements": {
+    "getInstalledAppList": "installed_apps",
+    "openWebsite": "external_navigation",
+    "previewImage": "media_preview",
+    "previewVideo": "media_preview",
+    "vibrate": "haptics",
+    "getClipboardData": "clipboard_read",
+    "setClipboardData": "clipboard_write",
+    "scanQRCode": "camera",
+    "getDeviceInfo": "device_info",
+    "getDeviceInfoSync": "device_info",
+    "getKVStorage": "storage",
+    "getKVStorageSync": "storage",
+    "setKVStorage": "storage",
+    "setKVStorageSync": "storage",
+    "deleteKVStorage": "storage",
+    "deleteKVStorageSync": "storage",
+    "clearKVStorage": "storage",
+    "clearKVStorageSync": "storage",
+    "setMemoryStorage": "storage",
+    "setMemoryStorageIfNotExist": "storage",
+    "getMemoryStorage": "storage",
+    "removeMemoryStorage": "storage",
+    "clearMemoryStorage": "storage"
+  },
+  "bridge_prefix_requirements": {"fs": "file_system"},
+  "module_requirements": {
+    "network": {"all_of": ["network"]},
+    "websocket": {"all_of": ["network"]},
+    "http_server": {"all_of": ["network"]},
+    "background_download": {"all_of": ["network", "file_system"]},
+    "native_image": {"all_of": ["file_system"]},
+    "weather": {"all_of": ["network"]},
+    "ssh": {"all_of": ["network"]},
+    "photos": {"any_of": ["photos", "camera"]},
+    "camera": {"all_of": ["camera"]},
+    "video_recorder": {"all_of": ["camera", "microphone"]},
+    "vision": {"any_of": ["photos", "camera"]},
+    "vision_helper": {"any_of": ["photos", "camera"]},
+    "health": {"all_of": ["health"]},
+    "contacts": {"all_of": ["contacts"]},
+    "location": {"all_of": ["location"]},
+    "clipboard": {"any_of": ["clipboard_read", "clipboard_write"]},
+    "file_picker": {"all_of": ["file_system"]},
+    "archive": {"all_of": ["file_system"]},
+    "storage": {"all_of": ["storage"]},
+    "database": {"all_of": ["storage"]},
+    "keychain": {"all_of": ["storage"]},
+    "motion": {"all_of": ["motion"]},
+    "bluetooth": {"all_of": ["bluetooth"]},
+    "ble_peripheral": {"all_of": ["bluetooth"]},
+    "nfc": {"all_of": ["nfc"]},
+    "speech": {"all_of": ["microphone"]},
+    "speech_recognition": {"all_of": ["microphone"]},
+    "audio_recorder": {"all_of": ["microphone"]},
+    "notification": {"all_of": ["notifications"]},
+    "calendar_events": {"all_of": ["calendar"]},
+    "alarm": {"all_of": ["alarms"]},
+    "mail": {"all_of": ["external_navigation"]},
+    "message": {"all_of": ["external_navigation"]},
+    "shortcuts": {"all_of": ["external_navigation"]},
+    "biometric": {"all_of": ["biometric"]},
+    "music": {"all_of": ["media"]},
+    "music_player": {"all_of": ["media"]},
+    "shazam": {"all_of": ["microphone", "media"]},
+    "ctypes": {"all_of": ["unsafe_native"]},
+    "_ctypes": {"all_of": ["unsafe_native"]}
+  }
+}
