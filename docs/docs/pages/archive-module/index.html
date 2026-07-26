@@ -289,8 +289,9 @@
   </header>
   
   <div class="markdown-body">
-    <p>原生 ZIP 检查、列表、解压与创建。适合 <code>.zip</code>、<code>.ipa</code>、<code>.whl</code>、<code>.jar</code>、<code>.apk</code>、<code>.npz</code> 等以 ZIP 为容器的常见格式。</p>
-<blockquote class="callout note"><strong>边界</strong>：首版只承诺 ZIP 容器，支持 <code>stored</code> 与 <code>deflate</code>。加密条目、未知压缩方法、ZIP64、符号链接和特殊文件会明确失败；不会调用 Python <code>zipfile</code>。普通源路径和所有输出路径都需要 <code>file_system</code> 且必须位于当前 MiniApp 工作区。系统分享页交付的准确 <code>LaunchItem.path</code> 是本次运行的 host-issued 只读输入例外，可直接检查或作为解压源，但不能原地修改。</blockquote>
+    <p><code>archive</code> 是 PythonIDE 的原生 ZIP/ZIP64 内核。它可检查、列出、读取、解压、创建和事务化更新 <code>.zip</code>、<code>.ipa</code>、<code>.whl</code>、<code>.jar</code>、<code>.apk</code>、<code>.npz</code> 等 ZIP 容器，不依赖 Python <code>zipfile</code>。</p>
+<blockquote class="callout note"><strong>格式边界</strong>：支持 ZIP32、ZIP64、<code>stored</code> 与 <code>deflate</code>。加密、多磁盘、符号链接、特殊文件和未知压缩方法会以稳定错误码失败，不会静默跳过。</blockquote>
+<p>声明式 MiniApp 需要文件能力：</p>
 <figure class="code-block" data-code-id="ea5bf34db913">
   <figcaption>
     <span>json</span>
@@ -300,8 +301,9 @@
   &quot;capabilities&quot;: [&quot;file_system&quot;]
 }</code></pre>
 </figure>
+<p>普通路径和所有输出必须位于当前 MiniApp 授权范围。系统分享页交付的准确 <code>LaunchItem.path</code> 是本次运行的只读输入例外；它可以被检查、读取或作为解压/更新副本的来源，但不能原地修改。</p>
 <h2 id="模块概览"><a class="heading-anchor" href="#模块概览">#</a>模块概览</h2>
-<div class="table-scroll"><table><thead><tr><th>项</th><th>说明</th></tr></thead><tbody><tr><td>导入</td><td><code>import archive</code></td></tr><tr><td>适合做什么</td><td>检查 IPA/ZIP 内容、解压数据包、确定性创建 ZIP</td></tr><tr><td>原生实现</td><td>Swift 中央目录解析 + Compression，无 Python <code>zipfile</code></td></tr><tr><td>支持方法</td><td><code>stored</code>、<code>deflate</code></td></tr><tr><td>安全模型</td><td>路径边界、Zip Slip、绝对路径、symlink、条目/大小/压缩比预算</td></tr><tr><td>写入模型</td><td>先写同目录 staging，完整校验后原子安装目标</td></tr></tbody></table></div>
+<div class="table-scroll"><table><thead><tr><th>项</th><th>说明</th></tr></thead><tbody><tr><td>导入</td><td><code>import archive</code></td></tr><tr><td>容器</td><td>ZIP32、ZIP64 及常见 ZIP 衍生格式</td></tr><tr><td>压缩</td><td><code>stored</code>、<code>deflate</code></td></tr><tr><td>大文件</td><td>原生分块读写；大条目使用 <code>extract_entry()</code>，不会经 JSON/Base64 整包传输</td></tr><tr><td>写入</td><td>目录描述符锚定的同目录 staging、完整校验、原子安装；失败或取消保留旧目标</td></tr><tr><td>安全</td><td>工作区授权、逐级 <code>openat/O_NOFOLLOW</code>、Zip Slip、symlink、特殊文件、结构和资源预算校验；消费内容时校验 CRC</td></tr><tr><td>生命周期</td><td>operation ID、进度、主动取消、MiniApp 会话停止自动取消、旧会话拒绝提交</td></tr></tbody></table></div>
 <hr>
 <h2 id="快速开始"><a class="heading-anchor" href="#快速开始">#</a>快速开始</h2>
 <figure class="code-block" data-code-id="c0f5bd95e856">
@@ -342,42 +344,33 @@ summary = archive.inspect(ipa_path)
 result = archive.extract(ipa_path, output, overwrite=True)
 print(summary[&quot;entry_count&quot;], result[&quot;path&quot;])</code></pre>
 </figure>
-<p>不要读取宿主环境变量来寻找分享文件。<code>LaunchItem.path</code> 的授权只覆盖这个输入及当前运行；输出仍需写入 MiniApp 工作区并声明 <code>file_system</code>。</p>
-<p>创建确定性 ZIP：</p>
-<figure class="code-block" data-code-id="fb1dbf10afb8">
-  <figcaption>
-    <span>python</span>
-    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="fb1dbf10afb8" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
-  </figcaption>
-  <pre><code id="code-fb1dbf10afb8" class="language-python">import archive
-
-result = archive.create(
-    &quot;/path/to/MyProject&quot;,
-    &quot;/path/to/MyProject.zip&quot;,
-    compression=&quot;deflate&quot;,
-    include_root=True,
-    overwrite=True,
-)
-print(result)</code></pre>
-</figure>
+<p>不要读取宿主环境变量寻找分享文件。只使用 <code>LaunchItem.path</code>；输出仍写入 MiniApp 工作区。</p>
 <hr>
-<h2 id="api-参考"><a class="heading-anchor" href="#api-参考">#</a>API 参考</h2>
-<h3 id="速查"><a class="heading-anchor" href="#速查">#</a>速查</h3>
-<div class="table-scroll"><table><thead><tr><th>API</th><th>作用</th></tr></thead><tbody><tr><td><code>inspect(path, **limits)</code></td><td>校验容器与安全预算，返回汇总</td></tr><tr><td><code>list(path, include_directories=True, **limits)</code></td><td>返回已校验条目</td></tr><tr><td><code>extract(path, destination_path, overwrite=False, **limits)</code></td><td>事务化解压到目录</td></tr><tr><td><code>create(source_path, destination_path, ...)</code></td><td>从单个文件或目录创建确定性 ZIP</td></tr><tr><td><code>new_operation_id()</code></td><td>生成可取消操作 ID</td></tr><tr><td><code>cancel(operation_id)</code></td><td>请求取消进行中的创建/解压/检查</td></tr><tr><td><code>ArchiveError</code></td><td>原生错误，使用稳定 <code>code</code></td></tr></tbody></table></div>
-<h3 id="inspect"><a class="heading-anchor" href="#inspect">#</a>inspect</h3>
-<p><strong><code>inspect(path, *, operation_id=None, max_entries=500, max_entry_size=67108864, max_total_size=209715200, max_archive_size=209715200, max_compression_ratio=200.0)</code></strong></p>
-<p>返回字段：</p>
-<div class="table-scroll"><table><thead><tr><th>字段</th><th>说明</th></tr></thead><tbody><tr><td><code>format</code></td><td>当前为 <code>zip</code></td></tr><tr><td><code>path</code></td><td>已检查文件路径</td></tr><tr><td><code>archive_size</code></td><td>ZIP 文件自身字节数</td></tr><tr><td><code>entry_count</code></td><td>文件与目录总条目数</td></tr><tr><td><code>file_count</code> / <code>directory_count</code></td><td>文件数与目录数</td></tr><tr><td><code>compressed_size</code></td><td>条目压缩后大小总和</td></tr><tr><td><code>uncompressed_size</code></td><td>条目展开大小总和</td></tr></tbody></table></div>
-<p><code>inspect()</code> 校验中央目录、路径、类型、方法和预算；实际文件内容的 CRC 在 <code>extract()</code> 时逐条验证。</p>
-<h3 id="list"><a class="heading-anchor" href="#list">#</a>list</h3>
-<p><strong><code>list(path, *, include_directories=True, operation_id=None, **limits)</code></strong></p>
-<p>条目按相对路径确定性排序，每条包含：</p>
-<figure class="code-block" data-code-id="a99513c4c570">
+<h2 id="api-速查"><a class="heading-anchor" href="#api-速查">#</a>API 速查</h2>
+<div class="table-scroll"><table><thead><tr><th>API</th><th>作用</th></tr></thead><tbody><tr><td><code>inspect(path, **limits)</code></td><td>校验容器结构并返回汇总</td></tr><tr><td><code>list(path, include_directories=True, **limits)</code></td><td>返回结构已校验的条目与元数据</td></tr><tr><td><code>read_entry(path, entry_path, max_bytes=...)</code></td><td>小条目直接读取为 <code>bytes</code></td></tr><tr><td><code>extract_entry(path, entry_path, destination_path, ...)</code></td><td>大条目流式、原子写入文件</td></tr><tr><td><code>extract(path, destination_path, ...)</code></td><td>事务化解压整个容器</td></tr><tr><td><code>create(source_path, destination_path, ...)</code></td><td>从普通文件或目录创建 ZIP/ZIP64</td></tr><tr><td><code>update(path, operations, ...)</code></td><td>一次原子提交多项增删改</td></tr><tr><td><code>transaction(path, **options)</code></td><td>创建 <code>ArchiveTransaction</code> 组合事务</td></tr><tr><td><code>add(...)</code> / <code>replace(...)</code> / <code>remove(...)</code></td><td>单项更新便利函数，内部复用 <code>update()</code></td></tr><tr><td><code>new_operation_id()</code></td><td>生成 operation ID</td></tr><tr><td><code>progress(operation_id)</code></td><td>查询线程安全的进度快照</td></tr><tr><td><code>cancel(operation_id)</code></td><td>请求取消当前调用者拥有的操作</td></tr><tr><td><code>ArchiveError</code></td><td>原生错误；用稳定的 <code>code</code> 分支</td></tr></tbody></table></div>
+<p>所有长操作都可接收 <code>operation_id</code> 和同一组可调低的安全预算：</p>
+<figure class="code-block" data-code-id="35a5db44ab70">
   <figcaption>
     <span>python</span>
-    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="a99513c4c570" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="35a5db44ab70" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
-  <pre><code id="code-a99513c4c570" class="language-python">{
+  <pre><code id="code-35a5db44ab70" class="language-python">max_entries=100_000
+max_entry_size=8 * 1024**3
+max_total_size=16 * 1024**3
+max_archive_size=8 * 1024**3
+max_compression_ratio=200.0</code></pre>
+</figure>
+<p>调用者可以降低预算，不能高于平台硬上限。</p>
+<h2 id="inspect-与-list"><a class="heading-anchor" href="#inspect-与-list">#</a>inspect 与 list</h2>
+<p><strong><code>inspect(path, *, operation_id=None, **limits)</code></strong> 返回：</p>
+<div class="table-scroll"><table><thead><tr><th>字段</th><th>说明</th></tr></thead><tbody><tr><td><code>format</code></td><td>当前为 <code>zip</code></td></tr><tr><td><code>path</code></td><td>已授权、已检查的容器路径</td></tr><tr><td><code>archive_size</code></td><td>容器自身字节数</td></tr><tr><td><code>entry_count</code></td><td>文件与目录总条目数</td></tr><tr><td><code>file_count</code> / <code>directory_count</code></td><td>文件数与目录数</td></tr><tr><td><code>compressed_size</code></td><td>条目压缩大小总和</td></tr><tr><td><code>uncompressed_size</code></td><td>条目展开大小总和</td></tr></tbody></table></div>
+<p><strong><code>list(path, *, include_directories=True, operation_id=None, **limits)</code></strong> 返回确定性顺序的条目。可用字段包括：</p>
+<figure class="code-block" data-code-id="d169055b8e6b">
+  <figcaption>
+    <span>python</span>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="d169055b8e6b" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
+  </figcaption>
+  <pre><code id="code-d169055b8e6b" class="language-python">{
     &quot;path&quot;: &quot;Payload/App.app/Info.plist&quot;,
     &quot;type&quot;: &quot;file&quot;,
     &quot;is_directory&quot;: False,
@@ -385,60 +378,154 @@ print(result)</code></pre>
     &quot;compressed_size&quot;: 1234,
     &quot;uncompressed_size&quot;: 4096,
     &quot;crc32&quot;: &quot;12ab34cd&quot;,
+    &quot;mode&quot;: 0o644,
+    &quot;modified_at&quot;: 1_725_000_000.0,
 }</code></pre>
 </figure>
-<h3 id="extract"><a class="heading-anchor" href="#extract">#</a>extract</h3>
-<p><strong><code>extract(path, destination_path, *, overwrite=False, operation_id=None, **limits)</code></strong></p>
-<ul><li>目标必须是当前 MiniApp 工作区内的目录路径。</li><li>不覆盖时，目标存在会抛出 <code>destination_exists</code>。</li><li>覆盖时，旧目录会保留到新目录完成全部解压、CRC 与预算检查之后。</li><li>失败或取消不会留下半个正式目标；临时 staging 会清理。</li></ul>
-<h3 id="create"><a class="heading-anchor" href="#create">#</a>create</h3>
-<p><strong><code>create(source_path, destination_path, *, compression=&quot;deflate&quot;, include_root=False, overwrite=False, operation_id=None, **limits)</code></strong></p>
-<div class="table-scroll"><table><thead><tr><th>参数</th><th>说明</th></tr></thead><tbody><tr><td><code>source_path</code></td><td>一个普通文件或目录，或当前 host-issued 只读输入；拒绝 symlink 与特殊文件</td></tr><tr><td><code>destination_path</code></td><td>输出 ZIP/ZIP 衍生容器路径</td></tr><tr><td><code>compression</code></td><td><code>stored</code> 或 <code>deflate</code></td></tr><tr><td><code>include_root</code></td><td>目录源是否包含最外层目录名</td></tr><tr><td><code>overwrite</code></td><td>是否在新 ZIP 完成并通过自检后替换旧文件</td></tr></tbody></table></div>
-<p>创建结果具备固定条目顺序、固定 ZIP 时间戳和固定可移植权限。同一目录内容可得到一致的 ZIP 字节。高度可压缩文件若超过安全压缩比，会自动改用 <code>stored</code>，确保创建出的包仍能通过同一解压策略。</p>
-<h3 id="取消"><a class="heading-anchor" href="#取消">#</a>取消</h3>
-<p>Archive API 是同步调用；需要取消时，在工作线程执行操作并提前提供 ID，另一个线程调用 <code>cancel()</code>：</p>
-<figure class="code-block" data-code-id="591592f05df0">
+<p><code>mode</code> 和 <code>modified_at</code> 只在容器提供可信元数据时出现。<code>include_directories=False</code> 会在原生响应编码和 16 MiB 返回预算计算之前过滤目录；容器解析与安全检查仍覆盖全部条目。</p>
+<p><code>inspect()</code> 和 <code>list()</code> 只解析结构及元数据，不为验证 CRC 而解压所有内容，因此可以稳定处理大型 IPA。CRC 会在 <code>read_entry()</code>、<code>extract_entry()</code>、<code>extract()</code> 和 <code>update()</code> 实际消费条目内容时流式校验。Info-ZIP Unicode Path <code>0x7075</code> 是经过版本、原始名称 CRC 和 UTF-8 校验后的规范路径，同样参与路径安全和碰撞检查。</p>
+<h2 id="读取或解压单个条目"><a class="heading-anchor" href="#读取或解压单个条目">#</a>读取或解压单个条目</h2>
+<p>小文件可直接读为 Python <code>bytes</code>：</p>
+<figure class="code-block" data-code-id="09f2fec46f20">
   <figcaption>
     <span>python</span>
-    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="591592f05df0" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="09f2fec46f20" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
-  <pre><code id="code-591592f05df0" class="language-python">import archive
+  <pre><code id="code-09f2fec46f20" class="language-python">plist_bytes = archive.read_entry(
+    &quot;/path/to/App.ipa&quot;,
+    &quot;Payload/App.app/Info.plist&quot;,
+)</code></pre>
+</figure>
+<p><code>read_entry()</code> 经过 JSON/Base64 桥，因此 <code>max_bytes</code> 的默认值和硬上限均为 8 MiB。更大的文件必须流式写入：</p>
+<figure class="code-block" data-code-id="7e4cfe48ba4f">
+  <figcaption>
+    <span>python</span>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="7e4cfe48ba4f" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
+  </figcaption>
+  <pre><code id="code-7e4cfe48ba4f" class="language-python">result = archive.extract_entry(
+    &quot;/path/to/App.ipa&quot;,
+    &quot;Payload/App.app/AppBinary&quot;,
+    &quot;/path/to/output/AppBinary&quot;,
+    overwrite=True,
+    preserve_metadata=True,
+)</code></pre>
+</figure>
+<p><code>extract_entry()</code> 只接受普通文件条目，先校验 CRC，再原子安装目标。<code>preserve_metadata=True</code> 会恢复安全的 <code>0o777</code> 权限位和修改时间，不恢复 setuid、setgid 或其他危险类型位。</p>
+<h2 id="解压与创建"><a class="heading-anchor" href="#解压与创建">#</a>解压与创建</h2>
+<p><strong><code>extract(path, destination_path, *, overwrite=False, operation_id=None, **limits)</code></strong></p>
+<ul><li>目标必须是授权范围内的目录路径。</li><li><code>overwrite=False</code> 且目标存在时抛出 <code>destination_exists</code>。</li><li>覆盖时，旧目录保留到全部条目通过路径、CRC、预算和会话校验之后。</li><li><code>overwrite=True</code> 是整棵目录的原子替换，不与旧目录合并；提交前旧目录内部的并发修改也会随旧树一起被替换。</li><li>失败、取消或会话过期都不会提交半成品。</li><li>这里的“原子”指进程运行期间的可见性与失败回滚：提交前只看见旧树，提交后只看见新树。它不承诺设备突然断电后的逐文件 <code>fsync</code> 持久性；需要跨断电保存的业务结果应在操作成功后再使用平台的持久任务/备份策略。</li></ul>
+<p><strong><code>create(source_path, destination_path, *, compression=&quot;deflate&quot;, include_root=False, overwrite=False, operation_id=None, **limits)</code></strong></p>
+<figure class="code-block" data-code-id="68aa69429d0f">
+  <figcaption>
+    <span>python</span>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="68aa69429d0f" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
+  </figcaption>
+  <pre><code id="code-68aa69429d0f" class="language-python">result = archive.create(
+    &quot;/path/to/MyProject&quot;,
+    &quot;/path/to/MyProject.zip&quot;,
+    compression=&quot;deflate&quot;,
+    include_root=True,
+    overwrite=True,
+)</code></pre>
+</figure>
+<p>创建过程按相对路径排序，保留安全的可移植权限和修改时间，拒绝源目录中的 symlink、特殊文件以及位于源目录内部的输出路径。ZIP32 不足时自动写出 ZIP64。若 deflate 结果没有收益或超过压缩比预算，会安全回退为 <code>stored</code>。</p>
+<h2 id="原子更新与事务"><a class="heading-anchor" href="#原子更新与事务">#</a>原子更新与事务</h2>
+<p><code>update()</code> 将全部操作写入一个 staging 容器，对最终容器中保留及重写的全部 payload 完成结构和 CRC 自检后只提交一次。未修改条目会流式验证原内容 CRC，同时保留原压缩数据和可复用的 ZIP 元数据，避免无意义的解压再压缩。</p>
+<figure class="code-block" data-code-id="233957b183ed">
+  <figcaption>
+    <span>python</span>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="233957b183ed" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
+  </figcaption>
+  <pre><code id="code-233957b183ed" class="language-python">result = archive.update(
+    &quot;/path/to/App.ipa&quot;,
+    [
+        {
+            &quot;action&quot;: &quot;replace&quot;,
+            &quot;entry_path&quot;: &quot;Payload/App.app/Info.plist&quot;,
+            &quot;source_path&quot;: &quot;/path/to/new-Info.plist&quot;,
+            &quot;compression&quot;: &quot;deflate&quot;,
+        },
+        {
+            &quot;action&quot;: &quot;add&quot;,
+            &quot;entry_path&quot;: &quot;Metadata/report.json&quot;,
+            &quot;data&quot;: b&#x27;{&quot;checked&quot;:true}&#x27;,
+            &quot;mode&quot;: 0o644,
+        },
+        {
+            &quot;action&quot;: &quot;remove&quot;,
+            &quot;entry_path&quot;: &quot;Metadata/old.json&quot;,
+        },
+    ],
+)</code></pre>
+</figure>
+<p><code>add</code> / <code>replace</code> 必须且只能提供一种内容来源：<code>source_path</code>、小型 <code>data</code>/<code>data_base64</code>，或 <code>is_directory=True</code>。大型内容使用 <code>source_path</code> 流式写入。<code>compression</code> 可为 <code>preserve</code>、<code>stored</code> 或 <code>deflate</code>。</p>
+<p>也可用上下文管理器构建同一事务：</p>
+<figure class="code-block" data-code-id="40c3c6eda4d4">
+  <figcaption>
+    <span>python</span>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="40c3c6eda4d4" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
+  </figcaption>
+  <pre><code id="code-40c3c6eda4d4" class="language-python">with archive.transaction(&quot;/path/to/data.zip&quot;) as tx:
+    tx.replace(&quot;config.json&quot;, data=b&quot;{}&quot;)
+    tx.add(&quot;bin/tool&quot;, source_path=&quot;/path/to/tool&quot;, mode=0o755)
+    tx.remove(&quot;old.txt&quot;)
+
+print(tx.result)</code></pre>
+</figure>
+<p><code>ArchiveTransaction.add()</code>、<code>replace()</code>、<code>remove()</code> 只是收集通用 entry operation；最终仍由一个 <code>update()</code> 原子提交，并不是为某类 MiniApp 硬编码的 API。顶层 <code>archive.add()</code>、<code>archive.replace()</code>、<code>archive.remove()</code> 也是同一内核的便利入口。</p>
+<p>传入 <code>destination_path</code> 可生成修改后的副本；省略时原子替换原容器。外部只读输入只能写成工作区内的新副本。</p>
+<p>同一路径的更新在进程内串行化。原地更新会记录已打开源文件的完整文件指纹，并在原子交换后核对换出的旧对象；若 Files、另一个线程或其他进程已替换目标，会回滚交换并抛出 <code>archive_conflict</code>，不会静默覆盖较新的版本。目录解压覆盖只对目标根对象做 O(1) 比较交换，不在取消/会话提交门内遍历旧目录；旧树清理在提交后进行。</p>
+<h2 id="进度与取消"><a class="heading-anchor" href="#进度与取消">#</a>进度与取消</h2>
+<p>Archive API 是同步调用。需要显示进度或取消时，在工作线程执行操作，并从另一个线程查询同一个 ID：</p>
+<figure class="code-block" data-code-id="a03c05a64775">
+  <figcaption>
+    <span>python</span>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="a03c05a64775" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
+  </figcaption>
+  <pre><code id="code-a03c05a64775" class="language-python">import archive
 import threading
 
 operation_id = archive.new_operation_id()
 
-
-def extract_archive():
+def extract_worker():
     archive.extract(
         &quot;/path/to/data.zip&quot;,
         &quot;/path/to/output&quot;,
         operation_id=operation_id,
     )
 
-
-worker = threading.Thread(target=extract_archive)
+worker = threading.Thread(target=extract_worker)
 worker.start()
+
+snapshot = archive.progress(operation_id)
+print(snapshot[&quot;phase&quot;], snapshot[&quot;fraction&quot;])
+
 archive.cancel(operation_id)
 worker.join()</code></pre>
 </figure>
-<p>MiniApp 运行会话停止时，宿主也会自动取消该会话拥有的 Archive 操作；旧会话不能继续提交文件。</p>
-<hr>
-<h2 id="默认安全预算"><a class="heading-anchor" href="#默认安全预算">#</a>默认安全预算</h2>
-<div class="table-scroll"><table><thead><tr><th>预算</th><th>默认及硬上限</th></tr></thead><tbody><tr><td>条目数</td><td>500</td></tr><tr><td>单条目展开大小</td><td>64 MiB</td></tr><tr><td>总展开大小</td><td>200 MiB</td></tr><tr><td>ZIP 文件大小</td><td>200 MiB</td></tr><tr><td>单条目压缩比</td><td>200:1</td></tr></tbody></table></div>
-<p>调用者可以调低预算，不能超过硬上限。路径包含 <code>..</code>、绝对路径、Windows 盘符、反斜杠、NUL、大小写/Unicode 冲突，或文件与目录冲突时都会拒绝整个操作。</p>
-<h2 id="错误码"><a class="heading-anchor" href="#错误码">#</a>错误码</h2>
-<div class="table-scroll"><table><thead><tr><th><code>ArchiveError.code</code></th><th>含义</th></tr></thead><tbody><tr><td><code>invalid_archive</code></td><td>ZIP 结构、大小、CRC 或 local/central header 不一致</td></tr><tr><td><code>unsafe_path</code></td><td>Zip Slip、绝对路径或不安全目标</td></tr><tr><td><code>symlink_entry</code></td><td>ZIP 或源目录包含符号链接</td></tr><tr><td><code>encrypted_entry</code></td><td>ZIP 条目已加密</td></tr><tr><td><code>unsupported_compression</code></td><td>不是 stored/deflate</td></tr><tr><td><code>zip64_unsupported</code></td><td>需要 ZIP64；首版不承诺</td></tr><tr><td><code>too_many_entries</code> / <code>entry_too_large</code> / <code>archive_too_large</code></td><td>超出预算</td></tr><tr><td><code>compression_ratio_exceeded</code></td><td>压缩比超过预算</td></tr><tr><td><code>checksum_mismatch</code></td><td>解压 CRC 校验失败</td></tr><tr><td><code>destination_exists</code></td><td>未允许覆盖但目标已存在</td></tr><tr><td><code>file_denied</code></td><td>路径不在当前 MiniApp 工作区</td></tr><tr><td><code>miniapp_session_expired</code></td><td>发起操作的运行会话已结束</td></tr><tr><td><code>cancelled</code></td><td>主动取消或会话停止</td></tr></tbody></table></div>
+<p>进度快照包括 <code>phase</code>、<code>entries_completed</code>、<code>entries_total</code>、<code>bytes_completed</code>、<code>bytes_total</code>、<code>fraction</code>、<code>cancel_requested</code>、<code>finished</code>，失败终态还包含 <code>error_code</code>。完成记录有界保留；未知或不属于当前运行的 ID 不会泄露其他会话状态。</p>
+<p>MiniApp 停止时，宿主自动取消该会话拥有的操作。取消令牌、会话 lease 与最终 rename 共用线性化提交门：取消/停止先到达时不提交；提交点先到达时，停止会等待这次原子安装结束。停止返回后，旧运行不能再新增落盘结果。</p>
+<p>为防止单个 MiniApp 或全局任务挤占文件描述符和内存，同一运行最多同时拥有 4 个 Archive 操作，宿主全局最多 16 个；超过限制立即返回 <code>too_many_operations</code>，不会排队形成隐藏延迟。</p>
+<h2 id="安全预算"><a class="heading-anchor" href="#安全预算">#</a>安全预算</h2>
+<div class="table-scroll"><table><thead><tr><th>预算</th><th>默认及硬上限</th></tr></thead><tbody><tr><td>条目数</td><td>100,000</td></tr><tr><td>单条目展开大小</td><td>8 GiB</td></tr><tr><td>总展开大小</td><td>16 GiB</td></tr><tr><td>ZIP 文件大小</td><td>8 GiB</td></tr><tr><td>单条目压缩比</td><td>200:1</td></tr><tr><td><code>read_entry()</code> 内联数据</td><td>8 MiB</td></tr><tr><td>单个 entry path</td><td>1,024 UTF-8 bytes、最多 128 个组件</td></tr><tr><td>单个 path 组件</td><td>255 UTF-8 bytes</td></tr><tr><td>中央目录元数据</td><td>32 MiB</td></tr><tr><td>C bridge 返回 JSON</td><td>16 MiB</td></tr><tr><td>写入磁盘保留余量</td><td>256 MiB</td></tr><tr><td>同一运行并发操作</td><td>4</td></tr><tr><td>宿主全局并发操作</td><td>16</td></tr><tr><td>待回收 staging/quarantine 所有权记录</td><td>1,024</td></tr></tbody></table></div>
+<p>路径包含绝对路径、空组件、<code>.</code>、<code>..</code>、Windows 盘符、反斜杠、NUL、超出长度/层数限制、Unicode/大小写碰撞，或文件/目录冲突时，整个操作失败。不会自动修正不安全名称。路径冲突检查使用线性前缀索引，不会在 100,000 条目下退化为平方级扫描。POSIX external attributes、macOS host type 和 Info-ZIP ASi Unix <code>0x756e</code> 会统一解释；symlink、特殊文件、重复字段、CRC 损坏或 local/central 类型冲突均拒绝。</p>
+<p><code>extract()</code>、<code>extract_entry()</code>、<code>create()</code> 和 <code>update()</code> 会在写 staging 前检查目标卷可用容量，并在流式写入期间继续执行硬计数。模块只按宿主私有日志回收自己登记、父目录与对象 identity/类型完全匹配的 staging/quarantine 残留，不按文件名前缀扫描，更不会删除普通用户文件或已被并发替换的对象。</p>
+<p>POSIX 没有“仅当名称仍指向预期 inode 时才删除”的原子 <code>unlinkat</code>。因此嵌入式 Python 启动后，清理只会把已验证对象原子移到宿主私有 quarantine；物理删除延迟到下一次冷启动、Python 初始化之前的可信阶段。冷启动最多删除 128 个节点，但会在最多 1,025 条持久记录中独立扫描并轮转起点，无法打开的外部/security-scoped 父目录会保留所有权记录、写入诊断并在以后可访问的冷启动重试，不会阻塞后面的工作区记录。</p>
+<p>运行期不会用 <code>ftruncate</code> 提前释放普通文件内容，因为同一 inode 可能还有用户创建或并发创建的硬链接，截断会损坏那些别名。代价是取消结果或被替换的旧容器/目录可能暂时占用磁盘，直到下次可信回收；单个容器受 8 GiB 上限、单棵展开目录受 16 GiB 上限约束。所有权日志最多保留 1,024 个常驻工作项，并另留一个只用于原子 quarantine 交接的内部槽位；达到上限时会在创建新 staging 之前返回 <code>resource_limit</code>，绝不会静默丢弃旧记录或留下未登记的临时对象。</p>
+<h2 id="常见错误码"><a class="heading-anchor" href="#常见错误码">#</a>常见错误码</h2>
+<div class="table-scroll"><table><thead><tr><th><code>ArchiveError.code</code></th><th>含义</th></tr></thead><tbody><tr><td><code>invalid_input</code></td><td>参数、operation ID 或更新操作无效</td></tr><tr><td><code>source_not_found</code></td><td>输入容器、源文件或条目不存在</td></tr><tr><td><code>destination_exists</code></td><td>未允许覆盖但目标存在</td></tr><tr><td><code>invalid_archive</code></td><td>ZIP 结构、边界或 local/central metadata 不一致</td></tr><tr><td><code>unsupported_container</code></td><td>不是受支持的 ZIP 容器</td></tr><tr><td><code>multi_disk_unsupported</code></td><td>多磁盘 ZIP 不受支持</td></tr><tr><td><code>encrypted_entry</code></td><td>条目已加密</td></tr><tr><td><code>unsupported_compression</code></td><td>不是 stored/deflate</td></tr><tr><td><code>unsupported_entry_type</code> / <code>symlink_entry</code></td><td>条目或源文件不是允许的普通文件/目录</td></tr><tr><td><code>unsafe_path</code> / <code>duplicate_entry</code> / <code>path_conflict</code></td><td>路径不安全、重复或发生结构冲突</td></tr><tr><td><code>too_many_entries</code> / <code>entry_too_large</code> / <code>archive_too_large</code></td><td>超出安全预算</td></tr><tr><td><code>too_many_operations</code></td><td>当前运行或宿主已达到 Archive 并发上限</td></tr><tr><td><code>resource_limit</code></td><td>待回收临时对象已达到有界所有权日志上限；冷启动回收后重试</td></tr><tr><td><code>metadata_too_large</code> / <code>result_too_large</code></td><td>中央元数据或 bridge 返回超过固定内存预算</td></tr><tr><td><code>archive_conflict</code></td><td>原地更新期间目标被另一个写入者修改，事务未覆盖对方版本</td></tr><tr><td><code>compression_ratio_exceeded</code></td><td>压缩比超过预算</td></tr><tr><td><code>checksum_mismatch</code></td><td>内容 CRC 校验失败</td></tr><tr><td><code>file_denied</code></td><td>路径不在当前运行的授权范围</td></tr><tr><td><code>miniapp_session_expired</code></td><td>发起操作的 MiniApp 会话已结束</td></tr><tr><td><code>cancelled</code></td><td>主动取消或会话停止</td></tr><tr><td><code>io_error</code></td><td>文件系统或底层流读写失败</td></tr></tbody></table></div>
 <h2 id="常见错误"><a class="heading-anchor" href="#常见错误">#</a>常见错误</h2>
-<div class="table-scroll"><table><thead><tr><th>错误写法</th><th>后果</th><th>修正</th></tr></thead><tbody><tr><td>使用 <code>zipfile.extractall()</code></td><td>绕过宿主路径与资源预算</td><td>使用 <code>archive.extract()</code></td></tr><tr><td>把 <code>LaunchItem.path</code> 当成可写目录</td><td>外部授权被拒绝</td><td>只读该输入，输出写入 MiniApp 工作区</td></tr><tr><td>把输出 ZIP 放进正在压缩的源目录</td><td>递归/不确定结果</td><td>输出到源目录外的同级路径</td></tr><tr><td>遇到 ZIP64 或加密 ZIP 后忽略错误</td><td>用户以为已完整处理</td><td>展示明确错误并让用户换包</td></tr><tr><td>在 AppUI <code>body()</code> 中创建或解压</td><td>重建时重复执行</td><td>放进按钮回调或后台线程</td></tr></tbody></table></div>
+<div class="table-scroll"><table><thead><tr><th>错误写法</th><th>后果</th><th>修正</th></tr></thead><tbody><tr><td>使用 <code>zipfile.extractall()</code> 处理不可信输入</td><td>绕过宿主路径、会话与资源预算</td><td>使用 <code>archive.extract()</code></td></tr><tr><td>用 <code>read_entry()</code> 读取几百 MiB 文件</td><td>Base64/JSON 放大内存</td><td>使用 <code>extract_entry()</code></td></tr><tr><td>把 <code>LaunchItem.path</code> 当成可写目标</td><td>外部授权是只读的</td><td>输出到工作区副本</td></tr><tr><td>每次增改都解压整个包再重建</td><td>慢且丢失未修改条目元数据</td><td>使用一个 <code>update()</code> / <code>transaction()</code></td></tr><tr><td>在 AppUI <code>body()</code> 中运行长操作</td><td>重建时重复执行并阻塞交互</td><td>放进用户回调和工作线程</td></tr></tbody></table></div>
 <h2 id="相关文档"><a class="heading-anchor" href="#相关文档">#</a>相关文档</h2>
-<div class="table-scroll"><table><thead><tr><th>文档</th><th>用途</th></tr></thead><tbody><tr><td><a href="../../pages/file-picker-module/">文件选择</a></td><td>让用户选择 ZIP/IPA</td></tr><tr><td><a href="../../pages/miniapp-native-capabilities/">MiniApp 原生能力</a></td><td>声明 <code>file_system</code></td></tr><tr><td><a href="../../pages/database-module/">database</a></td><td>保存已处理文件的结构化索引</td></tr></tbody></table></div>
+<div class="table-scroll"><table><thead><tr><th>文档</th><th>用途</th></tr></thead><tbody><tr><td><a href="../../pages/file-picker-module/">文件选择</a></td><td>由用户选择容器或输出位置</td></tr><tr><td><a href="../../pages/miniapp-native-capabilities/">MiniApp 原生能力</a></td><td>声明 <code>file_system</code>、读取 <code>LaunchRequest</code> 与理解会话授权</td></tr><tr><td><a href="../../pages/background-download-module/">background_download</a></td><td>下载大型容器后交给 Archive</td></tr></tbody></table></div>
 <h2 id="预期效果"><a class="heading-anchor" href="#预期效果">#</a>预期效果</h2>
-<p>合法 stored/deflate ZIP 能稳定列出、解压和重建；恶意路径、symlink、加密、未知方法、压缩炸弹、CRC 损坏、取消和旧会话均明确失败，且不会提交半成品目标。</p>
+<p>合法 ZIP32/ZIP64 可稳定检查、读取、解压、创建和更新；未修改条目不会被无意义重编码。恶意路径、symlink、加密、多磁盘、未知压缩和炸弹会在结构检查阶段明确失败；CRC 损坏会在 <code>read</code>/<code>extract</code>/<code>update</code> 消费 payload 时明确失败。取消和旧会话不会提交半成品目标。</p>
   </div>
   <section class="related-section"><h2>相关文档</h2><div class="related-list"><a class="related-link" href="../file-picker-module/"><strong>file_picker</strong><span>系统文件选择器与 AppUI FileImporter。</span></a><a class="related-link" href="../miniapp-native-capabilities/"><strong>原生能力入口</strong><span>MiniApp 常用原生能力入口，不是完整模块总表。</span></a></div></section>
 </article>
 
     </main>
-    <aside class="toc"><div class="toc-title">本页目录</div><a class="toc-link" href="#模块概览">模块概览</a><a class="toc-link" href="#快速开始">快速开始</a><a class="toc-link" href="#api-参考">API 参考</a><a class="toc-link child" href="#速查">速查</a><a class="toc-link child" href="#inspect">inspect</a><a class="toc-link child" href="#list">list</a><a class="toc-link child" href="#extract">extract</a><a class="toc-link child" href="#create">create</a><a class="toc-link child" href="#取消">取消</a><a class="toc-link" href="#默认安全预算">默认安全预算</a><a class="toc-link" href="#错误码">错误码</a><a class="toc-link" href="#常见错误">常见错误</a><a class="toc-link" href="#相关文档">相关文档</a><a class="toc-link" href="#预期效果">预期效果</a></aside>
+    <aside class="toc"><div class="toc-title">本页目录</div><a class="toc-link" href="#模块概览">模块概览</a><a class="toc-link" href="#快速开始">快速开始</a><a class="toc-link" href="#api-速查">API 速查</a><a class="toc-link" href="#inspect-与-list">inspect 与 list</a><a class="toc-link" href="#读取或解压单个条目">读取或解压单个条目</a><a class="toc-link" href="#解压与创建">解压与创建</a><a class="toc-link" href="#原子更新与事务">原子更新与事务</a><a class="toc-link" href="#进度与取消">进度与取消</a><a class="toc-link" href="#安全预算">安全预算</a><a class="toc-link" href="#常见错误码">常见错误码</a><a class="toc-link" href="#常见错误">常见错误</a><a class="toc-link" href="#相关文档">相关文档</a><a class="toc-link" href="#预期效果">预期效果</a></aside>
   </div>
   <div class="mobile-backdrop"></div>
   <div class="search-panel" role="dialog" aria-modal="true" aria-label="搜索">

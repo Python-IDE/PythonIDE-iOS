@@ -23,7 +23,9 @@
   "network": {
     "legacy_schemes": ["http", "https", "ws", "wss"],
     "declared_schemes": ["https", "wss"],
-    "wildcard_prefix": "*."
+    "wildcard_prefix": "*.",
+    "maximum_host_rules": 128,
+    "maximum_host_rules_utf8_bytes": 32768
   },
   "host_grant_import_modules": [
     "archive",
@@ -43,8 +45,8 @@
         "name": "allowedNetworkHosts",
         "type": "array<string>",
         "required": false,
-        "descriptionZh": "声明式 MiniApp 可访问的 HTTPS/WSS 主机；`*.example.com` 仅匹配子域。",
-        "descriptionEn": "HTTPS/WSS hosts available to a declared MiniApp; `*.example.com` matches subdomains only."
+        "descriptionZh": "声明式 MiniApp 可访问的 HTTPS/WSS 主机；`*.example.com` 仅匹配子域；最多 128 条且 UTF-8 总计不超过 32768 字节。",
+        "descriptionEn": "HTTPS/WSS hosts available to a declared MiniApp; `*.example.com` matches subdomains only; at most 128 rules and 32768 total UTF-8 bytes."
       },
       {
         "name": "externalInputs",
@@ -187,7 +189,7 @@
   "module_requirements": {
     "network": {"all_of": ["network"]},
     "websocket": {"all_of": ["network"]},
-    "http_server": {"all_of": ["network"]},
+    "http_server": {"all_of": ["network", "file_system"]},
     "background_download": {"all_of": ["network", "file_system"]},
     "native_image": {"all_of": ["file_system"]},
     "weather": {"all_of": ["network"]},

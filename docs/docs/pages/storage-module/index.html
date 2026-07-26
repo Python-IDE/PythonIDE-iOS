@@ -431,6 +431,7 @@ filters = storage.get_json(&quot;filters&quot;, {})</code></pre>
 </figure>
 <p>MiniApp 内 <code>all_keys</code> 返回的是去掉应用前缀后的逻辑键名，便于脚本按 <code>settings.*</code> 管理。</p>
 <p>脚本在本次运行中创建的 Python 子线程会继承同一个私有存储身份；运行结束后该身份立即失效，因此旧线程或延迟回调不能误写到下一次运行的文件或 MiniApp。</p>
+<p>同一个 Python 文件无论通过编辑器运行按钮还是项目终端中的 <code>python3 文件.py</code> 启动，都会使用同一个私有存储空间。终端中的 <code>python3 -c</code> 和交互式片段没有独立文件身份，因此使用当前项目目录专属的 Terminal 私有空间；不同项目目录之间仍然互相隔离。以上入口都可以显式访问同一个 <code>storage.shared.*</code> 公共区。</p>
 <h3 id="公共数据"><a class="heading-anchor" href="#公共数据">#</a>公共数据</h3>
 <p>默认的 <code>storage.*</code> 永远属于当前 Python 文件或 MiniApp。需要让多个组件协作时，显式改用 <code>storage.shared.*</code>；公共区提供与默认区相同的类型化 API：</p>
 <figure class="code-block" data-code-id="5363c0931b4d">

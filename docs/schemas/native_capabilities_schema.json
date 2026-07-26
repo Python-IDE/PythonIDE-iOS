@@ -1126,18 +1126,382 @@
         "zip_inspection",
         "zip_extraction",
         "zip_creation",
-        "native_archive_bridge"
+        "native_archive_bridge",
+        "zip64",
+        "archive_entry_read",
+        "archive_entry_extract",
+        "archive_atomic_update",
+        "archive_progress",
+        "archive_cancellation",
+        "archive_metadata"
       ],
       "permissions": [],
       "risk": "local_file_write",
       "requiresUserAction": false,
       "failureStates": [
+        "invalid_input",
+        "source_not_found",
+        "destination_exists",
         "invalid_archive",
+        "unsupported_container",
+        "multi_disk_unsupported",
+        "encrypted_entry",
         "unsafe_path",
         "unsupported_compression",
-        "budget_exceeded",
-        "cancelled"
+        "unsupported_entry_type",
+        "symlink_entry",
+        "duplicate_entry",
+        "path_conflict",
+        "too_many_entries",
+        "too_many_operations",
+        "resource_limit",
+        "entry_too_large",
+        "archive_too_large",
+        "archive_conflict",
+        "metadata_too_large",
+        "result_too_large",
+        "compression_ratio_exceeded",
+        "checksum_mismatch",
+        "file_denied",
+        "miniapp_session_expired",
+        "cancelled",
+        "io_error"
       ],
+      "bridgeContract": {
+        "version": 3,
+        "transport": "json_c_abi",
+        "responseEnvelope": {
+          "success": ["ok", "result"],
+          "failure": ["ok", "error", "code"]
+        },
+        "commands": {
+          "inspect": {
+            "request": {
+              "required": {"path": {"type": "path"}},
+              "optional": {
+                "operation_id": {"type": "operation_id"},
+                "max_entries": {"type": "integer", "default": 100000},
+                "max_entry_size": {"type": "integer", "default": 8589934592},
+                "max_total_size": {"type": "integer", "default": 17179869184},
+                "max_archive_size": {"type": "integer", "default": 8589934592},
+                "max_compression_ratio": {"type": "number", "default": 200}
+              }
+            },
+            "result": {
+              "shape": "object",
+              "required": {
+                "format": {"type": "string"},
+                "path": {"type": "path"},
+                "archive_size": {"type": "integer"},
+                "entry_count": {"type": "integer"},
+                "file_count": {"type": "integer"},
+                "directory_count": {"type": "integer"},
+                "compressed_size": {"type": "integer"},
+                "uncompressed_size": {"type": "integer"}
+              },
+              "optional": {}
+            }
+          },
+          "list": {
+            "request": {
+              "required": {"path": {"type": "path"}},
+              "optional": {
+                "include_directories": {"type": "boolean", "default": true},
+                "operation_id": {"type": "operation_id"},
+                "max_entries": {"type": "integer", "default": 100000},
+                "max_entry_size": {"type": "integer", "default": 8589934592},
+                "max_total_size": {"type": "integer", "default": 17179869184},
+                "max_archive_size": {"type": "integer", "default": 8589934592},
+                "max_compression_ratio": {"type": "number", "default": 200}
+              }
+            },
+            "result": {
+              "shape": "array",
+              "required": {
+                "path": {"type": "string"},
+                "type": {"type": "string"},
+                "is_directory": {"type": "boolean"},
+                "compression": {"type": "string"},
+                "compressed_size": {"type": "integer"},
+                "uncompressed_size": {"type": "integer"},
+                "crc32": {"type": "string"}
+              },
+              "optional": {
+                "mode": {"type": "integer"},
+                "modified_at": {"type": "number"}
+              }
+            }
+          },
+          "extract": {
+            "request": {
+              "required": {
+                "path": {"type": "path"},
+                "destination_path": {"type": "path"}
+              },
+              "optional": {
+                "overwrite": {"type": "boolean", "default": false},
+                "operation_id": {"type": "operation_id"},
+                "max_entries": {"type": "integer", "default": 100000},
+                "max_entry_size": {"type": "integer", "default": 8589934592},
+                "max_total_size": {"type": "integer", "default": 17179869184},
+                "max_archive_size": {"type": "integer", "default": 8589934592},
+                "max_compression_ratio": {"type": "number", "default": 200}
+              }
+            },
+            "result": {
+              "shape": "object",
+              "required": {
+                "path": {"type": "path"},
+                "operation_id": {"type": "operation_id"},
+                "format": {"type": "string"},
+                "archive_size": {"type": "integer"},
+                "entry_count": {"type": "integer"},
+                "file_count": {"type": "integer"},
+                "directory_count": {"type": "integer"},
+                "compressed_size": {"type": "integer"},
+                "uncompressed_size": {"type": "integer"}
+              },
+              "optional": {}
+            }
+          },
+          "create": {
+            "request": {
+              "required": {
+                "source_path": {"type": "path"},
+                "destination_path": {"type": "path"}
+              },
+              "optional": {
+                "compression": {"type": "string", "default": "deflate"},
+                "include_root": {"type": "boolean", "default": false},
+                "overwrite": {"type": "boolean", "default": false},
+                "operation_id": {"type": "operation_id"},
+                "max_entries": {"type": "integer", "default": 100000},
+                "max_entry_size": {"type": "integer", "default": 8589934592},
+                "max_total_size": {"type": "integer", "default": 17179869184},
+                "max_archive_size": {"type": "integer", "default": 8589934592},
+                "max_compression_ratio": {"type": "number", "default": 200}
+              }
+            },
+            "result": {
+              "shape": "object",
+              "required": {
+                "path": {"type": "path"},
+                "operation_id": {"type": "operation_id"},
+                "format": {"type": "string"},
+                "archive_size": {"type": "integer"},
+                "entry_count": {"type": "integer"},
+                "file_count": {"type": "integer"},
+                "directory_count": {"type": "integer"},
+                "compressed_size": {"type": "integer"},
+                "uncompressed_size": {"type": "integer"}
+              },
+              "optional": {}
+            }
+          },
+          "read_entry": {
+            "request": {
+              "required": {
+                "path": {"type": "path"},
+                "entry_path": {"type": "archive_path"}
+              },
+              "optional": {
+                "max_bytes": {"type": "integer", "default": 8388608},
+                "operation_id": {"type": "operation_id"},
+                "max_entries": {"type": "integer", "default": 100000},
+                "max_entry_size": {"type": "integer", "default": 8589934592},
+                "max_total_size": {"type": "integer", "default": 17179869184},
+                "max_archive_size": {"type": "integer", "default": 8589934592},
+                "max_compression_ratio": {"type": "number", "default": 200}
+              }
+            },
+            "result": {
+              "shape": "object",
+              "required": {
+                "data_base64": {"type": "string"},
+                "entry": {"type": "object"}
+              },
+              "optional": {}
+            }
+          },
+          "extract_entry": {
+            "request": {
+              "required": {
+                "path": {"type": "path"},
+                "entry_path": {"type": "archive_path"},
+                "destination_path": {"type": "path"}
+              },
+              "optional": {
+                "overwrite": {"type": "boolean", "default": false},
+                "preserve_metadata": {"type": "boolean", "default": true},
+                "operation_id": {"type": "operation_id"},
+                "max_entries": {"type": "integer", "default": 100000},
+                "max_entry_size": {"type": "integer", "default": 8589934592},
+                "max_total_size": {"type": "integer", "default": 17179869184},
+                "max_archive_size": {"type": "integer", "default": 8589934592},
+                "max_compression_ratio": {"type": "number", "default": 200}
+              }
+            },
+            "result": {
+              "shape": "object",
+              "required": {
+                "path": {"type": "path"},
+                "operation_id": {"type": "operation_id"},
+                "entry": {"type": "object"}
+              },
+              "optional": {}
+            }
+          },
+          "update": {
+            "request": {
+              "required": {
+                "path": {"type": "path"},
+                "destination_path": {"type": "path"},
+                "operations": {"type": "array"}
+              },
+              "optional": {
+                "overwrite": {"type": "boolean", "default": false},
+                "operation_id": {"type": "operation_id"},
+                "max_entries": {"type": "integer", "default": 100000},
+                "max_entry_size": {"type": "integer", "default": 8589934592},
+                "max_total_size": {"type": "integer", "default": 17179869184},
+                "max_archive_size": {"type": "integer", "default": 8589934592},
+                "max_compression_ratio": {"type": "number", "default": 200}
+              }
+            },
+            "result": {
+              "shape": "object",
+              "required": {
+                "path": {"type": "path"},
+                "operation_id": {"type": "operation_id"},
+                "format": {"type": "string"},
+                "archive_size": {"type": "integer"},
+                "entry_count": {"type": "integer"},
+                "file_count": {"type": "integer"},
+                "directory_count": {"type": "integer"},
+                "compressed_size": {"type": "integer"},
+                "uncompressed_size": {"type": "integer"},
+                "changed": {"type": "integer"},
+                "added": {"type": "integer"},
+                "replaced": {"type": "integer"},
+                "removed": {"type": "integer"}
+              },
+              "optional": {}
+            }
+          },
+          "cancel": {
+            "request": {
+              "required": {"operation_id": {"type": "operation_id"}},
+              "optional": {}
+            },
+            "result": {
+              "shape": "object",
+              "required": {"cancelled": {"type": "boolean"}},
+              "optional": {}
+            }
+          },
+          "progress": {
+            "request": {
+              "required": {"operation_id": {"type": "operation_id"}},
+              "optional": {}
+            },
+            "result": {
+              "shape": "object",
+              "required": {
+                "found": {"type": "boolean"}
+              },
+              "optional": {
+                "operation_id": {"type": "operation_id"},
+                "phase": {"type": "string"},
+                "entries_completed": {"type": "integer"},
+                "entries_total": {"type": "integer"},
+                "bytes_completed": {"type": "integer"},
+                "bytes_total": {"type": "integer"},
+                "fraction": {"type": "number"},
+                "cancel_requested": {"type": "boolean"},
+                "finished": {"type": "boolean"},
+                "error_code": {"type": "string"}
+              }
+            }
+          }
+        },
+        "errorCodes": [
+          "invalid_input",
+          "source_not_found",
+          "destination_exists",
+          "invalid_archive",
+          "unsupported_container",
+          "multi_disk_unsupported",
+          "encrypted_entry",
+          "unsupported_compression",
+          "unsupported_entry_type",
+          "unsafe_path",
+          "symlink_entry",
+          "duplicate_entry",
+          "path_conflict",
+          "too_many_entries",
+          "too_many_operations",
+          "resource_limit",
+          "entry_too_large",
+          "archive_too_large",
+          "archive_conflict",
+          "metadata_too_large",
+          "result_too_large",
+          "compression_ratio_exceeded",
+          "checksum_mismatch",
+          "file_denied",
+          "miniapp_session_expired",
+          "cancelled",
+          "io_error"
+        ],
+        "transportErrorCodes": [
+          "bridge_unavailable",
+          "empty_response",
+          "decode_error",
+          "invalid_input"
+        ],
+        "limits": {
+          "maximumEntryCount": 100000,
+          "maximumEntryBytes": 8589934592,
+          "maximumExpandedBytes": 17179869184,
+          "maximumContainerBytes": 8589934592,
+          "maximumCompressionRatio": 200.0,
+          "maximumInlineBytes": 8388608,
+          "maximumOperationIDBytes": 128,
+          "maximumEntryPathBytes": 1024,
+          "maximumPathComponents": 128,
+          "maximumComponentBytes": 255,
+          "maximumMetadataBytes": 33554432,
+          "maximumBridgeResponseBytes": 16777216,
+          "maximumBridgePayloadBytes": 16777216,
+          "maximumCommandBytes": 64,
+          "minimumAvailableCapacityReserveBytes": 268435456,
+          "maximumStagingCleanupEntries": 128,
+          "maximumStagingJournalRecords": 1024,
+          "maximumConcurrentOperationsPerOwner": 4,
+          "maximumConcurrentOperationsGlobal": 16,
+          "staleStagingAgeSeconds": 86400
+        },
+        "policies": {
+          "formats": ["zip", "zip64"],
+          "compressionMethods": ["stored", "deflate"],
+          "updateOperationDiscriminator": "action",
+          "updateOperationActions": ["add", "replace", "remove"],
+          "updateWriteOperationActions": ["add", "replace"],
+          "updateOperationCoreFields": ["action", "entry_path"],
+          "updateWireContentSourceFields": ["source_path", "data_base64", "is_directory"],
+          "updateFacadeContentSourceFields": ["source_path", "data", "data_base64", "is_directory"],
+          "updateMetadataFields": ["compression", "mode", "modified_at"],
+          "updateContentSourceCardinality": "exactly_one",
+          "updateDirectoryContentRequiresTrue": true,
+          "updateCompressionPolicies": ["preserve", "stored", "deflate"],
+          "atomicWrites": true,
+          "writeDurability": "atomic_visibility",
+          "preservesUnchangedEntryBytes": true,
+          "rejectsEncryptedEntries": true,
+          "rejectsSymbolicLinks": true,
+          "rejectsMultiDiskArchives": true
+        }
+      },
       "kind": "module",
       "presentation": "api"
     },
@@ -2107,16 +2471,169 @@
       "agentDocFile": "http-server-module-agent.md",
       "capabilities": [
         "local_http_server",
-        "file_serving"
+        "file_serving",
+        "loopback_only",
+        "http_get_head",
+        "http_single_range",
+        "bounded_file_streaming",
+        "session_isolated_server"
       ],
       "permissions": [],
       "risk": "network",
       "requiresUserAction": false,
       "failureStates": [
+        "unknown_command",
+        "invalid_input",
+        "network_not_allowed",
         "port_in_use",
         "invalid_path",
+        "file_access_denied",
+        "invalid_root",
+        "symlink_not_allowed",
+        "server_limit",
+        "startup_timeout",
+        "listener_unavailable",
+        "listener_cancelled",
+        "miniapp_session_expired",
         "unavailable"
       ],
+      "bridgeContract": {
+        "version": 2,
+        "transport": "json_c_abi",
+        "responseEnvelope": {
+          "success": ["ok", "result"],
+          "failure": ["ok", "error", "code"]
+        },
+        "commands": {
+          "start": {
+            "request": {
+              "required": {},
+              "optional": {
+                "port": {"type": "integer", "default": 8080},
+                "root_dir": {"type": "nullable_path", "default": null}
+              }
+            },
+            "result": {
+              "shape": "object",
+              "required": {
+                "url": {"type": "string"},
+                "browser_url": {"type": "string"},
+                "port": {"type": "integer"},
+                "root_dir": {"type": "path"},
+                "server_id": {"type": "string"},
+                "bind_host": {"type": "string"},
+                "range_policy": {"type": "string"}
+              },
+              "optional": {}
+            }
+          },
+          "stop": {
+            "request": {"required": {}, "optional": {}},
+            "result": {"shape": "object", "required": {}, "optional": {}}
+          },
+          "status": {
+            "request": {"required": {}, "optional": {}},
+            "result": {
+              "shape": "object",
+              "required": {
+                "running": {"type": "boolean"},
+                "port": {"type": "integer"},
+                "url": {"type": "nullable_string"},
+                "root_dir": {"type": "string"},
+                "bind_host": {"type": "string"},
+                "range_policy": {"type": "string"},
+                "active_connections": {"type": "integer"},
+                "requests_served": {"type": "integer"},
+                "bytes_sent": {"type": "integer"}
+              },
+              "optional": {
+                "server_id": {"type": "string"},
+                "started_at": {"type": "string"},
+                "browser_url": {"type": "string"}
+              }
+            }
+          }
+        },
+        "errorCodes": [
+          "unknown_command",
+          "invalid_input",
+          "network_not_allowed",
+          "invalid_path",
+          "file_access_denied",
+          "invalid_root",
+          "symlink_not_allowed",
+          "server_limit",
+          "port_in_use",
+          "startup_timeout",
+          "listener_unavailable",
+          "listener_cancelled",
+          "miniapp_session_expired",
+          "unavailable"
+        ],
+        "transportErrorCodes": [
+          "bridge_unavailable",
+          "empty_response",
+          "invalid_input",
+          "invalid_native_response"
+        ],
+        "wireErrorCodes": [
+          "invalid_request",
+          "invalid_request_line",
+          "invalid_request_target",
+          "request_target_too_long",
+          "invalid_request_headers",
+          "request_headers_too_large",
+          "method_not_allowed",
+          "invalid_path",
+          "ambiguous_path",
+          "path_outside_root",
+          "file_not_found",
+          "invalid_root",
+          "symlink_not_allowed",
+          "hard_link_not_allowed",
+          "not_a_regular_file",
+          "range_not_satisfiable",
+          "multiple_ranges_not_supported",
+          "server_error"
+        ],
+        "limits": {
+          "maximumServers": 8,
+          "maximumConnectionsPerServer": 32,
+          "maximumHeaderBytes": 65536,
+          "maximumHeaderCount": 128,
+          "maximumRequestTargetBytes": 8192,
+          "maximumPathComponents": 128,
+          "maximumPathComponentBytes": 255,
+          "accessTokenHexLength": 32,
+          "socketReadChunkBytes": 8192,
+          "fileReadChunkBytes": 65536,
+          "idleTimeoutSeconds": 30,
+          "gracefulCloseTimeoutSeconds": 2,
+          "headerDeadlineSeconds": 10,
+          "startupTimeoutSeconds": 5,
+          "maximumBridgePayloadBytes": 65536,
+          "maximumCommandBytes": 64,
+          "minimumPort": 0,
+          "maximumPort": 65535,
+          "defaultPort": 8080
+        },
+        "policies": {
+          "bindHost": "127.0.0.1",
+          "browserHostSuffix": ".localhost",
+          "loopbackOnly": true,
+          "methods": ["GET", "HEAD"],
+          "rangePolicy": "single",
+          "accessPolicy": "unguessable_path_prefix",
+          "browserAccessPolicy": "unguessable_localhost_subdomain",
+          "urlModes": ["universal", "browser"],
+          "defaultURLMode": "universal",
+          "sessionIsolated": true,
+          "servingRootRequiresCapabilities": ["network", "file_system"],
+          "symbolicLinks": "reject",
+          "hardLinks": "reject",
+          "regularFilesOnly": true
+        }
+      },
       "kind": "module",
       "presentation": "api"
     },

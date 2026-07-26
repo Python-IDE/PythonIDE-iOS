@@ -289,142 +289,173 @@
   </header>
   
   <div class="markdown-body">
-    <p>本地 HTTP 文件服务器：在 <code>127.0.0.1</code> 上提供 Documents（或指定目录）的静态文件访问。</p>
-<blockquote class="callout note"><strong>边界</strong>：仅监听本机回环地址，供同设备上的浏览器或其他客户端读取文件。不是公网服务器；远程访问请用 <a href="../../pages/ssh-module/">ssh</a> 或 <a href="../../pages/network-module/">network</a>。<code>start()</code> / <code>stop()</code> 放在按钮回调，离开页面前应 <code>stop()</code>。</blockquote>
+    <p><code>http_server</code> 是按 Python/MiniApp 运行会话隔离的原生静态文件服务器。它只绑定 <code>127.0.0.1</code>，以恒定内存分块提供授权目录中的普通文件，支持 <code>GET</code>、<code>HEAD</code> 和单个 HTTP Byte Range。每次启动都会生成新的高熵访问令牌；没有令牌的本机请求也只能得到 <code>404</code>。</p>
+<blockquote class="callout note"><strong>边界</strong>：这是前台、会话内的 loopback 文件服务，不是局域网或公网 Web Server，也不是后台传输任务。MiniApp 停止、会话过期或调用 <code>stop()</code> 时，listener 和全部连接都会被取消。</blockquote>
+<p>声明式 MiniApp 同时需要网络与文件能力：</p>
+<figure class="code-block" data-code-id="dcf76d57c89c">
+  <figcaption>
+    <span>json</span>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="dcf76d57c89c" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
+  </figcaption>
+  <pre><code id="code-dcf76d57c89c" class="language-json">{
+  &quot;capabilities&quot;: [&quot;network&quot;, &quot;file_system&quot;]
+}</code></pre>
+</figure>
+<p><code>network</code> 允许创建 loopback listener，<code>file_system</code> 允许读取服务根目录；两者不是二选一。</p>
 <h2 id="模块概览"><a class="heading-anchor" href="#模块概览">#</a>模块概览</h2>
-<div class="table-scroll"><table><thead><tr><th>项</th><th>说明</th></tr></thead><tbody><tr><td>导入</td><td><code>import http_server</code></td></tr><tr><td>适合做什么</td><td>临时共享工作区文件、本地调试静态资源、给其他 App 读文件</td></tr><tr><td>调用时机</td><td>用户点击启动；页面关闭或切换时停止</td></tr><tr><td>推荐顺序</td><td><code>start()</code> 拿 URL → <code>status()</code> 确认 → 访问文件 → <code>stop()</code></td></tr><tr><td>根目录</td><td>默认 App Documents；可用 <code>root_dir</code> 指定</td></tr></tbody></table></div>
+<div class="table-scroll"><table><thead><tr><th>项</th><th>说明</th></tr></thead><tbody><tr><td>导入</td><td><code>import http_server</code></td></tr><tr><td>通用地址</td><td><code>http://127.0.0.1:&lt;port&gt;/&lt;token&gt;/</code>；URLSession、WebKit 与普通 HTTP 客户端均可使用</td></tr><tr><td>浏览器地址</td><td><code>http://&lt;token&gt;.localhost:&lt;port&gt;/</code>；用于 AppUI WebView/Safari，并支持 <code>/style.css</code> 这类根相对资源</td></tr><tr><td>方法</td><td><code>GET</code>、<code>HEAD</code></td></tr><tr><td>Range</td><td>单个 <code>bytes=</code> 范围；不支持 multipart ranges</td></tr><tr><td>根目录</td><td>MiniApp 默认当前工作区；普通脚本保留 Documents 默认值</td></tr><tr><td>文件</td><td>只提供普通文件；不列目录，不跟随符号链接</td></tr><tr><td>流式</td><td>64 KiB 文件块，发送完成后才读取下一块，内存不随文件大小增长</td></tr><tr><td>生命周期</td><td>每个运行 owner 一台 server；重复 <code>start()</code> 串行停止旧 server 后启动新 server</td></tr></tbody></table></div>
 <hr>
 <h2 id="快速开始"><a class="heading-anchor" href="#快速开始">#</a>快速开始</h2>
-<p>下面脚本在 18080 端口启动服务、查看状态并停止：</p>
-<figure class="code-block" data-code-id="e60abd41e5a3">
+<p>推荐使用 <code>port=0</code> 让系统选择空闲端口：</p>
+<figure class="code-block" data-code-id="b8d1795b76c6">
   <figcaption>
     <span>python</span>
-    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="e60abd41e5a3" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="b8d1795b76c6" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
-  <pre><code id="code-e60abd41e5a3" class="language-python">import http_server
+  <pre><code id="code-b8d1795b76c6" class="language-python">import http_server
 
 try:
-    url = http_server.start(port=18080)
+    url = http_server.start(port=0)  # 默认 url_mode=&quot;universal&quot;
     print(&quot;服务地址:&quot;, url)
     print(http_server.status())
 finally:
     http_server.stop()</code></pre>
 </figure>
-<p>访问 <code>http://127.0.0.1:18080/你的文件名</code> 可读取 <code>root_dir</code> 下的文件；根路径 <code>/</code> 返回 JSON 提示。</p>
+<p>若返回 <code>http://127.0.0.1:49152/4f8c.../</code>，文件 <code>report.pdf</code> 的地址就是：</p>
+<figure class="code-block" data-code-id="62479f867d54">
+  <figcaption>
+    <span>text</span>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="62479f867d54" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
+  </figcaption>
+  <pre><code id="code-62479f867d54" class="language-text">http://127.0.0.1:49152/4f8c.../report.pdf</code></pre>
+</figure>
+<p>请相对返回值追加文件名，不要自行去掉令牌或用以 <code>/</code> 开头的路径覆盖它。返回地址的逻辑根 <code>GET/HEAD</code> 是健康检查，不会列出目录内容。</p>
 <hr>
 <h2 id="appui-示例"><a class="heading-anchor" href="#appui-示例">#</a>AppUI 示例</h2>
-<p>启动/停止放在按钮回调；状态展示当前 URL 与根目录。</p>
-<figure class="code-block" data-code-id="7877e54ed6a6">
+<p>启动、停止和状态查询放在用户回调中，不要放进 <code>body()</code>：</p>
+<figure class="code-block" data-code-id="6c749c363c6f">
   <figcaption>
     <span>python</span>
-    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="7877e54ed6a6" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="6c749c363c6f" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
-  <pre><code id="code-7877e54ed6a6" class="language-python">import appui
+  <pre><code id="code-6c749c363c6f" class="language-python">import appui
 import http_server
 
 state = appui.State(
     running=False,
     url=&quot;—&quot;,
-    port=&quot;—&quot;,
-    root=&quot;—&quot;,
+    requests=&quot;0&quot;,
     status=&quot;点击启动本地服务&quot;,
 )
 
 
 def refresh_status():
     try:
-        st = http_server.status() or {}
+        info = http_server.status() or {}
         state.batch_update(
-            running=bool(st.get(&quot;running&quot;)),
-            url=st.get(&quot;url&quot;) or &quot;—&quot;,
-            port=str(st.get(&quot;port&quot;, &quot;—&quot;)),
-            root=st.get(&quot;root_dir&quot;) or &quot;—&quot;,
+            running=bool(info.get(&quot;running&quot;)),
+            url=info.get(&quot;url&quot;) or &quot;—&quot;,
+            requests=str(info.get(&quot;requests_served&quot;, 0)),
         )
     except http_server.HttpServerError as exc:
-        state.status = f&quot;查询失败: {exc}&quot;
+        state.status = f&quot;查询失败: {exc} ({exc.code})&quot;
 
 
 def start_server():
     try:
-        url = http_server.start(port=18080)
+        url = http_server.start(port=0)
         refresh_status()
         state.status = f&quot;已启动: {url}&quot;
     except http_server.HttpServerError as exc:
-        state.status = f&quot;启动失败: {exc}&quot;
+        state.status = f&quot;启动失败: {exc} ({exc.code})&quot;
 
 
 def stop_server():
     try:
         http_server.stop()
-        state.batch_update(
-            running=False,
-            url=&quot;—&quot;,
-            port=&quot;—&quot;,
-            status=&quot;已停止&quot;,
-        )
         refresh_status()
+        state.status = &quot;已停止&quot;
     except http_server.HttpServerError as exc:
-        state.status = f&quot;停止失败: {exc}&quot;
+        state.status = f&quot;停止失败: {exc} ({exc.code})&quot;
 
 
 def body():
-    label = &quot;停止服务&quot; if state.running else &quot;启动服务&quot;
     return appui.NavigationStack(
         appui.Form([
             appui.Section(&quot;服务状态&quot;, [
                 appui.LabeledContent(&quot;运行中&quot;, value=&quot;是&quot; if state.running else &quot;否&quot;),
                 appui.LabeledContent(&quot;地址&quot;, value=state.url),
-                appui.LabeledContent(&quot;端口&quot;, value=state.port),
-                appui.LabeledContent(&quot;根目录&quot;, value=state.root),
+                appui.LabeledContent(&quot;已完成请求&quot;, value=state.requests),
             ]),
             appui.Section(&quot;操作&quot;, [
-                appui.Button(label, action=stop_server if state.running else start_server)
-                .button_style(&quot;bordered_prominent&quot;),
+                appui.Button(
+                    &quot;停止服务&quot; if state.running else &quot;启动服务&quot;,
+                    action=stop_server if state.running else start_server,
+                ).button_style(&quot;bordered_prominent&quot;),
                 appui.Button(&quot;刷新状态&quot;, action=refresh_status),
                 appui.Text(state.status).foreground_color(&quot;secondaryLabel&quot;),
-            ], footer=&quot;仅本机 127.0.0.1；把文件放进根目录后通过 URL 访问。&quot;),
+            ], footer=&quot;仅绑定 127.0.0.1；MiniApp 停止时自动清理。&quot;),
         ]).navigation_title(&quot;HTTP 服务&quot;)
     )
 
 
 appui.run(body, state=state)</code></pre>
 </figure>
-<hr>
-<h2 id="api-参考"><a class="heading-anchor" href="#api-参考">#</a>API 参考</h2>
-<h3 id="速查"><a class="heading-anchor" href="#速查">#</a>速查</h3>
-<div class="table-scroll"><table><thead><tr><th>API</th><th>作用</th></tr></thead><tbody><tr><td><code>start(port, root_dir)</code></td><td>启动服务 → 访问 URL</td></tr><tr><td><code>stop()</code></td><td>停止服务</td></tr><tr><td><code>status()</code></td><td><code>{running, port, url, root_dir}</code></td></tr><tr><td><code>HttpServerError</code></td><td>操作失败时抛出</td></tr></tbody></table></div>
-<h3 id="start"><a class="heading-anchor" href="#start">#</a>start</h3>
-<p><strong><code>start(port=8080, root_dir=None)</code></strong></p>
-<figure class="code-block" data-code-id="35bf91a13c29">
+<p>若要让本地 HTML、CSS、JavaScript、媒体使用常规 Web 根路径，显式请求浏览器地址：</p>
+<figure class="code-block" data-code-id="bf846e6429af">
   <figcaption>
     <span>python</span>
-    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="35bf91a13c29" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="bf846e6429af" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
-  <pre><code id="code-35bf91a13c29" class="language-python">url = http_server.start()
-url = http_server.start(port=18080, root_dir=&quot;/path/to/folder&quot;)</code></pre>
+  <pre><code id="code-bf846e6429af" class="language-python">browser_url = http_server.start(port=0, url_mode=&quot;browser&quot;)
+preview = appui.WebView(url=browser_url + &quot;index.html&quot;)</code></pre>
 </figure>
-<div class="table-scroll"><table><thead><tr><th>参数</th><th>说明</th></tr></thead><tbody><tr><td><code>port</code></td><td>监听端口（默认 8080）</td></tr><tr><td><code>root_dir</code></td><td>文件根目录；省略时用 Documents</td></tr></tbody></table></div>
-<p>返回形如 <code>http://127.0.0.1:8080/</code> 的 URL。若端口已被占用或无效会抛出 <code>HttpServerError</code>。</p>
-<h3 id="stop-status"><a class="heading-anchor" href="#stop-status">#</a>stop / status</h3>
-<p><strong><code>stop()</code></strong> — 关闭监听器。</p>
-<p><strong><code>status()</code></strong> 返回：</p>
-<div class="table-scroll"><table><thead><tr><th>字段</th><th>说明</th></tr></thead><tbody><tr><td><code>running</code></td><td>是否正在服务</td></tr><tr><td><code>port</code></td><td>当前端口</td></tr><tr><td><code>url</code></td><td>访问地址（未运行时为空）</td></tr><tr><td><code>root_dir</code></td><td>文件根目录</td></tr></tbody></table></div>
-<h3 id="访问规则"><a class="heading-anchor" href="#访问规则">#</a>访问规则</h3>
-<ul><li><code>GET /</code> → JSON 提示 <code>{&quot;ok&quot;:true,&quot;message&quot;:&quot;PythonIDE http_server&quot;}</code></li><li><code>GET /filename</code> → 读取 <code>root_dir/filename</code> 的二进制内容</li><li>简单 HTTP/1.1，单次请求后关闭连接</li></ul>
+<p>返回的 <code>browser_url</code> 是服务基地址；它的根路径保留为 JSON 健康检查，所以预览网页时必须追加真实入口文件（例如 <code>index.html</code>）。宿主只为当前运行会话注册两段相互绑定的精确访问范围：浏览器地址的 <code>scheme + token host + port</code>，以及通用地址的 <code>127.0.0.1 + port + /token/</code> path prefix。两种地址都可交给 AppUI <code>WebView</code>，无需把动态令牌写进 <code>allowedNetworkHosts</code>，也不会放开普通 <code>http://localhost</code> 或该端口的其他路径；<code>stop()</code>、重新启动或会话结束后授权立即失效。含 <code>/style.css</code> 这类根相对资源的站点仍应选择 <code>browser</code>。</p>
 <hr>
+<h2 id="api-参考"><a class="heading-anchor" href="#api-参考">#</a>API 参考</h2>
+<h3 id="start-port-8080-root_dir-none-url_mode-universal"><a class="heading-anchor" href="#start-port-8080-root_dir-none-url_mode-universal">#</a><code>start(port=8080, root_dir=None, *, url_mode=&quot;universal&quot;)</code></h3>
+<p>启动当前运行会话的 server，并按 <code>url_mode</code> 返回一种经过令牌保护的 URL。</p>
+<figure class="code-block" data-code-id="534d063c71f0">
+  <figcaption>
+    <span>python</span>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="534d063c71f0" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
+  </figcaption>
+  <pre><code id="code-534d063c71f0" class="language-python">url = http_server.start(port=0)
+url = http_server.start(port=18080, root_dir=&quot;/path/to/folder&quot;)
+browser_url = http_server.start(port=0, url_mode=&quot;browser&quot;)
+# 网页入口：browser_url + &quot;index.html&quot;</code></pre>
+</figure>
+<div class="table-scroll"><table><thead><tr><th>参数</th><th>说明</th></tr></thead><tbody><tr><td><code>port</code></td><td><code>0...65535</code>；<code>0</code> 由系统选择可用端口，默认保留为 <code>8080</code> 以兼容旧脚本</td></tr><tr><td><code>root_dir</code></td><td>已存在且已授权的目录；支持字符串和 <code>os.PathLike</code></td></tr><tr><td><code>url_mode</code></td><td>仅可为 <code>&quot;universal&quot;</code> 或 <code>&quot;browser&quot;</code>；keyword-only，默认 <code>&quot;universal&quot;</code></td></tr></tbody></table></div>
+<p>对同一运行再次调用 <code>start()</code> 时，只影响该运行拥有的旧 server，不会停止其他 MiniApp/脚本会话的 server。替换请求从进入 Python facade 起即采用 fail-closed 语义：端口、路径对象或 <code>url_mode</code> 的 Python 预校验失败，也会停止并撤销旧 server；通过预校验后，原生端仍会在自己的 owner 串行门内先停止旧 server，再校验根目录并启动新 listener。新 listener 必须成功进入 ready 状态后才返回真实端口。任何阶段失败时，该运行都保持停止状态，不会恢复已经撤销的旧 server。</p>
+<h3 id="stop"><a class="heading-anchor" href="#stop">#</a><code>stop()</code></h3>
+<p>幂等停止当前运行的 server，并中断 listener、活动连接、流读取和会话资源注册。重复调用安全。</p>
+<h3 id="status"><a class="heading-anchor" href="#status">#</a><code>status()</code></h3>
+<p>保留旧字段并增加有界诊断：</p>
+<div class="table-scroll"><table><thead><tr><th>字段</th><th>说明</th></tr></thead><tbody><tr><td><code>running</code></td><td>当前运行是否拥有 ready server</td></tr><tr><td><code>port</code></td><td>实际绑定端口；停止时为 <code>0</code></td></tr><tr><td><code>url</code></td><td>loopback URL；停止时为 <code>None</code></td></tr><tr><td><code>browser_url</code></td><td>当前 server 的精确 localhost 浏览器 origin；仅运行时提供</td></tr><tr><td><code>root_dir</code></td><td>已授权、已解析的根目录</td></tr><tr><td><code>server_id</code></td><td>当前 server 实例 ID；运行时提供</td></tr><tr><td><code>active_connections</code></td><td>当前活动连接数</td></tr><tr><td><code>requests_served</code></td><td>已完整发送的请求数</td></tr><tr><td><code>bytes_sent</code></td><td>已确认发送的 HTTP 字节数</td></tr><tr><td><code>started_at</code></td><td>ISO 8601 启动时间；运行时提供</td></tr><tr><td><code>bind_host</code></td><td>固定为 <code>127.0.0.1</code></td></tr><tr><td><code>range_policy</code></td><td>固定为 <code>single</code></td></tr></tbody></table></div>
+<h3 id="httpservererror"><a class="heading-anchor" href="#httpservererror">#</a><code>HttpServerError</code></h3>
+<p>原生启动、权限或协议桥错误会抛出 <code>HttpServerError</code>。请按 <code>exc.code</code> 分支，不要匹配本地化消息。</p>
+<hr>
+<h2 id="http-行为"><a class="heading-anchor" href="#http-行为">#</a>HTTP 行为</h2>
+<div class="table-scroll"><table><thead><tr><th>请求</th><th>结果</th></tr></thead><tbody><tr><td>对返回 URL 执行 <code>GET</code></td><td><code>200</code> JSON 健康响应</td></tr><tr><td>对返回 URL 执行 <code>HEAD</code></td><td>与健康响应相同 headers，不发送 body</td></tr><tr><td>返回 URL + <code>path/file.bin</code></td><td><code>200</code>，流式发送普通文件</td></tr><tr><td>对文件 URL 执行 <code>HEAD</code></td><td><code>200</code> 与准确 <code>Content-Length</code>，无 body</td></tr><tr><td><code>GET</code> + <code>Range: bytes=100-199</code></td><td><code>206</code> + <code>Content-Range</code>，流式发送一个范围</td></tr><tr><td>无效、越界或多个 Range</td><td><code>416</code> + <code>Content-Range: bytes */size</code></td></tr><tr><td>其他方法</td><td><code>405</code> + <code>Allow: GET, HEAD</code></td></tr><tr><td>文件缺失</td><td><code>404</code> JSON 错误</td></tr></tbody></table></div>
+<p>支持 <code>bytes=start-end</code>、<code>bytes=start-</code> 和 <code>bytes=-suffixLength</code>。只实现一个 range 是通用的确定性资源策略，不是面向某类 MiniApp 的补丁；视频预览、断点读取、PDF 和大文件客户端都能复用。</p>
+<p>成功与错误的 <code>HEAD</code> 都不会发送 body。每个连接只处理一个请求并明确 <code>Connection: close</code>；最后一个响应块使用 Network.framework 的 final context 发送 TCP FIN，并在最多 2 秒的有界收尾窗口后强制回收异常客户端。常见扩展名会返回原生 MIME；未知类型为 <code>application/octet-stream</code>，同时发送 <code>X-Content-Type-Options: nosniff</code>。</p>
+<h2 id="安全与资源边界"><a class="heading-anchor" href="#安全与资源边界">#</a>安全与资源边界</h2>
+<ul><li>listener 的必需本地端点固定为 <code>127.0.0.1</code>；不是 <code>0.0.0.0</code>，也不会公布 LAN 地址。</li><li>通用 URL 以系统安全随机数生成的 32 位十六进制临时令牌作为首个 path segment；浏览器 URL 以同一令牌作为精确 <code>.localhost</code> 子域。未授权 origin/path 返回 <code>404</code>，不会暴露目录是否存在。</li><li>两种 URL 的 AppUI WebView 放行都由当前 native lease 精确注册，并由 Python→IR 前置策略和 Swift/WebKit 最终策略分别校验；它不能泛化为任意 localhost、其他 token path 或端口，停止、替换 server 或会话撤销时同步撤销。</li><li><code>root_dir</code> 必须是当前运行的工作区或授权只读根；声明式 MiniApp 必须同时具有 <code>network</code> 与 <code>file_system</code>。</li><li>URL 百分号解码后再验证；拒绝空组件、<code>.</code>、<code>..</code>、反斜杠、NUL 和越界路径。路径最多 128 个组件，每个组件最多 255 个 UTF-8 字节。</li><li>声明式 MiniApp 的工作区/临时只读根会在 Python 启动前由宿主打开并随 native lease 持有目录 descriptor；<code>start()</code> 只从该可信 descriptor 按 lexical 相对组件继续 <code>openat(..., O_NOFOLLOW)</code>，授权与打开不是两个可被竞态插入的步骤。iOS 的系统 <code>/var</code>/<code>/tmp</code> alias 只在宿主建 lease 时规范化，MiniApp 可控的子路径不会先做 realpath。</li><li>每一级请求路径继续使用目录 descriptor 与 <code>openat(..., O_NOFOLLOW)</code>；最终对象必须是单链接普通文件。目录、FIFO、设备、socket、symlink 和 hard link 均不会被提供。</li><li>请求 headers 上限 64 KiB，header 数量有界；完整 header 还必须在 10 秒绝对期限内到达。</li><li>每台 server 最多 32 个活动连接；连接空闲/发送停滞约 30 秒取消。</li><li>完整响应以 TCP FIN 优雅关闭写端；对端未及时结束时，2 秒后释放连接槽，不会无限等待。</li><li>文件按 64 KiB 分块，并等待 Network.framework 的发送完成回调后读取下一块。</li><li>已发送 <code>200/206</code> headers 后若文件被截断或读失败，会关闭连接，不会再写第二套 <code>500</code> headers 污染响应。</li><li>MiniApp 会话过期会阻止后续读取并关闭 server；旧运行无法借新运行继续访问文件。</li><li>URL 中的令牌属于当前会话的临时访问凭据；不要持久化、公开分享或写入长期日志。</li></ul>
+<h2 id="常见错误码"><a class="heading-anchor" href="#常见错误码">#</a>常见错误码</h2>
+<div class="table-scroll"><table><thead><tr><th><code>HttpServerError.code</code></th><th>含义</th></tr></thead><tbody><tr><td><code>invalid_input</code></td><td>端口或 bridge 请求无效</td></tr><tr><td><code>invalid_path</code></td><td>请求中的路径参数无效</td></tr><tr><td><code>invalid_root</code></td><td><code>root_dir</code> 不存在、不是目录或无法安全打开</td></tr><tr><td><code>symlink_not_allowed</code></td><td>根目录或请求路径包含不允许的符号链接</td></tr><tr><td><code>file_access_denied</code></td><td>根目录不在当前运行授权范围</td></tr><tr><td><code>network_not_allowed</code></td><td>当前会话未获网络/server 权限</td></tr><tr><td><code>port_in_use</code></td><td>指定端口已占用</td></tr><tr><td><code>server_limit</code></td><td>达到宿主的并发 server 上限</td></tr><tr><td><code>startup_timeout</code> / <code>listener_unavailable</code> / <code>listener_cancelled</code></td><td>listener 未能进入 ready 或启动期间已被撤销</td></tr><tr><td><code>miniapp_session_expired</code></td><td>启动期间或运行期间会话已过期</td></tr><tr><td><code>unavailable</code></td><td>底层 Network.framework 启动失败</td></tr><tr><td><code>bridge_unavailable</code> / <code>empty_response</code> / <code>invalid_native_response</code></td><td>Python 与原生 bridge 不可用或返回不符合契约</td></tr></tbody></table></div>
+<p>HTTP 请求级错误以 HTTP status 和 JSON <code>code</code> 返回给客户端，不会作为 Python <code>HttpServerError</code> 抛出。</p>
 <h2 id="常见错误"><a class="heading-anchor" href="#常见错误">#</a>常见错误</h2>
-<div class="table-scroll"><table><thead><tr><th>错误写法</th><th>后果</th><th>修正</th></tr></thead><tbody><tr><td>在 <code>body()</code> 里 <code>start()</code></td><td>刷新时重复启动</td><td>放进按钮回调</td></tr><tr><td>页面离开不 <code>stop()</code></td><td>端口占用、耗电</td><td>停止按钮或退出时清理</td></tr><tr><td>端口被占用</td><td>启动失败</td><td>换端口或先 <code>stop()</code></td></tr><tr><td>期望公网访问</td><td>仅本机回环</td><td>用 SSH 隧道或其他方案</td></tr></tbody></table></div>
-<hr>
+<div class="table-scroll"><table><thead><tr><th>错误写法</th><th>后果</th><th>修正</th></tr></thead><tbody><tr><td>在 <code>body()</code> 里 <code>start()</code></td><td>SwiftUI/AppUI 重建时重复启动</td><td>放进按钮回调</td></tr><tr><td>固定一个热门端口</td><td>容易出现 <code>port_in_use</code></td><td>优先 <code>port=0</code></td></tr><tr><td>只声明 <code>network</code></td><td>没有读取根目录的文件能力</td><td>同时声明 <code>network</code> 与 <code>file_system</code></td></tr><tr><td>把它当 LAN 服务器</td><td><code>127.0.0.1</code> 不接受远端连接</td><td>远程传输使用 SSH 或经审核的网络方案</td></tr><tr><td>用它代替后台下载/上传</td><td>App/会话停止后 server 被清理</td><td>使用 <code>background_download</code> 等持久任务 API</td></tr><tr><td>自己拼接未编码路径</td><td>空格、Unicode 或 <code>#</code> 产生错误 URL</td><td>对每个 URL path segment 做百分号编码</td></tr><tr><td>用 <code>&quot;/file&quot;</code> 覆盖通用 URL 的 path</td><td>丢失访问令牌并收到 <code>404</code></td><td>使用相对 segment，或为网页选择 <code>url_mode=&quot;browser&quot;</code></td></tr><tr><td>把 <code>browser_url</code> 保存到下次运行</td><td>token 与 server 生命周期已结束</td><td>每次运行重新调用 <code>start()</code></td></tr></tbody></table></div>
 <h2 id="相关文档"><a class="heading-anchor" href="#相关文档">#</a>相关文档</h2>
-<div class="table-scroll"><table><thead><tr><th>文档</th><th>用途</th></tr></thead><tbody><tr><td><a href="../../pages/network-module/">network</a></td><td>HTTP 客户端下载</td></tr><tr><td><a href="../../pages/background-download-module/">background_download</a></td><td>后台大文件下载</td></tr><tr><td><a href="../../pages/ssh-module/">ssh</a></td><td>远程文件传输</td></tr><tr><td><a href="../../pages/storage-module/">storage</a></td><td>记录服务端口等配置</td></tr></tbody></table></div>
+<div class="table-scroll"><table><thead><tr><th>文档</th><th>用途</th></tr></thead><tbody><tr><td><a href="../../pages/network-module/">network</a></td><td>HTTP 客户端、上传下载和流式响应</td></tr><tr><td><a href="../../pages/background-download-module/">background_download</a></td><td>可恢复的后台文件下载</td></tr><tr><td><a href="../../pages/archive-module/">archive</a></td><td>下载或分享 ZIP/IPA 后原生处理</td></tr><tr><td><a href="../../pages/miniapp-native-capabilities/">MiniApp 原生能力</a></td><td><code>network + file_system</code> 能力与会话规则</td></tr></tbody></table></div>
 <h2 id="预期效果"><a class="heading-anchor" href="#预期效果">#</a>预期效果</h2>
-<p>运行示例后，界面应出现文档描述的目标结果；若与预期不符，先看「失败路径」并按返回值或日志排查。</p>
+<p>旧的 <code>start()</code> / <code>stop()</code> / <code>status()</code> 写法保持可用；新代码可用 <code>port=0</code>、HEAD、Range 和诊断字段。无论文件多大，正常传输内存都保持有界；路径逃逸、symlink、hard link、非普通文件、过量 headers、连接过多和旧会话都会被原生内核拒绝或清理。</p>
   </div>
   
 </article>
 
     </main>
-    <aside class="toc"><div class="toc-title">本页目录</div><a class="toc-link" href="#模块概览">模块概览</a><a class="toc-link" href="#快速开始">快速开始</a><a class="toc-link" href="#appui-示例">AppUI 示例</a><a class="toc-link" href="#api-参考">API 参考</a><a class="toc-link child" href="#速查">速查</a><a class="toc-link child" href="#start">start</a><a class="toc-link child" href="#stop-status">stop / status</a><a class="toc-link child" href="#访问规则">访问规则</a><a class="toc-link" href="#常见错误">常见错误</a><a class="toc-link" href="#相关文档">相关文档</a><a class="toc-link" href="#预期效果">预期效果</a></aside>
+    <aside class="toc"><div class="toc-title">本页目录</div><a class="toc-link" href="#模块概览">模块概览</a><a class="toc-link" href="#快速开始">快速开始</a><a class="toc-link" href="#appui-示例">AppUI 示例</a><a class="toc-link" href="#api-参考">API 参考</a><a class="toc-link child" href="#start-port-8080-root_dir-none-url_mode-universal">start(port=8080, root_dir=None, , url_mode=&quot;universal&quot;)</a><a class="toc-link child" href="#stop">stop()</a><a class="toc-link child" href="#status">status()</a><a class="toc-link child" href="#httpservererror">HttpServerError</a><a class="toc-link" href="#http-行为">HTTP 行为</a><a class="toc-link" href="#安全与资源边界">安全与资源边界</a><a class="toc-link" href="#常见错误码">常见错误码</a><a class="toc-link" href="#常见错误">常见错误</a><a class="toc-link" href="#相关文档">相关文档</a><a class="toc-link" href="#预期效果">预期效果</a></aside>
   </div>
   <div class="mobile-backdrop"></div>
   <div class="search-panel" role="dialog" aria-modal="true" aria-label="搜索">

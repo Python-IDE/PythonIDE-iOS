@@ -419,7 +419,7 @@ def body():
 appui.run(body, state=state, presentation=&quot;sheet&quot;)</code></pre>
 </figure>
 <h2 id="关键技巧"><a class="heading-anchor" href="#关键技巧">#</a>关键技巧</h2>
-<ul><li><code>WebView(url=...)</code> 打开网页；<code>WebView(html=...)</code> 渲染本地 HTML 字符串。</li><li>HTML 放在普通 <code>State</code> 字段，不要把 <code>WebView</code> 实例放进状态。</li><li>MiniApp 内导出/分享优先 <code>ShareLink(item=..., subject=..., message=...)</code>；设置类界面仍用原生 <code>Form</code>/<code>List</code>。</li><li>用户输入进入 HTML 前要用 <code>html.escape</code>，避免把正文当作原始 HTML 执行。</li></ul>
+<ul><li><code>WebView(url=...)</code> 打开网页；<code>WebView(html=...)</code> 渲染本地 HTML 字符串。</li><li>HTML 放在普通 <code>State</code> 字段，不要把 <code>WebView</code> 实例放进状态。</li><li>MiniApp 内导出/分享优先 <code>ShareLink(item=..., subject=..., message=...)</code>；设置类界面仍用原生 <code>Form</code>/<code>List</code>。</li><li>用户输入进入 HTML 前要用 <code>html.escape</code>，避免把正文当作原始 HTML 执行。</li><li>若预览来自工作区静态站点，使用 <code>http_server.start(port=0, url_mode=&quot;browser&quot;)</code> 的会话 origin；不要公开 token、不要泛开 localhost，也不要把默认 universal URL 的令牌 path 用根相对链接覆盖。</li></ul>
   </div>
   
 </article>
