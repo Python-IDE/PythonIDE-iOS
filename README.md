@@ -5,8 +5,8 @@
 <h1 align="center">PythonIDE for iOS</h1>
 
 <p align="center">
-  <strong>在 iPhone 和 iPad 上编写、运行并交付 Python 工作流</strong><br/>
-  Python 3.14.6、科学计算、Notebook、AI Agent、MiniApp、Widget、SSH、Git 与 iOS 原生能力。
+  <strong>在 iPhone 和 iPad 上进行本地 Python 与 Web 开发</strong><br/>
+  Python 3.14.6、HTML/CSS/JavaScript、Notebook、AI Agent、MiniApp、Widget、SSH、Git 与 iOS 原生能力。
 </p>
 
 <p align="center">
@@ -28,17 +28,18 @@
 
 这是 PythonIDE 的官方产品介绍与公开文档仓库，承载官网、用户文档和公开项目入口。App 的完整商业源代码不在此仓库公开。
 
-PythonIDE 不只是移动端代码编辑器。它把脚本从“写完并运行”继续连接到 Notebook、AI Agent、MiniApp、桌面开发、小组件、快捷指令、SSH、Git、WebDAV 和社区分享，让 Python 能成为 iOS 工作流的一部分。
+PythonIDE 不只是移动端 Python 编辑器。它把 Python 脚本与 HTML/CSS/JavaScript 多文件项目连接到 Notebook、AI Agent、MiniApp、桌面开发、小组件、快捷指令、SSH、Git、WebDAV 和社区分享，让代码真正成为 iOS 工作流的一部分。
 
 ```text
-编辑代码 -> 本地运行 -> Agent 修改与验证 -> 接入 MiniApp / Widget / Shortcuts / Server
+Python / HTML / CSS / JavaScript -> 本地运行与即时预览 -> Agent 修改与验证 -> 接入 MiniApp / Widget / Shortcuts / Server
 ```
 
 ## 主要能力
 
 | 工作流 | 能力 |
 |---|---|
-| **编辑与运行** | 多文件项目、语法高亮、查找替换、补全、Lint、交互式输入、ANSI/Rich、图片、图表与 HTML 输出 |
+| **Python 编辑、运行与调试** | 多文件项目、语法高亮、查找替换、补全、Lint、交互式输入、ANSI/Rich、图片与图表输出，以及断点、单步执行、调用栈和变量查看 |
+| **HTML / CSS / JavaScript** | 多文件 Web 项目；HTML/CSS 离线补全与格式化、相对资源路径补全、即时预览，以及 console、资源加载、Promise 与 fetch 错误检查 |
 | **Notebook** | 打开和编辑 `.ipynb`，运行 Code 单元格，展示 Markdown、图片和结构化输出 |
 | **AI Agent** | 读取和修改项目文件、运行 Python、分析错误、调用 Git/SSH/MiniApp/网页及原生工具；支持平台额度与 BYOK |
 | **MiniApp / AppUI** | 使用 Python 构建带原生界面的移动工具，支持创建、预览、调试、导入、导出和桌面协作开发 |
@@ -46,6 +47,15 @@ PythonIDE 不只是移动端代码编辑器。它把脚本从“写完并运行�
 | **远程开发** | SSH 终端、SFTP、服务器监控、部署、WebDAV，以及 Git 状态、提交、分支、远端、stash 和冲突处理 |
 | **iOS 原生能力** | 相册、相机、位置、通讯录、日历、通知、语音、运动、蓝牙、HealthKit、音乐、触感等 Python 接口 |
 | **桌面开发** | 通过 `npx pythonide-cli start` 连接 VS Code、Cursor、Zed 等桌面编辑器，并在真实 iPhone/iPad Runtime 中运行 |
+
+## HTML / CSS / JavaScript 工作流
+
+Web 开发是 PythonIDE 的一级本地工作流，而不只是 Python 输出的附属预览。
+
+- 编辑 HTML、CSS 与 JavaScript 多文件项目
+- 使用 HTML/CSS 离线智能补全、格式化和相对资源路径补全
+- 即时预览页面，并加载项目中的本地图片、脚本、样式与其他资源
+- 在内置控制台查看 console 输出及资源加载、Promise 和 fetch 错误
 
 ## Python 3.14.6 运行时
 
