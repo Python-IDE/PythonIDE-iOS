@@ -290,20 +290,23 @@
   
   <div class="markdown-body">
     <p>音效与本地音频播放：短音效、长音频 Player、音量与静音开关控制。</p>
-<blockquote class="callout note"><strong>边界</strong>：短反馈用 <code>play_effect</code>；本地长音频用 <code>Player</code>。远程视频/流媒体请看 <a href="../../pages/avplayer-module/">avplayer</a>；文字朗读用 <a href="../../pages/speech-module/">speech</a>。<code>MIDIPlayer</code> 为兼容占位，不提供完整 MIDI 播放。</blockquote>
+<blockquote class="callout note"><strong>边界</strong>：短反馈用 <code>play_effect</code>；本地长音频用 <code>Player</code>。远程视频/流媒体请看 <a href="../../pages/avplayer-module/">avplayer</a>；文字朗读用 <a href="../../pages/speech-module/">speech</a>。<code>MIDIPlayer</code> 由原生 <code>AVMIDIPlayer</code> 播放本地 MIDI，可选本地 sound bank，不是占位返回值。</blockquote>
+<p>R2 增量：本地音频可传项目相对路径、<code>appui.FileResource</code> 或 <code>appui.MediaSource.file/asset</code>。App 不附带内置音效库；请先把音频导入项目。inline data 与需自定义 header 的远程媒体不属于此字符串 bridge。</p>
+<p>R7 增量：播放器和 MIDI 资源按 MiniApp owner 注册并在 session 结束时释放；<code>controller_status()</code> 可查看当前 owner 资源数，<code>play_effect_async(..., budget=...)</code> 提供统一任务/错误/预算入口。</p>
+<p>严格异步失败抛出 <code>SoundError</code>。</p>
 <h2 id="模块概览"><a class="heading-anchor" href="#模块概览">#</a>模块概览</h2>
 <div class="table-scroll"><table><thead><tr><th>项</th><th>说明</th></tr></thead><tbody><tr><td>导入</td><td><code>import sound</code></td></tr><tr><td>适合做什么</td><td>点击音效、成功/错误提示音、本地音乐/播客播放</td></tr><tr><td>调用时机</td><td>放在按钮回调；页面关闭时停止循环音效</td></tr><tr><td>推荐顺序</td><td>短音 <code>play_effect</code> → 保存 handle → 需要时 <code>stop_effect</code></td></tr><tr><td>循环音效</td><td><code>looping=True</code> 时必须保存 handle，否则无法停止</td></tr></tbody></table></div>
 <hr>
 <h2 id="快速开始"><a class="heading-anchor" href="#快速开始">#</a>快速开始</h2>
 <p>下面脚本播放短音效并调节全局音量：</p>
-<figure class="code-block" data-code-id="31f965925d48">
+<figure class="code-block" data-code-id="506569566026">
   <figcaption>
     <span>python</span>
-    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="31f965925d48" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="506569566026" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
-  <pre><code id="code-31f965925d48" class="language-python">import sound
+  <pre><code id="code-506569566026" class="language-python">import sound
 
-handle = sound.play_effect(&quot;arcade:Coin_1&quot;, volume=0.8)
+handle = sound.play_effect(&quot;assets/click.wav&quot;, volume=0.8)
 print(&quot;handle:&quot;, handle)
 
 sound.set_volume(0.8)
@@ -315,12 +318,12 @@ if handle:
 <hr>
 <h2 id="appui-示例"><a class="heading-anchor" href="#appui-示例">#</a>AppUI 示例</h2>
 <p>音效和音量控制放在按钮回调里，状态同步写回界面。</p>
-<figure class="code-block" data-code-id="b78a0e8b4d95">
+<figure class="code-block" data-code-id="f46ada4fe3d6">
   <figcaption>
     <span>python</span>
-    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="b78a0e8b4d95" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="f46ada4fe3d6" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
-  <pre><code id="code-b78a0e8b4d95" class="language-python">import appui
+  <pre><code id="code-f46ada4fe3d6" class="language-python">import appui
 import sound
 
 state = appui.State(
@@ -331,7 +334,7 @@ state = appui.State(
 
 
 def play_click():
-    handle = sound.play_effect(&quot;arcade:Coin_1&quot;, volume=state.volume)
+    handle = sound.play_effect(&quot;assets/click.wav&quot;, volume=state.volume)
     state.handle = handle
     state.status = &quot;音效已触发&quot; if handle else &quot;音效不可用（检查名称或文件）&quot;
 
@@ -339,7 +342,7 @@ def play_click():
 def play_loop():
     if state.handle:
         sound.stop_effect(state.handle)
-    handle = sound.play_effect(&quot;arcade:Coin_1&quot;, volume=state.volume, looping=True)
+    handle = sound.play_effect(&quot;assets/click.wav&quot;, volume=state.volume, looping=True)
     state.handle = handle
     state.status = &quot;循环播放中&quot; if handle else &quot;循环音效不可用&quot;
 
@@ -392,20 +395,20 @@ appui.run(body, state=state)</code></pre>
 <hr>
 <h2 id="api-参考"><a class="heading-anchor" href="#api-参考">#</a>API 参考</h2>
 <h3 id="速查"><a class="heading-anchor" href="#速查">#</a>速查</h3>
-<div class="table-scroll"><table><thead><tr><th>API</th><th>作用</th></tr></thead><tbody><tr><td><code>play_effect(name, ...)</code></td><td>播放短音效 → handle</td></tr><tr><td><code>stop_effect(handle)</code></td><td>停止指定音效</td></tr><tr><td><code>stop_all_effects()</code></td><td>停止全部音效</td></tr><tr><td><code>set_volume(v)</code> / <code>get_volume()</code></td><td>全局主音量 0.0–1.0</td></tr><tr><td><code>set_honors_silent_switch(flag)</code></td><td>是否遵守 iOS 静音开关</td></tr><tr><td><code>Player(path)</code></td><td>本地长音频播放器</td></tr></tbody></table></div>
+<div class="table-scroll"><table><thead><tr><th>API</th><th>作用</th></tr></thead><tbody><tr><td><code>play_effect(name, ...)</code></td><td>播放短音效 → handle</td></tr><tr><td><code>stop_effect(handle)</code></td><td>停止指定音效</td></tr><tr><td><code>stop_all_effects()</code></td><td>停止全部音效</td></tr><tr><td><code>set_volume(v)</code> / <code>get_volume()</code></td><td>全局主音量 0.0–1.0</td></tr><tr><td><code>set_honors_silent_switch(flag)</code></td><td>是否遵守 iOS 静音开关</td></tr><tr><td><code>Player(path)</code></td><td>本地长音频播放器</td></tr><tr><td><code>MIDIPlayer(path, sound_bank_path=&quot;&quot;)</code></td><td>原生 MIDI 播放器</td></tr><tr><td><code>controller_status()</code></td><td>当前 owner 的播放器/音效资源状态</td></tr><tr><td><code>play_effect_async(..., budget=...)</code></td><td>可取消、可超时的短音效任务</td></tr></tbody></table></div>
 <h3 id="短音效"><a class="heading-anchor" href="#短音效">#</a>短音效</h3>
 <p><strong><code>play_effect(name, volume=1.0, pitch=1.0, pan=0.0, looping=False)</code></strong></p>
-<figure class="code-block" data-code-id="3de7728599a1">
+<figure class="code-block" data-code-id="17460c90c1e6">
   <figcaption>
     <span>python</span>
-    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="3de7728599a1" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="17460c90c1e6" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
-  <pre><code id="code-3de7728599a1" class="language-python">handle = sound.play_effect(&quot;arcade:Coin_1&quot;, volume=0.8)
-handle = sound.play_effect(&quot;ui:click1&quot;, looping=True)
+  <pre><code id="code-17460c90c1e6" class="language-python">handle = sound.play_effect(&quot;assets/click.wav&quot;, volume=0.8)
+handle = sound.play_effect(&quot;assets/loop.wav&quot;, looping=True)
 sound.stop_effect(handle)
 sound.stop_all_effects()</code></pre>
 </figure>
-<div class="table-scroll"><table><thead><tr><th>参数</th><th>说明</th></tr></thead><tbody><tr><td><code>name</code></td><td>Pythonista 风格名（如 <code>arcade:Coin_1</code>）或文件路径</td></tr><tr><td><code>volume</code></td><td>0.0–1.0</td></tr><tr><td><code>pitch</code></td><td>播放速率 0.5–2.0</td></tr><tr><td><code>pan</code></td><td>立体声 -1.0（左）到 1.0（右）</td></tr><tr><td><code>looping</code></td><td>循环播放，需保存 handle 才能停止</td></tr></tbody></table></div>
+<div class="table-scroll"><table><thead><tr><th>参数</th><th>说明</th></tr></thead><tbody><tr><td><code>name</code></td><td>项目内音频路径、<code>FileResource</code> 或受支持的 <code>MediaSource</code></td></tr><tr><td><code>volume</code></td><td>0.0–1.0</td></tr><tr><td><code>pitch</code></td><td>播放速率 0.5–2.0</td></tr><tr><td><code>pan</code></td><td>立体声 -1.0（左）到 1.0（右）</td></tr><tr><td><code>looping</code></td><td>循环播放，需保存 handle 才能停止</td></tr></tbody></table></div>
 <p>失败时返回 <code>None</code>。</p>
 <h3 id="长音频-player"><a class="heading-anchor" href="#长音频-player">#</a>长音频 Player</h3>
 <p><strong><code>Player(file_path)</code></strong> — 本地音频文件播放器：</p>
