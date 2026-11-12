@@ -232,7 +232,9 @@
       }
     });
     document.addEventListener("pythonide:language", function () { updateToggleLabel(menu.dataset.open === "true"); });
-    addEventListener("resize", function () { if (innerWidth > 780) close(false); }, { passive: true });
+    addEventListener("resize", function () {
+      if (getComputedStyle(toggle).display === "none") close(false);
+    }, { passive: true });
     updateToggleLabel(false);
   }
 
@@ -262,7 +264,7 @@
       menu.classList.add("has-active-pill");
 
       function moveTo(link) {
-        if (!link || innerWidth <= 780) return;
+        if (!link || getComputedStyle(pill).display === "none") return;
         pill.style.setProperty("--pill-x", link.offsetLeft + "px");
         pill.style.setProperty("--pill-width", link.offsetWidth + "px");
       }

@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#ffffff">
+  <meta name="apple-itunes-app" content="app-id=6753987304">
+  <meta name="description" content="浏览用 PythonIDE 发布的网站，认识创作者。" data-zh="浏览用 PythonIDE 发布的网站，认识创作者。" data-en="Explore websites published with PythonIDE and meet their creators.">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="PythonIDE">
+  <meta property="og:title" content="网站广场 · PythonIDE" data-zh="网站广场 · PythonIDE" data-en="Website Showcase · PythonIDE">
+  <meta property="og:description" content="浏览用 PythonIDE 发布的网站，认识创作者。" data-zh="浏览用 PythonIDE 发布的网站，认识创作者。" data-en="Explore websites published with PythonIDE and meet their creators.">
+  <meta property="og:url" content="https://pythonide.xin/showcase/">
+  <meta property="og:image" content="https://pythonide.xin/assets/pythonide-social-card.png?v=4">
+  <meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="网站广场 · PythonIDE" data-zh="网站广场 · PythonIDE" data-en="Website Showcase · PythonIDE">
+  <meta name="twitter:description" content="浏览用 PythonIDE 发布的网站，认识创作者。" data-zh="浏览用 PythonIDE 发布的网站，认识创作者。" data-en="Explore websites published with PythonIDE and meet their creators.">
+  <meta name="twitter:image" content="https://pythonide.xin/assets/pythonide-social-card.png?v=4">
+  <link rel="canonical" href="https://pythonide.xin/showcase/">
+  <link rel="alternate" hreflang="zh-CN" href="https://pythonide.xin/showcase/">
+  <link rel="alternate" hreflang="en" href="https://pythonide.xin/showcase/?lang=en">
+  <link rel="alternate" hreflang="x-default" href="https://pythonide.xin/showcase/">
+  <link rel="icon" href="/assets/brand-mark.svg" type="image/svg+xml">
+  <script>(function(){try{var t=localStorage.getItem("pythonide_site_theme");if(t==="light"||t==="dark")document.documentElement.dataset.theme=t;}catch(_){}}());</script>
+  <link rel="stylesheet" href="/assets/site.css">
+  <link rel="stylesheet" href="/assets/showcase.css">
+  <script defer src="/assets/site.js"></script>
+  <script defer src="/assets/showcase.js"></script>
+  <title data-zh="网站广场 · PythonIDE" data-en="Website Showcase · PythonIDE">网站广场 · PythonIDE</title>
+</head>
+<body>
+  <a class="skip-link" href="#main" data-en="Skip to content">跳到正文</a>
+  <div class="page">
+    <header class="site-header">
+      <nav class="nav" aria-label="PythonIDE" data-label-en="PythonIDE navigation">
+        <a class="brand" href="/" aria-label="PythonIDE 首页" data-label-en="PythonIDE home"><img class="brand-mark" src="/assets/brand-mark.svg" alt=""><span>PythonIDE</span></a>
+        <div class="nav-links" data-nav-links data-open="false">
+          <a class="nav-link" href="/" data-en="Overview">概览</a>
+          <a class="nav-link" href="/showcase/" aria-current="page" data-en="Showcase">网站广场</a>
+          <a class="nav-link" href="/i/" data-en="Invite">邀请</a>
+          <a class="nav-link" href="/support/" data-en="Support">支持</a>
+          <a class="nav-link" href="/about/" data-en="About">关于</a>
+          <a class="nav-link nav-external" href="https://github.com/Python-IDE/PythonIDE-iOS" target="_blank" rel="noreferrer">GitHub</a>
+          <a class="button primary nav-download" href="https://apps.apple.com/app/id6753987304" data-download data-en="Download App">下载 App</a>
+        </div>
+        <div class="nav-actions">
+          <button class="icon-button" type="button" data-theme-toggle aria-label="切换深色模式"></button>
+          <div class="language-toggle" aria-label="语言 / Language"><button type="button" data-lang="zh" aria-pressed="true">中</button><button type="button" data-lang="en" aria-pressed="false">EN</button></div>
+          <button class="menu-button" type="button" data-menu-toggle aria-label="打开导航菜单" data-label-en="Open navigation menu" aria-expanded="false"></button>
+        </div>
+      </nav>
+    </header>
+
+    <main class="main showcase" id="main" data-showcase data-feed="https://website-api.pythonide.xin/v1/public/showcase">
+      <div class="shell">
+        <div class="showcase-heading">
+          <div>
+            <h1 class="section-title" data-en="Website Showcase">网站广场</h1>
+            <p class="section-copy" data-en="Explore websites published with PythonIDE.">浏览用 PythonIDE 发布的网站。</p>
+          </div>
+          <form class="showcase-search" role="search" data-showcase-search hidden>
+            <label class="showcase-visually-hidden" for="showcase-query" data-en="Website name or domain">网站名称或域名</label>
+            <input id="showcase-query" type="search" name="q" maxlength="80" placeholder="名称或域名" autocomplete="off" dir="auto">
+            <button class="button" type="submit" data-en="Search">搜索</button>
+          </form>
+        </div>
+
+        <div class="showcase-toolbar">
+          <h2 id="showcase-list-title">
+            <span data-showcase-latest data-en="Latest websites">最新发布</span>
+            <span data-showcase-results data-en="Search results" hidden>搜索结果</span>
+          </h2>
+          <a class="showcase-guide" href="/website/" data-en="How to publish ↗">如何部署 ↗</a>
+        </div>
+
+        <ul class="showcase-grid" aria-labelledby="showcase-list-title" data-showcase-list></ul>
+        <div class="showcase-status" role="status" data-showcase-status>
+          <p data-state="loading" data-en="Loading websites…" hidden>正在加载网站…</p>
+          <p data-state="loading-more" data-en="Loading more websites…" hidden>正在加载更多网站…</p>
+          <p data-state="empty" data-en="No websites are listed yet." hidden>暂时还没有网站上架。</p>
+          <p data-state="no-results" data-en="No websites match your search." hidden>没有找到匹配的网站。</p>
+          <p data-state="error" data-en="The website list could not load." hidden>网站列表暂时无法加载。</p>
+          <p data-state="page-error" data-en="More websites could not load." hidden>暂时无法加载更多网站。</p>
+          <noscript>请启用 JavaScript 浏览网站广场。 Enable JavaScript to browse the showcase.</noscript>
+        </div>
+        <div class="showcase-actions">
+          <button class="button" type="button" data-showcase-more data-en="Load more" hidden>加载更多</button>
+          <button class="button" type="button" data-showcase-retry data-en="Try again" hidden>重试</button>
+        </div>
+      </div>
+    </main>
+
+    <footer class="site-footer">
+      <div class="shell">
+        <div class="footer-bottom showcase-footer">
+          <a class="brand" href="/"><img class="brand-mark" src="/assets/brand-mark.svg" alt=""><span>PythonIDE</span></a>
+          <div class="showcase-footer-links">
+            <a href="/website/" data-en="Website deployment">部署网站</a>
+            <a href="/privacy/" data-en="Privacy policy">隐私政策</a>
+            <a href="/support/" data-en="Help and support">帮助与支持</a>
+          </div>
+          <span>© 2026 PythonIDE</span>
+        </div>
+      </div>
+    </footer>
+  </div>
+
+  <template id="showcase-site">
+    <li class="showcase-card">
+      <a class="showcase-site-link" data-site-link>
+        <div class="showcase-cover" aria-hidden="true">
+          <span class="showcase-initial" data-site-initial></span>
+          <img width="640" height="400" loading="lazy" decoding="async" referrerpolicy="no-referrer" alt="">
+        </div>
+        <div class="showcase-card-body">
+          <div class="showcase-card-text">
+            <h3 data-site-name dir="auto"></h3>
+            <span class="showcase-domain" data-site-domain dir="ltr"></span>
+          </div>
+          <span class="showcase-arrow" aria-hidden="true">↗</span>
+        </div>
+      </a>
+    </li>
+  </template>
+</body>
+</html>

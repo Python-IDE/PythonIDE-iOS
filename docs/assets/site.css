@@ -571,8 +571,13 @@ a.support-card:active { transform: translateY(0) scale(.985); }
   .footer-col:last-of-type { grid-column: 2; }
 }
 
-@media (max-width: 780px) {
-  .shell { width: min(100% - 28px, var(--page)); }
+@media (min-width: 861px) and (max-width: 920px) {
+  .nav { gap: 8px; }
+  .nav-link { padding-inline: 8px; }
+  .nav-download { padding-inline: 12px; }
+}
+
+@media (max-width: 860px) {
   .nav { width: calc(100% - 24px); min-height: 58px; }
   .brand span { font-size: 16px; }
   .nav-actions { margin-left: auto; }
@@ -605,6 +610,10 @@ a.support-card:active { transform: translateY(0) scale(.985); }
   .menu-button { display: inline-grid; }
   .language-toggle { width: 70px; }
   body.nav-is-open { overflow: hidden; }
+}
+
+@media (max-width: 780px) {
+  .shell { width: min(100% - 28px, var(--page)); }
   .hero { padding-block: 48px 48px; }
   .hero.compact { padding-block: 42px 38px; }
   .document-hero .hero-center { display: block; }

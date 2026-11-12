@@ -1,8 +1,36 @@
-<svg width="1024" height="1024" viewBox="60 100 904 824" fill="none" xmlns="http://www.w3.org/2000/svg">
-  <circle cx="826" cy="512" r="116" fill="#E8AA24"/>
-  <circle cx="669" cy="240" r="116" fill="#1F5F95"/>
-  <circle cx="355" cy="240" r="116" fill="#1F5F95"/>
-  <circle cx="198" cy="512" r="116" fill="#1F5F95"/>
-  <circle cx="355" cy="784" r="116" fill="#1F5F95"/>
-  <circle cx="669" cy="784" r="116" fill="#1F5F95"/>
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="1254" height="1254" viewBox="0 0 1254 1254" role="img" aria-labelledby="title desc">
+  <title id="title">Blue and warm-yellow sprite with oval eyes</title>
+  <desc id="desc">The blue and yellow pieces share a Bezier contour, with the yellow piece rotated 180 degrees. Two black oval eyes sit on the blue piece. The inner curves leave a narrow gap on a transparent background.</desc>
+  <defs>
+    <!-- One shared editable contour. Both colored pieces always have the same geometry. -->
+    <path id="sprite-shape" d="M 624.613 229.225
+C 685.805 229.063 756.938 237.929 801.741 284.134
+C 845.565 329.329 843.225 376.061 842.98 434.406
+C 842.699 501.497 843.832 562.791 782.762 606.681
+C 759.607 623.321 733.272 630.019 705.016 630.671
+C 695.912 630.881 686.915 630.2 677.814 630.159
+C 645.803 630.016 613.784 630.821 581.772 630.556
+C 537.266 630.186 493.272 629.061 454.391 654.764
+C 408.936 684.813 387.197 741.821 387.077 794.701
+C 387.041 810.746 391.085 843.437 368.12 843.545
+C 350.521 843.628 331.885 838.244 315.856 831.329
+C 291.3 820.735 270.297 803.379 253.854 782.41
+C 203.695 718.441 195.9 625.77 224.672 551.025
+C 243.217 502.847 280.769 462.508 330.444 446.141
+C 343.082 441.976 356.343 439.432 369.661 439.105
+C 380.3154 438.8434 391.2 438.2 397.707 431.74
+C 405.5154 423.988 406.044092 405.17 405.901 392.214
+C 405.666 370.937 408.587 350.665 416.594 330.835
+C 450.396 247.129 544.088 229.439 624.613 229.225
+Z"/>
+  </defs>
+  <g id="sprite" stroke="none">
+    <use id="blue-piece" xlink:href="#sprite-shape" fill="#337FC7"/>
+    <use id="yellow-piece" xlink:href="#sprite-shape" transform="rotate(180 624.253 641.984)" fill="#FFCC37"/>
+    <g id="eyes" fill="#000000">
+      <ellipse id="left-eye" cx="567.301" cy="376.200" rx="23.52" ry="36.96"/>
+      <ellipse id="right-eye" cx="684.149" cy="376.200" rx="23.52" ry="36.96"/>
+    </g>
+  </g>
 </svg>
