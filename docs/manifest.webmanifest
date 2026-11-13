@@ -7,7 +7,7 @@
   "theme_color": "#ffffff",
   "icons": [
     {
-      "src": "/assets/brand-mark.svg",
+      "src": "/assets/brand-mark.svg?v=e15a28ac8e15",
       "sizes": "any",
       "type": "image/svg+xml",
       "purpose": "any"
