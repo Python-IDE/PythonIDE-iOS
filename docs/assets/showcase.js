@@ -13,6 +13,7 @@
   const retry = root.querySelector("[data-showcase-retry]");
   const template = document.getElementById("showcase-site");
   const pageSize = 24;
+  const requestTimeoutMS = 10_000;
   const displayed = new Set();
   let query = "";
   let nextCursor = null;
@@ -37,6 +38,10 @@
     image.addEventListener("error", () => { image.remove(); }, { once: true });
     image.src = url.href;
     container.append(image);
+  }
+
+  function coverLabel(node) {
+    node.textContent = document.documentElement.lang === "en" ? node.dataset.en : "打开网站";
   }
 
   function publicProfileURL(value) {
@@ -72,7 +77,7 @@
     if (typeof author.avatarId === "string" && /^avatar_(?!0000)[0-9]{4}$/.test(author.avatarId)) {
       const avatarURL = new URL("https://api.dicebear.com/9.x/adventurer/png");
       avatarURL.search = new URLSearchParams({ seed: author.avatarId, size: "160" });
-      const image = new Image(24, 24);
+      const image = new Image(28, 28);
       image.alt = "";
       image.loading = "lazy";
       image.decoding = "async";
@@ -102,7 +107,7 @@
     const address = item.querySelector("[data-site-domain]");
     address.textContent = domain;
     address.title = domain;
-    item.querySelector("[data-site-initial]").textContent = Array.from(name)[0].toLocaleUpperCase();
+    coverLabel(item.querySelector(".showcase-cover-placeholder span"));
 
     const coverURL = httpsURL(site.thumbnailUrl);
     if (coverURL && [feedURL.origin, "https://pythonide.xin"].includes(coverURL.origin)) {
@@ -145,7 +150,7 @@
     request?.abort();
     const controller = new AbortController();
     request = controller;
-    const timeout = setTimeout(() => controller.abort(), 8000);
+    const timeout = setTimeout(() => controller.abort(), requestTimeoutMS);
     showState(cursor ? "loading-more" : "loading");
     const url = new URL(feedURL);
     url.searchParams.set("limit", String(pageSize));
@@ -230,6 +235,7 @@
   });
   function updateSearchCopy() {
     search.placeholder = document.documentElement.lang === "en" ? "Name or domain" : "名称或域名";
+    list.querySelectorAll(".showcase-cover-placeholder span").forEach(coverLabel);
   }
   document.addEventListener("pythonide:language", updateSearchCopy);
 

@@ -69,18 +69,14 @@
 .showcase-cover img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: top; }
 .showcase-cover img, .showcase-avatar img { opacity: 0; }
 .showcase [data-image-ready] img { opacity: 1; background: var(--surface-soft); }
-.showcase [data-image-ready] > span { visibility: hidden; }
-.showcase-initial {
+.showcase-avatar[data-image-ready] > span, .showcase-cover[data-image-ready] .showcase-cover-placeholder { visibility: hidden; }
+.showcase-cover-placeholder {
   display: grid;
-  place-items: center;
-  width: clamp(40px, 6vw, 68px);
-  aspect-ratio: 1;
-  border: 1px solid var(--line);
-  border-radius: var(--radius-sm);
-  background: var(--surface);
+  justify-items: center;
+  gap: 8px;
   color: var(--muted);
-  font-size: clamp(21px, 3vw, 31px);
-  font-weight: 620;
+  font-size: 12px;
+  font-weight: 600;
 }
 .showcase-card-body {
   display: flex;
@@ -120,13 +116,13 @@
   border-top: 1px solid var(--line);
   border-radius: 0 0 var(--radius-sm) var(--radius-sm);
   color: var(--muted);
-  font-size: 13px;
+  font-size: 14px;
 }
 .showcase-author-name { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .showcase-avatar {
   position: relative;
-  flex: 0 0 24px;
-  height: 24px;
+  flex: 0 0 28px;
+  height: 28px;
   display: grid;
   place-items: center;
   border-radius: 50%;
@@ -161,8 +157,6 @@
 @media (max-width: 520px) {
   .showcase .shell { width: calc(100% - 32px); }
   .showcase-search { width: 100%; }
-  .showcase-domain { font-size: 11px; }
-}
-@media (max-width: 349px) {
   .showcase-grid { grid-template-columns: minmax(0, 1fr); }
+  .showcase-domain { font-size: 11px; }
 }

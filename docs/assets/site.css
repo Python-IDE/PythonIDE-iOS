@@ -137,6 +137,13 @@ body::before {
 .website-detail-list strong { display: block; color: var(--ink); font-size: 18px; font-weight: 620; }
 .website-detail-list p { margin: 8px 0 0; color: var(--muted); line-height: 1.65; }
 .website-cta .section-copy { margin-top: 18px; }
+.website-guide-hero { min-height: auto; }
+.website-guide-steps { margin: 0; padding: 0; list-style: none; }
+.website-guide-example .button-row { margin-top: 18px; }
+.website-detail-list .website-example-address { overflow-wrap: anywhere; font-family: var(--mono); font-size: 14px; }
+.website-guide-faq { margin: 0; }
+.website-guide-faq dd { margin: 0; }
+.website-guide-faq code { overflow-wrap: anywhere; }
 
 @media (max-width: 820px) {
   .website-hero { min-height: auto; }
@@ -319,10 +326,11 @@ body.nav-is-open .nav-backdrop { opacity: 1; visibility: visible; pointer-events
   transition: transform 320ms var(--ease), background-color 280ms var(--ease), box-shadow 280ms var(--ease);
 }
 html[data-lang="en"] .language-toggle::before { transform: translateX(100%); }
-.language-toggle button { position: relative; z-index: 1; border: 0; border-radius: 999px; background: transparent; color: var(--muted); font-size: 11px; font-weight: 700; transition: color 220ms ease, transform 180ms var(--ease); }
-.language-toggle button:hover:not([aria-pressed="true"]) { color: var(--ink); }
-.language-toggle button:active { transform: scale(.92); }
-.language-toggle button[aria-pressed="true"] { color: var(--inverse-text); background: transparent; }
+.language-toggle :is(button, a) { position: relative; z-index: 1; border: 0; border-radius: 999px; background: transparent; color: var(--muted); font-size: 11px; font-weight: 700; transition: color 220ms ease, transform 180ms var(--ease); }
+.language-toggle a { display: grid; place-items: center; }
+.language-toggle :is(button, a):hover:not([aria-pressed="true"], [aria-current="page"]) { color: var(--ink); }
+.language-toggle :is(button, a):active { transform: scale(.92); }
+.language-toggle :is([aria-pressed="true"], [aria-current="page"]) { color: var(--inverse-text); background: transparent; }
 html.is-language-switching .language-toggle { pointer-events: none; }
 
 .icon-button .theme-icon {
@@ -559,7 +567,7 @@ a.support-card:active { transform: translateY(0) scale(.985); }
 @keyframes enter { from { transform: translateY(8px); } to { transform: none; } }
 
 :focus-visible { outline: 2px solid var(--ink); outline-offset: 3px; }
-.icon-button:focus-visible, .menu-button:focus-visible, .language-toggle button:focus-visible { outline: 0; box-shadow: 0 0 0 3px color-mix(in srgb, var(--ink) 18%, transparent); }
+.icon-button:focus-visible, .menu-button:focus-visible, .language-toggle :is(button, a):focus-visible { outline: 0; box-shadow: 0 0 0 3px color-mix(in srgb, var(--ink) 18%, transparent); }
 
 @media (max-width: 920px) {
   .feature-grid, .support-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }

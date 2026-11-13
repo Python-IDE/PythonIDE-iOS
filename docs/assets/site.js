@@ -3,6 +3,7 @@
 
   var APP_STORE_URL = "https://apps.apple.com/app/id6753987304";
   var APP_REFERRAL_URL = "pythonide://referral";
+  var WEBSITE_GUIDES = { zh: "/website/", en: "/en/website/" };
   var root = document.documentElement;
 
   function safeStorageGet(key) {
@@ -51,8 +52,15 @@
       else if (node._pythonideZhHTML !== undefined) node.innerHTML = node._pythonideZhHTML;
       else node.textContent = zh;
     });
-    document.querySelectorAll("[data-lang]").forEach(function (button) {
+    document.querySelectorAll("button[data-lang]").forEach(function (button) {
       button.setAttribute("aria-pressed", button.dataset.lang === lang ? "true" : "false");
+    });
+    document.querySelectorAll('a[href^="/website/"], a[href^="/en/website/"]').forEach(function (link) {
+      var url = new URL(link.href);
+      if (url.pathname !== WEBSITE_GUIDES.zh && url.pathname !== WEBSITE_GUIDES.en) return;
+      url.pathname = WEBSITE_GUIDES[lang];
+      url.searchParams.delete("lang");
+      link.setAttribute("href", url.pathname + url.search + url.hash);
     });
     document.querySelectorAll("[data-label-en]").forEach(function (node) {
       if (!node.dataset.labelZh) node.dataset.labelZh = node.getAttribute("aria-label") || "";
@@ -418,13 +426,25 @@
   }
 
   function init() {
+    var staticLanguage = root.hasAttribute("data-static-language");
+    var url = new URL(location.href);
+    if (staticLanguage && url.searchParams.get("lang") === "en" && url.pathname === WEBSITE_GUIDES.zh) {
+      url.pathname = WEBSITE_GUIDES.en;
+      url.searchParams.delete("lang");
+      location.replace(url.href);
+      return;
+    }
     root.classList.add("motion-ready");
     setupThemeControls();
     setupLanguageControls();
     setupMenuControls();
+    if (staticLanguage) {
+      safeStorageSet("pythonide_site_lang", root.dataset.lang);
+    } else {
+      setLanguage(requestedLanguage(), false);
+      updateCanonical(url);
+    }
     applyTheme(resolvedTheme(), false);
-    setLanguage(requestedLanguage(), false);
-    updateCanonical(new URL(location.href));
     setupGlobalNavigationExtras();
     setupNavigationIndicator();
     setupNavigation();
@@ -434,7 +454,7 @@
     setupAppOpen();
 
     document.querySelectorAll("[data-download]").forEach(function (link) { link.href = APP_STORE_URL; });
-    document.querySelectorAll("[data-lang]").forEach(function (button) {
+    document.querySelectorAll("button[data-lang]").forEach(function (button) {
       button.addEventListener("click", function () { transitionLanguage(button.dataset.lang); });
     });
     document.querySelectorAll("[data-theme-toggle]").forEach(function (button) {

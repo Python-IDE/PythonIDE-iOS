@@ -9,6 +9,12 @@
 - [Agent Skills install](npx skills add Python-IDE/pythonide-skills -g): recommended global install for coding agents (Codex, Claude Code, Gemini CLI, etc.).
 - [Full AI context](https://pythonide.xin/llms-full.txt): combined generation rules, quick starts, and complete public API surfaces.
 
+## Website Publishing
+
+- [在 iPhone 上部署 HTML 网站](https://pythonide.xin/website/): 中文发布教程、静态资源说明及真实发布示例。
+- [Publish an HTML website from iPhone](https://pythonide.xin/en/website/): English deployment steps, supported static files, and a published example.
+- [Website Gallery](https://pythonide.xin/showcase/): browse public sites published with PythonIDE.
+
 ## Machine-Readable API Contracts
 
 - [AppUI schema](https://pythonide.xin/schemas/appui_api_schema.json): canonical AppUI public API projection.

@@ -1,9 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url><loc>https://pythonide.xin/</loc><xhtml:link rel="alternate" hreflang="zh-CN" href="https://pythonide.xin/"/><xhtml:link rel="alternate" hreflang="en" href="https://pythonide.xin/?lang=en"/></url>
-  <url><loc>https://pythonide.xin/website/</loc><xhtml:link rel="alternate" hreflang="zh-CN" href="https://pythonide.xin/website/"/><xhtml:link rel="alternate" hreflang="en" href="https://pythonide.xin/website/?lang=en"/></url>
+  <url><loc>https://pythonide.xin/website/</loc><xhtml:link rel="alternate" hreflang="zh-CN" href="https://pythonide.xin/website/"/><xhtml:link rel="alternate" hreflang="en" href="https://pythonide.xin/en/website/"/><xhtml:link rel="alternate" hreflang="x-default" href="https://pythonide.xin/website/"/></url>
+  <url><loc>https://pythonide.xin/en/website/</loc><xhtml:link rel="alternate" hreflang="zh-CN" href="https://pythonide.xin/website/"/><xhtml:link rel="alternate" hreflang="en" href="https://pythonide.xin/en/website/"/><xhtml:link rel="alternate" hreflang="x-default" href="https://pythonide.xin/website/"/></url>
   <url><loc>https://pythonide.xin/showcase/</loc><xhtml:link rel="alternate" hreflang="zh-CN" href="https://pythonide.xin/showcase/"/><xhtml:link rel="alternate" hreflang="en" href="https://pythonide.xin/showcase/?lang=en"/></url>
   <url><loc>https://pythonide.xin/docs/</loc></url>
+  <url><loc>https://pythonide.xin/docs/pages/agent-development-index/</loc></url>
+  <url><loc>https://pythonide.xin/docs/pages/appui-quickstart/</loc></url>
+  <url><loc>https://pythonide.xin/docs/pages/miniapp-appui-api-index/</loc></url>
+  <url><loc>https://pythonide.xin/docs/pages/appui-cookbook-index/</loc></url>
+  <url><loc>https://pythonide.xin/docs/pages/widget-quickstart-publish/</loc></url>
+  <url><loc>https://pythonide.xin/docs/pages/widget-api-reference/</loc></url>
+  <url><loc>https://pythonide.xin/docs/pages/shortcuts-guide/</loc></url>
+  <url><loc>https://pythonide.xin/docs/pages/ios-native/</loc></url>
   <url><loc>https://pythonide.xin/i/</loc><xhtml:link rel="alternate" hreflang="zh-CN" href="https://pythonide.xin/i/"/><xhtml:link rel="alternate" hreflang="en" href="https://pythonide.xin/i/?lang=en"/></url>
   <url><loc>https://pythonide.xin/activity/</loc><xhtml:link rel="alternate" hreflang="zh-CN" href="https://pythonide.xin/activity/"/><xhtml:link rel="alternate" hreflang="en" href="https://pythonide.xin/activity/?lang=en"/></url>
   <url><loc>https://pythonide.xin/support/</loc><xhtml:link rel="alternate" hreflang="zh-CN" href="https://pythonide.xin/support/"/><xhtml:link rel="alternate" hreflang="en" href="https://pythonide.xin/support/?lang=en"/></url>
