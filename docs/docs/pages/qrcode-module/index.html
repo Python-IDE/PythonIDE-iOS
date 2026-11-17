@@ -291,6 +291,7 @@
   <div class="markdown-body">
     <p>二维码生成：把文字或链接编码为 PNG 图片（CoreImage CIQRCodeGenerator）。</p>
 <blockquote class="callout note"><strong>边界</strong>：<strong>只负责生成</strong>，不从图片读取/扫描二维码。识别请用 <a href="../../pages/vision-helper-module/">vision_helper</a> 的 <code>detect_barcodes</code>。无需权限，不联网。</blockquote>
+<p>R2 增量：<code>save(..., path)</code> 接受字符串或可写 <code>appui.FileResource</code>；旧写法不变，原生层仍按当前 lease 复查目标。</p>
 <h2 id="模块概览"><a class="heading-anchor" href="#模块概览">#</a>模块概览</h2>
 <div class="table-scroll"><table><thead><tr><th>项</th><th>说明</th></tr></thead><tbody><tr><td>导入</td><td><code>import qrcode</code></td></tr><tr><td>适合做什么</td><td>分享链接、设备配对码、活动签到码</td></tr><tr><td>调用时机</td><td><code>generate</code> / <code>save</code> 放在按钮回调</td></tr><tr><td>推荐顺序</td><td>准备文本 → <code>save()</code> 或 <code>generate()</code> → 分享或相册展示</td></tr><tr><td>纠错等级</td><td><code>L</code>/<code>M</code>(默认)/<code>Q</code>/<code>H</code>，越高越抗污损、容量越小</td></tr></tbody></table></div>
 <hr>

@@ -1,14 +1,23 @@
-"""Type stubs for `health` public PythonIDE module."""
+"""Retired compatibility API: no native health access; operations fail explicitly."""
 
 from __future__ import annotations
 
 from typing import Any, Callable, Dict, Iterable, List, Mapping, Optional, Sequence, Tuple, Union
+
+from appui_operations import OperationHandle, ResourceBudget
+
+class HealthError(RuntimeError):
+    code: str
+    domain: str
+    def __init__(self, message: str, code: str = ..., domain: str = ...) -> None: ...
 
 def is_available() -> bool: ...
 
 def request_authorization(read: Sequence[str] | str | None = ..., write: Sequence[str] | str | None = ...) -> bool: ...
 
 def authorization_status(type_id: str) -> str: ...
+def sharing_authorization_status(type_id: str) -> str: ...
+def authorization_details(type_id: str) -> dict[str, Any]: ...
 
 def query_steps(start: Any | None = ..., end: Any | None = ...) -> Any: ...
 
@@ -28,4 +37,32 @@ def query_blood_pressure(start: Any | None = ..., end: Any | None = ...) -> Any:
 
 def summarize_blood_pressure(records: Any | None = ..., start: Any | None = ..., end: Any | None = ...) -> Any: ...
 
-__all__ = ['is_available', 'request_authorization', 'authorization_status', 'query_steps', 'query_heart_rate', 'query_weight', 'save_weight', 'query_workouts', 'query_sleep', 'query_quantity', 'query_blood_pressure', 'summarize_blood_pressure']
+def request_authorization_async(read: Sequence[str] | str | None = ..., write: Sequence[str] | str | None = ..., *, budget: ResourceBudget | Mapping[str, Any] | None = ...) -> OperationHandle: ...
+
+def query_steps_async(start: Any | None = ..., end: Any | None = ..., *, budget: ResourceBudget | Mapping[str, Any] | None = ...) -> OperationHandle: ...
+
+def query_heart_rate_async(start: Any | None = ..., end: Any | None = ..., *, budget: ResourceBudget | Mapping[str, Any] | None = ...) -> OperationHandle: ...
+
+def query_weight_async(limit: int = ..., *, budget: ResourceBudget | Mapping[str, Any] | None = ...) -> OperationHandle: ...
+
+def save_weight_async(kg: Any, timestamp: Any | None = ..., *, budget: ResourceBudget | Mapping[str, Any] | None = ...) -> OperationHandle: ...
+
+def query_workouts_async(limit: int = ..., *, budget: ResourceBudget | Mapping[str, Any] | None = ...) -> OperationHandle: ...
+
+def query_sleep_async(start: Any | None = ..., end: Any | None = ..., *, budget: ResourceBudget | Mapping[str, Any] | None = ...) -> OperationHandle: ...
+
+def query_quantity_async(type_id: Any, start: Any | None = ..., end: Any | None = ..., unit: str = ..., *, budget: ResourceBudget | Mapping[str, Any] | None = ...) -> OperationHandle: ...
+
+def query_blood_pressure_async(start: Any | None = ..., end: Any | None = ..., *, budget: ResourceBudget | Mapping[str, Any] | None = ...) -> OperationHandle: ...
+
+__all__ = [
+    'is_available', 'request_authorization', 'authorization_status',
+    'sharing_authorization_status', 'authorization_details',
+    'query_steps', 'query_heart_rate', 'query_weight', 'save_weight',
+    'query_workouts', 'query_sleep', 'query_quantity',
+    'query_blood_pressure', 'summarize_blood_pressure',
+    'request_authorization_async', 'query_steps_async',
+    'query_heart_rate_async', 'query_weight_async', 'save_weight_async',
+    'query_workouts_async', 'query_sleep_async', 'query_quantity_async',
+    'query_blood_pressure_async', 'HealthError',
+]

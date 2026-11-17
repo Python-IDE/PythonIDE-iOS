@@ -292,7 +292,8 @@
     <p>Live Activity：在锁屏和 Dynamic Island 展示进行中的任务（上传、导出、计时等）。</p>
 <blockquote class="callout note"><strong>边界</strong>：不是普通通知，也不是长期后台任务；适合有<strong>明确开始、更新、结束</strong>的短流程。<code>progress</code> 范围 <code>0.0</code>–<code>1.0</code>；任务结束（成功/失败/取消）都要 <code>end()</code>，避免锁屏残留。需要 iOS 16.2+ 且系统允许 Live Activity；控制放在按钮或真实任务回调，不要在 <code>body()</code> 里自动 <code>start()</code>。</blockquote>
 <h2 id="模块概览"><a class="heading-anchor" href="#模块概览">#</a>模块概览</h2>
-<div class="table-scroll"><table><thead><tr><th>项</th><th>说明</th></tr></thead><tbody><tr><td>导入</td><td><code>import live_activity</code></td></tr><tr><td>适合做什么</td><td>导出进度、同步状态、训练计时、配送跟踪</td></tr><tr><td>调用时机</td><td>用户启动任务时 <code>start</code> → 进度变化时 <code>update</code> → 完成时 <code>end</code></td></tr><tr><td>推荐顺序</td><td><code>is_supported()</code> → <code>start()</code> → <code>update()</code> → <code>end()</code></td></tr><tr><td>敏感信息</td><td>锁屏可见，不要展示 token、密码或隐私明细</td></tr></tbody></table></div>
+<div class="table-scroll"><table><thead><tr><th>项</th><th>说明</th></tr></thead><tbody><tr><td>导入</td><td><code>import live_activity</code></td></tr><tr><td>MiniApp 能力</td><td><code>live_activity</code></td></tr><tr><td>适合做什么</td><td>导出进度、同步状态、训练计时、配送跟踪</td></tr><tr><td>调用时机</td><td>用户启动任务时 <code>start</code> → 进度变化时 <code>update</code> → 完成时 <code>end</code></td></tr><tr><td>推荐顺序</td><td><code>is_supported()</code> → <code>start()</code> → <code>update()</code> → <code>end()</code></td></tr><tr><td>敏感信息</td><td>锁屏可见，不要展示 token、密码或隐私明细</td></tr></tbody></table></div>
+<p>严格声明型 MiniApp 需要在 <code>miniapp.json</code> 的 <code>capabilities</code> 中加入 <code>&quot;live_activity&quot;</code>。活动与发起它的当前运行绑定；该运行结束后，旧任务不能再 更新或结束后来任务的活动。省略 <code>capabilities</code> 的旧应用继续使用兼容 profile。</p>
 <hr>
 <h2 id="快速开始"><a class="heading-anchor" href="#快速开始">#</a>快速开始</h2>
 <p>下面脚本模拟一次导出流程：</p>

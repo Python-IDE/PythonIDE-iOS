@@ -367,7 +367,7 @@
           "type": "审计归类/L4 状态"
         },
         {
-          "location": "`HomeView+RowViews.swift`（`contextMenu`/`swipeActions`）；`HomeView+ListView.swift:385-700`",
+          "location": "`WorkspaceBrowserView+RowViews.swift`（`contextMenu`/`swipeActions`）；`WorkspaceBrowserView+ListView.swift:385-700`",
           "symbol": "F01.02",
           "type": "UI、手势、业务"
         }
@@ -455,7 +455,7 @@
           "type": "审计归类/L4 状态"
         },
         {
-          "location": "`HomeView+RowViews.swift`（`contextMenu`/`swipeActions`）；`HomeView+ListView.swift:385-700`",
+          "location": "`WorkspaceBrowserView+RowViews.swift`（`contextMenu`/`swipeActions`）；`WorkspaceBrowserView+ListView.swift:385-700`",
           "symbol": "F01.02",
           "type": "UI、手势、业务"
         }
@@ -542,7 +542,7 @@
           "type": "审计归类/L4 状态"
         },
         {
-          "location": "`HomeView+RowViews.swift`（`contextMenu`/`swipeActions`）；`HomeView+ListView.swift:385-700`",
+          "location": "`WorkspaceBrowserView+RowViews.swift`（`contextMenu`/`swipeActions`）；`WorkspaceBrowserView+ListView.swift:385-700`",
           "symbol": "F01.02",
           "type": "UI、手势、业务"
         }
@@ -634,7 +634,7 @@
           "type": "审计归类/L4 状态"
         },
         {
-          "location": "`WorkspaceRoot.swift`；`ExternalFolderManager.swift`；`HomeView+FileOps.swift`",
+          "location": "`WorkspaceRoot.swift`；`ExternalFolderManager.swift`；`WorkspaceBrowserView+FileOps.swift`",
           "symbol": "F01.03",
           "type": "数据模型、权限、业务"
         }
@@ -723,7 +723,7 @@
           "type": "审计归类/L4 状态"
         },
         {
-          "location": "`WorkspaceRoot.swift`；`ExternalFolderManager.swift`；`HomeView+FileOps.swift`",
+          "location": "`WorkspaceRoot.swift`；`ExternalFolderManager.swift`；`WorkspaceBrowserView+FileOps.swift`",
           "symbol": "F01.03",
           "type": "数据模型、权限、业务"
         }
@@ -810,7 +810,7 @@
           "type": "审计归类/L4 状态"
         },
         {
-          "location": "`WorkspaceRoot.swift`；`ExternalFolderManager.swift`；`HomeView+FileOps.swift`",
+          "location": "`WorkspaceRoot.swift`；`ExternalFolderManager.swift`；`WorkspaceBrowserView+FileOps.swift`",
           "symbol": "F01.03",
           "type": "数据模型、权限、业务"
         }
@@ -2360,7 +2360,7 @@
           "type": "审计归类/L4 状态"
         },
         {
-          "location": "`ContentView+RunAndNavigation.swift`；运行按钮 `contextMenu`",
+          "location": "`ContentView+RunAndNavigation.swift`；脚本参数与终端上下文",
           "symbol": "F03.01",
           "type": "UI、运行服务"
         }
@@ -2466,13 +2466,13 @@
       "id": "F03.01.03",
       "level1Area": "F03 运行、调试、输出与包",
       "level2Capability": "F03.01 执行代码",
-      "level3Feature": "清空后运行、追加运行与停止当前任务",
+      "level3Feature": "清空输出后运行与停止当前任务",
       "level4Variants": [
-        "运行按钮长按",
+        "运行按钮点击",
         "空闲/运行中"
       ],
-      "displayName": "清空后运行、追加运行与停止当前任务",
-      "summary": "用户可以清空后运行、追加运行与停止当前任务。",
+      "displayName": "清空输出后运行与停止当前任务",
+      "summary": "用户可以直接清空已有输出后运行，并在任务执行期间停止当前任务。",
       "userValue": "从运行结果和错误中快速完成验证、调试与依赖扩展。",
       "targetUsers": [
         "PythonIDE 用户"
@@ -2485,7 +2485,7 @@
       "userPath": [
         "编辑器 → `运行`",
         "执行代码",
-        "清空后运行、追加运行与停止当前任务"
+        "清空输出后运行与停止当前任务"
       ],
       "preconditions": [
         "执行破坏性步骤前必须使用可恢复 Demo 数据"
@@ -2503,11 +2503,11 @@
         "Debugger"
       ],
       "buttonsAndMenus": [
-        "清空后运行",
-        "追加运行"
+        "运行",
+        "停止运行"
       ],
       "gestures": [
-        "长按"
+        "点击"
       ],
       "permissions": [],
       "requirements": [
@@ -2533,20 +2533,20 @@
           "type": "审计归类/L4 状态"
         },
         {
-          "location": "`ContentView+RunAndNavigation.swift`；运行按钮 `contextMenu`",
-          "symbol": "F03.01",
+          "location": "`ContentView+EditorViews.swift`；`ProjectLocalTerminalView.runCurrentFileFromEditor()`",
+          "symbol": "editorRunButton",
           "type": "UI、运行服务"
         }
       ],
       "dependencies": [
         "F03.01"
       ],
-      "tutorialFormat": "T3",
+      "tutorialFormat": "T2",
       "tutorialFormatReason": "依据动作是否含手势、跨页、权限、失败分支及数据风险选择；详见 06-tutorial-format-decisions.md。",
       "tutorialPriority": "P1",
       "marketingPriority": "P3",
-      "recordingEffort": "M",
-      "maintenanceRisk": "中",
+      "recordingEffort": "S",
+      "maintenanceRisk": "低",
       "unknowns": []
     },
     {

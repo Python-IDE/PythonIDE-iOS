@@ -419,7 +419,7 @@ motion.stop_updates()</code></pre>
 <div class="table-scroll"><table><thead><tr><th>错误写法</th><th>后果</th><th>修正</th></tr></thead><tbody><tr><td>只 <code>start</code> 不 <code>stop</code></td><td>持续耗电</td><td><code>try/finally</code> 或按钮停止</td></tr><tr><td>在 <code>body()</code> 里 <code>start_updates</code></td><td>刷新时重复启动</td><td>放进按钮回调</td></tr><tr><td>不判断 <code>None</code></td><td>解包崩溃</td><td>先 <code>if data:</code></td></tr><tr><td>高频重建大界面</td><td>卡顿</td><td><code>Timer</code> 0.5s+ 或 Aurora 快路径</td></tr><tr><td>模拟器当真机</td><td>数据全零或不可用</td><td>真机验证</td></tr></tbody></table></div>
 <hr>
 <h2 id="相关文档"><a class="heading-anchor" href="#相关文档">#</a>相关文档</h2>
-<div class="table-scroll"><table><thead><tr><th>文档</th><th>用途</th></tr></thead><tbody><tr><td><a href="../../pages/haptics-module/">haptics</a></td><td>运动反馈震动</td></tr><tr><td><a href="../../pages/health-module/">health</a></td><td>步数等健康数据</td></tr><tr><td><a href="../../pages/device-module/">device</a></td><td>设备信息与电量</td></tr><tr><td><a href="../../pages/miniapp-native-capabilities/">原生能力入口</a></td><td>MiniApp 场景配方</td></tr></tbody></table></div>
+<div class="table-scroll"><table><thead><tr><th>文档</th><th>用途</th></tr></thead><tbody><tr><td><a href="../../pages/haptics-module/">haptics</a></td><td>运动反馈震动</td></tr><tr><td><a href="../../pages/device-module/">device</a></td><td>设备信息与电量</td></tr><tr><td><a href="../../pages/miniapp-native-capabilities/">原生能力入口</a></td><td>MiniApp 场景配方</td></tr></tbody></table></div>
 <h2 id="预期效果"><a class="heading-anchor" href="#预期效果">#</a>预期效果</h2>
 <p>运行示例后，界面应出现文档描述的目标结果；若与预期不符，先看「失败路径」并按返回值或日志排查。</p>
   </div>

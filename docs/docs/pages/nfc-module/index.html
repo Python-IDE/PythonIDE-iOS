@@ -289,7 +289,8 @@
   </header>
   
   <div class="markdown-body">
-    <p>NFC 标签读写：扫描 NDEF 记录、写入文本或 URI。需要支持 NFC 的 iPhone 硬件。</p>
+    <p>R7：新增 <code>status()</code>、<code>cancel()</code>、<code>scan_async()</code>、<code>write_async()</code>。每个系统 NFC sheet 都属于发起它的 owner；取消、超时或 lease 失效后不会把迟到结果交给新的运行。旧同步 API 继续用 <code>None</code> / <code>False</code> 表示失败；新 async API 通过 <code>OperationHandle</code> 区分 <code>cancelled</code>、<code>timed_out</code>、<code>tag_not_writable</code>、<code>connection_failed</code>、<code>capability_denied</code> 等终态。</p>
+<p>NFC 标签读写：扫描 NDEF 记录、写入文本或 URI。需要支持 NFC 的 iPhone 硬件。</p>
 <blockquote class="callout note"><strong>边界</strong>：仅读写 NDEF 格式标签；不含银行卡支付、门禁卡模拟。扫描/写入会弹出系统 NFC 会话，必须放在按钮回调里，不要在 <code>body()</code> 中自动触发。</blockquote>
 <h2 id="模块概览"><a class="heading-anchor" href="#模块概览">#</a>模块概览</h2>
 <div class="table-scroll"><table><thead><tr><th>项</th><th>说明</th></tr></thead><tbody><tr><td>导入</td><td><code>import nfc</code></td></tr><tr><td>适合做什么</td><td>读取标签内容、写入链接/文本、物联网配对</td></tr><tr><td>调用时机</td><td><code>scan()</code> / <code>write()</code> 放在按钮回调</td></tr><tr><td>推荐顺序</td><td><code>is_available()</code> → <code>scan()</code> 或 <code>write(records)</code></td></tr><tr><td>记录格式</td><td><code>type</code> 为 <code>text</code> 或 <code>uri</code>，配合 <code>payload</code> 字符串</td></tr></tbody></table></div>
@@ -402,7 +403,23 @@ appui.run(body, state=state)</code></pre>
 <hr>
 <h2 id="api-参考"><a class="heading-anchor" href="#api-参考">#</a>API 参考</h2>
 <h3 id="速查"><a class="heading-anchor" href="#速查">#</a>速查</h3>
-<div class="table-scroll"><table><thead><tr><th>API</th><th>作用</th></tr></thead><tbody><tr><td><code>is_available()</code></td><td>设备是否支持 NFC 读取 → <code>bool</code></td></tr><tr><td><code>scan(message, timeout=30)</code></td><td>弹出扫描会话 → <code>{&quot;records&quot;: [...]}</code> 或 <code>None</code></td></tr><tr><td><code>write(records, message)</code></td><td>写入 NDEF 记录 → <code>bool</code></td></tr></tbody></table></div>
+<div class="table-scroll"><table><thead><tr><th>API</th><th>作用</th></tr></thead><tbody><tr><td><code>is_available()</code></td><td>设备是否支持 NFC 读取 → <code>bool</code></td></tr><tr><td><code>status()</code></td><td>明确返回 <code>available</code> / <code>unavailable</code></td></tr><tr><td><code>scan(message, timeout=30)</code></td><td>弹出扫描会话 → <code>{&quot;records&quot;: [...]}</code> 或 <code>None</code></td></tr><tr><td><code>write(records, message)</code></td><td>写入 NDEF 记录 → <code>bool</code></td></tr><tr><td><code>scan_async(..., budget=...)</code></td><td>可取消扫描；终态和错误保留在 <code>OperationHandle</code></td></tr><tr><td><code>write_async(..., budget=...)</code></td><td>原子校验整组记录并返回可取消 handle</td></tr><tr><td><code>cancel()</code></td><td>只取消当前 owner 的活跃 NFC 会话</td></tr></tbody></table></div>
+<h3 id="需要区分取消-超时和写入错误"><a class="heading-anchor" href="#需要区分取消-超时和写入错误">#</a>需要区分取消、超时和写入错误</h3>
+<figure class="code-block" data-code-id="3cd823751e14">
+  <figcaption>
+    <span>python</span>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="3cd823751e14" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
+  </figcaption>
+  <pre><code id="code-3cd823751e14" class="language-python">task = nfc.write_async([
+    {&quot;type&quot;: &quot;uri&quot;, &quot;payload&quot;: &quot;https://pythonide.xin&quot;},
+])
+receipt = task.result(125)
+if receipt.ok:
+    print(&quot;写入成功&quot;)
+elif receipt.error:
+    print(receipt.error.code, receipt.error.message)</code></pre>
+</figure>
+<p><code>write_async()</code> 会在打开系统 sheet 前原子校验整组记录；其中一条无效时不会只写剩余的有效子集。页面关闭或用户撤销流程时调用 <code>task.cancel()</code>，不要用另一个 MiniApp 的 <code>cancel()</code> 尝试接管会话。</p>
 <h3 id="可用性"><a class="heading-anchor" href="#可用性">#</a>可用性</h3>
 <p><strong><code>is_available()</code></strong> — 检查硬件与系统是否支持 NFC 读取。</p>
 <figure class="code-block" data-code-id="3e52f532b9eb">
@@ -449,7 +466,7 @@ appui.run(body, state=state)</code></pre>
 </article>
 
     </main>
-    <aside class="toc"><div class="toc-title">本页目录</div><a class="toc-link" href="#模块概览">模块概览</a><a class="toc-link" href="#快速开始">快速开始</a><a class="toc-link" href="#appui-示例">AppUI 示例</a><a class="toc-link" href="#api-参考">API 参考</a><a class="toc-link child" href="#速查">速查</a><a class="toc-link child" href="#可用性">可用性</a><a class="toc-link child" href="#扫描">扫描</a><a class="toc-link child" href="#写入">写入</a><a class="toc-link" href="#常见错误">常见错误</a><a class="toc-link" href="#相关文档">相关文档</a><a class="toc-link" href="#预期效果">预期效果</a></aside>
+    <aside class="toc"><div class="toc-title">本页目录</div><a class="toc-link" href="#模块概览">模块概览</a><a class="toc-link" href="#快速开始">快速开始</a><a class="toc-link" href="#appui-示例">AppUI 示例</a><a class="toc-link" href="#api-参考">API 参考</a><a class="toc-link child" href="#速查">速查</a><a class="toc-link child" href="#需要区分取消-超时和写入错误">需要区分取消、超时和写入错误</a><a class="toc-link child" href="#可用性">可用性</a><a class="toc-link child" href="#扫描">扫描</a><a class="toc-link child" href="#写入">写入</a><a class="toc-link" href="#常见错误">常见错误</a><a class="toc-link" href="#相关文档">相关文档</a><a class="toc-link" href="#预期效果">预期效果</a></aside>
   </div>
   <div class="mobile-backdrop"></div>
   <div class="search-panel" role="dialog" aria-modal="true" aria-label="搜索">

@@ -289,7 +289,8 @@
   </header>
   
   <div class="markdown-body">
-    <p>麦克风录音：把音频保存为 <code>.m4a</code>、<code>.caf</code> 或 <code>.wav</code> 文件。</p>
+    <p>R7：新增 <code>permission_status()</code>、<code>start_async/stop_async</code> 与有时长上限的 <code>record(..., budget=...)</code>。录音 controller、临时文件和取消都绑定当前 owner；取消删除半成品，异步完成返回已核验的文件信息。</p>
+<p>麦克风录音：把音频保存为 <code>.m4a</code>、<code>.caf</code> 或 <code>.wav</code> 文件。</p>
 <blockquote class="callout note"><strong>边界</strong>：输出文件保存在 App Documents 目录。需要麦克风系统授权；统一 <a href="../../pages/permission-module/">permission</a> 的 <code>request(&quot;microphone&quot;)</code> <strong>暂不支持弹窗</strong>，首次录音时系统可能提示，或在设置中开启。录音只能放在用户操作回调里，不要在 <code>body()</code> 中调用。</blockquote>
 <h2 id="模块概览"><a class="heading-anchor" href="#模块概览">#</a>模块概览</h2>
 <div class="table-scroll"><table><thead><tr><th>项</th><th>说明</th></tr></thead><tbody><tr><td>导入</td><td><code>import audio_recorder</code></td></tr><tr><td>适合做什么</td><td>语音备忘、口述笔记、采集音频片段</td></tr><tr><td>调用时机</td><td><code>start()</code> / <code>stop()</code> 放在按钮回调</td></tr><tr><td>推荐顺序</td><td><code>start()</code> → 轮询 <code>status()</code> → <code>stop()</code> 拿文件信息</td></tr><tr><td>有状态</td><td>支持 <code>pause()</code> / <code>resume()</code> / <code>cancel()</code> 丢弃半成品</td></tr></tbody></table></div>

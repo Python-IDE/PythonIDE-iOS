@@ -289,7 +289,9 @@
   </header>
   
   <div class="markdown-body">
-    <p>日历与提醒事项：读取/写入 EventKit 事件，管理提醒待办。</p>
+    <p>R7：日历与提醒权限状态、所有写操作和异步任务都绑定当前 owner；新增现有主要 API 的 <code>*_async(..., budget=...)</code>。标题、ID、时间范围与结果大小有统一校验，事件和提醒依旧使用两套独立权限。</p>
+<p>R7 公开符号：<code>CalendarEventError</code>、<code>reminder_authorization_status()</code>、<code>request_access_async()</code>、<code>get_calendars_async()</code>、<code>get_events_async()</code>、<code>create_event_async()</code>、<code>delete_event_async()</code>、<code>request_reminder_access_async()</code>、<code>get_reminders_async()</code>、<code>create_reminder_async()</code>、<code>complete_reminder_async()</code>、<code>delete_reminder_async()</code>。</p>
+<p>日历与提醒事项：读取/写入 EventKit 事件，管理提醒待办。</p>
 <blockquote class="callout note"><strong>边界</strong>：事件和提醒是<strong>两个独立权限</strong>。写日历用 <code>request_access()</code>，写提醒用 <code>request_reminder_access()</code>。时间参数用 <strong>Unix timestamp</strong>，不是日期字符串。</blockquote>
 <h2 id="模块概览"><a class="heading-anchor" href="#模块概览">#</a>模块概览</h2>
 <div class="table-scroll"><table><thead><tr><th>项</th><th>说明</th></tr></thead><tbody><tr><td>导入</td><td><code>import calendar_events</code></td></tr><tr><td>适合做什么</td><td>创建会议/专注块、查日程、创建/完成提醒</td></tr><tr><td>调用时机</td><td>权限、读取、写入都放在按钮回调</td></tr><tr><td>推荐顺序</td><td>申请对应权限 → 创建/查询 → 保存返回的 <code>id</code> 供删除</td></tr><tr><td>时间格式</td><td><code>start</code> / <code>end</code> / <code>due_timestamp</code> 均为 Unix 秒级时间戳</td></tr></tbody></table></div>

@@ -289,8 +289,10 @@
   </header>
   
   <div class="markdown-body">
-    <p>锁屏与控制中心「正在播放」元数据：标题、艺术家、封面、进度。配合 <a href="../../pages/sound-module/">sound</a> 或 <a href="../../pages/avplayer-module/">avplayer</a> 播放自有音频时使用。</p>
+    <p>R7：新增 <code>status()</code> 与 <code>set_info_async(..., budget=...)</code>。Now Playing controller 按 owner 归属，另一个活跃 MiniApp 不能覆盖；标题/艺术家/专辑、有限数值和封面文件/像素/字节都有预算，<code>clear()</code> 释放 owner。</p>
+<p>锁屏与控制中心「正在播放」元数据：标题、艺术家、封面、进度。配合 <a href="../../pages/sound-module/">sound</a> 或 <a href="../../pages/avplayer-module/">avplayer</a> 播放自有音频时使用。</p>
 <blockquote class="callout note"><strong>边界</strong>：只发布<strong>元数据</strong>到系统 Now Playing 卡片，不替代音频播放本身。未实际播放时卡片可能不出现；远程流媒体优先用 <code>avplayer</code> 自带控制。</blockquote>
+<p>R2 增量：<code>artwork_path</code> 可传字符串或只读 <code>appui.FileResource</code>；文件权限和 session lease 会在 Python/Swift 两层复查。</p>
 <h2 id="模块概览"><a class="heading-anchor" href="#模块概览">#</a>模块概览</h2>
 <div class="table-scroll"><table><thead><tr><th>项</th><th>说明</th></tr></thead><tbody><tr><td>导入</td><td><code>import now_playing</code></td></tr><tr><td>适合做什么</td><td>播客/音乐 App 锁屏信息、进度条同步</td></tr><tr><td>调用时机</td><td>开始播放后 <code>set_info</code>；进度变化时 <code>update_elapsed</code></td></tr><tr><td>推荐顺序</td><td>开始播放 → <code>set_info</code> → 定时/回调 <code>update_elapsed</code> → 结束 <code>clear</code></td></tr><tr><td>封面</td><td><code>artwork_path</code> 为本地图片路径，无效则只显示文字</td></tr></tbody></table></div>
 <hr>

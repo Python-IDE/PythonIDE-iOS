@@ -289,176 +289,197 @@
   </header>
   
   <div class="markdown-body">
-    <p>本页演示：<code>LazyVGrid</code> + <code>AsyncImage</code> 展示远程缩略图、<code>PhotoPicker</code> 将相册资源加入列表、<code>NavigationStack</code> + <code>NavigationLink</code> 进入详情，以及用 <code>.sheet</code> 做全屏感预览。</p>
+    <p>本页演示 <code>LazyVGrid</code>、<code>AsyncImage</code>、<code>PhotoPicker</code>、<code>NavigationStack</code> 和懒加载 <code>sheet</code>。示例同时处理远程 URL 与选择器返回的本地文件，但不会手工拼接 <code>file://</code>。</p>
+<blockquote class="callout note"><strong>真实边界</strong>：<code>PhotoPicker</code> 返回的是当前运行可读的文件路径，不是永久 Photos 资产 ID。<code>FileResource</code> / <code>MediaSource</code> 的授权 lease 只属于当前 MiniApp session；不要把这些路径持久化后跨运行复用。</blockquote>
 <h2 id="预期效果"><a class="heading-anchor" href="#预期效果">#</a>预期效果</h2>
-<p>运行后会出现相册网格，支持添加图片、打开详情、全屏查看和处理空状态。</p>
-<h2 id="状态字段说明"><a class="heading-anchor" href="#状态字段说明">#</a>状态字段说明</h2>
-<div class="table-scroll"><table><thead><tr><th>字段</th><th>类型意图</th><th>更新来源</th></tr></thead><tbody><tr><td><code>urls</code></td><td>字符串列表，元素为 <code>https</code> 或 <code>file://</code></td><td>初始内置远程图；<code>PhotoPicker</code> 回调追加本地资源。</td></tr><tr><td><code>sheet_open</code></td><td>布尔</td><td>用户打开/关闭全屏预览。</td></tr><tr><td><code>sheet_url</code></td><td>字符串</td><td>当前预览指向的 URL；与 <code>AsyncImage</code> 的 <code>url</code> 参数一致。</td></tr></tbody></table></div>
-<p>保持 <code>sheet_url</code> 仅在 <code>sheet_open</code> 为真时读取，可避免旧 URL 在模态关闭后仍参与布局的短暂闪烁（示例未强制清空，以便演示简单）。</p>
-<h2 id="要点"><a class="heading-anchor" href="#要点">#</a>要点</h2>
-<ul><li><code>PhotoPicker(selection_limit, filter, on_picked, label)</code>：<code>filter</code> 取 <code>images</code>、<code>videos</code> 或 <code>all</code>；<code>on_picked</code> 收到本地路径字符串列表。</li><li><code>AsyncImage(url, placeholder, error_view, content_mode)</code>：<code>content_mode</code> 为 <code>fit</code> 或 <code>fill</code>。</li><li><code>NavigationLink</code> 可用 <code>label</code> 传入任意 <code>View</code>，适合「缩略图即入口」。</li><li>模态预览使用根视图上的 <code>.sheet(is_presented=..., content=..., on_dismiss=...)</code>。</li></ul>
+<p>运行后会出现图片网格。用户可以从系统照片选择器添加图片、进入详情、打开预览、关闭预览以及显式重试失败的加载。</p>
+<h2 id="状态设计"><a class="heading-anchor" href="#状态设计">#</a>状态设计</h2>
+<p>示例把每项拆成稳定业务身份、来源种类和来源值：</p>
+<div class="table-scroll"><table><thead><tr><th>字段</th><th>作用</th></tr></thead><tbody><tr><td><code>items[].id</code></td><td><code>ForEach</code> / 导航 / 图片缓存使用的稳定身份。</td></tr><tr><td><code>items[].kind</code></td><td><code>remote</code> 或 <code>file</code>。</td></tr><tr><td><code>items[].value</code></td><td>HTTPS URL 或选择器返回的本地路径。</td></tr><tr><td><code>items[].version</code></td><td>内容版本；同一业务图片内容变化时递增。</td></tr><tr><td><code>reload_nonce</code></td><td>用户主动重试的瞬时标识，不参与持久缓存身份。</td></tr></tbody></table></div>
+<p>本页使用 <code>persist=False</code>，避免把运行期文件路径写入持久 State。</p>
 <h2 id="完整示例"><a class="heading-anchor" href="#完整示例">#</a>完整示例</h2>
-<figure class="code-block" data-code-id="60a3632b5eb4">
+<figure class="code-block" data-code-id="71581dce55c6">
   <figcaption>
     <span>python</span>
-    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="60a3632b5eb4" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="71581dce55c6" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
-  <pre><code id="code-60a3632b5eb4" class="language-python">import appui
+  <pre><code id="code-71581dce55c6" class="language-python">import appui
 
 state = appui.State(
-    urls=[
-        &quot;https://picsum.photos/id/64/600/600&quot;,
-        &quot;https://picsum.photos/id/65/600/600&quot;,
-        &quot;https://picsum.photos/id/66/600/600&quot;,
+    items=[
+        {
+            &quot;id&quot;: &quot;remote-64&quot;,
+            &quot;kind&quot;: &quot;remote&quot;,
+            &quot;value&quot;: &quot;https://picsum.photos/id/64/600/600&quot;,
+            &quot;version&quot;: &quot;1&quot;,
+        },
+        {
+            &quot;id&quot;: &quot;remote-65&quot;,
+            &quot;kind&quot;: &quot;remote&quot;,
+            &quot;value&quot;: &quot;https://picsum.photos/id/65/600/600&quot;,
+            &quot;version&quot;: &quot;1&quot;,
+        },
     ],
+    next_local_id=1,
     sheet_open=False,
-    sheet_url=&quot;&quot;,
+    sheet_item=None,
+    reload_nonce=0,
+    persist=False,
 )
 
 
-def _normalize_url(path_or_url):
-    s = str(path_or_url)
-    if s.startswith((&quot;http://&quot;, &quot;https://&quot;, &quot;file://&quot;)):
-        return s
-    return &quot;file://&quot; + s
+def source_for(item):
+    if item[&quot;kind&quot;] == &quot;remote&quot;:
+        return appui.MediaSource.remote(item[&quot;value&quot;])
+    return appui.MediaSource.file(
+        appui.FileResource(item[&quot;value&quot;], access=&quot;read&quot;)
+    )
 
 
 def on_picked(paths):
-    next_urls = list(state.urls)
-    for p in paths or []:
-        u = _normalize_url(p)
-        if u not in next_urls:
-            next_urls.append(u)
-    state.urls = next_urls
+    items = list(state.items)
+    next_id = state.next_local_id
+    known_paths = {
+        item[&quot;value&quot;] for item in items if item[&quot;kind&quot;] == &quot;file&quot;
+    }
+    for path in paths or []:
+        path = str(path)
+        if path in known_paths:
+            continue
+        items.append({
+            &quot;id&quot;: f&quot;local-{next_id}&quot;,
+            &quot;kind&quot;: &quot;file&quot;,
+            &quot;value&quot;: path,
+            &quot;version&quot;: &quot;1&quot;,
+        })
+        known_paths.add(path)
+        next_id += 1
+    state.batch_update(items=items, next_local_id=next_id)
 
 
-def open_sheet(url):
-    state.batch_update(sheet_open=True, sheet_url=url)
+def open_sheet(item):
+    state.batch_update(sheet_item=item, sheet_open=True)
 
 
-def close_sheet():
-    state.batch_update(sheet_open=False, sheet_url=&quot;&quot;)
+def preview_action(item):
+    def show_selected_item():
+        open_sheet(item)
+
+    return show_selected_item
 
 
-def thumb(url):
+def request_close():
+    state.sheet_open = False
+
+
+def finish_close():
+    # Binding 回写负责把 sheet_open 设为 False；回调只清理内容状态。
+    state.sheet_item = None
+
+
+def retry_images():
+    state.reload_nonce += 1
+
+
+def image_for(item, mode=&quot;fill&quot;):
     return appui.AsyncImage(
-        url=url,
+        source=source_for(item),
+        cache_key=f&quot;gallery:{item[&#x27;id&#x27;]}&quot;,
+        cache_version=item[&quot;version&quot;],
+        reload_token=f&quot;{item[&#x27;id&#x27;]}:{state.reload_nonce}&quot;,
         placeholder=appui.ProgressView(),
-        error_view=appui.Image(system_name=&quot;photo&quot;),
-        content_mode=&quot;fill&quot;,
-    ).frame(height=120).clip_shape(&quot;rounded_rect&quot;).corner_radius(10)
+        error_view=appui.Image(system_name=&quot;exclamationmark.triangle&quot;),
+        content_mode=mode,
+    )
 
 
-def detail(url):
-    def preview_current():
-        open_sheet(url)
-
+def detail(item):
     return appui.ScrollView(
-        appui.VStack(
-            [
-                appui.AsyncImage(
-                    url=url,
-                    placeholder=appui.ProgressView(),
-                    error_view=appui.Image(system_name=&quot;exclamationmark.triangle&quot;),
-                    content_mode=&quot;fit&quot;,
-                ).frame(max_width=appui.infinity),
-                appui.Button(
-                    &quot;全屏预览&quot;,
-                    action=preview_current,
-                ).button_style(&quot;bordered_prominent&quot;),
-            ],
-            spacing=12,
-        ).padding(16)
+        appui.VStack([
+            image_for(item, mode=&quot;fit&quot;)
+                .frame(max_width=appui.infinity),
+            appui.Button(
+                &quot;打开预览&quot;,
+                action=preview_action(item),
+            ).button_style(&quot;bordered_prominent&quot;),
+            appui.Button(&quot;重新加载图片&quot;, action=retry_images),
+        ], spacing=12).padding(16)
     ).navigation_title(&quot;详情&quot;)
 
 
 def sheet_root():
-    return appui.ZStack(
-        [
-            appui.Color(&quot;systemBackground&quot;),
-            appui.VStack(
-                [
-                    appui.HStack(
-                        [
-                            appui.Button(&quot;关闭&quot;, action=close_sheet).button_style(&quot;bordered&quot;),
-                            appui.Spacer(),
-                        ]
-                    ).padding(12),
-                    appui.AsyncImage(
-                        url=state.sheet_url,
-                        placeholder=appui.ProgressView(),
-                        content_mode=&quot;fit&quot;,
-                    )
-                    .frame(max_width=appui.infinity, max_height=appui.infinity)
-                    .padding(12),
-                    appui.Spacer(min_length=0),
-                ]
-            ),
-        ]
-    )
+    item = state.sheet_item
+    if not item:
+        return appui.ContentUnavailableView(
+            title=&quot;没有可预览的图片&quot;,
+            system_image=&quot;photo&quot;,
+        )
+    return appui.VStack([
+        appui.HStack([
+            appui.Button(&quot;关闭&quot;, action=request_close),
+            appui.Spacer(),
+        ]),
+        image_for(item, mode=&quot;fit&quot;)
+            .frame(max_width=appui.infinity, max_height=appui.infinity),
+    ], spacing=12).padding(12)
 
 
 def body():
-    col = appui.adaptive(minimum=104, maximum=160)
     grid = appui.LazyVGrid(
-        columns=[col],
+        columns=[appui.adaptive(minimum=104, maximum=160)],
         spacing=10,
         content=[
             appui.NavigationLink(
-                destination=detail(u),
-                label=thumb(u),
-            )
-            for u in state.urls
+                destination=detail(item),
+                label=image_for(item).frame(height=120),
+            ).id(item[&quot;id&quot;])
+            for item in state.items
         ],
     )
+
     root = appui.NavigationStack(
         appui.ScrollView(
-            appui.VStack(
-                [
-                    appui.HStack(
-                        [
-                            appui.PhotoPicker(
-                                selection_limit=6,
-                                filter=&quot;images&quot;,
-                                on_picked=on_picked,
-                                label=appui.Label(&quot;从相册添加&quot;, system_image=&quot;photo.fill&quot;),
-                            ),
-                            appui.Spacer(),
-                        ]
-                    ).padding(horizontal=16),
-                    grid.padding(horizontal=12),
-                ],
-                spacing=12,
-            )
+            appui.VStack([
+                appui.HStack([
+                    appui.PhotoPicker(
+                        selection_limit=6,
+                        filter=&quot;images&quot;,
+                        on_picked=on_picked,
+                        label=appui.Label(
+                            &quot;从相册添加&quot;,
+                            system_image=&quot;photo.fill&quot;,
+                        ),
+                    ),
+                    appui.Spacer(),
+                    appui.Button(&quot;重试&quot;, action=retry_images),
+                ]),
+                grid,
+            ], spacing=12).padding(horizontal=12)
         ).navigation_title(&quot;相册浏览器&quot;)
     )
     return root.sheet(
-        is_presented=state.sheet_open,
-        on_dismiss=close_sheet,
-        content=sheet_root(),
+        is_presented=state.bind.sheet_open,
+        content=sheet_root,
+        on_dismiss=finish_close,
     )
 
 
 appui.run(body, state=state, presentation=&quot;sheet&quot;)</code></pre>
 </figure>
-<h2 id="说明"><a class="heading-anchor" href="#说明">#</a>说明</h2>
-<ol><li><strong>本地路径与 AsyncImage</strong>：相册回调多为文件路径；示例通过 <code>file://</code> 前缀拼成 URL 形式字符串，便于与远程 <code>https</code> 资源统一存入 <code>state.urls</code>。</li><li><strong>导航与模态</strong>：<code>NavigationLink</code> 负责栈内详情；<code>sheet</code> 适合「沉浸式预览」或临时操作面板，两者可同时存在。</li><li><strong>性能</strong>：<code>LazyVGrid</code> 仅构建可见区域的子视图，适合大量缩略图；仍建议控制 <code>selection_limit</code> 与列表长度。</li></ol>
-<h2 id="权限与数据来源"><a class="heading-anchor" href="#权限与数据来源">#</a>权限与数据来源</h2>
-<ul><li><strong>相册读取</strong>：<code>PhotoPicker</code> 依赖系统照片权限；首次使用若未授权，回调可能为空列表。示例在 <code>on_picked</code> 中对 <code>paths</code> 做空值容错（<code>for p in paths or []</code>）。</li><li><strong>远程图片</strong>：<code>AsyncImage</code> 使用网络 URL 时需允许应用访问对应域；演示域名 <code>picsum.photos</code> 仅作占位，可替换为你自己的 CDN。</li><li><strong><code>file://</code> 路径</strong>：不同运行环境返回的路径前缀可能不同；<code>_normalize_url</code> 仅做最小归一化。若遇到加载失败，请检查当前环境是否允许读取该路径。</li></ul>
-<h2 id="交互变体"><a class="heading-anchor" href="#交互变体">#</a>交互变体</h2>
-<ul><li><strong>只用模态、不用导航栈</strong>：可将 <code>NavigationStack</code> 替换为 <code>ScrollView</code> + <code>on_tap</code> 打开 <code>sheet</code>，适合全屏单页工具。</li><li><strong>详情页再加操作菜单</strong>：在 <code>detail(url)</code> 内为工具栏添加 <code>Menu(title, content=[Button(...)])</code>，将删除、分享等操作收纳到菜单中。</li></ul>
-<h2 id="asyncimage-与占位策略"><a class="heading-anchor" href="#asyncimage-与占位策略">#</a><code>AsyncImage</code> 与占位策略</h2>
-<ul><li><strong>占位视图</strong>：<code>placeholder</code> 与 <code>error_view</code> 均为可选 <code>View</code>；常见组合是 <code>ProgressView()</code> + <code>Image(system_name=&quot;exclamationmark.triangle&quot;)</code>。</li><li><strong><code>content_mode</code></strong>：<code>fill</code> 适合缩略图铺满单元格（配合 <code>clip_shape</code>）；详情页大图多用 <code>fit</code> 保留完整画面。</li><li><strong>失败重试</strong>：<code>on_failure</code> 回调可用于打点或递增计数器；若需 UI 级「重试」按钮，可在 <code>State</code> 中增加整型字段（例如 <code>reload_nonce</code>），在按钮 <code>action</code> 中自增该字段，并让 <code>AsyncImage</code> 的 <code>url</code> 字符串拼接该值，以便在下次 <code>body()</code> 重建时强制重新请求（仍只用已有 API）。</li></ul>
-<h2 id="导航栈与模态的职责划分"><a class="heading-anchor" href="#导航栈与模态的职责划分">#</a>导航栈与模态的职责划分</h2>
-<ul><li><strong>导航栈（<code>NavigationLink</code>）</strong>：适合「进入详情后仍希望保留返回手势与标题栈上下文」的路径。</li><li><strong><code>sheet</code></strong>：适合「临时预览、一次性操作」；关闭时务必在 <code>on_dismiss</code> 中复位 <code>is_presented</code> 关联储，避免下次无法再次弹出。</li></ul>
+<h2 id="为什么这样写"><a class="heading-anchor" href="#为什么这样写">#</a>为什么这样写</h2>
+<ul><li>本地图片通过 <code>MediaSource.file(FileResource(path, access=&quot;read&quot;))</code> 表达；字符串 <code>url=</code> 仍兼容，但新代码不应靠拼接 <code>file://</code> 猜测授权。</li><li><code>cache_key</code> 表示稳定业务资源，<code>cache_version</code> 表示内容版本。不要每次渲染生成 UUID，否则缓存项只增不复用。</li><li><code>reload_token</code> 变化会触发一次重新请求，但不会创造新的持久缓存身份。</li><li><code>content=sheet_root</code> 传入 callable。关闭时 builder 保持休眠；打开期间 generation 稳定，但其他状态变化仍可能让当前内容重新构建。</li><li>动态项显式 <code>.id(item[&quot;id&quot;])</code>，插入、删除和重排时不会把行内状态错误地交给另一张图片。</li></ul>
+<h2 id="权限-缓存与惰性边界"><a class="heading-anchor" href="#权限-缓存与惰性边界">#</a>权限、缓存与惰性边界</h2>
+<ul><li>系统照片选择器通常不需要授予整个照片库读取权限；它只把用户明确选择的项目交付给当前运行。取消可能返回空列表。</li><li>远程图片仍需 MiniApp 的 <code>network</code> 权限和匹配的 <code>allowedNetworkHosts</code>。</li><li><code>LazyVGrid</code> 让原生视图系统延迟创建屏幕外单元格，但 Python 的列表推导和 AppUI tree 仍会生成所有声明项；因此仍需限制数据量并使用分页。</li><li><code>AsyncImage</code> 的磁盘缓存有 TTL、条目/总大小预算和 LRU 清理。命中是否复用由 source、owner、<code>cache_key</code>、<code>cache_version</code> 与 policy 共同决定；签名 URL 不会自动推断业务版本。</li><li><code>on_dismiss</code> 在原生或程序化关闭后用于清理。不要依赖它替代 <code>Binding</code> 的真假状态回写。</li></ul>
+<h2 id="常见错误"><a class="heading-anchor" href="#常见错误">#</a>常见错误</h2>
+<div class="table-scroll"><table><thead><tr><th>错误</th><th>问题</th><th>修正</th></tr></thead><tbody><tr><td><code>&quot;file://&quot; + path</code></td><td>可能错误转义，也绕不开 lease 校验</td><td>使用 <code>FileResource</code> + <code>MediaSource.file</code></td></tr><tr><td>把 picker 路径持久化到下次运行</td><td>原 session lease 已失效</td><td>当前运行消费；需要永久资产能力时使用 photos 模块</td></tr><tr><td>每次 body 都设置随机 cache key</td><td>缓存无限分叉、无法复用</td><td>稳定 <code>cache_key</code> + 有意义的 <code>cache_version</code></td></tr><tr><td><code>content=sheet_root()</code></td><td>关闭时也会提前构建内容</td><td>传 <code>content=sheet_root</code></td></tr><tr><td>依赖 LazyVGrid 避免 Python 构建</td><td>Python tree 仍包含全部项</td><td>分页、限制数量、稳定 key</td></tr></tbody></table></div>
 <h2 id="延伸阅读"><a class="heading-anchor" href="#延伸阅读">#</a>延伸阅读</h2>
-<ul><li>SF Symbols：<a href="../../pages/appui-appendix-symbols/">符号速查</a>。</li><li>颜色与占位：<a href="../../pages/appui-appendix-colors/">颜色参考</a>。</li></ul>
+<ul><li><a href="../../pages/appui-ref-media/">AppUI 媒体参考</a></li><li><a href="../../pages/appui-ref-navigation/">AppUI 导航参考</a></li><li><a href="../../pages/appui-ref-presentation/">AppUI Presentation 参考</a></li><li><a href="../../pages/photos-module/">photos</a></li></ul>
   </div>
   
 </article>
 
     </main>
-    <aside class="toc"><div class="toc-title">本页目录</div><a class="toc-link" href="#预期效果">预期效果</a><a class="toc-link" href="#状态字段说明">状态字段说明</a><a class="toc-link" href="#要点">要点</a><a class="toc-link" href="#完整示例">完整示例</a><a class="toc-link" href="#说明">说明</a><a class="toc-link" href="#权限与数据来源">权限与数据来源</a><a class="toc-link" href="#交互变体">交互变体</a><a class="toc-link" href="#asyncimage-与占位策略">AsyncImage 与占位策略</a><a class="toc-link" href="#导航栈与模态的职责划分">导航栈与模态的职责划分</a><a class="toc-link" href="#延伸阅读">延伸阅读</a></aside>
+    <aside class="toc"><div class="toc-title">本页目录</div><a class="toc-link" href="#预期效果">预期效果</a><a class="toc-link" href="#状态设计">状态设计</a><a class="toc-link" href="#完整示例">完整示例</a><a class="toc-link" href="#为什么这样写">为什么这样写</a><a class="toc-link" href="#权限-缓存与惰性边界">权限、缓存与惰性边界</a><a class="toc-link" href="#常见错误">常见错误</a><a class="toc-link" href="#延伸阅读">延伸阅读</a></aside>
   </div>
   <div class="mobile-backdrop"></div>
   <div class="search-panel" role="dialog" aria-modal="true" aria-label="搜索">

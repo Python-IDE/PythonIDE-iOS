@@ -289,7 +289,9 @@
   </header>
   
   <div class="markdown-body">
-    <p>Apple Music 播放控制与曲库搜索：播放/暂停、切歌、当前曲目、目录检索（MusicKit）。</p>
+    <p>R7：新增 <code>status()</code>、<code>release()</code> 与授权/播放/搜索异步入口。MusicKit controller 按 owner 归属，另一个活跃 MiniApp 不能抢占；歌曲 ID、队列数量、搜索词和结果数都有边界，session 结束会释放播放资源。</p>
+<p>异步名称：<code>request_authorization_async()</code>、<code>play_song_async()</code>、<code>play_songs_async()</code>、<code>search_async()</code>。</p>
+<p>Apple Music 播放控制与曲库搜索：播放/暂停、切歌、当前曲目、目录检索（MusicKit）。</p>
 <blockquote class="callout note"><strong>边界</strong>：控制<strong>系统 Apple Music</strong> 播放与目录搜索，不播放本地文件。需 MusicKit 授权；无订阅时搜索仍可用，<strong>播放需要有效 Apple Music 订阅</strong>。必须先 <code>play_song()</code> / <code>play_songs()</code> 设置队列，再 <code>play()</code> 继续播放。</blockquote>
 <h2 id="模块概览"><a class="heading-anchor" href="#模块概览">#</a>模块概览</h2>
 <div class="table-scroll"><table><thead><tr><th>项</th><th>说明</th></tr></thead><tbody><tr><td>导入</td><td><code>import music</code></td></tr><tr><td>适合做什么</td><td>播放控制面板、曲库搜索、显示正在播放</td></tr><tr><td>调用时机</td><td>播放/搜索放在按钮回调</td></tr><tr><td>推荐顺序</td><td><code>request_authorization()</code> → <code>search()</code> → <code>play_song(id)</code></td></tr><tr><td>授权</td><td><code>authorization_status()</code> 查询；<code>request_authorization()</code> 弹窗</td></tr></tbody></table></div>

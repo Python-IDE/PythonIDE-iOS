@@ -293,8 +293,9 @@
 <h2 id="预期效果"><a class="heading-anchor" href="#预期效果">#</a>预期效果</h2>
 <p>示例会展示表单字段、列表选择、搜索结果、滑块和计时器如何由状态驱动刷新。</p>
 <h2 id="选择哪种状态"><a class="heading-anchor" href="#选择哪种状态">#</a>选择哪种状态</h2>
-<div class="table-scroll"><table><thead><tr><th>用法</th><th>选择</th><th>说明</th></tr></thead><tbody><tr><td>表单字段、开关、当前 tab、普通计数</td><td><code>State</code></td><td>最常用，写入后触发重建。</td></tr><tr><td>高频数值或大数组</td><td><code>ReactiveState</code></td><td>可走实时快路径，减少整树重建压力。</td></tr><tr><td>不想触发重建的对象</td><td><code>Ref</code></td><td>保存句柄、缓存对象、一次性资源。</td></tr><tr><td>列表 / 字典增删改</td><td><code>ObservableList</code> / <code>ObservableDict</code></td><td><code>State</code> 会自动包装 list/dict，让局部变更也能通知界面。</td></tr><tr><td>派生值</td><td><code>computed</code></td><td>从状态计算，不手动同步副本。</td></tr><tr><td>状态变化后的副作用</td><td><code>effect</code></td><td>用于日志、保存、触发外部动作。</td></tr></tbody></table></div>
-<p>普通页面先用 <code>State</code>。只有高频更新或大数据刷新已经明显卡顿时，再考虑 <code>ReactiveState</code>。</p>
+<div class="table-scroll"><table><thead><tr><th>用法</th><th>选择</th><th>说明</th></tr></thead><tbody><tr><td>表单字段、开关、当前 tab、普通计数</td><td><code>State</code></td><td>最常用，写入后触发重建。</td></tr><tr><td>有版本、需要迁移的普通持久数据</td><td><code>PersistentState</code></td><td>用稳定 key、业务 schema 与显式迁移函数。</td></tr><tr><td>token、密码等单个敏感值</td><td><code>SecureState</code></td><td>同步写入按 MiniApp 隔离的设备 Keychain。</td></tr><tr><td>高频数值或大数组</td><td><code>ReactiveState</code></td><td>可走实时快路径，减少整树重建压力。</td></tr><tr><td>不想触发重建的对象</td><td><code>Ref</code></td><td>保存句柄、缓存对象、一次性资源。</td></tr><tr><td>列表 / 字典增删改</td><td><code>ObservableList</code> / <code>ObservableDict</code></td><td><code>State</code> 会自动包装 list/dict，让局部变更也能通知界面。</td></tr><tr><td>派生值</td><td><code>computed</code></td><td>从状态计算，不手动同步副本。</td></tr><tr><td>状态变化后的副作用</td><td><code>effect</code></td><td>用于日志、保存、触发外部动作。</td></tr></tbody></table></div>
+<p>普通页面先用 <code>State</code>。只有高频更新或大数据刷新已经明显卡顿时，再考虑 <code>ReactiveState</code>。<code>SecureField</code> 只负责遮挡文字；是否安全持久化由 <code>SecureState</code> / <code>keychain</code> 决定。</p>
+<blockquote class="callout note">MiniApp 中 <code>State</code> 默认持久化 JSON 兼容字段。密码、token 等明文必须用 <code>transient=[...]</code> 排除（或存入 <code>Ref</code>），需要长期保存时使用 <code>keychain</code>；<code>SecureField</code> 只遮挡界面显示，不会自动关闭持久化。</blockquote>
 <h2 id="state"><a class="heading-anchor" href="#state">#</a>State</h2>
 <p><code>State</code> 适合绝大多数页面状态。控件读取当前字段，<code>on_change</code> 或按钮回调写回字段。</p>
 <figure class="code-block" data-code-id="deee2a53f2f1">
@@ -353,8 +354,9 @@ appui.run(body, state=state)</code></pre>
   <pre><code id="code-1572ca824054" class="language-python">state.batch_update(name=&quot;Demo&quot;, enabled=True, count=0)
 snapshot = state.to_dict()</code></pre>
 </figure>
+<p><code>to_dict()</code> 返回递归分离的深快照。继续修改 <code>snapshot</code> 里的嵌套 list / dict 不会反向修改 <code>State</code>；它适合日志、序列化和把当前状态交给其他任务。</p>
 <h2 id="observablelist-observabledict"><a class="heading-anchor" href="#observablelist-observabledict">#</a>ObservableList / ObservableDict</h2>
-<p>列表和字典放进 <code>State</code> 后会被包装成可观察容器。<code>append</code>、<code>pop</code>、<code>update</code> 等局部变更也能通知界面。</p>
+<p>列表和字典放进 <code>State</code> 后会被包装成可观察容器。<code>append</code>、<code>pop</code>、<code>update</code>、list 的 <code>*=</code>，以及 dict 的 <code>|=</code> / <code>popitem()</code> 等局部变更都会递归包装新值，并在实际变化后通知一次界面。</p>
 <figure class="code-block" data-code-id="b5da31c56c6d">
   <figcaption>
     <span>python</span>
@@ -475,17 +477,61 @@ def body():
 
 appui.run(body, state=state)</code></pre>
 </figure>
-<p>副作用不要写进 <code>body()</code>；<code>body()</code> 应该只负责返回 View。</p>
-<h2 id="bind-与-reactivestate"><a class="heading-anchor" href="#bind-与-reactivestate">#</a>bind 与 ReactiveState</h2>
-<p>数值控件需要双向绑定时，可以用 <code>appui.bind(state, &quot;field&quot;)</code>。</p>
-<figure class="code-block" data-code-id="eaacd9228444">
+<p><code>depends_on</code> 中的每个名字都必须是当前状态已有的字段，写错会在声明时直接报错，避免派生值悄悄不刷新。相同声明在 <code>body()</code> 重建时会复用，不会不断追加注册；声明从新一代 View 树中消失时会自动退出。</p>
+<p><code>effect</code> 可以返回一个 cleanup 函数。依赖变化后再次运行、声明退出或当前 <code>run</code> 会话结束前，旧 cleanup 都只执行一次：</p>
+<figure class="code-block" data-code-id="be7b34eeee1b">
   <figcaption>
     <span>python</span>
-    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="eaacd9228444" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="be7b34eeee1b" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
-  <pre><code id="code-eaacd9228444" class="language-python">appui.Slider(**appui.bind(state, &quot;progress&quot;), minimum=0, maximum=100)</code></pre>
+  <pre><code id="code-be7b34eeee1b" class="language-python">@appui.effect(state, depends_on=[&quot;query&quot;])
+def observe_query():
+    token = subscribe(state.query)
+    return token.cancel</code></pre>
 </figure>
-<p><code>TextField</code>、<code>Toggle</code>、<code>Picker</code> 的参数名不是 <code>value</code>，通常直接传当前值和 <code>on_change</code>。</p>
+<p>副作用不要直接写进 <code>body()</code>；<code>body()</code> 应该只负责声明并返回 View。</p>
+<h2 id="binding-校验与-reactivestate"><a class="heading-anchor" href="#binding-校验与-reactivestate">#</a>Binding、校验与 ReactiveState</h2>
+<p>支持双向状态的控件可以直接接收 <code>Binding</code>。最短写法是 <code>state.bind.&lt;field&gt;</code>：</p>
+<figure class="code-block" data-code-id="6cecc18925cc">
+  <figcaption>
+    <span>python</span>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="6cecc18925cc" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
+  </figcaption>
+  <pre><code id="code-6cecc18925cc" class="language-python">appui.TextField(&quot;Name&quot;, text=state.bind.name)
+appui.Toggle(&quot;Enabled&quot;, is_on=state.bind.enabled)
+appui.Slider(value=state.bind.progress, minimum=0, maximum=100)</code></pre>
+</figure>
+<p>旧写法 <code>appui.Slider(**appui.bind(state, &quot;progress&quot;), ...)</code> 继续兼容。除了常用输入控件，sheet、焦点、滚动位置、列表 / tab 选择、<code>TextEditor</code> 辅助状态、地图、图表和 Web 导航状态等公开的受控参数也可以直接传 <code>Binding</code>。</p>
+<p>需要在“界面值”和“存储值”之间转换时，用 <code>ValueCodec</code>。解码、校验或回编码失败都会拒绝本次输入，状态不会被改写：</p>
+<figure class="code-block" data-code-id="95eb22ee611f">
+  <figcaption>
+    <span>python</span>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="95eb22ee611f" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
+  </figcaption>
+  <pre><code id="code-95eb22ee611f" class="language-python">def decode_percent(text):
+    return min(100, max(0, int(text)))
+
+
+def encode_percent(value):
+    return str(value)
+
+
+def validate_percent(value):
+    return 0 &lt;= value &lt;= 100
+
+
+percent = appui.ValueCodec(
+    name=&quot;percent&quot;,
+    decode=decode_percent,
+    encode=encode_percent,
+    validate=validate_percent,
+)
+
+state = appui.State(progress=30)
+progress = state.bind(&quot;progress&quot;, codec=percent)
+field = appui.TextField(&quot;Progress&quot;, text=progress)</code></pre>
+</figure>
+<p>控件输入会携带字段 revision。Python 返回 accepted、canonicalized、rejected、stale 或 error 回执；原生界面只采用匹配当前会话、View 树、Binding 和 mutation 的回执。被拒绝或过期的乐观输入会回滚到 <code>canonical_value</code>，额外的 <code>on_change</code> 只在写入被接受后收到通知。通常不需要手工处理回执；测试自定义 codec 时可调用 <code>binding.propose(...)</code> 查看 <code>BindingResult</code>。</p>
 <p><code>ReactiveState</code> 适合频繁更新的属性，例如 slider 值、拖动坐标、图表数据。它可以绑定实时属性通道，减少高频整树重建。</p>
 <figure class="code-block" data-code-id="bddbdb528dac">
   <figcaption>
@@ -506,7 +552,71 @@ def body():
 
 appui.run(body, state=state)</code></pre>
 </figure>
-<p>普通表单不需要上 <code>ReactiveState</code>；只有高频更新或大数据刷新明显卡顿时再用。</p>
+<p>普通表单不需要上 <code>ReactiveState</code>；只有高频更新或大数据刷新明显卡顿时再用。底层 <code>bind_handles()</code> 可以让同一字段绑定多个原生实时 consumer；重复登记会向所有当前 handle 扇出，传 <code>0</code> 会清空该字段的 handle。handle 会绑定当前 session / generation，热重载或新一代运行时会丢弃旧 handle；普通业务控件仍应优先使用 <code>Binding</code>，不需要手工管理它。</p>
+<p>需要显式声明原生二进制 property 时，使用 <code>BinaryField</code>；旧的 <code>(initial_value, prop_id)</code> 仍兼容。业务数据本身如果是长度为 2 且第二项为整数的 tuple，用 <code>StateValue</code> 明确走 JSON 路径：</p>
+<figure class="code-block" data-code-id="1a55efcfa562">
+  <figcaption>
+    <span>python</span>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="1a55efcfa562" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
+  </figcaption>
+  <pre><code id="code-1a55efcfa562" class="language-python">state = appui.ReactiveState(
+    progress=appui.BinaryField(30.0, 0x0500),
+    business_pair=appui.StateValue((&quot;chapter&quot;, 2)),
+)</code></pre>
+</figure>
+<p><code>BinaryField</code> 只接受 bool/int/finite float/string 与 1...65535 的 property id；无效声明在启动前失败，不会等到原生 push 时静默降级。</p>
+<p>文本输入期间，运行时会区分焦点、输入法组合态和外部状态更新。组合中的草稿不会被旧 render 覆盖；被延后的规范值会在组合结束后按 revision 收敛。<code>TextEditor.selection</code> 的 <code>start</code> / <code>length</code> 使用 UTF-16 code unit，与 Apple 的 <code>NSRange</code> 一致；包含 emoji 时不要当作 Python 字符下标。新代码可用 <code>TextSelection(start, end)</code> 明确表达半开区间，旧的 <code>(start, length)</code> 和 mapping 写法保持兼容：</p>
+<figure class="code-block" data-code-id="a4ceaca98bf5">
+  <figcaption>
+    <span>python</span>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="a4ceaca98bf5" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
+  </figcaption>
+  <pre><code id="code-a4ceaca98bf5" class="language-python">selection = appui.TextSelection(0, 6)
+editor = appui.TextEditor(&quot;Hello!&quot;, selection=selection)</code></pre>
+</figure>
+<h2 id="持久化身份与清理"><a class="heading-anchor" href="#持久化身份与清理">#</a>持久化身份与清理</h2>
+<p>需要跨运行稳定恢复时，优先显式指定 <code>persist_key</code>。没有显式 key 时，运行时会按声明位置分配稳定身份；同一工厂连续创建多个 State 会获得不同实例槽，避免互相覆盖，同时第一个实例继续兼容旧 key。</p>
+<figure class="code-block" data-code-id="d42a0a74500c">
+  <figcaption>
+    <span>python</span>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="d42a0a74500c" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
+  </figcaption>
+  <pre><code id="code-d42a0a74500c" class="language-python">def migrate_preferences(values, from_version, to_version):
+    return {
+        **values,
+        &quot;theme&quot;: values.get(&quot;theme&quot;, &quot;system&quot;),
+    }
+
+
+preferences = appui.PersistentState(
+    persist_key=&quot;settings&quot;,
+    schema_version=2,
+    migrate=migrate_preferences,
+    theme=&quot;system&quot;,
+)
+
+# 取消尚未落盘的 debounce，并移除当前和兼容旧快照。
+preferences.clear_persisted()</code></pre>
+</figure>
+<p>底层快照 envelope 只接受当前支持的 schema。<code>schema_version</code> 是独立的业务数据版本：已存版本不同（包括旧记录没有版本）时，运行时调用 <code>migrate(values, from_version, to_version)</code>；迁移必须返回 JSON-compatible mapping。迁移抛错或返回错误类型时，声明默认值保持不变，旧记录也不会被部分覆盖；成功结果会按目标版本重写。</p>
+<h2 id="securestate"><a class="heading-anchor" href="#securestate">#</a>SecureState</h2>
+<p>固定业务 key 的单个敏感值可以直接使用 <code>SecureState</code>。它继承 State 的 <code>value</code> 和 <code>bind.value</code> 用法，但每次接受的写入都会同步保存到现有 Keychain，而不会进入普通 State / UserDefaults 快照：</p>
+<figure class="code-block" data-code-id="a1cd0f17e0e7">
+  <figcaption>
+    <span>python</span>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="a1cd0f17e0e7" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
+  </figcaption>
+  <pre><code id="code-a1cd0f17e0e7" class="language-python">token = appui.SecureState(&quot;service-token&quot;, default=&quot;&quot;)
+
+
+def body():
+    return appui.SecureField(&quot;Token&quot;, text=token.bind.value)
+
+
+# 删除 Keychain 项并把内存值恢复成 default。
+token.clear_persisted()</code></pre>
+</figure>
+<p>Keychain 项沿用宿主的 MiniApp owner namespace、<code>storage</code> capability 和仅本机解锁可访问策略。<code>SecureState</code> 适合固定 key；服务名 / 账号由用户动态选择、需要“点保存”才落盘或读取前要求生物识别的凭据库，继续直接使用 <code>keychain</code>。从 Keychain 读出的明文仍会存在当前进程内存中，不要写日志，也不要复制进普通持久化 <code>State</code>。</p>
 <h2 id="timer-与自动刷新"><a class="heading-anchor" href="#timer-与自动刷新">#</a>Timer 与自动刷新</h2>
 <p>Timer 要在模块级创建，初始化时传入 <code>action</code>。不要在 <code>body()</code> 里创建 Timer。</p>
 <figure class="code-block" data-code-id="135ae38c2cf0">
@@ -552,9 +662,9 @@ def body():
 
 appui.run(body, state=state)</code></pre>
 </figure>
-<p><code>auto_refresh</code> 适合临时脚本和 demo。正式页面优先用明确的状态写入、绑定和生命周期。</p>
+<p><code>Timer</code> 与 <code>auto_refresh</code> 都由当前 AppUI session / generation 持有；停止、替换运行或热重载淘汰旧一代时会取消旧资源并拒绝迟到回调。<code>auto_refresh</code> 适合临时脚本和 demo。正式页面优先用明确的状态写入、绑定和生命周期。</p>
 <h2 id="checklist"><a class="heading-anchor" href="#checklist">#</a>Checklist</h2>
-<ul><li>需要显示到界面的值放在 <code>State</code> / <code>ReactiveState</code>。</li><li>列表和字典可以依赖 <code>ObservableList</code> / <code>ObservableDict</code>，也可以重新赋值。</li><li><code>body()</code> 里不要创建 timer、请求、文件写入。</li><li>多字段更新用 <code>batch_update</code>。</li><li>高频数据先确认瓶颈，再换 <code>ReactiveState</code>。</li><li>行级操作使用稳定 id，不使用过滤后的下标。</li></ul>
+<ul><li>需要显示到界面的值放在 <code>State</code> / <code>ReactiveState</code>。</li><li>列表和字典可以依赖 <code>ObservableList</code> / <code>ObservableDict</code>，也可以重新赋值。</li><li><code>body()</code> 里不要创建 timer、请求、文件写入。</li><li>多字段更新用 <code>batch_update</code>。</li><li>自定义双向转换使用 <code>ValueCodec</code>，不要让 <code>on_change</code> 各自实现不同的校验规则。</li><li>持久化业务状态优先给出稳定 <code>persist_key</code>；清空使用 <code>clear_persisted()</code>。</li><li>持久结构升级时同时给出 <code>schema_version</code> 与纯迁移函数；敏感单值用 <code>SecureState</code>。</li><li>高频数据先确认瓶颈，再换 <code>ReactiveState</code>。</li><li>行级操作使用稳定 id，不使用过滤后的下标。</li></ul>
 <h2 id="下一步"><a class="heading-anchor" href="#下一步">#</a>下一步</h2>
 <ul><li><a href="../../pages/appui-guide-layout/">布局系统</a> 学会组织界面结构。</li><li><a href="../../pages/appui-guide-navigation/">导航与页面结构</a> 学会页面跳转和弹层。</li><li><a href="../../pages/appui-ref-state/">状态 API</a> 查看完整签名。</li></ul>
   </div>
@@ -562,7 +672,7 @@ appui.run(body, state=state)</code></pre>
 </article>
 
     </main>
-    <aside class="toc"><div class="toc-title">本页目录</div><a class="toc-link" href="#预期效果">预期效果</a><a class="toc-link" href="#选择哪种状态">选择哪种状态</a><a class="toc-link" href="#state">State</a><a class="toc-link" href="#observablelist-observabledict">ObservableList / ObservableDict</a><a class="toc-link" href="#ref">Ref</a><a class="toc-link" href="#computed-与-effect">computed 与 effect</a><a class="toc-link" href="#bind-与-reactivestate">bind 与 ReactiveState</a><a class="toc-link" href="#timer-与自动刷新">Timer 与自动刷新</a><a class="toc-link" href="#checklist">Checklist</a><a class="toc-link" href="#下一步">下一步</a></aside>
+    <aside class="toc"><div class="toc-title">本页目录</div><a class="toc-link" href="#预期效果">预期效果</a><a class="toc-link" href="#选择哪种状态">选择哪种状态</a><a class="toc-link" href="#state">State</a><a class="toc-link" href="#observablelist-observabledict">ObservableList / ObservableDict</a><a class="toc-link" href="#ref">Ref</a><a class="toc-link" href="#computed-与-effect">computed 与 effect</a><a class="toc-link" href="#binding-校验与-reactivestate">Binding、校验与 ReactiveState</a><a class="toc-link" href="#持久化身份与清理">持久化身份与清理</a><a class="toc-link" href="#securestate">SecureState</a><a class="toc-link" href="#timer-与自动刷新">Timer 与自动刷新</a><a class="toc-link" href="#checklist">Checklist</a><a class="toc-link" href="#下一步">下一步</a></aside>
   </div>
   <div class="mobile-backdrop"></div>
   <div class="search-panel" role="dialog" aria-modal="true" aria-label="搜索">

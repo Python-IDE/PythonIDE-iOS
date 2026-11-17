@@ -291,6 +291,8 @@
   <div class="markdown-body">
     <p>脚本级音视频播放：加载远程/本地 URL、播放控制、跳转、调速与系统视频播放器。</p>
 <blockquote class="callout note"><strong>边界</strong>：底层 AVPlayer 能力，适合纯脚本或非 AppUI 场景。AppUI 页面内嵌视频请用 <a href="../../pages/appui-ref-media/">AppUI 媒体控件</a> 的 <code>VideoPlayer</code> / <code>PlayerController</code>；短音效用 <a href="../../pages/sound-module/">sound</a>。切换媒体或离开页面时调用 <code>cleanup()</code>。</blockquote>
+<p>R2 增量：<code>load()</code> 与 <code>Player(..., url=...)</code> 仍接受字符串，也接受 <code>appui.MediaSource.remote/file/asset</code> 或 <code>appui.FileResource</code>。底层字符串 bridge 无法安全表达 inline data 或任意 HTTP header，因此这两种输入会明确拒绝。</p>
+<blockquote class="callout note"><strong>当前错误边界</strong>：<code>load()</code> 只返回 <code>bool</code>；其余大多数命令无返回值，bridge 不可用或命令失败时可能表现为 <code>False</code>、<code>0</code> 或无操作。<code>on_progress</code> / <code>on_end</code> 以及命名播放器的 <code>on_error</code> / <code>on_status</code> / <code>on_pip</code> 接受宿主内部 callback ID，不接受普通 Python callable。普通 MiniApp 代码不要使用这些 callback-ID 方法；可观察、可取消的统一任务契约要等模块迁移完成。</blockquote>
 <h2 id="模块概览"><a class="heading-anchor" href="#模块概览">#</a>模块概览</h2>
 <div class="table-scroll"><table><thead><tr><th>项</th><th>说明</th></tr></thead><tbody><tr><td>导入</td><td><code>import avplayer</code></td></tr><tr><td>适合做什么</td><td>播放 URL 流、脚本内播放控制、弹出系统视频播放器</td></tr><tr><td>调用时机</td><td>加载/播放在按钮回调；页面关闭时 <code>cleanup()</code></td></tr><tr><td>推荐顺序</td><td><code>load(url)</code> 成功 → <code>play()</code> → 控制 → <code>cleanup()</code></td></tr><tr><td>与 AppUI</td><td>不要混用 <code>avplayer</code> 和 <code>appui.VideoPlayer</code> 控制同一媒体</td></tr></tbody></table></div>
 <hr>
@@ -447,19 +449,19 @@ if avplayer.load(&quot;https://example.com/audio.mp3&quot;):
 </figure>
 <div class="table-scroll"><table><thead><tr><th>API</th><th>说明</th></tr></thead><tbody><tr><td><code>load(url)</code></td><td>成功返回 <code>True</code>；失败不要调用播放</td></tr><tr><td><code>duration()</code></td><td>未准备好时可能为 <code>0</code></td></tr><tr><td><code>present_video()</code></td><td>仅适合视频；音频不要用</td></tr><tr><td><code>cleanup()</code></td><td>切换媒体或脚本结束前调用</td></tr></tbody></table></div>
 <h3 id="命名实例-player"><a class="heading-anchor" href="#命名实例-player">#</a>命名实例 <code>Player</code></h3>
-<p>多路播放或脚本隔离时用 <code>Player(id=&quot;main&quot;)</code>：</p>
-<figure class="code-block" data-code-id="7fda2f513001">
+<p>多路播放或脚本隔离时用 <code>Player(player_id=&quot;main&quot;)</code>：</p>
+<figure class="code-block" data-code-id="067a2f722834">
   <figcaption>
     <span>python</span>
-    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="7fda2f513001" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="067a2f722834" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
-  <pre><code id="code-7fda2f513001" class="language-python">player = avplayer.Player(id=&quot;main&quot;)
+  <pre><code id="code-067a2f722834" class="language-python">player = avplayer.Player(player_id=&quot;main&quot;)
 player.load(url)
 player.play()
 print(player.duration(), player.current_time())
 player.cleanup()</code></pre>
 </figure>
-<p>方法与模块级函数相同，另支持 <code>on_progress</code>、<code>on_end</code>、<code>on_error</code> 等回调（高级场景）。</p>
+<p>方法与模块级函数相同。类上虽然存在 <code>on_progress</code>、<code>on_end</code>、<code>on_error</code> 等 callback-ID 方法，但它们只接受内部回调标识，不是普通 Python callable API。</p>
 <h3 id="与-appui-的分工"><a class="heading-anchor" href="#与-appui-的分工">#</a>与 AppUI 的分工</h3>
 <div class="table-scroll"><table><thead><tr><th>场景</th><th>推荐</th></tr></thead><tbody><tr><td>AppUI 页面内嵌视频</td><td><code>appui.PlayerController</code> + <code>appui.VideoPlayer</code></td></tr><tr><td>纯脚本 / 兼容旧代码</td><td><code>avplayer</code></td></tr><tr><td>短音效</td><td><a href="../../pages/sound-module/">sound</a></td></tr></tbody></table></div>
 <figure class="code-block" data-code-id="e06452dcfadf">
@@ -476,7 +478,7 @@ def body():
 </figure>
 <hr>
 <h2 id="常见错误"><a class="heading-anchor" href="#常见错误">#</a>常见错误</h2>
-<div class="table-scroll"><table><thead><tr><th>错误写法</th><th>后果</th><th>修正</th></tr></thead><tbody><tr><td>未 <code>load</code> 就 <code>play()</code></td><td>无媒体可播</td><td>先检查 <code>load(url)</code></td></tr><tr><td>音频文件 <code>present_video()</code></td><td>界面不合适</td><td>仅视频使用</td></tr><tr><td>退出不 <code>cleanup()</code></td><td>资源占用</td><td>切换或关闭时清理</td></tr><tr><td>AppUI 混用两套 API</td><td>状态冲突</td><td>选一种方案</td></tr></tbody></table></div>
+<div class="table-scroll"><table><thead><tr><th>错误写法</th><th>后果</th><th>修正</th></tr></thead><tbody><tr><td>未 <code>load</code> 就 <code>play()</code></td><td>无媒体可播</td><td>先检查 <code>load(url)</code></td></tr><tr><td>音频文件 <code>present_video()</code></td><td>界面不合适</td><td>仅视频使用</td></tr><tr><td>退出不 <code>cleanup()</code></td><td>资源占用</td><td>切换或关闭时清理</td></tr><tr><td>AppUI 混用两套 API</td><td>状态冲突</td><td>选一种方案</td></tr><tr><td>把 Python 函数传给 <code>on_progress</code></td><td>函数被字符串化成无效 callback ID</td><td>普通 MiniApp 不使用 callback-ID 方法</td></tr><tr><td>把 <code>duration()==0</code> 当成确定的零时长</td><td>未准备、失败和真实零值无法区分</td><td>先检查 <code>load()</code>，并把 0 视为“未知或未准备”</td></tr></tbody></table></div>
 <hr>
 <h2 id="相关文档"><a class="heading-anchor" href="#相关文档">#</a>相关文档</h2>
 <div class="table-scroll"><table><thead><tr><th>文档</th><th>用途</th></tr></thead><tbody><tr><td><a href="../../pages/appui-ref-media/">AppUI 媒体控件</a></td><td>页面内 <code>VideoPlayer</code></td></tr><tr><td><a href="../../pages/sound-module/">sound</a></td><td>短音效与本地音频</td></tr><tr><td><a href="../../pages/network-module/">network</a></td><td>下载媒体到本地</td></tr><tr><td><a href="../../pages/miniapp-native-capabilities/">原生能力入口</a></td><td>MiniApp 场景配方</td></tr></tbody></table></div>

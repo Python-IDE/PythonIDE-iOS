@@ -289,8 +289,11 @@
   </header>
   
   <div class="markdown-body">
-    <p>视频合成与导出：按顺序拼接视频、为视频替换/添加音轨、转码导出 MP4。</p>
+    <p>R7：merge/mux/export 的同步写法保持兼容，新增 <code>*_async(..., budget=...)</code>。输入/输出都经过 file lease；原生 export 具备 operation identity、并发/字节预算、取消与临时文件原子提交，失败或取消不会把半成品当成功文件。</p>
+<p>异步名称：<code>merge_videos_async()</code>、<code>merge_audio_async()</code>、<code>export_async()</code>。</p>
+<p>视频合成与导出：按顺序拼接视频、为视频替换/添加音轨、转码导出 MP4。</p>
 <blockquote class="callout note"><strong>边界</strong>：基于 AVFoundation，操作可能耗时较长（阻塞脚本数秒到两分钟）。输入/输出路径须为 App 可访问的本地文件；合成放在按钮回调，不要在 <code>body()</code> 中自动执行。素材可先由 <a href="../../pages/video-recorder-module/">video_recorder</a> 或 <a href="../../pages/photos-module/">photos</a> 获得。</blockquote>
+<p>R2 增量：所有输入/输出参数都可传 <code>appui.FileResource</code>；输入需 <code>access=&quot;read&quot;</code>，输出需 <code>&quot;write&quot;</code> 或 <code>&quot;read_write&quot;</code>。旧路径字符串保持兼容。</p>
 <h2 id="模块概览"><a class="heading-anchor" href="#模块概览">#</a>模块概览</h2>
 <div class="table-scroll"><table><thead><tr><th>项</th><th>说明</th></tr></thead><tbody><tr><td>导入</td><td><code>import media_composer</code></td></tr><tr><td>适合做什么</td><td>多段录像拼接、替换背景音、统一导出 MP4</td></tr><tr><td>调用时机</td><td>用户确认后调用；显示进度/状态中</td></tr><tr><td>推荐顺序</td><td>确认源文件存在 → <code>merge_videos</code> / <code>merge_audio</code> / <code>export</code> → 校验输出路径</td></tr><tr><td>输出格式</td><td>当前 Bridge 导出为 <code>.mp4</code></td></tr></tbody></table></div>
 <hr>

@@ -263,6 +263,53 @@
       }
     },
     {
+      "key": "bindingMutation",
+      "swiftCase": "bindingMutation",
+      "pythonName": "BINDING_MUTATION",
+      "cName": "MINIAPP_EVENT_ID_BINDING_MUTATION",
+      "id": "__appui_binding__:mutation",
+      "kind": "action",
+      "delivery": "discrete",
+      "payload": {
+        "type": "object",
+        "required": [
+          "binding_id",
+          "binding_field",
+          "binding_revision",
+          "callback_id",
+          "input_key",
+          "mutation_id",
+          "value"
+        ],
+        "properties": {
+          "binding_id": {
+            "type": "string"
+          },
+          "binding_field": {
+            "type": "string"
+          },
+          "binding_revision": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "callback_id": {
+            "type": "string"
+          },
+          "input_key": {
+            "type": "string"
+          },
+          "mutation_id": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "value": {},
+          "continuous": {
+            "type": "boolean"
+          }
+        }
+      }
+    },
+    {
       "key": "systemRequestFullSnapshot",
       "swiftCase": "systemRequestFullSnapshot",
       "pythonName": "SYSTEM_REQUEST_FULL_SNAPSHOT",

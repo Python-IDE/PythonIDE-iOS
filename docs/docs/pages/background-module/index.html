@@ -289,127 +289,34 @@
   </header>
   
   <div class="markdown-body">
-    <p>后台任务：申请延长执行时间、查询剩余时间、调度 BackgroundTasks。</p>
-<blockquote class="callout note"><strong>边界</strong>：iOS 后台时间有限（<code>begin_task</code> 约 30 秒）；<code>schedule_refresh</code> / <code>schedule_processing</code> 需 App 配置对应 BGTask 标识符。不含 <a href="../../pages/background-download-module/">background_download</a> 大文件下载。</blockquote>
-<h2 id="模块概览"><a class="heading-anchor" href="#模块概览">#</a>模块概览</h2>
-<div class="table-scroll"><table><thead><tr><th>项</th><th>说明</th></tr></thead><tbody><tr><td>导入</td><td><code>import background</code></td></tr><tr><td>调用时机</td><td>长任务前 <code>begin_task()</code>，结束 <code>end_task()</code></td></tr><tr><td>适合做什么</td><td>保存前进度.flush、短同步、注册后台刷新</td></tr><tr><td>推荐顺序</td><td><code>begin_task()</code> → 工作 → <code>end_task()</code></td></tr><tr><td>状态</td><td><code>app_state()</code>：<code>active</code> / <code>inactive</code> / <code>background</code></td></tr></tbody></table></div>
-<hr>
-<h2 id="快速开始"><a class="heading-anchor" href="#快速开始">#</a>快速开始</h2>
-<p>申请后台时间并查询剩余秒数：</p>
-<figure class="code-block" data-code-id="326dc8a8ec2a">
+    <p>为当前 MiniApp owner 提供短时、可中断的 UIKit 后台任务保护和应用状态查询。</p>
+<blockquote class="callout note"><strong>真实性边界</strong>：PythonIDE 目前不能在进程被系统唤醒后恢复任意 MiniApp Python 回调。因此 <code>supports_durable_scheduling()</code> 固定为 <code>False</code>；兼容的 <code>schedule_refresh()</code> / <code>schedule_processing()</code> 明确返回 <code>False</code>，checked 版本抛出 <code>durable_python_scheduling_unsupported</code>。它们不再提交一个与 MiniApp 无关的宿主任务并制造“成功”。</blockquote>
+<h2 id="正确用法"><a class="heading-anchor" href="#正确用法">#</a>正确用法</h2>
+<figure class="code-block" data-code-id="1668fa0f3a0b">
   <figcaption>
     <span>python</span>
-    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="326dc8a8ec2a" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="1668fa0f3a0b" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
-  <pre><code id="code-326dc8a8ec2a" class="language-python">import background
-import time
+  <pre><code id="code-1668fa0f3a0b" class="language-python">import background
 
 if background.begin_task():
     try:
-        print(&quot;应用状态:&quot;, background.app_state())
-        print(&quot;剩余秒数:&quot;, background.remaining_time())
-        time.sleep(2)
+        save_small_idempotent_checkpoint()
     finally:
-        background.end_task()
-else:
-    print(&quot;无法申请后台任务&quot;)</code></pre>
+        background.end_task()</code></pre>
 </figure>
-<p>调度后台刷新（需工程内注册 identifier）：</p>
-<figure class="code-block" data-code-id="5dbe68733ad1">
-  <figcaption>
-    <span>python</span>
-    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="5dbe68733ad1" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
-  </figcaption>
-  <pre><code id="code-5dbe68733ad1" class="language-python">import background
-
-ok = background.schedule_refresh(&quot;com.myapp.refresh&quot;)
-print(&quot;已调度&quot; if ok else &quot;调度失败&quot;)</code></pre>
-</figure>
-<hr>
-<h2 id="appui-示例"><a class="heading-anchor" href="#appui-示例">#</a>AppUI 示例</h2>
-<figure class="code-block" data-code-id="ef69454c0549">
-  <figcaption>
-    <span>python</span>
-    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="ef69454c0549" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
-  </figcaption>
-  <pre><code id="code-ef69454c0549" class="language-python">import appui
-import background
-
-state = appui.State(
-    app_state=&quot;—&quot;,
-    remaining=&quot;—&quot;,
-    task=&quot;未开始&quot;,
-)
-
-
-def refresh_status():
-    state.app_state = background.app_state()
-    state.remaining = f&quot;{background.remaining_time():.1f}s&quot;
-
-
-def start_task():
-    ok = background.begin_task()
-    refresh_status()
-    state.task = &quot;进行中&quot; if ok else &quot;申请失败&quot;
-
-
-def end_task():
-    background.end_task()
-    refresh_status()
-    state.task = &quot;已结束&quot;
-
-
-def body():
-    return appui.NavigationStack(
-        appui.Form([
-            appui.Section(&quot;后台任务&quot;, [
-                appui.Button(&quot;申请延长执行&quot;, action=start_task)
-                .button_style(&quot;bordered_prominent&quot;),
-                appui.Button(&quot;结束任务&quot;, action=end_task),
-                appui.Button(&quot;刷新状态&quot;, action=refresh_status),
-            ]),
-            appui.Section(&quot;状态&quot;, [
-                appui.LabeledContent(&quot;应用状态&quot;, value=state.app_state),
-                appui.LabeledContent(&quot;剩余时间&quot;, value=state.remaining),
-                appui.LabeledContent(&quot;任务&quot;, value=state.task),
-            ]),
-        ]).navigation_title(&quot;后台任务&quot;)
-    )
-
-
-appui.run(body, state=state)</code></pre>
-</figure>
-<hr>
-<h2 id="api-参考"><a class="heading-anchor" href="#api-参考">#</a>API 参考</h2>
-<h3 id="速查"><a class="heading-anchor" href="#速查">#</a>速查</h3>
-<div class="table-scroll"><table><thead><tr><th>API</th><th>作用</th></tr></thead><tbody><tr><td><code>begin_task()</code></td><td>申请延长后台时间 → <code>bool</code></td></tr><tr><td><code>end_task()</code></td><td>提前结束</td></tr><tr><td><code>remaining_time()</code></td><td>剩余秒数 → <code>float</code></td></tr><tr><td><code>app_state()</code></td><td><code>active</code> / <code>inactive</code> / <code>background</code></td></tr><tr><td><code>start_keep_alive()</code> / <code>stop_keep_alive()</code></td><td>音频保活（慎用）</td></tr><tr><td><code>schedule_refresh(id, earliest_date=0)</code></td><td>调度 BGAppRefreshTask</td></tr><tr><td><code>schedule_processing(id, earliest_date=0, requires_network=False, requires_charging=False)</code></td><td>调度 BGProcessingTask</td></tr></tbody></table></div>
-<h3 id="延长执行"><a class="heading-anchor" href="#延长执行">#</a>延长执行</h3>
-<figure class="code-block" data-code-id="717dd7a78c80">
-  <figcaption>
-    <span>python</span>
-    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="717dd7a78c80" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
-  </figcaption>
-  <pre><code id="code-717dd7a78c80" class="language-python">background.begin_task()
-# ... 短任务 ...
-background.end_task()</code></pre>
-</figure>
-<p><code>earliest_date</code> 为 Unix 时间戳；<code>0</code> 表示约 15 分钟后最早触发。</p>
-<h3 id="保活"><a class="heading-anchor" href="#保活">#</a>保活</h3>
-<p><strong><code>start_keep_alive()</code></strong> — 启用后台音频会话以延长存活；会消耗电量，仅在有明确需求时使用。</p>
-<hr>
-<h2 id="常见错误"><a class="heading-anchor" href="#常见错误">#</a>常见错误</h2>
-<div class="table-scroll"><table><thead><tr><th>错误写法</th><th>后果</th><th>修正</th></tr></thead><tbody><tr><td><code>begin_task</code> 后忘记 <code>end_task</code></td><td>浪费系统配额</td><td>用 <code>try/finally</code></td></tr><tr><td>在后台跑长计算</td><td>被系统终止</td><td>拆任务或用 <code>schedule_processing</code></td></tr><tr><td>未注册 BGTask 标识符</td><td><code>schedule_*</code> 失败</td><td>在 Xcode 工程配置</td></tr><tr><td>与 background_download 混淆</td><td>能力不同</td><td>大文件下载用专用模块</td></tr></tbody></table></div>
-<hr>
-<h2 id="相关文档"><a class="heading-anchor" href="#相关文档">#</a>相关文档</h2>
-<div class="table-scroll"><table><thead><tr><th>文档</th><th>用途</th></tr></thead><tbody><tr><td><a href="../../pages/background-download-module/">background_download</a></td><td>后台 URL 下载</td></tr><tr><td><a href="../../pages/audio-session-module/">audio_session</a></td><td>音频会话（保活相关）</td></tr><tr><td><a href="../../pages/notification-module/">notification</a></td><td>本地提醒</td></tr></tbody></table></div>
-<h2 id="预期效果"><a class="heading-anchor" href="#预期效果">#</a>预期效果</h2>
-<p>运行示例后，界面应出现文档描述的目标结果；若与预期不符，先看「失败路径」并按返回值或日志排查。</p>
+<p><code>begin_task()</code> 只表示 UIKit 接受了有限后台时间申请；持续时长由 iOS 决定，随时可能到期，不保证工作完成。<code>remaining_time()</code> 只是瞬时估计。</p>
+<h2 id="api"><a class="heading-anchor" href="#api">#</a>API</h2>
+<div class="table-scroll"><table><thead><tr><th>API</th><th>真实行为</th></tr></thead><tbody><tr><td><code>begin_task()</code> / <code>end_task()</code></td><td>owner-scoped、成对使用的有限 UIKit background task。</td></tr><tr><td><code>remaining_time()</code></td><td>系统估计的剩余秒数。</td></tr><tr><td><code>app_state()</code></td><td><code>active</code> / <code>inactive</code> / <code>background</code>。</td></tr><tr><td><code>status()</code></td><td>返回 owner、任务状态、<code>finite_task_last_end_reason</code> / <code>finite_task_last_ended_at</code> 和 <code>durable_python_scheduling_supported=False</code>。</td></tr><tr><td><code>supports_durable_scheduling()</code></td><td>当前固定为 <code>False</code>。</td></tr><tr><td><code>schedule_refresh/processing()</code></td><td>兼容入口，明确返回 <code>False</code>。</td></tr><tr><td><code>schedule_*_checked()</code></td><td>明确抛出 unsupported 错误。</td></tr><tr><td><code>begin_task_async/end_task_async()</code></td><td>有超时、并发预算的 <code>OperationHandle</code>。</td></tr><tr><td><code>start_keep_alive()/stop_keep_alive()</code></td><td>音频业务兼容接口，不是通用保活能力。</td></tr></tbody></table></div>
+<p>不要用静音音频、无限循环或阻塞 sleep 绕过平台后台政策。大文件网络传输使用 <a href="../../pages/background-download-module/">background_download</a>，用户提醒使用 <a href="../../pages/notification-module/">notification</a>。</p>
+<p>expiration 回调会把 <code>finite_task_last_end_reason</code> 置为 <code>&quot;expired&quot;</code>；显式结束、回到前台、owner teardown 分别可见为 <code>ended</code>、<code>foregrounded</code>、<code>session_cancelled</code>。真机验收仍应覆盖锁屏/切后台、expiration、owner teardown 与成对释放；模拟器无法证明系统调度行为。</p>
+<p>公开异常类型为 <code>BackgroundError</code>；严格入口是 <code>schedule_refresh_checked()</code> 与 <code>schedule_processing_checked()</code>。</p>
   </div>
   
 </article>
 
     </main>
-    <aside class="toc"><div class="toc-title">本页目录</div><a class="toc-link" href="#模块概览">模块概览</a><a class="toc-link" href="#快速开始">快速开始</a><a class="toc-link" href="#appui-示例">AppUI 示例</a><a class="toc-link" href="#api-参考">API 参考</a><a class="toc-link child" href="#速查">速查</a><a class="toc-link child" href="#延长执行">延长执行</a><a class="toc-link child" href="#保活">保活</a><a class="toc-link" href="#常见错误">常见错误</a><a class="toc-link" href="#相关文档">相关文档</a><a class="toc-link" href="#预期效果">预期效果</a></aside>
+    <aside class="toc"><div class="toc-title">本页目录</div><a class="toc-link" href="#正确用法">正确用法</a><a class="toc-link" href="#api">API</a></aside>
   </div>
   <div class="mobile-backdrop"></div>
   <div class="search-panel" role="dialog" aria-modal="true" aria-label="搜索">

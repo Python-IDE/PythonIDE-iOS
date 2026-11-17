@@ -35,13 +35,12 @@
 
   function imageWhenReady(container, url, image) {
     image.addEventListener("load", () => { container.dataset.imageReady = ""; }, { once: true });
-    image.addEventListener("error", () => { image.remove(); }, { once: true });
+    image.addEventListener("error", () => {
+      image.remove();
+      if (container.classList.contains("showcase-cover")) container.hidden = true;
+    }, { once: true });
     image.src = url.href;
     container.append(image);
-  }
-
-  function coverLabel(node) {
-    node.textContent = document.documentElement.lang === "en" ? node.dataset.en : "打开网站";
   }
 
   function publicProfileURL(value) {
@@ -107,11 +106,10 @@
     const address = item.querySelector("[data-site-domain]");
     address.textContent = domain;
     address.title = domain;
-    coverLabel(item.querySelector(".showcase-cover-placeholder span"));
-
     const coverURL = httpsURL(site.thumbnailUrl);
     if (coverURL && [feedURL.origin, "https://pythonide.xin"].includes(coverURL.origin)) {
       const cover = item.querySelector(".showcase-cover");
+      cover.hidden = false;
       imageWhenReady(cover, coverURL, cover.querySelector("img"));
     }
 
@@ -235,7 +233,6 @@
   });
   function updateSearchCopy() {
     search.placeholder = document.documentElement.lang === "en" ? "Name or domain" : "名称或域名";
-    list.querySelectorAll(".showcase-cover-placeholder span").forEach(coverLabel);
   }
   document.addEventListener("pythonide:language", updateSearchCopy);
 

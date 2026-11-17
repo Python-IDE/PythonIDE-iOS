@@ -289,19 +289,22 @@
   </header>
   
   <div class="markdown-body">
-    <p>Core ML 模型推理：列出内置模型、加载、对图片做分类预测。</p>
+    <p>R7：<code>load_model()</code> 返回可 <code>close()</code> 的 <code>ModelHandle</code>；新增 unload、model info 与全部主要异步入口。模型/图片必须通过当前 file lease，模型缓存按 owner 隔离，加载/输入/结果/并发均有预算。预测项同时提供兼容字段 <code>label</code> 与文档字段 <code>identifier</code>。</p>
+<p>R7 公开符号：<code>CoreMLError</code>、<code>unload_model()</code>、<code>list_models_async()</code>、<code>load_model_async()</code>、<code>predict_image_async()</code>、<code>model_info_async()</code>。</p>
+<p>Core ML 模型推理：列出内置模型、加载、对图片做分类预测。</p>
 <blockquote class="callout note"><strong>边界</strong>：面向 App 内置的图像分类模型（如 MobileNetV2）；不含自定义模型训练、模型转换。预测需要本地图片文件路径。</blockquote>
+<p>R2 增量：模型路径和 <code>predict_image(..., image_path)</code> 可传字符串或 <code>appui.FileResource(..., access=&quot;read&quot;)</code>。描述符不会扩大权限，Python 与原生层都会按当前 lease 验证真实文件。</p>
 <h2 id="模块概览"><a class="heading-anchor" href="#模块概览">#</a>模块概览</h2>
-<div class="table-scroll"><table><thead><tr><th>项</th><th>说明</th></tr></thead><tbody><tr><td>导入</td><td><code>import coreml</code></td></tr><tr><td>适合做什么</td><td>图片分类、快速识别物体类别</td></tr><tr><td>调用时机</td><td><code>load_model</code> / <code>predict_image</code> 放在按钮回调</td></tr><tr><td>推荐顺序</td><td><code>list_models()</code> → <code>load_model(name)</code> → <code>predict_image(model, path)</code></td></tr><tr><td>返回</td><td>Top-5 预测列表，每项含 <code>identifier</code> 与 <code>confidence</code></td></tr></tbody></table></div>
+<div class="table-scroll"><table><thead><tr><th>项</th><th>说明</th></tr></thead><tbody><tr><td>导入</td><td><code>import coreml</code></td></tr><tr><td>适合做什么</td><td>图片分类、快速识别物体类别</td></tr><tr><td>调用时机</td><td><code>load_model</code> / <code>predict_image</code> 放在按钮回调</td></tr><tr><td>推荐顺序</td><td><code>list_models()</code> → <code>load_model(name)</code> → <code>predict_image(model, path)</code></td></tr><tr><td>返回</td><td>Top-5 预测列表，每项含 <code>label</code> 与 <code>confidence</code></td></tr></tbody></table></div>
 <hr>
 <h2 id="快速开始"><a class="heading-anchor" href="#快速开始">#</a>快速开始</h2>
 <p>列出可用模型并对一张照片分类：</p>
-<figure class="code-block" data-code-id="c69dc4618416">
+<figure class="code-block" data-code-id="ed61bb459b8d">
   <figcaption>
     <span>python</span>
-    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="c69dc4618416" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="ed61bb459b8d" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
-  <pre><code id="code-c69dc4618416" class="language-python">import coreml
+  <pre><code id="code-ed61bb459b8d" class="language-python">import coreml
 
 print(&quot;可用模型:&quot;, coreml.list_models())
 model = coreml.load_model(&quot;MobileNetV2&quot;)
@@ -309,17 +312,17 @@ print(coreml.model_info(model))
 
 results = coreml.predict_image(model, &quot;/path/to/photo.jpg&quot;)
 for item in results[:3]:
-    print(item.get(&quot;identifier&quot;), item.get(&quot;confidence&quot;))</code></pre>
+    print(item.get(&quot;label&quot;), item.get(&quot;confidence&quot;))</code></pre>
 </figure>
 <hr>
 <h2 id="appui-示例"><a class="heading-anchor" href="#appui-示例">#</a>AppUI 示例</h2>
 <p>先用 <a href="../../pages/photos-module/">photos</a> 选图，再预测；结果展示在界面上。</p>
-<figure class="code-block" data-code-id="766c640d9f62">
+<figure class="code-block" data-code-id="524c8a204477">
   <figcaption>
     <span>python</span>
-    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="766c640d9f62" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="524c8a204477" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
-  <pre><code id="code-766c640d9f62" class="language-python">import appui
+  <pre><code id="code-524c8a204477" class="language-python">import appui
 import coreml
 import photos
 
@@ -360,7 +363,7 @@ def predict_selected():
     best = results[0]
     state.batch_update(
         status=f&quot;共 {len(results)} 条结果&quot;,
-        top_label=f&quot;{best.get(&#x27;identifier&#x27;)} ({best.get(&#x27;confidence&#x27;, 0):.2f})&quot;,
+        top_label=f&quot;{best.get(&#x27;label&#x27;, &#x27;—&#x27;)} ({best.get(&#x27;confidence&#x27;, 0):.2f})&quot;,
     )
 
 
@@ -387,17 +390,18 @@ appui.run(body, state=state)</code></pre>
 <h3 id="速查"><a class="heading-anchor" href="#速查">#</a>速查</h3>
 <div class="table-scroll"><table><thead><tr><th>API</th><th>作用</th></tr></thead><tbody><tr><td><code>list_models()</code></td><td>可用模型名列表</td></tr><tr><td><code>load_model(name)</code></td><td>加载模型，返回句柄</td></tr><tr><td><code>predict_image(model, image_path)</code></td><td>图片分类 → Top-5 列表</td></tr><tr><td><code>model_info(model)</code></td><td>模型元数据字典</td></tr></tbody></table></div>
 <h3 id="加载与预测"><a class="heading-anchor" href="#加载与预测">#</a>加载与预测</h3>
-<figure class="code-block" data-code-id="3f6408a1a530">
+<figure class="code-block" data-code-id="fa12d358b583">
   <figcaption>
     <span>python</span>
-    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="3f6408a1a530" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="fa12d358b583" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
-  <pre><code id="code-3f6408a1a530" class="language-python">model = coreml.load_model(&quot;MobileNetV2&quot;)
+  <pre><code id="code-fa12d358b583" class="language-python">model = coreml.load_model(&quot;MobileNetV2&quot;)
 info = coreml.model_info(model)
 results = coreml.predict_image(model, &quot;/path/photo.jpg&quot;)
-# [{&quot;identifier&quot;: &quot;...&quot;, &quot;confidence&quot;: 0.92}, ...]</code></pre>
+# [{&quot;label&quot;: &quot;...&quot;, &quot;confidence&quot;: 0.92}, ...]</code></pre>
 </figure>
 <p>模型句柄为 <code>_ModelHandle</code>，可用 <code>model.name</code> 查看名称。加载失败抛 <code>FileNotFoundError</code>；原生能力入口不可用抛 <code>RuntimeError</code>。</p>
+<blockquote class="callout note">返回键以当前原生 bridge 为准：类别名是 <code>label</code>，不是 Vision 原生对象里的 <code>identifier</code>。<code>predict_image()</code> 当前通过同步桥等待原生 Vision 请求，没有公开取消句柄或 partial result；不要在 <code>body()</code> 或主交互热路径中批量调用。</blockquote>
 <hr>
 <h2 id="常见错误"><a class="heading-anchor" href="#常见错误">#</a>常见错误</h2>
 <div class="table-scroll"><table><thead><tr><th>错误写法</th><th>后果</th><th>修正</th></tr></thead><tbody><tr><td>图片路径不存在</td><td>预测失败</td><td>先用 <code>photos.pick_image()</code> 获取有效路径</td></tr><tr><td>模型名拼写错误</td><td><code>FileNotFoundError</code></td><td>先 <code>list_models()</code> 确认名称</td></tr><tr><td>在 <code>body()</code> 里自动预测</td><td>每次刷新重复推理</td><td>放进按钮回调</td></tr><tr><td>期望 OCR 或条码</td><td>能力不匹配</td><td>用 <a href="../../pages/vision-module/">vision</a> 或 <a href="../../pages/vision-helper-module/">vision_helper</a></td></tr></tbody></table></div>

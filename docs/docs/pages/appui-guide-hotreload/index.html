@@ -320,15 +320,16 @@ appui.run(body, state=state, hot_reload=True, presentation=&quot;sheet&quot;)</c
 <p>要点：</p>
 <ul><li>监视的是 <strong><code>run()</code> 调用栈所在文件</strong>（<code>inspect.stack</code>），因此热重载入口应放在<strong>真实脚本</strong>中，而不是交互式 <code>stdin</code>。</li><li>保存文件后，运行环境会尽快重新加载脚本并刷新界面；触发速度取决于当前设备和文件系统。</li></ul>
 <hr>
-<h2 id="状态保留-仅-state-自动合并"><a class="heading-anchor" href="#状态保留-仅-state-自动合并">#</a>状态保留：仅 <code>State</code> 自动合并</h2>
-<p>热重载重新执行脚本后，若旧页面和新页面都使用 <strong><code>State</code></strong>，会按字段名保留仍然存在的状态值，从而让计数器、开关等继续保持当前值。</p>
-<p><strong><code>ReactiveState</code> 不会自动合并</strong>到新实例；热重载后若脚本重新构造 <code>ReactiveState()</code>，字段会回到脚本初值，除非你在脚本里自行从文件恢复。</p>
-<figure class="code-block" data-code-id="89d089f778b8">
+<h2 id="状态保留-state-与-reactivestate"><a class="heading-anchor" href="#状态保留-state-与-reactivestate">#</a>状态保留：<code>State</code> 与 <code>ReactiveState</code></h2>
+<p>热重载重新执行脚本后，若旧页面和新页面都使用同类的 <strong><code>State</code></strong> 或 <strong><code>ReactiveState</code></strong>，会按新实例仍然声明的字段名保留值与字段 revision，让计数器、开关和受控输入继续保持当前值。</p>
+<p>启用持久化的隐式 State 还会在新 View 树成功提交后接管原来的持久化身份和待写状态；旧实例同时失去写入权，避免新旧 debounce 竞态。若新代码执行或原生提交失败，旧页面、旧 State 和旧持久化 writer 继续有效。</p>
+<p><code>PersistentState</code> 的 <code>schema_version</code> 迁移发生在候选实例读取快照时；失败只让候选使用声明默认值，不会改写旧记录。<code>SecureState</code> 不通过通用内存字段复制迁移秘密：相同 key 的新实例重新读取 Keychain 权威值，key 或类型改变时不会把旧明文复制到新身份。</p>
+<figure class="code-block" data-code-id="5d9cbf185832">
   <figcaption>
     <span>python</span>
-    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="89d089f778b8" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="5d9cbf185832" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
-  <pre><code id="code-89d089f778b8" class="language-python">&quot;&quot;&quot;说明：热重载后 State 合并逻辑只针对 appui.State。&quot;&quot;&quot;
+  <pre><code id="code-5d9cbf185832" class="language-python">&quot;&quot;&quot;State 和 ReactiveState 都会按仍存在的字段迁移。&quot;&quot;&quot;
 import appui
 
 s = appui.State(a=1)
@@ -361,7 +362,7 @@ appui.run(body, state=state, hot_reload=True, presentation=&quot;sheet&quot;)</c
 </figure>
 <hr>
 <h2 id="调试技巧"><a class="heading-anchor" href="#调试技巧">#</a>调试技巧</h2>
-<ul><li><strong>打印</strong>：保存后可在控制台观察重载成功或错误信息。</li><li><strong>按钮短暂不可点</strong>：保存瞬间正在替换回调，等界面刷新完成后再点一次。</li><li><strong>不要用 <code>&lt;stdin&gt;</code> 作为脚本路径</strong>：无法可靠监视；请使用磁盘上的 <code>.py</code> 文件运行。</li><li><strong>与 <code>presentation</code> 组合</strong>：<code>fullscreen</code> / <code>fullscreen_with_close</code> 同样支持热重载；关闭仍用 <code>appui.dismiss()</code>。</li></ul>
+<ul><li><strong>打印</strong>：保存后可在控制台观察重载成功或错误信息。</li><li><strong>按钮短暂不可点</strong>：保存瞬间正在替换回调，等界面刷新完成后再点一次。</li><li><strong>不要用 <code>&lt;stdin&gt;</code> 作为脚本路径</strong>：无法可靠监视；请使用磁盘上的 <code>.py</code> 文件运行。</li><li><strong>与 <code>presentation</code> 组合</strong>：<code>fullscreen</code> / <code>fullscreen_with_close</code> 同样支持热重载；关闭仍用 <code>appui.dismiss()</code>。</li><li><strong>资源代</strong>：旧 <code>Timer</code>、<code>auto_refresh</code>、ReactiveState handle 和其他 generation lease 会在提交后失效；迟到回调不能写入新 State。</li></ul>
 <figure class="code-block" data-code-id="be2e050706a5">
   <figcaption>
     <span>python</span>
@@ -378,7 +379,7 @@ assert &quot;hot_reload&quot; in sig.parameters</code></pre>
 </figure>
 <hr>
 <h2 id="与-auto_refresh-的区别"><a class="heading-anchor" href="#与-auto_refresh-的区别">#</a>与 <code>auto_refresh</code> 的区别</h2>
-<div class="table-scroll"><table><thead><tr><th>特性</th><th><code>hot_reload=True</code></th><th><code>auto_refresh(interval)</code></th></tr></thead><tbody><tr><td>触发条件</td><td>源文件变更</td><td>定时器周期</td></tr><tr><td>目的</td><td>开发时替换代码</td><td>时钟、轮询仪表盘</td></tr><tr><td>状态</td><td>合并 <code>State</code></td><td>不重新加载模块</td></tr></tbody></table></div>
+<div class="table-scroll"><table><thead><tr><th>特性</th><th><code>hot_reload=True</code></th><th><code>auto_refresh(interval)</code></th></tr></thead><tbody><tr><td>触发条件</td><td>源文件变更</td><td>定时器周期</td></tr><tr><td>目的</td><td>开发时替换代码</td><td>时钟、轮询仪表盘</td></tr><tr><td>状态</td><td>合并 <code>State</code> / <code>ReactiveState</code> 的同名字段与 revision</td><td>不重新加载模块</td></tr></tbody></table></div>
 <figure class="code-block" data-code-id="0f66de67d6d3">
   <figcaption>
     <span>python</span>
@@ -397,14 +398,14 @@ appui.run(body, state=state, hot_reload=False, presentation=&quot;sheet&quot;)</
 </figure>
 <hr>
 <h2 id="小结"><a class="heading-anchor" href="#小结">#</a>小结</h2>
-<ul><li><code>hot_reload=True</code>：<strong>监视文件 → exec → 保留 <code>State</code> → 强制全量刷新</strong>。</li><li>适合 UI 布局与回调逻辑的快速迭代。</li><li>对 <strong><code>ReactiveState</code> / 文件外缓存</strong> 需自行设计持久化策略。</li></ul>
+<ul><li><code>hot_reload=True</code>：<strong>监视文件 → 暂存新声明 → 迁移 State / ReactiveState → 原子提交 → 退出旧声明</strong>。</li><li>适合 UI 布局与回调逻辑的快速迭代。</li><li>文件外缓存和外部服务仍需自行设计迁移或重连策略。</li></ul>
 <p>更多运行器参数见 <code>appui-ref-functions.md</code>。</p>
   </div>
   
 </article>
 
     </main>
-    <aside class="toc"><div class="toc-title">本页目录</div><a class="toc-link" href="#预期效果">预期效果</a><a class="toc-link" href="#启用方式">启用方式</a><a class="toc-link" href="#状态保留-仅-state-自动合并">状态保留：仅 State 自动合并</a><a class="toc-link" href="#开发流程建议">开发流程建议</a><a class="toc-link" href="#出错时会发生什么">出错时会发生什么</a><a class="toc-link" href="#调试技巧">调试技巧</a><a class="toc-link" href="#与-auto_refresh-的区别">与 auto_refresh 的区别</a><a class="toc-link" href="#小结">小结</a></aside>
+    <aside class="toc"><div class="toc-title">本页目录</div><a class="toc-link" href="#预期效果">预期效果</a><a class="toc-link" href="#启用方式">启用方式</a><a class="toc-link" href="#状态保留-state-与-reactivestate">状态保留：State 与 ReactiveState</a><a class="toc-link" href="#开发流程建议">开发流程建议</a><a class="toc-link" href="#出错时会发生什么">出错时会发生什么</a><a class="toc-link" href="#调试技巧">调试技巧</a><a class="toc-link" href="#与-auto_refresh-的区别">与 auto_refresh 的区别</a><a class="toc-link" href="#小结">小结</a></aside>
   </div>
   <div class="mobile-backdrop"></div>
   <div class="search-panel" role="dialog" aria-modal="true" aria-label="搜索">

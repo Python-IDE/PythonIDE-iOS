@@ -3,6 +3,12 @@
 from __future__ import annotations
 
 from typing import Any, Callable, Dict, Iterable, List, Mapping, Optional, Sequence, Tuple, Union
+from appui_operations import OperationHandle, ResourceBudget
+
+class SpeechError(RuntimeError):
+    code: Any
+    domain: str
+    def __init__(self, message: str, code: Any | None = ..., domain: str = ...) -> None: ...
 
 def say(text: Any, language: Any | None = ..., rate: float = ..., pitch: float = ..., volume: float = ..., wait: bool = ...) -> Any: ...
 
@@ -16,4 +22,10 @@ def is_speaking() -> bool: ...
 
 def available_voices() -> Any: ...
 
-__all__ = ['say', 'stop', 'pause', 'resume', 'is_speaking', 'available_voices']
+def status() -> Dict[str, Any]: ...
+
+def release() -> Dict[str, Any]: ...
+
+def say_async(text: str, language: str | None = ..., rate: float = ..., pitch: float = ..., volume: float = ..., *, budget: ResourceBudget | Mapping[str, Any] | None = ...) -> OperationHandle: ...
+
+__all__ = ['say', 'stop', 'pause', 'resume', 'is_speaking', 'available_voices', 'status', 'release', 'say_async', 'SpeechError']

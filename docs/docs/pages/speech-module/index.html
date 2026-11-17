@@ -289,7 +289,9 @@
   </header>
   
   <div class="markdown-body">
-    <p>文字转语音（TTS）：朗读文本、暂停/恢复、查询可用语音。</p>
+    <p>R7：旧的 <code>say/stop/pause/resume</code> 写法保持不变；新增 <code>status()</code>、<code>release()</code> 和 <code>say_async(..., budget=...)</code>。异步入口校验 256 KiB 文本、语言/音量/语速/音调范围，使用 owner-scoped 原生 controller，并通过 <code>OperationHandle</code> 支持取消、超时与并发预算。</p>
+<p>严格异步失败抛出 <code>SpeechError</code>。</p>
+<p>文字转语音（TTS）：朗读文本、暂停/恢复、查询可用语音。</p>
 <blockquote class="callout note"><strong>边界</strong>：适合朗读结果、无障碍提示、学习卡片。短音效用 <a href="../../pages/sound-module/">sound</a>；语音识别用 <a href="../../pages/speech-recognition-module/">speech_recognition</a>。AppUI 回调里保持 <code>wait=False</code>，否则界面会被阻塞。</blockquote>
 <h2 id="模块概览"><a class="heading-anchor" href="#模块概览">#</a>模块概览</h2>
 <div class="table-scroll"><table><thead><tr><th>项</th><th>说明</th></tr></thead><tbody><tr><td>导入</td><td><code>import speech</code></td></tr><tr><td>适合做什么</td><td>朗读文本、多语言播报、无障碍反馈</td></tr><tr><td>调用时机</td><td>放在按钮回调；长文本必须提供停止入口</td></tr><tr><td>推荐顺序</td><td>先 <code>stop()</code> 清队列 → <code>say(..., wait=False)</code> → 需要时 <code>pause</code>/<code>resume</code></td></tr><tr><td>语言标签</td><td>BCP-47，如 <code>zh-CN</code>、<code>en-US</code></td></tr></tbody></table></div>

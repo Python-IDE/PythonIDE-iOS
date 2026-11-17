@@ -12,7 +12,7 @@
 | `agent` | Agent | 默认可见，可隐藏/重排 | `SearchTabAIChatLayer` | F04 |
 | `terminal` | 终端 | 默认可见，可隐藏/重排 | `TerminalTabView` | F03、F08、F09、F11 工具 |
 | `settings` | 设置 | 固定可见 | `SettingsView` | F04–F12 配置入口 |
-| `community` | 社区 | 默认可见，可隐藏/重排 | `ScriptLibraryNextPreviewView` | F10 |
+| `community` | 社区 | 默认可见，可隐藏/重排 | `CommunityPlatformView` | F10 |
 | `widget` | 小组件 | 默认隐藏，可启用/重排 | `WidgetSettingsView`/Studio | F06 |
 
 证据：`pythonide/AppShell/RootTabView.swift:218-260,1327-1515`；`pythonide/Settings/SettingsGeneralViews.swift:336-410`。可选 Tab 隐藏后，设置搜索提供 Agent、社区与终端兜底入口，见 `SettingsHomeModels.swift:55-59`。
@@ -36,7 +36,7 @@
 └─ 新建菜单：文件、Notebook、文件夹、MiniApp、导入、扫码、外部文件夹、WebDAV
 ```
 
-关键条件入口：长按运行按钮显示“清空后运行/追加运行”；行上下文菜单提供重命名、复制、移动、压缩、打包 MiniApp、加密分享等；Swipe 负责置顶/取消置顶与删除。不能仅靠主工具栏发现这些能力。
+运行按钮在空闲时直接清空已有输出后运行，运行中同一位置切换为停止；行上下文菜单提供重命名、复制、移动、压缩、打包 MiniApp、加密分享等；Swipe 负责置顶/取消置顶与删除。不能仅靠主工具栏发现这些能力。
 
 ## 编辑器跨页结构
 
@@ -66,12 +66,12 @@ Agent
 
 ## 社区与网站
 
-- 社区：搜索 → 最新投稿/官方精选/分类 → `ScriptDetailView` → 预览、运行、安装/保存、作者、互动。
-- 发布：社区右上角 `发布作品` → 类型/项目选择 → 内容、截图、说明、协议 → 上传/审核状态。
-- 个人中心：资料、头像、作品、投稿状态、获赞、退出与注销账号。
+- 社区：推荐/关注/最新 → 搜索用户、帖子与作品 → 帖子或作品详情 → 互动、运行与保存。
+- 发布：社区右上角的统一发布入口创建普通内容或附带作品；`ScriptSubmissionView` 仅保留给通知和外部兼容入口。
+- 个人中心：`CommunityProfileView` 统一承载资料、帖子与回复、关注关系、隐私设置、获赞汇总、退出与注销账号。
 - 网站：打开 HTML 文件 → 顶部 `部署`/`更新` → 登录与项目扫描 → 新建或关联已有网站 → 发布 → 打开/分享/下线/恢复/部署记录/回滚/删除。
 
-证据：`ScriptLibraryNextPreviewView.swift:120-228,423-539`；`WebsiteOnlineView.swift:757-928`；`MyWebsitesView.swift:170-380`；`WebsiteManagementSheet.swift:45-161`。
+证据：`CommunityPlatformView.swift`、`CommunityProfileView.swift`、`CommunityDiscoveryViews.swift`、`ScriptSubmissionView.swift`；`WebsiteOnlineView.swift:757-928`；`MyWebsitesView.swift:170-380`。
 
 ## 设置导航
 
@@ -93,7 +93,7 @@ Agent
 | 手势/操作 | 页面 | 功能 |
 |---|---|---|
 | 行左/右 Swipe | 文件、回收站、社区会话、网站、下载等 | 置顶、删除、恢复、分享、上下线 |
-| 长按标题 2 秒 | 社区标题 | 打开管理员页；E 内部功能，不计普通用户功能 |
+| 服务端管理员通知 | 社区 | 打开作品审核页；E 内部功能，不计普通用户功能 |
 | Context Menu | 文件、MiniApp、社区作品、网站、服务器 | 预览、复制、移动、分享、管理等 |
 | 拖放 | 文件/外部目录、Tab/Widget 预览、列表 | 移动/导入/排序/调整抽屉 |
 | 捏合 | 编辑器、终端、图片/图表/网页 | 字号或缩放（取决于页面） |
@@ -105,7 +105,7 @@ Agent
 
 | 项目 | 分类 | 说明 |
 |---|---|---|
-| `ScriptAdminView` / `WebsiteAdminView` | E 内部功能 | 社区标题长按 2 秒可触发，但仍需管理员服务端验证；不作为普通用户教程 |
+| `ScriptAdminView` / `WebsiteAdminView` | E 内部功能 | 仅由服务端授权入口触发；不作为普通用户教程 |
 | `WebsiteDeployUIPreviewHost` | E 内部功能 | 仅 `#if DEBUG` + `-WebsiteDeployUIPreview`/`-WebsiteManagementUIPreview` |
 | UI Test 脚本注入 | E 内部功能 | `PYTHONIDE_UI_TEST_*` 启动环境，仅测试/录制辅助候选 |
 | Debug 邀请深链 | E 内部功能 | `SettingsDeepLinkNavigator` 被 `#if DEBUG` 包围 |

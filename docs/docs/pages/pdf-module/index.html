@@ -289,8 +289,11 @@
   </header>
   
   <div class="markdown-body">
-    <p>PDF 创建、读取、渲染与预览：文本/图片/HTML 转 PDF、提取文字、单页截图、QuickLook 预览。</p>
+    <p>R7：所有主要操作都有 <code>*_async(..., budget=...)</code>；长文本会按页排版（最多 1000 页），图片输入不再静默跳过坏文件，HTML 超时不会返回假路径，页面渲染有 scale/像素/结果预算，写文件使用原子提交。没有可见 presentation host 时 <code>preview()</code> 明确失败，不会返回假成功。</p>
+<p>异步名称：<code>create_from_text_async()</code>、<code>create_from_images_async()</code>、<code>from_html_async()</code>、<code>extract_text_async()</code>、<code>info_async()</code>、<code>page_image_async()</code>、<code>preview_async()</code>。</p>
+<p>PDF 创建、读取、渲染与预览：文本/图片/HTML 转 PDF、提取文字、单页截图、QuickLook 预览。</p>
 <blockquote class="callout note"><strong>边界</strong>：操作本地文件路径；<code>preview()</code> 弹出系统 QuickLook 查看器。不含 PDF 表单填写、数字签名等高级编辑。</blockquote>
+<p>R2 增量：全部 PDF 输入/输出路径都接受 <code>appui.FileResource</code>；读取使用 <code>access=&quot;read&quot;</code>，创建目标使用 <code>&quot;write&quot;</code>/<code>&quot;read_write&quot;</code>。旧字符串不变。</p>
 <h2 id="模块概览"><a class="heading-anchor" href="#模块概览">#</a>模块概览</h2>
 <div class="table-scroll"><table><thead><tr><th>项</th><th>说明</th></tr></thead><tbody><tr><td>导入</td><td><code>import pdf</code></td></tr><tr><td>适合做什么</td><td>导出报告、相册转 PDF、提取文字、预览文档</td></tr><tr><td>调用时机</td><td>创建/读取放按钮回调；<code>preview()</code> 会弹全屏查看器</td></tr><tr><td>推荐顺序</td><td>创建 → <code>info()</code> 确认页数 → <code>preview()</code> 或 <code>extract_text()</code></td></tr><tr><td>路径</td><td>使用 App 可写目录（如 <code>~/Documents</code>）</td></tr></tbody></table></div>
 <hr>

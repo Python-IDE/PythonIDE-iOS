@@ -289,201 +289,76 @@
   </header>
   
   <div class="markdown-body">
-    <p>当前天气与预报（基于 Apple WeatherKit）。支持按坐标查询、按设备位置查询，以及多日/多小时预报。</p>
-<blockquote class="callout note"><strong>边界</strong>：需要 App 开启 WeatherKit 能力（Apple Developer 配置 + 带 entitlement 的签名构建）。<code>current_location()</code> 还需要定位权限；不包含地图或定位 UI，定位请看 <a href="../../pages/location-module/">location</a>。</blockquote>
-<h2 id="模块概览"><a class="heading-anchor" href="#模块概览">#</a>模块概览</h2>
-<div class="table-scroll"><table><thead><tr><th>项</th><th>说明</th></tr></thead><tbody><tr><td>导入</td><td><code>import weather</code></td></tr><tr><td>适合做什么</td><td>天气卡片、出行建议、温度/湿度/风速展示、短期预报</td></tr><tr><td>调用时机</td><td>放在按钮回调或加载任务；不要写在 AppUI <code>body()</code> 中</td></tr><tr><td>推荐顺序</td><td>需要时申请定位 → <code>current</code> / <code>current_location</code> → 可选 <code>daily</code> / <code>hourly</code></td></tr><tr><td>单位约定</td><td>温度 °C；风速 m/s；湿度 0..1；<code>symbol</code> 为 SF Symbol 名</td></tr></tbody></table></div>
-<hr>
-<h2 id="快速开始"><a class="heading-anchor" href="#快速开始">#</a>快速开始</h2>
-<p>下面脚本按坐标查询上海当前天气，并打印未来 3 天预报：</p>
-<figure class="code-block" data-code-id="b12667cc3604">
+    <p>通过 Apple WeatherKit 按坐标读取当前天气、每日预报与小时预报。</p>
+<blockquote class="callout note"><strong>发布阻断项</strong>：当前公开 <code>weather</code> API 只返回天气数据，没有返回 WeatherKit 要求展示的 Apple Weather 标识、attribution 与法律链接。因此它目前只能用于开发验证，不能据此直接发布面向用户的天气界面。等公开 attribution API 补齐后，才应把 WeatherKit 数据展示给用户。</blockquote>
+<h2 id="当前真实能力"><a class="heading-anchor" href="#当前真实能力">#</a>当前真实能力</h2>
+<div class="table-scroll"><table><thead><tr><th>项</th><th>当前行为</th></tr></thead><tbody><tr><td><code>current(lat, lon)</code></td><td>同步等待原生 WeatherKit 请求并返回字典。</td></tr><tr><td><code>daily(lat, lon, days)</code></td><td>同步等待并返回每日列表。</td></tr><tr><td><code>hourly(lat, lon, hours)</code></td><td>同步等待并返回小时列表。</td></tr><tr><td><code>current_location()</code></td><td>需要当前 MiniApp 的 <code>location</code> authority 和系统定位授权，再使用设备坐标查询。</td></tr><tr><td>取消/超时</td><td>没有公开 <code>OperationHandle</code>；原生最多等待约 30 秒，Python 无法取消已发起请求。</td></tr><tr><td>attribution</td><td>当前未公开，用户可见展示不满足发布要求。</td></tr></tbody></table></div>
+<p>还需要宿主签名包含 WeatherKit entitlement，并且网络可用。调用应放在用户动作或受控任务中，绝不能写进 AppUI <code>body()</code>。</p>
+<h2 id="开发期数据探测"><a class="heading-anchor" href="#开发期数据探测">#</a>开发期数据探测</h2>
+<p>下面代码只用于确认 entitlement、网络和返回 shape，不是可发布 UI：</p>
+<figure class="code-block" data-code-id="71d7405c5152">
   <figcaption>
     <span>python</span>
-    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="b12667cc3604" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="71d7405c5152" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
-  <pre><code id="code-b12667cc3604" class="language-python">import weather
-
-LAT, LON = 31.2304, 121.4737
-
-try:
-    now = weather.current(LAT, LON)
-    print(f&quot;{now[&#x27;temperature&#x27;]:.1f}°C&quot;, now[&quot;condition&quot;], now[&quot;symbol&quot;])
-    print(f&quot;体感 {now[&#x27;feels_like&#x27;]:.1f}°C · 湿度 {now[&#x27;humidity&#x27;]:.0%}&quot;)
-
-    days = weather.daily(LAT, LON, days=3)
-    for day in days:
-        print(day[&quot;date&quot;][:10], day[&quot;low&quot;], &quot;~&quot;, day[&quot;high&quot;], &quot;°C&quot;, day[&quot;condition&quot;])
-except weather.WeatherError as exc:
-    print(&quot;查询失败:&quot;, exc, f&quot;(code={exc.code})&quot;)</code></pre>
-</figure>
-<hr>
-<h2 id="appui-示例"><a class="heading-anchor" href="#appui-示例">#</a>AppUI 示例</h2>
-<p>天气请求放进按钮回调；结果写进 <code>State</code>，用 <code>symbol</code> 显示 SF Symbol 图标。</p>
-<figure class="code-block" data-code-id="73f34135e703">
-  <figcaption>
-    <span>python</span>
-    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="73f34135e703" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
-  </figcaption>
-  <pre><code id="code-73f34135e703" class="language-python">import appui
-import permission
+  <pre><code id="code-71d7405c5152" class="language-python">import math
 import weather
 
-DEMO_LAT = 31.2304
-DEMO_LON = 121.4737
 
-state = appui.State(
-    temp=&quot;—&quot;,
-    summary=&quot;点击按钮开始&quot;,
-    symbol=&quot;cloud&quot;,
-    forecast=&quot;—&quot;,
-    message=&quot;&quot;,
-)
-
-
-def _apply_current(now, label):
-    state.temp = f&quot;{now.get(&#x27;temperature&#x27;, 0):.1f}°C&quot;
-    state.summary = now.get(&quot;condition&quot;, &quot;—&quot;)
-    state.symbol = now.get(&quot;symbol&quot;, &quot;cloud&quot;)
-    state.message = f&quot;{label}查询成功&quot;
+def checked_coordinate(latitude, longitude):
+    latitude = float(latitude)
+    longitude = float(longitude)
+    if not math.isfinite(latitude) or not -90 &lt;= latitude &lt;= 90:
+        raise ValueError(&quot;latitude 必须是 -90...90 的有限数&quot;)
+    if not math.isfinite(longitude) or not -180 &lt;= longitude &lt;= 180:
+        raise ValueError(&quot;longitude 必须是 -180...180 的有限数&quot;)
+    return latitude, longitude
 
 
-def _format_forecast(days):
-    lines = []
-    for day in days[:3]:
-        date = str(day.get(&quot;date&quot;, &quot;&quot;))[:10]
-        low = day.get(&quot;low&quot;, &quot;—&quot;)
-        high = day.get(&quot;high&quot;, &quot;—&quot;)
-        lines.append(f&quot;{date}  {low}~{high}°C  {day.get(&#x27;condition&#x27;, &#x27;&#x27;)}&quot;)
-    return &quot;\n&quot;.join(lines) if lines else &quot;暂无预报&quot;
-
-
-def load_shanghai():
-    try:
-        now = weather.current(DEMO_LAT, DEMO_LON)
-        _apply_current(now, &quot;上海&quot;)
-        state.forecast = _format_forecast(
-            weather.daily(DEMO_LAT, DEMO_LON, days=3)
-        )
-    except weather.WeatherError as exc:
-        state.message = f&quot;查询失败: {exc} (code={exc.code})&quot;
-
-
-def load_here():
-    entry = permission.status(&quot;location&quot;)
-    if not entry.get(&quot;authorized&quot;):
-        permission.request(&quot;location&quot;)
-        entry = permission.status(&quot;location&quot;)
-    if not entry.get(&quot;authorized&quot;):
-        state.message = &quot;需要定位权限，请先在系统弹窗中允许&quot;
-        return
-    try:
-        now = weather.current_location()
-        _apply_current(now, &quot;当前位置&quot;)
-    except weather.WeatherError as exc:
-        state.message = f&quot;查询失败: {exc} (code={exc.code})&quot;
-
-
-def body():
-    return appui.NavigationStack(
-        appui.Form([
-            appui.Section(&quot;当前&quot;, [
-                appui.Image(system_name=state.symbol).font(&quot;largeTitle&quot;),
-                appui.LabeledContent(&quot;温度&quot;, value=state.temp),
-                appui.LabeledContent(&quot;状况&quot;, value=state.summary),
-            ]),
-            appui.Section(&quot;操作&quot;, [
-                appui.Button(&quot;查询上海天气&quot;, action=load_shanghai)
-                .button_style(&quot;bordered_prominent&quot;),
-                appui.Button(&quot;查询当前位置天气&quot;, action=load_here),
-            ]),
-            appui.Section(&quot;3 日预报&quot;, [
-                appui.Text(state.forecast).font(&quot;caption&quot;).foreground_color(&quot;secondaryLabel&quot;),
-                appui.Text(state.message).font(&quot;caption2&quot;).foreground_color(&quot;tertiaryLabel&quot;),
-            ], footer=&quot;需要 WeatherKit 能力与网络；真机测试最可靠。&quot;),
-        ]).navigation_title(&quot;天气&quot;)
-    )
-
-
-appui.run(body, state=state)</code></pre>
+latitude, longitude = checked_coordinate(31.2304, 121.4737)
+try:
+    current = weather.current(latitude, longitude)
+    forecast = weather.daily(latitude, longitude, days=3)
+    print(current)
+    print(forecast)
+except weather.WeatherError as exc:
+    print(&quot;WeatherKit 查询失败:&quot;, exc, &quot;code=&quot;, exc.code)</code></pre>
 </figure>
-<hr>
+<p>调用方还应限制 <code>days</code> / <code>hours</code> 为正整数和合理上限；当前 wrapper 会把值转成 <code>int</code>，但不会完整拒绝非有限坐标、越界坐标或不合理的 forecast 数量。</p>
 <h2 id="api-参考"><a class="heading-anchor" href="#api-参考">#</a>API 参考</h2>
-<h3 id="速查"><a class="heading-anchor" href="#速查">#</a>速查</h3>
-<div class="table-scroll"><table><thead><tr><th>API</th><th>作用</th></tr></thead><tbody><tr><td><code>current(lat, lon)</code></td><td>按坐标查当前天气 → <code>dict</code></td></tr><tr><td><code>current_location()</code></td><td>按设备位置查当前天气 → <code>dict</code>（需定位权限）</td></tr><tr><td><code>daily(lat, lon, days=7)</code></td><td>每日预报 → <code>list[dict]</code></td></tr><tr><td><code>hourly(lat, lon, hours=24)</code></td><td>每小时预报 → <code>list[dict]</code></td></tr><tr><td><code>WeatherError</code></td><td>查询失败时抛出的异常</td></tr></tbody></table></div>
-<h3 id="当前天气"><a class="heading-anchor" href="#当前天气">#</a>当前天气</h3>
-<p><strong><code>current(latitude, longitude)</code></strong> — 按经纬度查询。</p>
-<figure class="code-block" data-code-id="e349b8091a7d">
+<div class="table-scroll"><table><thead><tr><th>API</th><th>返回</th><th>重要边界</th></tr></thead><tbody><tr><td><code>current(latitude, longitude)</code></td><td><code>dict</code></td><td>同步、不可取消；调用前自行校验坐标。</td></tr><tr><td><code>current_location()</code></td><td><code>dict</code></td><td>需要 location authority/权限；使用的缓存坐标没有公开 age/accuracy 保证。</td></tr><tr><td><code>daily(latitude, longitude, days=7)</code></td><td><code>list[dict]</code></td><td>调用前自行限制 <code>days</code>。</td></tr><tr><td><code>hourly(latitude, longitude, hours=24)</code></td><td><code>list[dict]</code></td><td>调用前自行限制 <code>hours</code>。</td></tr><tr><td><code>WeatherError</code></td><td>异常</td><td><code>code</code> 来自原生响应；不要假设每个系统错误都有稳定细分类。</td></tr></tbody></table></div>
+<p>常见当前天气字段：<code>temperature</code>、<code>feels_like</code>、<code>condition</code>、<code>symbol</code>、<code>humidity</code>、<code>wind_speed</code>、<code>uv_index</code>、<code>is_daylight</code>。温度为摄氏度，风速为 m/s，湿度和降水概率通常为 <code>0...1</code>。</p>
+<p>每日项通常包含 <code>date</code>、<code>condition</code>、<code>symbol</code>、<code>high</code>、<code>low</code>、<code>precipitation_chance</code>；小时项通常包含 <code>date</code>、<code>condition</code>、<code>symbol</code>、<code>temperature</code>、<code>precipitation_chance</code>。</p>
+<h2 id="定位调用"><a class="heading-anchor" href="#定位调用">#</a>定位调用</h2>
+<figure class="code-block" data-code-id="191cd0af390b">
   <figcaption>
     <span>python</span>
-    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="e349b8091a7d" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="191cd0af390b" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
-  <pre><code id="code-e349b8091a7d" class="language-python">now = weather.current(37.33, -122.03)
-print(now[&quot;temperature&quot;], now[&quot;symbol&quot;])</code></pre>
-</figure>
-<p><strong><code>current_location()</code></strong> — 使用设备当前位置，需先获得定位授权。</p>
-<figure class="code-block" data-code-id="5b44f622f982">
-  <figcaption>
-    <span>python</span>
-    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="5b44f622f982" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
-  </figcaption>
-  <pre><code id="code-5b44f622f982" class="language-python">import permission
+  <pre><code id="code-191cd0af390b" class="language-python">import permission
+import weather
 
 if not permission.status(&quot;location&quot;).get(&quot;authorized&quot;):
     permission.request(&quot;location&quot;)
-now = weather.current_location()</code></pre>
-</figure>
-<p>当前天气常见字段：</p>
-<div class="table-scroll"><table><thead><tr><th>字段</th><th>说明</th></tr></thead><tbody><tr><td><code>temperature</code> / <code>feels_like</code></td><td>气温 / 体感温度（°C）</td></tr><tr><td><code>condition</code></td><td>天气状况文字</td></tr><tr><td><code>symbol</code></td><td>SF Symbol 名，可配合 <code>appui.Image(system_name=...)</code></td></tr><tr><td><code>humidity</code></td><td>湿度（0..1）</td></tr><tr><td><code>wind_speed</code></td><td>风速（m/s）</td></tr><tr><td><code>uv_index</code></td><td>紫外线指数</td></tr><tr><td><code>is_daylight</code></td><td>是否白天</td></tr></tbody></table></div>
-<h3 id="预报"><a class="heading-anchor" href="#预报">#</a>预报</h3>
-<p><strong><code>daily(latitude, longitude, days=7)</code></strong> — 返回每日预报列表。</p>
-<figure class="code-block" data-code-id="e4f4a8567833">
-  <figcaption>
-    <span>python</span>
-    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="e4f4a8567833" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
-  </figcaption>
-  <pre><code id="code-e4f4a8567833" class="language-python">days = weather.daily(31.23, 121.47, days=5)
-for day in days:
-    print(day[&quot;date&quot;], day[&quot;low&quot;], day[&quot;high&quot;], day[&quot;symbol&quot;])</code></pre>
-</figure>
-<p>每日字段：<code>date</code>、<code>condition</code>、<code>symbol</code>、<code>high</code>、<code>low</code>、<code>precipitation_chance</code>。</p>
-<p><strong><code>hourly(latitude, longitude, hours=24)</code></strong> — 返回每小时预报列表。</p>
-<figure class="code-block" data-code-id="2b24b506e929">
-  <figcaption>
-    <span>python</span>
-    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="2b24b506e929" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
-  </figcaption>
-  <pre><code id="code-2b24b506e929" class="language-python">hours = weather.hourly(31.23, 121.47, hours=12)
-for hour in hours:
-    print(hour[&quot;date&quot;], hour[&quot;temperature&quot;], hour[&quot;condition&quot;])</code></pre>
-</figure>
-<p>每小时字段：<code>date</code>、<code>condition</code>、<code>symbol</code>、<code>temperature</code>、<code>precipitation_chance</code>。</p>
-<h3 id="异常"><a class="heading-anchor" href="#异常">#</a>异常</h3>
-<p>查询失败时抛出 <code>WeatherError</code>，可通过 <code>exc.code</code> 区分原因：</p>
-<div class="table-scroll"><table><thead><tr><th><code>code</code></th><th>含义</th></tr></thead><tbody><tr><td><code>unavailable</code></td><td>系统版本过低、WeatherKit 未启用或暂无数据</td></tr><tr><td><code>weatherkit_auth</code></td><td>WeatherKit JWT/entitlement 未正确配置</td></tr><tr><td><code>denied</code></td><td>定位权限未授权（<code>current_location</code>）</td></tr><tr><td><code>network_error</code></td><td>网络或 WeatherKit 服务异常</td></tr></tbody></table></div>
-<figure class="code-block" data-code-id="f5b78be008c9">
-  <figcaption>
-    <span>python</span>
-    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="f5b78be008c9" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
-  </figcaption>
-  <pre><code id="code-f5b78be008c9" class="language-python">try:
-    weather.current(0, 0)
+
+try:
+    result = weather.current_location()
 except weather.WeatherError as exc:
     print(exc.code, exc)</code></pre>
 </figure>
-<hr>
-<h2 id="常见错误"><a class="heading-anchor" href="#常见错误">#</a>常见错误</h2>
-<div class="table-scroll"><table><thead><tr><th>错误写法</th><th>后果</th><th>修正</th></tr></thead><tbody><tr><td>在 <code>body()</code> 里调 <code>weather.current()</code></td><td>每次刷新都联网</td><td>放进按钮回调，结果写进 <code>State</code></td></tr><tr><td>未授权就 <code>current_location()</code></td><td>抛出 <code>WeatherError(code=&quot;denied&quot;)</code></td><td>先 <code>permission.request(&quot;location&quot;)</code></td></tr><tr><td>未配置 WeatherKit</td><td><code>weatherkit_auth</code> 或 <code>unavailable</code></td><td>在 Developer 为 App ID 开启 WeatherKit 并重装</td></tr><tr><td>不捕获 <code>WeatherError</code></td><td>异常直接打断流程</td><td>用 <code>try/except</code> 并给出兜底 UI</td></tr></tbody></table></div>
-<hr>
+<p>系统定位授权不等于可以跨 MiniApp 使用位置：当前运行还必须拥有 <code>location</code> capability。返回坐标可能来自系统缓存；本模块没有公开精度和时间戳筛选参数。</p>
+<h2 id="失败路径"><a class="heading-anchor" href="#失败路径">#</a>失败路径</h2>
+<div class="table-scroll"><table><thead><tr><th>情况</th><th>当前表现</th></tr></thead><tbody><tr><td>bridge / WeatherKit 不可用</td><td>抛出 <code>WeatherError</code>，常见 code 为 <code>unavailable</code>。</td></tr><tr><td>entitlement 或 WeatherKit 授权问题</td><td>抛出 <code>WeatherError</code>；具体 code 取决于原生映射。</td></tr><tr><td>定位未授权</td><td><code>current_location()</code> 失败。</td></tr><tr><td>请求超过同步等待窗口</td><td>返回超时错误，但后台 Task 可能尚未被取消。</td></tr><tr><td>连续快速调用</td><td>每次都会创建独立请求，没有 owner-scoped 去重/取消。</td></tr></tbody></table></div>
+<h2 id="不要这样做"><a class="heading-anchor" href="#不要这样做">#</a>不要这样做</h2>
+<ul><li>不要发布没有 Apple Weather attribution 的用户可见天气卡片。</li><li>不要在 <code>body()</code>、滚动回调或高频 timer 中调用。</li><li>不要把 <code>WeatherError.code</code> 当成穷举稳定枚举。</li><li>不要假设 <code>current_location()</code> 返回的是刚刚采集的高精度位置。</li><li>不要并发批量发起大量同步请求。</li></ul>
 <h2 id="相关文档"><a class="heading-anchor" href="#相关文档">#</a>相关文档</h2>
-<div class="table-scroll"><table><thead><tr><th>文档</th><th>用途</th></tr></thead><tbody><tr><td><a href="../../pages/location-module/">location</a></td><td>定位权限与坐标</td></tr><tr><td><a href="../../pages/permission-module/">permission</a></td><td>统一查询 <code>location</code> 权限</td></tr><tr><td><a href="../../pages/miniapp-native-capabilities/">原生能力入口</a></td><td>MiniApp 场景配方</td></tr></tbody></table></div>
-<h2 id="预期效果"><a class="heading-anchor" href="#预期效果">#</a>预期效果</h2>
-<p>运行示例后，界面应出现文档描述的目标结果；若与预期不符，先看「失败路径」并按返回值或日志排查。</p>
+<ul><li><a href="../../pages/location-module/">location</a></li><li><a href="../../pages/permission-module/">permission</a></li><li><a href="../../pages/miniapp-native-capabilities/">原生能力入口</a></li></ul>
   </div>
   
 </article>
 
     </main>
-    <aside class="toc"><div class="toc-title">本页目录</div><a class="toc-link" href="#模块概览">模块概览</a><a class="toc-link" href="#快速开始">快速开始</a><a class="toc-link" href="#appui-示例">AppUI 示例</a><a class="toc-link" href="#api-参考">API 参考</a><a class="toc-link child" href="#速查">速查</a><a class="toc-link child" href="#当前天气">当前天气</a><a class="toc-link child" href="#预报">预报</a><a class="toc-link child" href="#异常">异常</a><a class="toc-link" href="#常见错误">常见错误</a><a class="toc-link" href="#相关文档">相关文档</a><a class="toc-link" href="#预期效果">预期效果</a></aside>
+    <aside class="toc"><div class="toc-title">本页目录</div><a class="toc-link" href="#当前真实能力">当前真实能力</a><a class="toc-link" href="#开发期数据探测">开发期数据探测</a><a class="toc-link" href="#api-参考">API 参考</a><a class="toc-link" href="#定位调用">定位调用</a><a class="toc-link" href="#失败路径">失败路径</a><a class="toc-link" href="#不要这样做">不要这样做</a><a class="toc-link" href="#相关文档">相关文档</a></aside>
   </div>
   <div class="mobile-backdrop"></div>
   <div class="search-panel" role="dialog" aria-modal="true" aria-label="搜索">

@@ -44,6 +44,7 @@
 .showcase-grid {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
+  align-items: start;
   gap: clamp(16px, 2.4vw, 26px);
   margin: 0;
   padding: 0;
@@ -67,17 +68,10 @@
   border-bottom: 1px solid var(--line);
 }
 .showcase-cover img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: top; }
+.showcase-cover[hidden] { display: none; }
 .showcase-cover img, .showcase-avatar img { opacity: 0; }
 .showcase [data-image-ready] img { opacity: 1; background: var(--surface-soft); }
-.showcase-avatar[data-image-ready] > span, .showcase-cover[data-image-ready] .showcase-cover-placeholder { visibility: hidden; }
-.showcase-cover-placeholder {
-  display: grid;
-  justify-items: center;
-  gap: 8px;
-  color: var(--muted);
-  font-size: 12px;
-  font-weight: 600;
-}
+.showcase-avatar[data-image-ready] > span { visibility: hidden; }
 .showcase-card-body {
   display: flex;
   align-items: center;

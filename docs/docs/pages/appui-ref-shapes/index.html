@@ -292,8 +292,28 @@
     <p>本页覆盖 <code>Rectangle</code>、<code>RoundedRectangle</code>、<code>Circle</code>、<code>Capsule</code>、<code>Ellipse</code>、<code>Color</code> 和 <code>ToolbarItem</code>。形状是普通 <code>View</code>，通常要配合 <code>.frame(...)</code> 才能得到稳定尺寸。</p>
 <h2 id="什么时候用"><a class="heading-anchor" href="#什么时候用">#</a>什么时候用</h2>
 <div class="table-scroll"><table><thead><tr><th>目标</th><th>首选 API</th><th>说明</th></tr></thead><tbody><tr><td>矩形背景或占位</td><td><code>Rectangle</code></td><td>基础块状形状。</td></tr><tr><td>卡片背景</td><td><code>RoundedRectangle</code></td><td>需要圆角但不想用 <code>.background(...)</code> 时。</td></tr><tr><td>圆形头像、圆点</td><td><code>Circle</code></td><td>宽高相同最稳定。</td></tr><tr><td>胶囊按钮背景</td><td><code>Capsule</code></td><td>两端半圆的条状背景。</td></tr><tr><td>椭圆</td><td><code>Ellipse</code></td><td>非等宽高的椭圆。</td></tr><tr><td>纯色块</td><td><code>Color</code></td><td>用作背景层或色块视图。</td></tr><tr><td>工具栏项</td><td><code>ToolbarItem</code></td><td>放到 <code>.toolbar([...])</code> 里。</td></tr></tbody></table></div>
+<h2 id="shapestyle"><a class="heading-anchor" href="#shapestyle">#</a>ShapeStyle</h2>
+<p><code>.fill()</code>、<code>.stroke()</code>、<code>.foreground_style()</code>、<code>.background()</code> 和 <code>.tint()</code> 可接收类型化 <code>ShapeStyle</code>。类型化写法能在 Python 与 AppUI 渲染端之间保留渐变、材质和层级语义；旧颜色表达仍然兼容。</p>
+<figure class="code-block" data-code-id="f405da75027d">
+  <figcaption>
+    <span>python</span>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="f405da75027d" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
+  </figcaption>
+  <pre><code id="code-f405da75027d" class="language-python">gradient = appui.ShapeStyle.linear_gradient(
+    [&quot;systemBlue&quot;, &quot;systemPurple&quot;],
+    start_point=&quot;topLeading&quot;,
+    end_point=&quot;bottomTrailing&quot;,
+)
+
+badge = appui.Capsule().fill(gradient)
+outline = appui.Circle().stroke(
+    appui.ShapeStyle.hierarchical(&quot;secondary&quot;),
+    line_width=2,
+)</code></pre>
+</figure>
+<p>可用构造器：<code>color</code> / <code>solid</code>、<code>linear_gradient</code>、<code>radial_gradient</code>、<code>angular_gradient</code>、<code>material</code>、<code>hierarchical</code>。渐变至少需要两个有效颜色。</p>
 <h2 id="形状公共方法"><a class="heading-anchor" href="#形状公共方法">#</a>形状公共方法</h2>
-<div class="table-scroll"><table><thead><tr><th>API</th><th>签名</th><th>所属类型</th></tr></thead><tbody><tr><td><code>.fill</code></td><td><code>.fill(color: ColorLike) -&gt; Self</code></td><td><code>_Shape</code></td></tr><tr><td><code>.stroke</code></td><td><code>.stroke(color: ColorLike, line_width: float = 1, **kwargs: Any) -&gt; Self</code></td><td><code>_Shape</code></td></tr></tbody></table></div>
+<div class="table-scroll"><table><thead><tr><th>API</th><th>签名</th><th>所属类型</th></tr></thead><tbody><tr><td><code>.fill</code></td><td><code>.fill(...)</code></td><td><code>_Shape</code></td></tr><tr><td><code>.stroke</code></td><td><code>.stroke(...)</code></td><td><code>_Shape</code></td></tr></tbody></table></div>
 <figure class="code-block" data-code-id="6f31fb0c56a4">
   <figcaption>
     <span>python</span>
@@ -425,7 +445,7 @@ appui.run(body)</code></pre>
 </article>
 
     </main>
-    <aside class="toc"><div class="toc-title">本页目录</div><a class="toc-link" href="#什么时候用">什么时候用</a><a class="toc-link" href="#形状公共方法">形状公共方法</a><a class="toc-link" href="#形状签名">形状签名</a><a class="toc-link" href="#颜色">颜色</a><a class="toc-link" href="#toolbaritem">ToolbarItem</a><a class="toc-link" href="#与-path-canvas-的边界">与 Path / Canvas 的边界</a><a class="toc-link" href="#常见错误">常见错误</a><a class="toc-link" href="#相关文档">相关文档</a></aside>
+    <aside class="toc"><div class="toc-title">本页目录</div><a class="toc-link" href="#什么时候用">什么时候用</a><a class="toc-link" href="#shapestyle">ShapeStyle</a><a class="toc-link" href="#形状公共方法">形状公共方法</a><a class="toc-link" href="#形状签名">形状签名</a><a class="toc-link" href="#颜色">颜色</a><a class="toc-link" href="#toolbaritem">ToolbarItem</a><a class="toc-link" href="#与-path-canvas-的边界">与 Path / Canvas 的边界</a><a class="toc-link" href="#常见错误">常见错误</a><a class="toc-link" href="#相关文档">相关文档</a></aside>
   </div>
   <div class="mobile-backdrop"></div>
   <div class="search-panel" role="dialog" aria-modal="true" aria-label="搜索">

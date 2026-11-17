@@ -289,8 +289,11 @@
   </header>
   
   <div class="markdown-body">
-    <p>队列式原生音乐播放器：维护当前歌曲、播放队列、播放模式、进度、错误状态、锁屏 Now Playing、控制中心按钮和上次播放恢复。</p>
+    <p>R7：全局播放器改为 owner-scoped controller，新增 <code>status()</code>、<code>release()</code> 与 set-queue/prepare/restore 异步入口。队列最多 500 项，tag/URL/事件名和数值均有明确校验；另一个活跃 owner 不能覆盖当前队列，释放时同时清理 callbacks 与资源。</p>
+<p>异步名称：<code>set_queue_async()</code>、<code>prepare_async()</code>、<code>restore_async()</code>。</p>
+<p>队列式原生音乐播放器：维护当前歌曲、播放队列、播放模式、进度、错误状态、锁屏 Now Playing、控制中心按钮和上次播放恢复。</p>
 <blockquote class="callout note"><strong>边界</strong>：<code>music_player</code> 播放你自己的 URL / 本地音频队列；<a href="../../pages/music-module/">music</a> 是 Apple Music / MusicKit；<a href="../../pages/avplayer-module/">avplayer</a> 是低层单媒体播放器；<a href="../../pages/now-playing-module/">now_playing</a> 只发布元数据。播放、切歌、恢复和系统控制属于副作用，放在按钮回调、页面初始化或用户确认流程里，不要在 AppUI <code>body()</code> 中反复调用。</blockquote>
+<p>R2 增量：歌曲的 <code>url</code>/<code>artwork_*</code> 可传 <code>appui.MediaSource.remote/file</code> 或 <code>appui.FileResource</code>。当前队列 wire 仍是字符串，inline data、自定义 HTTP header 和 asset 名不会被静默降级，而会明确拒绝。</p>
 <h2 id="模块概览"><a class="heading-anchor" href="#模块概览">#</a>模块概览</h2>
 <div class="table-scroll"><table><thead><tr><th>项</th><th>说明</th></tr></thead><tbody><tr><td>导入</td><td><code>import music_player</code></td></tr><tr><td>适合做什么</td><td>音乐 MiniApp、歌单播放器、搜索结果播放、后台音乐播放</td></tr><tr><td>不适合做什么</td><td>Apple Music 资料库控制、短音效、AppUI 内嵌视频</td></tr><tr><td>状态归属</td><td>宿主全局播放器服务</td></tr><tr><td>系统集成</td><td>可选 Now Playing、控制中心 / 锁屏按钮、后台音频</td></tr><tr><td>恢复</td><td><code>restore()</code> 恢复上次队列、当前歌曲、进度和播放模式</td></tr></tbody></table></div>
 <hr>
@@ -424,7 +427,8 @@ appui.run(body, state=state)</code></pre>
 <hr>
 <h2 id="歌曲字段"><a class="heading-anchor" href="#歌曲字段">#</a>歌曲字段</h2>
 <p>每首歌至少需要 <code>url</code>：</p>
-<div class="table-scroll"><table><thead><tr><th>字段</th><th>说明</th></tr></thead><tbody><tr><td><code>url</code></td><td>音频 URL、本地路径或 <code>file://</code></td></tr><tr><td><code>title</code> / <code>name</code></td><td>歌曲标题</td></tr><tr><td><code>artist</code> / <code>singer</code></td><td>艺术家</td></tr><tr><td><code>album</code></td><td>专辑名</td></tr><tr><td><code>duration</code></td><td>可选时长；真实时长准备好后以播放器为准</td></tr><tr><td><code>artwork_path</code></td><td>本地封面路径</td></tr><tr><td><code>artwork_url</code> / <code>cover</code> / <code>pic</code></td><td>远程封面 URL，宿主会缓存后用于 Now Playing</td></tr><tr><td><code>id</code></td><td>业务侧歌曲 ID，可用于你的列表选中状态</td></tr></tbody></table></div>
+<div class="table-scroll"><table><thead><tr><th>字段</th><th>说明</th></tr></thead><tbody><tr><td><code>url</code></td><td>音频 URL、本地路径或 <code>file://</code></td></tr><tr><td><code>title</code> / <code>name</code></td><td>歌曲标题</td></tr><tr><td><code>artist</code> / <code>singer</code></td><td>艺术家</td></tr><tr><td><code>album</code></td><td>专辑名</td></tr><tr><td><code>duration</code></td><td>可选时长；真实时长准备好后以播放器为准</td></tr><tr><td><code>artwork_path</code></td><td>本地封面路径</td></tr><tr><td><code>artwork_url</code> / <code>cover</code> / <code>pic</code></td><td>远程封面 URL，宿主会缓存后用于 Now Playing</td></tr><tr><td><code>artwork_cache_key</code></td><td>可选的稳定业务身份；适合 URL 会换签名但仍是同一封面的 CDN</td></tr><tr><td><code>artwork_cache_version</code></td><td>可选内容版本；变化时原子替换同一 key 的旧版本，不要每次传随机 UUID</td></tr><tr><td><code>id</code></td><td>业务侧歌曲 ID，可用于你的列表选中状态</td></tr></tbody></table></div>
+<p>远程封面复用 AppUI R3 图片缓存：按当前 MiniApp owner 隔离，使用 SHA-256 身份，不再截断 URL 作为文件名；遵守 HTTP <code>Cache-Control</code>、<code>ETag</code>、 <code>Last-Modified</code> 和 <code>Expires</code>，过期时自动重验证。单项、owner 和全局均有 字节/数量上限及 LRU 淘汰，无法解码或像素过大的内容不会入缓存。 <code>appui.image_cache.stats()</code> 可查看占用，<code>clear(scope=&quot;miniapp&quot;)</code> 可清理； 若要删除指定封面，可用 <code>appui.image_cache.remove(&quot;music-player-artwork:&quot; + cache_key, version)</code>。 历史无界 <code>music-player-artwork-*</code> 文件会在播放器首次初始化时清理。</p>
 <hr>
 <h2 id="api-参考"><a class="heading-anchor" href="#api-参考">#</a>API 参考</h2>
 <h3 id="配置"><a class="heading-anchor" href="#配置">#</a>配置</h3>

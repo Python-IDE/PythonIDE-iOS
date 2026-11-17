@@ -2,7 +2,11 @@
 
 from __future__ import annotations
 
-from typing import Any, Callable, Dict, Iterable, Literal, Optional, Sequence, TypedDict
+from typing import Any, Callable, Dict, Iterable, Literal, Mapping, Optional, Sequence, TypedDict
+from appui_resources import FileResource, MediaSource
+from appui_operations import OperationHandle, ResourceBudget
+
+MediaInput = str | FileResource | MediaSource
 
 PlayMode = Literal["sequence", "repeat_all", "repeat_one", "shuffle"]
 
@@ -12,21 +16,26 @@ PLAY_MODE_REPEAT_ONE: PlayMode
 PLAY_MODE_SHUFFLE: PlayMode
 
 class Song(TypedDict, total=False):
-    url: str
+    url: MediaInput
     title: str
     name: str
     artist: str
     singer: str
     album: str
-    artwork_path: str
-    artwork_url: str
-    cover: str
+    artwork_path: MediaInput
+    artwork_url: MediaInput
+    cover: MediaInput
+    artwork_cache_key: str
+    artwork_cache_version: str
     duration: float
     id: str
 
 class MusicPlayerError(RuntimeError):
     code: Optional[Any]
     def __init__(self, message: str, code: Optional[Any] = ...) -> None: ...
+
+def status() -> Dict[str, Any]: ...
+def release() -> Dict[str, Any]: ...
 
 def configure(
     now_playing: Optional[bool] = ...,
@@ -92,11 +101,15 @@ def restore(autoplay: bool = ...) -> Dict[str, Any]: ...
 def on_event(callback: str | Callable[[str], Any], events: Optional[str | Iterable[str]] = ...) -> Dict[str, Any]: ...
 
 def off_event(callback_id: Optional[Any] = ...) -> Dict[str, Any]: ...
+def set_queue_async(songs: Sequence[Dict[str, Any] | Song], start_index: int = ..., play_mode: Optional[PlayMode | str] = ..., autoplay: bool = ..., preload_count: int = ..., *, budget: ResourceBudget | Mapping[str, Any] | None = ...) -> OperationHandle: ...
+def prepare_async(song: Dict[str, Any] | Song, index: Optional[int] = ..., *, budget: ResourceBudget | Mapping[str, Any] | None = ...) -> OperationHandle: ...
+def restore_async(autoplay: bool = ..., *, budget: ResourceBudget | Mapping[str, Any] | None = ...) -> OperationHandle: ...
 
 __all__ = [
     'PLAY_MODE_SEQUENCE', 'PLAY_MODE_REPEAT_ALL',
     'PLAY_MODE_REPEAT_ONE', 'PLAY_MODE_SHUFFLE',
     'MusicPlayerError',
+    'status', 'release',
     'configure', 'set_queue', 'queue', 'current',
     'add', 'remove', 'move', 'clear',
     'prepare', 'prefetch_next', 'preload_state',
@@ -104,4 +117,5 @@ __all__ = [
     'set_play_mode', 'set_volume', 'set_rate',
     'state', 'restore',
     'on_event', 'off_event',
+    'set_queue_async', 'prepare_async', 'restore_async',
 ]

@@ -291,8 +291,9 @@
   <div class="markdown-body">
     <p>系统分享面板：把文本、链接或文件路径交给 iOS 分享表单（AirDrop、备忘录、邮件等）。</p>
 <blockquote class="callout note"><strong>边界</strong>：无独立 <code>import share</code> Python 模块；通过 AppUI 的 <code>ShareLink</code> 唤起系统 <code>ShareLink</code> / 分享表单。<code>item</code> 需是有意义的字符串（URL、文件路径或分享正文）。复杂导出流水线可结合 <a href="../../pages/file-picker-module/">file_picker</a> 先拿到路径再分享。</blockquote>
+<p>旧 <code>item=</code> 会按字符串形态启发式区分文本、URL 与文件，无法消除所有歧义。新代码优先使用 <code>items=[ShareItem...]</code>；系统最终是否采用 <code>subject</code> / <code>message</code> 由目标 App 决定，AppUI 不保证每个分享目标都显示它们。</p>
 <h2 id="模块概览"><a class="heading-anchor" href="#模块概览">#</a>模块概览</h2>
-<div class="table-scroll"><table><thead><tr><th>项</th><th>说明</th></tr></thead><tbody><tr><td>导入</td><td><code>import appui</code></td></tr><tr><td>适合做什么</td><td>分享笔记、导出 CSV/文本、转发链接</td></tr><tr><td>调用时机</td><td>用户点击 <code>ShareLink</code>；内容先在 <code>State</code> 或函数里准备好</td></tr><tr><td>推荐顺序</td><td>生成内容 → 写入 <code>State</code> → <code>ShareLink(item=...)</code></td></tr><tr><td>空内容</td><td><code>item</code> 为空时分享面板无有效载荷</td></tr></tbody></table></div>
+<div class="table-scroll"><table><thead><tr><th>项</th><th>说明</th></tr></thead><tbody><tr><td>导入</td><td><code>import appui</code></td></tr><tr><td>适合做什么</td><td>分享笔记、导出 CSV/文本、转发链接</td></tr><tr><td>调用时机</td><td>用户点击 <code>ShareLink</code>；内容先在 <code>State</code> 或函数里准备好</td></tr><tr><td>推荐顺序</td><td>生成内容 → 写入 <code>State</code> → <code>ShareLink(item=...)</code> 或 typed <code>items=[...]</code></td></tr><tr><td>空内容</td><td><code>item</code> 为空时分享面板无有效载荷</td></tr></tbody></table></div>
 <hr>
 <h2 id="快速开始"><a class="heading-anchor" href="#快速开始">#</a>快速开始</h2>
 <p>下面脚本构建一段可分享文本，并用 <code>ShareLink</code> 展示分享按钮：</p>
@@ -362,7 +363,7 @@ appui.run(body, state=state)</code></pre>
 <hr>
 <h2 id="api-参考"><a class="heading-anchor" href="#api-参考">#</a>API 参考</h2>
 <h3 id="速查"><a class="heading-anchor" href="#速查">#</a>速查</h3>
-<div class="table-scroll"><table><thead><tr><th>参数</th><th>作用</th></tr></thead><tbody><tr><td><code>item</code></td><td>分享主体：文本、URL 或文件路径</td></tr><tr><td><code>subject</code></td><td>可选主题（部分目标 App 使用）</td></tr><tr><td><code>message</code></td><td>可选附言</td></tr></tbody></table></div>
+<div class="table-scroll"><table><thead><tr><th>参数</th><th>作用</th></tr></thead><tbody><tr><td><code>item</code></td><td>分享主体：文本、URL 或文件路径</td></tr><tr><td><code>subject</code></td><td>可选主题（部分目标 App 使用）</td></tr><tr><td><code>message</code></td><td>可选附言</td></tr><tr><td><code>items</code></td><td>可选的 <code>ShareItem</code> 序列；用于明确文本、URL、文件及多项分享</td></tr><tr><td><code>label</code></td><td>可选 AppUI 按钮内容</td></tr></tbody></table></div>
 <h3 id="sharelink-share-link"><a class="heading-anchor" href="#sharelink-share-link">#</a>ShareLink {#share-link}</h3>
 <p><strong><code>ShareLink(item=&#x27;&#x27;, subject=None, message=None)</code></strong></p>
 <figure class="code-block" data-code-id="1bf19c33cf8f">
@@ -376,7 +377,7 @@ appui.run(body, state=state)</code></pre>
     message=&quot;官方站点&quot;,
 )</code></pre>
 </figure>
-<p>分享本地文件时，<code>item</code> 传<strong>绝对路径字符串</strong>（通常来自 <code>FileImporter</code> 或你自己写入沙盒的文件）：</p>
+<p>兼容写法可给 <code>item</code> 传当前 session 已授权的绝对路径字符串（通常来自 <code>FileImporter</code> 或 MiniApp 自己创建的文件）：</p>
 <figure class="code-block" data-code-id="88030fbc4e1c">
   <figcaption>
     <span>python</span>
@@ -384,6 +385,25 @@ appui.run(body, state=state)</code></pre>
   </figcaption>
   <pre><code id="code-88030fbc4e1c" class="language-python">appui.ShareLink(item=&quot;/var/mobile/Containers/Data/.../export.csv&quot;)</code></pre>
 </figure>
+<p>新代码推荐显式类型；旧 <code>item</code> 写法完全保留：</p>
+<figure class="code-block" data-code-id="9b4e1e556f3b">
+  <figcaption>
+    <span>python</span>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="9b4e1e556f3b" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
+  </figcaption>
+  <pre><code id="code-9b4e1e556f3b" class="language-python">appui.ShareLink(
+    items=[
+        appui.ShareItem.text(&quot;本周报告&quot;),
+        appui.ShareItem.url(&quot;https://example.com/report&quot;),
+        appui.ShareItem.file(
+            appui.FileResource(&quot;exports/report.pdf&quot;, access=&quot;read&quot;)
+        ),
+    ],
+    subject=&quot;周报&quot;,
+    label=appui.Label(&quot;分享&quot;, system_image=&quot;square.and.arrow.up&quot;),
+)</code></pre>
+</figure>
+<p>资源对象只在当前 session 有效。<code>ShareItem.file</code> 会在 Python 与原生层分别校验当前 lease；它不能把另一个 MiniApp 的沙盒路径、过期 picker 路径或任意绝对路径变成授权。多项分享由系统 <code>UIActivityViewController</code> 呈现，不同目标 App 对 <code>subject</code>/<code>message</code> 的采用方式可能不同。</p>
 <h3 id="与-link-的区别"><a class="heading-anchor" href="#与-link-的区别">#</a>与 Link 的区别</h3>
 <div class="table-scroll"><table><thead><tr><th>组件</th><th>行为</th></tr></thead><tbody><tr><td><code>Link</code></td><td>直接在 Safari 打开 URL</td></tr><tr><td><code>ShareLink</code></td><td>弹出系统分享面板，可选多种目标 App</td></tr></tbody></table></div>
 <h3 id="动态内容"><a class="heading-anchor" href="#动态内容">#</a>动态内容</h3>

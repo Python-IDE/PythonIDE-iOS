@@ -31,6 +31,7 @@ from typing import (
     Iterable,
     Mapping,
     Optional,
+    Protocol,
     Sequence,
     Tuple,
     Union,
@@ -42,9 +43,137 @@ if sys.version_info >= (3, 11):
 else:
     from typing_extensions import Self
 
+
+class FileResource:
+    """Session-scoped file descriptor reauthorized at every native boundary."""
+    path: str
+    access: str
+    scope: str
+    def __init__(self, path: str, access: str = 'read',
+                 scope: str = 'session') -> None: ...
+
+
+class MediaSource:
+    """Typed remote, file, bundle-asset, or inline-data media source."""
+    kind: str
+    @classmethod
+    def remote(cls, url: str,
+               headers: Optional[Mapping[str, str]] = None) -> 'MediaSource': ...
+    @classmethod
+    def file(cls, file_resource: Union[FileResource, str]) -> 'MediaSource': ...
+    @classmethod
+    def asset(cls, name: str) -> 'MediaSource': ...
+    @classmethod
+    def data(cls, data: bytes) -> 'MediaSource': ...
+
+
+class ShareItem:
+    """Typed text, URL, or session-authorized file share item."""
+    kind: str
+    @classmethod
+    def text(cls, value: str) -> 'ShareItem': ...
+    @classmethod
+    def url(cls, url: str) -> 'ShareItem': ...
+    @classmethod
+    def file(cls, file_resource: Union[FileResource, str]) -> 'ShareItem': ...
+
+
+class AppUIError(Exception):
+    """Stable structured AppUI/native operation error."""
+    domain: str
+    code: str
+    message: str
+    recoverable: bool
+    details: Dict[str, Any]
+    def __init__(self, domain: str, code: str, message: str,
+                 recoverable: bool = False,
+                 details: Optional[Dict[str, Any]] = None) -> None: ...
+    def to_dict(self) -> Dict[str, Any]: ...
+
+
+class OperationResult:
+    """Immutable status/value/error snapshot for one operation."""
+    status: str
+    value: Any
+    error: Optional[AppUIError]
+    partial: bool
+    def __init__(self, status: str, value: Any = None,
+                 error: Optional[AppUIError] = None,
+                 partial: bool = False) -> None: ...
+    @property
+    def done(self) -> bool: ...
+    @property
+    def ok(self) -> bool: ...
+    def unwrap(self) -> Any: ...
+    def to_dict(self) -> Dict[str, Any]: ...
+
+
+class OperationHandle:
+    """Owner-scoped cancellation and terminal-result handle."""
+    id: str
+    def cancel(self, reason: str = 'explicit_cancel') -> bool: ...
+    def status(self) -> str: ...
+    def done(self) -> bool: ...
+    def result(self, timeout: Optional[float] = None) -> OperationResult: ...
+
+
+class CachePolicy:
+    """AsyncImage freshness, reload, offline, and storage policy."""
+    mode: str
+    ttl: Optional[float]
+    stale_if_error: Optional[float]
+    def __init__(self, mode: str = 'http', ttl: Optional[float] = None,
+                 stale_if_error: Optional[float] = 86400) -> None: ...
+    @classmethod
+    def http(cls, ttl: Optional[float] = None,
+             stale_if_error: Optional[float] = 86400) -> 'CachePolicy': ...
+    @classmethod
+    def reload(cls, stale_if_error: Optional[float] = 0) -> 'CachePolicy': ...
+    @classmethod
+    def no_store(cls) -> 'CachePolicy': ...
+    @classmethod
+    def cache_only(cls) -> 'CachePolicy': ...
+    @classmethod
+    def immutable(cls) -> 'CachePolicy': ...
+    def to_dict(self) -> Dict[str, Any]: ...
+
+
+class ResourceBudget:
+    """Per-operation limits that may tighten native host ceilings."""
+    max_bytes: Optional[int]
+    timeout_seconds: Optional[float]
+    max_concurrent: Optional[int]
+    def __init__(self, max_bytes: Optional[int] = None,
+                 timeout_seconds: Optional[float] = None,
+                 max_concurrent: Optional[int] = None) -> None: ...
+    def to_dict(self) -> Dict[str, Any]: ...
+
+
+class _ImageCacheController(Protocol):
+    def remove(self, key: str, *, version: Optional[str] = None,
+               timeout: float = 10) -> int: ...
+    def remove_async(self, key: str, *,
+                     version: Optional[str] = None) -> OperationHandle: ...
+    def clear(self, scope: str = 'miniapp', *, timeout: float = 10) -> int: ...
+    def clear_async(self, scope: str = 'miniapp') -> OperationHandle: ...
+    def trim(self, max_bytes: Optional[int] = None, *,
+             timeout: float = 10) -> Dict[str, Any]: ...
+    def trim_async(self, max_bytes: Optional[int] = None) -> OperationHandle: ...
+    def stats(self, *, timeout: float = 10) -> Dict[str, Any]: ...
+    def stats_async(self) -> OperationHandle: ...
+
+
+class _ResourceBudgetController(Protocol):
+    def stats(self, *, timeout: float = 10) -> Dict[str, Any]: ...
+    def stats_async(self) -> OperationHandle: ...
+
+
+image_cache: _ImageCacheController
+resource_budget: _ResourceBudgetController
+
 # ── Type Aliases ──
 
-ColorLike = Union[str, Tuple[float, ...], int, float]
+ColorLike = Union[str, Sequence[float], int, float]
 """Color specification: named string (``'systemBlue'``), hex (``'#FF0000'``),
 RGB tuple (``(1.0, 0.0, 0.0)``), RGBA tuple, or gray float (``0.5``)."""
 
@@ -53,6 +182,109 @@ ViewChild = Union["View", Sequence["View"]]
 
 infinity: float
 """Positive infinity constant — use with ``max_width`` / ``max_height`` in ``.frame()``."""
+
+
+class Option:
+    """Picker option with stable identity, transport value and display label."""
+    id: str
+    value: Any
+    label: str
+    disabled: bool
+    def __init__(self, id: str, value: Any, label: str,
+                 disabled: bool = False) -> None: ...
+
+
+class GridItem:
+    """Validated grid column/row descriptor."""
+    kind: str
+    minimum: Optional[float]
+    maximum: Optional[float]
+    count: int
+    spacing: Optional[float]
+    alignment: str
+    def __init__(self, kind: str = 'flexible', minimum: Optional[float] = None,
+                 maximum: Optional[float] = None, count: int = 1,
+                 spacing: Optional[float] = None,
+                 alignment: str = 'center') -> None: ...
+    @classmethod
+    def flexible(cls, minimum: float = 10, maximum: Optional[float] = None,
+                 **kwargs: Any) -> "GridItem": ...
+    @classmethod
+    def fixed(cls, size: float, **kwargs: Any) -> "GridItem": ...
+    @classmethod
+    def adaptive(cls, minimum: float = 50,
+                 maximum: Optional[float] = None,
+                 **kwargs: Any) -> "GridItem": ...
+
+
+class PresentationDetent:
+    """Typed sheet detent; legacy strings/numbers/mappings remain accepted."""
+    kind: str
+    value: Optional[float]
+    def __init__(self, kind: str, value: Optional[float] = None) -> None: ...
+    @classmethod
+    def medium(cls) -> "PresentationDetent": ...
+    @classmethod
+    def large(cls) -> "PresentationDetent": ...
+    @classmethod
+    def fraction(cls, value: float) -> "PresentationDetent": ...
+    @classmethod
+    def height(cls, value: float) -> "PresentationDetent": ...
+
+
+class TableColumn:
+    """Table column with identity independent from its displayed title."""
+    key: str
+    title: str
+    id: str
+    alignment: str
+    width: Optional[float]
+    def __init__(self, key: str, title: Optional[str] = None, *,
+                 id: Optional[str] = None, alignment: str = 'leading',
+                 width: Optional[float] = None) -> None: ...
+
+
+class AttributedSpan:
+    """Typed rich-text span."""
+    def __init__(self, text: str, font_size: Optional[float] = None,
+                 weight: Optional[str] = None,
+                 color: Optional[ColorLike] = None, italic: bool = False,
+                 bold: bool = False, strikethrough: bool = False,
+                 underline: bool = False, kern: Optional[float] = None,
+                 baseline_offset: Optional[float] = None,
+                 link: Optional[str] = None) -> None: ...
+
+
+class Action:
+    """Typed alert/dialog/menu action."""
+    def __init__(self, title: str, action: Optional[Callable] = None, *,
+                 id: Optional[str] = None, role: Optional[str] = None,
+                 system_image: Optional[str] = None,
+                 disabled: bool = False) -> None: ...
+
+
+class ShapeStyle:
+    """Typed color, gradient, material, or hierarchical shape style."""
+    @classmethod
+    def color(cls, value: ColorLike) -> "ShapeStyle": ...
+    @classmethod
+    def solid(cls, value: ColorLike) -> "ShapeStyle": ...
+    @classmethod
+    def linear_gradient(cls, colors: Sequence[ColorLike],
+                        start_point: str = 'top',
+                        end_point: str = 'bottom') -> "ShapeStyle": ...
+    @classmethod
+    def radial_gradient(cls, colors: Sequence[ColorLike],
+                        center: str = 'center', start_radius: float = 0,
+                        end_radius: float = 100) -> "ShapeStyle": ...
+    @classmethod
+    def angular_gradient(cls, colors: Sequence[ColorLike],
+                         center: str = 'center', start_angle: float = 0,
+                         end_angle: float = 360) -> "ShapeStyle": ...
+    @classmethod
+    def material(cls, kind: str = 'regular') -> "ShapeStyle": ...
+    @classmethod
+    def hierarchical(cls, level: str = 'primary') -> "ShapeStyle": ...
 
 
 class Animation:
@@ -135,6 +367,9 @@ class Gesture:
     def on_ended(self, action: Callable[[Any], None]) -> "Gesture": ...
     def on_pressing(self, action: Callable[[bool], None]) -> "Gesture": ...
     def simultaneously(self, other: "Gesture") -> "Gesture": ...
+    def simultaneously_with(self, other: "Gesture") -> "Gesture": ...
+    def sequenced(self, other: "Gesture") -> "Gesture": ...
+    def exclusively(self, other: "Gesture") -> "Gesture": ...
 
 
 class Namespace:
@@ -162,6 +397,7 @@ class ObservableList(list):
     def __setitem__(self, key: Any, value: Any) -> None: ...
     def __delitem__(self, key: Any) -> None: ...
     def __iadd__(self, other: Iterable[Any]) -> Self: ...
+    def __imul__(self, count: int) -> Self: ...
     def sort(self, **kwargs: Any) -> None: ...
     def reverse(self) -> None: ...
 
@@ -175,13 +411,54 @@ class ObservableDict(dict):
     def __setitem__(self, key: Any, value: Any) -> None: ...
     def __delitem__(self, key: Any) -> None: ...
     def pop(self, key: Any, *args: Any) -> Any: ...
+    def popitem(self) -> Tuple[Any, Any]: ...
     def update(self, *args: Any, **kwargs: Any) -> None: ...
+    def __ior__(self, other: Union[Mapping[Any, Any], Iterable[Tuple[Any, Any]]]) -> Self: ...
     def clear(self) -> None: ...
     def setdefault(self, key: Any, default: Any = None) -> Any: ...
     def items(self) -> Sequence[Tuple[Any, Any]]: ...
     def keys(self) -> Sequence[Any]: ...
     def values(self) -> Sequence[Any]: ...
     def copy(self) -> Dict[Any, Any]: ...
+
+
+class TextSelection:
+    """Explicit UTF-16 range for ``TextEditor.selection``."""
+    start: int
+    end: int
+    unit: str
+    length: int
+    def __init__(self, start: int, end: int, unit: str = 'utf16') -> None: ...
+    def to_dict(self) -> Dict[str, Union[int, str]]: ...
+
+
+class ValueCodec:
+    """Bidirectional conversion contract for a Binding."""
+    name: str
+    def __init__(self, *, decode: Optional[Callable[[Any], Any]] = None,
+                 encode: Optional[Callable[[Any], Any]] = None,
+                 validate: Optional[Callable[[Any], bool]] = None,
+                 name: str = "custom") -> None: ...
+    def decode(self, value: Any) -> Any: ...
+    def encode(self, value: Any) -> Any: ...
+    def validate(self, value: Any) -> bool: ...
+
+
+class BindingResult:
+    """Acknowledgement for one revisioned Binding mutation."""
+    status: str
+    value: Any
+    canonical_value: Any
+    revision: int
+    mutation_id: Any
+    error: Optional[AppUIError]
+    accepted: bool
+    rejected: bool
+    def __init__(self, status: str, value: Any = None,
+                 canonical_value: Any = None, revision: int = 0,
+                 mutation_id: Any = None,
+                 error: Optional[Union[AppUIError, Mapping[str, Any]]] = None) -> None: ...
+    def to_dict(self) -> Dict[str, Any]: ...
 
 
 class Binding(Dict[str, Any]):
@@ -196,16 +473,20 @@ class Binding(Dict[str, Any]):
     value: Any
     wrapped_value: Any
     dynamic_value: Any
+    revision: int
     def read(self) -> Any: ...
-    def set(self, new_value: Any) -> Any: ...
-    def native_metadata(self) -> Dict[str, str]: ...
+    def set(self, new_value: Any) -> None: ...
+    def propose(self, new_value: Any, *, source_revision: Optional[int] = None,
+                mutation_id: Any = None) -> BindingResult: ...
+    def native_metadata(self) -> Dict[str, Any]: ...
 
 
 class _BindingNamespace:
     def __call__(self, field_name: str, *,
                  parse: Optional[Callable[[Any], Any]] = None,
                  format: Optional[Callable[[Any], Any]] = None,
-                 validate: Optional[Callable[[Any], bool]] = None) -> Binding: ...
+                 validate: Optional[Callable[[Any], bool]] = None,
+                 codec: Optional[ValueCodec] = None) -> Binding: ...
     def __getattr__(self, field_name: str) -> Binding: ...
 
 
@@ -237,7 +518,7 @@ class State:
         """Update multiple values in one pass, triggering only one rebuild."""
         ...
     def to_dict(self) -> Dict[str, Any]:
-        """Export all fields as a plain dictionary."""
+        """Export a detached deep snapshot with no live observable aliases."""
         ...
     def get(self, key: str, default: Any = None) -> Any:
         """Safe access that never raises — useful after hot-reload."""
@@ -251,25 +532,52 @@ class State:
 
 
 class PersistentState(State):
-    """Explicit persistent AppUI state."""
+    """Explicit persistent AppUI state with optional business-schema migration."""
     def __init__(self, persist_key: Optional[str] = None,
                  transient: Optional[Sequence[str]] = None,
                  debounce: float = 0.3,
+                 schema_version: Optional[Union[str, int]] = None,
+                 migrate: Optional[Callable[[Mapping[str, Any], Optional[Union[str, int]], Union[str, int]], Mapping[str, Any]]] = None,
                  **kwargs: Any) -> None: ...
+
+
+class SecureState(State):
+    """Single reactive value persisted in the owner-namespaced Keychain."""
+    key: str
+    value: Any
+    def __init__(self, key: str, default: Any = None) -> None: ...
+    def batch_update(self, **kwargs: Any) -> None: ...
+    def flush_persisted(self) -> bool: ...
+    def clear_persisted(self) -> bool: ...
+
+
+class BinaryField:
+    """Explicit Aurora-backed field declaration for ``ReactiveState``."""
+    value: Union[bool, int, float, str]
+    prop_id: int
+    def __init__(self, value: Union[bool, int, float, str], prop_id: int) -> None: ...
+
+
+class StateValue:
+    """Force a tuple-shaped ``ReactiveState`` value onto the JSON route."""
+    value: Any
+    def __init__(self, value: Any) -> None: ...
 
 
 class ReactiveState:
     """State with automatic binary/JSON channel routing per field.
 
-    Fields declared as ``(initial_value, prop_id)`` tuples are routed
-    through the Aurora binary fast-path when a handle is bound.
-    Plain values use the normal JSON rebuild path.
+    ``BinaryField(initial_value, prop_id)`` explicitly selects the Aurora
+    binary fast-path. Legacy ``(initial_value, prop_id)`` tuples remain valid;
+    wrap an actual two-item tuple in ``StateValue(...)`` to force the normal
+    JSON route.
 
     Example::
 
         state = appui.ReactiveState(
             count=0,                           # JSON path
-            slider_val=(0.5, 1),               # binary path (prop_id=1)
+            slider_val=BinaryField(0.5, 1),    # explicit binary path
+            pair=StateValue(("item", 1)),      # tuple value on JSON path
         )
         state.slider_val = 0.75   # binary push — no rebuild
         state.count = 42          # JSON rebuild
@@ -283,7 +591,7 @@ class ReactiveState:
         """Safe access that never raises."""
         ...
     def to_dict(self) -> Dict[str, Any]:
-        """Export all fields as a plain dictionary."""
+        """Export a detached deep snapshot with no live mutable aliases."""
         ...
     def batch_update(self, **kwargs: Any) -> None:
         """Update multiple values, triggering only one rebuild."""
@@ -331,7 +639,10 @@ class Ref:
 
 
 def computed(state: Union[State, ReactiveState], depends_on: Sequence[str]) -> Callable:
-    """Decorator: cached derived value, recomputed only when deps change.
+    """Decorator: declaration-stable cached value recomputed when deps change.
+
+    Every dependency must name an existing field. Re-evaluating ``body()`` at
+    the same declaration does not accumulate duplicate computed registrations.
 
     Example::
 
@@ -344,7 +655,10 @@ def computed(state: Union[State, ReactiveState], depends_on: Sequence[str]) -> C
     ...
 
 def effect(state: Union[State, ReactiveState], depends_on: Sequence[str]) -> Callable:
-    """Decorator: run a side-effect when deps change (after each rebuild).
+    """Decorator: run a declaration-stable effect when deps change.
+
+    Every dependency must name an existing field. Cleanup runs once before a
+    changed effect reruns, when its declaration retires, or on run teardown.
 
     The decorated function may return a cleanup callable::
 
@@ -360,7 +674,8 @@ def effect(state: Union[State, ReactiveState], depends_on: Sequence[str]) -> Cal
 def bind(state: Union[State, ReactiveState], field_name: str, *,
          parse: Optional[Callable[[Any], Any]] = None,
          format: Optional[Callable[[Any], Any]] = None,
-         validate: Optional[Callable[[Any], bool]] = None) -> Dict[str, Any]:
+         validate: Optional[Callable[[Any], bool]] = None,
+         codec: Optional[ValueCodec] = None) -> Binding:
     """Create a stable two-way binding for interactive components.
 
     The result remains ``{'value': ..., 'on_change': ...}`` compatible::
@@ -416,6 +731,22 @@ class NavigationPath:
     def replace(self, items: Sequence[Any]) -> None:
         """Replace the entire navigation stack."""
         ...
+    def snapshot(self, encoder: Optional[Callable[[Any], Any]] = None) -> Dict[str, Any]:
+        """Return a bounded JSON-safe route snapshot with opaque stable route IDs.
+
+        Direct ``View`` values require an ``encoder`` because live view objects
+        are not persistable. Tagged/scalar routes need no encoder.
+        """
+        ...
+    def restore(self, snapshot: Mapping[str, Any],
+                decoder: Optional[Callable[[Any], Any]] = None) -> Self:
+        """Atomically replace this path from a versioned snapshot."""
+        ...
+    @classmethod
+    def from_snapshot(cls, snapshot: Mapping[str, Any],
+                      decoder: Optional[Callable[[Any], Any]] = None) -> "NavigationPath":
+        """Create a path by validating and restoring a versioned snapshot."""
+        ...
 
 
 # ═══════════════════════════════════════════════════════════
@@ -465,7 +796,8 @@ class View:
 
     # ── Layout ──
 
-    def padding(self, value: Optional[float] = None, edges: Optional[str] = None, *,
+    def padding(self, value: Optional[float] = None,
+                edges: Optional[Union[str, Sequence[str]]] = None, *,
                 horizontal: Optional[float] = None, vertical: Optional[float] = None,
                 top: Optional[float] = None, bottom: Optional[float] = None,
                 leading: Optional[float] = None, trailing: Optional[float] = None,
@@ -505,7 +837,8 @@ class View:
         """Position the view's center at (x, y) within its parent."""
         ...
 
-    def ignore_safe_area(self, edges: str = 'all', regions: str = 'all') -> Self:
+    def ignore_safe_area(self, edges: Union[str, Sequence[str]] = 'all',
+                         regions: str = 'all') -> Self:
         """Extend the view into safe-area insets."""
         ...
 
@@ -564,8 +897,14 @@ class View:
         """Set the text/icon color."""
         ...
 
-    def foreground_style(self, style: Any) -> Self:
+    @overload
+    def foreground_style(self, style: Union[ColorLike, ShapeStyle, Mapping[str, Any]]) -> Self:
         """Set the foreground style (color, gradient, or material name)."""
+        ...
+
+    @overload
+    def foreground_style(self, style: Any) -> Self:
+        """Compatibility overload for legacy custom style descriptors."""
         ...
 
     def background(self, color: Optional[ColorLike] = None, corner_radius: float = 0,
@@ -667,11 +1006,12 @@ class View:
         """Set toolbar color scheme (iOS 16+)."""
         ...
 
-    def navigation_destination(self, is_presented: bool = False, content: Optional["View"] = None,
+    def navigation_destination(self, is_presented: Union[bool, Binding] = False,
+                                content: Optional[Union["View", Callable[[], "View"]]] = None,
                                 on_dismiss: Optional[Callable] = None,
-                                isPresented: Optional[bool] = None,
+                                isPresented: Optional[Union[bool, Binding]] = None,
                                 onDismiss: Optional[Callable] = None) -> Self:
-        """Programmatic navigation destination."""
+        """Programmatic destination; callable content is lazy per opening."""
         ...
     def safe_area_bar(self, edge: str = 'bottom', content: Optional["View"] = None,
                       alignment: str = 'center', spacing: Optional[float] = None,
@@ -769,7 +1109,8 @@ class View:
                     minimum_angle_delta: float = 0.01) -> Self:
         """Two-finger rotation gesture callbacks."""
         ...
-    def gesture(self, gesture: Gesture, action: Optional[Callable] = None) -> Self:
+    def gesture(self, gesture: Gesture, action: Optional[Callable] = None, *,
+                including: str = 'all') -> Self:
         """Attach a first-class native gesture or simultaneous composition."""
         ...
     def on_drop(self, action: Callable) -> Self:
@@ -787,20 +1128,25 @@ class View:
     def hidden(self) -> Self:
         """Hide the view while preserving its layout space."""
         ...
-    def simultaneous_gesture(self, gesture: str = 'tap', callback: Optional[Callable] = None,
+    def simultaneous_gesture(self, gesture: Union[str, Gesture] = 'tap',
+                              callback: Optional[Callable] = None,
                               on_changed: Optional[Callable] = None,
-                              min_duration: float = 0.5) -> Self:
+                              min_duration: float = 0.5,
+                              including: str = 'all') -> Self:
         """Attach a gesture alongside the view's own. Gesture: ``'tap'``, ``'long_press'``, ``'magnification'``."""
         ...
-    def high_priority_gesture(self, gesture: str = 'tap', callback: Optional[Callable] = None,
-                               min_duration: float = 0.5) -> Self:
+    def high_priority_gesture(self, gesture: Union[str, Gesture] = 'tap',
+                               callback: Optional[Callable] = None,
+                               min_duration: float = 0.5,
+                               including: str = 'all') -> Self:
         """Attach a gesture that overrides child gestures."""
         ...
 
     # ── Presentation ──
 
     def alert(self, title: str, message: str = '', is_presented: bool = False,
-              on_dismiss: Optional[Callable] = None, actions: Optional[Sequence["View"]] = None,
+              on_dismiss: Optional[Callable] = None,
+              actions: Optional[Sequence[Union["View", Action]]] = None,
               isPresented: Optional[bool] = None,
               onDismiss: Optional[Callable] = None) -> Self:
         """Present an alert dialog."""
@@ -808,8 +1154,12 @@ class View:
     def sheet(self, is_presented: Union[bool, Binding] = False,
               content: Optional[Union["View", Callable[[], "View"]]] = None,
               on_dismiss: Optional[Callable] = None,
-              detents: Optional[Union[str, float, Mapping[str, float],
-                                      Sequence[Union[str, float, Mapping[str, float]]]]] = None,
+              detents: Optional[Union[
+                  PresentationDetent, str, float, Mapping[str, float],
+                  Sequence[Union[
+                      PresentationDetent, str, float, Mapping[str, float]
+                  ]],
+              ]] = None,
               drag_indicator: Optional[str] = None,
               interactive_dismiss_disabled: bool = False,
               isPresented: Optional[Union[bool, Binding]] = None,
@@ -817,7 +1167,9 @@ class View:
               dragIndicator: Optional[str] = None,
               interactiveDismissDisabled: Optional[bool] = None,
               *,
-              selected_detent: Optional[Union[str, Mapping[str, float], Binding]] = None,
+              selected_detent: Optional[Union[
+                  PresentationDetent, str, Mapping[str, float], Binding
+              ]] = None,
               on_selected_detent_change: Optional[Callable[[str], Any]] = None,
               corner_radius: Optional[float] = None,
               presentation_background: Optional[ColorLike] = None,
@@ -842,23 +1194,25 @@ class View:
             sizing: iOS 18 ``'automatic'``, ``'fitted'``, ``'form'``, or ``'page'``.
         """
         ...
-    def full_screen_cover(self, is_presented: bool = False, content: Optional[Union["View", Callable[[], "View"]]] = None,
+    def full_screen_cover(self, is_presented: Union[bool, Binding] = False,
+                          content: Optional[Union["View", Callable[[], "View"]]] = None,
                           on_dismiss: Optional[Callable] = None,
-                          isPresented: Optional[bool] = None,
+                          isPresented: Optional[Union[bool, Binding]] = None,
                           onDismiss: Optional[Callable] = None) -> Self:
-        """Present a full-screen modal."""
+        """Present a full-screen modal; callable content is lazy per opening."""
         ...
     def confirmation_dialog(self, title: str, is_presented: bool = False,
-                            actions: Optional[Sequence["View"]] = None, message: str = '',
+                            actions: Optional[Sequence[Union["View", Action]]] = None,
+                            message: str = '',
                             on_dismiss: Optional[Callable] = None,
                             isPresented: Optional[bool] = None,
                             onDismiss: Optional[Callable] = None) -> Self:
         """Present a confirmation dialog with action buttons."""
         ...
-    def context_menu(self, content: Optional[Sequence["View"]] = None) -> Self:
+    def context_menu(self, content: Optional[Sequence[Union["View", Action]]] = None) -> Self:
         """Attach a context menu (long-press/right-click)."""
         ...
-    def searchable(self, text: str = '', on_change: Optional[Callable] = None,
+    def searchable(self, text: Union[str, Binding] = '', on_change: Optional[Callable] = None,
                    onChange: Optional[Callable] = None,
                    placement: str = 'automatic',
                    prompt: Optional[str] = None,
@@ -869,8 +1223,9 @@ class View:
     def search_toolbar_behavior(self, behavior: str = 'minimize') -> Self:
         """Configure iOS 26 search toolbar behavior: ``'automatic'`` or ``'minimize'``."""
         ...
-    def swipe_actions(self, edge: str = 'trailing', content: Optional[Sequence["View"]] = None,
-                      actions: Optional[Sequence["View"]] = None) -> Self:
+    def swipe_actions(self, edge: str = 'trailing',
+                      content: Optional[Sequence[Union["View", Action]]] = None,
+                      actions: Optional[Sequence[Union["View", Action]]] = None) -> Self:
         """Attach swipe actions to a list row. Edge: ``'leading'`` or ``'trailing'``."""
         ...
     def refreshable(self, action: Optional[Callable] = None) -> Self:
@@ -879,11 +1234,12 @@ class View:
     def badge(self, count: Any) -> Self:
         """Show a numeric or text badge."""
         ...
-    def popover(self, is_presented: bool = False, content: Optional[Union["View", Callable[[], "View"]]] = None,
+    def popover(self, is_presented: Union[bool, Binding] = False,
+                content: Optional[Union["View", Callable[[], "View"]]] = None,
                 on_dismiss: Optional[Callable] = None,
-                isPresented: Optional[bool] = None,
+                isPresented: Optional[Union[bool, Binding]] = None,
                 onDismiss: Optional[Callable] = None) -> Self:
-        """Present a popover (iPad) or sheet (iPhone)."""
+        """Present an adaptive popover; callable content is lazy per opening."""
         ...
     def inspector(self, is_presented: bool = False, content: Optional[Union["View", Callable[[], "View"]]] = None,
                   on_dismiss: Optional[Callable] = None) -> Self:
@@ -993,8 +1349,9 @@ class View:
 
     # ── Focus & Keyboard ──
 
-    def focused(self, field_id: Union[bool, str, None] = None, equals: Optional[str] = None,
-                fieldId: Union[bool, str, None] = None,
+    def focused(self, field_id: Union[bool, str, Binding, None] = None,
+                equals: Optional[Union[str, Binding]] = None,
+                fieldId: Union[bool, str, Binding, None] = None,
                 key: Optional[str] = None) -> Self:
         """Control keyboard focus (iOS 15+).
 
@@ -1019,6 +1376,9 @@ class View:
         ...
     def list_row_separator(self, visibility: str = 'hidden') -> Self:
         """Row separator: ``'visible'``, ``'hidden'``, ``'automatic'``."""
+        ...
+    def list_section_separator(self, visibility: str = 'hidden') -> Self:
+        """List section boundary separator: ``'visible'``, ``'hidden'``, ``'automatic'``."""
         ...
     def list_row_insets(self, top: float = 0, leading: float = 0,
                         bottom: float = 0, trailing: float = 0) -> Self:
@@ -1099,8 +1459,9 @@ class View:
     def scroll_content_background(self, visibility: str = 'hidden') -> Self:
         """List/Form background: ``'visible'`` or ``'hidden'`` (iOS 16+)."""
         ...
-    def scroll_position(self, id: Optional[str] = None) -> Self:
-        """Bind scroll position to an anchor ID (iOS 17+)."""
+    def scroll_position(self, id: Optional[Union[str, Binding]] = None, *,
+                        anchor: Optional[str] = None) -> Self:
+        """Bind scroll position to a stable child ID and optional UnitPoint anchor."""
         ...
     def on_scroll_geometry_change(self,
                                   action: Callable[[Dict[str, float]], Any],
@@ -1127,7 +1488,8 @@ class View:
     def scroll_clip_disabled(self, disabled: bool = True) -> Self:
         """Allow scroll content to extend beyond bounds (iOS 17+)."""
         ...
-    def content_margins(self, edges: str = 'all', length: Optional[float] = None,
+    def content_margins(self, edges: Union[str, Sequence[str]] = 'all',
+                        length: Optional[float] = None,
                         **kwargs: Any) -> Self:
         """Set content margins for scrollable containers (iOS 17+).
 
@@ -1156,10 +1518,12 @@ class View:
             transition: ``'identity'``, ``'opacity'``, ``'scale'``, ``'slide'``.
         """
         ...
-    def scroll_edge_effect_style(self, style: str = 'automatic', edges: str = 'all') -> Self:
+    def scroll_edge_effect_style(self, style: str = 'automatic',
+                                 edges: Union[str, Sequence[str]] = 'all') -> Self:
         """Set iOS 26 scroll edge effect style: ``'automatic'``, ``'hard'``, ``'soft'``, or ``'none'``."""
         ...
-    def scroll_edge_effect_hidden(self, hidden: bool = True, edges: str = 'all') -> Self:
+    def scroll_edge_effect_hidden(self, hidden: bool = True,
+                                  edges: Union[str, Sequence[str]] = 'all') -> Self:
         """Hide/show iOS 26 scroll edge effects for an edge set."""
         ...
 
@@ -1240,6 +1604,7 @@ class View:
     accessibilityHidden = accessibility_hidden
     listRowBackground = list_row_background
     listRowSeparator = list_row_separator
+    listSectionSeparator = list_section_separator
     listRowInsets = list_row_insets
     scrollContentBackground = scroll_content_background
     scrollPosition = scroll_position
@@ -1318,7 +1683,7 @@ class AttributedText(View):
             {"text": "Red", "color": "systemRed"},
         ])
     """
-    def __init__(self, spans: Optional[Sequence[Dict[str, Any]]] = None) -> None: ...
+    def __init__(self, spans: Optional[Sequence[Union[AttributedSpan, Mapping[str, Any]]]] = None) -> None: ...
 
 
 # ═══════════════════════════════════════════════════════════
@@ -1366,7 +1731,18 @@ class AsyncImage(View):
     def __init__(self, url: str = '', placeholder: Optional[View] = None,
                  error_view: Optional[View] = None, content_mode: str = 'fit',
                  on_success: Optional[Callable] = None,
-                 on_failure: Optional[Callable] = None) -> None: ...
+                 on_failure: Optional[Callable] = None, *,
+                 source: Optional[MediaSource] = None,
+                 cache_key: Optional[str] = None,
+                 cache_version: Optional[str] = None,
+                 cache_policy: Optional[Union[CachePolicy, str, Mapping[str, Any]]] = None,
+                 reload_token: Optional[Any] = None,
+                 request_headers: Optional[Mapping[str, str]] = None,
+                 target_size: Optional[Tuple[float, float]] = None,
+                 on_progress: Optional[Callable[[Mapping[str, Any]], None]] = None,
+                 on_error_detail: Optional[Callable[[AppUIError], None]] = None,
+                 on_result: Optional[Callable[[OperationResult], None]] = None,
+                 budget: Optional[Union[ResourceBudget, Mapping[str, Any]]] = None) -> None: ...
 
 
 # ═══════════════════════════════════════════════════════════
@@ -1414,7 +1790,7 @@ class TextField(View):
         appui.TextField("Enter name", text=state.name, on_change=set_name)
     """
     text: str
-    def __init__(self, placeholder: str = '', text: str = '', on_change: Optional[Callable] = None,
+    def __init__(self, placeholder: str = '', text: Union[str, Binding] = '', on_change: Optional[Callable] = None,
                  on_submit: Optional[Callable] = None, keyboard_type: Optional[str] = None,
                  autocapitalization: Optional[str] = None, autocorrection_disabled: bool = False,
                  submit_label: Optional[str] = None,
@@ -1424,7 +1800,7 @@ class TextField(View):
                  autoCapitalization: Optional[str] = None,
                  autocorrectionDisabled: Optional[bool] = None,
                  submitLabel: Optional[str] = None,
-                 value: Optional[str] = None,
+                 value: Optional[Union[str, Binding]] = None,
                  **kwargs: Any) -> None: ...
     def aurora_set_text(self, text: str) -> None:
         """Update text field content via Aurora binary fast-path."""
@@ -1432,7 +1808,7 @@ class TextField(View):
 
 class SecureField(View):
     """Password input field."""
-    def __init__(self, placeholder: str = '', text: str = '', on_change: Optional[Callable] = None,
+    def __init__(self, placeholder: str = '', text: Union[str, Binding] = '', on_change: Optional[Callable] = None,
                  on_submit: Optional[Callable] = None,
                  onChange: Optional[Callable] = None,
                  onSubmit: Optional[Callable] = None) -> None: ...
@@ -1442,7 +1818,7 @@ class TextEditor(View):
     def __init__(self, text: Union[str, Binding] = '',
                  on_change: Optional[Callable[[str], Any]] = None,
                  onChange: Optional[Callable[[str], Any]] = None, *,
-                 selection: Optional[Union[Binding, Mapping[str, int], Tuple[int, int]]] = None,
+                 selection: Optional[Union[Binding, TextSelection, Mapping[str, Union[int, str]], Tuple[int, int]]] = None,
                  on_selection_change: Optional[Callable[[Dict[str, int]], Any]] = None,
                  find_presented: Union[bool, Binding] = False,
                  on_find_presented_change: Optional[Callable[[bool], Any]] = None,
@@ -1463,7 +1839,7 @@ class TextFieldLink(View):
 
 class SearchField(View):
     """Standalone search field."""
-    def __init__(self, text: str = '', placeholder: str = 'Search',
+    def __init__(self, text: Union[str, Binding] = '', placeholder: str = 'Search',
                  on_change: Optional[Callable] = None,
                  onChange: Optional[Callable] = None,
                  on_submit: Optional[Callable] = None,
@@ -1480,9 +1856,11 @@ class Toggle(View):
         appui.Toggle("Dark Mode", is_on=state.dark, on_change=set_dark)
     """
     is_on: bool
-    def __init__(self, label: str = '', is_on: bool = False, on_change: Optional[Callable] = None,
-                 isOn: Optional[bool] = None, onChange: Optional[Callable] = None,
-                 value: Optional[bool] = None) -> None: ...
+    def __init__(self, label: str = '', is_on: Union[bool, Binding] = False,
+                 on_change: Optional[Callable] = None,
+                 isOn: Optional[Union[bool, Binding]] = None,
+                 onChange: Optional[Callable] = None,
+                 value: Optional[Union[bool, Binding]] = None) -> None: ...
     def aurora_set_is_on(self, value: bool) -> None:
         """Update toggle state via Aurora binary fast-path."""
         ...
@@ -1498,7 +1876,7 @@ class Slider(View):
         appui.Slider(value=state.vol, minimum=0, maximum=100, on_change=set_volume)
     """
     value: float
-    def __init__(self, value: float = 0.0, minimum: float = 0.0, maximum: float = 1.0,
+    def __init__(self, value: Union[float, Binding] = 0.0, minimum: float = 0.0, maximum: float = 1.0,
                  step: Optional[float] = None, label: str = '',
                  on_change: Optional[Callable] = None,
                  onChange: Optional[Callable] = None,
@@ -1513,7 +1891,7 @@ class Slider(View):
 class Stepper(View):
     """Increment/decrement control."""
     value: int
-    def __init__(self, label: str = '', value: int = 0, minimum: int = 0, maximum: int = 100,
+    def __init__(self, label: str = '', value: Union[int, Binding] = 0, minimum: int = 0, maximum: int = 100,
                  step: int = 1, on_change: Optional[Callable] = None,
                  onChange: Optional[Callable] = None) -> None: ...
     def aurora_set_value(self, value: int) -> None:
@@ -1524,25 +1902,28 @@ class Picker(View):
     """Selection picker (dropdown/wheel/menu).
 
     Style controlled by ``.picker_style()``."""
-    def __init__(self, label: str = '', selection: Optional[str] = None,
-                 options: Optional[Sequence[str]] = None, on_change: Optional[Callable] = None,
+    def __init__(self, label: str = '', selection: Optional[Union[Any, Binding]] = None,
+                 options: Optional[Sequence[Union[str, int, float, bool, Option, Mapping[str, Any]]]] = None, on_change: Optional[Callable] = None,
                  onChange: Optional[Callable] = None) -> None: ...
 
 class SegmentedControl(View):
     """Horizontal segmented picker."""
-    def __init__(self, options: Optional[Sequence[str]] = None, selection: Optional[str] = None,
+    def __init__(self, options: Optional[Sequence[Union[str, int, float, bool, Option, Mapping[str, Any]]]] = None,
+                 selection: Optional[Union[Any, Binding]] = None,
                  on_change: Optional[Callable] = None,
                  onChange: Optional[Callable] = None) -> None: ...
 
 class InlinePickerStyle(View):
     """Inline picker displayed directly in the layout."""
-    def __init__(self, options: Optional[Sequence[str]] = None, selection: Optional[str] = None,
+    def __init__(self, options: Optional[Sequence[Union[str, int, float, bool, Option, Mapping[str, Any]]]] = None,
+                 selection: Optional[Union[Any, Binding]] = None,
                  on_change: Optional[Callable] = None,
                  onChange: Optional[Callable] = None) -> None: ...
 
 class WheelPicker(View):
     """Scrolling wheel picker."""
-    def __init__(self, options: Optional[Sequence[str]] = None, selection: Optional[str] = None,
+    def __init__(self, options: Optional[Sequence[Union[str, int, float, bool, Option, Mapping[str, Any]]]] = None,
+                 selection: Optional[Union[Any, Binding]] = None,
                  on_change: Optional[Callable] = None,
                  onChange: Optional[Callable] = None) -> None: ...
 
@@ -1551,7 +1932,8 @@ class DatePicker(View):
 
     Args:
         components: ``'date'``, ``'hourAndMinute'``, or both joined."""
-    def __init__(self, label: str = '', selection: Optional[str] = None, components: str = 'date',
+    def __init__(self, label: str = '', selection: Optional[Union[str, Binding]] = None,
+                 components: str = 'date',
                  on_change: Optional[Callable] = None,
                  onChange: Optional[Callable] = None) -> None: ...
 
@@ -1559,12 +1941,12 @@ class MultiDatePicker(View):
     """Multi-date selection (iOS 16+)."""
     def __init__(self, title: str = '', on_change: Optional[Callable] = None,
                  onChange: Optional[Callable] = None,
-                 selection: Optional[Union[str, Sequence[str]]] = None,
-                 value: Optional[Union[str, Sequence[str]]] = None) -> None: ...
+                 selection: Optional[Union[str, Sequence[str], Binding]] = None,
+                 value: Optional[Union[str, Sequence[str], Binding]] = None) -> None: ...
 
 class ColorPicker(View):
     """Native color picker."""
-    def __init__(self, label: str = '', selection: Optional[str] = None,
+    def __init__(self, label: str = '', selection: Optional[Union[str, Binding]] = None,
                  on_change: Optional[Callable] = None,
                  onChange: Optional[Callable] = None) -> None: ...
 
@@ -1590,8 +1972,9 @@ class Menu(View):
             appui.Button("收藏", action=show_bookmarks),
         ])
     """
-    def __init__(self, title: str = '', content: Optional[Sequence[View]] = None,
-                 children: Optional[Sequence[View]] = None,
+    def __init__(self, title: str = '',
+                 content: Optional[Sequence[Union[View, Action]]] = None,
+                 children: Optional[Sequence[Union[View, Action]]] = None,
                  system_image: Optional[str] = None,
                  image: Optional[str] = None,
                  systemImage: Optional[str] = None) -> None: ...
@@ -1748,13 +2131,17 @@ class LazyVGrid(View):
 
         appui.LazyVGrid(columns=[appui.flexible(), appui.flexible()], content=[...])
     """
-    def __init__(self, columns: Optional[Sequence[dict]] = None, content: Optional[Sequence[View]] = None,
-                 spacing: Optional[float] = None, children: Optional[Sequence[View]] = None) -> None: ...
+    def __init__(self, columns: Optional[Sequence[Union[GridItem, Mapping[str, Any]]]] = None,
+                 content: Optional[ViewChild] = None,
+                 spacing: Optional[float] = None,
+                 children: Optional[ViewChild] = None) -> None: ...
 
 class LazyHGrid(View):
     """Lazy horizontal grid."""
-    def __init__(self, rows: Optional[Sequence[dict]] = None, content: Optional[Sequence[View]] = None,
-                 spacing: Optional[float] = None, children: Optional[Sequence[View]] = None) -> None: ...
+    def __init__(self, rows: Optional[Sequence[Union[GridItem, Mapping[str, Any]]]] = None,
+                 content: Optional[ViewChild] = None,
+                 spacing: Optional[float] = None,
+                 children: Optional[ViewChild] = None) -> None: ...
 
 class Grid(View):
     """Precise grid layout (like HTML ``<table>``). Use with ``GridRow``."""
@@ -1824,6 +2211,9 @@ class NavigationStack(View):
                 appui.NavigationLink("Detail", destination=detail_view())
             ]).navigation_title("Home")
         )
+
+    ``NavigationPath.snapshot()`` and ``restore()`` persist tagged routes.
+    Native back gestures are revision checked before mutating the Python path.
     """
     def __init__(self, content: Optional[View] = None, path: Optional[NavigationPath] = None,
                  destinations: Optional[Dict[str, Callable]] = None) -> None: ...
@@ -1844,7 +2234,8 @@ class NavigationSplitView(View):
             ``'detail'``. A State binding receives system-driven iPad column
             visibility changes."""
     def __init__(self, sidebar: Optional[View] = None, detail: Optional[View] = None,
-                 supplementary: Optional[View] = None, column_visibility: Any = 'all',
+                 supplementary: Optional[View] = None,
+                 column_visibility: Union[str, Binding] = 'all',
                  on_change: Optional[Callable[[str], Any]] = None,
                  onChange: Optional[Callable[[str], Any]] = None) -> None: ...
 
@@ -1858,7 +2249,8 @@ class TabView(View):
             appui.Tab("Settings", system_image="gear", content=settings_view()),
         ])
     """
-    def __init__(self, tabs: Optional[Sequence["Tab"]] = None, selection: Optional[int] = None,
+    def __init__(self, tabs: Optional[Sequence["Tab"]] = None,
+                 selection: Optional[Union[int, str, Binding]] = None,
                  on_change: Optional[Callable] = None,
                  onChange: Optional[Callable] = None) -> None: ...
 
@@ -1869,7 +2261,8 @@ class Tab(View):
     """
     def __init__(self, title: str = '', system_image: Optional[str] = None,
                  image: Optional[str] = None, content: Optional[View] = None,
-                 badge: Optional[int] = None, tag: Optional[int] = None,
+                 badge: Optional[Union[int, str]] = None,
+                 tag: Optional[Union[int, str]] = None,
                  systemImage: Optional[str] = None, role: Optional[str] = None,
                  key: Optional[str] = None) -> None: ...
     def badge(self, count: Any) -> Self:
@@ -1889,7 +2282,7 @@ class List(_ContainerView):
     unchanged.
     """
     def __init__(self, content: Optional[Sequence[View]] = None,
-                 selection: Optional[Union[str, Sequence[str]]] = None,
+                 selection: Optional[Union[str, Sequence[str], Binding]] = None,
                  on_change: Optional[Callable] = None,
                  edit_mode: Optional[Union[str, bool]] = None,
                  onChange: Optional[Callable] = None,
@@ -1909,14 +2302,20 @@ class ForEach(View):
         appui.ForEach(items, row_builder=row_view, key=item_key)
     """
     def __init__(self, data: Any, row_builder: Optional[Callable] = None,
-                 key: Optional[Callable] = None,
+                 key: Optional[Union[str, Callable]] = None,
                  rowBuilder: Optional[Callable] = None,
                  content: Optional[Callable] = None,
                  edit_actions: Optional[Union[str, Sequence[str]]] = None,
                  on_move: Optional[Callable] = None,
+                 on_delete: Optional[Callable] = None,
                  editActions: Optional[Union[str, Sequence[str]]] = None,
-                 onMove: Optional[Callable] = None) -> None:
-        """Build keyed rows; ``on_move`` receives ``{'from': [...], 'to': n}``."""
+                 onMove: Optional[Callable] = None,
+                 onDelete: Optional[Callable] = None) -> None:
+        """Build keyed rows.
+
+        ``on_move`` receives ``{'from': [...], 'to': n}``; ``on_delete``
+        receives ``{'indexes': [...], 'keys': [...]}``.
+        """
         ...
 
 class Form(_ContainerView):
@@ -1941,9 +2340,9 @@ class GroupBox(View):
 
 class DisclosureGroup(View):
     """Expandable/collapsible content group."""
-    def __init__(self, label: str = '', is_expanded: Optional[bool] = None,
+    def __init__(self, label: str = '', is_expanded: Optional[Union[bool, Binding]] = None,
                  content: Optional[ViewChild] = None,
-                 isExpanded: Optional[bool] = None,
+                 isExpanded: Optional[Union[bool, Binding]] = None,
                  children: Optional[ViewChild] = None,
                  on_change: Optional[Callable[[bool], None]] = None,
                  onChange: Optional[Callable[[bool], None]] = None) -> None: ...
@@ -1956,7 +2355,7 @@ class LabeledContent(View):
 class Table(View):
     """Multi-column table (iPad, iOS 17.4+). Falls back to ``List`` on iPhone."""
     def __init__(self, data: Optional[Sequence[Dict[str, Any]]] = None,
-                 columns: Optional[Sequence[Dict[str, str]]] = None,
+                 columns: Optional[Sequence[Union[TableColumn, Mapping[str, Any]]]] = None,
                  on_select: Optional[Callable] = None,
                  onSelect: Optional[Callable] = None) -> None: ...
 
@@ -1995,7 +2394,9 @@ class Gauge(View):
 class ShareLink(View):
     """Share button that presents a system share sheet."""
     def __init__(self, item: str = '', subject: Optional[str] = None,
-                 message: Optional[str] = None) -> None: ...
+                 message: Optional[str] = None, *,
+                 items: Optional[Sequence[ShareItem]] = None,
+                 label: Optional[View] = None) -> None: ...
 
 class Badge(View):
     """Numeric or text badge overlay."""
@@ -2013,20 +2414,29 @@ class TimelineView(View):
 class Alert(View):
     """Alert dialog as a standalone view."""
     def __init__(self, title: str = '', message: Optional[str] = None,
-                 is_presented: bool = False, actions: Optional[Sequence[View]] = None,
-                 isPresented: Optional[bool] = None) -> None: ...
+                 is_presented: Union[bool, Binding] = False,
+                 actions: Optional[Sequence[Union[View, Action]]] = None,
+                 isPresented: Optional[Union[bool, Binding]] = None,
+                 on_dismiss: Optional[Callable[[], Any]] = None,
+                 onDismiss: Optional[Callable[[], Any]] = None) -> None: ...
 
 class ConfirmationDialog(View):
     """Confirmation action sheet as a standalone view."""
     def __init__(self, title: str = '', message: Optional[str] = None,
-                 is_presented: bool = False, actions: Optional[Sequence[View]] = None,
-                 isPresented: Optional[bool] = None) -> None: ...
+                 is_presented: Union[bool, Binding] = False,
+                 actions: Optional[Sequence[Union[View, Action]]] = None,
+                 isPresented: Optional[Union[bool, Binding]] = None,
+                 on_dismiss: Optional[Callable[[], Any]] = None,
+                 onDismiss: Optional[Callable[[], Any]] = None) -> None: ...
 
 class Popover(View):
     """Popover container (iPad shows popover, iPhone shows sheet)."""
-    def __init__(self, is_presented: bool = False, content: Optional[View] = None,
+    def __init__(self, is_presented: Union[bool, Binding] = False,
+                 content: Optional[Union[View, Sequence[View], Callable[[], View]]] = None,
                  trigger: Optional[View] = None,
-                 isPresented: Optional[bool] = None) -> None: ...
+                 isPresented: Optional[Union[bool, Binding]] = None,
+                 on_dismiss: Optional[Callable[[], Any]] = None,
+                 onDismiss: Optional[Callable[[], Any]] = None) -> None: ...
 
 class Refreshable(View):
     """Pull-to-refresh container."""
@@ -2036,8 +2446,9 @@ class Refreshable(View):
 
 class SwipeActions(View):
     """Swipe-action container for list rows."""
-    def __init__(self, content: Optional[View] = None, leading: Optional[Sequence[View]] = None,
-                 trailing: Optional[Sequence[View]] = None) -> None: ...
+    def __init__(self, content: Optional[View] = None,
+                 leading: Optional[Sequence[Union[View, Action]]] = None,
+                 trailing: Optional[Sequence[Union[View, Action]]] = None) -> None: ...
 
 
 # ═══════════════════════════════════════════════════════════
@@ -2056,9 +2467,10 @@ class MapView(View):
     def __init__(self, latitude: float = 37.7749, longitude: float = -122.4194,
                  span: float = 0.05, markers: Optional[Sequence[Dict[str, Any]]] = None,
                  map_style: str = 'automatic',
-                 mapStyle: Optional[str] = None, *, region: Any = None,
+                 mapStyle: Optional[str] = None, *,
+                 region: Optional[Union[Mapping[str, Any], Binding]] = None,
                  on_region_change: Optional[Callable[[Dict[str, float]], Any]] = None,
-                 selection: Any = None,
+                 selection: Optional[Union[str, Binding]] = None,
                  on_selection_change: Optional[Callable[[Optional[str]], Any]] = None,
                  on_marker_tap: Optional[Callable[[Dict[str, Any]], Any]] = None,
                  overlays: Optional[Sequence[Dict[str, Any]]] = None,
@@ -2083,7 +2495,8 @@ class WebView(View):
                  allows_link_preview: bool = True,
                  custom_user_agent: Optional[str] = None,
                  allowed_hosts: Optional[Sequence[str]] = None,
-                 data_store: str = 'default', navigation_state: Any = None,
+                 data_store: str = 'default',
+                 navigation_state: Optional[Union[Mapping[str, Any], Binding]] = None,
                  on_navigation_change: Optional[Callable[[Dict[str, Any]], Any]] = None,
                  on_message: Optional[Callable[[Dict[str, Any]], Any]] = None,
                  on_error: Optional[Callable[[Dict[str, Any]], Any]] = None,
@@ -2092,7 +2505,10 @@ class WebView(View):
                  allows_downloads: bool = False,
                  on_download: Optional[Callable[[str], Any]] = None,
                  on_download_error: Optional[Callable[[Dict[str, Any]], Any]] = None,
-                 progress_minimum_interval: float = 0.1) -> None: ...
+                 progress_minimum_interval: float = 0.1,
+                 budget: Optional[Union[ResourceBudget, Mapping[str, Any]]] = None) -> None:
+        """Downloads use an owner-scoped operation with cancellation, timeout, and byte limits."""
+        ...
 
 class PlayerController:
     """Primary AppUI video controller for ``VideoPlayer(player=...)``.
@@ -2111,6 +2527,7 @@ class PlayerController:
     allows_airplay: bool
     video_gravity: str
     pause_on_disappear: bool
+    source: Union[str, MediaSource]
     current_time: float
     duration: float
     is_playing: bool
@@ -2118,8 +2535,15 @@ class PlayerController:
                  loop: bool = False, rate: float = 1.0, volume: float = 1.0,
                  allows_pip: bool = True, allows_airplay: bool = True,
                  video_gravity: str = 'resizeAspect',
-                 pause_on_disappear: bool = True) -> None: ...
-    def load(self, url: str, autoplay: Optional[bool] = None) -> bool: ...
+                 pause_on_disappear: bool = True, *,
+                 source: Optional[MediaSource] = None) -> None: ...
+    @overload
+    def load(self, url: str,
+             autoplay: Optional[bool] = None) -> bool: ...
+    @overload
+    def load(self, url: None = None,
+             autoplay: Optional[bool] = None, *,
+             source: MediaSource) -> bool: ...
     def play(self, rate: Optional[float] = None) -> 'PlayerController': ...
     def pause(self) -> 'PlayerController': ...
     def stop(self) -> 'PlayerController': ...
@@ -2160,7 +2584,8 @@ class VideoPlayer(View):
                  allows_picture_in_picture: Optional[bool] = None,
                  player: Optional[PlayerController] = None,
                  player_id: Optional[str] = None,
-                 pause_on_disappear: Optional[bool] = None) -> None: ...
+                 pause_on_disappear: Optional[bool] = None, *,
+                 source: Optional[MediaSource] = None) -> None: ...
 
 
 # ═══════════════════════════════════════════════════════════
@@ -2342,7 +2767,7 @@ class Chart(View):
                  show_legend: bool = True, show_x_axis: bool = True,
                  show_y_axis: bool = True,
                  y_domain: Optional[Sequence[float]] = None,
-                 selection: Any = None,
+                 selection: Optional[Union[ChartCoordinate, Binding]] = None,
                  on_selection_change: Optional[Callable[[Any], Any]] = None,
                  on_select: Optional[Callable[[Optional[Dict[str, Any]]], Any]] = None,
                  scrollable_axes: Optional[str] = None,
@@ -2439,10 +2864,10 @@ class Path(View):
 
 class _Shape(View):
     """Base for shape views. Use ``.fill()`` and ``.stroke()``."""
-    def fill(self, color: ColorLike) -> Self:
+    def fill(self, color: Union[ColorLike, ShapeStyle]) -> Self:
         """Fill the shape with a color."""
         ...
-    def stroke(self, color: ColorLike, line_width: float = 1, **kwargs: Any) -> Self:
+    def stroke(self, color: Union[ColorLike, ShapeStyle], line_width: float = 1, **kwargs: Any) -> Self:
         """Stroke the shape outline."""
         ...
 
@@ -2504,7 +2929,7 @@ class ToolbarSpacer(View):
 
 def run(body_func: Optional[Union[Callable[[], View], Callable[[Union[State, ReactiveState, None]], View]]] = None,
         state: Optional[Union[State, ReactiveState]] = None,
-        hot_reload: bool = False, presentation: str = 'sheet',
+        hot_reload: bool = False, presentation: Optional[str] = 'sheet',
         body: Optional[Union[Callable[[], View], Callable[[Union[State, ReactiveState, None]], View]]] = None) -> None:
     """Start the UI event loop.
 
@@ -2513,7 +2938,11 @@ def run(body_func: Optional[Union[Callable[[], View], Callable[[Union[State, Rea
             declared as ``body()`` or ``body(state)``.
         state: Optional ``State`` or ``ReactiveState`` for automatic rebuild on change.
         hot_reload: Watch the source file and auto-reload on save.
-        presentation: ``'sheet'``, ``'fullscreen'``, ``'fullscreen_with_close'``.
+        presentation: Exactly ``'sheet'``, ``'fullscreen'``, or
+            ``'fullscreen_with_close'``. ``None`` reads the environment.
+
+    Invalid body, state, and presentation inputs are rejected before the
+    active runtime generation is changed.
     """
     ...
 
@@ -2615,7 +3044,9 @@ def get_native_lib() -> Optional[ctypes.CDLL]:
 # ═══════════════════════════════════════════════════════════
 
 def grid_item(type: str = 'flexible', minimum: Optional[float] = None,
-              maximum: Optional[float] = None, count: Optional[int] = None) -> Dict[str, Any]:
+              maximum: Optional[float] = None, count: Optional[int] = None,
+              spacing: Optional[float] = None,
+              alignment: str = 'center') -> Dict[str, Any]:
     """Create a grid column/row specification."""
     ...
 

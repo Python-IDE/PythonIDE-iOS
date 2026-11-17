@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 from typing import Any, Optional
+from appui_resources import FileResource
 
 class QRCodeError(RuntimeError):
     code: Optional[Any]
@@ -12,6 +13,6 @@ def generate_base64(text: str, size: int = ..., correction: str = ...) -> str: .
 
 def generate(text: str, size: int = ..., correction: str = ...) -> bytes: ...
 
-def save(text: str, path: str, size: int = ..., correction: str = ...) -> str: ...
+def save(text: str, path: str | FileResource, size: int = ..., correction: str = ...) -> str: ...
 
 __all__ = ['generate', 'generate_base64', 'save', 'QRCodeError']

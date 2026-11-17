@@ -289,8 +289,11 @@
   </header>
   
   <div class="markdown-body">
-    <p>听歌识曲（ShazamKit）：通过麦克风识别正在播放的歌曲，或从本地音频片段匹配曲库。</p>
-<blockquote class="callout note"><strong>边界</strong>：需要 <strong>iOS 17+</strong>，并在 Apple Developer 为 <code>app.pythonide</code> 的 <strong>App Services</strong> 中开启 <strong>ShazamKit</strong>（与 Capabilities 是两项配置）。实时识曲需要<strong>麦克风</strong>权限；<code>recognize_file()</code> 只需可读音频文件。与 <a href="../../pages/speech-recognition-module/">speech_recognition</a>（语音转文字）和 <a href="../../pages/music-module/">music</a>（Apple Music 播放控制）用途不同。</blockquote>
+    <p>R7：新增授权状态、owner/status、实时与文件识曲异步入口。实时 session 支持原生取消；本地音频需当前 file lease 且最大 64 MiB；取消、超时或 generation 变化后的迟到 match 会被丢弃。</p>
+<p>异步名称：<code>recognize_async()</code>、<code>recognize_file_async()</code>。</p>
+<p>听歌识曲（ShazamKit）：通过麦克风识别正在播放的歌曲，或从本地音频片段匹配曲库。</p>
+<blockquote class="callout note"><strong>边界</strong>：需要 <strong>iOS 17+</strong>，并在 Apple Developer 为 <code>app.pythonide</code> 的 <strong>App Services</strong> 中开启 <strong>ShazamKit</strong>（与 Capabilities 是两项配置）。<code>is_available()</code> 只能检查 OS/framework，不能在发起真实 ShazamKit 请求前证明 App Service/签名可用；<code>availability()[&quot;service_readiness&quot;]</code> 初始为 <code>unknown_until_request</code>，真实请求后才会变成 <code>ready</code> 或 <code>unavailable_signing_or_service</code>。实时识曲需要<strong>麦克风</strong>权限；<code>recognize_file()</code> 只需可读音频文件。与 <a href="../../pages/speech-recognition-module/">speech_recognition</a>（语音转文字）和 <a href="../../pages/music-module/">music</a>（Apple Music 播放控制）用途不同。</blockquote>
+<p>R2 增量：<code>recognize_file()</code> 接受路径字符串或只读 <code>appui.FileResource</code>，并在调用原生 ShazamKit 前后使用同一运行 lease 校验。</p>
 <h2 id="模块概览"><a class="heading-anchor" href="#模块概览">#</a>模块概览</h2>
 <div class="table-scroll"><table><thead><tr><th>项</th><th>说明</th></tr></thead><tbody><tr><td>导入</td><td><code>import shazam</code></td></tr><tr><td>适合做什么</td><td>「这是什么歌」、哼唱/外放识曲、短音频片段匹配</td></tr><tr><td>调用时机</td><td><code>recognize()</code> / <code>recognize_file()</code> 放在按钮回调</td></tr><tr><td>推荐顺序</td><td><code>is_available()</code> → 申请麦克风（实时模式）→ <code>recognize()</code></td></tr><tr><td>音频建议</td><td>实时模式默认听 8 秒；文件模式建议 3–12 秒清晰片段</td></tr><tr><td>联网</td><td>需要网络访问 Shazam 曲库</td></tr></tbody></table></div>
 <hr>
@@ -401,7 +404,7 @@ appui.run(body, state=state)</code></pre>
 <hr>
 <h2 id="api-参考"><a class="heading-anchor" href="#api-参考">#</a>API 参考</h2>
 <h3 id="速查"><a class="heading-anchor" href="#速查">#</a>速查</h3>
-<div class="table-scroll"><table><thead><tr><th>API</th><th>作用</th></tr></thead><tbody><tr><td><code>is_available()</code></td><td>是否支持 ShazamKit 实时识曲</td></tr><tr><td><code>status()</code></td><td>当前识别状态 <code>{recognizing, state}</code></td></tr><tr><td><code>recognize(duration=8)</code></td><td>麦克风识曲 → <code>dict</code></td></tr><tr><td><code>recognize_file(path)</code></td><td>本地音频文件识曲 → <code>dict</code></td></tr><tr><td><code>cancel()</code></td><td>取消进行中的 <code>recognize()</code></td></tr><tr><td><code>ShazamError</code></td><td>识曲失败时抛出</td></tr></tbody></table></div>
+<div class="table-scroll"><table><thead><tr><th>API</th><th>作用</th></tr></thead><tbody><tr><td><code>is_available()</code></td><td>仅检查 iOS/ShazamKit framework 是否存在</td></tr><tr><td><code>availability()</code></td><td>framework 状态与已观察到的 service readiness</td></tr><tr><td><code>status()</code></td><td>当前识别、owner、麦克风与 service readiness 状态</td></tr><tr><td><code>recognize(duration=8)</code></td><td>麦克风识曲 → <code>dict</code></td></tr><tr><td><code>recognize_file(path)</code></td><td>本地音频文件识曲 → <code>dict</code></td></tr><tr><td><code>cancel()</code></td><td>取消进行中的 <code>recognize()</code></td></tr><tr><td><code>ShazamError</code></td><td>识曲失败时抛出</td></tr></tbody></table></div>
 <h3 id="识别结果字段"><a class="heading-anchor" href="#识别结果字段">#</a>识别结果字段</h3>
 <p>成功时返回字典，常见键：</p>
 <div class="table-scroll"><table><thead><tr><th>键</th><th>说明</th></tr></thead><tbody><tr><td><code>matched</code></td><td>是否匹配成功（<code>True</code>）</td></tr><tr><td><code>title</code></td><td>歌曲名</td></tr><tr><td><code>artist</code></td><td>艺术家</td></tr><tr><td><code>album</code></td><td>专辑（可能为空）</td></tr><tr><td><code>shazam_id</code></td><td>Shazam 媒体 ID</td></tr><tr><td><code>genres</code></td><td>风格列表</td></tr><tr><td><code>apple_music_url</code></td><td>Apple Music 链接（有则返回）</td></tr><tr><td><code>artwork_url</code></td><td>封面图 URL（有则返回）</td></tr><tr><td><code>isrc</code></td><td>ISRC（有则返回）</td></tr><tr><td><code>web_url</code> / <code>video_url</code></td><td>其他关联链接（有则返回）</td></tr></tbody></table></div>

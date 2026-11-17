@@ -293,12 +293,12 @@
 <h2 id="预期效果"><a class="heading-anchor" href="#预期效果">#</a>预期效果</h2>
 <p>运行后会出现安全凭据库，敏感字段保存到 Keychain，读取前会先走系统验证。</p>
 <h2 id="完整示例"><a class="heading-anchor" href="#完整示例">#</a>完整示例</h2>
-<figure class="code-block" data-code-id="09d244350266">
+<figure class="code-block" data-code-id="3c5fe30c32fc">
   <figcaption>
     <span>python</span>
-    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="09d244350266" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="3c5fe30c32fc" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
-  <pre><code id="code-09d244350266" class="language-python">import appui
+  <pre><code id="code-3c5fe30c32fc" class="language-python">import appui
 import biometric
 import haptics
 import keychain
@@ -310,6 +310,8 @@ state = appui.State(
     revealed=&quot;&quot;,
     status=&quot;未保存&quot;,
     auth_type=&quot;&quot;,
+    # MiniApp State 默认持久化；明文凭据只保留在当前运行内。
+    transient=[&quot;secret&quot;, &quot;revealed&quot;],
 )
 
 
@@ -406,13 +408,29 @@ def body():
 appui.run(body, state=state, presentation=&quot;sheet&quot;)</code></pre>
 </figure>
 <h2 id="关键技巧"><a class="heading-anchor" href="#关键技巧">#</a>关键技巧</h2>
-<ul><li>敏感字符串进 <code>keychain</code>，不要写入 <code>storage</code>。</li><li>写入/读取/删除放在按钮动作里；<code>get_password</code> 返回 <code>None</code> 时要能恢复 UI 状态。</li><li>录入用 <code>SecureField</code>；展示前走系统生物识别/密码验证。</li></ul>
+<ul><li>MiniApp 中 <code>State</code> 默认会持久化 JSON 兼容字段；<code>secret</code>、<code>revealed</code> 等明文字段必须放进 <code>transient</code>，或改用 <code>Ref</code>。</li><li>敏感字符串只进 <code>keychain</code>，不要写入 <code>storage</code>、普通持久化 <code>State</code>、日志或诊断字段。</li><li>写入/读取/删除放在按钮动作里；<code>get_password</code> 返回 <code>None</code> 时要能恢复 UI 状态。</li><li>录入用 <code>SecureField</code>；展示前走系统生物识别/密码验证。</li></ul>
+<h2 id="固定-key-的简写"><a class="heading-anchor" href="#固定-key-的简写">#</a>固定 key 的简写</h2>
+<p>如果凭据只有一个固定业务 key，并且产品语义就是“每次接受编辑都立即保存”，可以用 AppUI 的 Keychain-backed <code>SecureState</code>：</p>
+<figure class="code-block" data-code-id="02b9d473f6ea">
+  <figcaption>
+    <span>python</span>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="02b9d473f6ea" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
+  </figcaption>
+  <pre><code id="code-02b9d473f6ea" class="language-python">token = appui.SecureState(&quot;primary-api-token&quot;, default=&quot;&quot;)
+
+
+def body():
+    return appui.SecureField(&quot;API Token&quot;, text=token.bind.value)</code></pre>
+</figure>
+<p><code>SecureState</code> 不会进入普通 State 快照，并沿用 Keychain 的 MiniApp owner 隔离和设备绑定保护。它不会自动弹出生物识别，也不会等“保存”按钮；如果 service/account 是动态的、要先验证身份再读取，或必须点保存才落盘，继续使用本页完整的 <code>keychain</code> 流程。</p>
+<h2 id="安全边界"><a class="heading-anchor" href="#安全边界">#</a>安全边界</h2>
+<ul><li><code>SecureField</code> 只负责界面遮罩，不会加密 Python 内存中的字符串；<code>secret</code> / <code>revealed</code> 在当前进程内仍是明文，所以必须保持 transient、避免日志，并尽快清空。</li><li>本例的生物识别/设备密码验证是应用层读取前置条件，不是这个 Keychain item 自身的每次读取 ACL。验证成功后再调用 <code>get_password</code>，两步之间仍由脚本负责顺序与错误处理。</li><li><code>transient</code> 只能阻止普通 State 快照持久化，不能替代 Keychain，也不能撤回已经写进日志、剪贴板或网络的内容。</li></ul>
   </div>
   
 </article>
 
     </main>
-    <aside class="toc"><div class="toc-title">本页目录</div><a class="toc-link" href="#预期效果">预期效果</a><a class="toc-link" href="#完整示例">完整示例</a><a class="toc-link" href="#关键技巧">关键技巧</a></aside>
+    <aside class="toc"><div class="toc-title">本页目录</div><a class="toc-link" href="#预期效果">预期效果</a><a class="toc-link" href="#完整示例">完整示例</a><a class="toc-link" href="#关键技巧">关键技巧</a><a class="toc-link" href="#固定-key-的简写">固定 key 的简写</a><a class="toc-link" href="#安全边界">安全边界</a></aside>
   </div>
   <div class="mobile-backdrop"></div>
   <div class="search-panel" role="dialog" aria-modal="true" aria-label="搜索">

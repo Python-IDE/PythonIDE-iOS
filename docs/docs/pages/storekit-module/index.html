@@ -289,21 +289,23 @@
   </header>
   
   <div class="markdown-body">
-    <p>应用内购买与订阅（StoreKit 2）：加载商品、发起购买、恢复购买、查询订阅状态。</p>
-<blockquote class="callout note"><strong>边界</strong>：需要 App Store Connect 配置商品 ID，并使用带 In-App Purchase 能力的签名构建；沙盒账号在真机测试。<code>purchase()</code> 会弹出系统购买面板；用户取消返回 <code>result: &quot;cancelled&quot;</code>，<strong>不抛异常</strong>。购买、恢复、管理订阅放在按钮回调，不要在 <code>body()</code> 中调用。</blockquote>
+    <p>R7：新增 <code>status()</code> 和全部主要操作的 <code>*_async(..., budget=...)</code>。商品 ID 必须属于宿主配置的 catalog allowlist；购买结果通过 StoreKit 2 验证并与宿主权益仓库对账，不能由 MiniApp 自报成功或伪造 product ID。</p>
+<p>异步名称：<code>load_products_async()</code>、<code>purchase_async()</code>、<code>operation_status_async()</code>、<code>restore_async()</code>、<code>subscription_status_async()</code>、<code>show_manage_subscriptions_async()</code>。</p>
+<p>应用内购买与订阅（StoreKit 2）：加载商品、发起购买、恢复购买、查询订阅状态。</p>
+<blockquote class="callout note"><strong>边界</strong>：仅使用 PythonIDE 的已签名宿主商品目录，遵循宿主渠道门槛。<code>purchase()</code> 打开系统购买面板；用户取消返回 <code>result: &quot;cancelled&quot;</code>，<strong>不抛异常</strong>。购买、恢复、管理订阅放在按钮回调，不要在 <code>body()</code> 中调用。</blockquote>
 <h2 id="模块概览"><a class="heading-anchor" href="#模块概览">#</a>模块概览</h2>
-<div class="table-scroll"><table><thead><tr><th>项</th><th>说明</th></tr></thead><tbody><tr><td>导入</td><td><code>import storekit</code></td></tr><tr><td>适合做什么</td><td>专业版解锁、订阅会员、恢复已购权益</td></tr><tr><td>调用时机</td><td>用户点击购买/恢复；先 <code>load_products</code> 展示价格</td></tr><tr><td>推荐顺序</td><td><code>load_products</code> → 展示商品 → <code>purchase</code> → <code>subscription_status</code></td></tr><tr><td>用户取消</td><td><code>purchase</code> 返回 <code>{&quot;result&quot;: &quot;cancelled&quot;}</code>，需单独处理</td></tr></tbody></table></div>
+<div class="table-scroll"><table><thead><tr><th>项</th><th>说明</th></tr></thead><tbody><tr><td>导入</td><td><code>import storekit</code></td></tr><tr><td>适合做什么</td><td>购买宿主 AI 调用包、支持捐赠及恢复未完成交易</td></tr><tr><td>调用时机</td><td>用户点击购买/恢复；先 <code>load_products</code> 展示价格</td></tr><tr><td>推荐顺序</td><td><code>load_products</code> → 展示商品 → <code>purchase_async</code> → <code>operation_status</code></td></tr><tr><td>用户取消</td><td><code>purchase</code> 返回 <code>{&quot;result&quot;: &quot;cancelled&quot;}</code>，需单独处理</td></tr></tbody></table></div>
 <hr>
 <h2 id="快速开始"><a class="heading-anchor" href="#快速开始">#</a>快速开始</h2>
 <p>下面脚本加载商品元数据并打印价格：</p>
-<figure class="code-block" data-code-id="876bae974934">
+<figure class="code-block" data-code-id="57348c6f8999">
   <figcaption>
     <span>python</span>
-    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="876bae974934" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="57348c6f8999" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
-  <pre><code id="code-876bae974934" class="language-python">import storekit
+  <pre><code id="code-57348c6f8999" class="language-python">import storekit
 
-PRODUCT_ID = &quot;com.yourapp.pro&quot;  # 换成你在 App Store Connect 创建的商品 ID
+PRODUCT_ID = &quot;ai_calls_100&quot;  # 仅限 PythonIDE 已签名宿主目录中的消耗型商品
 
 try:
     products = storekit.load_products([PRODUCT_ID])
@@ -333,15 +335,15 @@ else:
 <hr>
 <h2 id="appui-示例"><a class="heading-anchor" href="#appui-示例">#</a>AppUI 示例</h2>
 <p>加载、购买、恢复都放在按钮回调；取消时保持页面可操作。</p>
-<figure class="code-block" data-code-id="d0057ffaaf0c">
+<figure class="code-block" data-code-id="60aee5d09683">
   <figcaption>
     <span>python</span>
-    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="d0057ffaaf0c" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="60aee5d09683" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
-  <pre><code id="code-d0057ffaaf0c" class="language-python">import appui
+  <pre><code id="code-60aee5d09683" class="language-python">import appui
 import storekit
 
-PRODUCT_ID = &quot;com.yourapp.pro&quot;  # 换成你的商品 ID
+PRODUCT_ID = &quot;ai_calls_100&quot;  # MiniApp 不能配置自己的商店商品
 
 state = appui.State(
     product_name=&quot;—&quot;,
@@ -453,30 +455,49 @@ appui.run(body, state=state)</code></pre>
 <hr>
 <h2 id="api-参考"><a class="heading-anchor" href="#api-参考">#</a>API 参考</h2>
 <h3 id="速查"><a class="heading-anchor" href="#速查">#</a>速查</h3>
-<div class="table-scroll"><table><thead><tr><th>API</th><th>作用</th></tr></thead><tbody><tr><td><code>load_products(identifiers)</code></td><td>加载商品元数据列表</td></tr><tr><td><code>purchase(product_id)</code></td><td>发起购买 → <code>{result, transaction_id}</code></td></tr><tr><td><code>restore()</code></td><td>恢复购买 → 商品 ID 列表</td></tr><tr><td><code>subscription_status()</code></td><td>当前订阅权益列表</td></tr><tr><td><code>show_manage_subscriptions()</code></td><td>打开系统订阅管理页</td></tr><tr><td><code>StoreKitError</code></td><td>Bridge/网络/校验失败时抛出</td></tr></tbody></table></div>
+<div class="table-scroll"><table><thead><tr><th>API</th><th>作用</th></tr></thead><tbody><tr><td><code>load_products(identifiers)</code></td><td>加载商品元数据列表</td></tr><tr><td><code>purchase(product_id, operation_id=None)</code></td><td>发起一次购买或继续同编号 → <code>{result, operation_id, transaction_id, ...}</code></td></tr><tr><td><code>operation_status(operation_id)</code></td><td>查询或对账原操作，不打开新付款</td></tr><tr><td><code>restore()</code></td><td>恢复购买 → 商品 ID 列表</td></tr><tr><td><code>subscription_status()</code></td><td>当前订阅权益列表</td></tr><tr><td><code>show_manage_subscriptions()</code></td><td>打开系统订阅管理页</td></tr><tr><td><code>StoreKitError</code></td><td>Bridge/网络/校验失败时抛出</td></tr></tbody></table></div>
 <h3 id="load_products"><a class="heading-anchor" href="#load_products">#</a>load_products</h3>
 <p><strong><code>load_products(identifiers) -&gt; list[dict]</code></strong></p>
-<figure class="code-block" data-code-id="292692953bc3">
+<figure class="code-block" data-code-id="3c21ffea7e8a">
   <figcaption>
     <span>python</span>
-    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="292692953bc3" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="3c21ffea7e8a" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
-  <pre><code id="code-292692953bc3" class="language-python">products = storekit.load_products([&quot;com.app.monthly&quot;, &quot;com.app.yearly&quot;])</code></pre>
+  <pre><code id="code-3c21ffea7e8a" class="language-python">products = storekit.load_products([&quot;ai_calls_100&quot;, &quot;ai_calls_200&quot;])</code></pre>
 </figure>
 <p>每个商品字典：</p>
 <div class="table-scroll"><table><thead><tr><th>字段</th><th>说明</th></tr></thead><tbody><tr><td><code>id</code></td><td>商品 ID</td></tr><tr><td><code>display_name</code></td><td>显示名称</td></tr><tr><td><code>description</code></td><td>描述</td></tr><tr><td><code>price</code></td><td>本地化价格字符串（如 <code>¥12.00</code>）</td></tr><tr><td><code>type</code></td><td><code>subscription</code> / <code>non_consumable</code> / <code>consumable</code></td></tr></tbody></table></div>
-<p>列表为空表示 ID 无效或未在 App Store Connect 配置。</p>
+<p>目录外 ID 会抛出 <code>StoreKitError(code=&quot;product_not_allowed&quot;)</code>。目录内商品暂时未由商店返回时，列表可以为空；不能把空列表当作用户没有购买记录。</p>
 <h3 id="purchase"><a class="heading-anchor" href="#purchase">#</a>purchase</h3>
-<p><strong><code>purchase(product_id) -&gt; dict</code></strong></p>
-<figure class="code-block" data-code-id="3c1c392bc4ed">
+<p><strong><code>purchase(product_id, *, operation_id=None) -&gt; dict</code></strong></p>
+<figure class="code-block" data-code-id="b4f37d128121">
   <figcaption>
     <span>python</span>
-    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="3c1c392bc4ed" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="b4f37d128121" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
-  <pre><code id="code-3c1c392bc4ed" class="language-python">result = storekit.purchase(&quot;com.yourapp.pro&quot;)</code></pre>
+  <pre><code id="code-b4f37d128121" class="language-python">result = storekit.purchase(&quot;ai_calls_100&quot;)</code></pre>
 </figure>
-<div class="table-scroll"><table><thead><tr><th><code>result</code></th><th>含义</th></tr></thead><tbody><tr><td><code>purchased</code></td><td>购买成功；<code>transaction_id</code> 有值</td></tr><tr><td><code>cancelled</code></td><td>用户取消（<strong>非异常</strong>）</td></tr><tr><td><code>pending</code></td><td>待处理（如 Ask to Buy）</td></tr><tr><td><code>failed</code></td><td>其他失败</td></tr></tbody></table></div>
-<p>成功交易会在 Bridge 内 <code>finish()</code>；无需 Python 侧再调完成接口。</p>
+<div class="table-scroll"><table><thead><tr><th><code>result</code></th><th>含义</th></tr></thead><tbody><tr><td><code>purchased</code></td><td>购买成功；<code>transaction_id</code> 有值</td></tr><tr><td><code>cancelled</code></td><td>用户取消（<strong>非异常</strong>）</td></tr><tr><td><code>pending</code></td><td>批准、验证或交付仍待确认；保留原操作编号，不要重新付款</td></tr><tr><td><code>revoked</code></td><td>原订单已退款或撤销，未新增交付</td></tr><tr><td><code>failed</code></td><td>其他失败</td></tr></tbody></table></div>
+<p>交易只由宿主唯一交付队列在精确确认到账或撤销后 <code>finish()</code>。同步等待到时返回 <code>pending</code> 与 <code>operation_id</code>；停止等待或取消 Python handle 不会取消已经打开的 Apple 付款。</p>
+<h3 id="持久操作与恢复"><a class="heading-anchor" href="#持久操作与恢复">#</a>持久操作与恢复</h3>
+<p>当前购买目录只含 PythonIDE 调用包及支持捐赠；不支持 MiniApp 自定义商品、Pro 或第三方订阅。生产消耗品遵循宿主渠道门槛。</p>
+<figure class="code-block" data-code-id="62aa2a8c2a21">
+  <figcaption>
+    <span>python</span>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="62aa2a8c2a21" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
+  </figcaption>
+  <pre><code id="code-62aa2a8c2a21" class="language-python">import uuid
+operation_id = str(uuid.uuid4())  # 发起前保存；恢复时不能重新生成
+handle = storekit.purchase_async(&quot;ai_calls_100&quot;, operation_id=operation_id)
+# handle.purchase_operation_id 与这个本机持久编号相同。
+initial = handle.result(timeout=65)  # 后台或异步工作中等待，不能阻塞 UI
+if initial.status == &quot;succeeded&quot;:
+    status = storekit.operation_status(operation_id)</code></pre>
+</figure>
+<p>首次回执证明底层已登记启动。若等待超时或取消，继续保留原编号；查询可能暂时抛 <code>operation_not_found</code>，这不证明付款失败，也不能据此生成新编号。稍后查询或使用同一编号继续原请求，避免重复付款。</p>
+<p><code>operation_status(operation_id)</code> / <code>operation_status_async(operation_id, budget=None)</code> 只查询或重试原交易对账，不打开新付款。结果含 <code>result</code>、<code>operation_id</code>、可空的 <code>transaction_id</code>、<code>store_verified</code>、<code>host_reconciliation</code> 和 <code>payment_phase</code>。<code>purchased</code> 表示宿主确认原单交付，不代表 MiniApp 获得独立 Pro 身份或钱包。</p>
+<p>编号按本机宿主或 MiniApp 身份隔离，终态编号与订单号持续保留，不按缓存条数淘汰。相同编号只继续原操作；明确的新编号代表一次新的购买请求，不能用它代替恢复。没有订单证据的结果未知保持 <code>pending</code>；未跨过持久付款边界的进程中断记为 <code>failed</code>。延迟批准通过 Apple 签名的服务端 token 精确关联原操作，不按商品、金额、时间或余额猜单。不能仅凭本机编号承诺删除 App 数据或换设备后的恢复。</p>
+<p>已交付的消耗型商品通常不属于 <code>currentEntitlements</code>，<code>restore()</code> 不会按历史次数重发额度；恢复到账使用原生未完成队列及精确原单对账。当前目录没有订阅，<code>subscription_status()</code> 保持兼容，通常返回空列表。</p>
 <h3 id="restore"><a class="heading-anchor" href="#restore">#</a>restore</h3>
 <p><strong><code>restore() -&gt; list[str]</code></strong> — 遍历当前有效权益，返回已恢复的商品 ID 列表。</p>
 <h3 id="subscription_status"><a class="heading-anchor" href="#subscription_status">#</a>subscription_status</h3>
@@ -493,10 +514,10 @@ appui.run(body, state=state)</code></pre>
 <h3 id="show_manage_subscriptions"><a class="heading-anchor" href="#show_manage_subscriptions">#</a>show_manage_subscriptions</h3>
 <p><strong><code>show_manage_subscriptions()</code></strong> — 打开系统「管理订阅」界面（iOS 15+）。</p>
 <h3 id="异常"><a class="heading-anchor" href="#异常">#</a>异常</h3>
-<div class="table-scroll"><table><thead><tr><th><code>code</code></th><th>含义</th></tr></thead><tbody><tr><td><code>invalid_input</code></td><td>缺少商品 ID</td></tr><tr><td><code>not_found</code></td><td>商品不存在</td></tr><tr><td><code>verification_failed</code></td><td>交易校验失败</td></tr><tr><td><code>timeout</code></td><td>异步操作超时</td></tr></tbody></table></div>
+<div class="table-scroll"><table><thead><tr><th><code>code</code></th><th>含义</th></tr></thead><tbody><tr><td><code>invalid_input</code></td><td>缺少商品 ID</td></tr><tr><td><code>product_not_allowed</code></td><td>商品不属于宿主允许目录</td></tr><tr><td><code>operation_not_found</code></td><td>当前调用者没有该本机操作，或异步启动尚未登记</td></tr><tr><td><code>not_found</code></td><td>商品不存在</td></tr><tr><td><code>verification_failed</code></td><td>交易校验失败</td></tr><tr><td><code>timeout</code></td><td>异步操作超时</td></tr></tbody></table></div>
 <hr>
 <h2 id="常见错误"><a class="heading-anchor" href="#常见错误">#</a>常见错误</h2>
-<div class="table-scroll"><table><thead><tr><th>错误写法</th><th>后果</th><th>修正</th></tr></thead><tbody><tr><td>在 <code>body()</code> 里 <code>purchase()</code></td><td>刷新时重复弹购买</td><td>放进按钮回调</td></tr><tr><td>把用户取消当异常</td><td>误判为崩溃</td><td>检查 <code>result == &quot;cancelled&quot;</code></td></tr><tr><td>商品 ID 写错</td><td><code>load_products</code> 返回空</td><td>对照 App Store Connect</td></tr><tr><td>模拟器未登录沙盒</td><td>加载/购买失败</td><td>真机 + 沙盒测试账号</td></tr><tr><td>未配置 IAP 能力</td><td>Bridge 不可用</td><td>签名构建开启 In-App Purchase</td></tr></tbody></table></div>
+<div class="table-scroll"><table><thead><tr><th>错误写法</th><th>后果</th><th>修正</th></tr></thead><tbody><tr><td>在 <code>body()</code> 里 <code>purchase()</code></td><td>刷新时重复弹购买</td><td>放进按钮回调</td></tr><tr><td>把用户取消当异常</td><td>误判为崩溃</td><td>检查 <code>result == &quot;cancelled&quot;</code></td></tr><tr><td>商品 ID 超出宿主目录</td><td>抛出 <code>product_not_allowed</code></td><td>使用 <code>ai_calls_100</code> 等宿主允许商品</td></tr><tr><td>模拟器未登录沙盒</td><td>加载/购买失败</td><td>真机 + 沙盒测试账号</td></tr><tr><td>未配置 IAP 能力</td><td>Bridge 不可用</td><td>签名构建开启 In-App Purchase</td></tr></tbody></table></div>
 <hr>
 <h2 id="相关文档"><a class="heading-anchor" href="#相关文档">#</a>相关文档</h2>
 <div class="table-scroll"><table><thead><tr><th>文档</th><th>用途</th></tr></thead><tbody><tr><td><a href="../../pages/keychain-module/">keychain</a></td><td>存储用户令牌（非交易凭证）</td></tr><tr><td><a href="../../pages/dialogs-module/">dialogs</a></td><td>购买前确认提示</td></tr><tr><td><a href="../../pages/miniapp-native-capabilities/">原生能力入口</a></td><td>MiniApp 场景配方</td></tr></tbody></table></div>
@@ -507,7 +528,7 @@ appui.run(body, state=state)</code></pre>
 </article>
 
     </main>
-    <aside class="toc"><div class="toc-title">本页目录</div><a class="toc-link" href="#模块概览">模块概览</a><a class="toc-link" href="#快速开始">快速开始</a><a class="toc-link" href="#appui-示例">AppUI 示例</a><a class="toc-link" href="#api-参考">API 参考</a><a class="toc-link child" href="#速查">速查</a><a class="toc-link child" href="#load_products">load_products</a><a class="toc-link child" href="#purchase">purchase</a><a class="toc-link child" href="#restore">restore</a><a class="toc-link child" href="#subscription_status">subscription_status</a><a class="toc-link child" href="#show_manage_subscriptions">show_manage_subscriptions</a><a class="toc-link child" href="#异常">异常</a><a class="toc-link" href="#常见错误">常见错误</a><a class="toc-link" href="#相关文档">相关文档</a><a class="toc-link" href="#预期效果">预期效果</a></aside>
+    <aside class="toc"><div class="toc-title">本页目录</div><a class="toc-link" href="#模块概览">模块概览</a><a class="toc-link" href="#快速开始">快速开始</a><a class="toc-link" href="#appui-示例">AppUI 示例</a><a class="toc-link" href="#api-参考">API 参考</a><a class="toc-link child" href="#速查">速查</a><a class="toc-link child" href="#load_products">load_products</a><a class="toc-link child" href="#purchase">purchase</a><a class="toc-link child" href="#持久操作与恢复">持久操作与恢复</a><a class="toc-link child" href="#restore">restore</a><a class="toc-link child" href="#subscription_status">subscription_status</a><a class="toc-link child" href="#show_manage_subscriptions">show_manage_subscriptions</a><a class="toc-link child" href="#异常">异常</a><a class="toc-link" href="#常见错误">常见错误</a><a class="toc-link" href="#相关文档">相关文档</a><a class="toc-link" href="#预期效果">预期效果</a></aside>
   </div>
   <div class="mobile-backdrop"></div>
   <div class="search-panel" role="dialog" aria-modal="true" aria-label="搜索">

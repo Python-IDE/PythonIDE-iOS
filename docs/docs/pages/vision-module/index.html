@@ -289,7 +289,9 @@
   </header>
   
   <div class="markdown-body">
-    <p>图片 OCR（文字识别）：从图片字节提取可见文字。新代码请 <code>import vision</code>（与 <code>vision_fix</code> 等价）。</p>
+    <p>R7：OCR 增加原始 bytes、像素、结果与并发预算，并提供 <code>recognize_text_async</code>、<code>recognize_text_file</code>、<code>recognize_text_file_async</code>。文件入口接受当前 lease 可读的 <code>FileResource</code>；取消或 lease 失效后丢弃迟到结果。</p>
+<p>兼容/高级公开符号还包括 <code>VisionError</code>、<code>recognize_text()</code>、<code>request_async()</code>、<code>cancel_request()</code>、<code>detect_file()</code>、<code>detect_file_async()</code>；高级检测优先阅读 <a href="../../pages/vision-helper-module/">vision_helper</a>。</p>
+<p>图片 OCR（文字识别）：从图片字节提取可见文字。新代码请 <code>import vision</code>（与 <code>vision_fix</code> 等价）。</p>
 <blockquote class="callout note"><strong>边界</strong>：专注<strong>文字识别</strong>（OCR）。人脸、条码、矩形检测请用 <a href="../../pages/vision-helper-module/">vision_helper</a>。需要能导入 Vision 框架或 <code>objc_util</code>；纯 ctypes 回退不支持 OCR。</blockquote>
 <h2 id="模块概览"><a class="heading-anchor" href="#模块概览">#</a>模块概览</h2>
 <div class="table-scroll"><table><thead><tr><th>项</th><th>说明</th></tr></thead><tbody><tr><td>导入</td><td><code>import vision</code></td></tr><tr><td>适合做什么</td><td>名片识别、截图取字、票据文字提取</td></tr><tr><td>调用时机</td><td>OCR 放在按钮回调；传入图片 <code>bytes</code></td></tr><tr><td>推荐顺序</td><td>读图/选图 → <code>recognize_text_from_image_data(data)</code></td></tr><tr><td>依赖</td><td><code>is_vision_available()</code> 为 <code>True</code> 时再调用</td></tr></tbody></table></div>

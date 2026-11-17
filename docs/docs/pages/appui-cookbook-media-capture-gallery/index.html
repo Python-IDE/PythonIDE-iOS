@@ -290,6 +290,7 @@
   
   <div class="markdown-body">
     <p>演示 <code>PhotoPicker</code>、<code>CameraPicker</code>、<code>AsyncImage</code> 与 <code>ShareLink</code> 的媒体采集与分享流。</p>
+<p>选择器回调仍返回路径字符串。消费路径时推荐包装为 <code>FileResource(path)</code>：显示用 <code>AsyncImage(source=MediaSource.file(...))</code>，分享用 <code>ShareLink(items=[ShareItem.file(...)])</code>；原生层会按同一运行 lease 再校验。</p>
 <h2 id="预期效果"><a class="heading-anchor" href="#预期效果">#</a>预期效果</h2>
 <p>运行后会出现媒体采集相册，选择照片、拍照和分享入口会把结果写入列表。</p>
 <h2 id="适合场景"><a class="heading-anchor" href="#适合场景">#</a>适合场景</h2>

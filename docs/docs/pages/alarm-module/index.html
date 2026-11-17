@@ -289,192 +289,52 @@
   </header>
   
   <div class="markdown-body">
-    <p>系统闹钟调度（AlarmKit）：创建、列出和取消闹钟。</p>
-<blockquote class="callout note"><strong>边界</strong>：需要 <strong>iOS 26+</strong> 且设备支持 AlarmKit；先用 <code>is_available()</code> 判断。与 <a href="../../pages/notification-module/">notification</a> 本地通知不同——闹钟走系统闹钟体验。调度放在用户操作回调里，不要在 <code>body()</code> 中调用。</blockquote>
-<h2 id="模块概览"><a class="heading-anchor" href="#模块概览">#</a>模块概览</h2>
-<div class="table-scroll"><table><thead><tr><th>项</th><th>说明</th></tr></thead><tbody><tr><td>导入</td><td><code>import alarm</code></td></tr><tr><td>适合做什么</td><td>起床提醒、定时闹钟、重复闹钟</td></tr><tr><td>调用时机</td><td><code>schedule()</code> / <code>cancel()</code> 放在按钮回调</td></tr><tr><td>推荐顺序</td><td><code>is_available()</code> → <code>request_authorization()</code> → <code>schedule()</code> → <code>list_alarms()</code></td></tr><tr><td>标识符</td><td><code>schedule()</code> 返回 <code>alarm_id</code>，用于 <code>cancel()</code></td></tr></tbody></table></div>
-<hr>
-<h2 id="快速开始"><a class="heading-anchor" href="#快速开始">#</a>快速开始</h2>
-<p>下面脚本检查可用性、申请权限、创建并列出闹钟：</p>
-<figure class="code-block" data-code-id="0e10d48eb85f">
+    <p>用 AlarmKit 创建、查询和取消真实系统闹钟。需要支持 AlarmKit 的 iOS 26+ 构建、MiniApp 的 <code>alarms</code> 能力和用户授权。</p>
+<blockquote class="callout note"><strong>真实性边界</strong>：<code>schedule_alarm()</code> 只有在 <code>AlarmManager.schedule</code> 成功、随后能读回完全相同的时分与重复规则、并写入当前 MiniApp 的持久化所有权账本后才返回 <code>verified=True</code>。它不是本地通知，也不返回其他应用或系统时钟创建的闹钟。</blockquote>
+<h2 id="推荐流程"><a class="heading-anchor" href="#推荐流程">#</a>推荐流程</h2>
+<figure class="code-block" data-code-id="7d1128a82563">
   <figcaption>
     <span>python</span>
-    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="0e10d48eb85f" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="7d1128a82563" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
-  <pre><code id="code-0e10d48eb85f" class="language-python">import alarm
+  <pre><code id="code-7d1128a82563" class="language-python">import alarm
 
 if not alarm.is_available():
-    print(&quot;当前系统不支持 AlarmKit（需 iOS 26+）&quot;)
-else:
-    try:
-        if alarm.request_authorization():
-            alarm_id = alarm.schedule(&quot;起床&quot;, 7, 30, repeats=True)
-            print(&quot;已创建:&quot;, alarm_id)
-            print(alarm.list_alarms())
-            alarm.cancel(alarm_id)
-        else:
-            print(&quot;未获得闹钟权限&quot;)
-    except alarm.AlarmError as exc:
-        print(&quot;闹钟操作失败:&quot;, exc, f&quot;code={exc.code}&quot;)</code></pre>
-</figure>
-<hr>
-<h2 id="appui-示例"><a class="heading-anchor" href="#appui-示例">#</a>AppUI 示例</h2>
-<p>授权和调度放在按钮回调；列表展示当前闹钟。</p>
-<figure class="code-block" data-code-id="0e697d63c4f8">
-  <figcaption>
-    <span>python</span>
-    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="0e697d63c4f8" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
-  </figcaption>
-  <pre><code id="code-0e697d63c4f8" class="language-python">import appui
-import alarm
+    raise RuntimeError(&quot;当前设备或系统不支持 AlarmKit&quot;)
 
-state = appui.State(
-    available=alarm.is_available(),
-    auth=&quot;未查询&quot;,
-    alarms=[],
-    status=&quot;点击按钮管理闹钟&quot;,
+if alarm.authorization_status() != &quot;authorized&quot;:
+    if not alarm.request_authorization():
+        raise RuntimeError(&quot;用户未授权系统闹钟&quot;)
+
+receipt = alarm.schedule_alarm(
+    &quot;起床&quot;,
+    7,
+    30,
+    repeats=True,
+    idempotency_key=&quot;weekday-wakeup-v1&quot;,
 )
-
-
-def refresh_list():
-    try:
-        state.alarms = alarm.list_alarms() or []
-    except alarm.AlarmError as exc:
-        state.status = f&quot;读取失败: {exc}&quot;
-
-
-def request_access():
-    if not state.available:
-        state.status = &quot;当前系统不支持 AlarmKit&quot;
-        return
-    try:
-        ok = alarm.request_authorization()
-        state.auth = &quot;已授权&quot; if ok else &quot;未授权&quot;
-        state.status = state.auth
-        if ok:
-            refresh_list()
-    except alarm.AlarmError as exc:
-        state.status = f&quot;授权失败: {exc}&quot;
-
-
-def add_demo_alarm():
-    if not state.available:
-        state.status = &quot;系统不支持&quot;
-        return
-    try:
-        if not alarm.request_authorization():
-            state.status = &quot;请先授权&quot;
-            return
-        alarm.schedule(&quot;演示闹钟&quot;, 8, 0, repeats=False)
-        refresh_list()
-        state.status = &quot;已添加 08:00 闹钟&quot;
-    except alarm.AlarmError as exc:
-        state.status = f&quot;创建失败: {exc}&quot;
-
-
-def cancel_first():
-    if not state.alarms:
-        state.status = &quot;没有可取消的闹钟&quot;
-        return
-    try:
-        alarm_id = state.alarms[0].get(&quot;alarm_id&quot;)
-        if alarm_id:
-            alarm.cancel(alarm_id)
-            refresh_list()
-            state.status = f&quot;已取消 {alarm_id[:8]}…&quot;
-    except alarm.AlarmError as exc:
-        state.status = f&quot;取消失败: {exc}&quot;
-
-
-def body():
-    rows = []
-    for item in state.alarms:
-        title = item.get(&quot;title&quot;, &quot;闹钟&quot;)
-        hour = item.get(&quot;hour&quot;, 0)
-        minute = item.get(&quot;minute&quot;, 0)
-        repeats = &quot;每天&quot; if item.get(&quot;repeats&quot;) else &quot;一次&quot;
-        rows.append(
-            appui.LabeledContent(
-                title,
-                value=f&quot;{hour:02d}:{minute:02d} · {repeats}&quot;,
-            )
-        )
-
-    return appui.NavigationStack(
-        appui.Form([
-            appui.Section(&quot;环境&quot;, [
-                appui.LabeledContent(
-                    &quot;AlarmKit&quot;,
-                    value=&quot;可用&quot; if state.available else &quot;不可用（需 iOS 26+）&quot;,
-                ),
-                appui.LabeledContent(&quot;授权&quot;, value=state.auth),
-            ]),
-            appui.Section(&quot;闹钟列表&quot;, rows or [
-                appui.ContentUnavailableView(
-                    &quot;暂无闹钟&quot;,
-                    system_image=&quot;alarm&quot;,
-                    description=&quot;点击下方按钮添加&quot;,
-                )
-            ]),
-            appui.Section(&quot;操作&quot;, [
-                appui.Button(&quot;申请权限&quot;, action=request_access),
-                appui.Button(&quot;添加 08:00 闹钟&quot;, action=add_demo_alarm)
-                .button_style(&quot;bordered_prominent&quot;),
-                appui.Button(&quot;取消第一个&quot;, action=cancel_first, role=&quot;destructive&quot;),
-                appui.Text(state.status).foreground_color(&quot;secondaryLabel&quot;),
-            ], footer=&quot;真机 + iOS 26+ 测试；与本地通知是不同能力。&quot;),
-        ]).navigation_title(&quot;闹钟&quot;)
-    )
-
-
-appui.run(body, state=state)</code></pre>
+assert receipt[&quot;verified&quot;] is True
+print(receipt[&quot;alarm_id&quot;])</code></pre>
 </figure>
-<hr>
-<h2 id="api-参考"><a class="heading-anchor" href="#api-参考">#</a>API 参考</h2>
-<h3 id="速查"><a class="heading-anchor" href="#速查">#</a>速查</h3>
-<div class="table-scroll"><table><thead><tr><th>API</th><th>作用</th></tr></thead><tbody><tr><td><code>is_available()</code></td><td>是否支持 AlarmKit</td></tr><tr><td><code>request_authorization()</code></td><td>申请闹钟权限 → <code>bool</code></td></tr><tr><td><code>schedule(title, hour, minute, repeats)</code></td><td>创建闹钟 → <code>alarm_id</code></td></tr><tr><td><code>cancel(alarm_id)</code></td><td>取消指定闹钟</td></tr><tr><td><code>list_alarms()</code></td><td>已调度闹钟列表</td></tr><tr><td><code>AlarmError</code></td><td>操作失败时抛出</td></tr></tbody></table></div>
-<h3 id="可用性与授权"><a class="heading-anchor" href="#可用性与授权">#</a>可用性与授权</h3>
-<figure class="code-block" data-code-id="d10cc12776d2">
-  <figcaption>
-    <span>python</span>
-    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="d10cc12776d2" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
-  </figcaption>
-  <pre><code id="code-d10cc12776d2" class="language-python">import alarm
-
-if alarm.is_available():
-    ok = alarm.request_authorization()</code></pre>
-</figure>
-<p><code>is_available()</code> 在低于 iOS 26 或 Bridge 不可用时返回 <code>False</code>。</p>
-<h3 id="调度"><a class="heading-anchor" href="#调度">#</a>调度</h3>
-<p><strong><code>schedule(title, hour, minute, repeats=False)</code></strong></p>
-<figure class="code-block" data-code-id="5d0f8fbaa425">
-  <figcaption>
-    <span>python</span>
-    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="5d0f8fbaa425" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
-  </figcaption>
-  <pre><code id="code-5d0f8fbaa425" class="language-python">alarm_id = alarm.schedule(&quot;会议提醒&quot;, 9, 15)
-alarm_id = alarm.schedule(&quot;每日起床&quot;, 7, 0, repeats=True)</code></pre>
-</figure>
-<div class="table-scroll"><table><thead><tr><th>参数</th><th>说明</th></tr></thead><tbody><tr><td><code>title</code></td><td>闹钟标题</td></tr><tr><td><code>hour</code></td><td>0–23</td></tr><tr><td><code>minute</code></td><td>0–59</td></tr><tr><td><code>repeats</code></td><td>是否每天重复</td></tr></tbody></table></div>
-<p>返回字符串 <code>alarm_id</code>，传给 <code>cancel()</code> 使用。</p>
-<p><strong><code>list_alarms()</code></strong> — 返回 <code>[{alarm_id, title, hour, minute, repeats, state}, ...]</code>。</p>
-<p><strong><code>cancel(alarm_id)</code></strong> — 取消并移除记录。</p>
-<h3 id="异常"><a class="heading-anchor" href="#异常">#</a>异常</h3>
-<div class="table-scroll"><table><thead><tr><th><code>code</code></th><th>含义</th></tr></thead><tbody><tr><td><code>unavailable</code></td><td>系统版本不支持 AlarmKit</td></tr><tr><td><code>invalid_input</code></td><td>参数缺失（如没有 <code>title</code>）</td></tr><tr><td><code>timeout</code></td><td>异步授权超时</td></tr></tbody></table></div>
-<hr>
-<h2 id="常见错误"><a class="heading-anchor" href="#常见错误">#</a>常见错误</h2>
-<div class="table-scroll"><table><thead><tr><th>错误写法</th><th>后果</th><th>修正</th></tr></thead><tbody><tr><td>不检查 <code>is_available()</code></td><td>低版本直接崩溃</td><td>先判断再调度</td></tr><tr><td>当成 <a href="../../pages/notification-module/">notification</a> 用</td><td>API 与体验不同</td><td>按闹钟场景选模块</td></tr><tr><td>在 <code>body()</code> 里 <code>schedule()</code></td><td>刷新时重复创建</td><td>放进按钮回调</td></tr><tr><td>丢失 <code>alarm_id</code></td><td>无法取消</td><td>保存 <code>schedule()</code> 返回值</td></tr></tbody></table></div>
-<hr>
-<h2 id="相关文档"><a class="heading-anchor" href="#相关文档">#</a>相关文档</h2>
-<div class="table-scroll"><table><thead><tr><th>文档</th><th>用途</th></tr></thead><tbody><tr><td><a href="../../pages/notification-module/">notification</a></td><td>本地通知与角标</td></tr><tr><td><a href="../../pages/permission-module/">permission</a></td><td>其他权限查询</td></tr><tr><td><a href="../../pages/miniapp-native-capabilities/">原生能力入口</a></td><td>MiniApp 场景配方</td></tr></tbody></table></div>
+<p><code>schedule(title, hour, minute, repeats=False)</code> 是兼容入口，只返回 <code>alarm_id</code>；需要核验结果和幂等控制时使用 <code>schedule_alarm()</code>。</p>
+<h2 id="api"><a class="heading-anchor" href="#api">#</a>API</h2>
+<div class="table-scroll"><table><thead><tr><th>API</th><th>真实行为</th></tr></thead><tbody><tr><td><code>is_available()</code></td><td>检查当前构建与系统的 AlarmKit 可用性。</td></tr><tr><td><code>authorization_status()</code></td><td>返回 <code>not_determined</code> / <code>denied</code> / <code>authorized</code> / <code>unavailable</code>。</td></tr><tr><td><code>status()</code></td><td>返回授权、owner、持久化状态和当前 owner 的数量预算。</td></tr><tr><td><code>request_authorization()</code></td><td>显示真实系统授权流程。</td></tr><tr><td><code>schedule_alarm(..., alarm_id=None, idempotency_key=None)</code></td><td>创建或幂等复用一个真实闹钟，并返回核验回执。</td></tr><tr><td><code>schedule(...)</code></td><td>兼容入口，返回已核验闹钟的 UUID。</td></tr><tr><td><code>list_alarms()</code></td><td>先与 AlarmManager 对账，再列出当前 MiniApp 拥有的存活闹钟。</td></tr><tr><td><code>cancel_alarm(id)</code></td><td>停止/取消当前 owner 的闹钟并核验它已消失。</td></tr><tr><td><code>cancel(id)</code></td><td>兼容入口。</td></tr><tr><td><code>*_async(..., budget=...)</code></td><td>返回可取消、可超时的 <code>OperationHandle</code>。</td></tr></tbody></table></div>
+<p><code>repeats=True</code> 表示每天重复；<code>False</code> 表示下一次匹配时刻的一次性闹钟。每个 owner 最多 64 个。重复提交相同 <code>idempotency_key</code> 和相同参数会复用原闹钟；参数不同会报 <code>idempotency_conflict</code>，不会悄悄创建第二个。</p>
+<h2 id="失败与验收"><a class="heading-anchor" href="#失败与验收">#</a>失败与验收</h2>
+<p>常见 <code>AlarmError.code</code>：<code>unavailable</code>、<code>permission_required</code>、<code>denied</code>、<code>invalid_input</code>、<code>idempotency_conflict</code>、<code>owner_mismatch</code>、<code>budget_exceeded</code>、<code>schedule_failed</code>、<code>verification_failed</code>、<code>not_found</code>、<code>operation_expired</code>、<code>timeout</code>。</p>
+<p>AlarmKit 行为必须在支持 iOS 26 的真机上验收：授权面板、一次性/每日触发、应用重启后列表恢复、响铃时停止、取消后不再触发。模拟器或仅编译通过不能证明闹钟会响。</p>
 <h2 id="预期效果"><a class="heading-anchor" href="#预期效果">#</a>预期效果</h2>
-<p>运行示例后，界面应出现文档描述的目标结果；若与预期不符，先看「失败路径」并按返回值或日志排查。</p>
+<p>授权后，<code>schedule_alarm()</code> 返回包含 <code>verified=True</code> 的回执；<code>list_alarms()</code> 能读回同一 owner 的闹钟；<code>cancel_alarm()</code> 返回核验删除结果。异步入口为 <code>request_authorization_async()</code>、<code>schedule_async()</code>、<code>cancel_async()</code>、<code>list_alarms_async()</code>。</p>
+<h2 id="失败路径"><a class="heading-anchor" href="#失败路径">#</a>失败路径</h2>
+<p>不支持、未授权、输入越界、幂等冲突、owner 不匹配、系统写入/读回核验失败、超时或 lease 失效都会抛出带 code 的 <code>AlarmError</code>，不会返回“待创建”占位记录。</p>
+<h2 id="相关文档"><a class="heading-anchor" href="#相关文档">#</a>相关文档</h2>
+<ul><li><a href="../../pages/notification-module/">notification</a>：普通本地通知，不等同系统闹钟。</li><li><a href="../../pages/miniapp-native-capabilities/">原生能力入口</a>：MiniApp 权限声明。</li></ul>
   </div>
   
 </article>
 
     </main>
-    <aside class="toc"><div class="toc-title">本页目录</div><a class="toc-link" href="#模块概览">模块概览</a><a class="toc-link" href="#快速开始">快速开始</a><a class="toc-link" href="#appui-示例">AppUI 示例</a><a class="toc-link" href="#api-参考">API 参考</a><a class="toc-link child" href="#速查">速查</a><a class="toc-link child" href="#可用性与授权">可用性与授权</a><a class="toc-link child" href="#调度">调度</a><a class="toc-link child" href="#异常">异常</a><a class="toc-link" href="#常见错误">常见错误</a><a class="toc-link" href="#相关文档">相关文档</a><a class="toc-link" href="#预期效果">预期效果</a></aside>
+    <aside class="toc"><div class="toc-title">本页目录</div><a class="toc-link" href="#推荐流程">推荐流程</a><a class="toc-link" href="#api">API</a><a class="toc-link" href="#失败与验收">失败与验收</a><a class="toc-link" href="#预期效果">预期效果</a><a class="toc-link" href="#失败路径">失败路径</a><a class="toc-link" href="#相关文档">相关文档</a></aside>
   </div>
   <div class="mobile-backdrop"></div>
   <div class="search-panel" role="dialog" aria-modal="true" aria-label="搜索">

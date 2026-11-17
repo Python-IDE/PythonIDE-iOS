@@ -13,29 +13,64 @@
       "miniapp-native-capabilities-agent"
     ]
   },
-  "permissionKeys": [
-    "alarms",
-    "biometric",
-    "bluetooth",
-    "calendar",
-    "camera",
-    "contacts",
-    "health",
-    "live_activity",
-    "location",
-    "microphone",
-    "motion",
-    "nfc",
-    "notifications",
-    "photos",
-    "reminders",
-    "speech"
-  ],
+  "permissionKeys": ["alarms", "biometric", "bluetooth", "calendar", "camera", "contacts", "live_activity", "location", "microphone", "motion", "nfc", "notifications", "photos", "reminders", "speech"],
   "rules": {
     "sideEffectsRequireUserAction": true,
     "nativeCallsStayOutOfAppUIBody": true,
     "secretsUseKeychain": true,
     "permissionKeyForNotifications": "notifications"
+  },
+  "nativeOperationContract": {
+    "version": 1,
+    "compatibility": "Existing synchronous APIs remain source-compatible; OperationHandle APIs are additive.",
+    "handleType": "appui_operations.OperationHandle",
+    "errorType": "appui_operations.AppUIError",
+    "budgetType": "appui_operations.ResourceBudget",
+    "operationIdentity": "Opaque owner-scoped operation_id; never a capability token.",
+    "leaseRule": "Capture a MiniApp lease before work and revalidate it before every external side effect or file commit.",
+    "profiles": {
+      "bounded_operation": {
+        "ownerScoped": true,
+        "cancellation": "cooperative",
+        "timeout": "bounded",
+        "partialResults": false
+      },
+      "paged_asset_mutation": {
+        "ownerScoped": true,
+        "cancellation": "cooperative",
+        "timeout": "bounded",
+        "partialResults": true,
+        "stableCursor": true
+      },
+      "hardware_controller": {
+        "ownerScoped": true,
+        "singleActiveController": true,
+        "cancellation": "native",
+        "timeout": "bounded",
+        "partialResults": true
+      },
+      "file_transform": {
+        "ownerScoped": true,
+        "fileLease": true,
+        "atomicOutput": true,
+        "cancellation": "cooperative",
+        "timeout": "bounded",
+        "byteBudget": true
+      },
+      "network_file_operation": {
+        "ownerScoped": true,
+        "fileLease": true,
+        "atomicOutput": true,
+        "cancellation": "native",
+        "timeout": "bounded",
+        "byteBudget": true
+      },
+      "truthful_limited": {
+        "ownerScoped": true,
+        "unsupportedOperationsFailExplicitly": true,
+        "fakeSuccessForbidden": true
+      }
+    }
   },
   "agentToolSurfaces": {
     "device": {
@@ -289,6 +324,44 @@
           "requiresUserAction": false,
           "summary": "Read current local notification authorization and delivery settings."
         }
+      },
+      "actionParameterNames": {
+        "photos_count": [
+          "request_permission"
+        ],
+        "photos_summary": [
+          "request_permission",
+          "include_samples",
+          "limit"
+        ],
+        "contacts_count": [
+          "request_permission"
+        ],
+        "contacts_summary": [
+          "request_permission",
+          "include_samples",
+          "limit"
+        ],
+        "calendar_events": [
+          "start",
+          "end",
+          "calendar_id",
+          "limit",
+          "request_permission"
+        ],
+        "reminders": [
+          "limit",
+          "request_permission"
+        ],
+        "location": [
+          "request_permission"
+        ],
+        "device_status": [],
+        "app_info": [],
+        "clipboard_text": [
+          "max_text_chars"
+        ],
+        "notification_settings": []
       }
     },
     "native": {
@@ -408,8 +481,8 @@
           "permissionKeys": [],
           "agentRisk": "externalMutation",
           "requiresConfirmation": false,
-          "requiresUserAction": true,
-          "summary": "Open an http(s) URL, universal link, or installed-app deep link through the shared native URL executor.",
+          "requiresUserAction": false,
+          "summary": "Open an http(s) URL, universal link, or installed-app deep link and treat the UIApplication.open completion value as the terminal handoff receipt.",
           "searchTerms": [
             "打开",
             "跳转",
@@ -430,8 +503,8 @@
           "permissionKeys": [],
           "agentRisk": "nativePermission",
           "requiresConfirmation": false,
-          "requiresUserAction": true,
-          "summary": "Open PythonIDE's page in the iOS Settings app through the shared native URL executor.",
+          "requiresUserAction": false,
+          "summary": "Open PythonIDE's page in the iOS Settings app and treat the UIApplication.open completion value as the terminal handoff receipt.",
           "searchTerms": [
             "打开设置",
             "系统设置",
@@ -485,6 +558,47 @@
             "local notification"
           ]
         }
+      },
+      "actionParameterNames": {
+        "photo_save": [
+          "path",
+          "media_type",
+          "request_permission"
+        ],
+        "calendar_create": [
+          "title",
+          "start",
+          "end",
+          "notes",
+          "location",
+          "calendar_id",
+          "all_day",
+          "request_permission"
+        ],
+        "file_export": [
+          "path",
+          "present_share_sheet"
+        ],
+        "open_url": [
+          "url"
+        ],
+        "open_settings": [],
+        "clipboard_write": [
+          "text"
+        ],
+        "notification_schedule": [
+          "identifier",
+          "idempotency_key",
+          "title",
+          "body",
+          "delay_seconds",
+          "fire_at",
+          "repeat",
+          "weekdays",
+          "time_zone",
+          "sound",
+          "request_permission"
+        ]
       }
     },
     "native_notifications": {
@@ -764,34 +878,66 @@
     },
     "native_health_motion": {
       "toolId": "native_health_motion",
-      "actions": ["health_steps", "health_heart_rate", "health_sleep", "health_weight", "health_workouts", "health_save_weight", "motion_snapshot"],
-      "modules": ["health", "motion"],
-      "scopeIds": ["native.health", "native.motion"],
-      "description": "Minimally scoped HealthKit reads/writes and bounded Core Motion snapshots.",
+      "actions": [
+        "motion_snapshot"
+      ],
+      "modules": [
+        "motion"
+      ],
+      "scopeIds": [
+        "native.motion"
+      ],
+      "description": "Collect a bounded Core Motion snapshot. The published tool identifier is retained for existing conversations.",
       "inputSchema": {
         "type": "object",
         "additionalProperties": false,
         "properties": {
-          "action": {"type": "string", "enum": ["health_steps", "health_heart_rate", "health_sleep", "health_weight", "health_workouts", "health_save_weight", "motion_snapshot"], "description": "Required Health or Motion action."},
-          "start": {"type": "string", "description": "ISO-8601 or Unix query start."},
-          "end": {"type": "string", "description": "ISO-8601 or Unix query end."},
-          "limit": {"type": "integer", "minimum": 1, "maximum": 500, "description": "Maximum samples."},
-          "kg": {"type": "number", "minimum": 1, "maximum": 1000, "description": "Body mass in kilograms."},
-          "timestamp": {"type": "string", "description": "ISO-8601 or Unix sample time."},
-          "sensor": {"type": "string", "enum": ["acceleration", "gravity", "rotation_rate", "magnetic_field", "attitude", "altitude"], "description": "Motion sample type."},
-          "sample_seconds": {"type": "number", "minimum": 0.1, "maximum": 30, "description": "Bounded sampling duration."},
-          "request_permission": {"type": "boolean", "description": "Ask iOS for only the exact requested data types and await the result."}
+          "action": {
+            "type": "string",
+            "enum": [
+              "motion_snapshot"
+            ],
+            "description": "Required Core Motion action."
+          },
+          "sensor": {
+            "type": "string",
+            "enum": [
+              "acceleration",
+              "gravity",
+              "rotation_rate",
+              "magnetic_field",
+              "attitude",
+              "altitude"
+            ],
+            "description": "Motion sample type."
+          },
+          "sample_seconds": {
+            "type": "number",
+            "minimum": 0.1,
+            "maximum": 30,
+            "description": "Bounded sampling duration."
+          }
         },
-        "required": ["action"]
+        "required": [
+          "action"
+        ]
       },
       "actionDetails": {
-        "health_steps": {"modules": ["health"], "scopeIds": ["native.health"], "permissionKeys": ["health"], "agentRisk": "nativePermission", "requiresConfirmation": false, "requiresUserAction": true, "summary": "Request read access only to step count and return an aggregate for the requested interval."},
-        "health_heart_rate": {"modules": ["health"], "scopeIds": ["native.health"], "permissionKeys": ["health"], "agentRisk": "nativePermission", "requiresConfirmation": false, "requiresUserAction": true, "summary": "Request read access only to heart rate and return bounded samples."},
-        "health_sleep": {"modules": ["health"], "scopeIds": ["native.health"], "permissionKeys": ["health"], "agentRisk": "nativePermission", "requiresConfirmation": false, "requiresUserAction": true, "summary": "Request read access only to sleep analysis and return bounded intervals."},
-        "health_weight": {"modules": ["health"], "scopeIds": ["native.health"], "permissionKeys": ["health"], "agentRisk": "nativePermission", "requiresConfirmation": false, "requiresUserAction": true, "summary": "Request read access only to body mass and return bounded samples."},
-        "health_workouts": {"modules": ["health"], "scopeIds": ["native.health"], "permissionKeys": ["health"], "agentRisk": "nativePermission", "requiresConfirmation": false, "requiresUserAction": true, "summary": "Request read access only to workouts and return bounded records."},
-        "health_save_weight": {"modules": ["health"], "scopeIds": ["native.health"], "permissionKeys": ["health"], "agentRisk": "externalMutation", "requiresConfirmation": true, "requiresUserAction": true, "summary": "Request write access only to body mass, save one sample, and verify authorization."},
-        "motion_snapshot": {"modules": ["motion"], "scopeIds": ["native.motion"], "permissionKeys": ["motion"], "agentRisk": "nativePermission", "requiresConfirmation": false, "requiresUserAction": true, "summary": "Collect one short, bounded Core Motion snapshot and stop the sensor immediately."}
+        "motion_snapshot": {
+          "modules": [
+            "motion"
+          ],
+          "scopeIds": [
+            "native.motion"
+          ],
+          "permissionKeys": [
+            "motion"
+          ],
+          "agentRisk": "nativePermission",
+          "requiresConfirmation": false,
+          "requiresUserAction": true,
+          "summary": "Collect one short, bounded Core Motion snapshot and stop the sensor immediately."
+        }
       }
     },
     "native_hardware": {
@@ -810,7 +956,7 @@
           "service_uuid": {"type": "string", "description": "Bluetooth service UUID."},
           "characteristic_uuid": {"type": "string", "description": "Bluetooth characteristic UUID."},
           "data_base64": {"type": "string", "description": "Base64 bytes for a characteristic write."},
-          "with_response": {"type": "boolean", "description": "Use a write-with-response transaction."},
+          "with_response": {"type": "boolean", "description": "Explicitly select acknowledged (true) or unacknowledged (false) writing. Omitted prefers acknowledged writing when supported. Unacknowledged completion only proves submission to CoreBluetooth, never device acknowledgement."},
           "message": {"type": "string", "description": "System NFC scan/write prompt."},
           "records": {"type": "array", "items": {"type": "object", "additionalProperties": {"type": "string"}}, "description": "NDEF records to write."}
         },
@@ -877,7 +1023,7 @@
     "core ml": "coreml"
   },
   "categories": {
-    "deviceSensors": "Device state, sensors, location, feedback, biometrics, and health.",
+    "deviceSensors": "Device state, sensors, location, feedback, and biometrics.",
     "systemServices": "Permissions, persistence, secrets, dialogs, notifications, contacts, calendar, live activities, and NFC.",
     "mediaVision": "Photos, audio, speech, video, Vision, and Core ML.",
     "networkData": "Network, WebSocket, Bluetooth, background tasks, and C extension availability.",
@@ -1006,29 +1152,19 @@
     },
     "health": {
       "importName": "health",
+      "operationProfile": "truthful_limited",
       "category": "deviceSensors",
       "docId": "health-module",
       "docFile": "health-module.md",
       "agentDocId": "health-module-agent",
       "agentDocFile": "health-module-agent.md",
-      "capabilities": [
-        "steps",
-        "heart_rate",
-        "sleep",
-        "body_metrics"
-      ],
-      "permissions": [
-        "health"
-      ],
-      "risk": "sensitive_read",
-      "requiresUserAction": true,
-      "failureStates": [
-        "denied",
-        "unavailable",
-        "empty"
-      ],
+      "capabilities": [],
+      "permissions": [],
+      "risk": "read_only",
+      "requiresUserAction": false,
+      "failureStates": ["feature_removed", "unavailable"],
       "kind": "module",
-      "presentation": "api"
+      "presentation": "reference"
     },
     "permission": {
       "importName": "permission",
@@ -1507,6 +1643,7 @@
     },
     "keychain": {
       "importName": "keychain",
+      "operationProfile": "bounded_operation",
       "category": "systemServices",
       "docId": "keychain-module",
       "docFile": "keychain-module.md",
@@ -1615,6 +1752,7 @@
     },
     "calendar_events": {
       "importName": "calendar_events",
+      "operationProfile": "bounded_operation",
       "category": "systemServices",
       "docId": "calendar-events-module",
       "docFile": "calendar-events-module.md",
@@ -1687,6 +1825,7 @@
     },
     "nfc": {
       "importName": "nfc",
+      "operationProfile": "hardware_controller",
       "category": "systemServices",
       "docId": "nfc-module",
       "docFile": "nfc-module.md",
@@ -1704,13 +1843,20 @@
       "failureStates": [
         "unsupported",
         "cancelled",
-        "scan_failed"
+        "scan_failed",
+        "bridge_unavailable",
+        "controller_busy",
+        "timed_out",
+        "session_invalidated",
+        "tag_not_writable",
+        "write_failed"
       ],
       "kind": "module",
       "presentation": "system_picker"
     },
     "photos": {
       "importName": "photos",
+      "operationProfile": "paged_asset_mutation",
       "category": "mediaVision",
       "docId": "photos-module",
       "docFile": "photos-module.md",
@@ -1721,7 +1867,14 @@
         "camera_capture",
         "photo_save",
         "video_save",
-        "asset_read"
+        "asset_read",
+        "asset_paging",
+        "asset_image",
+        "asset_delete",
+        "asset_favorite",
+        "asset_hidden",
+        "album_membership",
+        "library_change_observation"
       ],
       "permissions": [
         "photos",
@@ -1733,7 +1886,13 @@
         "denied",
         "cancelled",
         "empty",
-        "unavailable"
+        "unavailable",
+        "bridge_unavailable",
+        "stale_cursor",
+        "not_found",
+        "timed_out",
+        "busy",
+        "response_too_large"
       ],
       "kind": "module",
       "presentation": "api"
@@ -1762,6 +1921,7 @@
     },
     "music_player": {
       "importName": "music_player",
+      "operationProfile": "hardware_controller",
       "category": "mediaVision",
       "docId": "music-player-module",
       "docFile": "music-player-module.md",
@@ -1793,6 +1953,7 @@
     },
     "sound": {
       "importName": "sound",
+      "operationProfile": "hardware_controller",
       "category": "mediaVision",
       "docId": "sound-module",
       "docFile": "sound-module.md",
@@ -1814,6 +1975,7 @@
     },
     "speech": {
       "importName": "speech",
+      "operationProfile": "hardware_controller",
       "category": "mediaVision",
       "docId": "speech-module",
       "docFile": "speech-module.md",
@@ -1837,6 +1999,7 @@
     },
     "audio_recorder": {
       "importName": "audio_recorder",
+      "operationProfile": "hardware_controller",
       "category": "mediaVision",
       "docId": "audio-recorder-module",
       "docFile": "audio-recorder-module.md",
@@ -1863,6 +2026,7 @@
     },
     "speech_recognition": {
       "importName": "speech_recognition",
+      "operationProfile": "hardware_controller",
       "category": "mediaVision",
       "docId": "speech-recognition-module",
       "docFile": "speech-recognition-module.md",
@@ -1911,6 +2075,7 @@
     },
     "pdf": {
       "importName": "pdf",
+      "operationProfile": "file_transform",
       "category": "mediaVision",
       "docId": "pdf-module",
       "docFile": "pdf-module.md",
@@ -2134,6 +2299,7 @@
     },
     "music": {
       "importName": "music",
+      "operationProfile": "hardware_controller",
       "category": "mediaVision",
       "docId": "music-module",
       "docFile": "music-module.md",
@@ -2161,6 +2327,7 @@
     },
     "shazam": {
       "importName": "shazam",
+      "operationProfile": "hardware_controller",
       "category": "mediaVision",
       "docId": "shazam-module",
       "docFile": "shazam-module.md",
@@ -2192,6 +2359,7 @@
     },
     "now_playing": {
       "importName": "now_playing",
+      "operationProfile": "hardware_controller",
       "category": "mediaVision",
       "docId": "now-playing-module",
       "docFile": "now-playing-module.md",
@@ -2212,6 +2380,7 @@
     },
     "vision": {
       "importName": "vision",
+      "operationProfile": "file_transform",
       "category": "mediaVision",
       "docId": "vision-module",
       "docFile": "vision-module.md",
@@ -2232,6 +2401,7 @@
     },
     "vision_helper": {
       "importName": "vision_helper",
+      "operationProfile": "file_transform",
       "category": "mediaVision",
       "docId": "vision-helper-module",
       "docFile": "vision-helper-module.md",
@@ -2255,6 +2425,7 @@
     },
     "coreml": {
       "importName": "coreml",
+      "operationProfile": "file_transform",
       "category": "mediaVision",
       "docId": "coreml-module",
       "docFile": "coreml-module.md",
@@ -2329,6 +2500,7 @@
     },
     "bluetooth": {
       "importName": "bluetooth",
+      "operationProfile": "hardware_controller",
       "category": "networkData",
       "docId": "bluetooth-module",
       "docFile": "bluetooth-module.md",
@@ -2338,7 +2510,13 @@
         "ble_scan",
         "ble_connect",
         "read",
-        "write"
+        "write",
+        "write_without_response",
+        "write_flow_control",
+        "write_length_query",
+        "ble_notify",
+        "ble_indicate",
+        "bounded_notification_polling"
       ],
       "permissions": [
         "bluetooth"
@@ -2349,13 +2527,34 @@
         "unsupported",
         "denied",
         "not_found",
-        "disconnected"
+        "disconnected",
+        "bridge_unavailable",
+        "controller_busy",
+        "timed_out",
+        "operation_expired",
+        "not_notifiable",
+        "already_subscribed",
+        "notifications_conflict",
+        "subscription_limit",
+        "subscription_expired",
+        "notification_state_failed",
+        "bluetooth_unavailable",
+        "write_queue_full",
+        "payload_too_large",
+        "write_not_supported",
+        "unacknowledged_write",
+        "write_unavailable",
+        "timeout",
+        "cancelled",
+        "owner_ended",
+        "invalid_response"
       ],
       "kind": "module",
       "presentation": "api"
     },
     "background": {
       "importName": "background",
+      "operationProfile": "truthful_limited",
       "category": "networkData",
       "docId": "background-module",
       "docFile": "background-module.md",
@@ -2364,12 +2563,15 @@
       "capabilities": [
         "background_task",
         "remaining_time",
-        "app_state"
+        "app_state",
+        "durable_scheduling_status"
       ],
       "permissions": [],
       "risk": "background_execution",
       "requiresUserAction": true,
       "failureStates": [
+        "unsupported",
+        "capability_denied",
         "expired",
         "unavailable"
       ],
@@ -2639,6 +2841,7 @@
     },
     "ssh": {
       "importName": "ssh",
+      "operationProfile": "network_file_operation",
       "category": "networkData",
       "docId": "ssh-module",
       "docFile": "ssh-module.md",
@@ -2731,6 +2934,7 @@
     },
     "video_recorder": {
       "importName": "video_recorder",
+      "operationProfile": "hardware_controller",
       "category": "mediaVision",
       "docId": "video-recorder-module",
       "docFile": "video-recorder-module.md",
@@ -2754,6 +2958,7 @@
     },
     "media_composer": {
       "importName": "media_composer",
+      "operationProfile": "file_transform",
       "category": "mediaVision",
       "docId": "media-composer-module",
       "docFile": "media-composer-module.md",
@@ -2798,6 +3003,7 @@
     },
     "storekit": {
       "importName": "storekit",
+      "operationProfile": "bounded_operation",
       "category": "systemServices",
       "docId": "storekit-module",
       "docFile": "storekit-module.md",
@@ -2842,6 +3048,7 @@
     },
     "alarm": {
       "importName": "alarm",
+      "operationProfile": "bounded_operation",
       "category": "systemServices",
       "docId": "alarm-module",
       "docFile": "alarm-module.md",
@@ -2888,6 +3095,7 @@
     },
     "assistant": {
       "importName": "assistant",
+      "operationProfile": "hardware_controller",
       "category": "systemServices",
       "docId": "assistant-module",
       "docFile": "assistant-module.md",

@@ -289,8 +289,11 @@
   </header>
   
   <div class="markdown-body">
-    <p>访问系统照片库：选图、拍照、保存图片/视频、读取资源与相册，以及图片 Base64 转换。</p>
-<blockquote class="callout note"><strong>边界</strong>：走系统照片/相机界面，用户可随时取消（返回 <code>None</code> 或 <code>False</code>）。<code>vision</code> OCR 要 bytes，<code>vision_helper</code> 检测要 Base64；大文件不要塞进 <code>storage</code>。</blockquote>
+    <p>R7：在旧选图/保存 API 之外，新增 <code>authorization_status/request_authorization</code>、带稳定 revision cursor 的 <code>get_assets_page</code>、任意 Asset 图像读取、删除/收藏/隐藏、相册成员增删、<code>changes_since/observe_changes</code>，以及对应的 owner-scoped 异步任务。分页 cursor 只在同一照片库 revision 内有效，变更后应从第一页重新查询。</p>
+<p>R7 公开符号：<code>AssetPage</code>、<code>request_authorization_async()</code>、<code>get_assets_page_async()</code>、<code>get_asset_image()</code>、<code>get_asset_image_async()</code>、<code>delete_assets()</code>、<code>delete_assets_async()</code>、<code>set_favorite()</code>、<code>set_favorite_async()</code>、<code>set_hidden()</code>、<code>set_hidden_async()</code>、<code>add_assets_to_album()</code>、<code>add_assets_to_album_async()</code>、<code>remove_assets_from_album()</code>、<code>remove_assets_from_album_async()</code>、<code>change_token()</code>。</p>
+<p>访问系统照片库：选图、拍照、保存图片/视频、读取资源与相册，以及图片 Base64 转换。</p>
+<blockquote class="callout note"><strong>边界</strong>：旧兼容 picker 中，用户取消返回 <code>None</code>；R7 分页、图像读取与写操作通过 <code>AppUIError</code> 报告拒绝、超时、过期 cursor 等可诊断错误。<code>vision</code> OCR 要 bytes，<code>vision_helper</code> 检测要 Base64；大文件不要塞进 <code>storage</code>。</blockquote>
+<p>R2 增量：<code>save_video(path)</code> 接受路径字符串或只读 <code>appui.FileResource</code>。资源只在当前 session 有效，不能用它保存另一个 MiniApp 的沙盒文件。</p>
 <h2 id="模块概览"><a class="heading-anchor" href="#模块概览">#</a>模块概览</h2>
 <div class="table-scroll"><table><thead><tr><th>项</th><th>说明</th></tr></thead><tbody><tr><td>导入</td><td><code>import photos</code></td></tr><tr><td>适合做什么</td><td>选图上传、拍照存档、相册浏览、视觉识别前置</td></tr><tr><td>调用时机</td><td><code>pick_image</code> / <code>capture_image</code> 放在按钮回调；不要写在 <code>body()</code> 中</td></tr><tr><td>推荐顺序</td><td>用户点击 → <code>pick_image</code> / <code>capture_image</code> → 判空 → 处理或 <code>save_image</code></td></tr><tr><td>取消处理</td><td>用户取消返回 <code>None</code>；保存失败返回 <code>False</code></td></tr></tbody></table></div>
 <h2 id="双入口-脚本与-appui"><a class="heading-anchor" href="#双入口-脚本与-appui">#</a>双入口：脚本与 AppUI</h2>
@@ -414,8 +417,8 @@ if image is None:
 
 raw = photos.pick_image(raw_data=True)  # 无 Pillow 时用 bytes</code></pre>
 </figure>
-<p>默认返回 <code>PIL.Image</code>；<code>raw_data=True</code> 返回 <code>bytes</code>。<code>show_albums</code>、<code>multi</code> 等兼容参数会被接受但当前由系统界面决定行为。</p>
-<p><strong><code>capture_image()</code></strong> — 打开系统相机拍照，取消返回 <code>None</code>。<code>camera</code>、<code>flash</code> 等参数为兼容入口，实际由系统拍照界面控制。</p>
+<p>默认返回 <code>PIL.Image</code>；<code>raw_data=True</code> 返回 <code>bytes</code>。<code>original=True</code> 读取系统 provider 给出的原始表示，最多 32 MiB，不会先解码整张照片再转成 PNG；<code>original=False</code> 返回最长边不超过 2048 px 的有界图像。<code>show_albums</code>、<code>include_metadata</code>、<code>multi</code> 仍是兼容参数，当前系统单选界面不会使用它们。</p>
+<p><strong><code>capture_image(camera=&quot;back&quot;, flash=&quot;auto&quot;)</code></strong> — 打开系统相机拍照，取消返回 <code>None</code>。<code>camera</code> 支持 <code>back</code> / <code>rear</code> / <code>front</code>；<code>flash</code> 支持 <code>auto</code> / <code>on</code> / <code>off</code>，并传给所选摄像头。系统相机始终保留拍照确认界面，所以 <code>show_preview</code> 只是兼容参数。</p>
 <figure class="code-block" data-code-id="152106d096bf">
   <figcaption>
     <span>python</span>
@@ -436,6 +439,31 @@ if asset:
     print(asset.pixel_width, asset.pixel_height)
     data = asset.get_image(original=True, raw_data=True)</code></pre>
 </figure>
+<p><code>pick_asset()</code> 只返回轻量元数据，不再把全尺寸 PNG 和 Base64 塞进 JSON。图片由 <code>Asset.get_image()</code> / <code>get_asset_image()</code> 按需、按预算读取。</p>
+<h3 id="r7-分页-变更与写操作"><a class="heading-anchor" href="#r7-分页-变更与写操作">#</a>R7 分页、变更与写操作</h3>
+<p>大照片库应使用 revision 绑定的分页接口；照片库变化后，旧 cursor 会明确报 <code>stale_cursor</code>，调用方应从第一页重新读取：</p>
+<figure class="code-block" data-code-id="731e8630fa16">
+  <figcaption>
+    <span>python</span>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="731e8630fa16" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
+  </figcaption>
+  <pre><code id="code-731e8630fa16" class="language-python">import photos
+
+status = photos.authorization_status(&quot;read_write&quot;)
+if status == &quot;not_determined&quot;:
+    status = photos.request_authorization(&quot;read_write&quot;)
+
+page = photos.get_assets_page(&quot;photo&quot;, limit=50)
+for asset in page:
+    print(asset.local_identifier, asset.pixel_width, asset.pixel_height)
+
+if page.next_cursor:
+    next_page = photos.get_assets_page(
+        &quot;photo&quot;, limit=50, cursor=page.next_cursor
+    )</code></pre>
+</figure>
+<p><code>Asset.get_image()</code>、<code>AssetCollection.get_assets_page()</code> 适用于任意查询所得资源；<code>delete_assets()</code>、<code>set_favorite()</code>、<code>set_hidden()</code>、<code>add_assets_to_album()</code>、<code>remove_assets_from_album()</code> 是显式写操作。删除由 iOS 展示系统确认；相册成员删除只移除成员关系，不删除照片。所有这些写操作都有对应 <code>*_async(..., budget=...)</code>，返回可取消的 <code>OperationHandle</code>；<code>AssetCollection.add_assets_async()</code> / <code>remove_assets_async()</code> 是同一契约的对象写法。</p>
+<p><code>change_token()</code> / <code>changes_since()</code> 提供低成本失效检查；<code>observe_changes(..., budget=...)</code> 返回 owner-scoped <code>OperationHandle</code>，首次 token 也在 operation 内读取，因此原生服务或权限失败会进入结构化失败终态。观察默认最多运行 10 分钟，需要长期观察时在终态后重新订阅。它发布的是“照片库已变化”，不是逐资产差异流，收到变化后应重新分页。</p>
 <h3 id="保存"><a class="heading-anchor" href="#保存">#</a>保存</h3>
 <p><strong><code>save_image(image, format=&quot;JPEG&quot;, quality=0.85)</code></strong> — 保存 <code>PIL.Image</code> 或 <code>bytes</code> 到照片库。</p>
 <figure class="code-block" data-code-id="e9608351ffb9">
@@ -484,7 +512,7 @@ if asset:
 </figure>
 <p>其他读取 API：<code>get_recent_images(count=10)</code>、<code>get_favorites()</code>、<code>get_count(media_type=&quot;photo&quot;)</code>。</p>
 <h3 id="相册"><a class="heading-anchor" href="#相册">#</a>相册</h3>
-<div class="table-scroll"><table><thead><tr><th>API</th><th>说明</th></tr></thead><tbody><tr><td><code>get_albums()</code></td><td>用户相册</td></tr><tr><td><code>get_smart_albums()</code></td><td>系统智能相册</td></tr><tr><td><code>get_moments()</code></td><td>时刻分组</td></tr><tr><td><code>create_album(title)</code></td><td>创建相册</td></tr><tr><td><code>get_screenshots_album()</code></td><td>截图相册</td></tr><tr><td><code>get_recently_added_album()</code></td><td>最近添加</td></tr><tr><td><code>get_selfies_album()</code></td><td>自拍相册</td></tr></tbody></table></div>
+<div class="table-scroll"><table><thead><tr><th>API</th><th>说明</th></tr></thead><tbody><tr><td><code>get_albums()</code></td><td>用户相册</td></tr><tr><td><code>get_smart_albums()</code></td><td>系统智能相册</td></tr><tr><td><code>get_moments()</code></td><td>兼容入口；iOS 13+ 无 Moments API，返回非空智能相册，不应当作真实时刻分组</td></tr><tr><td><code>create_album(title)</code></td><td>创建相册</td></tr><tr><td><code>get_screenshots_album()</code></td><td>截图相册</td></tr><tr><td><code>get_recently_added_album()</code></td><td>最近添加</td></tr><tr><td><code>get_selfies_album()</code></td><td>自拍相册</td></tr></tbody></table></div>
 <h3 id="base64"><a class="heading-anchor" href="#base64">#</a>Base64</h3>
 <p>给 <a href="../../pages/vision-helper-module/">vision_helper</a> 等需要 Base64 的流程使用：</p>
 <figure class="code-block" data-code-id="5ef5d4403684">
@@ -515,7 +543,7 @@ if payload:
 </article>
 
     </main>
-    <aside class="toc"><div class="toc-title">本页目录</div><a class="toc-link" href="#模块概览">模块概览</a><a class="toc-link" href="#双入口-脚本与-appui">双入口：脚本与 AppUI</a><a class="toc-link" href="#快速开始">快速开始</a><a class="toc-link" href="#appui-示例-appui-photo-picker">AppUI 示例 { appui photo picker}</a><a class="toc-link" href="#api-参考">API 参考</a><a class="toc-link child" href="#速查">速查</a><a class="toc-link child" href="#选图与拍照">选图与拍照</a><a class="toc-link child" href="#保存">保存</a><a class="toc-link child" href="#读取资源">读取资源</a><a class="toc-link child" href="#相册">相册</a><a class="toc-link child" href="#base64">Base64</a><a class="toc-link" href="#常见错误">常见错误</a><a class="toc-link" href="#相关文档">相关文档</a><a class="toc-link" href="#预期效果">预期效果</a></aside>
+    <aside class="toc"><div class="toc-title">本页目录</div><a class="toc-link" href="#模块概览">模块概览</a><a class="toc-link" href="#双入口-脚本与-appui">双入口：脚本与 AppUI</a><a class="toc-link" href="#快速开始">快速开始</a><a class="toc-link" href="#appui-示例-appui-photo-picker">AppUI 示例 { appui photo picker}</a><a class="toc-link" href="#api-参考">API 参考</a><a class="toc-link child" href="#速查">速查</a><a class="toc-link child" href="#选图与拍照">选图与拍照</a><a class="toc-link child" href="#r7-分页-变更与写操作">R7 分页、变更与写操作</a><a class="toc-link child" href="#保存">保存</a><a class="toc-link child" href="#读取资源">读取资源</a><a class="toc-link child" href="#相册">相册</a><a class="toc-link child" href="#base64">Base64</a><a class="toc-link" href="#常见错误">常见错误</a><a class="toc-link" href="#相关文档">相关文档</a><a class="toc-link" href="#预期效果">预期效果</a></aside>
   </div>
   <div class="mobile-backdrop"></div>
   <div class="search-panel" role="dialog" aria-modal="true" aria-label="搜索">

@@ -404,6 +404,15 @@ appui.run(body, state=state)</code></pre>
 <p><code>path.append({&quot;tag&quot;: &quot;...&quot;, &quot;data&quot;: ...})</code> 的 <code>tag</code> 用来找目标构建函数，<code>data</code> 会传给目标函数。</p>
 <p>也可以直接 <code>path.append(View)</code>，或用 <code>path.append(&quot;profile&quot;)</code> 配合 <code>destinations={&quot;profile&quot;: builder}</code>；字符串/整数路由值本身会传给 builder。 每次 append 都会获得运行时内部的稳定 route identity，用户不需要创建或保存这个 ID。系统返回按钮、侧滑返回、<code>pop(count)</code>、<code>pop_to_root()</code> 与 <code>replace(...)</code> 都同步到同一条路径；热更新只替换目标页面内容，不会把已有页面误认成另一层。</p>
 <p>如果 tag 没有对应 builder，Debug 严格模式会直接报告错误；兼容模式会显示明确的 “Navigation Destination Unavailable”页面并记录诊断，不会再静默推入空白页。</p>
+<p>需要跨热重载或业务恢复路径时使用 <code>path.snapshot()</code> / <code>restore()</code>。快照最多包含 512 个 route，并保留 opaque route ID；不要自己发明或修改这些 ID。直接推入的 <code>View</code> 不是可持久数据，必须通过业务 encoder/decoder 转换；更推荐持久化带 <code>tag</code> 的数据 route。</p>
+<figure class="code-block" data-code-id="c897dbf9726f">
+  <figcaption>
+    <span>python</span>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="c897dbf9726f" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
+  </figcaption>
+  <pre><code id="code-c897dbf9726f" class="language-python">snapshot = path.snapshot()
+path.restore(snapshot)</code></pre>
+</figure>
 <h2 id="tabview"><a class="heading-anchor" href="#tabview">#</a>TabView</h2>
 <p>Tab 适合并列的顶层区域，不要用来承载一次性流程。每个 tab 中如果还需要进入详情，再单独放自己的 <code>NavigationStack</code>。</p>
 <figure class="code-block" data-code-id="969d8f88349d">
@@ -453,6 +462,7 @@ def body():
 
 appui.run(body, state=state)</code></pre>
 </figure>
+<p>可选择的 tabs 使用唯一、稳定的整数 <code>tag</code>。位置生成 tag 只用于旧的静态 tab 列表；一旦 tab 会插入、删除或重排，就必须显式设置 <code>tag</code> 和稳定 <code>key</code>，否则 selection 和行内 native state 可能跟到另一页。数字 badge 和文本 badge 都受支持。</p>
 <h2 id="sheet-alert-confirmationdialog"><a class="heading-anchor" href="#sheet-alert-confirmationdialog">#</a>Sheet、Alert、ConfirmationDialog</h2>
 <p>弹层用状态控制显示和关闭。复杂 sheet 内容抽成命名函数。</p>
 <figure class="code-block" data-code-id="8379d87ad298">

@@ -62,7 +62,7 @@
 | iCloud Documents / KV | `Config/Xcode/Python IDE*.entitlements` | F01 iCloud 工作区、跨设备文件/设置 |
 | App Group `group.app.pythonide` | 主 App 与扩展 Entitlement | F01 Share Inbox；F06 Widget 数据交换 |
 | Associated Domains | `applinks:link.pythonide.xin` | F05/F10 深链安装或打开社区内容 |
-| Sign in with Apple | Entitlement + `PythonIDEAccountLoginView` | F12 账号 |
+| Sign in with Apple | Entitlement + `PythonIDEAuthenticationFlowView` | F12 账号 |
 | HealthKit / WeatherKit | Entitlement + Bridge | F07 Python 原生模块/Agent 工具 |
 | NFC Tag Reading | Entitlement + `NFCBridge` | F07 NFC |
 | Live Activities | `Info.plist` + ActivityKit 代码 | F06 脚本/Agent/Git 运行状态 |

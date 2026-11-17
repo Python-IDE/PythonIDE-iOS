@@ -289,8 +289,11 @@
   </header>
   
   <div class="markdown-body">
-    <p>iOS 钥匙串：安全保存 token、密码、API Key 等敏感小字符串。</p>
+    <p>R7：新增 <code>status()</code> 和 get/set/delete/list 的 <code>*_async(..., budget=...)</code>。所有 service/account 都在底层加当前 MiniApp 的稳定 owner namespace；列表只能看到本 owner 条目，generation 变化不会把另一个 MiniApp 的 secret 暴露出来。</p>
+<p>R7 公开符号：<code>KeychainError</code>、<code>get_password_async()</code>、<code>set_password_async()</code>、<code>delete_password_async()</code>、<code>get_services_async()</code>。</p>
+<p>iOS 钥匙串：安全保存 token、密码、API Key 等敏感小字符串。</p>
 <blockquote class="callout note"><strong>边界</strong>：只存敏感凭据，不存主题、筛选条件或大型 JSON（用 <a href="../../pages/storage-module/">storage</a>）。不要把 <code>get_password()</code> 的明文打印到日志或界面；需要展示时用「已配置 / 未配置」或掩码。</blockquote>
+<blockquote class="callout note"><strong>MiniApp 隔离与升级</strong>：宿主会在底层按稳定的 MiniApp 身份隔离 Keychain 命名空间；不同 MiniApp 即使使用相同的 <code>service</code> 和 <code>account</code>，也不能互相读取或枚举。旧版本曾由 MiniApp 写入宿主全局命名空间的凭据无法安全判断归属，因此不会自动迁移；升级后第一次读取为空时，请让用户重新登录或重新保存一次。普通宿主脚本仍保留原有命名空间。</blockquote>
 <h2 id="模块概览"><a class="heading-anchor" href="#模块概览">#</a>模块概览</h2>
 <div class="table-scroll"><table><thead><tr><th>项</th><th>说明</th></tr></thead><tbody><tr><td>导入</td><td><code>import keychain</code></td></tr><tr><td>适合做什么</td><td>登录 token、API Key、私密密码、多账号凭据</td></tr><tr><td>调用时机</td><td>保存/删除放在按钮回调；读取可在启动时，但不要在 <code>body()</code> 里反复读</td></tr><tr><td>推荐顺序</td><td>固定 <code>service</code> + <code>account</code> → <code>set_password</code> → 需要时 <code>get_password</code> → 退出时 <code>delete_password</code></td></tr><tr><td>定位键</td><td><code>service</code> 是命名空间（如 <code>myapp.api</code>），<code>account</code> 是用户名或环境名</td></tr></tbody></table></div>
 <hr>
@@ -321,12 +324,12 @@ for service, account in keychain.get_services():
 <hr>
 <h2 id="appui-示例"><a class="heading-anchor" href="#appui-示例">#</a>AppUI 示例</h2>
 <p>用 <code>SecureField</code> 收集输入，保存后清空输入框；界面只显示状态，不展示明文 secret。</p>
-<figure class="code-block" data-code-id="5218c50e45a1">
+<figure class="code-block" data-code-id="cdbdb4fd4ecd">
   <figcaption>
     <span>python</span>
-    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="5218c50e45a1" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="cdbdb4fd4ecd" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
-  <pre><code id="code-5218c50e45a1" class="language-python">import appui
+  <pre><code id="code-cdbdb4fd4ecd" class="language-python">import appui
 import keychain
 
 SERVICE = &quot;demo-api&quot;
@@ -336,6 +339,7 @@ state = appui.State(
     token=&quot;&quot;,
     status=&quot;未检查&quot;,
     message=&quot;输入 token 后点保存&quot;,
+    transient=[&quot;token&quot;],
 )
 
 
@@ -392,6 +396,7 @@ def body():
 
 appui.run(body, state=state)</code></pre>
 </figure>
+<p>MiniApp 的 <code>State</code> 默认持久化 JSON 兼容字段，因此输入中的明文 token 必须列入 <code>transient</code>；<code>SecureField</code> 只负责遮挡显示，并不会自动改变持久化策略。</p>
 <hr>
 <h2 id="api-参考"><a class="heading-anchor" href="#api-参考">#</a>API 参考</h2>
 <h3 id="速查"><a class="heading-anchor" href="#速查">#</a>速查</h3>

@@ -289,129 +289,54 @@
   </header>
   
   <div class="markdown-body">
-    <p>端侧助手（Foundation Models + 内置设备工具，iOS 26+）：自然语言任务、可选工具调用。</p>
-<blockquote class="callout note"><strong>边界</strong>：设备端推理，内置工具由系统提供（见 <code>list_tools()</code>）。不含 PythonIDE 云端 Agent；复杂多步自动化请用应用内 Agent 功能。</blockquote>
-<h2 id="模块概览"><a class="heading-anchor" href="#模块概览">#</a>模块概览</h2>
-<div class="table-scroll"><table><thead><tr><th>项</th><th>说明</th></tr></thead><tbody><tr><td>导入</td><td><code>import assistant</code></td></tr><tr><td>适合做什么</td><td>「帮我查天气」「总结这段文字」等带工具的自然语言任务</td></tr><tr><td>调用时机</td><td><code>run()</code> 放在按钮回调；可能较慢</td></tr><tr><td>推荐顺序</td><td><code>is_available()</code> → <code>list_tools()</code> → <code>run(prompt, tools=...)</code></td></tr><tr><td>返回</td><td><code>{&quot;text&quot;: str, &quot;tool_calls&quot;: list}</code></td></tr></tbody></table></div>
-<hr>
-<h2 id="快速开始"><a class="heading-anchor" href="#快速开始">#</a>快速开始</h2>
-<figure class="code-block" data-code-id="7303ba29205f">
+    <p>使用 iOS 26 Foundation Models 做一次端侧文本生成，并按需把有限设备上下文加入提示词。</p>
+<blockquote class="callout note"><strong>真实性边界</strong>：<code>current_time</code>、<code>device_name</code>、<code>battery_level</code> 是宿主预先采集的 <strong>context source</strong>，不是模型工具调用。结果固定用 <code>tool_calls=[]</code>，并通过 <code>context_sources</code> 和 <code>execution_mode=&quot;context_injection&quot;</code> 说明真实来源。模块没有 location/weather 工具，也没有外部 action 执行循环。</blockquote>
+<h2 id="最小示例"><a class="heading-anchor" href="#最小示例">#</a>最小示例</h2>
+<figure class="code-block" data-code-id="05a3cca98a27">
   <figcaption>
     <span>python</span>
-    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="7303ba29205f" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="05a3cca98a27" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
-  <pre><code id="code-7303ba29205f" class="language-python">import assistant
+  <pre><code id="code-05a3cca98a27" class="language-python">import assistant
 
-if not assistant.is_available():
-    print(&quot;Assistant 不可用&quot;)
-else:
-    print(&quot;内置工具:&quot;, assistant.list_tools())
-    result = assistant.run(&quot;用一句话介绍今天的日期&quot;)
-    print(result[&quot;text&quot;])
-    print(result.get(&quot;tool_calls&quot;, []))</code></pre>
-</figure>
-<p>指定工具子集：</p>
-<figure class="code-block" data-code-id="e16e2c4b7700">
-  <figcaption>
-    <span>python</span>
-    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="e16e2c4b7700" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
-  </figcaption>
-  <pre><code id="code-e16e2c4b7700" class="language-python">import assistant
-
-result = assistant.run(
-    &quot;查询当前位置附近的天气&quot;,
-    tools=[&quot;location&quot;, &quot;weather&quot;],
-)
-print(result)</code></pre>
-</figure>
-<hr>
-<h2 id="appui-示例"><a class="heading-anchor" href="#appui-示例">#</a>AppUI 示例</h2>
-<figure class="code-block" data-code-id="0886e071648a">
-  <figcaption>
-    <span>python</span>
-    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="0886e071648a" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
-  </figcaption>
-  <pre><code id="code-0886e071648a" class="language-python">import appui
-import assistant
-
-state = appui.State(
-    available=&quot;—&quot;,
-    tools=&quot;—&quot;,
-    prompt=&quot;今天适合出门跑步吗？&quot;,
-    reply=&quot;—&quot;,
-)
-
-
-def refresh_meta():
-    state.available = &quot;是&quot; if assistant.is_available() else &quot;否&quot;
-    names = assistant.list_tools() or []
-    state.tools = str(len(names)) + &quot; 个内置工具&quot;
-
-
-def run_task():
-    refresh_meta()
-    if state.available != &quot;是&quot;:
-        state.reply = &quot;Assistant 不可用（需 iOS 26+）&quot;
-        return
-
-    try:
-        result = assistant.run(state.prompt)
-        calls = result.get(&quot;tool_calls&quot;, [])
-        suffix = f&quot;（调用 {len(calls)} 个工具）&quot; if calls else &quot;&quot;
-        state.reply = (result.get(&quot;text&quot;) or &quot;—&quot;) + suffix
-    except assistant.AssistantError as exc:
-        state.reply = str(exc)
-
-
-def body():
-    return appui.NavigationStack(
-        appui.Form([
-            appui.Section(&quot;任务&quot;, [
-                appui.TextEditor(text=state.prompt).frame(min_height=80),
-                appui.Button(&quot;运行助手&quot;, action=run_task)
-                .button_style(&quot;bordered_prominent&quot;),
-            ]),
-            appui.Section(&quot;状态&quot;, [
-                appui.LabeledContent(&quot;可用&quot;, value=state.available),
-                appui.LabeledContent(&quot;工具&quot;, value=state.tools),
-                appui.Text(state.reply).foreground_color(&quot;secondaryLabel&quot;),
-            ]),
-        ]).navigation_title(&quot;端侧助手&quot;)
+if assistant.is_available():
+    result = assistant.run(
+        &quot;根据上下文，用一句话回答。&quot;,
+        tools=[&quot;current_time&quot;, &quot;battery_level&quot;],
     )
-
-
-appui.run(body, state=state)</code></pre>
+    print(result[&quot;text&quot;])
+    print(result[&quot;context_sources&quot;])
+    assert result[&quot;tool_calls&quot;] == []</code></pre>
 </figure>
-<hr>
-<h2 id="api-参考"><a class="heading-anchor" href="#api-参考">#</a>API 参考</h2>
-<h3 id="速查"><a class="heading-anchor" href="#速查">#</a>速查</h3>
-<div class="table-scroll"><table><thead><tr><th>API</th><th>作用</th></tr></thead><tbody><tr><td><code>is_available()</code></td><td>助手是否可用 → <code>bool</code></td></tr><tr><td><code>list_tools()</code></td><td>内置工具描述列表</td></tr><tr><td><code>run(prompt, tools=None)</code></td><td>执行任务 → <code>dict</code></td></tr><tr><td><code>AssistantError</code></td><td>操作失败异常</td></tr></tbody></table></div>
-<h3 id="run"><a class="heading-anchor" href="#run">#</a>run</h3>
-<p><strong><code>run(prompt, tools=None)</code></strong> — 发送自然语言任务。</p>
-<div class="table-scroll"><table><thead><tr><th>字段</th><th>说明</th></tr></thead><tbody><tr><td><code>text</code></td><td>助手最终文本回复</td></tr><tr><td><code>tool_calls</code></td><td>工具调用记录列表</td></tr></tbody></table></div>
-<figure class="code-block" data-code-id="134772416d72">
+<p>未知 context source 会报 <code>invalid_tool</code>，不会被回显或执行。天气与定位应显式调用对应模块，再由业务决定是否把结果交给模型。</p>
+<h2 id="api"><a class="heading-anchor" href="#api">#</a>API</h2>
+<div class="table-scroll"><table><thead><tr><th>API</th><th>行为</th></tr></thead><tbody><tr><td><code>is_available()</code></td><td>查询端侧系统模型可用性。</td></tr><tr><td><code>status()</code></td><td>返回 available、当前 owner/busy 和 <code>execution_mode</code>。</td></tr><tr><td><code>list_tools()</code></td><td>为兼容保留名称；每项的 <code>kind</code> 为 <code>context_source</code>。</td></tr><tr><td><code>run(prompt, tools=None)</code></td><td>校验白名单、注入上下文并执行一次端侧生成。</td></tr><tr><td><code>cancel()</code></td><td>取消当前 owner 的生成任务。</td></tr><tr><td><code>run_async(..., budget=...)</code></td><td>返回 owner-scoped <code>OperationHandle</code>，支持取消、超时与结果预算。</td></tr></tbody></table></div>
+<p><code>prompt</code> 最大 16 KiB，结果最大 1 MiB，同一时刻只允许一个活跃 controller；另一个 owner 或重入调用会得到 <code>controller_busy</code>。不要在 AppUI <code>body()</code> 中调用。</p>
+<h2 id="结果契约"><a class="heading-anchor" href="#结果契约">#</a>结果契约</h2>
+<figure class="code-block" data-code-id="91f35be7c0b9">
   <figcaption>
-    <span>python</span>
-    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="134772416d72" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
+    <span>text</span>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="91f35be7c0b9" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
-  <pre><code id="code-134772416d72" class="language-python">result = assistant.run(&quot;总结这段话&quot;, tools=None)
-print(result[&quot;text&quot;])</code></pre>
+  <pre><code id="code-91f35be7c0b9" class="language-text">{
+  &quot;text&quot;: str,
+  &quot;tool_calls&quot;: [],
+  &quot;context_sources&quot;: list[str],
+  &quot;execution_mode&quot;: &quot;context_injection&quot;
+}</code></pre>
 </figure>
-<p><code>tools</code> 为工具名字符串列表时，限制可用内置工具范围。</p>
-<hr>
-<h2 id="常见错误"><a class="heading-anchor" href="#常见错误">#</a>常见错误</h2>
-<div class="table-scroll"><table><thead><tr><th>错误写法</th><th>后果</th><th>修正</th></tr></thead><tbody><tr><td>与 <code>foundation_models</code> 混用场景</td><td>能力重叠</td><td>纯文本用 <code>foundation_models</code>；要工具用 <code>assistant</code></td></tr><tr><td>在 <code>body()</code> 里 <code>run</code></td><td>每次刷新重复推理</td><td>放进按钮回调</td></tr><tr><td>低版本 iOS</td><td><code>is_available()</code> 为 False</td><td>降级为规则逻辑或提示用户</td></tr><tr><td>期望执行任意 Python 代码</td><td>超出能力</td><td>工具仅限系统内置集合</td></tr></tbody></table></div>
-<hr>
-<h2 id="相关文档"><a class="heading-anchor" href="#相关文档">#</a>相关文档</h2>
-<div class="table-scroll"><table><thead><tr><th>文档</th><th>用途</th></tr></thead><tbody><tr><td><a href="../../pages/foundation-models-module/">foundation_models</a></td><td>纯文本生成/摘要</td></tr><tr><td><a href="../../pages/weather-module/">weather</a></td><td>直接调用天气 API</td></tr><tr><td><a href="../../pages/location-module/">location</a></td><td>直接调用定位 API</td></tr></tbody></table></div>
+<p>常见 <code>AssistantError.code</code>：<code>invalid_input</code>、<code>invalid_tool</code>、<code>unavailable</code>、<code>controller_busy</code>、<code>cancelled</code>、<code>timeout</code>、<code>operation_expired</code>、<code>response_too_large</code>。</p>
+<p>需要在支持 Foundation Models 的 iOS 26 真机上验收可用性、模型资源/语言状态、取消和前后台 lease 失效；编译通过不能证明模型在设备上可用。</p>
 <h2 id="预期效果"><a class="heading-anchor" href="#预期效果">#</a>预期效果</h2>
-<p>运行示例后，界面应出现文档描述的目标结果；若与预期不符，先看「失败路径」并按返回值或日志排查。</p>
+<p>可用设备会返回非空 <code>text</code>、空 <code>tool_calls</code>、实际注入的 <code>context_sources</code> 和 <code>execution_mode=&quot;context_injection&quot;</code>。</p>
+<h2 id="失败路径"><a class="heading-anchor" href="#失败路径">#</a>失败路径</h2>
+<p>不支持设备返回 unavailable；未知 context source 返回 <code>invalid_tool</code>；并发重入返回 <code>controller_busy</code>；取消、超时、lease 失效或结果超限分别保留独立错误 code。</p>
   </div>
   
 </article>
 
     </main>
-    <aside class="toc"><div class="toc-title">本页目录</div><a class="toc-link" href="#模块概览">模块概览</a><a class="toc-link" href="#快速开始">快速开始</a><a class="toc-link" href="#appui-示例">AppUI 示例</a><a class="toc-link" href="#api-参考">API 参考</a><a class="toc-link child" href="#速查">速查</a><a class="toc-link child" href="#run">run</a><a class="toc-link" href="#常见错误">常见错误</a><a class="toc-link" href="#相关文档">相关文档</a><a class="toc-link" href="#预期效果">预期效果</a></aside>
+    <aside class="toc"><div class="toc-title">本页目录</div><a class="toc-link" href="#最小示例">最小示例</a><a class="toc-link" href="#api">API</a><a class="toc-link" href="#结果契约">结果契约</a><a class="toc-link" href="#预期效果">预期效果</a><a class="toc-link" href="#失败路径">失败路径</a></aside>
   </div>
   <div class="mobile-backdrop"></div>
   <div class="search-panel" role="dialog" aria-modal="true" aria-label="搜索">

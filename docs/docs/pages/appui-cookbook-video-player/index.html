@@ -290,6 +290,7 @@
   
   <div class="markdown-body">
     <p>演示 <code>appui.VideoPlayer</code> 与 <code>TabView</code>：播放页、可搜索片源列表与播放设置表单。</p>
+<p>固定 URL 可继续用 <code>url=</code>。需要显式本地文件、bundle asset 或 inline data 时使用 <code>source=appui.MediaSource...</code>；视频远程自定义 header 不受公开 AVFoundation API 支持，会明确失败而不是静默忽略。</p>
 <h2 id="预期效果"><a class="heading-anchor" href="#预期效果">#</a>预期效果</h2>
 <p>运行后会出现视频播放器页面，片源搜索、播放区域和播放设置保持分区清晰。</p>
 <h2 id="完整示例"><a class="heading-anchor" href="#完整示例">#</a>完整示例</h2>

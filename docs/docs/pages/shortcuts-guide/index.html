@@ -297,15 +297,24 @@
 <h2 id="什么时候用"><a class="heading-anchor" href="#什么时候用">#</a>什么时候用</h2>
 <ul><li>想从 Python 脚本触发一个已经存在的系统快捷指令。</li><li>想打开 URL、深链或当前 App 的设置页。</li><li>想把 PythonIDE 的脚本能力接入 iOS 快捷指令自动化。</li></ul>
 <h2 id="可用动作"><a class="heading-anchor" href="#可用动作">#</a>可用动作</h2>
-<div class="table-scroll"><table><thead><tr><th>动作</th><th>用途</th></tr></thead><tbody><tr><td>运行 Python 代码</td><td>执行短代码片段</td></tr><tr><td>运行 Python 脚本</td><td>执行工作区 .py 文件并传参</td></tr><tr><td>在应用中运行</td><td>打开 App 运行需要输入或 UI 的脚本</td></tr><tr><td>获取脚本输出</td><td>读取不等待运行后的输出</td></tr><tr><td>创建 Python 脚本</td><td>创建 .py 文件后再运行</td></tr></tbody></table></div>
-<h2 id="测试代码"><a class="heading-anchor" href="#测试代码">#</a>测试代码</h2>
-<figure class="code-block" data-code-id="a5e636d1097f">
+<div class="table-scroll"><table><thead><tr><th>动作</th><th>用途</th></tr></thead><tbody><tr><td>运行 Python 代码</td><td>执行短代码片段</td></tr><tr><td>运行 Python 脚本</td><td>传入参数、文件和预置标准输入，返回文本或文件</td></tr><tr><td>在应用中运行</td><td>打开 App 运行需要输入或 UI 的脚本</td></tr><tr><td>获取上次运行输出</td><td>读取不等待运行后的输出</td></tr><tr><td>创建 Python 脚本</td><td>创建 .py 文件后再运行</td></tr></tbody></table></div>
+<h2 id="文件输入与输出"><a class="heading-anchor" href="#文件输入与输出">#</a>文件输入与输出</h2>
+<figure class="code-block" data-code-id="ac25a2878a31">
   <figcaption>
     <span>python</span>
-    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="a5e636d1097f" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="ac25a2878a31" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
-  <pre><code id="code-a5e636d1097f" class="language-python">print(&quot;hello&quot;)</code></pre>
+  <pre><code id="code-ac25a2878a31" class="language-python">from pathlib import Path
+import sys
+
+sources = [Path(path) for path in sys.argv[1:]]
+Path(&quot;summary.txt&quot;).write_text(
+    f&quot;received {len(sources)} files&quot;,
+    encoding=&quot;utf-8&quot;,
+)</code></pre>
 </figure>
+<p>在快捷指令中把上一步的照片、CSV、PDF 或其他文件连接到“输入文件”。文件路径会按顺序追加到 <code>sys.argv</code>，排在手动填写的命令行参数之后。脚本在工作目录中用普通 <code>open()</code>、<code>pathlib</code>、CSV、JSON 等方式实际创建或修改的文件会自动返回，不需要快捷指令专用写法。</p>
+<p>脚本调用 <code>input()</code> 或读取 <code>sys.stdin</code> 时，在“标准输入”中预先填写文本。运行结果可继续取出输出、标准输出、错误输出、退出码、耗时和文件。同一份脚本也能手动运行；需要实时提问、系统界面或长时间运行时，改用“在应用中运行”。旧脚本仍可使用 <code>shortcuts.input_files()</code>、<code>output_file()</code> 和 <code>return_file()</code> 显式选择返回文件。</p>
 <h2 id="python-模块示例"><a class="heading-anchor" href="#python-模块示例">#</a>Python 模块示例</h2>
 <figure class="code-block" data-code-id="557718bfd7a1">
   <figcaption>
@@ -360,7 +369,7 @@ appui.run(body, state=state)</code></pre>
 <h2 id="失败路径"><a class="heading-anchor" href="#失败路径">#</a>失败路径</h2>
 <div class="table-scroll"><table><thead><tr><th>情况</th><th>应该怎么处理</th></tr></thead><tbody><tr><td>系统入口不可用</td><td>显示不可用状态，不重复触发打开动作。</td></tr><tr><td>用户取消或没有配置</td><td>保持原页面状态，并提示需要先配置对应系统能力。</td></tr><tr><td>回调没有返回预期结果</td><td>记录简短状态，避免把长日志或敏感内容展示给用户。</td></tr><tr><td>需要复杂界面</td><td>用 <code>appui</code> 承载页面，把自动化能力放在按钮回调里调用。</td></tr></tbody></table></div>
 <h2 id="使用规则"><a class="heading-anchor" href="#使用规则">#</a>使用规则</h2>
-<ul><li><code>run_shortcut(...)</code> 需要用户设备上已经存在同名快捷指令。</li><li>打开 URL 和运行快捷指令都应该由明确操作触发，不要在导入模块时自动执行。</li><li>如果要做多步骤界面流程，优先用 AppUI；快捷指令适合系统自动化入口。</li></ul>
+<ul><li><code>run_shortcut(...)</code> 需要用户设备上已经存在同名快捷指令。</li><li>新脚本优先使用普通 <code>sys.argv</code> 和正常文件写入；不需要为了快捷指令维护第二份脚本。</li><li><code>input_files()</code>、<code>output_file()</code> 和 <code>return_file()</code> 是兼容旧脚本或显式选择结果的可选接口；手动运行时 <code>input_files()</code> 为空，<code>output_file(name)</code> 使用当前工作目录，<code>return_file(path)</code> 返回原普通文件路径。</li><li>自动返回只覆盖有效工作目录或本次暂存输入目录中实际创建、修改的普通文件；返回文件应在快捷指令中及时保存。</li><li>打开 URL 和运行快捷指令都应该由明确操作触发，不要在导入模块时自动执行。</li><li>如果要做多步骤界面流程，优先用 AppUI；快捷指令适合系统自动化入口。</li></ul>
 <h2 id="发布前检查"><a class="heading-anchor" href="#发布前检查">#</a>发布前检查</h2>
 <div class="table-scroll"><table><thead><tr><th>检查项</th><th>合格标准</th></tr></thead><tbody><tr><td>快捷指令名称</td><td>设备上已经存在同名快捷指令。</td></tr><tr><td>触发时机</td><td>运行快捷指令和打开 URL 都由按钮、菜单或系统动作触发。</td></tr><tr><td>结果反馈</td><td>成功、取消、未配置和不可用状态都有简短提示。</td></tr><tr><td>页面边界</td><td>多步骤交互放在 AppUI，不把 UI 流程塞进系统动作。</td></tr></tbody></table></div>
 <h2 id="相关文档"><a class="heading-anchor" href="#相关文档">#</a>相关文档</h2>
@@ -370,7 +379,7 @@ appui.run(body, state=state)</code></pre>
 </article>
 
     </main>
-    <aside class="toc"><div class="toc-title">本页目录</div><a class="toc-link" href="#预期效果">预期效果</a><a class="toc-link" href="#先选入口">先选入口</a><a class="toc-link" href="#什么时候用">什么时候用</a><a class="toc-link" href="#可用动作">可用动作</a><a class="toc-link" href="#测试代码">测试代码</a><a class="toc-link" href="#python-模块示例">Python 模块示例</a><a class="toc-link" href="#appui-中的推荐接法">AppUI 中的推荐接法</a><a class="toc-link" href="#失败路径">失败路径</a><a class="toc-link" href="#使用规则">使用规则</a><a class="toc-link" href="#发布前检查">发布前检查</a><a class="toc-link" href="#相关文档">相关文档</a></aside>
+    <aside class="toc"><div class="toc-title">本页目录</div><a class="toc-link" href="#预期效果">预期效果</a><a class="toc-link" href="#先选入口">先选入口</a><a class="toc-link" href="#什么时候用">什么时候用</a><a class="toc-link" href="#可用动作">可用动作</a><a class="toc-link" href="#文件输入与输出">文件输入与输出</a><a class="toc-link" href="#python-模块示例">Python 模块示例</a><a class="toc-link" href="#appui-中的推荐接法">AppUI 中的推荐接法</a><a class="toc-link" href="#失败路径">失败路径</a><a class="toc-link" href="#使用规则">使用规则</a><a class="toc-link" href="#发布前检查">发布前检查</a><a class="toc-link" href="#相关文档">相关文档</a></aside>
   </div>
   <div class="mobile-backdrop"></div>
   <div class="search-panel" role="dialog" aria-modal="true" aria-label="搜索">

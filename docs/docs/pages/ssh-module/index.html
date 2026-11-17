@@ -289,8 +289,11 @@
   </header>
   
   <div class="markdown-body">
-    <p>SSH 远程命令与 SFTP 文件传输：连接 Linux/树莓派等设备，执行命令、上传下载文件。</p>
+    <p>R7：新增 <code>status()</code> 和 connect/execute/upload/download/disconnect 的异步入口；会话按 owner 隔离并受数量预算管理。超时会断开底层 session，不会返回 partial success；download 使用临时文件和原子提交；upload 会尊重完整 <code>remote_path</code> 文件名，不再偷偷沿用本地 basename。</p>
+<p>异步名称：<code>connect_async()</code>、<code>execute_async()</code>、<code>upload_async()</code>、<code>download_async()</code>、<code>disconnect_async()</code>。</p>
+<p>SSH 远程命令与 SFTP 文件传输：连接 Linux/树莓派等设备，执行命令、上传下载文件。</p>
 <blockquote class="callout note"><strong>边界</strong>：需要可达的网络与有效凭据（密码或私钥）。<strong>不要把密码写进公开脚本</strong>；生产环境用 <a href="../../pages/keychain-module/">keychain</a> 存凭据。连接和执行放在按钮回调；<code>session_id</code> 用完后务必 <code>disconnect()</code>。</blockquote>
+<p>R2 增量：<code>upload(..., local_path, ...)</code> 和 <code>download(..., local_path)</code> 接受字符串或相应读/写权限的 <code>appui.FileResource</code>；远端路径仍是 SSH 服务器路径，不包装为本地资源。</p>
 <h2 id="模块概览"><a class="heading-anchor" href="#模块概览">#</a>模块概览</h2>
 <div class="table-scroll"><table><thead><tr><th>项</th><th>说明</th></tr></thead><tbody><tr><td>导入</td><td><code>import ssh</code></td></tr><tr><td>适合做什么</td><td>远程运维、部署脚本、拉取日志、SFTP 传文件</td></tr><tr><td>调用时机</td><td>用户点击连接/执行；长命令注意 <code>timeout</code></td></tr><tr><td>推荐顺序</td><td><code>connect()</code> → <code>execute()</code> / <code>upload()</code> / <code>download()</code> → <code>disconnect()</code></td></tr><tr><td>会话</td><td><code>connect()</code> 返回 <code>session_id</code>，后续 API 都要带上</td></tr></tbody></table></div>
 <hr>

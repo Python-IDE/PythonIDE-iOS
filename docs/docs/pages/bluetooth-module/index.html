@@ -289,7 +289,9 @@
   </header>
   
   <div class="markdown-body">
-    <p>BLE 中心模式：扫描外设、连接、发现服务、读写特征值。</p>
+    <p>R7：新增 <code>authorization_status()</code> 以及 scan/connect/discover/read/write 的 <code>*_async(..., budget=...)</code> 入口。扫描会发布 partial result，取消会停止底层扫描；controller 按 MiniApp owner 隔离，另一个活跃 owner 不能抢占连接。异步入口不会把原生服务不可用伪装成空扫描/空服务或普通连接错误：终态为 <code>failed</code>，<code>result.error.code == &quot;bridge_unavailable&quot;</code>。历史同步入口的空值兼容行为保持不变。</p>
+<p>异步名称：<code>scan_async()</code>、<code>connect_async()</code>、<code>discover_services_async()</code>、<code>read_async()</code>、<code>write_async()</code>。</p>
+<p>BLE 中心模式：扫描外设、连接、发现服务、读写特征值，以及订阅 Notify/Indicate 更新。</p>
 <blockquote class="callout note"><strong>边界</strong>：面向低功耗蓝牙<strong>中心端</strong>（扫描/连接其他设备），不是普通 HTTP/WebSocket 网络。若要让本机被扫描，请用 <a href="../../pages/ble-peripheral-module/">ble_peripheral</a>。需要蓝牙硬件与系统授权；扫描、连接放在按钮回调，不要在 <code>body()</code> 里自动执行。</blockquote>
 <h2 id="模块概览"><a class="heading-anchor" href="#模块概览">#</a>模块概览</h2>
 <div class="table-scroll"><table><thead><tr><th>项</th><th>说明</th></tr></thead><tbody><tr><td>导入</td><td><code>import bluetooth</code></td></tr><tr><td>适合做什么</td><td>传感器读取、Beacon 探测、自定义 BLE 外设通信</td></tr><tr><td>调用时机</td><td><code>scan</code> / <code>connect</code> / <code>read</code> / <code>write</code> 放在按钮回调</td></tr><tr><td>推荐顺序</td><td><code>state()</code> → <code>scan()</code> → <code>connect()</code> → <code>discover_services()</code> → 读写 → <code>disconnect()</code></td></tr><tr><td>数据格式</td><td><code>write()</code> 传 Base64 字符串；<code>read()</code> 返回 Base64</td></tr></tbody></table></div>
@@ -437,7 +439,7 @@ appui.run(body, state=state)</code></pre>
 <hr>
 <h2 id="api-参考"><a class="heading-anchor" href="#api-参考">#</a>API 参考</h2>
 <h3 id="速查"><a class="heading-anchor" href="#速查">#</a>速查</h3>
-<div class="table-scroll"><table><thead><tr><th>API</th><th>作用</th></tr></thead><tbody><tr><td><code>state()</code></td><td>BLE 状态字符串</td></tr><tr><td><code>scan(duration)</code></td><td>扫描外设列表</td></tr><tr><td><code>stop_scan()</code></td><td>立即停止扫描</td></tr><tr><td><code>connect(uuid)</code></td><td>连接 → <code>ok</code> 或错误信息</td></tr><tr><td><code>disconnect(uuid)</code></td><td>断开连接</td></tr><tr><td><code>discover_services(uuid)</code></td><td>服务与特征列表</td></tr><tr><td><code>read(...)</code></td><td>读特征 → Base64 字符串</td></tr><tr><td><code>write(...)</code></td><td>写特征（Base64 入参）→ <code>bool</code></td></tr></tbody></table></div>
+<div class="table-scroll"><table><thead><tr><th>API</th><th>作用</th></tr></thead><tbody><tr><td><code>state()</code></td><td>BLE 状态字符串</td></tr><tr><td><code>scan(duration)</code></td><td>扫描外设列表</td></tr><tr><td><code>stop_scan()</code></td><td>立即停止扫描</td></tr><tr><td><code>connect(uuid)</code></td><td>连接 → <code>ok</code> 或错误信息</td></tr><tr><td><code>disconnect(uuid)</code></td><td>断开连接</td></tr><tr><td><code>discover_services(uuid)</code></td><td>服务与特征列表</td></tr><tr><td><code>read(...)</code></td><td>读特征 → Base64 字符串</td></tr><tr><td><code>write(..., response=True)</code></td><td>写特征（Base64 入参）；默认等待设备写入确认 → <code>bool</code></td></tr><tr><td><code>write(..., response=False)</code></td><td>无响应写入；等待系统发送容量，返回后表示已提交 → <code>bool</code></td></tr><tr><td><code>maximum_write_length(..., response=True)</code></td><td>查询当前连接、特征和模式的单包最大字节数 → <code>int</code></td></tr><tr><td><code>subscribe(peripheral_uuid, service_uuid, characteristic_uuid, *, max_events=128, max_bytes=262144)</code></td><td>等待原生订阅确认 → <code>NotificationSubscription</code></td></tr><tr><td><code>subscription.poll(max_events=64)</code></td><td>非阻塞读取有界更新批次、状态与累计丢弃计数</td></tr><tr><td><code>subscription.status()</code></td><td>查看状态，不消费更新</td></tr><tr><td><code>subscription.close()</code> / <code>subscription.cancel()</code></td><td>等待原生退订确认，重复关闭已终止的订阅不重启连接</td></tr><tr><td><code>unsubscribe(subscription)</code></td><td>与 <code>subscription.close()</code> 相同</td></tr></tbody></table></div>
 <h3 id="状态与扫描"><a class="heading-anchor" href="#状态与扫描">#</a>状态与扫描</h3>
 <p><strong><code>state()</code></strong> 常见返回值：</p>
 <div class="table-scroll"><table><thead><tr><th>值</th><th>含义</th></tr></thead><tbody><tr><td><code>powered_on</code></td><td>蓝牙已开启，可扫描</td></tr><tr><td><code>powered_off</code></td><td>蓝牙关闭</td></tr><tr><td><code>unauthorized</code></td><td>未授权</td></tr><tr><td><code>unsupported</code></td><td>设备不支持 BLE</td></tr></tbody></table></div>
@@ -453,6 +455,7 @@ bluetooth.stop_scan()  # 提前结束</code></pre>
 <h3 id="连接与发现"><a class="heading-anchor" href="#连接与发现">#</a>连接与发现</h3>
 <p><strong><code>connect(uuid)</code></strong> — 成功返回 <code>&quot;ok&quot;</code>，失败返回错误描述字符串（不是异常）。</p>
 <p><strong><code>discover_services(uuid)</code></strong> — 返回服务字典列表（含特征 UUID），须先连接成功。</p>
+<p>扫描、连接和服务发现各自只允许一个原生请求在执行；连接忙时返回 <code>operation_in_progress</code>，历史扫描/服务发现的数组 ABI 保留 <code>[]</code> 兼容回退。回调核对运行 owner 与精确的原生外设对象，其他外设及迟到回调不能完成当前请求。取消 <code>connect_async()</code> 或 <code>discover_services_async()</code> 会主动断开该运行 owner 的目标外设连接，包括尚未连接完成的请求；同外设上的订阅也会终止，其他外设不受影响。发现超时/失败会使该连接退役，重新连接后再试。取消待连接请求的实际终态可能通过 <code>didFailToConnect</code> 返回，仍会正确释放退役标记。</p>
 <h3 id="读写特征"><a class="heading-anchor" href="#读写特征">#</a>读写特征</h3>
 <figure class="code-block" data-code-id="44bcf6d0683e">
   <figcaption>
@@ -468,6 +471,70 @@ payload = base64.b64encode(b&quot;hello&quot;).decode(&quot;ascii&quot;)
 ok = bluetooth.write(peripheral_uuid, service_uuid, char_uuid, payload)</code></pre>
 </figure>
 <p><code>write()</code> 的第四个参数必须是 <strong>Base64 字符串</strong>，不要直接传 <code>bytes</code>。</p>
+<h4 id="写入模式与单包长度"><a class="heading-anchor" href="#写入模式与单包长度">#</a>写入模式与单包长度</h4>
+<p>服务发现中的 <code>write</code> 表示支持带确认写入；<code>write_no_resp</code> 表示支持无响应写入，不是错误名称。 根据设备协议显式选择模式：</p>
+<ul><li><code>response=True</code>（默认）：要求特征具有 <code>write</code>。返回 <code>True</code> 表示 CoreBluetooth 收到设备的成功写入确认；不表示设备已完成业务指令。</li><li><code>response=False</code>：要求特征具有 <code>write_no_resp</code>。返回 <code>True</code> 只表示已按流控提交给 CoreBluetooth，<strong>没有设备确认，也不保证设备已经收到或执行</strong>。需要业务确认时，按设备协议使用 Notify/Indicate 或其他响应特征。</li><li>不会在模式不支持时静默切换。旧四参数调用继续使用带确认写入；仅支持 <code>write_no_resp</code> 的特征必须指定 <code>response=False</code>。</li></ul>
+<p><code>maximum_write_length(peripheral_uuid, service_uuid, characteristic_uuid, *, response=True)</code> 返回实际连接当前允许的单包长度，两种模式可能不同；重连后重新查询。数据超过该限制会抛出 <code>payload_too_large</code>，<code>error.details[&quot;maximum_write_length&quot;]</code> 提供可用长度。不会自动拆包或补换行， 因为包边界、分片标记及重组属于设备协议；不要固定假设每包都是 20 字节。</p>
+<p>下面函数接收已连接、已发现的真实 UUID 和设备协议规定的二进制指令，没有自动选择外设或发送示例指令：</p>
+<figure class="code-block" data-code-id="cd565c4603f3">
+  <figcaption>
+    <span>python</span>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="cd565c4603f3" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
+  </figcaption>
+  <pre><code id="code-cd565c4603f3" class="language-python">import base64
+import bluetooth
+
+def send_without_response(peripheral_uuid, service_uuid, characteristic_uuid, command):
+    limit = bluetooth.maximum_write_length(
+        peripheral_uuid, service_uuid, characteristic_uuid, response=False,
+    )
+    if len(command) &gt; limit:
+        raise ValueError(f&quot;指令有 {len(command)} 字节，当前单包上限为 {limit}&quot;)
+    payload = base64.b64encode(command).decode(&quot;ascii&quot;)
+    return bluetooth.write(
+        peripheral_uuid, service_uuid, characteristic_uuid, payload, response=False,
+    )</code></pre>
+</figure>
+<p><code>write_async(..., response=False, budget=...)</code> 使用相同模式与布尔结果，推荐在界面回调中使用。 异步取消定位到该请求：未发送的请求从队列移除，不会主动断开其他外设；已经提交的数据无法撤回。 带确认写入提交后取消或超时会使该连接退役，防止迟到确认完成后续请求，同连接的订阅与待发送写入也会结束。 同步调用与旧 C ABI 复用同一队列。旧运行桥仅保留默认带确认同步写入兼容，新模式与长度查询缺少对应桥时明确报错。</p>
+<h4 id="连续发送与失败处理"><a class="heading-anchor" href="#连续发送与失败处理">#</a>连续发送与失败处理</h4>
+<p>同一外设的写入按原生入队顺序串行发送；不同外设各自推进。系统发送缓冲满时等待 <code>peripheralIsReady(toSendWriteWithoutResponse:)</code> 后继续，不通过固定 sleep 猜测发送速度。 并发启动的异步调用不承诺 Python 调用顺序；设备协议要求命令顺序时，等待前一个 handle 的结果后再发下一条。</p>
+<p>每个 Python 运行最多保留 32 个待完成写入、256 KiB 原始负载；队列满抛出可恢复的 <code>write_queue_full</code>，不丢弃已有命令。单个请求从入队开始最多等待 10 秒；异步默认预算为 12 秒、 最多并发 4 项，调用方只能收紧。字节预算同时约束原始负载和布尔结果（至少 4 字节），过小会在提交前失败。 运行结束、蓝牙关闭或外设断开会结束未完成写入，不会自动重连或重发。</p>
+<p>写入失败抛出 <code>AppUIError</code>。如果 <code>error.details.get(&quot;submitted&quot;)</code> 为 <code>True</code>，说明数据已经提交过， 设备是否执行可能未知；先根据设备协议核对，不能因为超时直接重复发送控制命令。 <code>write_not_supported</code> / <code>unacknowledged_write</code> 检查模式； <code>not_connected</code> / <code>disconnected</code> 检查连接；<code>payload_too_large</code> 检查长度与设备分片协议。</p>
+<h4 id="原生实现与验证边界-ble-write-20261102"><a class="heading-anchor" href="#原生实现与验证边界-ble-write-20261102">#</a>原生实现与验证边界（BLE-WRITE-20261102）</h4>
+<p>正式 Python owner 仍是 <code>BluetoothBridgeManager</code> 与 <code>pyboot.bluetooth</code>。 使用 Apple 公共 <code>CBPeripheral.writeValue(_:for:type:)</code>、<code>maximumWriteValueLength(for:)</code>、 <code>canSendWriteWithoutResponse</code> 和可发送 delegate 回调；原生能力满足需求，无新增 BLE 库或系统权限。 现有 <code>BluetoothWriteQueue</code> 提供有界 FIFO/字节记账，CoreBluetooth 对象和运行 lease 仍由原 manager 持有。 回调核对外设对象、特征对象、运行归属及已提交状态。未确认的带响应写入会隔离连接，旧四参数 C 符号保留， 新增 JSON C 符号由既有 symbol keeper/export owners 保留。</p>
+<p>Agent 的 <code>native_hardware.bluetooth_write</code> 保留既有异步 MainActor 权限与会话适配， 复用同一 FIFO/容量策略和原有有界异步等待；<code>with_response=false</code> 的回执为 <code>submitted=true, acknowledged=false</code>，不自动读回或伪造设备确认。省略参数保留原有优先带确认的自动选择， 显式指定模式时必须得到支持。没有 App 页面、Toast、通知、权限或数据格式迁移； Python/Agent 错误继续沿已有结构化错误合同（UI-32 兼容边界）返回。</p>
+<p>原生依据： <a href="https://developer.apple.com/documentation/corebluetooth/cbperipheral/writevalue(_:for:type:">写入与确认</a>)、 <a href="https://developer.apple.com/documentation/corebluetooth/cbperipheral/cansendwritewithoutresponse">发送容量</a>、 <a href="https://developer.apple.com/documentation/corebluetooth/cbperipheral/maximumwritevaluelength(for:">单包长度</a>)。 2026-11-02 的验证记录归 <code>.artifacts/build-results/ble-write-20261102/</code>； Python/原生替身测试、SDK 编译、App 构建与真实外设验证分别记录，替身通过不代表无线链路验收。 系统/API、运行归属或真实外设行为变化时复查。</p>
+<h3 id="notify-indicate-订阅"><a class="heading-anchor" href="#notify-indicate-订阅">#</a>Notify / Indicate 订阅</h3>
+<p>先扫描、连接、发现服务，再对包含 <code>notify</code> 或 <code>indicate</code> 属性的特征订阅。<code>subscribe()</code> 仅在 CoreBluetooth 的通知状态回调确认成功后返回；不会把已提交请求当作订阅成功。若特征同时支持两种模式，Apple 的 <code>setNotifyValue</code> 使用 Notify；仅支持 Indicate 的特征使用 Indicate，不提供强制覆盖系统选择的参数。</p>
+<figure class="code-block" data-code-id="3b6698805985">
+  <figcaption>
+    <span>python</span>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="3b6698805985" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
+  </figcaption>
+  <pre><code id="code-3b6698805985" class="language-python">import base64
+import time
+import bluetooth
+
+# peripheral_uuid / service_uuid / char_uuid 来自此前的连接与服务发现。
+with bluetooth.subscribe(peripheral_uuid, service_uuid, char_uuid) as subscription:
+    deadline = time.monotonic() + 10
+    while time.monotonic() &lt; deadline:
+        batch = subscription.poll()
+        for event in batch[&quot;events&quot;]:
+            print(event[&quot;sequence&quot;], base64.b64decode(event[&quot;data&quot;]))
+        if batch[&quot;dropped_events&quot;]:
+            print(&quot;累计丢弃更新:&quot;, batch[&quot;dropped_events&quot;])
+        if batch[&quot;state&quot;] != &quot;active&quot;:
+            print(&quot;订阅已结束:&quot;, batch.get(&quot;error&quot;))
+            break
+        time.sleep(0.1)</code></pre>
+</figure>
+<p>批次包含 <code>subscription_id</code>、<code>state</code>、<code>events</code>、<code>pending_events</code>、<code>pending_bytes</code>、<code>dropped_events</code> 和 <code>dropped_bytes</code>；异常终止另含 <code>error.code/message</code>。事件含单调递增 <code>sequence</code> 和 Base64 <code>data</code>。丢弃计数是从创建起累计值，不会因 <code>poll()</code> 清零；序列跳号也能表示未保留的更新。</p>
+<p>每订阅默认最多保留 128 个更新、256 KiB 原始负载，调用方只能收紧。队列满时丢弃最早更新；单个负载超过字节预算时丢弃该更新，均增加显式计数。<code>poll(max_events=...)</code> 每次最多取 128 个更新，不等待新数据。一个运行 owner 最多有 16 个活动订阅；最多保留 64 个活动/终态 token，较旧终态 token 可能返回 <code>subscription_expired</code>。</p>
+<p>运行结束、权限 lease 失效会清理原生订阅与连接；token 不可跨运行或 owner 复用。主动断开在等待回调时为 <code>disconnecting</code>，实际断线回调后为 <code>disconnected</code>；蓝牙不可用返回 <code>unavailable</code>。退订确认后为 <code>closed</code>；已排队的数据仍可在 token 保留期间取出。状态变化或数据回调失败返回 <code>failed</code>。没有后台持续运行承诺，也不会自动重连或重新订阅。</p>
+<p>CoreBluetooth 的主动读取和通知共用值回调，因此在同一次连接中，订阅过的<strong>同一特征</strong>改用主动读取会抛出 <code>notifications_conflict</code>；需要先退订、断开重连并重新发现服务，隔离迟到的通知。其他特征仍可读取。仍在读取或有未决读取回调时订阅会失败。每 owner 最多记录 256 个不同特征的回调屏障，达到时先断开相关连接再继续。订阅/退订最多等待 10 秒；超时或无法确认状态时使该连接退役并断开，避免迟到回调混入下一次操作，其他同连接订阅也会结束。等待 <code>didDisconnect</code> 后才允许重新连接。</p>
+<p>此接口使用既有蓝牙授权、运行归属与原生资源清理，不在 CoreBluetooth 回调线程执行 Python 函数。<code>subscribe/close</code> 是同步、有界等待接口；AppUI 的主交互回调应通过现有后台任务方式调用，UI 定时器中仅做非阻塞 <code>poll()</code>。真机 Notify-only、Indicate-only、断线、关蓝牙与高频数据验收须单独执行；主机替身或模拟器不能代替真实外设验证。</p>
+<p>原生选型依据：2026-11-01 核对当前 iPhoneOS SDK 27.1 的公开 <code>CBPeripheral.h</code>，复用 <a href="https://developer.apple.com/documentation/corebluetooth/cbperipheral/setnotifyvalue(_:for:">setNotifyValue(_:for:)</a>)、<a href="https://developer.apple.com/documentation/corebluetooth/cbperipheraldelegate/peripheral(_:didupdatenotificationstatefor:error:">通知状态回调</a>) 与既有 CoreBluetooth manager。Apple 已满足订阅需求，无新增第三方 BLE 栈、系统权限或持久数据；订阅句柄与轮询使用原生服务提供的有界事件缓冲。系统 SDK、运行归属或真实外设回调证据变化时复核。源码/主机模型检查与真实 iOS 外设验收分别记录。</p>
 <h3 id="推荐流程"><a class="heading-anchor" href="#推荐流程">#</a>推荐流程</h3>
 <ol><li><code>state()</code> 确认 <code>powered_on</code></li><li><code>scan()</code> 找到目标 <code>uuid</code></li><li><code>connect(uuid)</code></li><li><code>discover_services(uuid)</code> 获取 <code>service_uuid</code> / <code>characteristic_uuid</code></li><li><code>read()</code> / <code>write()</code></li><li><code>disconnect(uuid)</code>（建议 <code>try/finally</code>）</li></ol>
 <hr>
@@ -483,7 +550,7 @@ ok = bluetooth.write(peripheral_uuid, service_uuid, char_uuid, payload)</code></
 </article>
 
     </main>
-    <aside class="toc"><div class="toc-title">本页目录</div><a class="toc-link" href="#模块概览">模块概览</a><a class="toc-link" href="#快速开始">快速开始</a><a class="toc-link" href="#appui-示例">AppUI 示例</a><a class="toc-link" href="#api-参考">API 参考</a><a class="toc-link child" href="#速查">速查</a><a class="toc-link child" href="#状态与扫描">状态与扫描</a><a class="toc-link child" href="#连接与发现">连接与发现</a><a class="toc-link child" href="#读写特征">读写特征</a><a class="toc-link child" href="#推荐流程">推荐流程</a><a class="toc-link" href="#常见错误">常见错误</a><a class="toc-link" href="#相关文档">相关文档</a><a class="toc-link" href="#预期效果">预期效果</a></aside>
+    <aside class="toc"><div class="toc-title">本页目录</div><a class="toc-link" href="#模块概览">模块概览</a><a class="toc-link" href="#快速开始">快速开始</a><a class="toc-link" href="#appui-示例">AppUI 示例</a><a class="toc-link" href="#api-参考">API 参考</a><a class="toc-link child" href="#速查">速查</a><a class="toc-link child" href="#状态与扫描">状态与扫描</a><a class="toc-link child" href="#连接与发现">连接与发现</a><a class="toc-link child" href="#读写特征">读写特征</a><a class="toc-link child" href="#notify-indicate-订阅">Notify / Indicate 订阅</a><a class="toc-link child" href="#推荐流程">推荐流程</a><a class="toc-link" href="#常见错误">常见错误</a><a class="toc-link" href="#相关文档">相关文档</a><a class="toc-link" href="#预期效果">预期效果</a></aside>
   </div>
   <div class="mobile-backdrop"></div>
   <div class="search-panel" role="dialog" aria-modal="true" aria-label="搜索">

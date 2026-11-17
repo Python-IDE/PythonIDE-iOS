@@ -293,7 +293,7 @@
 <h2 id="预期效果"><a class="heading-anchor" href="#预期效果">#</a>预期效果</h2>
 <p>示例会展示图片、网络图、相册、文件、相机、视频、网页和地图控件如何嵌入 AppUI 页面。</p>
 <h2 id="设计原则"><a class="heading-anchor" href="#设计原则">#</a>设计原则</h2>
-<ul><li><strong>资源图</strong>用 <code>Image(name=...)</code>；<strong>SF Symbols</strong> 用 <code>Image(system_name=...)</code>。</li><li><strong>网络图</strong>用 <code>AsyncImage</code>，占位与失败视图通过子视图传入。</li><li><strong>相册 / 相机</strong>返回的是当前 MiniApp 会话拥有的<strong>临时文件路径字符串</strong>；普通页面重建不会删除，MiniApp 停止时自动清理。</li><li><strong>Files App / 文档提供方</strong>用 <code>FileImporter</code>，默认复制到 App 可访问位置后返回路径列表。</li><li><strong>WebView</strong> 只能二选一：<code>url</code> 或 <code>html</code>。</li><li><strong>MapView</strong> 的 <code>markers</code> 为字典列表，键包括 <code>latitude</code>、<code>longitude</code>、<code>title</code>。</li></ul>
+<ul><li><strong>资源图或本地文件</strong>用 <code>Image(name=...)</code>；<strong>SF Symbols</strong> 用 <code>Image(system_name=...)</code>。</li><li><strong>网络图或需要加载阶段的本地文件</strong>用 <code>AsyncImage</code>，占位与失败视图通过子视图传入；新代码可用 <code>MediaSource</code> 明确 remote/file/asset/data。</li><li>需要把路径跨 API 传递时用 <code>FileResource(path, access=&quot;read&quot;, scope=&quot;session&quot;)</code>。它不是永久权限，原生层会按当前 lease 再授权。</li><li><strong>相册 / 相机</strong>返回的是当前 MiniApp 会话拥有的<strong>临时文件路径字符串</strong>；普通页面重建不会删除，MiniApp 停止时自动清理。</li><li><strong>Files App / 文档提供方</strong>用 <code>FileImporter</code>，默认复制到 App 可访问位置后返回路径列表。</li><li><strong>WebView</strong> 只能二选一：<code>url</code> 或 <code>html</code>。</li><li><strong>MapView</strong> 的 <code>markers</code> 为字典列表，键包括 <code>latitude</code>、<code>longitude</code>、<code>title</code>。</li></ul>
 <hr>
 <h2 id="image-本地资源与-sf-symbol"><a class="heading-anchor" href="#image-本地资源与-sf-symbol">#</a>Image：本地资源与 SF Symbol</h2>
 <p><code>Image</code> 支持链式修饰：<code>resizable()</code>、<code>aspect_ratio(ratio, content_mode)</code>、<code>symbol_rendering_mode(mode)</code>、<code>image_scale(scale)</code>。</p>
@@ -328,8 +328,9 @@ appui.run(body, state=state, presentation=&quot;sheet&quot;)</code></pre>
 </figure>
 <p><code>content_mode</code> 为 <code>&#x27;fit&#x27;</code> 或 <code>&#x27;fill&#x27;</code>。<code>symbol_rendering_mode</code> 常用：<code>&#x27;hierarchical&#x27;</code>、<code>&#x27;palette&#x27;</code>、<code>&#x27;multicolor&#x27;</code>（未识别时回退为单色）。</p>
 <p><code>image_scale</code> 为 <code>&#x27;small&#x27;</code>、<code>&#x27;medium&#x27;</code>（默认）、<code>&#x27;large&#x27;</code>。</p>
+<p><code>Image(name=...)</code> 也接受绝对路径或 <code>file://</code> URL。声明型 MiniApp 读取普通本地 文件时需要 <code>file_system</code>，而且路径必须位于当前包的只读资源根、该 MiniApp 的 可写数据根，或本次运行获得的精确临时输入授权内；不能用另一个 MiniApp 的 沙盒路径。相对字符串仍按资源名解释，避免既有资源图语义改变。</p>
 <hr>
-<h2 id="asyncimage-网络图片"><a class="heading-anchor" href="#asyncimage-网络图片">#</a>AsyncImage：网络图片</h2>
+<h2 id="asyncimage-网络图片与本地文件"><a class="heading-anchor" href="#asyncimage-网络图片与本地文件">#</a>AsyncImage：网络图片与本地文件</h2>
 <p>参数：<code>url</code>、<code>placeholder</code>、<code>error_view</code>、<code>content_mode</code>、<code>on_success</code>、<code>on_failure</code>。占位与错误视图为<strong>子节点</strong>（前两个子视图依次为占位、错误）。</p>
 <figure class="code-block" data-code-id="972292fbeb42">
   <figcaption>
@@ -368,6 +369,38 @@ def body():
 
 appui.run(body, state=state, presentation=&quot;sheet&quot;)</code></pre>
 </figure>
+<p>本地文件可以直接传绝对路径、<code>file://</code> URL，或相对于当前 MiniApp 资源/数据根的 路径：</p>
+<figure class="code-block" data-code-id="4a0d0e20c669">
+  <figcaption>
+    <span>python</span>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="4a0d0e20c669" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
+  </figcaption>
+  <pre><code id="code-4a0d0e20c669" class="language-python">appui.AsyncImage(
+    url=&quot;MediaDownloads/photo.jpg&quot;,
+    placeholder=appui.ProgressView(label=&quot;Loading&quot;),
+    error_view=appui.Image(system_name=&quot;exclamationmark.triangle&quot;),
+)</code></pre>
+</figure>
+<p>声明型 MiniApp 加载本地文件需要 <code>file_system</code>；加载网络图片需要 <code>network</code>，且 主机必须出现在 <code>allowedNetworkHosts</code>。原生层会再次校验同一运行租约，因此仅在 Python 侧伪造或复用旧沙盒路径不会绕过授权。</p>
+<p>结构化写法适合鉴权图片、本地文件和内联小图：</p>
+<figure class="code-block" data-code-id="dc0636fb3165">
+  <figcaption>
+    <span>python</span>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="dc0636fb3165" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
+  </figcaption>
+  <pre><code id="code-dc0636fb3165" class="language-python">file_source = appui.MediaSource.file(
+    appui.FileResource(&quot;MediaDownloads/photo.jpg&quot;, access=&quot;read&quot;)
+)
+remote_source = appui.MediaSource.remote(
+    &quot;https://cdn.example.com/private/photo.jpg&quot;,
+    headers={&quot;Authorization&quot;: &quot;Bearer ...&quot;},
+)
+
+appui.AsyncImage(source=file_source)
+appui.AsyncImage(source=remote_source)</code></pre>
+</figure>
+<p><code>MediaSource.data(bytes)</code> 最大 8 MiB。资源 scope 目前只能是 <code>session</code>，不可跨 MiniApp 运行保存或转交。</p>
+<p>网络图片当前使用共享内存缓存和最多约 100 MiB 的磁盘数据缓存。旧 URL 写法会按 当前运行所有者和完整请求 URL 形成身份；结构化远程来源还会把 request header 纳入身份，本地文件身份包含规范路径、大小和修改时间。不同 MiniApp/运行不会因 业务传入的标识直接共用缓存；本地文件仍直接读取，不写入网络磁盘缓存。当前公开 API 尚未提供 TTL、强制刷新、<code>cache_key</code> 或 <code>cache_version</code>，磁盘数据缓存也不承诺按 CDN 的 <code>Cache-Control</code>/ETag 自动重新验证。因此签名 URL 变化会形成新的 URL 缓存 身份，而稳定 URL 的内容更新不能依赖自动刷新。需要确定更新时，现阶段应使用带 稳定内容版本的 URL，或先下载到当前 MiniApp 自己管理的本地文件；专用过期/清理 策略会作为独立缓存 API 能力补齐。</p>
 <hr>
 <h2 id="photopicker-相册"><a class="heading-anchor" href="#photopicker-相册">#</a>PhotoPicker：相册</h2>
 <p><code>selection_limit</code>：<code>1</code> 表示单选；<code>0</code> 表示不限制（以系统行为为准）。<code>filter</code>：<code>&#x27;images&#x27;</code>、<code>&#x27;videos&#x27;</code>、<code>&#x27;all&#x27;</code>。<code>on_picked</code> 收到 <strong>路径列表</strong>，<code>on_error</code> 收到结构化错误。媒体使用文件式传输，选择大视频时不会先把完整文件读入内存。</p>
@@ -489,6 +522,7 @@ appui.run(body, state=state, presentation=&quot;sheet&quot;)</code></pre>
 <hr>
 <h2 id="videoplayer-avkit"><a class="heading-anchor" href="#videoplayer-avkit">#</a>VideoPlayer：AVKit</h2>
 <p><code>url</code> 可为远程 HTTPS 或应用内可访问的本地文件名。<code>autoplay</code>、<code>loop</code>、<code>show_controls</code> 控制播放行为。</p>
+<p>也可用 <code>source=appui.MediaSource.remote(...)</code>、<code>.file(...)</code>、<code>.asset(...)</code> 或 <code>.data(...)</code>。视频自定义 HTTP header 会明确报为不支持，不会静默丢弃；需要鉴权时请使用可播放签名 URL，或先下载到当前运行可读的 <code>FileResource</code>。</p>
 <p>只展示视频时直接用 <code>VideoPlayer(url=...)</code>。如果页面需要播放/暂停/seek、保存进度、倍速、PiP 状态或切集，使用 <code>PlayerController</code> 并传给 <code>VideoPlayer(player=player)</code>；AppUI 新页面不要再 import <code>avplayer</code> 控制同一块内嵌视频。</p>
 <figure class="code-block" data-code-id="0a676d2847d7">
   <figcaption>
@@ -596,7 +630,7 @@ v.add_subview(b)
 </article>
 
     </main>
-    <aside class="toc"><div class="toc-title">本页目录</div><a class="toc-link" href="#预期效果">预期效果</a><a class="toc-link" href="#设计原则">设计原则</a><a class="toc-link" href="#image-本地资源与-sf-symbol">Image：本地资源与 SF Symbol</a><a class="toc-link" href="#asyncimage-网络图片">AsyncImage：网络图片</a><a class="toc-link" href="#photopicker-相册">PhotoPicker：相册</a><a class="toc-link" href="#fileimporter-文件导入">FileImporter：文件导入</a><a class="toc-link" href="#camerapicker-相机">CameraPicker：相机</a><a class="toc-link" href="#videoplayer-avkit">VideoPlayer：AVKit</a><a class="toc-link" href="#webview-url-或-html">WebView：URL 或 HTML</a><a class="toc-link" href="#mapview-地图与标注">MapView：地图与标注</a><a class="toc-link" href="#与旧版-ui-模块对照-迁移">与旧版 ui 模块对照（迁移）</a><a class="toc-link" href="#小结">小结</a></aside>
+    <aside class="toc"><div class="toc-title">本页目录</div><a class="toc-link" href="#预期效果">预期效果</a><a class="toc-link" href="#设计原则">设计原则</a><a class="toc-link" href="#image-本地资源与-sf-symbol">Image：本地资源与 SF Symbol</a><a class="toc-link" href="#asyncimage-网络图片与本地文件">AsyncImage：网络图片与本地文件</a><a class="toc-link" href="#photopicker-相册">PhotoPicker：相册</a><a class="toc-link" href="#fileimporter-文件导入">FileImporter：文件导入</a><a class="toc-link" href="#camerapicker-相机">CameraPicker：相机</a><a class="toc-link" href="#videoplayer-avkit">VideoPlayer：AVKit</a><a class="toc-link" href="#webview-url-或-html">WebView：URL 或 HTML</a><a class="toc-link" href="#mapview-地图与标注">MapView：地图与标注</a><a class="toc-link" href="#与旧版-ui-模块对照-迁移">与旧版 ui 模块对照（迁移）</a><a class="toc-link" href="#小结">小结</a></aside>
   </div>
   <div class="mobile-backdrop"></div>
   <div class="search-panel" role="dialog" aria-modal="true" aria-label="搜索">

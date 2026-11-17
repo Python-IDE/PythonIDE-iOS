@@ -413,7 +413,7 @@ if network.is_connected():
 </figure>
 <div class="table-scroll"><table><thead><tr><th>API</th><th>说明</th></tr></thead><tbody><tr><td><code>is_connected()</code></td><td>当前能否联网</td></tr><tr><td><code>connection_type()</code></td><td>连接类型字符串</td></tr><tr><td><code>is_expensive()</code></td><td>蜂窝或热点等</td></tr><tr><td><code>is_constrained()</code></td><td>系统低数据模式</td></tr></tbody></table></div>
 <h3 id="http-请求"><a class="heading-anchor" href="#http-请求">#</a>HTTP 请求</h3>
-<p><strong><code>request(method, url, headers=None, body=None, json=None, timeout=30)</code></strong> — 通用请求。</p>
+<p><strong><code>request(method, url, headers=None, body=None, json=None, timeout=30, follow_redirects=True)</code></strong> — 通用请求。</p>
 <p>快捷方法：<code>get</code>、<code>post</code>、<code>put</code>、<code>delete</code>、<code>patch</code>，参数相同。</p>
 <figure class="code-block" data-code-id="cf28a136bc94">
   <figcaption>
@@ -428,6 +428,25 @@ response = network.post(
     timeout=20,
 )</code></pre>
 </figure>
+<p><code>follow_redirects=True</code> 保持默认的系统重定向行为，旧代码无需修改。只有登录协议、OAuth 或必须读取原始 <code>3xx + Location</code> 并决定是否重复 <code>POST</code> 的客户端，才应显式传入 <code>False</code>：</p>
+<figure class="code-block" data-code-id="fc6d812e699b">
+  <figcaption>
+    <span>python</span>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="fc6d812e699b" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
+  </figcaption>
+  <pre><code id="code-fc6d812e699b" class="language-python">response = network.post(
+    &quot;https://api.example.com/session&quot;,
+    body=request_body,
+    headers={&quot;Content-Type&quot;: &quot;application/xml&quot;},
+    follow_redirects=False,
+)
+
+if 300 &lt;= response.status &lt; 400:
+    location = response.headers.get(&quot;Location&quot;, &quot;&quot;)
+    # 先校验 scheme、host、port、重定向次数和凭据边界，
+    # 再决定是否向新地址重新发送请求。</code></pre>
+</figure>
+<p>关闭自动重定向只会让当前响应原样返回，不会替调用方验证 <code>Location</code>，也不会自动重放请求。手动跟随时必须限制次数、只允许预期 HTTPS 主机，并谨慎处理 <code>Authorization</code>、<code>Cookie</code>、API Key 等敏感头。旧版宿主没有此选项时会明确抛出可用性错误，不会悄悄退回自动跟随。</p>
 <p><strong><code>Response</code> 对象：</strong></p>
 <div class="table-scroll"><table><thead><tr><th>属性/方法</th><th>说明</th></tr></thead><tbody><tr><td><code>status</code></td><td>HTTP 状态码</td></tr><tr><td><code>ok</code></td><td><code>200–299</code> 时为 <code>True</code></td></tr><tr><td><code>text</code></td><td>响应正文字符串</td></tr><tr><td><code>json()</code></td><td>解析 JSON；非 JSON 会抛异常</td></tr><tr><td><code>headers</code></td><td>响应头字典</td></tr></tbody></table></div>
 <figure class="code-block" data-code-id="982e8db7792a">
@@ -464,7 +483,7 @@ with network.stream(
 <p><code>StreamResponse</code> 会对慢消费者施加背压：原生缓冲达到上限后暂停接收，Python 消费后继续。离开 <code>with</code>、调用 <code>close()</code> / <code>cancel()</code>，或当前 MiniApp 运行停止时，原生任务都会取消。</p>
 <div class="table-scroll"><table><thead><tr><th>属性/方法</th><th>说明</th></tr></thead><tbody><tr><td><code>status</code> / <code>ok</code> / <code>headers</code> / <code>url</code></td><td>响应元数据</td></tr><tr><td><code>closed</code></td><td>流是否已结束或取消</td></tr><tr><td><code>iter_bytes(chunk_size=65536, timeout=None)</code></td><td>逐块返回 <code>bytes</code>；块大小必须为 1 字节至 1 MiB</td></tr><tr><td><code>iter_text(...)</code></td><td>用增量解码器返回文本，正确处理跨块 UTF-8 字符</td></tr><tr><td><code>iter_lines(..., max_line_chars=1048576)</code></td><td>逐行返回文本，移除行尾换行符；无换行超长内容会在 1 MiB 上限处失败</td></tr><tr><td><code>iter_sse(..., max_event_chars=1048576)</code></td><td>解析 Server-Sent Events；单事件有 1 MiB 聚合上限</td></tr><tr><td><code>read(max_bytes=67108864, ...)</code></td><td>有明确内存上限地读取剩余正文，返回 <code>bytes</code></td></tr><tr><td><code>json(max_bytes=67108864, ...)</code></td><td>在上限内读取并解析 JSON</td></tr><tr><td><code>close()</code> / <code>cancel()</code></td><td>幂等取消并释放原生任务</td></tr></tbody></table></div>
 <p><code>buffer_limit</code> 可设为 64 KiB–4 MiB，只控制原生待消费缓冲，不是完整响应大小；每个运行最多 8 条流、全局最多 64 条，request body 最大 16 MiB、headers 最大 64 KiB。<code>read()</code> 默认 64 MiB且不得超过 256 MiB。等待下一块超过 <code>read_timeout</code> 会抛 <code>TimeoutError</code>；超长行或 SSE 事件会抛出带稳定 <code>code</code> 的 <code>StreamError</code>，不会无限累积内存。</p>
-<p>普通 <code>request/get/post</code> 同样限制为 128 个 header、64 KiB header 总量和 16 MiB 文本/JSON body；header 名大小写不敏感且不得重复，也不能自行设置 URLSession 管理的 <code>Host</code>、<code>Content-Length</code>、<code>Connection</code>、<code>Transfer-Encoding</code>。重定向继续按原始能力租约校验，HTTPS 不会降级到 HTTP，跨 origin 时会移除认证、Cookie、API key 和 token/secret 类 header。更大的上传应使用后台传输 V2，而不是在 Python 与 JSON 之间复制整块数据。</p>
+<p>普通 <code>request/get/post</code> 同样限制为 128 个 header、64 KiB header 总量和 16 MiB 文本/JSON body；header 名大小写不敏感且不得重复，也不能自行设置 URLSession 管理的 <code>Host</code>、<code>Content-Length</code>、<code>Connection</code>、<code>Transfer-Encoding</code>。默认自动重定向继续按原始能力租约校验，HTTPS 不会降级到 HTTP，跨 origin 时会移除认证、Cookie、API key 和 token/secret 类 header；<code>follow_redirects=False</code> 则返回原始 3xx，由调用方承担目标验证和敏感头处理。更大的上传应使用后台传输 V2，而不是在 Python 与 JSON 之间复制整块数据。</p>
 <h3 id="下载"><a class="heading-anchor" href="#下载">#</a>下载</h3>
 <p><strong><code>download(url, dest_path, timeout=120)</code></strong> — 下载到本地路径，成功返回 <code>True</code>。</p>
 <figure class="code-block" data-code-id="c8844b0240e7">

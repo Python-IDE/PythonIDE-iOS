@@ -289,7 +289,8 @@
   </header>
   
   <div class="markdown-body">
-    <p>语音转文字（SFSpeechRecognizer）：实时麦克风听写，或转写音频文件。</p>
+    <p>R7：新增 <code>permission_status()</code>、有 partial transcript 的 <code>listen(..., budget=...)</code> 和 <code>recognize_file_async()</code>。底层识别 task、音频 engine、取消和迟到结果都按 owner/operation 隔离；输入文件必须是当前 lease 可读的 <code>FileResource</code> 或路径。</p>
+<p>语音转文字（SFSpeechRecognizer）：实时麦克风听写，或转写音频文件。</p>
 <blockquote class="callout note"><strong>边界</strong>：与 <a href="../../pages/speech-module/">speech</a>（文字→语音）方向相反。实时模式需要<strong>语音识别 + 麦克风</strong>系统授权；<code>start()</code> 未授权时会报 <code>denied</code>。统一 <a href="../../pages/permission-module/">permission</a> 的 <code>request()</code> 暂不支持 <code>speech</code>/<code>microphone</code> 弹窗，需在系统设置中开启权限。</blockquote>
 <h2 id="模块概览"><a class="heading-anchor" href="#模块概览">#</a>模块概览</h2>
 <div class="table-scroll"><table><thead><tr><th>项</th><th>说明</th></tr></thead><tbody><tr><td>导入</td><td><code>import speech_recognition as sr</code></td></tr><tr><td>适合做什么</td><td>语音输入、听写备忘、语音搜索、音频转文字</td></tr><tr><td>调用时机</td><td><code>start()</code> / <code>recognize_file()</code> 放在按钮回调</td></tr><tr><td>实时模式</td><td><code>start</code> → 轮询 <code>text()</code> → <code>stop()</code> 拿最终文本</td></tr><tr><td>文件模式</td><td><code>recognize_file(path)</code> 一次性返回完整稿</td></tr></tbody></table></div>

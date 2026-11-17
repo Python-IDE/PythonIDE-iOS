@@ -289,43 +289,159 @@
   </header>
   
   <div class="markdown-body">
-    <blockquote class="callout note">本文档已迁移至 <a href="../../pages/vision-helper-module/">vision-helper-module</a>。侧边栏与 schema 均以 <code>vision-helper-module.md</code> 为准。</blockquote>
-<h2 id="appui-图片检测配方"><a class="heading-anchor" href="#appui-图片检测配方">#</a>AppUI 图片检测配方</h2>
-<figure class="code-block" data-code-id="a2a4e43c15bc">
+    <p>R7 任务入口：<code>VisionError</code>、<code>recognize_text()</code>、<code>request_async()</code>、<code>cancel_request()</code>、<code>detect_file()</code>、<code>detect_file_async()</code>。请求具有 operation identity、取消、超时与输入/结果预算；文件必须由当前 lease 授权。</p>
+<p>Vision 框架检测：人脸、条码、图像分类、矩形检测。输入为 Base64 编码图片。</p>
+<blockquote class="callout note"><strong>边界</strong>：旧 <code>detect_*</code> / <code>classify_image</code> 接受 Base64 字符串；新代码可直接把授权路径或 <code>FileResource</code> 交给 <code>detect_file()</code>。<code>request_async()</code> / <code>detect_file_async()</code> 返回可取消的 <code>OperationHandle</code>；<code>async_request()</code> + <code>poll_result()</code> 只为旧代码保留。只需要 OCR 字符串时也可以使用更窄的 <a href="../../pages/vision-module/">vision</a> 模块。</blockquote>
+<h2 id="模块概览"><a class="heading-anchor" href="#模块概览">#</a>模块概览</h2>
+<div class="table-scroll"><table><thead><tr><th>项</th><th>说明</th></tr></thead><tbody><tr><td>导入</td><td><code>import vision_helper</code></td></tr><tr><td>适合做什么</td><td>扫二维码/条码、数人脸、找矩形、图片标签</td></tr><tr><td>调用时机</td><td>检测放在按钮回调；大图注意耗时</td></tr><tr><td>推荐顺序</td><td>文件输入用 <code>detect_file</code>；内存输入用 Base64 <code>detect_*</code>；耗时任务用 <code>*_async</code></td></tr><tr><td>返回</td><td>字典含 <code>success</code> 与结果列表字段</td></tr></tbody></table></div>
+<hr>
+<h2 id="快速开始"><a class="heading-anchor" href="#快速开始">#</a>快速开始</h2>
+<p>从图片文件做条码与人脸检测：</p>
+<figure class="code-block" data-code-id="d7978a6f2794">
   <figcaption>
     <span>python</span>
-    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="a2a4e43c15bc" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="d7978a6f2794" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
-  <pre><code id="code-a2a4e43c15bc" class="language-python">import appui
+  <pre><code id="code-d7978a6f2794" class="language-python">import base64
 import vision_helper
+
+with open(&quot;/path/to/photo.jpg&quot;, &quot;rb&quot;) as f:
+    b64 = base64.b64encode(f.read()).decode()
+
+barcodes = vision_helper.detect_barcodes(b64)
+print(barcodes.get(&quot;barcodes&quot;, []))
+
+faces = vision_helper.detect_faces(b64)
+print(faces.get(&quot;faces&quot;, []))</code></pre>
+</figure>
+<hr>
+<h2 id="appui-示例"><a class="heading-anchor" href="#appui-示例">#</a>AppUI 示例</h2>
+<p>选图后检测条码，展示第一条 payload。</p>
+<figure class="code-block" data-code-id="1cca86147f4a">
+  <figcaption>
+    <span>python</span>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="1cca86147f4a" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
+  </figcaption>
+  <pre><code id="code-1cca86147f4a" class="language-python">import appui
+import base64
+import photos
+import vision_helper
+
+state = appui.State(
+    mode=&quot;条码&quot;,
+    status=&quot;尚未检测&quot;,
+    detail=&quot;—&quot;,
+)
+
+
+def detect_from_photos():
+    payload = photos.pick_image_base64(format=&quot;JPEG&quot;, quality=0.85)
+    if not payload:
+        state.status = &quot;未选择图片&quot;
+        return
+
+    if state.mode == &quot;条码&quot;:
+        result = vision_helper.detect_barcodes(payload)
+        items = result.get(&quot;barcodes&quot;, []) if result.get(&quot;success&quot;, True) else []
+        if not items:
+            state.batch_update(status=&quot;未检测到条码&quot;, detail=&quot;—&quot;)
+            return
+        first = items[0]
+        state.batch_update(
+            status=f&quot;共 {len(items)} 个&quot;,
+            detail=first.get(&quot;payload&quot;, &quot;—&quot;),
+        )
+    else:
+        result = vision_helper.detect_faces(payload)
+        items = result.get(&quot;faces&quot;, []) if result.get(&quot;success&quot;, True) else []
+        state.batch_update(
+            status=f&quot;人脸 {len(items)} 个&quot;,
+            detail=str(items[0]) if items else &quot;—&quot;,
+        )
+
+
+def toggle_mode():
+    state.mode = &quot;人脸&quot; if state.mode == &quot;条码&quot; else &quot;条码&quot;
 
 
 def body():
-    return appui.Form([
-        appui.Section(&quot;Vision Helper&quot;, [
-            appui.Text(&quot;在按钮回调中传入 base64 图片并调用 detect_* API&quot;),
-        ])
-    ])</code></pre>
+    return appui.NavigationStack(
+        appui.Form([
+            appui.Section(&quot;检测&quot;, [
+                appui.Button(&quot;选图并检测&quot;, action=detect_from_photos)
+                .button_style(&quot;bordered_prominent&quot;),
+                appui.Button(f&quot;切换模式（当前：{state.mode}）&quot;, action=toggle_mode),
+            ]),
+            appui.Section(&quot;结果&quot;, [
+                appui.LabeledContent(&quot;状态&quot;, value=state.status),
+                appui.Text(state.detail).foreground_color(&quot;secondaryLabel&quot;),
+            ]),
+        ]).navigation_title(&quot;Vision 检测&quot;)
+    )
+
+
+appui.run(body, state=state)</code></pre>
 </figure>
-<p>预期效果：页面展示检测入口；成功后在界面上显示检测摘要。</p>
-<figure class="code-block" data-code-id="2ae76455ce34">
+<hr>
+<h2 id="api-参考"><a class="heading-anchor" href="#api-参考">#</a>API 参考</h2>
+<h3 id="速查"><a class="heading-anchor" href="#速查">#</a>速查</h3>
+<div class="table-scroll"><table><thead><tr><th>API</th><th>作用</th></tr></thead><tbody><tr><td><code>is_vision_available()</code></td><td>Vision 是否可用</td></tr><tr><td><code>setup_vision_framework()</code></td><td>底层类字典（高级）</td></tr><tr><td><code>detect_faces(image_base64)</code></td><td>人脸框与置信度</td></tr><tr><td><code>detect_face_landmarks(image_base64)</code></td><td>人脸关键点</td></tr><tr><td><code>detect_barcodes(image_base64)</code></td><td>二维码/条码</td></tr><tr><td><code>classify_image(image_base64, max_results=5)</code></td><td>图像分类（iOS 15+）</td></tr><tr><td><code>detect_rectangles(image_base64)</code></td><td>矩形检测</td></tr><tr><td><code>recognize_text(image_base64)</code></td><td>OCR，返回结构化字典</td></tr><tr><td><code>detect_file(path, operation=...)</code></td><td>对授权路径或 <code>FileResource</code> 同步检测</td></tr><tr><td><code>request_async(op, b64, ..., budget=...)</code></td><td>Base64 检测任务，返回 <code>OperationHandle</code></td></tr><tr><td><code>detect_file_async(path, operation=..., budget=...)</code></td><td>文件检测任务，返回 <code>OperationHandle</code></td></tr><tr><td><code>cancel_request(callback_id)</code></td><td>取消旧轮询任务</td></tr><tr><td><code>async_request(...)</code> / <code>poll_result(...)</code></td><td>兼容旧轮询协议；新代码不推荐</td></tr></tbody></table></div>
+<h3 id="同步检测"><a class="heading-anchor" href="#同步检测">#</a>同步检测</h3>
+<p>所有 <code>detect_*</code> / <code>classify_image</code> 接受 <strong>Base64 字符串</strong>（非文件路径）：</p>
+<figure class="code-block" data-code-id="d84fb4a2d013">
   <figcaption>
     <span>python</span>
-    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="2ae76455ce34" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="d84fb4a2d013" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
-  <pre><code id="code-2ae76455ce34" class="language-python"># 最小调用骨架（在命名回调中执行）
-# result = vision_helper.detect_barcodes(image_b64)</code></pre>
+  <pre><code id="code-d84fb4a2d013" class="language-python">result = vision_helper.detect_barcodes(b64)
+# {&quot;success&quot;: True, &quot;barcodes&quot;: [{&quot;payload&quot;, &quot;symbology&quot;, &quot;confidence&quot;, &quot;bounding_box&quot;}, ...]}
+
+result = vision_helper.detect_faces(b64)
+# {&quot;success&quot;: True, &quot;faces&quot;: [{&quot;x&quot;, &quot;y&quot;, &quot;width&quot;, &quot;height&quot;, &quot;confidence&quot;}, ...]}
+
+result = vision_helper.classify_image(b64, max_results=5)
+# {&quot;success&quot;: True, &quot;classifications&quot;: [{&quot;identifier&quot;, &quot;confidence&quot;}, ...]}</code></pre>
 </figure>
-<h2 id="失败路径"><a class="heading-anchor" href="#失败路径">#</a>失败路径</h2>
-<div class="table-scroll"><table><thead><tr><th>情况</th><th>处理</th></tr></thead><tbody><tr><td>权限被拒绝</td><td>在设置中开启权限后，从用户触发的回调重试</td></tr><tr><td>设备或能力不可用</td><td>先检查返回值或 <code>is_available()</code>，再给用户可读提示</td></tr><tr><td>用户取消</td><td>保留当前界面状态，不要当作成功继续流程</td></tr><tr><td>参数或 API 名错误</td><td>对照模块 API 参考与 schema，修正后再运行</td></tr></tbody></table></div>
+<h3 id="文件与可取消异步任务"><a class="heading-anchor" href="#文件与可取消异步任务">#</a>文件与可取消异步任务</h3>
+<figure class="code-block" data-code-id="671f8f2083e3">
+  <figcaption>
+    <span>python</span>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="671f8f2083e3" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
+  </figcaption>
+  <pre><code id="code-671f8f2083e3" class="language-python">from appui_operations import ResourceBudget
+from appui_resources import FileResource
+
+result = vision_helper.detect_file(
+    FileResource(&quot;photo.jpg&quot;),
+    operation=&quot;detect_barcodes&quot;,
+    max_bytes=8 * 1024 * 1024,
+)
+
+task = vision_helper.detect_file_async(
+    &quot;photo.jpg&quot;,
+    operation=&quot;recognize_text&quot;,
+    budget=ResourceBudget(max_bytes=8 * 1024 * 1024, timeout_seconds=10),
+)
+receipt = task.result(12)
+if receipt.ok:
+    print(receipt.value)</code></pre>
+</figure>
+<p><code>operation</code> 可选：<code>detect_faces</code>、<code>detect_face_landmarks</code>、<code>detect_barcodes</code>、<code>classify_image</code>、<code>detect_rectangles</code>、<code>recognize_text</code>。调用方预算只能收紧模块上限（64 MiB、35 秒、同 owner 最多 2 个并发任务），不能放宽它们。页面关闭或不再需要结果时调用 <code>task.cancel()</code>；取消、超时或 lease 失效后的迟到结果不会发布到新运行。</p>
+<p>旧轮询 API 仍兼容：<code>async_request()</code> 返回 callback id，<code>poll_result()</code> 未完成时仍返回 <code>None</code>，<code>cancel_request()</code> 可显式取消。由于 <code>None</code> 不能区分所有旧失败路径，也没有 <code>OperationHandle</code> 的结构化状态，新代码应使用 <code>request_async()</code>。</p>
+<hr>
+<h2 id="常见错误"><a class="heading-anchor" href="#常见错误">#</a>常见错误</h2>
+<div class="table-scroll"><table><thead><tr><th>错误写法</th><th>后果</th><th>修正</th></tr></thead><tbody><tr><td>把路径传给旧 <code>detect_*</code></td><td>输入类型错误</td><td>用 <code>detect_file()</code> / <code>detect_file_async()</code>，或先转 Base64</td></tr><tr><td>忽略 <code>OperationHandle</code></td><td>无法取消、观察超时或读取结构化错误</td><td>保存 handle，并读取 <code>result()</code> / 调用 <code>cancel()</code></td></tr><tr><td>依靠旧 <code>poll_result()</code> 判断所有失败</td><td><code>None</code> 仍可能表示未完成或旧桥不可用</td><td>新代码改用 <code>request_async()</code></td></tr><tr><td>用无限大 budget</td><td>仍会被模块上限收紧</td><td>按实际输入设置更小的字节和超时预算</td></tr><tr><td>用 <a href="../../pages/qrcode-module/">qrcode</a> 读码</td><td>模块只生成</td><td>用 <code>detect_barcodes</code></td></tr><tr><td>在 <code>body()</code> 里自动检测</td><td>刷新时重复推理</td><td>放进按钮回调</td></tr></tbody></table></div>
+<hr>
+<h2 id="相关文档"><a class="heading-anchor" href="#相关文档">#</a>相关文档</h2>
+<div class="table-scroll"><table><thead><tr><th>文档</th><th>用途</th></tr></thead><tbody><tr><td><a href="../../pages/vision-module/">vision</a></td><td>OCR 文字识别</td></tr><tr><td><a href="../../pages/photos-module/">photos</a></td><td>选图 Base64</td></tr><tr><td><a href="../../pages/qrcode-module/">qrcode</a></td><td>生成二维码</td></tr></tbody></table></div>
 <h2 id="预期效果"><a class="heading-anchor" href="#预期效果">#</a>预期效果</h2>
-<p>运行示例后，界面应出现文档描述的目标结果；若与预期不符，请按「失败路径」排查。</p>
+<p>运行示例后，界面应出现文档描述的目标结果；若与预期不符，先看「失败路径」并按返回值或日志排查。</p>
   </div>
   
 </article>
 
     </main>
-    <aside class="toc"><div class="toc-title">本页目录</div><a class="toc-link" href="#appui-图片检测配方">AppUI 图片检测配方</a><a class="toc-link" href="#失败路径">失败路径</a><a class="toc-link" href="#预期效果">预期效果</a></aside>
+    <aside class="toc"><div class="toc-title">本页目录</div><a class="toc-link" href="#模块概览">模块概览</a><a class="toc-link" href="#快速开始">快速开始</a><a class="toc-link" href="#appui-示例">AppUI 示例</a><a class="toc-link" href="#api-参考">API 参考</a><a class="toc-link child" href="#速查">速查</a><a class="toc-link child" href="#同步检测">同步检测</a><a class="toc-link child" href="#文件与可取消异步任务">文件与可取消异步任务</a><a class="toc-link" href="#常见错误">常见错误</a><a class="toc-link" href="#相关文档">相关文档</a><a class="toc-link" href="#预期效果">预期效果</a></aside>
   </div>
   <div class="mobile-backdrop"></div>
   <div class="search-panel" role="dialog" aria-modal="true" aria-label="搜索">

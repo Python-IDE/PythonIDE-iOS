@@ -294,7 +294,7 @@
 <h2 id="预期效果"><a class="heading-anchor" href="#预期效果">#</a>预期效果</h2>
 <p>示例会展示原生 List 的搜索、刷新、空状态、行操作和长列表承载方式。</p>
 <h2 id="概念速览"><a class="heading-anchor" href="#概念速览">#</a>概念速览</h2>
-<div class="table-scroll"><table><thead><tr><th>能力</th><th>API</th></tr></thead><tbody><tr><td>列表</td><td><code>List(content)</code></td></tr><tr><td>数据驱动行</td><td><code>ForEach(data, row_builder, key=...)</code></td></tr><tr><td>表单</td><td><code>Form(content)</code>、<code>Section(&quot;标题&quot;, content)</code>、<code>Section(content, header=...)</code></td></tr><tr><td>样式 / 交互</td><td><code>.list_style(style)</code>、<code>.swipe_actions</code>、<code>.refreshable(action)</code>、<code>.searchable(text, on_change)</code></td></tr><tr><td>行外观</td><td><code>.list_row_background(color)</code>、<code>.list_row_separator(visibility)</code></td></tr></tbody></table></div>
+<div class="table-scroll"><table><thead><tr><th>能力</th><th>API</th></tr></thead><tbody><tr><td>列表</td><td><code>List(content)</code></td></tr><tr><td>数据驱动行</td><td><code>ForEach(data, row_builder, key=...)</code></td></tr><tr><td>表单</td><td><code>Form(content)</code>、<code>Section(&quot;标题&quot;, content)</code>、<code>Section(content, header=...)</code></td></tr><tr><td>样式 / 交互</td><td><code>.list_style(style)</code>、<code>.swipe_actions</code>、<code>.refreshable(action)</code>、<code>.searchable(text, on_change)</code></td></tr><tr><td>行与分区外观</td><td><code>.list_row_background(color)</code>、<code>.list_row_separator(visibility)</code>、<code>.list_section_separator(visibility)</code></td></tr></tbody></table></div>
 <h3 id="与-appui-的对应关系"><a class="heading-anchor" href="#与-appui-的对应关系">#</a>与 AppUI 的对应关系</h3>
 <ul><li><code>List</code> / <code>Form</code> 都是 <strong>纵向</strong> 容器；<code>Form</code> 默认呈现分组设置样式，但仍可用 <code>Section</code> 组织子控件。</li><li><code>ForEach</code> 不是布局，它把 Python 可迭代对象 <strong>展开</strong> 为多个子视图，因此必须保证 <code>row_builder(item)</code> 每次返回一棵合法的 <code>View</code> 子树。</li><li><code>.searchable</code> 是 <strong>修饰符</strong>：搜索框属于页面的一部分，过滤逻辑仍由你在 <code>body()</code> 里用 <code>State</code> 完成（见进阶示例）。</li><li><code>State</code> 对嵌套 <code>list</code> / <code>dict</code> 有深度观察；为减少多余刷新，批量修改请用 <code>batch_update</code>。</li></ul>
 <h3 id="list_style-常用取值"><a class="heading-anchor" href="#list_style-常用取值">#</a><code>list_style</code> 常用取值</h3>
@@ -355,7 +355,7 @@ appui.run(body, state=state)</code></pre>
 </figure>
 <hr>
 <h2 id="进阶示例"><a class="heading-anchor" href="#进阶示例">#</a>进阶示例</h2>
-<p><code>ForEach</code> 动态行、<code>.swipe_actions</code> 删除、<code>.searchable</code> 过滤、<code>.refreshable</code> 下拉刷新、<code>.list_style(&#x27;inset_grouped&#x27;)</code>，以及 <code>.list_row_background</code> / <code>.list_row_separator</code>。</p>
+<p><code>ForEach</code> 动态行、<code>.swipe_actions</code> 删除、<code>.searchable</code> 过滤、<code>.refreshable</code> 下拉刷新、<code>.list_style(&#x27;inset_grouped&#x27;)</code>，以及 <code>.list_row_background</code> / <code>.list_row_separator</code> / <code>.list_section_separator</code>。</p>
 <p>下面示例刻意把 <strong>过滤逻辑</strong> 放在 <code>body()</code> 顶部函数 <code>filtered_items()</code> 中，而不是藏在内联回调深处，便于单元测试与复用；<code>refreshable</code> 仅更新提示字符串，避免阻塞 UI 线程。</p>
 <figure class="code-block" data-code-id="5c7a1d074436">
   <figcaption>

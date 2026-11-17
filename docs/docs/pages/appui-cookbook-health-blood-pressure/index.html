@@ -3,8 +3,8 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>血压分析 - PythonIDE Docs</title>
-  <meta name="description" content="HealthKit 授权、血压查询、摘要统计和趋势图。">
+  <title>血压分析示例已退役 - PythonIDE Docs</title>
+  <meta name="description" content="此健康数据示例已退役；保留旧文档链接。">
   <link rel="icon" href="../../assets/brand-mark.svg?v=e15a28ac8e15" type="image/svg+xml">
   <link rel="stylesheet" href="../../assets/docs-v2.css">
   <script>window.PYTHONIDE_DOCS_PREFIX = "../../";</script>
@@ -284,227 +284,38 @@
 <article class="article" style="--page-accent:#e54b22">
   <header class="article-intro">
     <div class="breadcrumb">appui / 示例</div>
-    <h1>血压分析</h1>
-    <p>HealthKit 授权、血压查询、摘要统计和趋势图。</p>
+    <h1>血压分析示例已退役</h1>
+    <p>此健康数据示例已退役；保留旧文档链接。</p>
   </header>
   
   <div class="markdown-body">
-    <p>演示 <code>health</code> 授权、<code>query_blood_pressure</code> 与 <code>appui</code> 列表、分段 <code>Picker</code>、<code>Chart</code> 展示趋势与记录。</p>
-<h2 id="预期效果"><a class="heading-anchor" href="#预期效果">#</a>预期效果</h2>
-<p>运行后会出现血压分析页，授权、最新读数、趋势图和异常空状态都有对应展示。</p>
-<h2 id="完整示例"><a class="heading-anchor" href="#完整示例">#</a>完整示例</h2>
-<figure class="code-block" data-code-id="275647c0e23c">
+    <p>此示例依赖的原生健康数据访问能力已经移除，因此不再提供授权或读取示例。这个页面仅保留旧文档链接，不能作为当前健康数据访问能力或血压分析示例使用。</p>
+<p>用户已经保存的项目和数据不会被删除。需要数据展示时，请使用明确的本地输入数据，并参考 <a href="../../pages/appui-cookbook-native-list-detail/">原生列表与详情</a> 和 <a href="../../pages/appui-cookbook-index/">AppUI 示例目录</a>。</p>
+<h2 id="旧项目的不可用提示"><a class="heading-anchor" href="#旧项目的不可用提示">#</a>旧项目的不可用提示</h2>
+<p>以下示例只显示退役状态，不请求权限，也不读取或分析健康数据。</p>
+<figure class="code-block" data-code-id="d6f66db78f5b">
   <figcaption>
     <span>python</span>
-    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="275647c0e23c" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
+    <div class="code-copy-actions"><button class="copy-code" type="button" data-copy-code="d6f66db78f5b" aria-label="复制"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/><rect x="4" y="4" width="11" height="11" rx="2.25" stroke="currentColor" stroke-width="1.75"/></svg></button><span class="copy-code-toast" role="status" aria-live="polite" hidden>已复制</span></div>
   </figcaption>
-  <pre><code id="code-275647c0e23c" class="language-python">import time
-import appui
+  <pre><code id="code-d6f66db78f5b" class="language-python">import appui
 import health
 
-READ_TYPES = [&quot;blood_pressure_systolic&quot;, &quot;blood_pressure_diastolic&quot;]
+assert not health.is_available()
+def build_screen():
+    return appui.Text(&quot;健康数据访问已移除&quot;)
 
 
-def sample_records():
-    now = time.time()
-    rows = []
-    values = [(118, 76), (121, 78), (116, 74), (124, 80), (119, 77), (122, 79), (117, 75)]
-    for index, pair in enumerate(values):
-        ts = now - (len(values) - index) * 86400
-        rows.append({
-            &quot;systolic&quot;: pair[0],
-            &quot;diastolic&quot;: pair[1],
-            &quot;unit&quot;: &quot;mmHg&quot;,
-            &quot;start&quot;: ts,
-            &quot;end&quot;: ts,
-        })
-    return rows
-
-
-initial_records = sample_records()
-
-state = appui.State(
-    days=&quot;30&quot;,
-    records=initial_records,
-    summary=health.summarize_blood_pressure(initial_records),
-    source=&quot;示例数据&quot;,
-    loading=False,
-    message=&quot;真机授权后可读取 HealthKit 血压数据&quot;,
-)
-
-
-def date_label(timestamp):
-    return time.strftime(&quot;%m/%d %H:%M&quot;, time.localtime(float(timestamp)))
-
-
-def load_health_data():
-    state.loading = True
-    end = time.time()
-    start = end - int(state.days) * 86400
-    records = []
-
-    if health.is_available():
-        health.request_authorization(read=READ_TYPES)
-        records = health.query_blood_pressure(start=start, end=end)
-
-    if records:
-        source = &quot;HealthKit&quot;
-        message = f&quot;读取 {len(records)} 条血压记录&quot;
-    else:
-        records = sample_records()
-        source = &quot;示例数据&quot;
-        message = &quot;未读取到 HealthKit 血压记录，当前显示示例数据&quot;
-
-    state.batch_update(
-        records=records,
-        summary=health.summarize_blood_pressure(records),
-        source=source,
-        message=message,
-        loading=False,
-    )
-
-
-def set_days(value):
-    state.days = value
-    load_health_data()
-
-
-def record_start(item):
-    return float(item.get(&quot;start&quot;, 0))
-
-
-def chart_rows(field):
-    rows = sorted(state.records, key=record_start)[-14:]
-    return [
-        {
-            &quot;day&quot;: time.strftime(&quot;%m/%d&quot;, time.localtime(float(item.get(&quot;start&quot;, 0)))),
-            &quot;value&quot;: float(item.get(field, 0)),
-        }
-        for item in rows
-    ]
-
-
-def stat_text(field, label):
-    summary = state.summary or {}
-    stats = summary.get(field, {})
-    if not stats:
-        return appui.LabeledContent(label, value=&quot;--&quot;)
-    return appui.LabeledContent(
-        label,
-        value=f&#x27;{stats[&quot;avg&quot;]:.0f} / {stats[&quot;min&quot;]:.0f}-{stats[&quot;max&quot;]:.0f} mmHg&#x27;,
-    )
-
-
-def record_row(item):
-    return appui.HStack(
-        [
-            appui.VStack(
-                [
-                    appui.Text(date_label(item.get(&quot;start&quot;, 0))).font(&quot;headline&quot;),
-                    (
-                        appui.Text(item.get(&quot;unit&quot;, &quot;mmHg&quot;))
-                        .font(&quot;caption&quot;)
-                        .foreground_color(&quot;secondaryLabel&quot;)
-                    ),
-                ],
-                alignment=&quot;leading&quot;,
-            ),
-            appui.Spacer(),
-            (
-                appui.Text(
-                    f&#x27;{item.get(&quot;systolic&quot;, 0):.0f}/&#x27;
-                    f&#x27;{item.get(&quot;diastolic&quot;, 0):.0f}&#x27;
-                )
-                .font(&quot;title3&quot;)
-                .bold()
-            ),
-        ],
-        spacing=12,
-    )
-
-
-def record_key(item):
-    return item.get(&quot;start&quot;, 0)
-
-
-def body():
-    latest = (state.summary or {}).get(&quot;latest&quot;) or {}
-    return appui.NavigationStack(
-        appui.List(
-            [
-                appui.Section(
-                    [
-                        appui.LabeledContent(&quot;数据源&quot;, value=state.source),
-                        appui.LabeledContent(&quot;状态&quot;, value=state.message),
-                        appui.Picker(
-                            &quot;时间范围&quot;,
-                            selection=state.days,
-                            options=[&quot;7&quot;, &quot;30&quot;, &quot;90&quot;],
-                            on_change=set_days,
-                        ).picker_style(&quot;segmented&quot;),
-                        appui.Button(&quot;刷新 HealthKit&quot;, action=load_health_data)
-                            .button_style(&quot;bordered_prominent&quot;),
-                    ],
-                    header=&quot;同步&quot;,
-                    footer=&quot;本示例只做个人数据统计和可视化，不提供医疗诊断。&quot;,
-                ),
-                appui.Section(
-                    [
-                        appui.LabeledContent(
-                            &quot;最近一次&quot;,
-                            value=(
-                                f&#x27;{latest.get(&quot;systolic&quot;, 0):.0f}/&#x27;
-                                f&#x27;{latest.get(&quot;diastolic&quot;, 0):.0f} mmHg&#x27;
-                            )
-                            if latest else &quot;--&quot;,
-                        ),
-                        stat_text(&quot;systolic&quot;, &quot;收缩压 均值/范围&quot;),
-                        stat_text(&quot;diastolic&quot;, &quot;舒张压 均值/范围&quot;),
-                    ],
-                    header=&quot;摘要&quot;,
-                ),
-                appui.Section(
-                    [
-                        appui.Chart(
-                            chart_rows(&quot;systolic&quot;),
-                            x=&quot;day&quot;,
-                            y=&quot;value&quot;,
-                            type=&quot;line&quot;,
-                            color=&quot;systemRed&quot;,
-                        )
-                            .frame(height=180),
-                        appui.Chart(
-                            chart_rows(&quot;diastolic&quot;),
-                            x=&quot;day&quot;,
-                            y=&quot;value&quot;,
-                            type=&quot;line&quot;,
-                            color=&quot;systemBlue&quot;,
-                        )
-                            .frame(height=180),
-                    ],
-                    header=&quot;趋势&quot;,
-                ),
-                appui.Section(
-                    [appui.ForEach(state.records[:20], record_row, key=record_key)],
-                    header=&quot;记录&quot;,
-                ),
-            ]
-        )
-        .refreshable(load_health_data)
-        .navigation_title(&quot;血压&quot;)
-    )
-
-
-appui.run(body, state=state, presentation=&quot;sheet&quot;)</code></pre>
+appui.run(build_screen)</code></pre>
 </figure>
-<h2 id="关键技巧"><a class="heading-anchor" href="#关键技巧">#</a>关键技巧</h2>
-<ul><li>授权时申请 <code>blood_pressure_systolic</code> 与 <code>blood_pressure_diastolic</code>，避免依赖组合类型授权表现。</li><li><code>query_blood_pressure</code> 返回配对 mmHg；无数据时可回落示例集合并标明数据源。</li><li><code>summarize_blood_pressure</code> 仅作统计展示，非诊断依据。</li></ul>
+<h2 id="预期效果"><a class="heading-anchor" href="#预期效果">#</a>预期效果</h2>
+<p>画面显示“健康数据访问已移除”，不出现健康授权弹窗。原项目内容和用户已经保存的数据仍然保留。</p>
   </div>
   
 </article>
 
     </main>
-    <aside class="toc"><div class="toc-title">本页目录</div><a class="toc-link" href="#预期效果">预期效果</a><a class="toc-link" href="#完整示例">完整示例</a><a class="toc-link" href="#关键技巧">关键技巧</a></aside>
+    <aside class="toc"><div class="toc-title">本页目录</div><a class="toc-link" href="#旧项目的不可用提示">旧项目的不可用提示</a><a class="toc-link" href="#预期效果">预期效果</a></aside>
   </div>
   <div class="mobile-backdrop"></div>
   <div class="search-panel" role="dialog" aria-modal="true" aria-label="搜索">

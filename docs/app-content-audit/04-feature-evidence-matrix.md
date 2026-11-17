@@ -14,7 +14,7 @@ L1 证据至少为两种独立来源；L3 继承其 L2 行的 UI/导航/实现�
 
 | L1 | 证据 1 | 证据 2 | 结论 |
 |---|---|---|---|
-| F01 | `HomeView+ListView.swift:385-700`（UI/Menu） | `ShareExtension/ShareViewController.swift:80-179,616-1028`（扩展/业务） | A |
+| F01 | `WorkspaceBrowserView+ListView.swift:385-700`（UI/Menu） | `ShareExtension/ShareViewController.swift:80-179,616-1028`（扩展/业务） | A |
 | F02 | `ContentView+EditorViews.swift:300-900`（UI/手势） | `EditorSettingsView.swift:58-318`（设置/文案） | A |
 | F03 | `ContentView.swift:430-500,850-980`（路由/Sheet） | `ContentView+Debugging.swift:1-560`、Runtime Tests（实现/测试） | A |
 | F04 | `AIChatPageView.swift`、`AIChatInputBarComponents.swift:430-820`（UI） | `AgentRuntime/Tools/ToolBroker.swift`、Agent Tests（实现/测试） | A |
@@ -23,17 +23,17 @@ L1 证据至少为两种独立来源；L3 继承其 L2 行的 UI/导航/实现�
 | F07 | `NativeModulesGuideView.swift:1-560`（用户文档） | `Integrations/*Bridge.swift` + Entitlements（实现/权限） | B（逐能力不同） |
 | F08 | `TerminalTabView.swift`、`ServerEditView.swift`、`SFTPFileView.swift`（UI） | `NSRemoteShell`/`SSHConnectionManager.swift` + Tests（实现/测试） | A/B |
 | F09 | `GitRepositoryView*.swift`（UI） | `GitService*.swift` + Git Tests（实现/测试） | A/B |
-| F10 | `ScriptLibraryNextPreviewView.swift:120-539`（UI/路由） | `WebsiteOnlineView.swift:757-928`、Community/Website API（UI/API） | A/B |
+| F10 | `CommunityPlatformView.swift`、`CommunityProfileView.swift`（UI/路由） | `CommunityDiscoveryViews.swift`、`ScriptSubmissionView.swift`、Community/Website API（UI/API） | A/B |
 | F11 | `SettingsHomeModels.swift:40-65`、`ToolCatalog.swift:3-74`（UI Catalog） | `AppDataManagerView.swift:45-350`、`SettingsGeneralViews.swift:80-700`（业务） | A |
-| F12 | `PythonIDEAccountLoginView`/Profile（UI） | `ProMembershipSheet.swift:10-132` + StoreKit Managers（购买实现） | A/B |
+| F12 | `PythonIDEAuthenticationFlowView`/`CommunityProfileView`（UI） | `ProMembershipSheet.swift:10-132` + StoreKit Managers（购买实现） | A/B |
 
 ## L2 → L3 追踪矩阵
 
 | L2 / 覆盖 L3 | 主要证据（路径:行；符号） | 类型 | 置信度 |
 |---|---|---|---|
 | F01.01 / .01–.03 | `pythonide/Home/NewFileFlowSheet.swift`；`ShareExtension/ShareViewController.swift:80-179,616-1028` | UI、扩展、业务、本地化 | A |
-| F01.02 / .01–.03 | `HomeView+RowViews.swift`（`contextMenu`/`swipeActions`）；`HomeView+ListView.swift:385-700` | UI、手势、业务 | A |
-| F01.03 / .01–.03 | `WorkspaceRoot.swift`；`ExternalFolderManager.swift`；`HomeView+FileOps.swift` | 数据模型、权限、业务 | A/B |
+| F01.02 / .01–.03 | `WorkspaceBrowserView+RowViews.swift`（`contextMenu`/`swipeActions`）；`WorkspaceBrowserView+ListView.swift:385-700` | UI、手势、业务 | A |
+| F01.03 / .01–.03 | `WorkspaceRoot.swift`；`ExternalFolderManager.swift`；`WorkspaceBrowserView+FileOps.swift` | 数据模型、权限、业务 | A/B |
 | F01.04 / .01–.02 | `TrashSheet.swift`；`TrashFolderArchiver.swift`；外部目录删除实现 | UI、业务、本地化 | A/B |
 | F01.05 / .01–.02 | `QuickLookPreview.swift`；`ArchiveBrowserView.swift`；`EncryptedFileShare.swift`；`ScriptQRSheet.swift` | UI、业务、Crypto | A |
 | F02.01 / .01–.03 | `RunestoneTextView*.swift`；`ContentView+EditorViews.swift`；Editor tests | UI、实现、测试 | A/B |
@@ -78,9 +78,9 @@ L1 证据至少为两种独立来源；L3 继承其 L2 行的 UI/导航/实现�
 | F09.04 / .01–.03 | Branch/Tag/Stash sheets and services | UI、业务 | A/B |
 | F09.05 / .01–.02 | Remote/auth/sync services；`GitSyncActivityController.swift` | 网络、Keychain、ActivityKit | A |
 | F09.06 / .01–.02 | Conflict editor/resolver；provider checks clients | UI、业务、API | A/B |
-| F10.01 / .01–.03 | `ScriptLibraryNextPreviewView.swift:120-539`；deep-link API | UI、导航、API | A |
+| F10.01 / .01–.03 | `CommunityPlatformView.swift`、`CommunityDiscoveryViews.swift`；deep-link API | UI、导航、API | A |
 | F10.02 / .01–.03 | `ScriptDetailView.swift:230-430`；`ScriptLibraryActionSupport.swift:871-960` | UI、Runtime、Share | A |
-| F10.03 / .01–.03 | `ScriptLibraryNextPreviewView.swift:1704-3935`；Community API | UI、账号、通知 | A/B |
+| F10.03 / .01–.03 | `CommunityProfileView.swift`、`CommunityDiscoveryViews.swift`；Community API | UI、账号、通知、隐私 | A/B |
 | F10.04 / .01–.02 | `ScriptSubmissionView.swift`；ProjectPackageStore；API upload models | UI、打包、API | A/B |
 | F10.05 / .01–.02 | `WebsiteOnlineView.swift:757-928`；`WebsiteManagementSheet.swift:45-161`；Service | UI、API、付费 Gate | A |
 | F11.01 / .01–.03 | `ToolCatalog.swift:3-25`；`CodecToolView`、`JSONToolView`、`APITestToolView` | UI、业务 | A |
@@ -88,7 +88,7 @@ L1 证据至少为两种独立来源；L3 继承其 L2 行的 UI/导航/实现�
 | F11.03 / .01–.03 | `ToolCatalog.swift:47-74`；Timestamp/Base/Regex/Download views | UI、网络、后台 | A |
 | F11.04 / .01–.02 | `SettingsGeneralViews.swift:279-410`；Editor/Console/Background settings | 设置、手势、本地化 | A |
 | F11.05 / .01–.02 | `AppDataManagerView.swift:45-350`；`SettingsGeneralViews.swift:80-167,568-700`；Docs/Feedback | UI、数据、安全 | A |
-| F12.01 / .01–.03 | `PythonIDEAccountLoginView`、Profile Setup/Edit `:3436-3935`；SessionStore | UI、Sign in with Apple、API | A |
+| F12.01 / .01–.03 | `PythonIDEAuthenticationFlowView`、`CommunityProfileView`；SessionStore | UI、Sign in with Apple、API | A |
 | F12.02 / .01–.03 | `ProMembershipSheet.swift:10-132`；IAP/Entitlement managers | UI、StoreKit、业务 | A/B |
 | F12.03 / .01–.03 | `ProMembershipSheet.swift:18-87`；Website quota；PaidFeatureGate | Paywall、Gate、API | A/B |
 | F12.04 / .01–.02 | `DonationView.swift`；`DonationHonorManager` | UI、StoreKit | A/B |
