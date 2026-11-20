@@ -1,0 +1,214 @@
+<!doctype html>
+<html lang="en" data-lang="en" data-static-language>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#ffffff">
+  <meta name="apple-itunes-app" content="app-id=6753987304">
+  <title>How to Run Python on iPad and iPhone | PythonIDE</title>
+  <meta name="description" content="Run your first Python script on iPad or iPhone, then load a sample CSV in a local Jupyter notebook, clean it with pandas, and make a Matplotlib chart.">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="PythonIDE">
+  <meta property="og:title" content="How to Run Python on iPad and iPhone | PythonIDE">
+  <meta property="og:description" content="Run your first Python script on iPad or iPhone, then load a sample CSV in a local Jupyter notebook, clean it with pandas, and make a Matplotlib chart.">
+  <meta property="og:url" content="https://pythonide.xin/en/run-python-on-ipad-iphone/">
+  <meta property="og:image" content="https://pythonide.xin/assets/pythonide-social-card.png?v=4">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://pythonide.xin/assets/pythonide-social-card.png?v=4">
+  <link rel="canonical" href="https://pythonide.xin/en/run-python-on-ipad-iphone/">
+  <link rel="icon" href="/assets/brand-mark.svg?v=e15a28ac8e15" type="image/svg+xml">
+  <script>(function(){try{var t=localStorage.getItem("pythonide_site_theme");if(t==="light"||t==="dark")document.documentElement.dataset.theme=t;}catch(_){}}());</script>
+  <link rel="stylesheet" href="/assets/site.css?v=website-guide">
+  <style>
+    .python-guide-code {
+      max-width: 100%;
+      margin: 16px 0 0;
+      padding: 14px 16px;
+      overflow-x: auto;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      background: var(--surface-soft);
+      color: var(--ink);
+      font: 0.875rem/1.55 var(--mono);
+    }
+    .python-guide-code code { font: inherit; }
+    .python-guide-note { margin: 24px 0 0; }
+    .python-guide .website-step p + p { margin-top: 12px; }
+    #first-script, #notebook { scroll-margin-top: 76px; }
+  </style>
+  <script defer src="/assets/site.js?v=website-guide"></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <div class="page">
+    <header class="site-header">
+      <nav class="nav" aria-label="PythonIDE navigation">
+        <a class="brand" href="/?lang=en" aria-label="PythonIDE home"><img class="brand-mark" src="/assets/brand-mark.svg?v=e15a28ac8e15" alt=""><span>PythonIDE</span></a>
+        <div class="nav-links" data-nav-links data-open="false">
+          <a class="nav-link" href="/?lang=en">Overview</a>
+          <a class="nav-link" href="/en/website/">Websites</a>
+          <a class="nav-link" href="/support/?lang=en">Support</a>
+          <a class="nav-link" href="/about/?lang=en">About</a>
+          <a class="nav-link nav-external" href="https://github.com/Python-IDE/PythonIDE-iOS" target="_blank" rel="noreferrer">GitHub</a>
+          <a class="button primary nav-download" href="https://apps.apple.com/app/id6753987304" data-download>Download App</a>
+        </div>
+        <div class="nav-actions">
+          <button class="icon-button" type="button" data-theme-toggle aria-label="Switch to dark mode"></button>
+          <button class="menu-button" type="button" data-menu-toggle aria-label="Open navigation menu" aria-expanded="false"></button>
+        </div>
+      </nav>
+    </header>
+
+    <main class="main python-guide" id="main">
+      <section class="website-hero website-guide-hero" aria-labelledby="python-guide-title">
+        <div class="shell website-hero-content">
+          <p class="kicker">PythonIDE · First-run guide</p>
+          <h1 class="website-display" id="python-guide-title">How to run Python on iPad and iPhone</h1>
+          <p class="website-lede">Run your first <code>.py</code> file, then turn a small CSV into a chart in a Jupyter notebook. Both examples use PythonIDE’s on-device Python runtime, not a remote server.</p>
+          <div class="button-row">
+            <a class="button primary" href="#first-script">Run your first script <span aria-hidden="true">↓</span></a>
+            <a class="button" href="#notebook">Try the notebook <span aria-hidden="true">↓</span></a>
+          </div>
+        </div>
+      </section>
+
+      <section class="section website-workflow" id="first-script" aria-labelledby="script-title">
+        <div class="shell">
+          <div class="section-head">
+            <p class="section-label">Start here</p>
+            <h2 class="section-title" id="script-title">Run a Python file</h2>
+            <p class="section-copy">Open PythonIDE on your iPad or iPhone. This first example uses only Python itself, so you don’t need to install any packages or set up Jupyter.</p>
+          </div>
+          <ol class="website-steps website-guide-steps">
+            <li class="website-step"><span class="website-step-number" aria-hidden="true">01</span><div>
+              <h3>Create a script</h3>
+              <p>In a local workspace, create a Python file named <code>hello.py</code> and paste in these two lines.</p>
+              <pre class="python-guide-code" tabindex="0" aria-label="hello.py source"><code class="language-python">name = &quot;PythonIDE&quot;
+print(f&quot;Hello from {name}!&quot;)</code></pre>
+            </div></li>
+            <li class="website-step"><span class="website-step-number" aria-hidden="true">02</span><div>
+              <h3>Run it and check the output</h3>
+              <p>Open <code>hello.py</code> in the editor and tap the Run button (▶). The output should contain the line below. Change <code>name</code> and run the file again to see it change.</p>
+              <pre class="python-guide-code" tabindex="0" aria-label="Expected script output"><code class="language-text">Hello from PythonIDE!</code></pre>
+            </div></li>
+          </ol>
+        </div>
+      </section>
+
+      <section class="section soft website-workflow" id="notebook" aria-labelledby="notebook-title">
+        <div class="shell">
+          <div class="section-head">
+            <p class="section-label">Notebook example</p>
+            <h2 class="section-title" id="notebook-title">Go from a CSV to a chart</h2>
+            <p class="section-copy">Practice a common data workflow with fictional sales: load a CSV with pandas, remove a row with an invalid quantity, and plot revenue with Matplotlib.</p>
+          </div>
+          <ol class="website-steps website-guide-steps">
+            <li class="website-step"><span class="website-step-number" aria-hidden="true">01</span><div>
+              <h3>Put the notebook and CSV together</h3>
+              <p>Download <a class="text-link" href="./sample-sales.csv" download>sample-sales.csv</a> and copy it into a local PythonIDE project folder. Create a notebook named <code>sales-chart.ipynb</code> in the same folder. Add three code cells and run them in order, one block per cell.</p>
+              <p>If you already have the CSV locally, this walkthrough has no online data source.</p>
+            </div></li>
+            <li class="website-step"><span class="website-step-number" aria-hidden="true">02</span><div>
+              <h3>Cell 1: Load and inspect the CSV</h3>
+              <p>Read the file and print its first three rows. If the file is not found, the error shows the notebook’s working folder. Move or copy the file there, or update <code>csv_file</code> to point to it.</p>
+              <pre class="python-guide-code" tabindex="0" aria-label="Cell 1: read the CSV"><code class="language-python">from pathlib import Path
+
+import pandas as pd
+
+csv_file = Path(&quot;sample-sales.csv&quot;)
+if not csv_file.is_file():
+    raise FileNotFoundError(f&quot;Put the CSV in {Path.cwd()}&quot;)
+sales = pd.read_csv(csv_file)
+print(sales.head(3).to_string(index=False))</code></pre>
+            </div></li>
+            <li class="website-step"><span class="website-step-number" aria-hidden="true">03</span><div>
+              <h3>Cell 2: Clean and group the rows</h3>
+              <p>Convert the quantity and price columns to numbers, drop rows that failed conversion, then calculate revenue per product. This preserves exact whole cents until the display step. The sample contains one invalid quantity, <code>unknown</code>; no values are guessed or filled in.</p>
+              <pre class="python-guide-code" tabindex="0" aria-label="Cell 2: clean and summarize"><code class="language-python">columns = [&quot;units&quot;, &quot;unit_price_cents&quot;]
+for column in columns:
+    sales[column] = pd.to_numeric(
+        sales[column], errors=&quot;coerce&quot;
+    )
+
+clean = sales.dropna(subset=columns).copy()
+print(f&quot;Skipped {len(sales) - len(clean)} invalid row(s)&quot;)
+
+clean[&quot;revenue_cents&quot;] = (
+    clean[&quot;units&quot;] * clean[&quot;unit_price_cents&quot;]
+).astype(int)
+
+summary = clean.groupby(&quot;product&quot;).agg(
+    units=(&quot;units&quot;, &quot;sum&quot;),
+    revenue_cents=(&quot;revenue_cents&quot;, &quot;sum&quot;),
+)
+summary[&quot;revenue_usd&quot;] = summary[&quot;revenue_cents&quot;] / 100
+summary = summary.sort_values(&quot;revenue_usd&quot;, ascending=False)
+for product, row in summary.iterrows():
+    print(f&quot;{product}: {row.units:.0f} units, &quot;
+          f&quot;${row.revenue_usd:.2f}&quot;)</code></pre>
+              <pre class="python-guide-code" tabindex="0" aria-label="Expected sales summary"><code class="language-text">Skipped 1 invalid row(s)
+Notebook: 4 units, $34.00
+Tea: 8 units, $24.00
+Pen: 6 units, $12.00</code></pre>
+            </div></li>
+            <li class="website-step"><span class="website-step-number" aria-hidden="true">04</span><div>
+              <h3>Cell 3: Plot revenue</h3>
+              <p>The chart should show Notebook at $34, Tea at $24, and Pen at $12, in that order. Tea sells the most units, but Notebook earns the most revenue.</p>
+              <pre class="python-guide-code" tabindex="0" aria-label="Cell 3: plot revenue"><code class="language-python">import matplotlib.pyplot as plt
+
+fig, ax = plt.subplots(figsize=(5, 3))
+ax.bar(summary.index, summary[&quot;revenue_usd&quot;])
+ax.set_title(&quot;Revenue by product&quot;)
+ax.set_ylabel(&quot;Revenue (USD)&quot;)
+fig.tight_layout()
+plt.show()</code></pre>
+            </div></li>
+          </ol>
+          <div class="button-row python-guide-note">
+            <a class="button" href="https://dev.to/_6a1b3c45cc08bec8733/how-stable-is-your-mean-a-small-bootstrap-experiment-in-a-python-notebook-j56">See a separate notebook run on iPhone <span aria-hidden="true">↗</span></a>
+          </div>
+        </div>
+      </section>
+
+      <section class="section website-details" aria-labelledby="offline-title">
+        <div class="shell website-detail-grid">
+          <div>
+            <p class="section-label">Before you go offline</p>
+            <h2 class="section-title" id="offline-title">What needs a connection?</h2>
+          </div>
+          <dl class="website-detail-list website-guide-faq">
+            <div><dt><strong>Can I run Python and notebooks offline?</strong></dt><dd><p>Yes. Once PythonIDE and your files are on the device, a local script like <code>hello.py</code> can run offline. This notebook also runs locally once the CSV, pandas, and Matplotlib are available. Neither example needs an online Jupyter server or a cloud AI service.</p></dd></div>
+            <div><dt><strong>What should I check if an import fails?</strong></dt><dd><p>If you see <code>ModuleNotFoundError</code> for pandas or Matplotlib, check that the library is available to PythonIDE before disconnecting. Install or download any needed supported packages while online. iOS package compatibility can differ from a desktop Python environment.</p></dd></div>
+            <div><dt><strong>Which features still need the internet?</strong></dt><dd><p>Downloading the app or packages, fetching online data, using cloud AI, or connecting to a remote server requires a network connection. Download iCloud-only files to the device before relying on them offline.</p></dd></div>
+          </dl>
+        </div>
+      </section>
+
+      <section class="cta-band website-cta" aria-labelledby="next-title">
+        <div class="shell">
+          <p class="section-label">PythonIDE</p>
+          <h2 class="section-title" id="next-title">Ready to run your first script?</h2>
+          <div class="button-row">
+            <a class="button primary" href="https://apps.apple.com/app/id6753987304">Get PythonIDE on the App Store <span aria-hidden="true">↗</span></a>
+            <a class="button" href="/docs/">Read the developer docs</a>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="shell">
+        <div class="footer-grid">
+          <div class="footer-brand"><a class="brand" href="/?lang=en"><img class="brand-mark" src="/assets/brand-mark.svg?v=e15a28ac8e15" alt=""><span>PythonIDE</span></a><p>A native workspace for creating, running, and publishing ideas from Apple devices.</p></div>
+          <div class="footer-col"><strong>Product</strong><a href="/en/website/">Website deployment</a><a href="/docs/">Documentation</a><a href="https://github.com/Python-IDE/PythonIDE-iOS">GitHub</a></div>
+          <div class="footer-col"><strong>Policies</strong><a href="/privacy/?lang=en">Privacy</a><a href="/terms/?lang=en">Terms</a><a href="/community-guidelines/?lang=en">Guidelines &amp; appeals</a></div>
+          <div class="footer-col"><strong>Support</strong><a href="/support/?lang=en">Help and support</a><a href="/contact/?lang=en">Contact</a><a href="/security/?lang=en">Security</a></div>
+        </div>
+        <div class="footer-bottom"><span>© 2026 PythonIDE</span><span>Write and run Python on your device.</span></div>
+      </div>
+    </footer>
+  </div>
+</body>
+</html>
