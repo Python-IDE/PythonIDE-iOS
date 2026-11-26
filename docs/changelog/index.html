@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="zh-Hans" class="changelog-page" data-static-language>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="description" content="查看 PythonIDE 各个版本的更新内容。" data-en="Read the complete PythonIDE release history.">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="PythonIDE">
+  <meta property="og:title" content="PythonIDE 更新日志">
+  <meta property="og:url" content="https://pythonide.xin/changelog/">
+  <meta property="og:image" content="https://pythonide.xin/assets/pythonide-social-card.png?v=4">
+  <link rel="canonical" href="https://pythonide.xin/changelog/">
+  <link rel="icon" href="/assets/brand-mark.svg?v=e15a28ac8e15" type="image/svg+xml">
+  <link rel="stylesheet" href="/assets/site.css">
+  <link rel="stylesheet" href="/changelog/changelog.css">
+  <script defer src="/assets/site.js"></script>
+  <script defer src="/changelog/changelog.js"></script>
+  <title>更新日志 — PythonIDE</title>
+</head>
+<body>
+  <header class="site-header">
+    <nav class="nav changelog-nav" aria-label="PythonIDE">
+      <a class="brand" href="/" id="changelog-home">
+        <img class="brand-mark" src="/assets/brand-mark.svg?v=e15a28ac8e15" alt="">
+        <span>PythonIDE</span>
+      </a>
+      <label class="changelog-select">
+        <span id="changelog-language-label">语言</span>
+        <select id="changelog-language">
+          <option value="en" lang="en">English</option>
+          <option value="es" lang="es">Español</option>
+          <option value="pt-BR" lang="pt-BR">Português (Brasil)</option>
+          <option value="de" lang="de">Deutsch</option>
+          <option value="fr" lang="fr">Français</option>
+          <option value="zh-Hans" lang="zh-Hans" selected>简体中文</option>
+          <option value="zh-Hant" lang="zh-Hant">繁體中文</option>
+          <option value="ja" lang="ja">日本語</option>
+          <option value="ko" lang="ko">한국어</option>
+          <option value="ru" lang="ru">Русский</option>
+        </select>
+      </label>
+    </nav>
+  </header>
+  <main class="shell changelog-content">
+    <h1 class="display small" id="changelog-title">更新日志</h1>
+    <label class="changelog-select changelog-jump" id="changelog-jump" hidden>
+      <span id="changelog-version-label">版本</span>
+      <select id="changelog-version">
+        <option value="" id="changelog-all-versions">所有版本</option>
+      </select>
+    </label>
+    <p id="changelog-status" role="status"></p>
+    <button class="button" id="changelog-retry" type="button" hidden>重试</button>
+    <noscript><a href="/changelog/releases.json">更新日志 (JSON) / Release notes (JSON)</a></noscript>
+    <div id="changelog-releases"></div>
+  </main>
+</body>
+</html>

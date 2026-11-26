@@ -439,7 +439,7 @@
     setupLanguageControls();
     setupMenuControls();
     if (staticLanguage) {
-      safeStorageSet("pythonide_site_lang", root.dataset.lang);
+      if (root.dataset.lang) safeStorageSet("pythonide_site_lang", root.dataset.lang);
     } else {
       setLanguage(requestedLanguage(), false);
       updateCanonical(url);

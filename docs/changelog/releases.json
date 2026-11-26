@@ -1,0 +1,2045 @@
+{
+  "schemaVersion": 1,
+  "releases": [
+    {
+      "version": "1.8.7",
+      "highlights": [
+        {
+          "id": "v187SQLite",
+          "localizations": {
+            "en": {
+              "title": "SQLite database browser",
+              "detail": "Open tables and records, keep your column in view as you page through data, and run read-only SQL in the editor."
+            },
+            "es": {
+              "title": "Explorador de bases de datos SQLite",
+              "detail": "Abre tablas y registros, conserva la columna visible al cambiar de página y ejecuta consultas SQL de solo lectura en el editor."
+            },
+            "pt-BR": {
+              "title": "Navegador de bancos de dados SQLite",
+              "detail": "Abra tabelas e registros, mantenha a coluna visível ao mudar de página e execute consultas SQL de somente leitura no editor."
+            },
+            "de": {
+              "title": "SQLite-Datenbankbrowser",
+              "detail": "Öffne Tabellen und Datensätze, behalte beim Blättern die aktuelle Spalte im Blick und führe SQL-Leseabfragen im Editor aus."
+            },
+            "fr": {
+              "title": "Explorateur de bases SQLite",
+              "detail": "Parcourez les tables et les enregistrements, gardez la colonne visible en changeant de page et exécutez des requêtes SQL en lecture seule dans l’éditeur."
+            },
+            "zh-Hans": {
+              "title": "SQLite 数据库浏览器",
+              "detail": "打开数据库后可逐层查看表和记录，翻页时保留当前列，也可在编辑器中运行只读 SQL 查询。"
+            },
+            "zh-Hant": {
+              "title": "SQLite 資料庫瀏覽器",
+              "detail": "開啟資料庫後可逐層瀏覽資料表和記錄，換頁時保留目前的欄位，也可在編輯器中執行唯讀 SQL 查詢。"
+            },
+            "ja": {
+              "title": "SQLite データベースブラウザ",
+              "detail": "テーブルを開いてレコードを確認でき、ページを切り替えても表示中の列が維持され、エディタで読み取り専用の SQL クエリを実行できます。"
+            },
+            "ko": {
+              "title": "SQLite 데이터베이스 탐색기",
+              "detail": "테이블과 레코드를 열어보고, 페이지를 넘겨도 보던 열을 유지하며, 편집기에서 읽기 전용 SQL 쿼리를 실행할 수 있습니다."
+            },
+            "ru": {
+              "title": "Просмотр баз данных SQLite",
+              "detail": "Открывайте таблицы и записи, сохраняйте текущий столбец в поле зрения при смене страницы и выполняйте SQL-запросы на чтение в редакторе."
+            }
+          }
+        },
+        {
+          "id": "v187SSHQuickConnect",
+          "localizations": {
+            "en": {
+              "title": "SSH Quick Connect",
+              "detail": "After entering your password, confirm the new host’s fingerprint to connect, or cancel and retry at the same address."
+            },
+            "es": {
+              "title": "Conexión rápida por SSH",
+              "detail": "Tras introducir la contraseña, puedes confirmar la huella del nuevo servidor para conectarte o cancelar y volver a intentarlo con la misma dirección."
+            },
+            "pt-BR": {
+              "title": "Conexão rápida via SSH",
+              "detail": "Depois de inserir a senha, confirme a impressão digital do novo servidor para se conectar ou cancele e tente novamente no mesmo endereço."
+            },
+            "de": {
+              "title": "SSH-Schnellverbindung",
+              "detail": "Bestätige nach der Passworteingabe den Fingerabdruck des neuen Servers oder brich ab und versuche es mit derselben Adresse erneut."
+            },
+            "fr": {
+              "title": "Connexion SSH rapide",
+              "detail": "Après avoir saisi le mot de passe, confirmez l’empreinte du nouveau serveur pour vous connecter, ou annulez et réessayez avec la même adresse."
+            },
+            "zh-Hans": {
+              "title": "SSH 快速连接",
+              "detail": "输入密码后可确认新主机的指纹再连接，取消后可在原地址重试。"
+            },
+            "zh-Hant": {
+              "title": "SSH 快速連線",
+              "detail": "輸入密碼後可確認新主機的指紋再連線，取消後可用原位址重試。"
+            },
+            "ja": {
+              "title": "SSH クイック接続",
+              "detail": "パスワード入力後に新しいホストのフィンガープリントを確認して接続でき、キャンセルした場合は同じアドレスで再試行できます。"
+            },
+            "ko": {
+              "title": "SSH 빠른 연결",
+              "detail": "비밀번호를 입력한 뒤 새 호스트의 지문을 확인해 연결하거나, 취소하고 같은 주소로 다시 시도할 수 있습니다."
+            },
+            "ru": {
+              "title": "Быстрое подключение по SSH",
+              "detail": "После ввода пароля можно подтвердить отпечаток ключа нового сервера или отменить подключение и повторить попытку с тем же адресом."
+            }
+          }
+        },
+        {
+          "id": "v187WorkspaceFiles",
+          "localizations": {
+            "en": {
+              "title": "Sharing and Copying",
+              "detail": "Share folders as ZIP archives, share selected MiniApp collections from Home, and copy MiniApps and collections between your device and iCloud."
+            },
+            "es": {
+              "title": "Compartir y copiar",
+              "detail": "Comparte carpetas en ZIP y colecciones MiniApp seleccionadas desde Inicio, y copia MiniApps y colecciones entre tu dispositivo e iCloud."
+            },
+            "pt-BR": {
+              "title": "Compartilhamento e cópia",
+              "detail": "Compartilhe pastas em ZIP e coleções de MiniApps selecionadas na tela inicial, e copie MiniApps e coleções entre seu dispositivo e o iCloud."
+            },
+            "de": {
+              "title": "Teilen und kopieren",
+              "detail": "Teile Ordner als ZIP und ausgewählte MiniApp-Sammlungen und kopiere MiniApps und Sammlungen zwischen deinem Gerät und iCloud."
+            },
+            "fr": {
+              "title": "Partage et copie",
+              "detail": "Partagez des dossiers en ZIP et des collections MiniApp sélectionnées depuis l’accueil, et copiez des MiniApps et des collections entre votre appareil et iCloud."
+            },
+            "zh-Hans": {
+              "title": "分享与复制",
+              "detail": "文件夹支持 ZIP 分享，MiniApp 合集可多选分享，MiniApp 和合集可在本机与 iCloud 间复制。"
+            },
+            "zh-Hant": {
+              "title": "分享與複製",
+              "detail": "資料夾支援 ZIP 分享，MiniApp 合輯可多選分享，MiniApp 與合輯可在本機和 iCloud 間複製。"
+            },
+            "ja": {
+              "title": "ファイル共有とコピー",
+              "detail": "フォルダを ZIP で共有したり、ホームで選んだ MiniApp コレクションを共有したりでき、MiniApp やコレクションは端末と iCloud の間でコピーできます。"
+            },
+            "ko": {
+              "title": "공유 및 복사",
+              "detail": "폴더를 ZIP으로 공유하고 홈에서 선택한 MiniApp 컬렉션을 공유할 수 있으며, 기기와 iCloud 간에 MiniApp과 컬렉션을 복사할 수 있습니다."
+            },
+            "ru": {
+              "title": "Отправка и копирование файлов",
+              "detail": "Делитесь папками в ZIP и выбранными коллекциями MiniApp с главного экрана, а также копируйте MiniApp и коллекции между устройством и iCloud."
+            }
+          }
+        },
+        {
+          "id": "v187MarioSample",
+          "localizations": {
+            "en": {
+              "title": "Mario sample",
+              "detail": "Run the Mario script in a newly created Samples folder to download and start the full project, then play it offline."
+            },
+            "es": {
+              "title": "Ejemplo de Mario",
+              "detail": "Ejecuta el script de Mario en los ejemplos recién creados para descargar e iniciar el proyecto completo y jugar después sin conexión."
+            },
+            "pt-BR": {
+              "title": "Exemplo do Mario",
+              "detail": "Execute o script do Mario nos exemplos recém-criados para baixar e abrir o projeto completo e jogar offline depois."
+            },
+            "de": {
+              "title": "Mario-Beispiel",
+              "detail": "Das Mario-Skript im neuen Beispielordner lädt beim ersten Start das vollständige Projekt, das sich danach offline spielen lässt."
+            },
+            "fr": {
+              "title": "Exemple Mario",
+              "detail": "Dans les nouveaux exemples, lancez le script Mario pour télécharger et démarrer le projet complet, puis y jouer hors ligne."
+            },
+            "zh-Hans": {
+              "title": "马里奥示例",
+              "detail": "新初始化的示例中，运行马里奥脚本会下载并启动完整项目，之后可以离线玩。"
+            },
+            "zh-Hant": {
+              "title": "瑪利歐範例",
+              "detail": "在新建立的範例中執行瑪利歐腳本，即可下載並啟動完整專案，之後可離線遊玩。"
+            },
+            "ja": {
+              "title": "マリオのサンプル",
+              "detail": "新しく作成されたサンプルでマリオのスクリプトを実行すると、プロジェクト全体がダウンロードされて起動し、次回からはオフラインで遊べます。"
+            },
+            "ko": {
+              "title": "마리오 예제",
+              "detail": "새로 생성된 예제에서 마리오 스크립트를 실행하면 전체 프로젝트를 다운로드해 바로 시작하고, 이후에는 오프라인에서 플레이할 수 있습니다."
+            },
+            "ru": {
+              "title": "Пример с Марио",
+              "detail": "Запустите скрипт Марио в новой папке примеров, чтобы загрузить и открыть весь проект, а затем играть без интернета."
+            }
+          }
+        },
+        {
+          "id": "v187PackageVersions",
+          "localizations": {
+            "en": {
+              "title": "Versions and updates",
+              "detail": "Use the Home package icon to install Seaborn or choose a compatible or exact library version, select text with the new Agent icon, and see the app version and online release notes in Settings."
+            },
+            "es": {
+              "title": "Versiones y actualizaciones",
+              "detail": "Desde el icono de paquete de Inicio instala Seaborn o elige una versión compatible o exacta, usa el nuevo icono de selección de texto del Agente y consulta la versión y el historial web en Ajustes."
+            },
+            "pt-BR": {
+              "title": "Versões e atualizações",
+              "detail": "Pelo ícone de pacote na tela inicial, instale o Seaborn ou escolha a versão, use o novo ícone de seleção de texto no Agente e confira a versão do app e o histórico on-line nos Ajustes."
+            },
+            "de": {
+              "title": "Versionen und Updates",
+              "detail": "Installiere Seaborn oder wähle eine Version über das Paketsymbol, nutze das neue Textauswahlsymbol im Agenten und finde App-Version und Online-Verlauf in den Einstellungen."
+            },
+            "fr": {
+              "title": "Versions et mises à jour",
+              "detail": "Installez Seaborn ou choisissez une version via l’icône de colis, utilisez la nouvelle icône de sélection de texte de l’Agent et retrouvez la version et l’historique en ligne dans les réglages."
+            },
+            "zh-Hans": {
+              "title": "版本选择与更新",
+              "detail": "首页包裹图标直达库管理，可选版本、安装 Seaborn，Agent 更新「选择文本」图标，设置可查版本和官网日志。"
+            },
+            "zh-Hant": {
+              "title": "版本選擇與更新",
+              "detail": "首頁包裹圖示直達套件管理，可選版本、安裝 Seaborn，Agent 更新「選取文字」圖示，設定可查版本與官網記錄。"
+            },
+            "ja": {
+              "title": "バージョンの選択と更新",
+              "detail": "ホームのパッケージアイコンからバージョン選択と Seaborn の導入ができ、Agentのテキスト選択アイコンが新しくなり、設定でバージョンと公式サイトの更新履歴を確認できます。"
+            },
+            "ko": {
+              "title": "버전 선택과 업데이트",
+              "detail": "홈 패키지 아이콘에서 Seaborn 설치와 버전 선택을 할 수 있고, Agent의 텍스트 선택 아이콘이 바뀌었으며 설정에서 앱 버전과 공식 업데이트 내역을 확인할 수 있습니다."
+            },
+            "ru": {
+              "title": "Версии и обновления",
+              "detail": "В меню библиотек по значку пакета можно установить Seaborn и выбрать версию, в Агенте обновлён значок выделения текста, а в настройках доступны версия приложения и история на сайте."
+            }
+          }
+        }
+      ]
+    },
+    {
+      "version": "1.8.6",
+      "highlights": [
+        {
+          "id": "v186iPadVSCode",
+          "localizations": {
+            "en": {
+              "title": "iPad VSCode workbench",
+              "detail": "Open iPad VSCode from your local workspace to work offline, search the whole project and check for updates in Help, or share Python UI scripts in community posts."
+            },
+            "es": {
+              "title": "Entorno iPad VSCode",
+              "detail": "Abre iPad VSCode desde tu espacio local para trabajar sin conexión, buscar en todo el proyecto y actualizar desde Ayuda, y comparte scripts con interfaz en la comunidad."
+            },
+            "pt-BR": {
+              "title": "Ambiente iPad VSCode",
+              "detail": "Abra o iPad VSCode no espaço de trabalho local para trabalhar offline, pesquisar em todo o projeto e atualizar pelo menu de ajuda, e compartilhe scripts com interface na comunidade."
+            },
+            "de": {
+              "title": "iPad VSCode für Projekte",
+              "detail": "Arbeite in iPad VSCode offline, durchsuche das ganze Projekt, prüfe Updates im Hilfemenü und teile Python-Skripte mit Benutzeroberfläche in Community-Beiträgen."
+            },
+            "fr": {
+              "title": "Atelier iPad VSCode",
+              "detail": "Dans iPad VSCode, travaillez hors ligne, recherchez dans tout le projet et vérifiez les mises à jour dans le menu d’aide, puis partagez vos scripts avec interface dans la communauté."
+            },
+            "zh-Hans": {
+              "title": "iPad VSCode 工作台",
+              "detail": "本地工作区的 iPad VSCode 支持离线编辑、全项目搜索和按需更新，社区动态也可分享「App 界面」脚本。"
+            },
+            "zh-Hant": {
+              "title": "iPad VSCode 開發環境",
+              "detail": "本機工作區的 iPad VSCode 支援離線編輯、全專案搜尋與手動更新，也能在社群貼文分享「App 介面」腳本。"
+            },
+            "ja": {
+              "title": "iPad VSCode ワークベンチ",
+              "detail": "ローカルワークスペースから iPad VSCode を開いてオフラインで編集・プロジェクト全体の検索・ヘルプからの更新ができ、コミュニティでは画面付きの Python スクリプトを共有できます。"
+            },
+            "ko": {
+              "title": "iPad VSCode 작업 공간",
+              "detail": "로컬 iPad VSCode에서 오프라인 편집, 프로젝트 검색과 수동 업데이트를 지원하며, 커뮤니티에 화면이 있는 Python 스크립트도 공유할 수 있습니다."
+            },
+            "ru": {
+              "title": "Среда iPad VSCode",
+              "detail": "Открывайте iPad VSCode из локальной рабочей области, работайте без сети, ищите по всему проекту и проверяйте обновления в меню справки, а скриптами с интерфейсом делитесь в сообществе."
+            }
+          }
+        },
+        {
+          "id": "v186HardwareKeyboard",
+          "localizations": {
+            "en": {
+              "title": "External keyboard shortcuts",
+              "detail": "Customize editing, run and tab shortcuts with monochrome key labels in Settings, switch views from the iPad editor menu, and get immediate tap feedback on older tab bars."
+            },
+            "es": {
+              "title": "Atajos de teclado externo",
+              "detail": "Configura atajos de edición, ejecución y pestañas con teclas monocromas, cambia de vista desde el menú del iPad y recibe respuesta al tocar las pestañas en sistemas anteriores."
+            },
+            "pt-BR": {
+              "title": "Atalhos de teclado externo",
+              "detail": "Personalize atalhos de edição, execução e abas com teclas monocromáticas, alterne as visualizações pelo menu do iPad e veja o retorno imediato ao tocar nas abas em sistemas anteriores."
+            },
+            "de": {
+              "title": "Tastenkürzel für externe Tastaturen",
+              "detail": "In den Einstellungen sind Kurzbefehle mit einfarbigen Tasten anpassbar, das iPad-Editormenü wechselt die Ansicht und die Tab-Leiste älterer Systeme reagiert direkt auf Antippen."
+            },
+            "fr": {
+              "title": "Raccourcis du clavier externe",
+              "detail": "Personnalisez les raccourcis avec des touches monochromes, changez de vue depuis le menu sur iPad et obtenez un retour immédiat au toucher des onglets sur les anciens systèmes."
+            },
+            "zh-Hans": {
+              "title": "外接键盘快捷键",
+              "detail": "设置可自定编辑、运行和切换标签的快捷键并显示单色键位，iPad 菜单支持切换视图，旧系统底栏轻点即有反馈。"
+            },
+            "zh-Hant": {
+              "title": "外接鍵盤快速鍵",
+              "detail": "可在設定自訂編輯、執行與分頁快速鍵並查看單色按鍵，iPad 選單支援切換檢視，舊系統的底部分頁輕點即有回饋。"
+            },
+            "ja": {
+              "title": "外付けキーボードのショートカット",
+              "detail": "設定で単色のキー表示を見ながら編集・実行・タブのショートカットを変更でき、iPadのメニューで表示を切り替えられ、旧OSのタブもタップにすぐ反応します。"
+            },
+            "ko": {
+              "title": "외장 키보드 단축키",
+              "detail": "설정에서 단색 키 표시와 함께 편집·실행·탭 단축키를 바꾸고 iPad 메뉴에서 보기를 전환할 수 있으며, 이전 버전에서는 하단 탭을 누르면 바로 반응합니다."
+            },
+            "ru": {
+              "title": "Сочетания клавиш внешней клавиатуры",
+              "detail": "В настройках доступны сочетания для правки, запуска и вкладок с одноцветными клавишами, на iPad меню переключает виды, а в прежних версиях системы вкладки сразу откликаются на касание."
+            }
+          }
+        },
+        {
+          "id": "v186PadNavigation",
+          "localizations": {
+            "en": {
+              "title": "Editor and terminal",
+              "detail": "Preview AI edits, load tools on demand, scroll unwrapped code smoothly, use aligned iPad views open the first setting directly, and scroll back through or export long Python logs while a script runs."
+            },
+            "es": {
+              "title": "Editor y terminal",
+              "detail": "Previsualiza cambios de IA, carga herramientas al usarlas, desplázate sin ajuste de línea, usa vistas alineadas y el primer ajuste en iPad, y recorre o exporta el registro mientras se ejecuta Python."
+            },
+            "pt-BR": {
+              "title": "Editor e terminal",
+              "detail": "Veja edições da IA, carregue ferramentas sob demanda, role o código sem quebra de linha, use as vistas alinhadas e o primeiro ajuste no iPad e percorra ou exporte os logs do Python durante a execução."
+            },
+            "de": {
+              "title": "Editor und Terminal",
+              "detail": "KI-Vorschau, Werkzeuge bei Bedarf, flüssiger Bildlauf ohne Umbruch, bündige iPad-Ansichten und direkter Zugriff auf die erste Einstellung sowie Scrollen und Export in laufenden Python-Logs."
+            },
+            "fr": {
+              "title": "Éditeur et terminal",
+              "detail": "Aperçu des retouches IA, outils à la demande, défilement sans retour à la ligne, vues iPad alignées et premier réglage accessible, avec défilement et export des journaux Python en cours."
+            },
+            "zh-Hans": {
+              "title": "编辑器与终端",
+              "detail": "AI 改动可预览，工具按需加载，不换行滚动更稳，iPad 视图对齐、设置直达首项，终端长输出可直接滚动回看和导出。"
+            },
+            "zh-Hant": {
+              "title": "編輯器與終端機",
+              "detail": "AI 修改可預覽，工具按需載入，不換行捲動更穩，iPad 檢視對齊、設定直達首項，終端機長輸出可直接捲動回看與匯出。"
+            },
+            "ja": {
+              "title": "エディタとターミナル",
+              "detail": "AIの変更プレビュー、ツールの随時読込、折り返しなしの滑らかなスクロール、iPadの表示整列と設定先頭への移動に加え、実行中の長い出力もスクロールして読み返したり書き出したりできます。"
+            },
+            "ko": {
+              "title": "편집기 및 터미널",
+              "detail": "AI 수정 미리보기, 필요할 때 도구 로드, 줄바꿈 없는 스크롤, iPad 보기 정렬과 첫 설정 바로 열기를 지원하며, 실행 중에도 긴 출력을 스크롤해 읽거나 내보낼 수 있습니다."
+            },
+            "ru": {
+              "title": "Редактор и терминал",
+              "detail": "Предпросмотр правок ИИ, инструменты по запросу, плавная прокрутка без переноса, ровные вкладки и первый пункт настроек на iPad, а также прокрутка и экспорт журнала во время работы Python."
+            }
+          }
+        },
+        {
+          "id": "v186FreeTools",
+          "localizations": {
+            "en": {
+              "title": "More tools are now free",
+              "detail": "Use widgets, run scripts with arguments, format code, customize the editor and console, and add your own text to script sharing cards for free."
+            },
+            "es": {
+              "title": "Más herramientas gratuitas",
+              "detail": "Ahora puedes usar widgets, ejecutar scripts con argumentos, formatear código, personalizar el editor y la consola y añadir texto a las tarjetas al compartir scripts gratis."
+            },
+            "pt-BR": {
+              "title": "Mais ferramentas gratuitas",
+              "detail": "Agora você pode usar widgets, executar scripts com argumentos, formatar código, personalizar o editor e o console e editar o texto dos cartões de compartilhamento de scripts de graça."
+            },
+            "de": {
+              "title": "Mehr kostenlose Werkzeuge",
+              "detail": "Widgets, Skriptargumente, Codeformatierung, das Anpassen von Editor und Konsole sowie eigene Texte auf Freigabekarten für Skripte sind jetzt kostenlos."
+            },
+            "fr": {
+              "title": "Plus d’outils gratuits",
+              "detail": "Les widgets, les arguments de script, le formatage du code, la personnalisation de l’éditeur et de la console ainsi que le texte des cartes de partage de scripts sont désormais gratuits."
+            },
+            "zh-Hans": {
+              "title": "更多功能免费开放",
+              "detail": "自定义小组件、带参数运行、代码格式化、编辑器和控制台外观，以及脚本分享卡片的自定义文字现已免费。"
+            },
+            "zh-Hant": {
+              "title": "更多功能免費開放",
+              "detail": "現在可免費自訂小工具、以參數執行腳本、格式化程式碼、調整編輯器和主控台外觀，以及自訂腳本分享卡片的文字。"
+            },
+            "ja": {
+              "title": "無料で使える機能が増えました",
+              "detail": "ウィジェットの作成、引数付きのスクリプト実行、コード整形、エディタとコンソールの外観変更、スクリプト共有カードのテキスト編集を無料で使えます。"
+            },
+            "ko": {
+              "title": "더 많은 기능을 무료로",
+              "detail": "위젯 제작, 인수를 지정한 스크립트 실행, 코드 서식 지정, 편집기와 콘솔 꾸미기, 스크립트 공유 카드 문구 편집을 무료로 이용할 수 있습니다."
+            },
+            "ru": {
+              "title": "Больше бесплатных инструментов",
+              "detail": "Теперь бесплатно можно создавать виджеты, запускать скрипты с аргументами, форматировать код, настраивать вид редактора и консоли и менять текст на карточках для публикации скриптов."
+            }
+          }
+        },
+        {
+          "id": "v186ProLibraries",
+          "localizations": {
+            "en": {
+              "title": "10 Pro Python libraries",
+              "detail": "When a script, notebook or workbench run needs a Pro library, it shows the failing line and opens Pro so you can unlock it and run again."
+            },
+            "es": {
+              "title": "10 bibliotecas de Python Pro",
+              "detail": "Si un script, un notebook o el entorno de trabajo necesita una biblioteca Pro, cada ejecución indica la línea del error y abre Pro para que puedas comprarlo y volver a ejecutar el código."
+            },
+            "pt-BR": {
+              "title": "10 bibliotecas Python Pro",
+              "detail": "Quando um script, notebook ou projeto no ambiente de trabalho precisa de uma biblioteca Pro, cada execução indica a linha do erro e abre a página Pro para você comprar e executar novamente."
+            },
+            "de": {
+              "title": "10 Python-Bibliotheken mit Pro",
+              "detail": "Bei jedem Lauf, der eine Pro-Bibliothek benötigt, zeigen Skripte, Notebooks und die Workbench die Fehlerzeile und öffnen die Pro-Seite, nach dem Kauf ist ein neuer Lauf möglich."
+            },
+            "fr": {
+              "title": "10 bibliothèques Python Pro",
+              "detail": "Si un script, un notebook ou l’atelier a besoin d’une bibliothèque Pro, chaque exécution indique la ligne en cause et ouvre la page Pro pour permettre une relance après l’achat."
+            },
+            "zh-Hans": {
+              "title": "十个 Python 专业库",
+              "detail": "脚本、Notebook 和工作台每次运行遇到必需的 Pro 库时，都会标出出错行并打开会员页，购买后即可重跑。"
+            },
+            "zh-Hant": {
+              "title": "十個 Python 專業函式庫",
+              "detail": "指令稿、Notebook 和工作台每次執行遇到必要的 Pro 函式庫時，都會標示出錯行並開啟會員頁，購買後即可重新執行。"
+            },
+            "ja": {
+              "title": "Pro 対象の Python ライブラリ10種",
+              "detail": "スクリプト、Notebook、ワークベンチで Pro ライブラリが必要になるたびに、エラーの行と Pro の購入画面が表示され、購入後すぐに再実行できます。"
+            },
+            "ko": {
+              "title": "Pro Python 라이브러리 10개",
+              "detail": "스크립트, 노트북, 워크벤치를 실행할 때 Pro 라이브러리가 필요하면 오류가 난 줄과 Pro 구매 화면이 표시되며 구매 후 바로 다시 실행할 수 있습니다."
+            },
+            "ru": {
+              "title": "10 библиотек Python в Pro",
+              "detail": "Если скрипту, блокноту или проекту в рабочей среде нужна библиотека Pro, при каждом запуске вы увидите строку с ошибкой и страницу Pro, а после покупки сможете сразу повторить запуск."
+            }
+          }
+        }
+      ]
+    },
+    {
+      "version": "1.8.5",
+      "highlights": [
+        {
+          "id": "v185EditorGestures",
+          "localizations": {
+            "en": {
+              "title": "Editor AI assistant",
+              "detail": "The assistant can explain code or suggest edits, which you can review line by line and refine before applying them to your file with Pro."
+            },
+            "es": {
+              "title": "Asistente de IA del editor",
+              "detail": "El asistente puede explicar el código o proponer cambios que puedes revisar línea por línea y ajustar antes de aplicarlos al archivo con Pro."
+            },
+            "pt-BR": {
+              "title": "Assistente de IA do editor",
+              "detail": "O assistente pode explicar o código ou sugerir alterações que você pode revisar linha por linha e ajustar antes de aplicá-las ao arquivo com o Pro."
+            },
+            "de": {
+              "title": "KI-Assistent im Editor",
+              "detail": "Der Assistent erklärt Code oder schlägt Änderungen vor, die du Zeile für Zeile prüfen und weiter anpassen lassen kannst, bevor du sie mit Pro in die Datei übernimmst."
+            },
+            "fr": {
+              "title": "Assistant IA de l’éditeur",
+              "detail": "L’assistant peut expliquer le code ou proposer des modifications à relire ligne par ligne et à ajuster avant de les appliquer au fichier avec Pro."
+            },
+            "zh-Hans": {
+              "title": "编辑器 AI 助手",
+              "detail": "可请 AI 解释代码或提出修改建议，在原文中逐行对照并继续调整，选择「接受」后才会写入文件（需 Pro）。"
+            },
+            "zh-Hant": {
+              "title": "編輯器 AI 助理",
+              "detail": "可請 AI 解釋程式碼或提出修改建議，逐行對照原文並繼續調整，選擇「接受」後才會寫入檔案（需 Pro）。"
+            },
+            "ja": {
+              "title": "エディタの AI アシスタント",
+              "detail": "AI にコードの説明や修正を依頼して変更箇所を一行ずつ確認・調整でき、Pro で承認した変更だけがファイルに反映されます。"
+            },
+            "ko": {
+              "title": "편집기 AI 도우미",
+              "detail": "AI에 코드 설명이나 수정을 요청하고 제안을 줄별로 검토해 조정할 수 있으며, 변경 사항은 Pro에서 수락한 뒤에만 파일에 반영됩니다."
+            },
+            "ru": {
+              "title": "ИИ-помощник в редакторе",
+              "detail": "Помощник может объяснить код или предложить правки, которые можно построчно сравнить с оригиналом и уточнить перед применением к файлу с Pro."
+            }
+          }
+        },
+        {
+          "id": "v185EditorShortcuts",
+          "localizations": {
+            "en": {
+              "title": "Editor and terminal shortcuts",
+              "detail": "Preview the shortcut bar in Settings, insert brackets or quotes in pairs or around selected text in the editor, and enter multiple lines before submitting in the terminal."
+            },
+            "es": {
+              "title": "Atajos del editor y del terminal",
+              "detail": "Puedes ver la barra en Ajustes, insertar pares de paréntesis o comillas alrededor del cursor o de la selección en el editor y escribir varias líneas antes de enviarlas en el terminal."
+            },
+            "pt-BR": {
+              "title": "Atalhos do editor e do terminal",
+              "detail": "Veja a prévia da barra nos ajustes, insira pares de parênteses ou aspas no cursor ou ao redor do texto selecionado no editor e digite várias linhas antes de enviá-las no terminal."
+            },
+            "de": {
+              "title": "Kurzbefehle in Editor und Terminal",
+              "detail": "Die Leiste lässt sich in den Einstellungen ansehen, im Editor fügen Sie Klammern und Anführungszeichen paarweise oder um eine Auswahl ein, und im Terminal können Sie mehrere Zeilen auf einmal senden."
+            },
+            "fr": {
+              "title": "Raccourcis de l’éditeur et du terminal",
+              "detail": "Prévisualisez la barre dans les réglages, insérez des parenthèses ou des guillemets autour du curseur ou de la sélection dans l’éditeur, et saisissez plusieurs lignes avant l’envoi dans le terminal."
+            },
+            "zh-Hans": {
+              "title": "编辑器与终端快捷栏",
+              "detail": "快捷栏可在设置中预览，编辑器支持成对插入括号和引号或用它们包住选中文字，终端可分行输入后再提交。"
+            },
+            "zh-Hant": {
+              "title": "編輯器與終端機快捷欄",
+              "detail": "可在設定中預覽快捷列，在編輯器中成對插入括號與引號，或用它們包住所選文字，終端機則可分行輸入後再送出。"
+            },
+            "ja": {
+              "title": "エディタとターミナルのショートカット",
+              "detail": "設定でショートカットバーをプレビューでき、エディタでは括弧や引用符を対で挿入したり選択範囲を囲んだりできるほか、ターミナルでは複数行をまとめて送信できます。"
+            },
+            "ko": {
+              "title": "편집기와 터미널의 단축 키",
+              "detail": "설정에서 단축키 막대를 미리 보고, 편집기에서는 괄호나 따옴표를 쌍으로 넣거나 선택 영역을 감싸고, 터미널에서는 여러 줄을 입력한 뒤 한 번에 전송할 수 있습니다."
+            },
+            "ru": {
+              "title": "Клавиши редактора и терминала",
+              "detail": "Панель можно посмотреть в настройках, в редакторе — вставить парные скобки или кавычки вокруг курсора или выделенного текста, а в терминале — набрать несколько строк перед отправкой."
+            }
+          }
+        },
+        {
+          "id": "v185EditorNavigation",
+          "localizations": {
+            "en": {
+              "title": "Switching views and chats",
+              "detail": "The top tabs open the preview or terminal, closing Find returns you to typing, long chats show recent messages first, and widgets refresh in the background."
+            },
+            "es": {
+              "title": "Navegación entre vistas y chats",
+              "detail": "Abre la vista previa o el terminal desde las pestañas y sigue escribiendo al cerrar Buscar, mientras los chats largos muestran lo reciente primero y los widgets se actualizan en segundo plano."
+            },
+            "pt-BR": {
+              "title": "Navegação entre telas e conversas",
+              "detail": "As abas abrem a prévia ou o terminal, fechar a busca permite continuar digitando, conversas longas mostram primeiro as mensagens recentes e os widgets se atualizam em segundo plano."
+            },
+            "de": {
+              "title": "Ansichten und Chats wechseln",
+              "detail": "Tabs öffnen Vorschau oder Terminal, nach der Suche kannst du weitertippen, lange Chats zeigen zuerst die neuesten Nachrichten und Widgets aktualisieren sich im Hintergrund."
+            },
+            "fr": {
+              "title": "Navigation entre vues et conversations",
+              "detail": "Ouvrez l’aperçu ou le terminal par les onglets et reprenez la saisie en fermant la recherche, tandis que les longs échanges affichent les derniers messages et les widgets s’actualisent en fond."
+            },
+            "zh-Hans": {
+              "title": "视图切换与聊天导航",
+              "detail": "顶部标签直达预览或终端，关闭查找即可继续输入，长对话优先显示最近消息，小组件在后台刷新。"
+            },
+            "zh-Hant": {
+              "title": "切換畫面與對話導覽",
+              "detail": "頂端標籤可直接開啟預覽或終端機，關閉尋找即可繼續輸入，長對話優先顯示最近的訊息，小工具會在背景重新整理。"
+            },
+            "ja": {
+              "title": "画面の切り替えとチャットの表示",
+              "detail": "上部のタブでプレビューやターミナルに切り替えられ、検索を閉じると入力に戻り、長いチャットでは最近のメッセージが先に表示され、ウィジェットはバックグラウンドで更新されます。"
+            },
+            "ko": {
+              "title": "화면 전환과 대화 탐색",
+              "detail": "상단 탭에서 미리보기나 터미널을 열고 검색을 닫으면 바로 입력을 이어갈 수 있으며, 긴 대화는 최근 메시지부터 표시되고 위젯은 백그라운드에서 새로 고쳐집니다."
+            },
+            "ru": {
+              "title": "Переходы между экранами и чатами",
+              "detail": "Верхние вкладки открывают предпросмотр или терминал, после закрытия поиска можно продолжить ввод, в длинных чатах первыми появляются недавние сообщения, а виджеты обновляются в фоне."
+            }
+          }
+        },
+        {
+          "id": "v185OpenScripts",
+          "localizations": {
+            "en": {
+              "title": "Opening scripts and importing files",
+              "detail": "Home shows your files first at launch and opens verified scripts while refreshing, and ZIP extraction and MiniApp imports and exports preserve Chinese filenames."
+            },
+            "es": {
+              "title": "Apertura de scripts e importación de archivos",
+              "detail": "Al iniciar se muestra primero la lista de archivos, puedes abrir scripts verificados mientras se actualiza y se conservan los nombres chinos al extraer ZIP e importar o exportar MiniApps."
+            },
+            "pt-BR": {
+              "title": "Abertura de scripts e importação de arquivos",
+              "detail": "Ao iniciar, a lista de arquivos aparece primeiro, scripts verificados abrem durante a atualização e os nomes em chinês são mantidos ao extrair ZIPs ou importar e exportar MiniApps."
+            },
+            "de": {
+              "title": "Skripte öffnen und Dateien importieren",
+              "detail": "Beim Start erscheint zuerst die Dateiliste, geprüfte Skripte lassen sich beim Aktualisieren öffnen und chinesische Dateinamen bleiben beim ZIP-Entpacken und beim MiniApp-Import und -Export erhalten."
+            },
+            "fr": {
+              "title": "Ouverture de scripts et import de fichiers",
+              "detail": "Les fichiers s’affichent dès le démarrage, les scripts vérifiés s’ouvrent pendant l’actualisation et les noms chinois sont conservés à l’extraction des ZIP et à l’import ou l’export de MiniApps."
+            },
+            "zh-Hans": {
+              "title": "打开脚本与导入文件",
+              "detail": "启动时优先显示文件列表，刷新中也能点开已核对的脚本，解压 ZIP 和导入导出 MiniApp 会保留中文文件名。"
+            },
+            "zh-Hant": {
+              "title": "開啟指令碼與匯入檔案",
+              "detail": "啟動時優先顯示檔案列表，更新中也能點開已核對的指令碼，解壓 ZIP 和匯入匯出 MiniApp 會保留中文檔名。"
+            },
+            "ja": {
+              "title": "スクリプトの起動とファイルの読み込み",
+              "detail": "起動時はファイル一覧を優先して表示し、更新中でも確認済みのスクリプトを開けるほか、ZIP の展開や MiniApp の読み込み・書き出しで中国語のファイル名を保持します。"
+            },
+            "ko": {
+              "title": "스크립트 열기와 파일 가져오기",
+              "detail": "시작할 때 파일 목록을 먼저 표시하고 새로 고치는 중에도 확인된 스크립트를 열 수 있으며, ZIP 압축 해제와 MiniApp 가져오기·내보내기에서 중국어 파일 이름을 유지합니다."
+            },
+            "ru": {
+              "title": "Открытие скриптов и импорт файлов",
+              "detail": "При запуске сначала виден список файлов, проверенные скрипты открываются во время обновления, а при распаковке ZIP, импорте и экспорте MiniApp сохраняются китайские имена файлов."
+            }
+          }
+        },
+        {
+          "id": "v185CommunityPhotos",
+          "localizations": {
+            "en": {
+              "title": "Full-screen image browsing",
+              "detail": "Swipe between community photos and drag down to return to your place, or open an image from the file tree to zoom in and check its original dimensions."
+            },
+            "es": {
+              "title": "Imágenes a pantalla completa",
+              "detail": "Desliza para recorrer las fotos de la comunidad y arrastra hacia abajo para volver al punto anterior, o abre una imagen del árbol de archivos para ampliarla y consultar sus dimensiones originales."
+            },
+            "pt-BR": {
+              "title": "Visualização de imagens em tela cheia",
+              "detail": "Deslize para ver as fotos da comunidade e arraste para baixo para voltar ao ponto anterior, ou abra uma imagem na árvore de arquivos para ampliá-la e consultar suas dimensões originais."
+            },
+            "de": {
+              "title": "Bilder im Vollbild",
+              "detail": "Wische seitlich durch Community-Fotos und ziehe sie nach unten, um zur vorherigen Stelle zurückzukehren, oder vergrößere Bilder aus dem Dateibaum und sieh ihre Originalmaße ein."
+            },
+            "fr": {
+              "title": "Consultation des images en plein écran",
+              "detail": "Balayez les photos de la communauté et faites glisser vers le bas pour retrouver votre place, ou ouvrez une image dans l’arborescence pour l’agrandir et consulter ses dimensions d’origine."
+            },
+            "zh-Hans": {
+              "title": "全屏浏览图片",
+              "detail": "社区照片可左右滑动翻页，下拉返回原浏览位置，文件树中的图片也可全屏放大并查看原始尺寸。"
+            },
+            "zh-Hant": {
+              "title": "全螢幕瀏覽圖片",
+              "detail": "社群照片可左右滑動翻頁，向下拖曳可返回原本的瀏覽位置，檔案樹中的圖片也可全螢幕放大並查看原始尺寸。"
+            },
+            "ja": {
+              "title": "画像のフルスクリーン表示",
+              "detail": "コミュニティの写真は左右にスワイプして閲覧し、下にドラッグして元の位置に戻れるほか、ファイルツリーの画像は全画面で拡大して元のサイズを確認できます。"
+            },
+            "ko": {
+              "title": "전체 화면 이미지 보기",
+              "detail": "커뮤니티 사진은 좌우로 넘기고 아래로 끌어 이전 위치로 돌아갈 수 있으며, 파일 트리의 이미지는 전체 화면에서 확대하고 원본 크기를 확인할 수 있습니다."
+            },
+            "ru": {
+              "title": "Просмотр изображений на весь экран",
+              "detail": "Фото в сообществе можно листать и закрывать движением вниз с возвратом на прежнее место, а изображения из дерева файлов — увеличивать и просматривать их исходные размеры."
+            }
+          }
+        }
+      ]
+    },
+    {
+      "version": "1.8.4",
+      "highlights": [
+        {
+          "id": "v184Maintenance",
+          "localizations": {
+            "en": {
+              "title": "Bug Fixes",
+              "detail": "The editor preserves pasted text and improves code completion, touch gestures and cross-file Python debugging."
+            },
+            "es": {
+              "title": "Corrección de errores",
+              "detail": "El editor conserva el texto pegado y mejora el autocompletado, los gestos táctiles y la depuración de Python entre archivos."
+            },
+            "pt-BR": {
+              "title": "Correções de erros",
+              "detail": "O editor preserva o texto colado e melhora o preenchimento de código, os gestos e a depuração de Python entre arquivos."
+            },
+            "de": {
+              "title": "Fehlerbehebungen",
+              "detail": "Der Editor bewahrt eingefügten Text und verbessert die Codevervollständigung, Touchgesten und das dateiübergreifende Python-Debugging."
+            },
+            "fr": {
+              "title": "Corrections de bugs",
+              "detail": "L’éditeur préserve le texte collé et améliore la complétion, les gestes tactiles et le débogage Python sur plusieurs fichiers."
+            },
+            "zh-Hans": {
+              "title": "问题修复",
+              "detail": "编辑器保留粘贴原文，改进代码补全、触屏手势和 Python 跨文件调试。"
+            },
+            "zh-Hant": {
+              "title": "錯誤修正",
+              "detail": "編輯器保留貼上的原文，並改善程式碼補全、觸控手勢及 Python 跨檔案除錯。"
+            },
+            "ja": {
+              "title": "不具合の修正",
+              "detail": "貼り付けたテキストをそのまま保持し、コード補完、タッチ操作、複数ファイルにまたがる Python デバッグを改善しました。"
+            },
+            "ko": {
+              "title": "오류 수정",
+              "detail": "붙여넣은 원문을 보존하고 코드 자동 완성, 터치 제스처, 여러 파일에 걸친 Python 디버깅을 개선했습니다."
+            },
+            "ru": {
+              "title": "Исправления ошибок",
+              "detail": "Редактор сохраняет исходный вид вставленного текста, а автодополнение, сенсорные жесты и отладка Python в нескольких файлах стали удобнее."
+            }
+          }
+        }
+      ]
+    },
+    {
+      "version": "1.8.3",
+      "highlights": [
+        {
+          "id": "v183AgentHistory",
+          "localizations": {
+            "en": {
+              "title": "Long Agent conversations",
+              "detail": "Older messages load as you scroll, and replies can appear while the last reasoning update is being processed."
+            },
+            "es": {
+              "title": "Conversaciones largas con el agente",
+              "detail": "Los mensajes anteriores se cargan al desplazarte y la respuesta puede aparecer mientras se procesa la última parte del razonamiento."
+            },
+            "pt-BR": {
+              "title": "Conversas longas com o agente",
+              "detail": "As mensagens anteriores são carregadas durante a rolagem, e a resposta pode aparecer enquanto a última atualização do raciocínio é processada."
+            },
+            "de": {
+              "title": "Lange Agent-Chats",
+              "detail": "Lange Chats laden beim Scrollen ältere Nachrichten nach, und Antworten erscheinen bereits, während die Verarbeitung der letzten Denkschritte abgeschlossen wird."
+            },
+            "fr": {
+              "title": "Longues conversations avec l’agent",
+              "detail": "Les anciens messages se chargent au fil du défilement et la réponse peut apparaître pendant le traitement de la dernière étape du raisonnement."
+            },
+            "zh-Hans": {
+              "title": "Agent 长对话",
+              "detail": "向上翻阅时按需加载较早的消息，收到的正文可以在最后一段推理处理期间开始显示。"
+            },
+            "zh-Hant": {
+              "title": "Agent 長對話",
+              "detail": "向上捲動時會按需載入較早的訊息，收到的回覆內文可在處理最後一段推理時開始顯示。"
+            },
+            "ja": {
+              "title": "エージェントとの長い会話",
+              "detail": "スクロールに合わせて過去のメッセージを読み込み、最後の推論内容を処理している間にも回答本文を表示できるようになりました。"
+            },
+            "ko": {
+              "title": "긴 에이전트 대화",
+              "detail": "스크롤하면 이전 메시지를 불러오고, 마지막 추론 내용을 처리하는 동안에도 답변 본문을 표시할 수 있습니다."
+            },
+            "ru": {
+              "title": "Длинные чаты с агентом",
+              "detail": "Старые сообщения загружаются при прокрутке, а ответ может появиться, пока обрабатывается последняя часть рассуждений."
+            }
+          }
+        },
+        {
+          "id": "v183StorePurchases",
+          "localizations": {
+            "en": {
+              "title": "Pro purchases and restores",
+              "detail": "The App Store recognizes active Pro subscriptions and past lifetime unlocks when you buy or restore, handles all four tips directly, and your purchased AI credits are preserved."
+            },
+            "es": {
+              "title": "Compra y restauración de Pro",
+              "detail": "Al comprar o restaurar Pro, App Store reconoce las suscripciones activas y las compras vitalicias anteriores, gestiona directamente las cuatro propinas y se conservan tus créditos de IA."
+            },
+            "pt-BR": {
+              "title": "Compra e restauração do Pro",
+              "detail": "A App Store reconhece assinaturas Pro ativas e compras vitalícias ao comprar ou restaurar; as quatro gorjetas usam o pagamento da Apple e seus créditos de IA são preservados."
+            },
+            "de": {
+              "title": "Pro kaufen und wiederherstellen",
+              "detail": "Beim Kauf und Wiederherstellen erkennt der App Store aktive Pro-Abos und Dauerkäufe. Die vier Trinkgelder laufen über Apple, gekaufte KI-Kontingente bleiben erhalten."
+            },
+            "fr": {
+              "title": "Achat et restauration de Pro",
+              "detail": "L’App Store reconnaît vos abonnements Pro actifs et vos achats à vie, gère les quatre pourboires et conserve l’accès à vos crédits IA."
+            },
+            "zh-Hans": {
+              "title": "Pro 购买与恢复",
+              "detail": "苹果直接处理 Pro 购买、恢复和四档捐助，有效订阅和历史买断可解锁，已购 AI 额度保留。"
+            },
+            "zh-Hant": {
+              "title": "Pro 購買與回復",
+              "detail": "Apple 直接處理 Pro 購買、回復與四種贊助，有效訂閱和過去的買斷可解鎖，已購 AI 額度保留。"
+            },
+            "ja": {
+              "title": "Proの購入と復元",
+              "detail": "Pro の購入・復元と4種類のチップは Apple が処理し、有効な購読、買い切り、購入済み AI クレジットを引き継ぎます。"
+            },
+            "ko": {
+              "title": "Pro 구매 및 복원",
+              "detail": "Pro 구매 및 복원 시 App Store가 유효한 구독과 기존 평생 이용권을 확인하며, 네 가지 후원은 Apple을 통해 바로 결제되고 구매한 AI 크레딧은 유지됩니다."
+            },
+            "ru": {
+              "title": "Покупка и восстановление Pro",
+              "detail": "При покупке или восстановлении Pro App Store распознаёт действующие подписки и прежние бессрочные покупки, все четыре варианта поддержки оплачиваются через Apple, а купленные ИИ-запросы сохраняются."
+            }
+          }
+        },
+        {
+          "id": "v183CommunityWorkCards",
+          "localizations": {
+            "en": {
+              "title": "Community project cards",
+              "detail": "Project cards adapt to your text size, and temporary service outages are reported in the app’s language."
+            },
+            "es": {
+              "title": "Tarjetas de proyectos de la comunidad",
+              "detail": "Las tarjetas se adaptan al tamaño del texto y los avisos de interrupciones temporales aparecen en el idioma de la app."
+            },
+            "pt-BR": {
+              "title": "Cartões de projetos da comunidade",
+              "detail": "Os cartões se ajustam ao tamanho do texto, e os avisos de indisponibilidade temporária aparecem no idioma do app."
+            },
+            "de": {
+              "title": "Community-Projektkarten",
+              "detail": "Projektkarten passen sich der Textgröße an, und bei vorübergehenden Ladeproblemen erscheint ein Hinweis in der App-Sprache."
+            },
+            "fr": {
+              "title": "Cartes des projets de la communauté",
+              "detail": "Les cartes s’adaptent à la taille du texte et les indisponibilités temporaires sont signalées dans la langue de l’app."
+            },
+            "zh-Hans": {
+              "title": "社区作品卡片",
+              "detail": "社区作品卡片随字号调整，服务暂时不可用时会用应用当前语言提示。"
+            },
+            "zh-Hant": {
+              "title": "社群作品卡片",
+              "detail": "社群作品卡片隨文字大小調整，服務暫時無法使用時會以 App 目前的語言提示。"
+            },
+            "ja": {
+              "title": "コミュニティの作品カード",
+              "detail": "作品カードが文字サイズに合わせて表示され、サービスが一時的に利用できないときはアプリの言語で案内が表示されます。"
+            },
+            "ko": {
+              "title": "커뮤니티 작품 카드",
+              "detail": "작품 카드가 글자 크기에 맞춰 표시되며, 서비스를 일시적으로 이용할 수 없을 때 앱 언어로 안내합니다."
+            },
+            "ru": {
+              "title": "Карточки проектов сообщества",
+              "detail": "Карточки проектов подстраиваются под размер текста, а уведомления о временной недоступности сервиса отображаются на языке приложения."
+            }
+          }
+        },
+        {
+          "id": "v183SpeechAuthorization",
+          "localizations": {
+            "en": {
+              "title": "Speech recognition permission",
+              "detail": "AI dictation and Agent transcription share one system permission request when speech recognition access is needed."
+            },
+            "es": {
+              "title": "Permiso de reconocimiento de voz",
+              "detail": "El dictado con IA y la transcripción del agente comparten la solicitud de reconocimiento de voz para evitar solicitudes duplicadas."
+            },
+            "pt-BR": {
+              "title": "Permissão de reconhecimento de voz",
+              "detail": "O ditado por IA e a transcrição pelo Agent compartilham a solicitação de reconhecimento de voz para evitar pedidos duplicados."
+            },
+            "de": {
+              "title": "Freigabe für Spracherkennung",
+              "detail": "KI-Diktat und Agent-Transkription nutzen dieselbe Systemanfrage zur Spracherkennung, damit keine doppelten Anfragen entstehen."
+            },
+            "fr": {
+              "title": "Autorisation de reconnaissance vocale",
+              "detail": "La dictée IA et la transcription par l’Agent partagent la demande d’autorisation de reconnaissance vocale pour éviter les demandes en double."
+            },
+            "zh-Hans": {
+              "title": "语音识别授权",
+              "detail": "AI 语音输入和 Agent 转录共用系统语音识别授权流程，避免重复请求。"
+            },
+            "zh-Hant": {
+              "title": "語音辨識授權",
+              "detail": "AI 語音輸入與 Agent 轉錄共用系統語音辨識授權流程，避免重複請求。"
+            },
+            "ja": {
+              "title": "音声認識の許可",
+              "detail": "AIの音声入力とエージェントの文字起こしで音声認識の許可リクエストを共有し、重複したリクエストを防ぎます。"
+            },
+            "ko": {
+              "title": "음성 인식 권한",
+              "detail": "AI 음성 입력과 Agent 음성 변환이 시스템 권한 요청을 공유하여 중복 요청을 방지합니다."
+            },
+            "ru": {
+              "title": "Разрешение на распознавание речи",
+              "detail": "Диктовка с ИИ и расшифровка в Агенте используют общий запрос на распознавание речи, чтобы избежать повторных запросов."
+            }
+          }
+        }
+      ]
+    },
+    {
+      "version": "1.8.2",
+      "highlights": [
+        {
+          "id": "v182CompactLabels",
+          "localizations": {
+            "en": {
+              "title": "SSH jump hosts and interface",
+              "detail": "The SSH terminal and SFTP now support a single jump host with disconnect detection, and shorter labels improve readability on small screens and at larger text sizes."
+            },
+            "es": {
+              "title": "Servidor de salto SSH e interfaz",
+              "detail": "El terminal SSH y SFTP ya admiten conexiones mediante un solo servidor de salto con detección de cortes, y los textos más breves facilitan la lectura en pantallas pequeñas o con letra grande."
+            },
+            "pt-BR": {
+              "title": "Host de salto SSH e interface",
+              "detail": "O terminal SSH e o SFTP agora aceitam conexões por um único host de salto com detecção de quedas, e textos mais curtos facilitam a leitura em telas pequenas ou com fontes grandes."
+            },
+            "de": {
+              "title": "SSH-Jump-Hosts und Oberfläche",
+              "detail": "SSH-Terminal und SFTP unterstützen jetzt einen Jump-Host pro Verbindung mit Abbrucherkennung, und kürzere Texte sind auf kleinen Bildschirmen und bei großer Schrift leichter lesbar."
+            },
+            "fr": {
+              "title": "Rebond SSH et interface",
+              "detail": "Le terminal SSH et SFTP gèrent un hôte de rebond par connexion et détectent les coupures, et des libellés plus courts facilitent la lecture sur petit écran ou en grands caractères."
+            },
+            "zh-Hans": {
+              "title": "SSH 跳板机与界面优化",
+              "detail": "SSH 终端和 SFTP 新增单跳跳板机支持与断线检测，精简后的界面文案在小屏和大字号下也更易阅读。"
+            },
+            "zh-Hant": {
+              "title": "SSH 跳板機與介面改進",
+              "detail": "SSH 終端機與 SFTP 新增單跳跳板機支援及斷線偵測，精簡後的介面文字在小螢幕與大字體下也更易閱讀。"
+            },
+            "ja": {
+              "title": "SSH 踏み台と画面表示",
+              "detail": "SSH ターミナルと SFTP で踏み台サーバーを 1 台経由する接続と切断検知に対応し、小さな画面や大きな文字でも表示を読みやすくしました。"
+            },
+            "ko": {
+              "title": "SSH 점프 호스트 및 화면 개선",
+              "detail": "SSH 터미널과 SFTP에서 점프 호스트 한 대를 경유하는 연결과 연결 끊김 감지를 지원하고, 작은 화면과 큰 글자 설정에서 문구를 읽기 쉽게 다듬었습니다."
+            },
+            "ru": {
+              "title": "Промежуточный SSH-сервер и интерфейс",
+              "detail": "Терминал SSH и SFTP теперь поддерживают подключение через один промежуточный сервер с обнаружением обрывов связи, а короткие подписи удобнее читать на маленьких экранах и при крупном шрифте."
+            }
+          }
+        },
+        {
+          "id": "v182CodeFolding",
+          "localizations": {
+            "en": {
+              "title": "Code Folding Across Languages",
+              "detail": "Fold and unfold code from line numbers or chevrons, with full-width current-line shading, bracket highlights that follow the code, and automatic indentation for nested Python brackets."
+            },
+            "es": {
+              "title": "Plegado en varios lenguajes",
+              "detail": "Pliega y despliega el código desde el número o la flecha, con fondo en toda la línea activa, resaltado que sigue los delimitadores y sangría automática de delimitadores anidados en Python."
+            },
+            "pt-BR": {
+              "title": "Recolhimento em vários idiomas",
+              "detail": "Recolha e expanda o código pelo número ou pela seta, com fundo em toda a linha atual, realce que acompanha os delimitadores e recuo automático de delimitadores aninhados em Python."
+            },
+            "de": {
+              "title": "Codefaltung für mehrere Sprachen",
+              "detail": "Klappe Code per Zeilennummer oder Pfeil ein und aus, mit Zeilenhintergrund über die ganze Breite, mitlaufender Klammermarkierung und Einrückung verschachtelter Python-Klammern."
+            },
+            "fr": {
+              "title": "Repli du code dans plusieurs langages",
+              "detail": "Repliez le code via le numéro ou la flèche, avec un fond sur toute la ligne active, un surlignage qui suit les parenthèses et l’indentation automatique des délimiteurs Python imbriqués."
+            },
+            "zh-Hans": {
+              "title": "多语言代码折叠",
+              "detail": "点行号或小箭头收展代码块，当前行底色覆盖行号栏，括号高亮随代码移动，Python 嵌套括号自动对齐缩进。"
+            },
+            "zh-Hant": {
+              "title": "多語言程式碼摺疊",
+              "detail": "點行號或小箭頭收合程式碼區塊，目前行的底色延伸到行號欄，括號標示隨程式碼移動，Python 巢狀括號自動對齊縮排。"
+            },
+            "ja": {
+              "title": "複数言語のコード折りたたみ",
+              "detail": "行番号や矢印でコードを開閉でき、現在行の背景は行番号欄まで続き、括弧の強調表示はコードに追従し、Python の入れ子の括弧は自動でインデントされます。"
+            },
+            "ko": {
+              "title": "여러 언어의 코드 접기",
+              "detail": "줄 번호나 화살표로 코드를 접고 펼 수 있고, 현재 줄 배경은 줄 번호까지 이어지며, 괄호 강조는 코드를 따라가고 Python의 중첩 괄호는 자동으로 들여씁니다."
+            },
+            "ru": {
+              "title": "Сворачивание кода на разных языках",
+              "detail": "Сворачивайте код по номеру строки или стрелке, с фоном на всю текущую строку, подсветкой, которая следует за скобками, и автоматическими отступами для вложенных скобок в Python."
+            }
+          }
+        },
+        {
+          "id": "v182BlankFiles",
+          "localizations": {
+            "en": {
+              "title": "Files and MLX Samples",
+              "detail": "New Python, JavaScript, HTML, and Markdown files start empty, and MLX samples follow the app language and explain why a model was skipped."
+            },
+            "es": {
+              "title": "Archivos y ejemplos de MLX",
+              "detail": "Los archivos nuevos de Python, JavaScript, HTML y Markdown empiezan en blanco, y los ejemplos de MLX siguen el idioma de la app y explican por qué se omite un modelo."
+            },
+            "pt-BR": {
+              "title": "Arquivos e exemplos de MLX",
+              "detail": "Os novos arquivos Python, JavaScript, HTML e Markdown começam em branco, e os exemplos de MLX acompanham o idioma do app e explicam por que um modelo foi ignorado."
+            },
+            "de": {
+              "title": "Dateien und MLX-Beispiele",
+              "detail": "Neue Python-, JavaScript-, HTML- und Markdown-Dateien sind leer, und die MLX-Beispiele folgen der App-Sprache und erklären, warum ein Modell übersprungen wurde."
+            },
+            "fr": {
+              "title": "Fichiers et exemples MLX",
+              "detail": "Les nouveaux fichiers Python, JavaScript, HTML et Markdown sont vides, et les exemples MLX suivent la langue de l’app et indiquent pourquoi un modèle a été ignoré."
+            },
+            "zh-Hans": {
+              "title": "文件与 MLX 示例",
+              "detail": "新建 Python、JS、HTML、Markdown 文件为空，MLX 示例已本地化并显示模型识别失败原因。"
+            },
+            "zh-Hant": {
+              "title": "檔案與 MLX 範例",
+              "detail": "新增 Python、JS、HTML、Markdown 檔案時內容為空白，MLX 範例已本地化並說明辨識失敗原因。"
+            },
+            "ja": {
+              "title": "ファイルと MLX サンプル",
+              "detail": "Python、JavaScript、HTML、Markdown の新規ファイルは空で作成され、MLX サンプルはアプリの言語に対応し、モデルを読み込めない理由を表示します。"
+            },
+            "ko": {
+              "title": "파일과 MLX 예제",
+              "detail": "새 Python, JavaScript, HTML, Markdown 파일은 비어 있으며, MLX 예제는 앱 언어를 따르고 모델을 건너뛴 이유를 알려 줍니다."
+            },
+            "ru": {
+              "title": "Файлы и примеры MLX",
+              "detail": "Новые файлы Python, JavaScript, HTML и Markdown создаются пустыми, а примеры MLX используют язык приложения и объясняют, почему модель пропущена."
+            }
+          }
+        },
+        {
+          "id": "v182AgentStability",
+          "localizations": {
+            "en": {
+              "title": "More reliable Agent replies",
+              "detail": "Improved stability in long conversations and when returning to the app, with fixes for blank chat areas and misaligned replies."
+            },
+            "es": {
+              "title": "Respuestas del Agent más estables",
+              "detail": "Mejoramos la estabilidad en conversaciones largas y al volver a la app, y corregimos las áreas de chat en blanco y las respuestas desalineadas."
+            },
+            "pt-BR": {
+              "title": "Respostas do Agent mais estáveis",
+              "detail": "Melhoramos a estabilidade em conversas longas e ao voltar ao app, corrigindo áreas de chat em branco e respostas desalinhadas."
+            },
+            "de": {
+              "title": "Stabilere Agent-Antworten",
+              "detail": "Verbesserte Stabilität bei langen Unterhaltungen und bei der Rückkehr zur App sowie Korrekturen für leere Chatbereiche und verschobene Antworten."
+            },
+            "fr": {
+              "title": "Réponses de l’Agent plus stables",
+              "detail": "Stabilité améliorée dans les longues conversations et au retour dans l’app, avec correction des zones de discussion vides et des réponses mal alignées."
+            },
+            "zh-Hans": {
+              "title": "Agent 回复更稳定",
+              "detail": "改善长会话、长回复和切回应用时的稳定性，修复聊天区空白与正文错位问题。"
+            },
+            "zh-Hant": {
+              "title": "Agent 回覆更穩定",
+              "detail": "改善長對話、長篇回覆與返回 App 時的穩定性，修正對話區空白與內文錯位問題。"
+            },
+            "ja": {
+              "title": "Agent の応答を安定化",
+              "detail": "長い会話やアプリに戻ったときの安定性を改善し、チャット欄が空白になったり応答の表示位置がずれたりする問題を修正しました。"
+            },
+            "ko": {
+              "title": "더 안정적인 Agent 응답",
+              "detail": "긴 대화와 앱으로 돌아올 때의 안정성을 개선하고, 채팅 영역이 비거나 응답 위치가 어긋나는 문제를 수정했습니다."
+            },
+            "ru": {
+              "title": "Стабильнее ответы Agent",
+              "detail": "Повышена стабильность длинных бесед и возврата в приложение, исправлены пустые области чата и смещение текста ответов."
+            }
+          }
+        },
+        {
+          "id": "v182TurtleExit",
+          "localizations": {
+            "en": {
+              "title": "Script runs and widgets",
+              "detail": "Improved background audio recovery and Pro access checks in widgets, and fixed a hang when closing a Turtle window or stopping its script."
+            },
+            "es": {
+              "title": "Ejecución de scripts y widgets",
+              "detail": "Mejoramos la recuperación de audio en segundo plano y la detección del acceso Pro en los widgets, y corregimos un bloqueo al cerrar una ventana de Turtle o detener el script."
+            },
+            "pt-BR": {
+              "title": "Execução de scripts e widgets",
+              "detail": "Melhoramos a recuperação do áudio em segundo plano e a identificação do acesso Pro nos widgets e corrigimos um travamento ao fechar uma janela do Turtle ou interromper o script."
+            },
+            "de": {
+              "title": "Skriptausführung und Widgets",
+              "detail": "Hintergrundaudio wird nach Unterbrechungen zuverlässiger fortgesetzt, Widgets erkennen Pro besser und ein Hänger beim Schließen des Turtle-Fensters oder Stoppen des Skripts wurde behoben."
+            },
+            "fr": {
+              "title": "Exécution des scripts et widgets",
+              "detail": "La reprise audio en arrière-plan et la détection de l’accès Pro dans les widgets sont plus fiables, et le blocage à la fermeture d’une fenêtre Turtle ou à l’arrêt du script est corrigé."
+            },
+            "zh-Hans": {
+              "title": "运行与小组件",
+              "detail": "改善后台音频中断后的恢复和小组件 Pro 权益识别，并修复关闭 Turtle 窗口或停止脚本时卡住的问题。"
+            },
+            "zh-Hant": {
+              "title": "執行與小工具",
+              "detail": "改善背景音訊中斷後的恢復與小工具的 Pro 權益辨識，並修正關閉 Turtle 視窗或停止指令碼時卡住的問題。"
+            },
+            "ja": {
+              "title": "スクリプト実行とウィジェット",
+              "detail": "音声中断後のバックグラウンド実行とウィジェットの Pro 権限の認識を改善し、Turtle のウインドウを閉じたりスクリプトを停止したりするとフリーズする問題を修正しました。"
+            },
+            "ko": {
+              "title": "스크립트 실행과 위젯",
+              "detail": "오디오 중단 후 백그라운드 실행 복구와 위젯의 Pro 이용 권한 확인을 개선하고, Turtle 창을 닫거나 스크립트를 중지할 때 멈추는 문제를 수정했습니다."
+            },
+            "ru": {
+              "title": "Запуск скриптов и виджеты",
+              "detail": "Улучшено восстановление звука в фоне и проверка доступа к Pro в виджетах, устранено зависание при закрытии окна Turtle или остановке скрипта."
+            }
+          }
+        }
+      ]
+    },
+    {
+      "version": "1.8.1",
+      "highlights": [
+        {
+          "id": "v181PackageSize",
+          "localizations": {
+            "en": {
+              "title": "Smaller app size",
+              "detail": "The app takes up less space and keeps its built-in Python libraries and icon choices."
+            },
+            "es": {
+              "title": "Menos espacio de instalación",
+              "detail": "La app ocupa menos espacio y conserva las bibliotecas de Python integradas y las opciones de icono."
+            },
+            "pt-BR": {
+              "title": "App mais leve",
+              "detail": "O app ocupa menos espaço e mantém as bibliotecas Python integradas e as opções de ícone."
+            },
+            "de": {
+              "title": "Kleinere App",
+              "detail": "Die App benötigt weniger Speicherplatz und behält ihre integrierten Python-Bibliotheken und die Auswahl an App-Symbolen."
+            },
+            "fr": {
+              "title": "Une app plus légère",
+              "detail": "L’app prend moins de place tout en conservant les bibliothèques Python intégrées et le choix des icônes."
+            },
+            "zh-Hans": {
+              "title": "安装包更小",
+              "detail": "精简安装包体积，保留内置 Python 库与可选的 App 图标。"
+            },
+            "zh-Hant": {
+              "title": "安裝容量更小",
+              "detail": "縮減安裝容量，保留內建 Python 套件與可選的 App 圖示。"
+            },
+            "ja": {
+              "title": "アプリ容量を削減",
+              "detail": "内蔵の Python ライブラリと選べるアプリアイコンを維持しながら、インストール容量を抑えます。"
+            },
+            "ko": {
+              "title": "더 작은 설치 용량",
+              "detail": "내장 Python 라이브러리와 앱 아이콘 선택 옵션을 유지하면서 설치 용량을 줄였습니다."
+            },
+            "ru": {
+              "title": "Меньше места для установки",
+              "detail": "Приложение занимает меньше места, сохраняя встроенные библиотеки Python и выбор значка."
+            }
+          }
+        },
+        {
+          "id": "v181ReleasePrompt",
+          "localizations": {
+            "en": {
+              "title": "More reliable update notes",
+              "detail": "Fixed a crash when a window closes, and What’s New is now marked as read when you tap Done or swipe it away."
+            },
+            "es": {
+              "title": "Novedades más estables",
+              "detail": "Se corrigió un fallo al cerrar una ventana y ahora las Novedades se marcan como leídas al tocar el botón de cierre o deslizar hacia abajo."
+            },
+            "pt-BR": {
+              "title": "Novidades mais estáveis",
+              "detail": "Corrigimos uma falha ao fechar a janela, e as Novidades agora são marcadas como lidas ao tocar no botão de fechar ou deslizar para baixo."
+            },
+            "de": {
+              "title": "Stabilere Versionshinweise",
+              "detail": "Ein Absturz beim Schließen des Fensters wurde behoben, und die Versionshinweise gelten beim Schließen per Schaltfläche oder Wischgeste als gelesen."
+            },
+            "fr": {
+              "title": "Notes de mise à jour plus stables",
+              "detail": "Un plantage à la fermeture de la fenêtre a été corrigé, et les nouveautés sont marquées comme lues quand vous fermez le panneau avec le bouton ou en le faisant glisser vers le bas."
+            },
+            "zh-Hans": {
+              "title": "本版更新更稳定",
+              "detail": "修复窗口回收时的崩溃，点完成或下拉关闭「本版更新」都会记为已读。"
+            },
+            "zh-Hant": {
+              "title": "更新說明更穩定",
+              "detail": "修正視窗關閉時的當機，點選完成或向下滑動關閉「此版本的新內容」都會標記為已讀。"
+            },
+            "ja": {
+              "title": "更新案内の安定性向上",
+              "detail": "ウインドウを閉じるときのクラッシュを修正し、「このバージョンの新機能」は完了ボタンや下へのスワイプで閉じると既読になります。"
+            },
+            "ko": {
+              "title": "업데이트 안내 안정화",
+              "detail": "창이 닫힐 때 앱이 종료되던 문제를 수정했으며, 완료 버튼을 누르거나 아래로 쓸어내려 안내를 닫으면 읽음으로 표시됩니다."
+            },
+            "ru": {
+              "title": "Стабильнее работает «Что нового»",
+              "detail": "Исправлен сбой при закрытии окна, а панель «Что нового» отмечается как прочитанная после закрытия кнопкой или смахиванием вниз."
+            }
+          }
+        },
+        {
+          "id": "v181AgentStability",
+          "localizations": {
+            "en": {
+              "title": "More reliable Agent replies",
+              "detail": "Improved reply display after returning to the app or rotating the screen, and fixed newer text being overwritten by earlier content when saving a reply."
+            },
+            "es": {
+              "title": "Respuestas del Agent más estables",
+              "detail": "Mejoramos la visualización de las respuestas al volver a la app o girar la pantalla y corregimos un fallo que sobrescribía texto reciente con contenido anterior al guardar una respuesta."
+            },
+            "pt-BR": {
+              "title": "Respostas do Agent mais estáveis",
+              "detail": "Melhoramos a exibição das respostas ao voltar ao app ou girar a tela e corrigimos uma falha que substituía o texto mais recente por conteúdo anterior ao salvar a resposta."
+            },
+            "de": {
+              "title": "Stabilere Agent-Antworten",
+              "detail": "Antworten werden nach der Rückkehr zur App oder dem Drehen des Bildschirms zuverlässiger angezeigt, und beim Speichern überschreibt älterer Inhalt nicht mehr den neuesten Text."
+            },
+            "fr": {
+              "title": "Réponses de l’Agent plus stables",
+              "detail": "L’affichage des réponses au retour dans l’app ou après une rotation de l’écran a été amélioré, et le texte récent n’est plus remplacé par un contenu antérieur lors de l’enregistrement."
+            },
+            "zh-Hans": {
+              "title": "Agent 回复更稳定",
+              "detail": "改善切回应用和旋转屏幕后的回复显示，修复收尾保存时新文字被旧内容覆盖的问题。"
+            },
+            "zh-Hant": {
+              "title": "Agent 回覆更穩定",
+              "detail": "改善返回 App 與旋轉螢幕後的回覆顯示，修正儲存回覆時舊內容覆蓋最新文字的問題。"
+            },
+            "ja": {
+              "title": "Agent の応答を安定化",
+              "detail": "アプリに戻ったときや画面を回転したときの応答表示を改善し、応答の保存時に最新のテキストが以前の内容で上書きされる問題を修正しました。"
+            },
+            "ko": {
+              "title": "더 안정적인 Agent 응답",
+              "detail": "앱으로 돌아오거나 화면을 회전했을 때 응답 표시를 개선하고, 응답을 저장할 때 최신 텍스트가 이전 내용으로 덮어써지던 문제를 수정했습니다."
+            },
+            "ru": {
+              "title": "Стабильнее ответы Agent",
+              "detail": "Улучшено отображение ответов при возврате в приложение и повороте экрана, исправлена перезапись нового текста предыдущим содержимым при сохранении ответа."
+            }
+          }
+        }
+      ]
+    },
+    {
+      "version": "1.8.0",
+      "highlights": [
+        {
+          "id": "v180PreviewStability",
+          "localizations": {
+            "en": {
+              "title": "Appearance and stability",
+              "detail": "New icons and light/dark previews, relevant Pro benefits on open, plan changes from the Pro card, fixes for previews, downloads and labels, and direct Terminal launch via Shortcuts on iOS 26."
+            },
+            "es": {
+              "title": "Apariencia y estabilidad",
+              "detail": "Nuevos iconos y vistas clara y oscura, ventajas Pro según el acceso, cambio de plan desde la ficha Pro, mejoras en vistas previas, descargas y textos, y Terminal vía Atajos en iOS 26."
+            },
+            "pt-BR": {
+              "title": "Visual e estabilidade",
+              "detail": "Novos ícones e prévias clara e escura, benefícios Pro conforme a entrada, troca de plano no cartão Pro, ajustes em prévias, downloads e textos e Terminal via Atalhos no iOS 26."
+            },
+            "de": {
+              "title": "Darstellung und Stabilität",
+              "detail": "Neue Symbole und Hell-Dunkel-Vorschauen, passende Pro-Vorteile beim Öffnen, Tarifwechsel auf der Pro-Karte, Korrekturen bei Vorschauen, Downloads und Texten, Terminal per Kurzbefehl unter iOS 26."
+            },
+            "fr": {
+              "title": "Apparence et stabilité",
+              "detail": "Icônes et aperçus clair/sombre revus, avantages Pro liés à l’écran d’origine, changement de formule sur la carte Pro, corrections d’aperçus et de téléchargements, Terminal via Raccourcis sous iOS 26."
+            },
+            "zh-Hans": {
+              "title": "外观与稳定性",
+              "detail": "更新图标和浅深预览，Pro 按入口显示权益，Pro 会员卡可换套餐，修复预览与下载，iOS 26 捷径直达终端。"
+            },
+            "zh-Hant": {
+              "title": "外觀與穩定性",
+              "detail": "更新圖示與淺深預覽，Pro 依入口顯示權益，Pro 會員卡可換方案，修正預覽與下載，iOS 26 捷徑直達終端。"
+            },
+            "ja": {
+              "title": "外観と安定性",
+              "detail": "アイコンと明暗プレビューを更新し、Proは入口別に特典を表示、Proカードからプラン変更、プレビューとダウンロードを修正、iOS 26のショートカットからターミナルを直接起動できます。"
+            },
+            "ko": {
+              "title": "디자인 및 안정성",
+              "detail": "아이콘과 밝기별 미리보기, 진입 경로별 Pro 혜택, Pro 카드에서 요금제 변경, 미리보기·다운로드 개선, iOS 26 단축어의 터미널 바로 열기를 지원합니다."
+            },
+            "ru": {
+              "title": "Внешний вид и стабильность",
+              "detail": "Новые значки и светлый и тёмный предпросмотр, преимущества Pro по контексту, смена плана в карточке Pro, правки предпросмотра, загрузок и подписей, терминал из «Быстрых команд» в iOS 26."
+            }
+          }
+        },
+        {
+          "id": "v180HTMLPreviewAndCommunity",
+          "localizations": {
+            "en": {
+              "title": "HTML preview and submissions",
+              "detail": "HTML preview adds a movable exit button, sound in Silent mode and native game audio, while Community accepts HTML submissions up to 2 MiB and fixes a crash on iOS 27.2 beta 2."
+            },
+            "es": {
+              "title": "Vista previa y envíos HTML",
+              "detail": "La vista HTML ofrece un botón de salida móvil, sonido en modo silencioso y audio nativo de juegos, y la comunidad permite publicar HTML de hasta 2 MiB y corrige un cierre en iOS 27.2 beta 2."
+            },
+            "pt-BR": {
+              "title": "Prévia e envio de HTML",
+              "detail": "A prévia HTML tem botão de saída reposicionável, som no modo silencioso e áudio nativo de jogos, e a comunidade aceita envios HTML de até 2 MiB e corrige falhas no iOS 27.2 beta 2."
+            },
+            "de": {
+              "title": "HTML-Vorschau und Beiträge",
+              "detail": "Die HTML-Vorschau bietet eine verschiebbare Schließen-Taste, Ton im Stummmodus und nativen Spielton, und die Community erlaubt HTML-Beiträge bis 2 MiB und behebt Abstürze unter iOS 27.2 Beta 2."
+            },
+            "fr": {
+              "title": "Aperçu et partage HTML",
+              "detail": "L’aperçu HTML ajoute un bouton de sortie mobile, le son en mode silencieux et l’audio natif des jeux, et la communauté accepte les envois HTML jusqu’à 2 Mio et corrige un plantage sur iOS 27.2 bêta 2."
+            },
+            "zh-Hans": {
+              "title": "HTML 预览与投稿",
+              "detail": "HTML预览支持拖动退出键、静音有声和原生游戏音频，社区可投稿2MiB内HTML并修复iOS 27.2测试版闪退。"
+            },
+            "zh-Hant": {
+              "title": "HTML 預覽與投稿",
+              "detail": "HTML預覽支援移動退出鍵、靜音有聲與原生遊戲音訊，社群可投稿2MiB內HTML並修正iOS 27.2測試版閃退。"
+            },
+            "ja": {
+              "title": "HTMLプレビューと投稿",
+              "detail": "HTMLプレビューで終了ボタンの移動、消音時の再生、ネイティブゲーム音声が使え、コミュニティは2 MiBまでのHTML投稿に対応し、iOS 27.2ベータ2でのクラッシュを修正しました。"
+            },
+            "ko": {
+              "title": "HTML 미리보기와 게시",
+              "detail": "HTML 미리보기에 이동식 종료 버튼·무음 재생·네이티브 게임 오디오를 추가하고, 커뮤니티는 2 MiB 이하 HTML 게시를 지원하며 iOS 27.2 베타 2 충돌을 수정했습니다."
+            },
+            "ru": {
+              "title": "Просмотр и публикация HTML",
+              "detail": "Предпросмотр HTML поддерживает перенос кнопки выхода, звук в тихом режиме и нативное игровое аудио, а в сообществе доступны публикации HTML до 2 МиБ и исправлен сбой в iOS 27.2 beta 2."
+            }
+          }
+        },
+        {
+          "id": "v180WebsiteHosting",
+          "localizations": {
+            "en": {
+              "title": "Website Publishing",
+              "detail": "Publish checked HTML with short links, use Pro benefits with separate usage updates, buy traffic with refund sync, and open reported versions from notifications."
+            },
+            "es": {
+              "title": "Publicación web",
+              "detail": "Publica HTML verificado con enlaces cortos, usa Pro con actualización de uso independiente, compra tráfico con sincronización de reembolsos y abre denuncias desde avisos."
+            },
+            "pt-BR": {
+              "title": "Publicação de sites",
+              "detail": "Publique HTML verificado com links curtos, use Pro com atualização de uso separada, compre pacotes de tráfego com reembolsos sincronizados e abra denúncias pelas notificações."
+            },
+            "de": {
+              "title": "Website-Veröffentlichung",
+              "detail": "Veröffentliche geprüftes HTML per Kurzlink, nutze Pro mit separater Nutzungsanzeige, kaufe Traffic-Pakete mit Erstattungssync und öffne gemeldete Versionen über Hinweise."
+            },
+            "fr": {
+              "title": "Publication de sites",
+              "detail": "Publiez du HTML vérifié par lien court, utilisez Pro avec un suivi distinct de l’usage, achetez des packs de trafic avec suivi des remboursements et ouvrez les signalements via les alertes."
+            },
+            "zh-Hans": {
+              "title": "网站部署",
+              "detail": "优化 HTML 检查和短链发布，沿用 Pro 权益并独立刷新用量，支持购买流量包及同步退款，通知直达举报版本。"
+            },
+            "zh-Hant": {
+              "title": "網站部署",
+              "detail": "改善 HTML 檢查和短連結發佈，沿用 Pro 權益並獨立更新用量，支援購買流量包及同步退款，通知直達檢舉版本。"
+            },
+            "ja": {
+              "title": "サイト公開",
+              "detail": "HTMLのチェックと短縮リンクでの公開を改善し、既存のPro特典を利用しながら使用量を個別に更新し、通信量の追加購入と返金に対応し、通知から通報版を開けます。"
+            },
+            "ko": {
+              "title": "웹사이트 배포",
+              "detail": "HTML 검사와 짧은 링크 게시를 개선하고, 기존 Pro 혜택을 적용하며 사용량을 별도로 갱신하고, 트래픽 구매 및 환불과 알림에서 신고 버전 열기를 지원합니다."
+            },
+            "ru": {
+              "title": "Публикация сайтов",
+              "detail": "Публикуйте проверенный HTML по коротким ссылкам, используйте Pro с отдельным учётом, покупайте пакеты трафика с учётом возвратов и открывайте жалобы из уведомлений."
+            }
+          }
+        },
+        {
+          "id": "v180CommunityAccount",
+          "localizations": {
+            "en": {
+              "title": "Community sign-in",
+              "detail": "Community sign-in adapts to screen height, shows progress inside the Apple button, and leads to one screen for profile setup, save status, and review status."
+            },
+            "es": {
+              "title": "Inicio de sesión en la comunidad",
+              "detail": "El acceso a la comunidad se adapta a la altura de la pantalla, muestra el progreso en el botón de Apple y abre una página para configurar el perfil y ver el estado de guardado y revisión."
+            },
+            "pt-BR": {
+              "title": "Login na comunidade",
+              "detail": "O login da comunidade se ajusta à altura da tela, mostra o progresso no botão da Apple e abre uma página para configurar o perfil e acompanhar o salvamento e a análise."
+            },
+            "de": {
+              "title": "Community-Anmeldung",
+              "detail": "Die Community-Anmeldung passt ihre Abstände an die Bildschirmhöhe an, zeigt den Fortschritt in der Apple-Taste und führt zur Profilseite mit Speicher- und Prüfstatus."
+            },
+            "fr": {
+              "title": "Connexion à la communauté",
+              "detail": "La connexion à la communauté s’adapte à la hauteur de l’écran, affiche la progression dans le bouton Apple et ouvre une page de profil avec le suivi de l’enregistrement et de la vérification."
+            },
+            "zh-Hans": {
+              "title": "社区登录",
+              "detail": "社区登录页随屏幕高度调整间距，Apple 按钮内显示进度，登录后可在同一页完善资料并查看保存与审核状态。"
+            },
+            "zh-Hant": {
+              "title": "社群登入",
+              "detail": "社群登入頁隨螢幕高度調整間距，Apple 按鈕內顯示進度，登入後可在同一頁完善個人資料並查看儲存與審核狀態。"
+            },
+            "ja": {
+              "title": "コミュニティへのサインイン",
+              "detail": "コミュニティのログイン画面は高さに応じて余白を調整し、Appleボタン内に進行状況を表示して、プロフィールの設定と保存・審査状況の確認を1画面で行えます。"
+            },
+            "ko": {
+              "title": "커뮤니티 로그인",
+              "detail": "커뮤니티 로그인 화면은 높이에 맞춰 간격을 조절하고 Apple 버튼 안에 진행 상태를 표시하며, 한 화면에서 프로필 설정과 저장·심사 상태 확인을 할 수 있어요."
+            },
+            "ru": {
+              "title": "Вход в сообщество",
+              "detail": "Экран входа в сообщество подстраивается под высоту дисплея, показывает ход входа в кнопке Apple и открывает страницу настройки профиля со статусами сохранения и модерации."
+            }
+          }
+        },
+        {
+          "id": "v180PythonRuntime",
+          "localizations": {
+            "en": {
+              "title": "Python and packages",
+              "detail": "Includes Python 3.15.2 and NumPy 2.5.2.post1 in a smaller app, supports more memory on eligible devices, and shows storage and refresh status for installed packages in a simpler catalog."
+            },
+            "es": {
+              "title": "Python y paquetes",
+              "detail": "La app ocupa menos, incluye Python 3.15.2 y NumPy 2.5.2.post1, admite más memoria en equipos compatibles y simplifica el catálogo con el espacio usado y el estado de actualización en Instalados."
+            },
+            "pt-BR": {
+              "title": "Python e pacotes",
+              "detail": "O app ocupa menos espaço, inclui Python 3.15.2 e NumPy 2.5.2.post1, usa mais memória em aparelhos compatíveis e simplifica o catálogo com espaço usado e status de atualização na lista de instalados."
+            },
+            "de": {
+              "title": "Python und Pakete",
+              "detail": "Die App benötigt weniger Platz, enthält Python 3.15.2 und NumPy 2.5.2.post1, nutzt mehr RAM auf geeigneten Geräten und zeigt im einfacheren Katalog Speicherbedarf und Aktualisierungsstatus an."
+            },
+            "fr": {
+              "title": "Python et paquets",
+              "detail": "L’app prend moins de place, intègre Python 3.15.2 et NumPy 2.5.2.post1, utilise plus de mémoire sur les appareils compatibles et simplifie le suivi de l’espace et de l’actualisation des paquets."
+            },
+            "zh-Hans": {
+              "title": "Python 与库管理",
+              "detail": "内置 Python 3.15.2 与 NumPy，包体更小，支持机型可用更多内存，精简目录并显示已装库占用与刷新。"
+            },
+            "zh-Hant": {
+              "title": "Python 與套件管理",
+              "detail": "內建 Python 3.15.2 與 NumPy，App 更小，支援機型可用更多記憶體，精簡目錄並顯示用量與更新。"
+            },
+            "ja": {
+              "title": "Python とパッケージ",
+              "detail": "アプリの容量を抑えつつ Python 3.15.2 と NumPy 2.5.2.post1 を搭載し、対応機種で使えるメモリを増やし、パッケージ一覧に使用容量と更新状況を表示します。"
+            },
+            "ko": {
+              "title": "Python 및 패키지",
+              "detail": "더 작은 앱에 Python 3.15.2와 NumPy 2.5.2.post1을 담고, 지원 기기의 메모리 한도를 높였으며, 간소화한 목록에서 설치 용량과 새로 고침 상태를 표시합니다."
+            },
+            "ru": {
+              "title": "Python и пакеты",
+              "detail": "Приложение занимает меньше места, включает Python 3.15.2 и NumPy 2.5.2.post1, использует больше памяти на совместимых устройствах и показывает размер и статус обновления пакетов в упрощённом каталоге."
+            }
+          }
+        }
+      ]
+    },
+    {
+      "version": "1.7.9",
+      "highlights": [
+        {
+          "id": "v179EditorAssistance",
+          "localizations": {
+            "en": {
+              "title": "Editor and console improvements",
+              "detail": "Faster editor entry, clear hints, guides, tabs, completion, brackets and libraries, lighter consoles and reading recovery, background options and protection, Live Activities and keep-awake fixes."
+            },
+            "es": {
+              "title": "Mejoras del editor y la consola",
+              "detail": "Editor ágil, ayuda sin tapar la entrada, guías, pestañas, completado, paréntesis y bibliotecas, consola ligera y lectura fluida, ajustes de fondo, protección, actividades en directo y pantalla activa."
+            },
+            "pt-BR": {
+              "title": "Melhorias no editor e no console",
+              "detail": "Editor ágil, dicas sem cobrir a entrada, guias, abas, completar, parênteses e bibliotecas, console leve e leitura estável, ajustes de fundo, proteção, Atividades ao Vivo e tela ativa na execução."
+            },
+            "de": {
+              "title": "Editor und Konsole verbessert",
+              "detail": "Schnellerer Editorstart, ungestörte Eingabe, Hilfslinien, Tabs, Ergänzung, Klammern und Bibliotheken, leichte Konsole, Leseposition, Hintergrundoptionen, Schutz, Live-Aktivitäten und Wachhalten."
+            },
+            "fr": {
+              "title": "Éditeur et console améliorés",
+              "detail": "Éditeur réactif, aide sans masquer la saisie, guides, onglets, complétion, parenthèses, bibliothèques, console légère, lecture stable, options de fond, protection, activités en direct et écran allumé."
+            },
+            "zh-Hans": {
+              "title": "编辑与控制台优化",
+              "detail": "优化快捷栏首开、缩进、提示避让、标签、补全、括号及库列表，改善控制台和滚动恢复，统一后台设置、保护与实时活动，修复常亮。"
+            },
+            "zh-Hant": {
+              "title": "編輯與終端機最佳化",
+              "detail": "改善快捷列首開、縮排、提示避讓、分頁、補完、括號及套件，改善終端機與捲動復原，統一背景設定、保護與即時動態，修正常亮。"
+            },
+            "ja": {
+              "title": "エディタとコンソールを改善",
+              "detail": "エディタ初回表示、ヒントの重なり、インデント・タブ・補完・括弧・ライブラリ、コンソールと閲覧位置復元を改善し、バックグラウンド設定・保護・ライブアクティビティを統一、実行中の常時点灯を修正しました。"
+            },
+            "ko": {
+              "title": "편집기와 콘솔 개선",
+              "detail": "편집기 첫 표시·힌트 가림·들여쓰기·탭·완성·괄호·라이브러리·콘솔 부하·읽기 복원을 개선하고 백그라운드 설정·보호·실시간 현황을 통합하며 실행 중 화면 켜짐을 수정했습니다."
+            },
+            "ru": {
+              "title": "Редактор и консоль",
+              "detail": "Редактор открывается быстрее, подсказки не мешают вводу, отступы, вкладки, дополнение, скобки, библиотеки, лёгкая консоль, чтение, фоновые настройки, защита, Live Activities и экран при выполнении."
+            }
+          }
+        },
+        {
+          "id": "v179LibraryMaintenance",
+          "localizations": {
+            "en": {
+              "title": "Updated Python libraries",
+              "detail": "Updated selected bundled libraries and coroutine support, clarified model download progress and errors in the bundled MLX example, and preserved installed packages, scripts and settings."
+            },
+            "es": {
+              "title": "Bibliotecas actualizadas",
+              "detail": "Actualizamos bibliotecas y corrutinas, y aclaramos el progreso y los errores de descarga del ejemplo MLX incluido; se conservan paquetes instalados, scripts y ajustes."
+            },
+            "pt-BR": {
+              "title": "Bibliotecas atualizadas",
+              "detail": "Atualizamos bibliotecas e corrotinas e melhoramos o progresso e os erros de download do exemplo MLX incluído, preservando pacotes instalados, scripts e configurações."
+            },
+            "de": {
+              "title": "Aktualisierte Bibliotheken",
+              "detail": "Aktualisierte integrierte Bibliotheken und Coroutinen, klarerer Downloadfortschritt und Fehlermeldungen im MLX-Beispiel; installierte Pakete, Skripte und Einstellungen bleiben erhalten."
+            },
+            "fr": {
+              "title": "Bibliothèques mises à jour",
+              "detail": "Bibliothèques et coroutines mises à jour, avec un suivi et des erreurs de téléchargement plus clairs dans l’exemple MLX fourni ; paquets installés, scripts et réglages conservés."
+            },
+            "zh-Hans": {
+              "title": "内置库更新",
+              "detail": "更新部分基础库与协程组件，并改进随包 MLX 示例的模型下载进度和错误提示，保留已安装库、脚本与设置。"
+            },
+            "zh-Hant": {
+              "title": "內建程式庫更新",
+              "detail": "更新部分基礎程式庫與協程元件，並改善隨附 MLX 範例的模型下載進度與錯誤提示，保留已安裝套件、腳本與設定。"
+            },
+            "ja": {
+              "title": "内蔵ライブラリの更新",
+              "detail": "一部の内蔵Pythonライブラリとコルーチン機能を更新し、同梱MLXサンプルのモデルダウンロード状況とエラー表示を改善しました（インストール済みのライブラリ・スクリプト・設定は保持されます）。"
+            },
+            "ko": {
+              "title": "내장 라이브러리 업데이트",
+              "detail": "내장 Python 라이브러리와 코루틴을 업데이트하고, MLX 예제의 모델 다운로드 진행 상황과 오류 안내를 개선했으며, 설치된 패키지·스크립트·설정은 유지했습니다."
+            },
+            "ru": {
+              "title": "Обновлённые библиотеки",
+              "detail": "Обновлены встроенные библиотеки и корутины, улучшены показ загрузки моделей и сообщения об ошибках в примере MLX; установленные пакеты, скрипты и настройки сохранены."
+            }
+          }
+        },
+        {
+          "id": "v179ProPaywall",
+          "localizations": {
+            "en": {
+              "title": "Refreshed Pro page",
+              "detail": "A unified Pro page with a flowing background, native close, adaptive light/dark layouts and membership status, with cards for available offers after returning and inline offer countdowns in Settings."
+            },
+            "es": {
+              "title": "Página Pro renovada",
+              "detail": "Página Pro unificada con fondo animado, cierre nativo, diseño adaptable claro y oscuro, membresía, tarjeta de oferta opcional al volver y cuenta atrás en una línea en Ajustes."
+            },
+            "pt-BR": {
+              "title": "Página Pro renovada",
+              "detail": "Página Pro unificada com fundo animado, botão nativo para fechar, layout claro e escuro, status da assinatura, cartão de oferta ao voltar e contagem regressiva em uma linha nos Ajustes."
+            },
+            "de": {
+              "title": "Überarbeitete Pro-Seite",
+              "detail": "Einheitliche Pro-Seite mit fließendem Hintergrund, nativer Schließen-Taste, hellem/dunklem Layout, Mitgliedsstatus, Angebotskarte nach der Rückkehr und Countdown in den Einstellungen."
+            },
+            "fr": {
+              "title": "Page Pro repensée",
+              "detail": "Page Pro unifiée avec fond animé, fermeture native, affichage adaptatif clair/sombre, statut d’abonnement, carte d’offre au retour et compte à rebours en une ligne dans les réglages."
+            },
+            "zh-Hans": {
+              "title": "Pro 页面焕新",
+              "detail": "统一 Pro 入口、流动背景和原生关闭，适配大小屏、日夜与会员状态，有优惠时返回后显示优惠卡，设置横向展示倒计时。"
+            },
+            "zh-Hant": {
+              "title": "Pro 頁面煥新",
+              "detail": "統一 Pro 入口、流動背景與系統關閉，適配螢幕、深淺外觀及會員狀態，有優惠時返回後顯示卡片，設定橫向呈現倒數。"
+            },
+            "ja": {
+              "title": "Pro ページを刷新",
+              "detail": "Pro の入口、流れる背景、標準の閉じるボタン、画面サイズとライト／ダーク表示、会員状態を整え、利用可能なオファーを元の画面に戻った後のカードと設定内の横並びの残り時間で案内します。"
+            },
+            "ko": {
+              "title": "새로운 Pro 페이지",
+              "detail": "Pro 화면, 흐르는 배경, 기본 닫기, 화면 크기·테마·멤버십 표시를 개선하고, 혜택 카드는 복귀 후, 남은 시간은 설정에 나란히 표시합니다."
+            },
+            "ru": {
+              "title": "Обновлённая страница Pro",
+              "detail": "Единый экран Pro с плавным фоном, системным закрытием, адаптацией к экрану и теме, статусом подписки, карточкой скидки после возврата и отсчётом в одну строку в настройках."
+            }
+          }
+        },
+        {
+          "id": "v179Startup",
+          "localizations": {
+            "en": {
+              "title": "Smoother startup",
+              "detail": "Removed the brand launch screen and setting, improved in-app Shortcuts and external-folder opening/deletion, and fixed external-folder ZIP creation/extraction and crashes when leaving previews."
+            },
+            "es": {
+              "title": "Inicio más fluido",
+              "detail": "Retiramos la pantalla de marca y su ajuste, mejoramos Atajos en la app y la apertura/borrado de carpetas externas, y corregimos su compresión/extracción y los fallos al salir de vistas previas."
+            },
+            "pt-BR": {
+              "title": "Inicialização mais fluida",
+              "detail": "Removemos a tela da marca e seu ajuste, melhoramos Atalhos no app e a abertura/exclusão de pastas externas e corrigimos sua compactação/extração e falhas ao sair de prévias."
+            },
+            "de": {
+              "title": "Flüssigerer Start",
+              "detail": "Marken-Startbild samt Option entfernt, Kurzbefehle in der App und Erstansicht/Löschen externer Ordner verbessert, deren ZIP-Erstellen/Entpacken und Abstürze beim Schließen von Vorschauen behoben."
+            },
+            "fr": {
+              "title": "Un démarrage plus fluide",
+              "detail": "Écran de marque et option retirés, lancement via Raccourcis dans l’app et affichage/suppression des dossiers externes améliorés, compression/extraction et plantages en quittant l’aperçu corrigés."
+            },
+            "zh-Hans": {
+              "title": "启动更顺畅",
+              "detail": "移除品牌启动页及设置，改善快捷指令的 App 内交接、外部文件夹首显与删除，修复外部目录压缩解压及预览退出崩溃。"
+            },
+            "zh-Hant": {
+              "title": "啟動更流暢",
+              "detail": "移除品牌啟動畫面及設定，改善捷徑的 App 內銜接、外部檔案夾初次顯示與刪除，修復外部目錄壓縮解壓及預覽關閉當機。"
+            },
+            "ja": {
+              "title": "スムーズな起動",
+              "detail": "ブランド起動画面と設定を削除し、ショートカットからのアプリ内実行、外部フォルダの初期表示と削除を改善、外部フォルダの圧縮・展開とプレビュー終了時のクラッシュを修正しました。"
+            },
+            "ko": {
+              "title": "더 부드러운 시작",
+              "detail": "브랜드 시작 화면과 설정을 제거하고, 단축어의 앱 내 실행과 외부 폴더 초기 표시·삭제를 개선했으며, 외부 폴더 압축·해제 오류와 미리보기 종료 시 충돌을 수정했습니다."
+            },
+            "ru": {
+              "title": "Более плавный запуск",
+              "detail": "Убраны фирменный экран и настройка, улучшены запуск из «Команд», первый показ и удаление внешних папок, исправлены сжатие и распаковка в них и сбои при выходе из предпросмотра."
+            }
+          }
+        }
+      ]
+    },
+    {
+      "version": "1.7.8",
+      "highlights": [
+        {
+          "id": "v178MLX",
+          "localizations": {
+            "en": {
+              "title": "Local computing with MLX",
+              "detail": "Run MLX locally with model chat examples, streaming output and saved conversations on iOS 17 or later."
+            },
+            "es": {
+              "title": "Cálculo local con MLX",
+              "detail": "Ejecuta MLX en el dispositivo con ejemplos de chat, respuestas en tiempo real y conversaciones guardadas en iOS 17 o posterior."
+            },
+            "pt-BR": {
+              "title": "Computação local com MLX",
+              "detail": "Execute MLX no dispositivo com exemplos de chat, respostas em tempo real e conversas salvas no iOS 17 ou posterior."
+            },
+            "de": {
+              "title": "Lokal rechnen mit MLX",
+              "detail": "Nutze MLX lokal mit Modellchat-Beispielen, laufender Textausgabe und gespeicherten Gesprächen ab iOS 17."
+            },
+            "fr": {
+              "title": "Calcul local avec MLX",
+              "detail": "Utilisez MLX en local avec des exemples de chat, des réponses en continu et des conversations enregistrées à partir d’iOS 17."
+            },
+            "zh-Hans": {
+              "title": "MLX 本地计算",
+              "detail": "新增 MLX 本地计算与模型对话示例，支持流式输出和会话保存，需 iOS 17 或以上。"
+            },
+            "zh-Hant": {
+              "title": "MLX 本機運算",
+              "detail": "新增 MLX 本機運算與模型對話範例，支援串流輸出與對話儲存，需 iOS 17 或以上版本。"
+            },
+            "ja": {
+              "title": "MLX によるローカル計算",
+              "detail": "iOS 17 以降で MLX のローカル計算とモデルとの対話サンプルを利用でき、逐次出力と会話の保存に対応します。"
+            },
+            "ko": {
+              "title": "MLX 로컬 연산",
+              "detail": "iOS 17 이상에서 MLX 로컬 연산과 모델 대화 예제를 사용하고 스트리밍 출력과 대화 저장을 이용할 수 있습니다."
+            },
+            "ru": {
+              "title": "Локальные вычисления с MLX",
+              "detail": "Используйте MLX на устройстве с примерами чата, потоковыми ответами и сохранением диалогов в iOS 17 и новее."
+            }
+          }
+        },
+        {
+          "id": "v178EditorInputAndHome",
+          "localizations": {
+            "en": {
+              "title": "Startup and editing",
+              "detail": "Smoother Home/MiniApp loading, aligned Git status, file switching, Chinese input and sharing, with native previews, optional indentation guides and HTML tabs only in source."
+            },
+            "es": {
+              "title": "Inicio y edición",
+              "detail": "Carga de Inicio y MiniApps, alineación Git, cambio de archivos, entrada en chino y uso compartido mejorados, con vistas previas nativas, guías de sangría opcionales y pestañas HTML solo en código."
+            },
+            "pt-BR": {
+              "title": "Inicialização e edição",
+              "detail": "Início e MiniApps mais fluidos, Git alinhado, melhorias em arquivos, digitação chinesa e compartilhamento, prévias nativas, guias de recuo opcionais e abas HTML só no código."
+            },
+            "de": {
+              "title": "Start und Bearbeitung",
+              "detail": "Flüssigeres Laden von Startseite/MiniApps, ausgerichtete Git-Anzeigen, Dateiwechsel, chinesische Eingabe und Teilen, native Vorschauen, optionale Einrückungslinien und HTML-Tabs nur im Quelltext."
+            },
+            "fr": {
+              "title": "Démarrage et édition",
+              "detail": "Accueil/MiniApps fluides, statuts Git alignés, changement de fichier, saisie chinoise et partage améliorés, aperçus natifs, guides d’indentation facultatifs, onglets HTML uniquement côté source."
+            },
+            "zh-Hans": {
+              "title": "启动与编辑",
+              "detail": "优化启动与 Git 对齐、文件切换、中文输入和分享，恢复原生预览，新增可选缩进线，HTML 标签仅在源码显示。"
+            },
+            "zh-Hant": {
+              "title": "啟動與編輯",
+              "detail": "優化啟動與 Git 對齊、檔案切換、中文輸入和分享，恢復原生預覽，新增可選縮排線，HTML 分頁僅在原始碼顯示。"
+            },
+            "ja": {
+              "title": "起動と編集",
+              "detail": "ホームとMiniAppの読み込み、Git表示の位置揃え、ファイル切替、中国語入力と共有を改善し、標準プレビュー、任意のインデントガイド、HTMLタブのソース側限定表示に対応。"
+            },
+            "ko": {
+              "title": "시작 및 편집",
+              "detail": "홈·MiniApp 로딩, Git 표시 정렬, 파일 전환·중국어 입력·공유를 개선하고 기본 미리보기·선택적 들여쓰기 안내선을 제공하며 HTML 탭은 소스에만 표시합니다."
+            },
+            "ru": {
+              "title": "Запуск и редактирование",
+              "detail": "Улучшены запуск главной/MiniApp, выравнивание Git, смена файлов, ввод на китайском и обмен; системный предпросмотр, отключаемые линии отступов, вкладки HTML только в исходном коде."
+            }
+          }
+        },
+        {
+          "id": "v178OnDemandLibraries",
+          "localizations": {
+            "en": {
+              "title": "Terminal and libraries",
+              "detail": "On-demand libraries, group jumps, UTF-8, terminal, pip and gmssl improvements, plus OpenCV camera orientation and clearer keys; existing packages, scripts and settings stay."
+            },
+            "es": {
+              "title": "Terminal y bibliotecas",
+              "detail": "Bibliotecas bajo demanda, grupos, UTF-8, mejoras en terminal, pip, gmssl y orientación de cámara y teclas de OpenCV; paquetes, scripts y ajustes conservados."
+            },
+            "pt-BR": {
+              "title": "Terminal e bibliotecas",
+              "detail": "Bibliotecas sob demanda, grupos, UTF-8, melhorias no terminal, pip, gmssl e orientação de câmera e teclas do OpenCV; pacotes, scripts e ajustes preservados."
+            },
+            "de": {
+              "title": "Terminal und Bibliotheken",
+              "detail": "Bibliotheken bei Bedarf, Gruppensprünge, UTF-8, Terminal, pip, gmssl sowie OpenCV-Kameraausrichtung und klare Tasten; Pakete, Skripte und Einstellungen bleiben erhalten."
+            },
+            "fr": {
+              "title": "Terminal et bibliothèques",
+              "detail": "Bibliothèques à la demande, groupes, UTF-8, terminal, pip, gmssl et orientation caméra et touches OpenCV améliorés ; paquets, scripts et réglages conservés."
+            },
+            "zh-Hans": {
+              "title": "终端与扩展库",
+              "detail": "按需安装与分组定位，默认UTF-8，完善终端、pip、gmssl及OpenCV方向与按键，保留库、脚本、设置。"
+            },
+            "zh-Hant": {
+              "title": "終端機與擴充程式庫",
+              "detail": "按需安裝與分類定位，預設UTF-8，改善終端機、pip、gmssl及OpenCV方向與按鍵，保留套件、腳本與設定。"
+            },
+            "ja": {
+              "title": "ターミナルとライブラリ",
+              "detail": "必要に応じたライブラリ追加・分類への移動・標準UTF-8に対応し、端末・pip・gmsslとOpenCVのカメラ向き・キー表示を改善（既存のライブラリ・スクリプト・設定を保持）。"
+            },
+            "ko": {
+              "title": "터미널 및 라이브러리",
+              "detail": "필요 시 라이브러리 설치·그룹 이동·기본 UTF-8을 지원하고 터미널·pip·gmssl과 OpenCV 카메라 방향·키 표시를 개선했습니다(기존 패키지·스크립트·설정 유지)."
+            },
+            "ru": {
+              "title": "Терминал и библиотеки",
+              "detail": "Библиотеки по запросу, группы, UTF-8, улучшенные терминал, pip, gmssl, ориентация камеры и клавиши OpenCV; пакеты, скрипты и настройки сохранены."
+            }
+          }
+        },
+        {
+          "id": "v178AgentEfficiencyBrowser",
+          "localizations": {
+            "en": {
+              "title": "Agent improvements",
+              "detail": "Improve chat response, file reading and browsing, with more reliable stopping and sign-in and a static sidebar icon."
+            },
+            "es": {
+              "title": "Mejoras en Agent",
+              "detail": "Mejora la respuesta del chat, la lectura de archivos y la navegación, con detención e inicio de sesión más fiables y un icono de barra lateral estático."
+            },
+            "pt-BR": {
+              "title": "Melhorias no Agent",
+              "detail": "Melhore as respostas, a leitura de arquivos e a navegação, com interrupção e login mais confiáveis e um ícone estático para a barra lateral."
+            },
+            "de": {
+              "title": "Agent-Verbesserungen",
+              "detail": "Verbesserte Chatreaktion, Dateizugriffe und Browsernutzung mit zuverlässigerem Stoppen und Anmelden sowie einem statischen Seitenleistensymbol."
+            },
+            "fr": {
+              "title": "Améliorations d’Agent",
+              "detail": "Réponses, lecture de fichiers et navigation améliorées, arrêt et connexion plus fiables et icône de barre latérale qui ne change plus de forme."
+            },
+            "zh-Hans": {
+              "title": "Agent 助手",
+              "detail": "优化对话响应、文件读取与浏览器体验，改进停止和登录，并将侧栏按钮改为静态图标。"
+            },
+            "zh-Hant": {
+              "title": "Agent 助理",
+              "detail": "優化對話回應、檔案讀取與瀏覽器體驗，改善停止及登入，並將側欄按鈕改為靜態圖示。"
+            },
+            "ja": {
+              "title": "Agent の改善",
+              "detail": "会話の応答、ファイル読み込み、ブラウザ、停止、ログインを改善し、サイドバーボタンの変形アニメーションをなくしました。"
+            },
+            "ko": {
+              "title": "Agent 개선",
+              "detail": "대화 응답, 파일 읽기, 브라우저, 중지 및 로그인을 개선하고 사이드바 버튼의 변형 애니메이션을 없앴습니다."
+            },
+            "ru": {
+              "title": "Улучшения Agent",
+              "detail": "Улучшены ответы чата, чтение файлов, браузер, остановка и вход в аккаунт, а значок боковой панели больше не меняет форму."
+            }
+          }
+        },
+        {
+          "id": "v178ReleaseNotes",
+          "localizations": {
+            "en": {
+              "title": "More improvements",
+              "detail": "Update checks and history, iOS ZIP filename fixes and copyable diagnostics, plus improvements to SFTP, app data, community display and script reruns, Notebook images, tools, Git and translations."
+            },
+            "es": {
+              "title": "Más mejoras",
+              "detail": "Actualizaciones e historial, nombres ZIP corregidos y diagnósticos copiables, con mejoras en SFTP, datos, vistas y reejecución comunitarias, imágenes de Notebook, herramientas, Git y traducciones."
+            },
+            "pt-BR": {
+              "title": "Mais melhorias",
+              "detail": "Atualizações e histórico, nomes ZIP corrigidos e diagnósticos para copiar, com melhorias em SFTP, dados, exibição e reexecução na comunidade, imagens de Notebook, ferramentas, Git e traduções."
+            },
+            "de": {
+              "title": "Weitere Verbesserungen",
+              "detail": "Updates und Verlauf; korrigierte ZIP-Dateinamen, kopierbare Diagnosen und Verbesserungen an SFTP, App-Daten, Community-Anzeige, Skriptneustarts, Notebook-Bildern, Tools, Git und Übersetzungen."
+            },
+            "fr": {
+              "title": "Autres améliorations",
+              "detail": "Mises à jour et historique, noms de fichiers ZIP corrigés, diagnostics copiables et améliorations : SFTP, données, affichage et relance communautaires, images Notebook, outils, Git et traductions."
+            },
+            "zh-Hans": {
+              "title": "更多改进",
+              "detail": "更新与历史，修复压缩名称并保留诊断复制，改进远程文件、应用数据、社区显示与重跑、Notebook、工具、Git 和翻译。"
+            },
+            "zh-Hant": {
+              "title": "更多改進",
+              "detail": "更新與歷史，修正壓縮名稱並保留診斷複製，改善遠端檔案、應用資料、社群顯示與重跑、Notebook、工具、Git 與翻譯。"
+            },
+            "ja": {
+              "title": "その他の改善",
+              "detail": "更新と履歴、ZIP のファイル名修正と診断コピーに対応し、SFTP、アプリデータ、コミュニティの表示と再実行、Notebook 画像、ツール、Git、多言語表示を改善しました。"
+            },
+            "ko": {
+              "title": "기타 개선",
+              "detail": "업데이트 확인과 기록, ZIP 파일명 수정과 진단 복사를 지원하고 SFTP·앱 데이터·커뮤니티 표시와 재실행·Notebook 이미지·도구·Git·번역을 개선했습니다."
+            },
+            "ru": {
+              "title": "Другие улучшения",
+              "detail": "Обновления и история, исправленные имена в ZIP и копирование диагностики; улучшения SFTP, данных приложения, показа и перезапуска работ сообщества, изображений Notebook, инструментов, Git и переводов."
+            }
+          }
+        }
+      ]
+    },
+    {
+      "version": "1.7.7",
+      "highlights": [
+        {
+          "id": "v177Maintenance",
+          "localizations": {
+            "en": {
+              "title": "Bug Fixes",
+              "detail": "Fixed known issues."
+            },
+            "es": {
+              "title": "Corrección de errores",
+              "detail": "Se corrigieron problemas conocidos."
+            },
+            "pt-BR": {
+              "title": "Correções de erros",
+              "detail": "Problemas conhecidos foram corrigidos."
+            },
+            "de": {
+              "title": "Fehlerbehebungen",
+              "detail": "Bekannte Probleme wurden behoben."
+            },
+            "fr": {
+              "title": "Corrections de bugs",
+              "detail": "Correction de problèmes connus."
+            },
+            "zh-Hans": {
+              "title": "问题修复",
+              "detail": "修复已知问题。"
+            },
+            "zh-Hant": {
+              "title": "錯誤修正",
+              "detail": "修正已知問題。"
+            },
+            "ja": {
+              "title": "不具合の修正",
+              "detail": "既知の問題を修正しました。"
+            },
+            "ko": {
+              "title": "오류 수정",
+              "detail": "알려진 문제를 수정했습니다."
+            },
+            "ru": {
+              "title": "Исправления ошибок",
+              "detail": "Исправлены известные проблемы."
+            }
+          }
+        }
+      ]
+    },
+    {
+      "version": "1.7.6",
+      "highlights": [
+        {
+          "id": "v176Maintenance",
+          "localizations": {
+            "en": {
+              "title": "Bug Fixes",
+              "detail": "Fixed known issues."
+            },
+            "es": {
+              "title": "Corrección de errores",
+              "detail": "Se corrigieron problemas conocidos."
+            },
+            "pt-BR": {
+              "title": "Correções de erros",
+              "detail": "Problemas conhecidos foram corrigidos."
+            },
+            "de": {
+              "title": "Fehlerbehebungen",
+              "detail": "Bekannte Probleme wurden behoben."
+            },
+            "fr": {
+              "title": "Corrections de bugs",
+              "detail": "Correction de problèmes connus."
+            },
+            "zh-Hans": {
+              "title": "问题修复",
+              "detail": "修复已知问题。"
+            },
+            "zh-Hant": {
+              "title": "錯誤修正",
+              "detail": "修正已知問題。"
+            },
+            "ja": {
+              "title": "不具合の修正",
+              "detail": "既知の問題を修正しました。"
+            },
+            "ko": {
+              "title": "오류 수정",
+              "detail": "알려진 문제를 수정했습니다."
+            },
+            "ru": {
+              "title": "Исправления ошибок",
+              "detail": "Исправлены известные проблемы."
+            }
+          }
+        }
+      ]
+    }
+  ]
+}
