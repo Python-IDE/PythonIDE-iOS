@@ -53,11 +53,15 @@
     return versionPattern.test(anchor) ? byID(anchor) : null;
   }
 
-  function syncSelectedVersion() {
+  function syncSelectedVersion(scroll = false) {
     const target = versionTarget();
     releaseList.querySelector('[aria-current="location"]')?.removeAttribute("aria-current");
     target?.setAttribute("aria-current", "location");
     versionSelect.value = target?.id ?? "";
+    if (scroll && target) {
+      if (target === releaseList.firstElementChild) window.scrollTo(0, 0);
+      else target.scrollIntoView({ block: "start" });
+    }
   }
 
   function releaseArticle(release) {
@@ -103,8 +107,7 @@
     retry.hidden = !failed;
     if (releases) {
       releaseList.replaceChildren(...releases.map(releaseArticle));
-      syncSelectedVersion();
-      versionTarget()?.scrollIntoView({ block: "start" });
+      syncSelectedVersion(true);
     }
   }
 
@@ -152,7 +155,7 @@
       window.scrollTo(0, 0);
     }
   });
-  window.addEventListener("hashchange", syncSelectedVersion);
+  window.addEventListener("hashchange", () => syncSelectedVersion(true));
   retry.addEventListener("click", load);
   load();
 })();
